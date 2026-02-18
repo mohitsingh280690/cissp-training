@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ROADMAP.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="cissp-certification-training-roadmap">CISSP Certification Training Roadmap</h1>
+<h2 id="overview">Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exam</strong></td>
+<td>(ISC)² Certified Information Systems Security Professional</td>
+</tr>
+<tr>
+<td><strong>Total Days</strong></td>
+<td>140 days</td>
+</tr>
+<tr>
+<td><strong>Structure</strong></td>
+<td>Theory + 10 MCQs per day</td>
+</tr>
+<tr>
+<td><strong>Start Date</strong></td>
+<td>TBD (set when Day 1 begins)</td>
+</tr>
+<tr>
+<td><strong>Domains</strong></td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Exam Questions</strong></td>
+<td>125-175 (CAT format)</td>
+</tr>
+<tr>
+<td><strong>Passing Score</strong></td>
+<td>700 / 1000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="folder-structure">Folder Structure</h2>
+<pre class="hljs"><code><div>e:\cissp\
+├── ROADMAP.md              ← This file (master reference)
+├── PROGRESS.md             ← Tracks daily completion status
+├── exercises\              ← Active day exercises (theory + MCQ HTML)
+│   ├── day-XXX-theory.html
+│   └── day-XXX-mcq.html
+└── completed\              ← Finished exercises moved here after review
+    ├── day-XXX-theory.html
+    └── day-XXX-mcq.html
+</div></code></pre>
+<h2 id="how-it-works">How It Works</h2>
+<ol>
+<li><strong>Request a day</strong>: Ask me to prepare the next day's exercise</li>
+<li><strong>I create</strong>: A <code>theory.html</code> + interactive <code>mcq.html</code> in <code>exercises\</code></li>
+<li><strong>You study</strong>: Read the theory, then attempt the MCQ</li>
+<li><strong>Submit answers</strong>: Tell me your answers or score</li>
+<li><strong>I review</strong>: Check your answers, explain mistakes, move files to <code>completed\</code></li>
+<li><strong>Repeat</strong>: Ask for the next day</li>
+</ol>
+<hr>
+<h2 id="domain-breakdown--exam-weights">Domain Breakdown &amp; Exam Weights</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domain</th>
+<th>Weight</th>
+<th>Days</th>
+<th>Day Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Security and Risk Management</td>
+<td>15%</td>
+<td>20</td>
+<td>1–20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Asset Security</td>
+<td>10%</td>
+<td>13</td>
+<td>21–33</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Security Architecture and Engineering</td>
+<td>13%</td>
+<td>19</td>
+<td>34–52</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Communication and Network Security</td>
+<td>13%</td>
+<td>17</td>
+<td>53–69</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Identity and Access Management (IAM)</td>
+<td>13%</td>
+<td>16</td>
+<td>70–85</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Security Assessment and Testing</td>
+<td>12%</td>
+<td>14</td>
+<td>86–99</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Security Operations</td>
+<td>13%</td>
+<td>18</td>
+<td>100–117</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Software Development Security</td>
+<td>11%</td>
+<td>13</td>
+<td>118–130</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Final Review &amp; Mock Exams</td>
+<td>—</td>
+<td>10</td>
+<td>131–140</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="detailed-day-by-day-plan">Detailed Day-by-Day Plan</h2>
+<hr>
+<h3 id="domain-1-security-and-risk-management-15--days-1%E2%80%9320">DOMAIN 1: Security and Risk Management (15%) — Days 1–20</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CISSP Overview &amp; Foundations</td>
+<td>Exam format, CAT overview, study strategies; CIA Triad (Confidentiality, Integrity, Availability); DAD Triad (Disclosure, Alteration, Destruction); Defense in Depth concept</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Security Governance Principles</td>
+<td>Organizational security role; Alignment of security with business strategy; Organizational processes (acquisitions, divestitures, governance committees); Security roles &amp; responsibilities (CISO, CSO, Security Analyst)</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Compliance &amp; Regulatory Issues</td>
+<td>Compliance vs. regulation vs. legislation; Industry standards (PCI-DSS, SOX, HIPAA, GLBA); Contractual, legal, and regulatory requirements; Compliance monitoring and reporting</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Legal Systems &amp; Law Types</td>
+<td>Civil law vs. common law vs. religious law vs. customary law; Criminal law, civil law (tort), administrative/regulatory law; Liability and due care/due diligence; Jurisdiction issues in cybersecurity</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Intellectual Property</td>
+<td>Copyright (automatic, Berne Convention, duration); Trademarks (™ vs ®, Lanham Act); Patents (utility, design, 20 years); Trade Secrets (NDA, Economic Espionage Act); Software licensing (open source, proprietary, EULA)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Privacy Laws &amp; Regulations</td>
+<td>GDPR (principles, data subject rights, DPO, breach notification); HIPAA (PHI, covered entities, business associates); CCPA/CPRA; Privacy Shield (invalidated), SCCs; OECD Privacy Guidelines; Trans-border data flow</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Professional Ethics</td>
+<td>(ISC)² Code of Professional Ethics (4 canons); Computer Ethics Institute – Ten Commandments; Organizational code of ethics; Ethical decision-making frameworks; RFC 1087 – Ethics and the Internet</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Security Policies &amp; Frameworks</td>
+<td>Policies vs. Standards vs. Procedures vs. Baselines vs. Guidelines; Types of policies (Regulatory, Advisory, Informative); NIST CSF (Identify, Protect, Detect, Respond, Recover); ISO 27001/27002; COBIT</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Risk Management Concepts</td>
+<td>Risk terminology (threat, vulnerability, asset, exposure, safeguard); Risk = Threat × Vulnerability × Impact; Risk appetite, risk tolerance, risk capacity; Risk frameworks (NIST RMF, ISO 31000, OCTAVE, FAIR)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Quantitative Risk Analysis</td>
+<td>Asset Value (AV); Exposure Factor (EF); Single Loss Expectancy (SLE = AV × EF); Annualized Rate of Occurrence (ARO); Annualized Loss Expectancy (ALE = SLE × ARO); Cost-Benefit Analysis (CBA); ROSI</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Qualitative Risk Analysis</td>
+<td>Qualitative methods (Delphi technique, brainstorming, interviews); Risk matrices (likelihood × impact); Scenarios and ranking; Hybrid approaches; Comparison: qualitative vs. quantitative</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Risk Response Strategies</td>
+<td>Risk Mitigation/Reduction; Risk Transfer/Sharing (insurance, outsourcing); Risk Acceptance (residual risk); Risk Avoidance; Risk Register documentation; Control selection and implementation</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Threat Modeling</td>
+<td>STRIDE (Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege); DREAD (Damage, Reproducibility, Exploitability, Affected Users, Discoverability); PASTA (7-stage); Attack trees; Threat libraries (MITRE ATT&amp;CK)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Supply Chain Risk Management</td>
+<td>Third-party risk assessment; Vendor due diligence; SLAs and security requirements; Minimum security requirements; Hardware/software supply chain threats (SolarWinds case); SCRM best practices</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Business Continuity Planning – Overview</td>
+<td>BCP vs. DRP; BCP lifecycle (project scope, BIA, strategy, plan development, testing, maintenance); BCP team roles; Senior management role and support; Standards (ISO 22301, NIST SP 800-34)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Business Impact Analysis (BIA)</td>
+<td>Identifying critical business functions; Maximum Tolerable Downtime (MTD); Recovery Time Objective (RTO); Recovery Point Objective (RPO); Work Recovery Time (WRT); Mean Time Between Failures (MTBF); Mean Time To Repair (MTTR)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>17</td>
+<td>BCP Strategy &amp; Plan Development</td>
+<td>Preventive controls; Recovery strategies; Plan documentation; Vital records program; Crisis communication plan; Emergency response procedures</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Personnel Security Policies</td>
+<td>Employment candidate screening; Background checks; Employment agreements (NDA, NCA, AUP); Onboarding and offboarding; Separation of duties (SoD); Job rotation; Mandatory vacations; Least privilege</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Security Awareness &amp; Training</td>
+<td>Awareness vs. training vs. education; Role-based training; Social engineering awareness; Phishing simulations; Measuring awareness effectiveness; Continuous improvement</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>Domain 1 Review</strong></td>
+<td>Comprehensive review of all Domain 1 topics; 20 MCQs covering entire domain; Identify weak areas; Key formulas and concepts summary</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-2-asset-security-10--days-21%E2%80%9333">DOMAIN 2: Asset Security (10%) — Days 21–33</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21</td>
+<td>Information &amp; Asset Classification</td>
+<td>Why classify assets; Classification process; Criteria for classification; Declassification and reclassification; Asset inventory and management</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Data Classification Levels</td>
+<td>Government: Top Secret, Secret, Confidential, Sensitive But Unclassified, Unclassified; Commercial: Confidential, Private, Sensitive, Public; Mapping between systems; Marking and labeling</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Asset Ownership &amp; Roles</td>
+<td>Data Owner (senior management); Data Custodian (IT operations); Data Steward (data quality); System Owner; Data Processor vs. Data Controller (GDPR); User/Subject responsibilities</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Data Lifecycle</td>
+<td>Create/Collect; Store; Use; Share/Transmit; Archive; Destroy; Security controls at each stage; Data flow mapping</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Data Handling Requirements</td>
+<td>Marking and labeling standards; Handling procedures per classification; Shipping and transport security; Storage requirements (physical and digital); Media management</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Privacy Protection</td>
+<td>Personally Identifiable Information (PII); Protected Health Information (PHI); Sensitive Personal Information (SPI); Data anonymization; Pseudonymization; Data masking; Tokenization</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Data Retention &amp; Destruction</td>
+<td>Retention policies and schedules; Legal and regulatory retention requirements; Records management; Litigation hold / legal hold; Destruction methods (logical vs. physical); Certificate of destruction</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Data Security Controls</td>
+<td>Encryption (at rest, in transit, in use); Access controls; DRM (Digital Rights Management); Watermarking; Database security controls; Cloud data security</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Data States</td>
+<td>Data at Rest (encryption: AES, BitLocker, FileVault); Data in Transit (TLS, IPSec, VPN); Data in Use (homomorphic encryption, secure enclaves, TEE); Protecting data in each state</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Data Remanence &amp; Sanitization</td>
+<td>Data remanence concepts; Clearing (overwriting); Purging (degaussing, cryptographic erasure); Destruction (shredding, incineration, disintegration); NIST SP 800-88 Guidelines for Media Sanitization</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Data Loss Prevention (DLP)</td>
+<td>DLP types (Network, Endpoint, Cloud); Content inspection techniques; DLP policies and rules; False positives management; DLP deployment strategies; Integration with CASB</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Data Roles Under GDPR</td>
+<td>Data Subject; Data Controller; Data Processor; Data Protection Officer (DPO); Supervisory Authority; Data Processing Agreements; Cross-border data transfer mechanisms</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>33</td>
+<td><strong>Domain 2 Review</strong></td>
+<td>Comprehensive review of all Domain 2 topics; 20 MCQs covering entire domain; Key roles and classifications summary; Data lifecycle controls summary</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-3-security-architecture-and-engineering-13--days-34%E2%80%9352">DOMAIN 3: Security Architecture and Engineering (13%) — Days 34–52</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>34</td>
+<td>Security Engineering Principles</td>
+<td>Saltzer &amp; Schroeder's principles; Least privilege; Fail-safe defaults; Economy of mechanism; Complete mediation; Open design; Separation of privilege; Least common mechanism; Psychological acceptability</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Security Models – Bell-LaPadula</td>
+<td>State machine model; Confidentiality model; Simple Security Property (no read up); Star (*) Property (no write down); Strong Star Property; Tranquility principle; Limitations</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Security Models – Biba &amp; Clark-Wilson</td>
+<td>Biba: Integrity model; Simple Integrity Property (no read down); Star Integrity Property (no write up); Clark-Wilson: Well-formed transactions; Constrained Data Items (CDI); Unconstrained Data Items (UDI); Integrity Verification Procedures (IVP); Transformation Procedures (TP)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Security Models – Others</td>
+<td>Brewer-Nash (Chinese Wall) – conflict of interest; Graham-Denning – object creation/deletion rules; Harrison-Ruzzo-Ullman (HRU) – access rights; Lipner Model (combines BLP + Biba); Take-Grant Model</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Security Architecture Frameworks</td>
+<td>Zachman Framework; TOGAF; SABSA (Sherwood Applied Business Security Architecture); ITIL; NIST Enterprise Architecture; DoDAF; MODAF</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>39</td>
+<td>Evaluation Criteria</td>
+<td>TCSEC (Orange Book) – A, B, C, D levels; ITSEC – E0 to E6; Common Criteria (ISO 15408) – EAL 1-7; Protection Profiles; Security Targets; TOE (Target of Evaluation)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>40</td>
+<td>System Security Architecture</td>
+<td>Trusted Computing Base (TCB); Security perimeter; Reference monitor concept; Security kernel; Trusted Platform Module (TPM); Hardware Security Module (HSM); Trusted paths</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>41</td>
+<td>CPU Architecture &amp; Memory Protection</td>
+<td>CPU rings (Ring 0-3); Process isolation; Memory protection (segmentation, paging); ASLR; DEP/NX bit; Virtual memory; Swapping and paging security; Buffer overflow prevention</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>42</td>
+<td>Operating System Security</td>
+<td>OS hardening; Patch management; Trusted OS concepts; Security modes (dedicated, system high, compartmented, multilevel); Process isolation and sandboxing; Mandatory vs. discretionary access</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Virtualization Security</td>
+<td>Type 1 vs. Type 2 hypervisors; VM escape; VM sprawl; Hypervisor security; Container security (Docker, Kubernetes); Serverless security; Microservices architecture</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Cloud Security</td>
+<td>Cloud service models (IaaS, PaaS, SaaS); Cloud deployment models (public, private, hybrid, community); Shared responsibility model; Cloud security challenges; CSA CCM; CASB; Cloud-native security</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>45</td>
+<td>IoT &amp; Embedded Systems Security</td>
+<td>IoT architecture; Constrained devices; SCADA/ICS security; CPS (Cyber-Physical Systems); Edge computing security; IoT protocols (MQTT, CoAP, Zigbee); Firmware security</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>46</td>
+<td>Cryptography Fundamentals</td>
+<td>History of cryptography; Cryptographic goals (CIANA); Cipher types (substitution, transposition); Stream vs. block ciphers; Kerckhoffs' principle; Key space and key length; XOR operations; Confusion and diffusion</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Symmetric Encryption</td>
+<td>DES (64-bit block, 56-bit key, Feistel); 3DES (keying options); AES (128/192/256-bit keys, Rijndael); Blowfish; Twofish; RC4, RC5, RC6; IDEA; Block cipher modes (ECB, CBC, CFB, OFB, CTR, GCM)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>48</td>
+<td>Asymmetric Encryption</td>
+<td>RSA (factoring large primes); Diffie-Hellman Key Exchange (discrete logarithm); ElGamal; ECC (Elliptic Curve Cryptography); Key exchange protocols; Performance comparison with symmetric; Hybrid cryptosystems</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>49</td>
+<td>Hashing &amp; Digital Signatures</td>
+<td>Hash functions (MD5, SHA-1, SHA-2, SHA-3); Properties (collision resistance, preimage resistance); HMAC; Digital Signatures (creation, verification); DSA; Non-repudiation; Birthday attack; Rainbow tables; Salting</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>50</td>
+<td>PKI &amp; Certificate Management</td>
+<td>PKI components (CA, RA, CRL, OCSP); Certificate lifecycle; X.509 certificates; Certificate chaining; Certificate pinning; Key escrow; Key recovery; PGP Web of Trust vs. hierarchical PKI</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>51</td>
+<td>Cryptographic Attacks &amp; Key Management</td>
+<td>Brute force; Frequency analysis; Known plaintext; Chosen plaintext; Chosen ciphertext; Side-channel attacks; Rubber-hose attack; Key management lifecycle; Key stretching (PBKDF2, bcrypt, scrypt)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>52</td>
+<td><strong>Domain 3 Review</strong></td>
+<td>Comprehensive review of all Domain 3 topics; 20 MCQs covering entire domain; Security models comparison table; Cryptography algorithms summary</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-4-communication-and-network-security-13--days-53%E2%80%9369">DOMAIN 4: Communication and Network Security (13%) — Days 53–69</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>53</td>
+<td>OSI Model – Layers 1-4</td>
+<td>Layer 1 Physical (cables, hubs, repeaters); Layer 2 Data Link (switches, MAC, ARP, frames); Layer 3 Network (routers, IP, ICMP, packets); Layer 4 Transport (TCP, UDP, segments/datagrams, ports); PDU at each layer</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>54</td>
+<td>OSI Model – Layers 5-7 &amp; TCP/IP</td>
+<td>Layer 5 Session (NetBIOS, RPC, simplex/duplex); Layer 6 Presentation (encryption, compression, MIME, ASCII); Layer 7 Application (HTTP, FTP, SMTP, DNS); TCP/IP model comparison (4 layers); Encapsulation/decapsulation</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>55</td>
+<td>IP Addressing &amp; Subnetting</td>
+<td>IPv4 address classes (A, B, C, D, E); Private address ranges (RFC 1918); CIDR notation; Subnetting fundamentals; Subnet masks; IPv6 addressing (128-bit); IPv6 features (autoconfiguration, IPSec built-in); NAT/PAT</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>56</td>
+<td>Core Protocols</td>
+<td>TCP (3-way handshake, flow control, reliability); UDP (connectionless, speed); ICMP (ping, traceroute); ARP (MAC resolution, ARP poisoning); RARP; Port numbers (well-known, registered, dynamic)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>57</td>
+<td>Network Services</td>
+<td>DNS (resolution process, records: A, AAAA, MX, CNAME, PTR); DNS attacks (poisoning, hijacking, amplification); DHCP (DORA process); DHCP attacks (starvation, rogue server); NTP; SNMP (v1, v2c, v3)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>58</td>
+<td>Switching &amp; VLANs</td>
+<td>Layer 2 switching; MAC address table; Spanning Tree Protocol (STP); VLAN concepts and security; VLAN hopping attacks; Port security; 802.1Q trunking; Private VLANs; ARP inspection</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>59</td>
+<td>Routing Concepts</td>
+<td>Static vs. dynamic routing; Distance-vector protocols (RIP, IGRP); Link-state protocols (OSPF, IS-IS); Hybrid protocols (EIGRP); BGP (Border Gateway Protocol); Route poisoning; Routing security</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Firewalls</td>
+<td>Packet filtering (stateless); Stateful inspection; Application-level gateway (proxy); Circuit-level gateway; Next-generation firewalls (NGFW); WAF; Firewall architectures (bastion host, screened subnet/DMZ, dual-homed)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>61</td>
+<td>IDS/IPS</td>
+<td>Network-based (NIDS/NIPS); Host-based (HIDS/HIPS); Signature-based detection; Anomaly-based detection; Stateful protocol analysis; Inline vs. passive; False positives vs. false negatives; Snort, Suricata</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>62</td>
+<td>VPN Technologies</td>
+<td>IPSec (AH, ESP, transport mode, tunnel mode, IKE); SSL/TLS VPN; L2TP; PPTP (deprecated); Site-to-site vs. remote access VPN; Split tunneling; Always-on VPN; VPN concentrator</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>63</td>
+<td>Wireless Security</td>
+<td>802.11 standards (a/b/g/n/ac/ax); WEP (RC4, weak IV); WPA (TKIP); WPA2 (AES-CCMP); WPA3 (SAE, 192-bit); Evil twin attacks; Wardriving; Rogue APs; Wireless IDS; RADIUS authentication</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>64</td>
+<td>Network Attacks</td>
+<td>DoS/DDoS (SYN flood, Smurf, UDP flood, amplification); Man-in-the-Middle (MITM); Replay attacks; Session hijacking; IP spoofing; DNS attacks; ARP poisoning; Botnet/C2; DDoS mitigation strategies</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>65</td>
+<td>Email Security</td>
+<td>SMTP, POP3, IMAP protocols; S/MIME (certificates, encryption, signing); PGP/GPG; SPF (Sender Policy Framework); DKIM (DomainKeys Identified Mail); DMARC; Email gateway security; Phishing/spear phishing defense</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>66</td>
+<td>Secure Communications</td>
+<td>TLS 1.3; HTTPS; SSH; Secure file transfer (SFTP, SCP, FTPS); Voice security (VoIP, SIP); SRTP; Secure messaging; Signal protocol</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>67</td>
+<td>CDN &amp; Network Optimization</td>
+<td>Content Distribution Networks; Load balancers (Layer 4, Layer 7); Reverse proxy; Caching; DDoS protection via CDN; SD-WAN; SASE (Secure Access Service Edge)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>68</td>
+<td>Network Segmentation</td>
+<td>Network zones; DMZ design; Microsegmentation; Zero Trust Network Access (ZTNA); Software-Defined Networking (SDN); Network Function Virtualization (NFV); East-West vs. North-South traffic</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>69</td>
+<td><strong>Domain 4 Review</strong></td>
+<td>Comprehensive review of all Domain 4 topics; 20 MCQs covering entire domain; Protocol/port reference table; Network attack defense matrix</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-5-identity-and-access-management-13--days-70%E2%80%9385">DOMAIN 5: Identity and Access Management (13%) — Days 70–85</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>70</td>
+<td>IAM Fundamentals</td>
+<td>Identification, Authentication, Authorization, Accountability (IAAA); Identity lifecycle; Provisioning and deprovisioning; Subject vs. object; Access control principles</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>71</td>
+<td>Authentication Methods</td>
+<td>Type 1: Something you know (passwords, PINs, passphrases); Type 2: Something you have (smart cards, tokens, OTP); Type 3: Something you are (biometrics); Password policies (complexity, aging, history, lockout)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>72</td>
+<td>Biometrics &amp; MFA</td>
+<td>Biometric types (fingerprint, iris, retina, facial, voice, gait); FRR (Type I error); FAR (Type II error); CER/EER; Crossover Error Rate; Multi-factor authentication (MFA); Two-step vs. two-factor; Adaptive authentication</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>73</td>
+<td>SSO &amp; Kerberos</td>
+<td>Single Sign-On benefits and risks; Kerberos components (KDC, TGT, TGS, AS); Kerberos authentication flow; Kerberos attacks (pass-the-ticket, golden ticket, Kerberoasting); SESAME</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>74</td>
+<td>Federated Identity Management</td>
+<td>SAML 2.0 (IdP, SP, assertions); OAuth 2.0 (grant types, tokens); OpenID Connect (OIDC); WS-Federation; Federation trust models; Identity Provider (IdP) concepts; Cross-domain authentication</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>75</td>
+<td>Authorization – DAC &amp; MAC</td>
+<td>Discretionary Access Control (owner-controlled, ACLs); Mandatory Access Control (labels, clearances, lattice); Sensitivity labels; Compartments; SELinux; Rule-based access control</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>76</td>
+<td>Authorization – RBAC &amp; ABAC</td>
+<td>Role-Based Access Control (roles, hierarchies, static/dynamic SoD); Attribute-Based Access Control (policies, attributes, XACML); Policy-based access; Temporal access restrictions; Context-aware access</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Access Control Implementation</td>
+<td>Access control lists (ACLs); Capability tables; Access control matrices; Content-dependent access control; Context-dependent access control; Restricted interfaces; Database views</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>78</td>
+<td>Identity Management Lifecycle</td>
+<td>Account provisioning; Account review and recertification; Account modification; Account suspension and deletion; Orphan accounts; Dormant accounts; Service accounts management</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>79</td>
+<td>Privileged Access Management</td>
+<td>PAM concepts; Just-in-time access; Privilege bracketing; Privileged account types; Bastion hosts / jump servers; Session recording; Credential vaulting; Emergency break-glass procedures</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Directory Services</td>
+<td>LDAP (operations, DN, schema); Active Directory (domains, forests, trusts, OUs, GPO); RADIUS vs. TACACS+; Diameter protocol; X.500; Cloud directory services</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>81</td>
+<td>Access Control Attacks</td>
+<td>Brute force and dictionary attacks; Rainbow table attacks; Credential stuffing; Password spraying; Kerberoasting; Pass-the-hash; Privilege escalation; Social engineering for credentials</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>82</td>
+<td>Session &amp; Credential Management</td>
+<td>Session tokens and cookies; Session fixation; Session hijacking; Token management; Credential storage (hashing, salting); Password managers; Passwordless authentication (FIDO2, WebAuthn)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>83</td>
+<td>Identity as a Service (IDaaS)</td>
+<td>Cloud-based identity management; IDaaS providers; Benefits and risks; Integration with on-premises; Hybrid identity models; SCIM (System for Cross-domain Identity Management)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>84</td>
+<td>Zero Trust Architecture</td>
+<td>Zero Trust principles (never trust, always verify); NIST SP 800-207; Micro-perimeters; Continuous verification; Policy Decision Point (PDP); Policy Enforcement Point (PEP); Software-defined perimeter; BeyondCorp model</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>85</td>
+<td><strong>Domain 5 Review</strong></td>
+<td>Comprehensive review of all Domain 5 topics; 20 MCQs covering entire domain; Authentication protocols comparison; Access control models summary</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-6-security-assessment-and-testing-12--days-86%E2%80%9399">DOMAIN 6: Security Assessment and Testing (12%) — Days 86–99</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>86</td>
+<td>Assessment Strategies Overview</td>
+<td>Assessment vs. audit vs. evaluation; Internal vs. external assessments; Assessment planning and scoping; Rules of engagement; Assessment frequency; Reporting and documentation</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Vulnerability Assessments</td>
+<td>Vulnerability scanning (authenticated vs. unauthenticated); Network vulnerability scanners (Nessus, Qualys, OpenVAS); Host-based scanning; CVSS scoring; CVE/CWE databases; Vulnerability prioritization</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>88</td>
+<td>Penetration Testing – Methodology</td>
+<td>Penetration testing phases (planning, reconnaissance, scanning, exploitation, post-exploitation, reporting); PTES; OSSTMM; NIST SP 800-115; Reconnaissance techniques (passive/active)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>89</td>
+<td>Penetration Testing – Types</td>
+<td>Black box, white box, gray box testing; Internal vs. external testing; Physical penetration testing; Social engineering testing; Red team vs. blue team vs. purple team; Bug bounty programs</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Log Management &amp; Monitoring</td>
+<td>Log types (security, system, application, firewall, IDS); Log collection and aggregation; Log analysis; SIEM fundamentals; Log retention policies; Log integrity (tamper-proofing); Continuous monitoring</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>91</td>
+<td>Code Review &amp; Analysis</td>
+<td>Static code analysis (SAST); Dynamic code analysis (DAST); Interactive analysis (IAST); Manual code review; Peer review; Code review checklists; Common coding flaws (CWE Top 25)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>92</td>
+<td>Software Testing Methods</td>
+<td>Unit testing; Integration testing; System testing; Acceptance testing (UAT); Regression testing; Smoke testing; Performance testing (load, stress, volume); Test-driven development (TDD)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>93</td>
+<td>Specialized Testing Techniques</td>
+<td>Misuse case testing; Abuse case testing; Fuzzing (mutation, generation, protocol); Fault injection; Boundary value analysis; Equivalence partitioning; Attack surface analysis</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>94</td>
+<td>Security Audits</td>
+<td>Internal audits; External audits; Third-party audits; Regulatory audits; Audit planning; Evidence collection; Audit trails; Audit findings and remediation; Auditor independence</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>95</td>
+<td>SOC Reports</td>
+<td>SOC 1 Type I &amp; Type II (financial controls, SSAE 18); SOC 2 Type I &amp; Type II (Trust Services Criteria: Security, Availability, Processing Integrity, Confidentiality, Privacy); SOC 3 (general-purpose); SOC for Cybersecurity; SOC for Supply Chain</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>96</td>
+<td>Security Metrics</td>
+<td>Key Performance Indicators (KPIs); Key Risk Indicators (KRIs); Security metrics framework; Mean Time to Detect (MTTD); Mean Time to Respond (MTTR); Patch compliance rate; Vulnerability remediation time; Dashboard design</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>97</td>
+<td>BCDR Testing</td>
+<td>Checklist review (desk check); Tabletop exercise (structured walkthrough); Simulation test; Parallel test; Full interruption test; Test frequency and documentation; Lessons learned; After-action reports</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>98</td>
+<td>Test Coverage &amp; Reporting</td>
+<td>Test coverage analysis; Statement/branch/path coverage; Requirements traceability matrix; Security assessment reports; Executive summaries; Technical findings; Risk ratings; Remediation tracking</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>99</td>
+<td><strong>Domain 6 Review</strong></td>
+<td>Comprehensive review of all Domain 6 topics; 20 MCQs covering entire domain; Assessment types comparison; SOC reports summary</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-7-security-operations-13--days-100%E2%80%93117">DOMAIN 7: Security Operations (13%) — Days 100–117</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>Security Operations Concepts</td>
+<td>Need-to-know and least privilege; Separation of duties and responsibilities; Privileged account management; Job rotation; Service Level Agreements (SLAs); SOC structure and tiers</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>101</td>
+<td>Investigations</td>
+<td>Investigation types (administrative, criminal, civil, regulatory); Digital investigation process; Due care and due diligence in investigations; Interview and interrogation; Reporting; Cooperation with law enforcement</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Digital Forensics – Evidence</td>
+<td>Evidence types (real, documentary, testimonial, demonstrative); Best evidence rule; Hearsay rule; Chain of custody; Evidence handling (collect, examine, analyze, report); Admissibility requirements (relevant, reliable, legally obtained)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>103</td>
+<td>Digital Forensics – Procedures</td>
+<td>Forensic process (identification, preservation, collection, examination, analysis, presentation); Disk imaging and hashing; Volatile vs. non-volatile evidence; Order of volatility; Timeline analysis; Anti-forensics; Network forensics</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>104</td>
+<td>Incident Management</td>
+<td>Incident vs. event; Incident management framework (NIST SP 800-61); Incident Response Team (IRT/CSIRT/CERT); Incident categories and severity levels; Incident response policy; Communication plans</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>105</td>
+<td>Incident Response Lifecycle</td>
+<td>Preparation; Detection and Analysis (IoC, IoA); Containment (short-term, long-term); Eradication; Recovery; Post-incident activity (lessons learned); Root cause analysis; IR playbooks and runbooks</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>106</td>
+<td>SIEM &amp; Security Monitoring</td>
+<td>SIEM architecture; Log correlation; Use cases and alert rules; SOAR integration; Security analytics; User and Entity Behavior Analytics (UEBA); Threat hunting; Network traffic analysis</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>107</td>
+<td>Threat Intelligence</td>
+<td>Threat intelligence sources (OSINT, commercial, government); Threat intelligence lifecycle; Indicators of Compromise (IoC); STIX/TAXII; MITRE ATT&amp;CK framework; Threat intelligence platforms (TIP); Intelligence sharing (ISACs)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>108</td>
+<td>Preventive Measures</td>
+<td>System hardening (CIS benchmarks); Patch management process; Antimalware solutions; Application whitelisting/allowlisting; Endpoint detection and response (EDR); Host-based firewalls; Security baselines</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>109</td>
+<td>Change &amp; Configuration Management</td>
+<td>Change management process (RFC, CAB, approval, implementation, review); Configuration management (baselines, CMDB); Configuration items; Unauthorized change detection; Infrastructure as Code (IaC)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>110</td>
+<td>Vulnerability &amp; Patch Management</td>
+<td>Vulnerability management lifecycle (discover, prioritize, remediate, verify); Patch management process; Virtual patching; Compensating controls; Vulnerability disclosure (responsible, full, coordinated); Zero-day management</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>111</td>
+<td>Disaster Recovery Planning</td>
+<td>DRP vs. BCP relationship; Disaster types (natural, man-made, technical); DRP components; Recovery strategies; Plan documentation; DRP team roles; Communication procedures; Plan distribution</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>112</td>
+<td>Recovery Strategies &amp; Sites</td>
+<td>Hot site (fully operational); Warm site (partially equipped); Cold site (shell facility); Mobile site; Cloud-based recovery; Reciprocal agreements; Subscription services; Recovery cost comparison; RAID levels (0, 1, 5, 6, 10)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>113</td>
+<td>Backup &amp; Recovery</td>
+<td>Backup types (full, incremental, differential); Backup strategies (3-2-1 rule); Backup rotation (GFS); Off-site storage; Tape vs. disk vs. cloud backup; Recovery testing; RTO/RPO alignment; Data replication (synchronous vs. asynchronous)</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>114</td>
+<td>DR Testing &amp; Maintenance</td>
+<td>Read-through/checklist test; Tabletop/structured walkthrough; Simulation test; Parallel test; Full interruption test; Test scheduling; Maintenance triggers; Plan updates; After-action reviews</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>115</td>
+<td>Physical Security Operations</td>
+<td>Perimeter security (fences, gates, bollards); Lighting; CCTV and surveillance; Guards and patrols; Mantraps/vestibules; Badges and access cards; Visitor management; Tailgating/piggybacking prevention</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>116</td>
+<td>Personnel Safety &amp; Security</td>
+<td>Travel security; Duress systems; Emergency management; Evacuation plans; Shelter-in-place procedures; Occupant emergency plans (OEP); Safety training; First aid and AED</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>117</td>
+<td><strong>Domain 7 Review</strong></td>
+<td>Comprehensive review of all Domain 7 topics; 20 MCQs covering entire domain; IR lifecycle summary; Recovery site comparison table</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="domain-8-software-development-security-11--days-118%E2%80%93130">DOMAIN 8: Software Development Security (11%) — Days 118–130</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>118</td>
+<td>SDLC &amp; Security Integration</td>
+<td>SDLC phases (initiation, development, implementation, operation, disposal); Security in each SDLC phase; NIST SP 800-64; Security requirements gathering; Threat modeling in design; Security testing in development</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>119</td>
+<td>Development Methodologies</td>
+<td>Waterfall (sequential, rigid); Agile (Scrum, Kanban, sprints, user stories); Spiral model (risk-driven); RAD; Prototyping; DevOps (CI/CD pipeline); DevSecOps (shift-left security); Feature-driven development</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>120</td>
+<td>DevSecOps &amp; CI/CD Security</td>
+<td>CI/CD pipeline security; Infrastructure as Code (IaC) security; Container security scanning; Image signing; Secrets management; Pipeline integrity; Automated security gates; Shift-left testing; GitOps security</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>121</td>
+<td>Programming Concepts &amp; Security</td>
+<td>Compiled vs. interpreted languages; Object-oriented programming (inheritance, polymorphism, encapsulation); Source code management; Code signing; Memory management; Garbage collection; Type safety; Input validation</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>122</td>
+<td>Database Security</td>
+<td>Relational database concepts; SQL injection (types, prevention); Inference attacks; Aggregation attacks; Polyinstantiation; Database views; Row-level security; Database encryption (TDE); NoSQL security; Data warehousing security</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>123</td>
+<td>Web Application Security – Part 1</td>
+<td>OWASP Top 10 (first 5): Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration; HTTP methods; Session management; Input validation; Output encoding</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>124</td>
+<td>Web Application Security – Part 2</td>
+<td>OWASP Top 10 (last 5): Vulnerable Components, Authentication Failures, Software/Data Integrity Failures, Logging/Monitoring Failures, SSRF; XSS (reflected, stored, DOM); CSRF; Clickjacking; Content Security Policy (CSP)</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>125</td>
+<td>Secure Coding Practices</td>
+<td>Input validation (whitelist/blacklist); Output encoding/escaping; Parameterized queries; Error handling (fail securely); Secure session management; Cryptographic best practices; Principle of least privilege in code; CERT Secure Coding Standards</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>126</td>
+<td>Software Security Testing</td>
+<td>Static Application Security Testing (SAST); Dynamic Application Security Testing (DAST); Interactive Application Security Testing (IAST); Runtime Application Self-Protection (RASP); SCA (Software Composition Analysis); Penetration testing for apps</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>127</td>
+<td>APIs &amp; Microservices Security</td>
+<td>REST API security; GraphQL security; API authentication (API keys, OAuth, JWT); Rate limiting; API gateway; Microservices security patterns; Service mesh; Inter-service authentication; API versioning</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>128</td>
+<td>AI/ML Security</td>
+<td>AI/ML in security operations; Adversarial machine learning; Data poisoning; Model evasion; Model theft; Bias in security AI; Ethics of AI in security; Deepfakes; Automated threat detection</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>129</td>
+<td>Third-Party Software Security</td>
+<td>Commercial off-the-shelf (COTS) security; Open-source security risks; Software Composition Analysis (SCA); Software Bill of Materials (SBOM); Vendor security assessments; Library/dependency management; License compliance</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>130</td>
+<td><strong>Domain 8 Review</strong></td>
+<td>Comprehensive review of all Domain 8 topics; 20 MCQs covering entire domain; OWASP Top 10 summary; SDLC security controls matrix</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="final-review--mock-exams--days-131%E2%80%93140">FINAL REVIEW &amp; MOCK EXAMS — Days 131–140</h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Topic</th>
+<th>Sub-Topics</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>Cross-Domain Review: D1 + D2</td>
+<td>Security &amp; Risk Management deep dive; Asset Security deep dive; Interconnections between domains; Scenario-based questions; 20 mixed MCQs</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>132</td>
+<td>Cross-Domain Review: D3 + D4</td>
+<td>Architecture &amp; Engineering deep dive; Network Security deep dive; Crypto + Network integration scenarios; 20 mixed MCQs</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>133</td>
+<td>Cross-Domain Review: D5 + D6</td>
+<td>IAM deep dive; Assessment &amp; Testing deep dive; Access control + testing scenarios; 20 mixed MCQs</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>134</td>
+<td>Cross-Domain Review: D7 + D8</td>
+<td>Security Operations deep dive; Software Security deep dive; IR + SDLC integration scenarios; 20 mixed MCQs</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>135</td>
+<td>Mock Exam 1</td>
+<td>125 questions across all domains; Timed (3 hours); CISSP-style scenario questions; Proportional domain coverage</td>
+<td>Exam</td>
+</tr>
+<tr>
+<td>136</td>
+<td>Mock Exam 1 Review</td>
+<td>Detailed answer review; Identify weak domains; Targeted study for weak areas; Key concept reinforcement</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>137</td>
+<td>Mock Exam 2</td>
+<td>125 questions across all domains; Timed (3 hours); Increased difficulty; Focus on scenario and &quot;think like a manager&quot; questions</td>
+<td>Exam</td>
+</tr>
+<tr>
+<td>138</td>
+<td>Mock Exam 2 Review</td>
+<td>Detailed answer review; Progress comparison with Mock 1; Focus on remaining weak areas; Exam strategy refinement</td>
+<td>Review</td>
+</tr>
+<tr>
+<td>139</td>
+<td>Mock Exam 3</td>
+<td>125 questions across all domains; Timed (3 hours); Final comprehensive assessment; CAT-style adaptive difficulty simulation</td>
+<td>Exam</td>
+</tr>
+<tr>
+<td>140</td>
+<td>Final Prep &amp; Exam Strategy</td>
+<td>Final weak-area review; Exam day logistics; Time management strategies; Question analysis techniques (&quot;think like a manager&quot;); CAT format tips; Confidence reinforcement; Last-minute key facts sheet</td>
+<td>Review</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="key-formulas-quick-reference-for-future-exercises">Key Formulas Quick Reference (For Future Exercises)</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SLE</td>
+<td>AV × EF</td>
+</tr>
+<tr>
+<td>ALE</td>
+<td>SLE × ARO</td>
+</tr>
+<tr>
+<td>CBA Value</td>
+<td>ALE(before) - ALE(after) - ACS</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Threat × Vulnerability × Impact</td>
+</tr>
+<tr>
+<td>MTD</td>
+<td>RTO + WRT</td>
+</tr>
+<tr>
+<td>MTBF</td>
+<td>Total uptime / Number of failures</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>Total downtime / Number of repairs</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>MTBF / (MTBF + MTTR)</td>
+</tr>
+<tr>
+<td>CER/EER</td>
+<td>Point where FRR = FAR</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="study-tips-embedded-in-exercises">Study Tips (Embedded in Exercises)</h2>
+<ul>
+<li><strong>Think like a manager</strong>: CISSP tests management perspective, not just technical</li>
+<li><strong>Protect life first</strong>: In any scenario, human safety is priority #1</li>
+<li><strong>Know the &quot;why&quot;</strong>: Understand concepts, not just memorize facts</li>
+<li><strong>Eliminate wrong answers</strong>: Use process of elimination for MCQs</li>
+<li><strong>Read carefully</strong>: Scenario questions require full context analysis</li>
+<li><strong>Domain integration</strong>: Real questions often span multiple domains</li>
+</ul>
+<hr>
+<h2 id="metadata-for-ai-reference">Metadata (For AI Reference)</h2>
+<pre class="hljs"><code><div><span class="hljs-attr">version:</span> <span class="hljs-number">1.0</span>
+<span class="hljs-attr">total_days:</span> <span class="hljs-number">140</span>
+<span class="hljs-attr">mcq_per_day:</span> <span class="hljs-number">10</span>
+<span class="hljs-attr">mcq_review_days:</span> <span class="hljs-number">20</span>  <span class="hljs-comment"># 20 MCQs on review days</span>
+<span class="hljs-attr">theory_format:</span> <span class="hljs-string">html</span>
+<span class="hljs-attr">mcq_format:</span> <span class="hljs-string">interactive_html</span>
+<span class="hljs-attr">exercises_folder:</span> <span class="hljs-string">exercises</span>
+<span class="hljs-attr">completed_folder:</span> <span class="hljs-string">completed</span>
+<span class="hljs-attr">current_day:</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">status:</span> <span class="hljs-string">not_started</span>
+</div></code></pre>
+
+</body>
+</html>
