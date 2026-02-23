@@ -4,13 +4,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Current Day** | 2 / 140 |
-| **Status** | Day 2 In Progress |
+| **Current Day** | 4 / 140 |
+| **Status** | Day 4 In Progress |
 | **Start Date** | February 18, 2026 |
 | **Current Domain** | Domain 1: Security and Risk Management |
-| **Days Completed** | 1 |
+| **Days Completed** | 3 |
 | **Domains Completed** | 0 / 8 |
-| **Overall Progress** | 0.7% |
+| **Overall Progress** | 2.1% |
 
 ---
 
@@ -18,7 +18,7 @@
 
 | # | Domain | Days | Status | Score Avg |
 |---|--------|------|--------|-----------|
-| 1 | Security and Risk Management | 1/20 | In Progress | 90% |
+| 1 | Security and Risk Management | 3/20 | In Progress | 95% |
 | 2 | Asset Security | 0/13 | Not Started | — |
 | 3 | Security Architecture and Engineering | 0/19 | Not Started | — |
 | 4 | Communication and Network Security | 0/17 | Not Started | — |
@@ -37,6 +37,9 @@
 | Day | Date | Topic | MCQ Score | Notes |
 |-----|------|-------|-----------|-------|
 | 1 | Feb 18, 2026 | CISSP Overview & Foundations | 9/10 (90%) | ✅ Passed |
+| 2 | Feb 23, 2026 | Security Governance Principles | TBD | Pending |
+| 3 | Feb 23, 2026 | Compliance & Regulatory Issues | 10/10 (100%) | ✅ Passed |
+| 4 | Feb 23, 2026 | Legal Systems & Law Types | TBD | Pending |
 
 ---
 

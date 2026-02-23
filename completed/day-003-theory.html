@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CISSP Day 3 – Compliance & Regulatory Issues</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #448aff;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #212121;
+            --text-light: #666;
+            --border: #e0e0e0;
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+            --highlight: #fff8e1;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+        .header .meta {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+        .toc h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--primary); }
+        .toc ol { padding-left: 20px; }
+        .toc li { margin-bottom: 6px; }
+        .toc a { color: var(--accent); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            font-size: 1.15rem;
+            color: var(--secondary);
+            margin: 22px 0 10px 0;
+        }
+        p { margin-bottom: 14px; }
+        ul, ol { padding-left: 24px; margin-bottom: 14px; }
+        li { margin-bottom: 6px; }
+        .key-concept {
+            background: var(--highlight);
+            border-left: 4px solid var(--orange);
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .key-concept strong { color: var(--orange); }
+        .definition {
+            background: #e3f2fd;
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .definition strong { color: var(--primary); }
+        .warning {
+            background: #fce4ec;
+            border-left: 4px solid var(--red);
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning strong { color: var(--red); }
+        .exam-tip {
+            background: #e8f5e9;
+            border-left: 4px solid var(--green);
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .exam-tip strong { color: var(--green); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .diagram {
+            background: #fafafa;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre;
+        }
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .nav-btn:hover { background: var(--primary); }
+        .recall {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .recall strong { color: #7b1fa2; }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Day 3: Compliance & Regulatory Issues</h1>
+    <div class="subtitle">Domain 1 – Security and Risk Management</div>
+    <div class="meta">
+        <span>📅 Day 3 of 140</span>
+        <span>📚 Domain 1 of 8</span>
+        <span>⏱️ ~30 min read</span>
+        <span>🎯 Difficulty: Beginner</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="breadcrumb">
+        Domain 1: Security and Risk Management → Day 3: Compliance & Regulatory Issues
+    </div>
+
+    <div class="recall">
+        <strong>📌 Day 2 Recall:</strong> Yesterday you learned about Security Governance, the alignment of security with business strategy, and the concepts of Due Care (doing the right thing) and Due Diligence (researching/verifying). Today, we look at the external forces that mandate these actions: laws, regulations, and standards.
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#s1">Compliance vs. Regulation vs. Legislation</a></li>
+            <li><a href="#s2">Key Industry Standards & Regulations</a></li>
+            <li><a href="#s3">Contractual, Legal, and Regulatory Requirements</a></li>
+            <li><a href="#s4">Compliance Monitoring and Reporting</a></li>
+            <li><a href="#s5">Key Takeaways</a></li>
+        </ol>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section" id="s1">
+        <h2>1. Compliance vs. Regulation vs. Legislation</h2>
+        <p>In the world of information security, organizations do not operate in a vacuum. They are subject to various rules imposed by governments, industry bodies, and business partners. It is crucial to understand the distinction between these terms.</p>
+
+        <div class="definition">
+            <strong>Legislation (Laws):</strong> Rules created and passed by a government body (e.g., Congress, Parliament). They apply to everyone within that jurisdiction. Example: The Health Insurance Portability and Accountability Act (HIPAA) was passed by the US Congress.
+        </div>
+
+        <div class="definition">
+            <strong>Regulation:</strong> Rules created by a government agency or regulatory body to enforce the legislation. They provide the specific details on <em>how</em> to comply with the law. Example: The Department of Health and Human Services (HHS) creates the specific rules for HIPAA compliance.
+        </div>
+
+        <div class="definition">
+            <strong>Compliance:</strong> The act of adhering to, and demonstrating adherence to, laws, regulations, industry standards, and internal policies. It is the organization's effort to ensure they are following the rules.
+        </div>
+
+        <div class="key-concept">
+            <strong>🔑 Key Concept:</strong> <strong>Legislation</strong> is the "What" (the law itself). <strong>Regulation</strong> is the "How" (the specific rules to follow the law). <strong>Compliance</strong> is the "Action" (the organization proving they are following the rules).
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section" id="s2">
+        <h2>2. Key Industry Standards & Regulations</h2>
+        <p>The CISSP exam expects you to be familiar with several major US and international regulations and standards. You don't need to know every single control, but you must know <strong>who</strong> they apply to and <strong>what</strong> they protect.</p>
+
+        <table>
+            <tr>
+                <th>Standard / Law</th>
+                <th>Applies To</th>
+                <th>What it Protects / Focus</th>
+            </tr>
+            <tr>
+                <td><strong>PCI-DSS</strong><br>(Payment Card Industry Data Security Standard)</td>
+                <td>Any organization that processes, stores, or transmits credit card data.</td>
+                <td>Cardholder data. It is a <strong>contractual standard</strong> created by major credit card companies (Visa, MasterCard), not a government law.</td>
+            </tr>
+            <tr>
+                <td><strong>SOX</strong><br>(Sarbanes-Oxley Act)</td>
+                <td>Publicly traded companies in the US.</td>
+                <td>Financial reporting accuracy. Requires executives to certify financial reports and mandates strict internal controls over financial data to prevent corporate fraud.</td>
+            </tr>
+            <tr>
+                <td><strong>HIPAA</strong><br>(Health Insurance Portability and Accountability Act)</td>
+                <td>Healthcare providers, insurers, and their business associates in the US.</td>
+                <td>Protected Health Information (PHI). Mandates strict security and privacy controls for patient medical records.</td>
+            </tr>
+            <tr>
+                <td><strong>GLBA</strong><br>(Gramm-Leach-Bliley Act)</td>
+                <td>Financial institutions in the US (banks, insurance companies, brokerage firms).</td>
+                <td>Consumer financial privacy. Requires financial institutions to explain their information-sharing practices and safeguard sensitive data.</td>
+            </tr>
+            <tr>
+                <td><strong>GDPR</strong><br>(General Data Protection Regulation)</td>
+                <td>Any organization processing the data of EU residents, regardless of where the organization is located.</td>
+                <td>Personal data privacy. Grants significant rights to individuals (right to be forgotten, right to access) and imposes heavy fines for non-compliance.</td>
+            </tr>
+            <tr>
+                <td><strong>FISMA</strong><br>(Federal Information Security Management Act)</td>
+                <td>US Federal government agencies and their contractors.</td>
+                <td>Requires federal agencies to develop, document, and implement an agency-wide program to provide information security.</td>
+            </tr>
+        </table>
+
+        <div class="exam-tip">
+            <strong>💡 Exam Tip:</strong> Remember that <strong>PCI-DSS is NOT a law</strong>. It is an industry standard enforced through contracts with credit card brands. If you violate it, you get fined by the card brands or lose the ability to process cards, but you don't go to jail. SOX, HIPAA, and GLBA are actual laws.
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section" id="s3">
+        <h2>3. Contractual, Legal, and Regulatory Requirements</h2>
+        <p>Organizations must navigate a complex web of requirements that dictate how they handle data and secure their systems. These requirements come from three main sources:</p>
+
+        <ul>
+            <li><strong>Legal Requirements:</strong> Mandated by laws passed by legislative bodies (e.g., SOX, HIPAA). Non-compliance can result in civil or criminal penalties.</li>
+            <li><strong>Regulatory Requirements:</strong> Mandated by government agencies overseeing specific industries (e.g., SEC for finance, FCC for communications). Non-compliance results in fines or loss of operating licenses.</li>
+            <li><strong>Contractual Requirements:</strong> Mandated by agreements between businesses. Examples include PCI-DSS, Service Level Agreements (SLAs), and Non-Disclosure Agreements (NDAs). Non-compliance results in breach of contract lawsuits or financial penalties.</li>
+        </ul>
+
+        <h3>Trans-border Data Flow</h3>
+        <p>A major compliance challenge today is <strong>trans-border data flow</strong>—moving data across national boundaries. Different countries have different privacy laws. For example, moving data from the EU to the US requires specific legal mechanisms (like Standard Contractual Clauses) because the EU considers US privacy protections to be generally weaker than GDPR.</p>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section" id="s4">
+        <h2>4. Compliance Monitoring and Reporting</h2>
+        <p>Compliance is not a one-time event; it is a continuous process. Organizations must constantly monitor their systems and report on their compliance status.</p>
+
+        <h3>Continuous Monitoring</h3>
+        <p>Organizations use automated tools to continuously monitor their security posture against compliance baselines. This involves:</p>
+        <ul>
+            <li>Vulnerability scanning</li>
+            <li>Log analysis and SIEM (Security Information and Event Management)</li>
+            <li>Configuration management (ensuring systems don't drift from secure baselines)</li>
+        </ul>
+
+        <h3>Audits and Assessments</h3>
+        <p>To prove compliance, organizations undergo audits:</p>
+        <ul>
+            <li><strong>Internal Audits:</strong> Conducted by the organization's own staff to prepare for external audits and find issues early.</li>
+            <li><strong>External Audits:</strong> Conducted by independent third parties (e.g., a CPA firm for SOX, or a QSA for PCI-DSS) to provide an objective assessment of compliance.</li>
+        </ul>
+
+        <div class="warning">
+            <strong>⚠️ Warning:</strong> Security does not equal compliance, and compliance does not equal security. You can be 100% compliant with a standard like PCI-DSS and still suffer a data breach. Compliance is the minimum baseline; security is the actual protection of assets.
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section" id="s5">
+        <h2>5. Key Takeaways</h2>
+        <ul>
+            <li><strong>Legislation</strong> is the law; <strong>Regulation</strong> is the rule enforcing the law; <strong>Compliance</strong> is following the rules.</li>
+            <li><strong>PCI-DSS</strong> protects credit card data and is a contractual standard, not a law.</li>
+            <li><strong>SOX</strong> protects financial reporting for publicly traded companies.</li>
+            <li><strong>HIPAA</strong> protects health information (PHI).</li>
+            <li><strong>GLBA</strong> protects consumer financial information.</li>
+            <li><strong>Compliance is continuous</strong> and requires ongoing monitoring, internal audits, and external audits.</li>
+            <li><strong>Compliance ≠ Security.</strong> Compliance is just the baseline.</li>
+        </ul>
+
+        <div class="exam-tip">
+            <strong>💡 Ready for practice?</strong> Open <code>day-003-mcq.html</code> to test your understanding with 10 interactive questions!
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav-footer">
+        <a href="day-002-theory.html" class="nav-btn" style="background: #757575;">← Day 2</a>
+        <a href="day-003-mcq.html" class="nav-btn">Take the Quiz →</a>
+    </div>
+
+</div>
+
+</body>
+</html>

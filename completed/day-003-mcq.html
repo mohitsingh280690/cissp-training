@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CISSP Day 3 – MCQ Quiz</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #448aff;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #212121;
+            --border: #e0e0e0;
+            --green: #2e7d32;
+            --green-bg: #e8f5e9;
+            --red: #c62828;
+            --red-bg: #fce4ec;
+            --orange: #ef6c00;
+            --orange-bg: #fff8e1;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 850px; margin: 0 auto; padding: 30px 20px; }
+        .instructions {
+            background: var(--orange-bg);
+            border-left: 4px solid var(--orange);
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        .instructions strong { color: var(--orange); }
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        .question-card.correct { border-color: var(--green); background: var(--green-bg); }
+        .question-card.incorrect { border-color: var(--red); background: var(--red-bg); }
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: inline;
+        }
+        .question-header { margin-bottom: 16px; }
+        .options { list-style: none; }
+        .options li { margin-bottom: 8px; }
+        .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: #f9f9f9;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .options label:hover { border-color: var(--accent); background: #e3f2fd; }
+        .options input[type="radio"] { margin-top: 3px; cursor: pointer; }
+        .options label.selected { border-color: var(--accent); background: #e3f2fd; }
+        .options label.correct-answer { border-color: var(--green); background: var(--green-bg); }
+        .options label.wrong-answer { border-color: var(--red); background: var(--red-bg); }
+        .explanation {
+            display: none;
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .explanation.show { display: block; }
+        .explanation.correct-exp {
+            background: var(--green-bg);
+            border-left: 4px solid var(--green);
+        }
+        .explanation.incorrect-exp {
+            background: var(--red-bg);
+            border-left: 4px solid var(--red);
+        }
+        .submit-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        #submitBtn {
+            padding: 14px 48px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #submitBtn:hover { background: var(--primary); }
+        #submitBtn:disabled { background: #ccc; cursor: not-allowed; }
+        .results {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .results.show { display: block; }
+        .results h2 { color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; }
+        .score-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+        .score-display.pass { color: var(--green); }
+        .score-display.fail { color: var(--red); }
+        .score-message { font-size: 1.1rem; margin: 10px 0 6px 0; }
+        .score-breakdown { color: #666; font-size: 0.95rem; }
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .nav-btn:hover { background: var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Day 3: Quiz — Compliance & Regulatory Issues</h1>
+    <div class="subtitle">10 Multiple Choice Questions • Domain 1 – Security and Risk Management</div>
+</div>
+
+<div class="container">
+
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Select one answer for each question, then click <strong>Submit Answers</strong> at the bottom. Your score and detailed explanations will appear immediately. You need <strong>70% (7/10)</strong> to pass.
+    </div>
+
+    <form id="quizForm">
+
+        <!-- Q1 -->
+        <div class="question-card" id="q1-card">
+            <div class="question-header">
+                <span class="question-number">1</span>
+                <span class="question-text">Which of the following is a contractual standard rather than a government law?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q1" value="a"> HIPAA</label></li>
+                <li><label><input type="radio" name="q1" value="b"> SOX</label></li>
+                <li><label><input type="radio" name="q1" value="c"> PCI-DSS</label></li>
+                <li><label><input type="radio" name="q1" value="d"> GLBA</label></li>
+            </ul>
+            <div class="explanation" id="q1-exp"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="q2-card">
+            <div class="question-header">
+                <span class="question-number">2</span>
+                <span class="question-text">What is the primary focus of the Sarbanes-Oxley Act (SOX)?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q2" value="a"> Protecting patient medical records</label></li>
+                <li><label><input type="radio" name="q2" value="b"> Ensuring financial reporting accuracy for publicly traded companies</label></li>
+                <li><label><input type="radio" name="q2" value="c"> Securing credit card transactions</label></li>
+                <li><label><input type="radio" name="q2" value="d"> Protecting consumer financial privacy</label></li>
+            </ul>
+            <div class="explanation" id="q2-exp"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="q3-card">
+            <div class="question-header">
+                <span class="question-number">3</span>
+                <span class="question-text">Which regulation applies to any organization processing the data of EU residents, regardless of the organization's location?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q3" value="a"> FISMA</label></li>
+                <li><label><input type="radio" name="q3" value="b"> GLBA</label></li>
+                <li><label><input type="radio" name="q3" value="c"> GDPR</label></li>
+                <li><label><input type="radio" name="q3" value="d"> HIPAA</label></li>
+            </ul>
+            <div class="explanation" id="q3-exp"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" id="q4-card">
+            <div class="question-header">
+                <span class="question-number">4</span>
+                <span class="question-text">What is the key difference between legislation and regulation?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q4" value="a"> Legislation is created by agencies, while regulation is passed by government bodies.</label></li>
+                <li><label><input type="radio" name="q4" value="b"> Legislation is the law itself, while regulation provides the specific rules on how to comply with the law.</label></li>
+                <li><label><input type="radio" name="q4" value="c"> Legislation only applies to government entities, while regulation applies to private companies.</label></li>
+                <li><label><input type="radio" name="q4" value="d"> There is no difference; the terms are interchangeable.</label></li>
+            </ul>
+            <div class="explanation" id="q4-exp"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" id="q5-card">
+            <div class="question-header">
+                <span class="question-number">5</span>
+                <span class="question-text">Which US law mandates strict security and privacy controls for Protected Health Information (PHI)?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q5" value="a"> HIPAA</label></li>
+                <li><label><input type="radio" name="q5" value="b"> SOX</label></li>
+                <li><label><input type="radio" name="q5" value="c"> GLBA</label></li>
+                <li><label><input type="radio" name="q5" value="d"> FISMA</label></li>
+            </ul>
+            <div class="explanation" id="q5-exp"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card" id="q6-card">
+            <div class="question-header">
+                <span class="question-number">6</span>
+                <span class="question-text">What does the Gramm-Leach-Bliley Act (GLBA) primarily protect?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q6" value="a"> Federal government data</label></li>
+                <li><label><input type="radio" name="q6" value="b"> Consumer financial privacy</label></li>
+                <li><label><input type="radio" name="q6" value="c"> Corporate financial reports</label></li>
+                <li><label><input type="radio" name="q6" value="d"> European citizens' personal data</label></li>
+            </ul>
+            <div class="explanation" id="q6-exp"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card" id="q7-card">
+            <div class="question-header">
+                <span class="question-number">7</span>
+                <span class="question-text">Which of the following statements is true regarding compliance and security?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q7" value="a"> Being 100% compliant guarantees that an organization is secure.</label></li>
+                <li><label><input type="radio" name="q7" value="b"> Compliance is the minimum baseline; it does not equal security.</label></li>
+                <li><label><input type="radio" name="q7" value="c"> Security is a subset of compliance.</label></li>
+                <li><label><input type="radio" name="q7" value="d"> Compliance is only necessary if an organization has suffered a data breach.</label></li>
+            </ul>
+            <div class="explanation" id="q7-exp"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card" id="q8-card">
+            <div class="question-header">
+                <span class="question-number">8</span>
+                <span class="question-text">What is the purpose of continuous monitoring in the context of compliance?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q8" value="a"> To ensure systems do not drift from secure baselines over time.</label></li>
+                <li><label><input type="radio" name="q8" value="b"> To replace the need for external audits.</label></li>
+                <li><label><input type="radio" name="q8" value="c"> To automatically patch all vulnerabilities without human intervention.</label></li>
+                <li><label><input type="radio" name="q8" value="d"> To guarantee that no data breaches will ever occur.</label></li>
+            </ul>
+            <div class="explanation" id="q8-exp"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card" id="q9-card">
+            <div class="question-header">
+                <span class="question-number">9</span>
+                <span class="question-text">Which of the following is an example of a regulatory requirement?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q9" value="a"> A law passed by Congress</label></li>
+                <li><label><input type="radio" name="q9" value="b"> Rules mandated by a government agency like the SEC or FCC</label></li>
+                <li><label><input type="radio" name="q9" value="c"> A Service Level Agreement (SLA) between two companies</label></li>
+                <li><label><input type="radio" name="q9" value="d"> The Payment Card Industry Data Security Standard (PCI-DSS)</label></li>
+            </ul>
+            <div class="explanation" id="q9-exp"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card" id="q10-card">
+            <div class="question-header">
+                <span class="question-number">10</span>
+                <span class="question-text">What is a major challenge associated with trans-border data flow?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q10" value="a"> Data travels slower across international borders.</label></li>
+                <li><label><input type="radio" name="q10" value="b"> Different countries have different, sometimes conflicting, privacy laws.</label></li>
+                <li><label><input type="radio" name="q10" value="c"> It is impossible to encrypt data when it crosses a border.</label></li>
+                <li><label><input type="radio" name="q10" value="d"> All countries use the exact same privacy standards, making it redundant.</label></li>
+            </ul>
+            <div class="explanation" id="q10-exp"></div>
+        </div>
+
+        <div class="submit-section">
+            <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+        </div>
+
+    </form>
+
+    <div class="results" id="results">
+        <h2>Quiz Results</h2>
+        <div id="scoreDisplay" class="score-display"></div>
+        <div id="scoreMessage" class="score-message"></div>
+        <div id="scoreBreakdown" class="score-breakdown"></div>
+    </div>
+
+    <div class="nav-footer">
+        <a href="day-003-theory.html" class="nav-btn" style="background: #757575;">← Back to Theory</a>
+        <a href="#" class="nav-btn" style="opacity: 0.5; cursor: not-allowed;">Next Day →</a>
+    </div>
+
+</div>
+
+<script>
+    const answers = {
+        q1: 'c', q2: 'b', q3: 'c', q4: 'b', q5: 'a',
+        q6: 'b', q7: 'b', q8: 'a', q9: 'b', q10: 'b'
+    };
+
+    const explanations = {
+        q1: {
+            correct: "✅ Correct! <strong>PCI-DSS</strong> is a contractual standard created by major credit card companies, not a government law. HIPAA, SOX, and GLBA are all laws.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — PCI-DSS</strong>. PCI-DSS is enforced through contracts with credit card brands. HIPAA, SOX, and GLBA are actual laws passed by the government."
+        },
+        q2: {
+            correct: "✅ Correct! <strong>SOX</strong> focuses on ensuring financial reporting accuracy for publicly traded companies to prevent corporate fraud.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. SOX is designed to ensure financial reporting accuracy for publicly traded companies. HIPAA protects medical records, PCI-DSS secures credit cards, and GLBA protects consumer financial privacy."
+        },
+        q3: {
+            correct: "✅ Correct! <strong>GDPR</strong> applies to any organization processing the data of EU residents, regardless of where the organization is located.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — GDPR</strong>. GDPR is the EU regulation that protects the personal data of EU residents globally."
+        },
+        q4: {
+            correct: "✅ Correct! <strong>Legislation</strong> is the law itself (the \"What\"), while <strong>regulation</strong> provides the specific rules on how to comply with the law (the \"How\").",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. Legislation is the law passed by a government body, while regulation is the set of rules created by an agency to enforce that law."
+        },
+        q5: {
+            correct: "✅ Correct! <strong>HIPAA</strong> mandates strict security and privacy controls for Protected Health Information (PHI) in the US.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>A — HIPAA</strong>. HIPAA protects health information. SOX is for corporate finance, GLBA is for consumer finance, and FISMA is for federal agencies."
+        },
+        q6: {
+            correct: "✅ Correct! <strong>GLBA</strong> requires financial institutions to explain their information-sharing practices and safeguard consumer financial privacy.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B — Consumer financial privacy</strong>. GLBA applies to financial institutions and protects consumer financial data."
+        },
+        q7: {
+            correct: "✅ Correct! <strong>Compliance is the minimum baseline; it does not equal security.</strong> You can be fully compliant and still suffer a breach.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. Compliance is just the baseline. Being compliant does not guarantee security, as security requires actual protection of assets beyond just checking boxes."
+        },
+        q8: {
+            correct: "✅ Correct! <strong>Continuous monitoring</strong> ensures that systems do not drift from secure baselines over time, maintaining compliance continuously.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>A</strong>. Continuous monitoring is used to detect configuration drift and ensure systems remain compliant over time. It does not replace audits or guarantee no breaches."
+        },
+        q9: {
+            correct: "✅ Correct! <strong>Rules mandated by a government agency</strong> (like the SEC or FCC) are regulatory requirements. Laws are legislative, and SLAs/PCI-DSS are contractual.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. Regulatory requirements come from government agencies enforcing laws. Laws are legislative, and agreements like SLAs or PCI-DSS are contractual."
+        },
+        q10: {
+            correct: "✅ Correct! <strong>Different countries have different privacy laws</strong>, making trans-border data flow complex (e.g., moving data from the EU to the US requires specific legal mechanisms).",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. The main challenge with trans-border data flow is navigating the different and sometimes conflicting privacy laws of various countries."
+        }
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        let unanswered = [];
+
+        for (let i = 1; i <= 10; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!selected) unanswered.push(i);
+        }
+
+        if (unanswered.length > 0) {
+            alert(`Please answer all questions before submitting.\n\nUnanswered: Question(s) ${unanswered.join(', ')}`);
+            return;
+        }
+
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = 'Submitted ✓';
+
+        for (let i = 1; i <= 10; i++) {
+            const qKey = `q${i}`;
+            const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+            const userAnswer = selected.value;
+            const correctAnswer = answers[qKey];
+            const isCorrect = userAnswer === correctAnswer;
+            const card = document.getElementById(`${qKey}-card`);
+            const expDiv = document.getElementById(`${qKey}-exp`);
+
+            document.querySelectorAll(`input[name="${qKey}"]`).forEach(r => r.disabled = true);
+
+            if (isCorrect) {
+                score++;
+                card.classList.add('correct');
+                expDiv.className = 'explanation show correct-exp';
+                expDiv.innerHTML = explanations[qKey].correct;
+                selected.parentElement.classList.add('correct-answer');
+            } else {
+                card.classList.add('incorrect');
+                expDiv.className = 'explanation show incorrect-exp';
+                expDiv.innerHTML = explanations[qKey].incorrect;
+                selected.parentElement.classList.add('wrong-answer');
+                document.querySelectorAll(`input[name="${qKey}"]`).forEach(r => {
+                    if (r.value === correctAnswer) {
+                        r.parentElement.classList.add('correct-answer');
+                    }
+                });
+            }
+        }
+
+        const resultsDiv = document.getElementById('results');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const scoreBreakdown = document.getElementById('scoreBreakdown');
+
+        resultsDiv.classList.add('show');
+        scoreDisplay.textContent = `${score} / 10`;
+
+        if (score >= 7) {
+            scoreDisplay.className = 'score-display pass';
+            scoreMessage.textContent = score === 10
+                ? '🏆 Perfect Score! Outstanding!'
+                : score >= 9
+                ? '🌟 Excellent! You have a strong grasp of compliance principles!'
+                : '✅ Passed! Good understanding of Day 3 concepts.';
+        } else {
+            scoreDisplay.className = 'score-display fail';
+            scoreMessage.textContent = score >= 5
+                ? '⚠️ Almost there! Review the explanations and revisit the theory.'
+                : '📖 Needs more study. Please re-read the theory material and try again.';
+        }
+
+        scoreBreakdown.textContent = `${score} correct • ${10 - score} incorrect • ${score * 10}% score • ${score >= 7 ? 'PASS (≥70%)' : 'BELOW PASS THRESHOLD (70%)'}`;
+
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.querySelectorAll('.options input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            this.closest('.options').querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+            this.parentElement.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

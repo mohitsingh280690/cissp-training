@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CISSP Day 4 – MCQ Quiz</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #448aff;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #212121;
+            --border: #e0e0e0;
+            --green: #2e7d32;
+            --green-bg: #e8f5e9;
+            --red: #c62828;
+            --red-bg: #fce4ec;
+            --orange: #ef6c00;
+            --orange-bg: #fff8e1;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 850px; margin: 0 auto; padding: 30px 20px; }
+        .instructions {
+            background: var(--orange-bg);
+            border-left: 4px solid var(--orange);
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        .instructions strong { color: var(--orange); }
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        .question-card.correct { border-color: var(--green); background: var(--green-bg); }
+        .question-card.incorrect { border-color: var(--red); background: var(--red-bg); }
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: inline;
+        }
+        .question-header { margin-bottom: 16px; }
+        .options { list-style: none; }
+        .options li { margin-bottom: 8px; }
+        .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: #f9f9f9;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .options label:hover { border-color: var(--accent); background: #e3f2fd; }
+        .options input[type="radio"] { margin-top: 3px; cursor: pointer; }
+        .options label.selected { border-color: var(--accent); background: #e3f2fd; }
+        .options label.correct-answer { border-color: var(--green); background: var(--green-bg); }
+        .options label.wrong-answer { border-color: var(--red); background: var(--red-bg); }
+        .explanation {
+            display: none;
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .explanation.show { display: block; }
+        .explanation.correct-exp { background: var(--green-bg); border-left: 4px solid var(--green); }
+        .explanation.incorrect-exp { background: var(--red-bg); border-left: 4px solid var(--red); }
+        .submit-section { text-align: center; margin: 30px 0; }
+        #submitBtn {
+            padding: 14px 48px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #submitBtn:hover { background: var(--primary); }
+        #submitBtn:disabled { background: #ccc; cursor: not-allowed; }
+        .results {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .results.show { display: block; }
+        .results h2 { color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; }
+        .score-display { font-size: 3.5rem; font-weight: 800; margin: 10px 0; }
+        .score-display.pass { color: var(--green); }
+        .score-display.fail { color: var(--red); }
+        .score-message { font-size: 1.1rem; margin: 10px 0 6px 0; }
+        .score-breakdown { color: #666; font-size: 0.95rem; }
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .nav-btn:hover { background: var(--primary); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Day 4: Quiz — Legal Systems &amp; Law Types</h1>
+    <div class="subtitle">10 Multiple Choice Questions • Domain 1 – Security and Risk Management</div>
+</div>
+
+<div class="container">
+
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Select one answer for each question, then click <strong>Submit Answers</strong> at the bottom. Your score and detailed explanations will appear immediately. You need <strong>70% (7/10)</strong> to pass.
+    </div>
+
+    <form id="quizForm">
+
+        <!-- Q1 -->
+        <div class="question-card" id="q1-card">
+            <div class="question-header">
+                <span class="question-number">1</span>
+                <span class="question-text">Which legal system is based primarily on judicial precedent, where prior court decisions (case law) become part of the law itself?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q1" value="a"> Civil law system</label></li>
+                <li><label><input type="radio" name="q1" value="b"> Common law system</label></li>
+                <li><label><input type="radio" name="q1" value="c"> Religious law system</label></li>
+                <li><label><input type="radio" name="q1" value="d"> Customary law system</label></li>
+            </ul>
+            <div class="explanation" id="q1-exp"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="q2-card">
+            <div class="question-header">
+                <span class="question-number">2</span>
+                <span class="question-text">In a criminal prosecution for a cybercrime, what is the required burden of proof?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q2" value="a"> Preponderance of evidence</label></li>
+                <li><label><input type="radio" name="q2" value="b"> Substantial evidence</label></li>
+                <li><label><input type="radio" name="q2" value="c"> Beyond a reasonable doubt</label></li>
+                <li><label><input type="radio" name="q2" value="d"> Clear and convincing evidence</label></li>
+            </ul>
+            <div class="explanation" id="q2-exp"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="q3-card">
+            <div class="question-header">
+                <span class="question-number">3</span>
+                <span class="question-text">A company suffers a data breach and sues the vendor whose negligent software caused it. What type of legal action is this?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q3" value="a"> Criminal prosecution</label></li>
+                <li><label><input type="radio" name="q3" value="b"> Administrative enforcement</label></li>
+                <li><label><input type="radio" name="q3" value="c"> Civil (tort) lawsuit</label></li>
+                <li><label><input type="radio" name="q3" value="d"> Regulatory investigation</label></li>
+            </ul>
+            <div class="explanation" id="q3-exp"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" id="q4-card">
+            <div class="question-header">
+                <span class="question-number">4</span>
+                <span class="question-text">The FTC fines a company for failing to implement reasonable data security practices, without going through a full criminal trial. What type of law governs this action?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q4" value="a"> Criminal law</label></li>
+                <li><label><input type="radio" name="q4" value="b"> Civil tort law</label></li>
+                <li><label><input type="radio" name="q4" value="c"> Administrative / regulatory law</label></li>
+                <li><label><input type="radio" name="q4" value="d"> Common law</label></li>
+            </ul>
+            <div class="explanation" id="q4-exp"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" id="q5-card">
+            <div class="question-header">
+                <span class="question-number">5</span>
+                <span class="question-text">A hacker is found not guilty in a criminal trial. Can the victim still file a civil lawsuit against the hacker for damages?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q5" value="a"> No, a criminal acquittal prevents any civil action (double jeopardy).</label></li>
+                <li><label><input type="radio" name="q5" value="b"> Yes, because civil and criminal cases are independent and have different burdens of proof.</label></li>
+                <li><label><input type="radio" name="q5" value="c"> Only if the hacker was a government employee.</label></li>
+                <li><label><input type="radio" name="q5" value="d"> Only if the criminal case was dismissed before trial.</label></li>
+            </ul>
+            <div class="explanation" id="q5-exp"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card" id="q6-card">
+            <div class="question-header">
+                <span class="question-number">6</span>
+                <span class="question-text">To prove negligence in a civil court, which four elements must ALL be established?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q6" value="a"> Intent, Motive, Opportunity, and Means</label></li>
+                <li><label><input type="radio" name="q6" value="b"> Duty, Breach, Causation, and Damages</label></li>
+                <li><label><input type="radio" name="q6" value="c"> Threat, Vulnerability, Likelihood, and Impact</label></li>
+                <li><label><input type="radio" name="q6" value="d"> Due Care, Due Diligence, Liability, and Indemnity</label></li>
+            </ul>
+            <div class="explanation" id="q6-exp"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card" id="q7-card">
+            <div class="question-header">
+                <span class="question-number">7</span>
+                <span class="question-text">Which US law is considered the primary federal anti-hacking statute, making unauthorized access to protected computers a federal crime?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q7" value="a"> Electronic Communications Privacy Act (ECPA)</label></li>
+                <li><label><input type="radio" name="q7" value="b"> Digital Millennium Copyright Act (DMCA)</label></li>
+                <li><label><input type="radio" name="q7" value="c"> Computer Fraud and Abuse Act (CFAA)</label></li>
+                <li><label><input type="radio" name="q7" value="d"> Identity Theft and Assumption Deterrence Act</label></li>
+            </ul>
+            <div class="explanation" id="q7-exp"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card" id="q8-card">
+            <div class="question-header">
+                <span class="question-number">8</span>
+                <span class="question-text">A US-based company's misconfigured server in Germany is exploited by an attacker in Russia, exposing data of EU customers. Which of the following BEST describes the jurisdiction challenge?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q8" value="a"> Only the US has jurisdiction because the company is headquartered there.</label></li>
+                <li><label><input type="radio" name="q8" value="b"> Only Russia has jurisdiction because that is where the attacker resides.</label></li>
+                <li><label><input type="radio" name="q8" value="c"> Multiple jurisdictions (US, Germany/EU, potentially Russia) may all have claims, creating complex enforcement challenges.</label></li>
+                <li><label><input type="radio" name="q8" value="d"> Jurisdiction does not apply to cybercrime, making prosecution impossible.</label></li>
+            </ul>
+            <div class="explanation" id="q8-exp"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card" id="q9-card">
+            <div class="question-header">
+                <span class="question-number">9</span>
+                <span class="question-text">The Digital Millennium Copyright Act (DMCA) is MOST relevant to cybersecurity in which of the following scenarios?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q9" value="a"> A government agency fining a company for inadequate security controls</label></li>
+                <li><label><input type="radio" name="q9" value="b"> A security researcher circumventing DRM technology while analyzing a software product for vulnerabilities</label></li>
+                <li><label><input type="radio" name="q9" value="c"> A hacker stealing credit card numbers from an e-commerce site</label></li>
+                <li><label><input type="radio" name="q9" value="d"> An employee forwarding company emails to a personal account</label></li>
+            </ul>
+            <div class="explanation" id="q9-exp"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card" id="q10-card">
+            <div class="question-header">
+                <span class="question-number">10</span>
+                <span class="question-text">Organization A's poorly secured systems are compromised and used as a launching point to attack Organization B, causing significant damage. What legal concept makes Organization A potentially liable for B's losses?</span>
+            </div>
+            <ul class="options">
+                <li><label><input type="radio" name="q10" value="a"> Long-arm jurisdiction</label></li>
+                <li><label><input type="radio" name="q10" value="b"> Downstream liability</label></li>
+                <li><label><input type="radio" name="q10" value="c"> Tort immunity</label></li>
+                <li><label><input type="radio" name="q10" value="d"> Strict liability</label></li>
+            </ul>
+            <div class="explanation" id="q10-exp"></div>
+        </div>
+
+        <div class="submit-section">
+            <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+        </div>
+
+    </form>
+
+    <div class="results" id="results">
+        <h2>Quiz Results</h2>
+        <div id="scoreDisplay" class="score-display"></div>
+        <div id="scoreMessage" class="score-message"></div>
+        <div id="scoreBreakdown" class="score-breakdown"></div>
+    </div>
+
+    <div class="nav-footer">
+        <a href="day-004-theory.html" class="nav-btn" style="background: #757575;">← Back to Theory</a>
+        <a href="#" class="nav-btn" style="opacity: 0.5; cursor: not-allowed;">Next Day →</a>
+    </div>
+
+</div>
+
+<script>
+    const answers = {
+        q1: 'b', q2: 'c', q3: 'c', q4: 'c', q5: 'b',
+        q6: 'b', q7: 'c', q8: 'c', q9: 'b', q10: 'b'
+    };
+
+    const explanations = {
+        q1: {
+            correct: "✅ Correct! The <strong>common law system</strong> (used in the USA, UK, Canada, Australia) is built on judicial precedent — prior court decisions become authoritative case law through the doctrine of <em>stare decisis</em>.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B — Common law system</strong>. The civil law system (used in France, Germany, etc.) relies on <em>written codes</em>, not precedent. Religious and customary law are based on religious texts and traditions, respectively."
+        },
+        q2: {
+            correct: "✅ Correct! <strong>Beyond a reasonable doubt</strong> is the highest burden of proof and is required in criminal cases. This is approximately 95%+ certainty that the defendant committed the crime.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — Beyond a reasonable doubt</strong>. Preponderance of evidence (~51%) is the civil standard. Criminal law requires the highest standard because the consequences (imprisonment) are so severe."
+        },
+        q3: {
+            correct: "✅ Correct! This is a <strong>civil (tort) lawsuit</strong>. One private party (the company) is suing another private party (the vendor) for damages caused by negligence. The government is not a party to this action.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — Civil (tort) lawsuit</strong>. Criminal prosecution involves the government charging someone. Administrative enforcement involves a regulatory agency. Here, one private company sues another — that's a civil tort action."
+        },
+        q4: {
+            correct: "✅ Correct! This is <strong>administrative / regulatory law</strong>. Agencies like the FTC enforce regulations and can impose fines, sanctions, and consent decrees through an administrative process — separate from the criminal and civil court systems.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — Administrative / regulatory law</strong>. Agency enforcement (FTC, SEC, HHS, etc.) operates under administrative law. It is neither a criminal prosecution nor a civil lawsuit between private parties."
+        },
+        q5: {
+            correct: "✅ Correct! <strong>Yes, a civil lawsuit can proceed independently of a criminal case.</strong> Criminal acquittal does not bar civil action because they are separate proceedings with different burdens of proof. This is the famous OJ Simpson principle: acquitted criminally, found liable civilly.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. Double jeopardy only prevents being tried <em>twice in criminal court</em> for the same crime. Civil and criminal cases are entirely independent. A hacker acquitted criminally can still be found liable in a civil lawsuit."
+        },
+        q6: {
+            correct: "✅ Correct! To prove <strong>negligence</strong>, a plaintiff must prove all four elements: <strong>Duty</strong> (obligation existed), <strong>Breach</strong> (duty was violated), <strong>Causation</strong> (breach caused the harm), and <strong>Damages</strong> (actual harm occurred). Missing any element defeats the negligence claim.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B — Duty, Breach, Causation, and Damages</strong>. These are the four required elements to prove negligence. The other options describe different frameworks (risk assessment, security operations, or governance concepts)."
+        },
+        q7: {
+            correct: "✅ Correct! The <strong>Computer Fraud and Abuse Act (CFAA)</strong>, passed in 1986 and amended multiple times, is the primary US federal anti-hacking law. It prohibits unauthorized access to any 'protected computer' — essentially any internet-connected device.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C — Computer Fraud and Abuse Act (CFAA)</strong>. ECPA covers wiretapping and stored communications. DMCA covers digital copyright and DRM. The Identity Theft Act covers impersonation fraud."
+        },
+        q8: {
+            correct: "✅ Correct! This scenario involves <strong>multiple jurisdictions</strong>. The US company is subject to US law, the German server may trigger EU/German law, EU customers trigger GDPR, and Russia may be involved if the attacker is there. This multi-jurisdictional overlap is a core challenge of cybercrime.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>C</strong>. Cybercrime is inherently transnational. Multiple countries can and do claim jurisdiction over the same incident. No single jurisdiction has exclusive authority in cross-border cyber incidents."
+        },
+        q9: {
+            correct: "✅ Correct! The <strong>DMCA</strong> makes it illegal to circumvent digital rights management (DRM) technology. This directly impacts security researchers who may need to bypass DRM to analyze a product for vulnerabilities — potentially exposing them to liability even when acting in good faith.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B</strong>. The DMCA's cybersecurity relevance centers on its prohibition against circumventing DRM. Agency fines are administrative law, card theft is a CFAA issue, and email forwarding may be an ECPA or policy issue."
+        },
+        q10: {
+            correct: "✅ Correct! <strong>Downstream liability</strong> holds that even if Organization A was a victim, their negligent security practices allowed their systems to become an attack platform — making them potentially liable for damage caused to Organization B.",
+            incorrect: "❌ Incorrect. The correct answer is <strong>B — Downstream liability</strong>. Long-arm jurisdiction relates to territorial reach of laws. Tort immunity is a defense against lawsuits. Strict liability applies when harm results regardless of negligence. Downstream liability specifically addresses harm flowing from compromised systems to third parties."
+        }
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        let unanswered = [];
+
+        for (let i = 1; i <= 10; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!selected) unanswered.push(i);
+        }
+
+        if (unanswered.length > 0) {
+            alert(`Please answer all questions before submitting.\n\nUnanswered: Question(s) ${unanswered.join(', ')}`);
+            return;
+        }
+
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = 'Submitted ✓';
+
+        for (let i = 1; i <= 10; i++) {
+            const qKey = `q${i}`;
+            const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+            const userAnswer = selected.value;
+            const correctAnswer = answers[qKey];
+            const isCorrect = userAnswer === correctAnswer;
+            const card = document.getElementById(`${qKey}-card`);
+            const expDiv = document.getElementById(`${qKey}-exp`);
+
+            document.querySelectorAll(`input[name="${qKey}"]`).forEach(r => r.disabled = true);
+
+            if (isCorrect) {
+                score++;
+                card.classList.add('correct');
+                expDiv.className = 'explanation show correct-exp';
+                expDiv.innerHTML = explanations[qKey].correct;
+                selected.parentElement.classList.add('correct-answer');
+            } else {
+                card.classList.add('incorrect');
+                expDiv.className = 'explanation show incorrect-exp';
+                expDiv.innerHTML = explanations[qKey].incorrect;
+                selected.parentElement.classList.add('wrong-answer');
+                document.querySelectorAll(`input[name="${qKey}"]`).forEach(r => {
+                    if (r.value === correctAnswer) r.parentElement.classList.add('correct-answer');
+                });
+            }
+        }
+
+        const resultsDiv = document.getElementById('results');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const scoreBreakdown = document.getElementById('scoreBreakdown');
+
+        resultsDiv.classList.add('show');
+        scoreDisplay.textContent = `${score} / 10`;
+
+        if (score >= 7) {
+            scoreDisplay.className = 'score-display pass';
+            scoreMessage.textContent = score === 10
+                ? '🏆 Perfect Score! Outstanding!'
+                : score >= 9
+                ? '🌟 Excellent! Strong grasp of legal systems and law types!'
+                : '✅ Passed! Good understanding of Day 4 concepts.';
+        } else {
+            scoreDisplay.className = 'score-display fail';
+            scoreMessage.textContent = score >= 5
+                ? '⚠️ Almost there! Review the explanations and revisit the theory.'
+                : '📖 Needs more study. Please re-read the theory material and try again.';
+        }
+
+        scoreBreakdown.textContent = `${score} correct • ${10 - score} incorrect • ${score * 10}% score • ${score >= 7 ? 'PASS (≥70%)' : 'BELOW PASS THRESHOLD (70%)'}`;
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.querySelectorAll('.options input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            this.closest('.options').querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+            this.parentElement.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>
