@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 19 – Security Awareness & Training – MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:36px 0;text-align:center;}
+.header h1{font-size:1.9rem;margin-bottom:6px;}
+.header .subtitle{opacity:.9;}
+.container{max-width:860px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 6px 6px 0;margin-bottom:28px;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:26px;margin-bottom:20px;transition:border-color .3s;}
+.question-card.correct{border-color:var(--green);background:#f1f8e9;}
+.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-card h3{font-size:1rem;color:var(--primary);margin-bottom:16px;font-weight:600;}
+.option label{display:block;padding:10px 14px;margin:6px 0;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:background .2s;}
+.option label:hover{background:#f0f0f0;}
+.option input{margin-right:10px;}
+.correct-answer label{background:#e8f5e9 !important;border-color:var(--green) !important;font-weight:600;}
+.wrong-answer label{background:#fce4ec !important;border-color:var(--red) !important;}
+.explanation{display:none;margin-top:14px;padding:12px 16px;border-radius:6px;font-size:.95rem;}
+.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);}
+.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);}
+#submitBtn{display:block;width:100%;padding:16px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;margin:24px 0;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:8px;padding:28px;text-align:center;margin:20px 0;}
+.score-display{font-size:3rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 19 – Security Awareness &amp; Training</h1>
+  <div class="subtitle">MCQ Practice – Domain 1: Security and Risk Management</div>
+</div>
+<div class="container">
+  <div class="instructions">
+    <strong>📋 Instructions:</strong> 10 CISSP-style questions. Select one answer per question. Click <em>Submit All Answers</em> to see your score and explanations. Pass mark: <strong>7/10 (70%)</strong>.
+  </div>
+
+  <form id="quizForm">
+    <!-- Q1 -->
+    <div class="question-card" id="q1-card">
+      <h3>Question 1: An organisation's developers are consistently introducing SQL injection vulnerabilities into production code. What is the BEST intervention to address this root cause?</h3>
+      <div class="option"><label><input type="radio" name="q1" value="a"> A. Deploy a Web Application Firewall (WAF) to detect and block SQL injection attempts</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="b"> B. Implement role-based security training on secure coding practices and input validation</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="c"> C. Conduct organisation-wide security awareness sessions</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="d"> D. Require all developers to obtain a CISSP certification</label></div>
+      <div class="explanation" id="q1-exp">✅ <strong>Correct: B.</strong> The root cause is a skill gap — developers lack secure coding knowledge. Role-based training specifically addressing OWASP Top 10, input validation, and parameterised queries directly addresses this. A WAF (option A) is a compensating technical control, not root cause remediation. Organisation-wide awareness (C) is too shallow for a role-specific technical skill gap. Certification (D) is education-tier, not the targeted skill training needed.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="q2-card">
+      <h3>Question 2: Which of the following BEST demonstrates that a security awareness programme is achieving its intended outcome?</h3>
+      <div class="option"><label><input type="radio" name="q2" value="a"> A. 100% of staff completed the annual security awareness video</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="b"> B. The phishing simulation click rate dropped from 35% to 8% over 12 months</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="c"> C. The security budget allocated to training increased by 20%</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="d"> D. Security awareness posters were placed in all break rooms</label></div>
+      <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> A reduction in phishing click rate is a direct behavioural outcome measure — it shows the programme changed real-world behaviour. Completion rate (A) measures activity (did employees watch?), not whether behaviour changed. Budget increases (C) are input measures. Posting posters (D) is an activity, not a measured outcome.</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="q3-card">
+      <h3>Question 3: An attacker calls the help desk, impersonates a senior executive, and persuades a technician to reset the executive's password without verifying identity. This attack is BEST classified as:</h3>
+      <div class="option"><label><input type="radio" name="q3" value="a"> A. Phishing</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="b"> B. Baiting</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="c"> C. Vishing</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="d"> D. Tailgating</label></div>
+      <div class="explanation" id="q3-exp">✅ <strong>Correct: C.</strong> Vishing (voice phishing) is social engineering conducted over telephone calls. The attacker uses impersonation (a psychological authority trigger) to manipulate the help desk technician. This is a classic vishing attack targeting the help desk as the weakest link in credential management. Phishing (A) is email-based; baiting (B) involves physical media; tailgating (D) is physical access.</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="q4-card">
+      <h3>Question 4: According to the three-tier awareness/training/education model, which tier is MOST appropriate for all newly hired employees regardless of role?</h3>
+      <div class="option"><label><input type="radio" name="q4" value="a"> A. Education</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="b"> B. Training</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="c"> C. Awareness</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="d"> D. Certification</label></div>
+      <div class="explanation" id="q4-exp">✅ <strong>Correct: C.</strong> Security awareness is the broad, shallow foundation that applies to ALL staff. It focuses on recognition — recognising phishing, lock screen compliance, clean desk policy, reporting incidents. Training is role-specific, and education is for security professionals. All new employees, regardless of role, go through awareness first.</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="q5-card">
+      <h3>Question 5: Which NIST publication provides comprehensive guidance on building an information security awareness and training programme?</h3>
+      <div class="option"><label><input type="radio" name="q5" value="a"> A. NIST SP 800-53</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="b"> B. NIST SP 800-61</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="c"> C. NIST SP 800-88</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="d"> D. NIST SP 800-50</label></div>
+      <div class="explanation" id="q5-exp">✅ <strong>Correct: D.</strong> NIST SP 800-50 is specifically titled "Building an Information Technology Security Awareness and Training Program." SP 800-53 covers security controls; SP 800-61 covers incident response; SP 800-88 covers media sanitisation. Know these reference-to-publication mappings for the exam.</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="q6-card">
+      <h3>Question 6: A finance team member receives an email appearing to come from the CFO requesting an urgent wire transfer to a new vendor. The email uses the CFO's exact name and writing style. This is BEST described as:</h3>
+      <div class="option"><label><input type="radio" name="q6" value="a"> A. Baiting</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="b"> B. Whaling</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="c"> C. Spear phishing (Business Email Compromise)</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="d"> D. Pretexting</label></div>
+      <div class="explanation" id="q6-exp">✅ <strong>Correct: C.</strong> This is a Business Email Compromise (BEC) attack — a highly targeted spear phishing attack impersonating an executive to authorise fraudulent financial transactions. The finance team member is the target, not a C-suite executive (whaling targets the executive themselves). The email impersonation with personalised details is spear phishing at its most effective. BEC is one of the most financially damaging attack vectors annually.</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card" id="q7-card">
+      <h3>Question 7: An employee plugs in a USB drive found in the office car park, hoping it might contain something interesting. The drive installs malware. What social engineering technique does this MOST represent?</h3>
+      <div class="option"><label><input type="radio" name="q7" value="a"> A. Vishing</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="b"> B. Tailgating</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="c"> C. Baiting</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="d"> D. Pretexting</label></div>
+      <div class="explanation" id="q7-exp">✅ <strong>Correct: C.</strong> Baiting exploits curiosity or greed by leaving physical media (USB drives, CDs, SD cards) in locations where targets will find and use them. The "car park USB drop" is the canonical baiting scenario. This technique is well-documented in physical penetration tests. Controls include USB port lockdown policies, endpoint protection for USB media, and awareness training specifically addressing found media.</div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card" id="q8-card">
+      <h3>Question 8: After delivering security awareness training, management wants to assess whether the programme is worth continuing. Which of the following BEST demonstrates return on investment (ROI) of the programme?</h3>
+      <div class="option"><label><input type="radio" name="q8" value="a"> A. Number of training videos produced</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="b"> B. Employee satisfaction scores for training content</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="c"> C. Reduction in security incidents attributable to user error over time</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="d"> D. Percentage of employees who found training content interesting</label></div>
+      <div class="explanation" id="q8-exp">✅ <strong>Correct: C.</strong> ROI is best demonstrated through outcome metrics — specifically a measurable reduction in incidents causally linked to the behaviour the training targeted. This directly translates to cost avoidance (fewer breaches = lower remediation costs, fewer fines, reduced liability). Production volume (A), satisfaction (B), and interest rates (D) are all activity or sentiment measures that don't demonstrate business impact.</div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="q9-card">
+      <h3>Question 9: An organisation's security team wants to ensure that training content is updated to address emerging threats. Which principle does this MOST align with?</h3>
+      <div class="option"><label><input type="radio" name="q9" value="a"> A. Completeness</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="b"> B. Due Diligence</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="c"> C. Continuous Improvement</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="d"> D. Non-Repudiation</label></div>
+      <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> Continuous improvement in security awareness programmes ensures content evolves with the threat landscape. Annual reviews are the minimum; threat-triggered updates (e.g., when a new phishing campaign is observed targeting the sector) should happen as needed. This is the "maintain" phase in NIST SP 800-50 lifecycle. Due diligence (B) relates to performing adequate research before decisions, which is secondary here.</div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="q10-card">
+      <h3>Question 10: Which of the following represents the HIGHEST tier in the NIST/ISC² awareness-training-education hierarchy?</h3>
+      <div class="option"><label><input type="radio" name="q10" value="a"> A. Phishing simulation</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="b"> B. Role-based security training for system administrators</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="c"> C. Monthly security tip newsletter sent to all staff</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="d"> D. Pursuing a graduate degree in information security</label></div>
+      <div class="explanation" id="q10-exp">✅ <strong>Correct: D.</strong> Education is the highest tier — it builds deep, theoretical, and strategic understanding and is aimed at security professionals and leadership. A graduate degree in information security is the clearest example of education-tier activity. Phishing simulation (A) and tip newsletters (C) are awareness-tier; role-based admin training (B) is training-tier.</div>
+    </div>
+
+    <button type="button" id="submitBtn">Submit All Answers</button>
+  </form>
+
+  <div class="results" id="results">
+    <h2>Your Results</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <p id="scoreMessage" style="font-size:1.2rem;margin:10px 0;font-weight:600;"></p>
+    <p id="scoreBreakdown" style="color:var(--text-light);"></p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="day-019-theory.html" class="nav-btn">← Review Theory</a>
+    <a href="day-020-theory.html" class="nav-btn">Day 20: Domain 1 Review →</a>
+  </div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'b',q3:'c',q4:'c',q5:'d',q6:'c',q7:'c',q8:'c',q9:'c',q10:'d'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

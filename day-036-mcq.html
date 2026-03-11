@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 36 – MCQ: Biba &amp; Clark-Wilson</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:26px;margin-bottom:22px;transition:border-color .3s;}.question-card.correct{border-color:var(--green);background:#f1f8f1;}.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}.question-number{background:var(--primary);color:white;font-weight:700;font-size:1rem;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.question-text{font-size:1.05rem;font-weight:600;line-height:1.5;}
+.options{list-style:none;padding:0;margin:0;}.options li{margin-bottom:10px;}.options label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border-radius:6px;border:1px solid var(--border);transition:background .2s;}.options label:hover{background:#f0f4ff;}.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9;border-color:var(--green);font-weight:600;color:var(--green);}label.wrong-answer{background:#fce4ec;border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.explanation{display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:.95rem;line-height:1.6;}.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#7f0000;}
+.submit-section{text-align:center;margin:30px 0;}#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;}#submitBtn:hover{background:var(--primary);}#submitBtn:disabled{background:#bbb;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:30px;text-align:center;margin-bottom:28px;}.results h2{color:var(--primary);margin-bottom:16px;}.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}.score-display.pass{color:var(--green);}.score-display.fail{color:var(--red);}.score-message{font-size:1.2rem;margin-bottom:8px;font-weight:600;}.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 36 – Quiz: Biba &amp; Clark-Wilson Models</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 36 of 140</span><span>❓ 10 Questions</span><span>⏱️ ~15 min</span><span>🎯 Passing Score: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>📋 Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> when done. Questions cover <strong>Biba integrity model, Clark-Wilson integrity model, and model comparisons</strong>. Passing threshold: <strong>7/10 (70%)</strong>.</div>
+
+<form id="quizForm">
+
+<div class="question-card" id="q1-card"><div class="question-header"><span class="question-number">1</span><span class="question-text">A high-integrity financial reporting system reads data from an unvalidated external RSS feed (low integrity). Which Biba property is violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q1" value="a"> Star (*) Integrity Property — no write up</label></li>
+<li><label><input type="radio" name="q1" value="b"> Simple Integrity Property — no read down</label></li>
+<li><label><input type="radio" name="q1" value="c"> Invocation Property</label></li>
+<li><label><input type="radio" name="q1" value="d"> Discretionary Integrity Property</label></li>
+</ul><div class="explanation" id="q1-exp"></div></div>
+
+<div class="question-card" id="q2-card"><div class="question-header"><span class="question-number">2</span><span class="question-text">In the Clark-Wilson model, what prevents users from directly modifying data objects?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q2" value="a"> Users can only access Constrained Data Items through authorized Transformation Procedures</label></li>
+<li><label><input type="radio" name="q2" value="b"> Users must have a clearance level matching the data classification</label></li>
+<li><label><input type="radio" name="q2" value="c"> An integrity lattice prevents read and write operations across levels</label></li>
+<li><label><input type="radio" name="q2" value="d"> IVPs block all direct write operations in real-time</label></li>
+</ul><div class="explanation" id="q2-exp"></div></div>
+
+<div class="question-card" id="q3-card"><div class="question-header"><span class="question-number">3</span><span class="question-text">An accounting system ensures that every journal entry goes through an authorized posting program that validates debits equal credits before committing the transaction. This is an example of:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q3" value="a"> Bell-LaPadula's Star Property</label></li>
+<li><label><input type="radio" name="q3" value="b"> Biba's Simple Integrity Property</label></li>
+<li><label><input type="radio" name="q3" value="c"> Clark-Wilson's well-formed transaction (TP modifying CDI)</label></li>
+<li><label><input type="radio" name="q3" value="d"> Brewer-Nash's Chinese Wall policy</label></li>
+</ul><div class="explanation" id="q3-exp"></div></div>
+
+<div class="question-card" id="q4-card"><div class="question-header"><span class="question-number">4</span><span class="question-text">In the Biba model, a low-integrity process attempts to write data to a high-integrity database. What is the result?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q4" value="a"> Permitted — Biba allows writing up to improve data integrity</label></li>
+<li><label><input type="radio" name="q4" value="b"> Permitted — Biba only restricts read operations</label></li>
+<li><label><input type="radio" name="q4" value="c"> Denied — the Star (*) Integrity Property prevents writing to higher integrity levels</label></li>
+<li><label><input type="radio" name="q4" value="d"> Denied — the Simple Integrity Property prevents all cross-level operations</label></li>
+</ul><div class="explanation" id="q4-exp"></div></div>
+
+<div class="question-card" id="q5-card"><div class="question-header"><span class="question-number">5</span><span class="question-text">Which Clark-Wilson component verifies that Constrained Data Items remain in a valid, consistent state?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q5" value="a"> Transformation Procedure (TP)</label></li>
+<li><label><input type="radio" name="q5" value="b"> Unconstrained Data Item (UDI)</label></li>
+<li><label><input type="radio" name="q5" value="c"> Integrity Verification Procedure (IVP)</label></li>
+<li><label><input type="radio" name="q5" value="d"> Access Control Triple</label></li>
+</ul><div class="explanation" id="q5-exp"></div></div>
+
+<div class="question-card" id="q6-card"><div class="question-header"><span class="question-number">6</span><span class="question-text">How do Biba and Bell-LaPadula relate to each other?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q6" value="a"> They are identical models applied to different data sets</label></li>
+<li><label><input type="radio" name="q6" value="b"> They are mathematical inverses — BLP protects confidentiality; Biba protects integrity, with opposite read/write rules</label></li>
+<li><label><input type="radio" name="q6" value="c"> BLP is a subset of Biba — Biba includes all BLP rules plus integrity rules</label></li>
+<li><label><input type="radio" name="q6" value="d"> Biba replaces BLP entirely and is used in all modern systems</label></li>
+</ul><div class="explanation" id="q6-exp"></div></div>
+
+<div class="question-card" id="q7-card"><div class="question-header"><span class="question-number">7</span><span class="question-text">In a Clark-Wilson system, raw user input that has not been validated is classified as:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q7" value="a"> Constrained Data Item (CDI)</label></li>
+<li><label><input type="radio" name="q7" value="b"> Unconstrained Data Item (UDI)</label></li>
+<li><label><input type="radio" name="q7" value="c"> Transformation Procedure (TP)</label></li>
+<li><label><input type="radio" name="q7" value="d"> Security label</label></li>
+</ul><div class="explanation" id="q7-exp"></div></div>
+
+<div class="question-card" id="q8-card"><div class="question-header"><span class="question-number">8</span><span class="question-text">A bank requires that the person who initiates a wire transfer cannot also be the person who approves it. This Clark-Wilson requirement is BEST described as:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q8" value="a"> Integrity Verification Procedure</label></li>
+<li><label><input type="radio" name="q8" value="b"> Separation of duties</label></li>
+<li><label><input type="radio" name="q8" value="c"> Least privilege</label></li>
+<li><label><input type="radio" name="q8" value="d"> Well-formed transaction</label></li>
+</ul><div class="explanation" id="q8-exp"></div></div>
+
+<div class="question-card" id="q9-card"><div class="question-header"><span class="question-number">9</span><span class="question-text">Which integrity model is MOST commonly associated with commercial transaction processing systems such as banking and ERP?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q9" value="a"> Bell-LaPadula</label></li>
+<li><label><input type="radio" name="q9" value="b"> Biba</label></li>
+<li><label><input type="radio" name="q9" value="c"> Clark-Wilson</label></li>
+<li><label><input type="radio" name="q9" value="d"> Brewer-Nash</label></li>
+</ul><div class="explanation" id="q9-exp"></div></div>
+
+<div class="question-card" id="q10-card"><div class="question-header"><span class="question-number">10</span><span class="question-text">Which Biba property prevents a low-integrity process from calling a high-integrity system service to indirectly modify trusted data?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q10" value="a"> Simple Integrity Property</label></li>
+<li><label><input type="radio" name="q10" value="b"> Star (*) Integrity Property</label></li>
+<li><label><input type="radio" name="q10" value="c"> Invocation Property</label></li>
+<li><label><input type="radio" name="q10" value="d"> Tranquility Property</label></li>
+</ul><div class="explanation" id="q10-exp"></div></div>
+
+</form>
+
+<div class="submit-section"><button id="submitBtn" onclick="submitQuiz()">Submit Answers</button></div>
+<div class="results" id="results"><h2>Quiz Complete!</h2><div class="score-display" id="scoreDisplay"></div><div class="score-message" id="scoreMessage"></div><div class="score-breakdown" id="scoreBreakdown"></div></div>
+
+<div class="nav-footer">
+<a href="day-036-theory.html" class="nav-btn">← Back to Theory</a>
+<a href="day-037-theory.html" class="nav-btn">Day 37: Other Security Models →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'a',q3:'c',q4:'c',q5:'c',q6:'b',q7:'b',q8:'b',q9:'c',q10:'c'};
+const explanations={
+q1:{correct:"Correct. The Simple Integrity Property ('no read down') prevents high-integrity subjects from reading low-integrity objects. A high-integrity financial system reading unvalidated RSS data (low integrity) violates this — the untrusted input could corrupt the system's outputs.",incorrect:"Incorrect. The financial system (high integrity) is reading from a low-integrity source — this is 'reading down,' which violates Biba's Simple Integrity Property. The Star Property governs writes, not reads. The Invocation Property governs calling higher-level processes."},
+q2:{correct:"Correct. In Clark-Wilson, the access control triple (Subject, TP, CDI) means users never touch data directly. They can only modify Constrained Data Items through authorized Transformation Procedures. This ensures all changes are well-formed transactions that preserve integrity.",incorrect:"Incorrect. Clark-Wilson doesn't use clearance levels or integrity lattices — those are BLP and Biba respectively. It uses the access control triple: subjects access CDIs only through authorized TPs. IVPs verify consistency but don't block operations in real-time."},
+q3:{correct:"Correct. A controlled program (TP) that validates business rules (debits = credits) before modifying protected data (CDI) is the textbook Clark-Wilson well-formed transaction. The program enforces integrity by ensuring the data transitions from one valid state to another.",incorrect:"Incorrect. A program that validates transactions before modifying data is a Clark-Wilson Transformation Procedure performing a well-formed transaction. BLP and Biba don't address transaction validation. Brewer-Nash addresses conflict of interest."},
+q4:{correct:"Correct. The Star (*) Integrity Property ('no write up') prevents low-integrity subjects from writing to high-integrity objects. This prevents untrusted data from corrupting trusted systems — exactly the scenario described.",incorrect:"Incorrect. Biba's Star (*) Integrity Property specifically prevents writing UP to higher integrity levels. A low-integrity process writing to a high-integrity database is 'writing up,' which Biba blocks. The Simple Integrity Property governs reads, not writes."},
+q5:{correct:"Correct. Integrity Verification Procedures (IVPs) are specifically designed to check that CDIs maintain internal and external consistency. Like an auditor verifying that account balances are correct, IVPs ensure data integrity constraints are satisfied.",incorrect:"Incorrect. IVPs are the verification component. TPs perform modifications. UDIs are unvalidated input. The access control triple defines who can use which TP on which CDI. Only IVPs verify CDI consistency."},
+q6:{correct:"Correct. BLP and Biba are exact mathematical inverses. BLP: No Read Up, No Write Down (confidentiality). Biba: No Read Down, No Write Up (integrity). They address opposite security properties with mirror-image rules.",incorrect:"Incorrect. BLP and Biba are mathematical inverses with opposite rules addressing opposite properties. They are not identical, one doesn't contain the other, and Biba doesn't replace BLP — they address different aspects of security."},
+q7:{correct:"Correct. Unconstrained Data Items (UDIs) are data that have not yet been validated or constrained by the system — such as raw user input or data from external sources. UDIs must go through a TP to be validated and potentially converted to CDIs.",incorrect:"Incorrect. Raw, unvalidated input is classified as an Unconstrained Data Item (UDI) in Clark-Wilson. CDIs are already-validated data. TPs are programs. Security labels belong to BLP/Biba, not Clark-Wilson."},
+q8:{correct:"Correct. Separation of duties is a core Clark-Wilson requirement — different subjects must be responsible for different functions. The person who initiates a transaction (one TP) and the person who approves it (another TP) must be different individuals.",incorrect:"Incorrect. The requirement that initiators and approvers must be different people is separation of duties — a fundamental Clark-Wilson principle. IVPs verify data consistency. Least privilege limits permissions. Well-formed transactions ensure valid data transitions."},
+q9:{correct:"Correct. Clark-Wilson was specifically designed for commercial environments — banking, accounting, ERP systems — where data integrity is maintained through well-formed transactions, separation of duties, and audit trails. Biba is more military-focused. BLP addresses confidentiality, not integrity.",incorrect:"Incorrect. Clark-Wilson is the commercial integrity model — designed for business transaction processing. BLP handles confidentiality. Biba is a more theoretical/military integrity model. Brewer-Nash handles conflict of interest scenarios."},
+q10:{correct:"Correct. The Invocation Property prevents a low-integrity subject from invoking (calling) a higher-integrity subject/process. This blocks indirect attacks where a low-integrity process uses a high-integrity service as a proxy to modify trusted data.",incorrect:"Incorrect. The Invocation Property specifically addresses calling/invoking higher-integrity processes from lower integrity levels. The Simple Integrity Property governs reads. The Star Property governs writes. Tranquility is a BLP concept about label changes."}
+};
+
+function submitQuiz(){let score=0;const total=10;document.getElementById('submitBtn').disabled=true;document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);for(let i=1;i<=total;i++){const key='q'+i;const card=document.getElementById(key+'-card');const selected=document.querySelector('input[name="'+key+'"]:checked');const expDiv=document.getElementById(key+'-exp');const correct=answers[key];const correctLabel=document.querySelector('input[name="'+key+'"][value="'+correct+'"]')?.parentElement;if(correctLabel)correctLabel.classList.add('correct-answer');if(selected){if(selected.value===correct){score++;card.classList.add('correct');expDiv.className='explanation correct-exp';expDiv.innerHTML='✅ '+explanations[key].correct;}else{card.classList.add('incorrect');selected.parentElement.classList.add('wrong-answer');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='❌ '+explanations[key].incorrect;}}else{card.classList.add('incorrect');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='⚠️ Not answered. '+explanations[key].incorrect;}expDiv.style.display='block';}const pct=Math.round(score/total*100);const pass=score>=7;document.getElementById('scoreDisplay').textContent=score+'/10';document.getElementById('scoreDisplay').className='score-display '+(pass?'pass':'fail');document.getElementById('scoreMessage').textContent=pass?'🎉 PASSED — Well done!':'📚 FAILED — Review the explanations above and revisit the theory.';document.getElementById('scoreBreakdown').textContent=score+' correct out of 10 ('+pct+'%) — Passing threshold: 7/10 (70%)';document.getElementById('results').style.display='block';document.getElementById('results').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

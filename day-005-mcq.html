@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 5 – Intellectual Property MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 5: Intellectual Property – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A software developer employed by a technology company writes a new algorithm during work hours using company resources, solving a business problem assigned by her manager. Who holds the copyright for the resulting software?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> The developer — the creator always holds the initial copyright</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Both the developer and the company jointly under a shared ownership arrangement</label></li>
+    <li><label><input type="radio" name="q1" value="c"> The company — as a "work made for hire," copyright vests in the employer from creation</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Neither party — software algorithms are not protected by copyright</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: C.</strong> Under US copyright law (17 U.S.C. § 101), a "work made for hire" created by an employee within the scope of employment is owned by the employer from the moment of creation — no assignment agreement is required. This is a critical CISSP concept: employers own IP created by employees as part of their duties. Consultants and contractors are different — independent contractor work requires a written agreement to qualify as work-for-hire.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A developer incorporates 20 lines of code from an open-source library licensed under GPL v3 into a proprietary commercial product and ships the binary without releasing any source code. What is the MOST significant legal risk?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Patent infringement — the library's algorithms may be patented</label></li>
+    <li><label><input type="radio" name="q2" value="b"> GPL v3 copyleft violation — derivative works incorporating GPL code must be distributed under the same GPL v3 license with source code available</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Trademark dilution — using the library's name in product documentation</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Criminal copyright infringement — use of any open-source code in commercial software is prohibited</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> GPL v3 is a "copyleft" license — if you distribute software that incorporates GPL-licensed code, you must distribute the entire work under GPL v3 and make source code available. Shipping a proprietary binary without source code violates the copyleft terms. This is a common software due diligence issue. GPL v3 does NOT prohibit commercial use — only requires that derivatives remain open-source. CISSP candidates must understand the difference between permissive licenses (MIT, BSD) and copyleft licenses (GPL).</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">An organization invents a novel network intrusion detection process that has never been done before and is not obvious to experts in the field. Which type of legal protection provides the STRONGEST exclusive rights for up to 20 years?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Copyright — for the original expression of the process in code</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Utility patent — for novel, non-obvious processes, machines, or methods</label></li>
+    <li><label><input type="radio" name="q3" value="c"> Trade secret — keeping the process confidential indefinitely</label></li>
+    <li><label><input type="radio" name="q3" value="d"> Trademark — to prevent others from using a similar product name</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> A utility patent (20 years from filing date) protects novel, non-obvious, useful processes, machines, manufactures, or compositions of matter. For an intrusion detection process, a method patent provides the strongest exclusive rights — the holder can prevent anyone from using the process regardless of whether they independently discovered it. Trade secrets (C) provide no protection if the process is independently discovered or reverse-engineered. Copyright (A) protects the specific code expression, not the underlying process/algorithm itself.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">A company fails to implement any access controls, NDAs, or confidentiality policies around its proprietary machine learning model. A competitor independently develops an identical model without any contact with the first company. The first company sues for trade secret misappropriation. What is the most likely outcome?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> The company wins because prior development date establishes priority</label></li>
+    <li><label><input type="radio" name="q4" value="b"> The company will likely lose — trade secret protection requires reasonable measures to maintain secrecy, which the company failed to implement</label></li>
+    <li><label><input type="radio" name="q4" value="c"> The company wins because independent development does not affect trade secret claims</label></li>
+    <li><label><input type="radio" name="q4" value="d"> The company loses because trade secrets require patent registration to be legally enforceable</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: B.</strong> Under both the Defend Trade Secrets Act (DTSA) and the Uniform Trade Secrets Act (UTSA), a trade secret exists only if the owner takes "reasonable measures" to keep the information secret. No NDAs, no access controls, no confidentiality policies = no reasonable measures = likely no trade secret protection. Additionally, independent development (without misappropriation) is a complete defense to trade secret claims — unlike patent law, independent discovery is permitted. Option D is wrong because trade secrets specifically avoid registration.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">A social media platform hosts millions of user-uploaded videos, some of which contain copyrighted music. The platform has a working DMCA notice-and-takedown process and promptly removes content when notified. Under the DMCA safe harbor (17 U.S.C. § 512), which statement BEST describes the platform's liability?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> The platform is fully liable for all user-uploaded infringement regardless of its policies</label></li>
+    <li><label><input type="radio" name="q5" value="b"> The platform is shielded from liability for user-uploaded content, provided it complies with notice-and-takedown requirements and does not have actual knowledge it is profiting directly from infringement</label></li>
+    <li><label><input type="radio" name="q5" value="c"> The safe harbor only protects non-commercial platforms with fewer than 10 million users</label></li>
+    <li><label><input type="radio" name="q5" value="d"> The safe harbor applies only if the platform proactively scans and removes all infringing content before it is uploaded</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: B.</strong> The DMCA safe harbor (§512) protects Online Service Providers (OSPs) from secondary copyright liability for user-generated content, provided they: designate a DMCA agent, have a policy to terminate repeat infringers, do not have knowledge of infringement, do not financially benefit directly from infringing activity (while having the right and ability to control it), and expeditiously remove content upon proper notice. Option D describes proactive monitoring — the safe harbor intentionally does NOT require proactive monitoring, which would be an enormous legal burden.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">A startup names its cloud storage product "Googol Drive" with a stylised logo similar to a well-known search engine company's branding. Under the Lanham Act, the search engine company's trademark infringement claim would primarily require demonstrating:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> That the startup's name is phonetically identical to the trademarked name</label></li>
+    <li><label><input type="radio" name="q6" value="b"> A likelihood that consumers would be confused as to the source, sponsorship, or affiliation of the products</label></li>
+    <li><label><input type="radio" name="q6" value="c"> That the startup intentionally copied the trademark to benefit from brand recognition</label></li>
+    <li><label><input name="q6" type="radio" value="d"> That the trademark holder has lost measurable revenue due to the new product</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> Trademark infringement under the Lanham Act turns on the "likelihood of confusion" standard — would ordinary consumers likely be confused about the source, sponsorship, or affiliation of the goods/services? Courts apply multi-factor tests (Sleekcraft factors) including similarity of marks, similarity of goods/services, channels of trade, and consumer sophistication. Intent to copy (C) is relevant but not required — you can infringe unintentionally. Actual lost revenue (D) is not required to prove likelihood of confusion.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">A security researcher circumvents the copy-protection system on a legitimately purchased video game to extract short clips for use in an academic presentation critiquing the game's narrative. Under the DMCA, which statement MOST accurately describes the legal situation?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> This is fully protected by fair use — academic commentary is exempt from all copyright restrictions</label></li>
+    <li><label><input type="radio" name="q7" value="b"> DMCA § 1201 anti-circumvention provisions are legally separate from copyright's fair use doctrine; circumventing copy protection may violate § 1201 regardless of whether the underlying use would be fair use</label></li>
+    <li><label><input type="radio" name="q7" value="c"> Purchasing the game grants a perpetual license to circumvent any technological protection measure</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Academic circumvention is automatically exempt under a blanket DMCA research exception</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> DMCA § 1201 creates a separate anti-circumvention right that operates independently from copyright's fair use doctrine. Courts have held that fair use does not automatically justify circumventing technological protection measures. The US Copyright Office does create limited exemptions every 3 years (some for security research), but these are narrow and specific — there is no blanket academic exemption. This is a classic CISSP trap: the assumption that fair use = permission to circumvent DRM.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">During a software asset management audit, a company discovers it has deployed 750 copies of a database application across its enterprise. However, its licence agreement only covers 400 seats. What is the MOST accurate description of the company's legal exposure?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> The company faces trade secret misappropriation liability</label></li>
+    <li><label><input type="radio" name="q8" value="b"> The company may be liable for copyright infringement for the 350 unlicensed deployments</label></li>
+    <li><label><input type="radio" name="q8" value="c"> The company has no liability — once purchased, software can be freely copied for internal use</label></li>
+    <li><label><input type="radio" name="q8" value="d"> The company only faces contractual liability under the licence agreement, not IP liability</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> Software is protected by copyright. Each unlicensed copy is a separate act of copying protected expression, constituting copyright infringement beyond contractual breach. Vendors may pursue claims under the Copyright Act, which provides statutory damages of $750–$30,000 per work infringed (up to $150,000 for wilful infringement). SAM (Software Asset Management) programs exist precisely to prevent this exposure. Option D understates the risk — copyright infringement and contractual breach can coexist.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">An engineer leaves Company A and deliberately takes a confidential technical specification document marked "Trade Secret" to Company B (a direct competitor), which then uses it to accelerate product development. Under the Defend Trade Secrets Act (DTSA), which parties may face liability?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> Only Company A faces liability for failing to prevent the theft</label></li>
+    <li><label><input type="radio" name="q9" value="b"> Only the engineer faces personal liability; corporations cannot be held liable for employee trade secret theft</label></li>
+    <li><label><input type="radio" name="q9" value="c"> Both the engineer (for misappropriation) and Company B (for knowingly receiving and using misappropriated trade secrets) may face civil and criminal liability</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Neither party is liable since trade secret protection was Company A's responsibility to enforce</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> Under the DTSA (18 U.S.C. § 1839), both the misappropriating individual AND the entity that knowingly acquires and uses misappropriated trade secrets can be held liable. Civil remedies include injunctive relief, damages, and exemplary damages (2×). Criminal penalties can apply to wilful, intentional theft (18 U.S.C. § 1832). Company B "knowing" use of stolen trade secrets makes it a direct participant in the misappropriation. The DTSA was specifically designed to address the scenario of employees stealing IP for competitors.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">A novelist finishes writing a thriller novel and saves it to her computer — she has told no one about it and has not published or registered it anywhere. Which statement about her intellectual property rights is MOST accurate?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> She has no rights until she registers the work with the US Copyright Office</label></li>
+    <li><label><input type="radio" name="q10" value="b"> She has trademark rights in any unique phrases or titles in the work</label></li>
+    <li><label><input type="radio" name="q10" value="c"> She must publish the work to receive copyright protection</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Copyright arises automatically at the moment of creation in a fixed tangible medium — no registration or publication is required</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: D.</strong> Under the Copyright Act of 1976 (17 U.S.C. § 102), copyright protection arises automatically at the moment an original work is fixed in a tangible medium of expression. No registration, publication, or © notice is required for protection. However, registration IS required before filing a lawsuit in the US and enables statutory damages. The Berne Convention (adopted 1989 by the US) eliminated the previous requirement for copyright notice. Key CISSP point: copyright is automatic, patents require application and examination.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-005-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-006-theory.html" class="nav-btn">Day 6: Privacy Laws →</a>
+</div>
+</div>
+<script>
+const answers={q1:'c',q2:'b',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'c',q10:'d'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

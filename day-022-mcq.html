@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 22 – Data Classification Levels – MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:36px 0;text-align:center;}
+.header h1{font-size:1.9rem;margin-bottom:6px;}
+.header .subtitle{opacity:.9;}
+.container{max-width:860px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 6px 6px 0;margin-bottom:28px;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:26px;margin-bottom:20px;}
+.question-card.correct{border-color:var(--green);background:#f1f8e9;}
+.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-card h3{font-size:1rem;color:#4a148c;margin-bottom:16px;font-weight:600;}
+.option label{display:block;padding:10px 14px;margin:6px 0;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.option label:hover{background:#f0f0f0;}
+.option input{margin-right:10px;}
+.correct-answer label{background:#e8f5e9 !important;border-color:var(--green) !important;font-weight:600;}
+.wrong-answer label{background:#fce4ec !important;border-color:var(--red) !important;}
+.explanation{display:none;margin-top:14px;padding:12px 16px;border-radius:6px;font-size:.95rem;}
+.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);}
+.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);}
+#submitBtn{display:block;width:100%;padding:16px;background:#7b1fa2;color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;margin:24px 0;}
+#submitBtn:hover{background:#4a148c;}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:8px;padding:28px;text-align:center;margin:20px 0;}
+.score-display{font-size:3rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 22 – Data Classification Levels</h1>
+  <div class="subtitle">MCQ Practice – Domain 2: Asset Security</div>
+</div>
+<div class="container">
+  <div class="instructions">
+    <strong>📋 Instructions:</strong> 10 CISSP-style questions. Pass mark: <strong>7/10 (70%)</strong>.
+  </div>
+
+  <form id="quizForm">
+    <div class="question-card" id="q1-card">
+      <h3>Question 1: In the US government classification system, which level is defined as information whose unauthorised disclosure could cause "exceptionally grave damage to national security"?</h3>
+      <div class="option"><label><input type="radio" name="q1" value="a"> A. Confidential</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="b"> B. Secret</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="c"> C. Top Secret</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="d"> D. Sensitive But Unclassified</label></div>
+      <div class="explanation" id="q1-exp">✅ <strong>Correct: C.</strong> Top Secret is the highest formal US government classification level. Its definition specifically uses the phrase "exceptionally grave damage to national security." Secret = "serious damage"; Confidential = "damage."</div>
+    </div>
+
+    <div class="question-card" id="q2-card">
+      <h3>Question 2: An organisation uses a commercial four-level classification scheme. An employee payroll database contains salary information for all staff. Which level is MOST appropriate?</h3>
+      <div class="option"><label><input type="radio" name="q2" value="a"> A. Public</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="b"> B. Sensitive</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="c"> C. Private</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="d"> D. Confidential / Restricted</label></div>
+      <div class="explanation" id="q2-exp">✅ <strong>Correct: C.</strong> Salary information is a classic example of Private-level data in commercial classification — it's personally sensitive to individuals (employees), internally focused, and disclosure would cause harm to individuals. It doesn't rise to Confidential (trade secrets, M&A plans) but exceeds Sensitive (internal reports without personal harm implications).</div>
+    </div>
+
+    <div class="question-card" id="q3-card">
+      <h3>Question 3: A government analyst with Top Secret clearance wants to access a compartmented intelligence programme. Their TS clearance alone is insufficient. What additional requirement must be met?</h3>
+      <div class="option"><label><input type="radio" name="q3" value="a"> A. They must obtain Secret clearance instead</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="b"> B. They must have specific access authorisation (need to know) for that SCI compartment</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="c"> C. They must complete an additional background check within the last six months</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="d"> D. They must request permission from the data custodian</label></div>
+      <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> Sensitive Compartmented Information (SCI) requires both Top Secret clearance AND specific access authorization (a "read-on") for each particular compartment or program. Clearance level is necessary but not sufficient — need-to-know for the specific program is the additional gate. This is the government application of the need-to-know principle at the highest classification levels.</div>
+    </div>
+
+    <div class="question-card" id="q4-card">
+      <h3>Question 4: A company's marketing department produces a quarterly press release for public distribution. What classification level should this document receive?</h3>
+      <div class="option"><label><input type="radio" name="q4" value="a"> A. Sensitive</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="b"> B. Private</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="c"> C. Confidential</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="d"> D. Public</label></div>
+      <div class="explanation" id="q4-exp">✅ <strong>Correct: D.</strong> Information approved for public release is classified as Public (or Unclassified in government). A press release is explicitly intended for public consumption — there are no access restrictions, no encryption requirements, and no special handling needed. Applying a higher classification would be over-classification and create unnecessary friction.</div>
+    </div>
+
+    <div class="question-card" id="q5-card">
+      <h3>Question 5: A document contains sections classified at Secret and sections classified at Top Secret. How should the overall document be marked?</h3>
+      <div class="option"><label><input type="radio" name="q5" value="a"> A. The document should be marked at the average classification level</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="b"> B. Each section should only show its own classification in its header</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="c"> C. The document should be marked at the HIGHEST classification level present (Top Secret)</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="d"> D. The document should be split into two separate documents by classification level</label></div>
+      <div class="explanation" id="q5-exp">✅ <strong>Correct: C.</strong> Documents containing mixed classification levels must be marked at the HIGHEST level present. The overall document marking controls who may access it — a Secret-cleared person cannot access a Top Secret document even if only one paragraph is Top Secret. Portion marking (marking each section individually) can be used in addition to the overall highest-level marking to help readers understand which parts drive the overall classification.</div>
+    </div>
+
+    <div class="question-card" id="q6-card">
+      <h3>Question 6: An organisation notices employees are labeling almost every internal email as "Confidential" regardless of content, causing the label to become meaningless. This is BEST described as:</h3>
+      <div class="option"><label><input type="radio" name="q6" value="a"> A. Over-classification leading to classification fatigue</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="b"> B. Under-classification creating a compliance gap</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="c"> C. Appropriate use of a default classification policy</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="d"> D. A DLP policy misconfiguration</label></div>
+      <div class="explanation" id="q6-exp">✅ <strong>Correct: A.</strong> Over-classification (applying higher-than-warranted classifications) leads to classification fatigue — employees become desensitised to classification labels because they see them on everything. This causes the labels to lose their meaning and effectiveness. When users ignore all Confidential labels because every email is marked that way, genuinely sensitive data receives no additional attention. Calibrated, accurate classification is more effective than blanket high-classification.</div>
+    </div>
+
+    <div class="question-card" id="q7-card">
+      <h3>Question 7: In US government classification, "Sensitive But Unclassified" (SBU) data is BEST described as:</h3>
+      <div class="option"><label><input type="radio" name="q7" value="a"> A. Information classified above Top Secret</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="b"> B. Information that is unclassified but requires protection from disclosure due to privacy or law enforcement sensitivity</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="c"> C. Information that has been formally declassified from Secret</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="d"> D. The same as the commercial Sensitive classification level</label></div>
+      <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> SBU (Sensitive But Unclassified) is a designation for information that doesn't meet the national security classification criteria but still requires protection — such as personally identifiable information (PII), law enforcement sensitive (LES) data, or for official use only (FOUO) data. It has no formal damage-to-national-security threshold like the three formal classification levels, but it must not be publicly disclosed.</div>
+    </div>
+
+    <div class="question-card" id="q8-card">
+      <h3>Question 8: Which commercial classification level is MOST analogous to the US government's Top Secret classification?</h3>
+      <div class="option"><label><input type="radio" name="q8" value="a"> A. Private</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="b"> B. Sensitive</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="c"> C. Public</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="d"> D. Confidential / Restricted</label></div>
+      <div class="explanation" id="q8-exp">✅ <strong>Correct: D.</strong> Both Top Secret (government) and Confidential/Restricted (commercial) represent the HIGHEST level in their respective schemes. They are the most sensitive tiers requiring the greatest access restrictions, strongest controls, and most rigorous handling procedures. The naming is different, but the position in the hierarchy is equivalent.</div>
+    </div>
+
+    <div class="question-card" id="q9-card">
+      <h3>Question 9: An organisation fails to update the classification of merger documents after the merger is publicly announced and the deal closes. What risk does this create?</h3>
+      <div class="option"><label><input type="radio" name="q9" value="a"> A. The data would be legally required to be destroyed immediately</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="b"> B. Over-classification — unnecessary controls waste resources and impede access to now-public information</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="c"> C. The data becomes automatically reclassified to Public by the operating system</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="d"> D. A regulatory violation requiring mandatory breach notification</label></div>
+      <div class="explanation" id="q9-exp">✅ <strong>Correct: B.</strong> Stale high classifications for data that is no longer sensitive creates over-classification — applying more expensive controls than the data requires, restricting access to users who legitimately need it, and wasting security budget. Classification should be reviewed and updated when circumstances change. Failure to reclassify downward is an inefficiency; failure to reclassify upward is a security risk.</div>
+    </div>
+
+    <div class="question-card" id="q10-card">
+      <h3>Question 10: An organisation's trade secrets (proprietary formulas not publicly disclosed) would MOST likely be classified as which commercial level?</h3>
+      <div class="option"><label><input type="radio" name="q10" value="a"> A. Public</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="b"> B. Sensitive</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="c"> C. Private</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="d"> D. Confidential / Restricted</label></div>
+      <div class="explanation" id="q10-exp">✅ <strong>Correct: D.</strong> Trade secrets (proprietary formulas, algorithms, processes) represent the highest-value information assets a commercial organisation possesses. Their disclosure to competitors would cause significant competitive and financial harm — the defining criterion for the Confidential/Restricted classification tier. This data requires the strongest access controls, encryption, and handling procedures.</div>
+    </div>
+
+    <button type="button" id="submitBtn">Submit All Answers</button>
+  </form>
+
+  <div class="results" id="results">
+    <h2>Your Results</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <p id="scoreMessage" style="font-size:1.2rem;margin:10px 0;font-weight:600;"></p>
+    <p id="scoreBreakdown" style="color:var(--text-light);"></p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="day-022-theory.html" class="nav-btn">← Review Theory</a>
+    <a href="day-023-theory.html" class="nav-btn">Day 23: Asset Ownership &amp; Roles →</a>
+  </div>
+</div>
+
+<script>
+const answers={q1:'c',q2:'c',q3:'b',q4:'d',q5:'c',q6:'a',q7:'b',q8:'d',q9:'b',q10:'d'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

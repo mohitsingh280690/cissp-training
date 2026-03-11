@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 32 – Data Roles Under GDPR</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+.nav-btn.disabled{background:#ccc;pointer-events:none;}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 32: Data Roles Under GDPR</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 32 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 32: Data Roles Under GDPR</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">GDPR Overview &amp; Core Principles</a></li>
+    <li><a href="#s4">Data Subject</a></li>
+    <li><a href="#s5">Data Controller</a></li>
+    <li><a href="#s6">Data Processor</a></li>
+    <li><a href="#s7">Data Protection Officer (DPO)</a></li>
+    <li><a href="#s8">Supervisory Authority &amp; Enforcement</a></li>
+    <li><a href="#s9">Data Processing Agreements &amp; Cross-Border Transfers</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security</td></tr>
+    <tr><td>Exam Weight</td><td>10%</td></tr>
+    <tr><td>Why CISSP Tests This</td><td>GDPR is the world's most consequential data protection regulation. CISSP expects candidates to understand the accountability framework — who decides, who processes, who oversees — because these roles determine legal liability and control placement.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based ("A company based in Germany shares EU customer data with a US cloud provider — which role is the cloud provider?"), definition-matching, and liability/obligation questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>D1 (compliance/legal frameworks, privacy laws), D3 (encryption for data protection), D5 (access control implementing data minimisation), D6 (audits of processing activities), D7 (breach notification timelines)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The exam will test whether you can distinguish <strong>controller</strong> from <strong>processor</strong>. The controller determines the <em>purposes and means</em> of processing. A company using a cloud CRM is the controller; Salesforce is the processor. If the processor starts using data for its own purposes, it becomes a controller — and liable.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip:</strong> GDPR questions often test <strong>accountability</strong> — the controller must demonstrate compliance, not merely claim it. The burden of proof is on the controller, not the regulator.
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Organizational Ownership</h3>
+  <p>GDPR responsibility sits at the <strong>C-suite level</strong>. The Data Protection Officer (DPO) reports to the highest management level. Legal, IT, HR, and marketing all handle personal data — making GDPR a cross-functional governance requirement, not just an IT compliance task.</p>
+  <h3>Implementation Reality</h3>
+  <p>In practice, organizations must maintain a <strong>Record of Processing Activities (ROPA)</strong>, appoint a DPO (if required), establish lawful bases for each processing activity, execute <strong>Data Processing Agreements (DPAs)</strong> with every processor, and implement technical/organizational measures (TOMs) like encryption, access controls, and pseudonymization.</p>
+  <h3>Failure Modes</h3>
+  <ul>
+    <li><strong>Meta/Facebook (2023):</strong> €1.2 billion fine for transferring EU data to the US without adequate safeguards after the Schrems II ruling invalidated Privacy Shield.</li>
+    <li><strong>British Airways (2020):</strong> £20 million fine for failing to protect customer data — the controller was held accountable even though technical implementation was delegated.</li>
+    <li>Organizations that treat GDPR as a checkbox exercise (one-time compliance) rather than ongoing accountability repeatedly fail audits when processing activities change without updated DPIAs or DPAs.</li>
+  </ul>
+  <h3>Business Impact</h3>
+  <p>Maximum fines: <strong>€20 million or 4% of global annual turnover</strong> (whichever is higher) for the most serious violations. Beyond fines, GDPR enforcement creates reputational damage, customer trust erosion, and operational disruption from enforcement orders that can halt data processing entirely.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. GDPR Overview &amp; Core Principles</h2>
+  <div class="definition">
+    <strong>GDPR (General Data Protection Regulation):</strong> EU Regulation 2016/679, effective 25 May 2018. It governs the processing of personal data of individuals within the EU/EEA, regardless of where the processor or controller is located. It has <strong>extraterritorial scope</strong> — if you process EU residents' data, GDPR applies to you.
+  </div>
+
+  <h3>The Seven GDPR Principles (Article 5)</h3>
+  <table>
+    <tr><th>#</th><th>Principle</th><th>Meaning</th></tr>
+    <tr><td>1</td><td>Lawfulness, Fairness, Transparency</td><td>Processing must have a lawful basis, be fair to the data subject, and be transparent about what is done with data</td></tr>
+    <tr><td>2</td><td>Purpose Limitation</td><td>Data collected for specified, explicit, legitimate purposes must not be further processed incompatibly</td></tr>
+    <tr><td>3</td><td>Data Minimisation</td><td>Only collect data that is adequate, relevant, and limited to what is necessary</td></tr>
+    <tr><td>4</td><td>Accuracy</td><td>Personal data must be accurate and kept up to date; inaccurate data must be erased or rectified without delay</td></tr>
+    <tr><td>5</td><td>Storage Limitation</td><td>Data kept in identifiable form only as long as necessary for the processing purpose</td></tr>
+    <tr><td>6</td><td>Integrity &amp; Confidentiality</td><td>Appropriate security measures to protect against unauthorised processing, loss, destruction, or damage</td></tr>
+    <tr><td>7</td><td>Accountability</td><td>The controller must be able to <em>demonstrate</em> compliance with all the above principles</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Key Concept — Six Lawful Bases for Processing (Article 6):</strong> Consent, Contract, Legal obligation, Vital interests, Public task, Legitimate interests. Consent is NOT the only lawful basis — the exam tests this distinction frequently. A hospital processing emergency medical data uses <strong>vital interests</strong>, not consent.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Data Subject</h2>
+  <div class="definition">
+    <strong>Data Subject:</strong> An identified or identifiable natural person whose personal data is being processed. The data subject is the individual the data is <em>about</em> — always a living human being, never a company or deceased person under GDPR.
+  </div>
+
+  <h3>Data Subject Rights (Articles 12–22)</h3>
+  <table>
+    <tr><th>Right</th><th>Article</th><th>Description</th></tr>
+    <tr><td>Right to be Informed</td><td>13–14</td><td>Know what data is collected, why, and by whom — privacy notices</td></tr>
+    <tr><td>Right of Access (SAR)</td><td>15</td><td>Obtain a copy of all personal data being processed, free of charge</td></tr>
+    <tr><td>Right to Rectification</td><td>16</td><td>Have inaccurate data corrected or incomplete data completed</td></tr>
+    <tr><td>Right to Erasure ("Right to be Forgotten")</td><td>17</td><td>Have personal data deleted when no longer necessary, consent withdrawn, or unlawfully processed</td></tr>
+    <tr><td>Right to Restrict Processing</td><td>18</td><td>Have processing paused while accuracy or lawfulness is contested</td></tr>
+    <tr><td>Right to Data Portability</td><td>20</td><td>Receive personal data in a structured, machine-readable format and transmit to another controller</td></tr>
+    <tr><td>Right to Object</td><td>21</td><td>Object to processing based on legitimate interests or direct marketing — controller must stop unless compelling grounds exist</td></tr>
+    <tr><td>Rights Related to Automated Decision-Making</td><td>22</td><td>Not be subject to solely automated decisions (including profiling) that produce legal or significant effects</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The <strong>Right to Erasure is not absolute</strong>. It does not apply when processing is necessary for exercising freedom of expression, compliance with a legal obligation, public health, archiving in the public interest, or establishment/exercise/defence of legal claims.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Data Controller</h2>
+  <div class="definition">
+    <strong>Data Controller (Article 4(7)):</strong> The natural or legal person, public authority, agency, or other body which, alone or jointly with others, determines the <strong>purposes and means</strong> of the processing of personal data. The controller is the decision-maker — "why" and "how" data is processed.
+  </div>
+
+  <h3>Controller Obligations</h3>
+  <ul>
+    <li><strong>Accountability &amp; compliance:</strong> Implement appropriate technical and organizational measures; maintain Records of Processing Activities (ROPA)</li>
+    <li><strong>Data Protection by Design and by Default (Article 25):</strong> Build privacy into systems from the start; default settings must be the most privacy-friendly</li>
+    <li><strong>Data Protection Impact Assessments (DPIA — Article 35):</strong> Mandatory before high-risk processing (profiling, large-scale special category data, systematic monitoring of public areas)</li>
+    <li><strong>Breach notification (Article 33):</strong> Notify the supervisory authority within <strong>72 hours</strong> of becoming aware of a personal data breach likely to result in risk to data subjects</li>
+    <li><strong>Data subject notification (Article 34):</strong> Notify affected data subjects without undue delay if the breach is likely to result in <strong>high risk</strong> to their rights and freedoms</li>
+    <li><strong>Appoint a DPO</strong> where required (public bodies, large-scale systematic monitoring, large-scale special category processing)</li>
+    <li><strong>Select processors carefully:</strong> Use only processors providing sufficient guarantees; execute a Data Processing Agreement</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>Key Concept — Joint Controllers (Article 26):</strong> When two or more controllers jointly determine purposes and means, they are <strong>joint controllers</strong> and must arrange (in a transparent manner) their respective responsibilities. Data subjects can exercise rights against any of them.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Data Processor</h2>
+  <div class="definition">
+    <strong>Data Processor (Article 4(8)):</strong> A natural or legal person, public authority, agency, or other body which processes personal data <strong>on behalf of the controller</strong>. The processor acts only on the controller's documented instructions — it does not decide why or how to process data.
+  </div>
+
+  <h3>Controller vs. Processor — Comparison</h3>
+  <table>
+    <tr><th>Attribute</th><th>Controller</th><th>Processor</th></tr>
+    <tr><td>Determines purpose?</td><td>Yes — decides <em>why</em></td><td>No — follows instructions</td></tr>
+    <tr><td>Determines means?</td><td>Yes — decides <em>how</em></td><td>May choose technical means only (e.g., which cloud platform), not essential means</td></tr>
+    <tr><td>GDPR liability</td><td>Primary — accountable for everything</td><td>Liable for breaching processor-specific obligations, acting outside instructions, or becoming a de facto controller</td></tr>
+    <tr><td>Breach notification</td><td>Must notify SA within 72 hours</td><td>Must notify the <em>controller</em> without undue delay</td></tr>
+    <tr><td>DPIA required?</td><td>Yes (controller performs DPIA)</td><td>Must assist the controller</td></tr>
+    <tr><td>DPO required?</td><td>If criteria met</td><td>If criteria met (independently assessed)</td></tr>
+    <tr><td>ROPA required?</td><td>Yes (Article 30(1))</td><td>Yes (Article 30(2)) — but more limited</td></tr>
+    <tr><td>Sub-processors</td><td>Must authorise sub-processors</td><td>Cannot engage sub-processors without written authorisation from controller</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Exam Tip:</strong> A processor that starts using data for its own purposes (e.g., analytics for product improvement beyond the contracted service) <strong>becomes a controller</strong> for that new purpose — and assumes full controller liability. This is a favourite exam scenario.
+  </div>
+
+  <h3>Sub-Processors</h3>
+  <p>A processor may not engage another processor (sub-processor) without prior <strong>specific or general written authorisation</strong> from the controller. If general authorisation is given, the processor must inform the controller of any intended changes (additions or replacements) to sub-processors, giving the controller the opportunity to object.</p>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Data Protection Officer (DPO)</h2>
+  <div class="definition">
+    <strong>Data Protection Officer (DPO — Articles 37–39):</strong> An independent, expert role designated by the controller or processor to oversee GDPR compliance. The DPO is not personally liable for non-compliance — the controller/processor retains liability.
+  </div>
+
+  <h3>When Is a DPO Mandatory?</h3>
+  <ul>
+    <li>Processing carried out by a <strong>public authority or body</strong> (except courts acting in judicial capacity)</li>
+    <li>Core activities require <strong>regular and systematic monitoring</strong> of data subjects on a large scale</li>
+    <li>Core activities involve <strong>large-scale processing of special categories</strong> (health, biometric, genetic, racial/ethnic, political, religious, trade union, sexual orientation, criminal convictions)</li>
+  </ul>
+
+  <h3>DPO Requirements &amp; Protections</h3>
+  <table>
+    <tr><th>Requirement</th><th>Detail</th></tr>
+    <tr><td>Expertise</td><td>Expert knowledge of data protection law and practices — GDPR does not mandate a specific certification</td></tr>
+    <tr><td>Independence</td><td>Must not receive instructions on how to perform tasks; reports to highest management level</td></tr>
+    <tr><td>No conflicts of interest</td><td>Cannot hold a position that determines purposes/means of processing (e.g., cannot be CISO, IT director, or head of marketing simultaneously)</td></tr>
+    <tr><td>Protection from dismissal</td><td>Cannot be dismissed or penalised for performing DPO tasks</td></tr>
+    <tr><td>Resources</td><td>Controller/processor must provide necessary resources (budget, staff, access to operations)</td></tr>
+    <tr><td>Direct reporting line</td><td>Reports directly to the highest management level of the controller/processor</td></tr>
+    <tr><td>Contact point</td><td>Serves as contact for data subjects and supervisory authorities</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Exam Trap — DPO Conflict of Interest:</strong> The DPO <strong>cannot simultaneously be</strong> the CISO, IT Director, CEO, CFO, Head of HR, or Head of Marketing — because these roles determine purposes/means of processing, creating a conflict of interest. A common exam distractor claims the CISO should serve as DPO.
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Supervisory Authority &amp; Enforcement</h2>
+  <div class="definition">
+    <strong>Supervisory Authority (SA — Articles 51–59):</strong> An independent public body established by each EU/EEA member state to monitor GDPR application, handle complaints, and impose sanctions. Each member state has at least one SA (e.g., ICO in the UK, CNIL in France, BfDI in Germany).
+  </div>
+
+  <h3>SA Powers</h3>
+  <table>
+    <tr><th>Power Type</th><th>Examples</th></tr>
+    <tr><td>Investigative</td><td>Order controllers/processors to provide information; carry out audits; access premises; obtain access to data</td></tr>
+    <tr><td>Corrective</td><td>Issue warnings; reprimands; order compliance; order communication of breach to data subject; impose temporary or permanent processing bans; order suspension of data flows; impose fines</td></tr>
+    <tr><td>Advisory</td><td>Issue opinions; approve codes of conduct; accredit certification bodies</td></tr>
+  </table>
+
+  <h3>Fine Structure</h3>
+  <table>
+    <tr><th>Tier</th><th>Maximum Fine</th><th>Violations</th></tr>
+    <tr><td>Lower Tier</td><td>€10 million or 2% of global annual turnover</td><td>Violations of controller/processor obligations, DPO provisions, certification body requirements</td></tr>
+    <tr><td>Upper Tier</td><td>€20 million or 4% of global annual turnover</td><td>Violations of processing principles, data subject rights, international transfer rules, non-compliance with SA orders</td></tr>
+  </table>
+
+  <h3>Lead Supervisory Authority &amp; One-Stop-Shop</h3>
+  <p>For cross-border processing, the <strong>lead SA</strong> is determined by the location of the controller's "main establishment" (where decisions about purposes and means are made). This is the <strong>one-stop-shop mechanism</strong> — the controller deals primarily with one SA, which coordinates with other "concerned" SAs through the consistency mechanism (Article 63).</p>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Data Processing Agreements &amp; Cross-Border Transfers</h2>
+  <h3>Data Processing Agreements (DPA — Article 28)</h3>
+  <p>A DPA is a <strong>legally binding contract</strong> between controller and processor that must include:</p>
+  <ul>
+    <li>Subject matter, duration, nature, and purpose of processing</li>
+    <li>Type of personal data and categories of data subjects</li>
+    <li>Controller's obligations and rights</li>
+    <li>Processor must: process only on documented instructions; ensure confidentiality; implement appropriate security measures; assist with data subject requests and DPIAs; delete or return data at end of service; make available all information to demonstrate compliance and allow audits</li>
+  </ul>
+
+  <h3>Cross-Border Data Transfer Mechanisms</h3>
+  <p>GDPR prohibits transferring personal data outside the EU/EEA unless an adequate level of protection is ensured. Current mechanisms:</p>
+  <table>
+    <tr><th>Mechanism</th><th>Description</th></tr>
+    <tr><td>Adequacy Decision (Article 45)</td><td>European Commission determines a third country provides adequate protection — transfers permitted freely (e.g., Japan, UK, Canada, South Korea, Israel, Switzerland, New Zealand)</td></tr>
+    <tr><td>Standard Contractual Clauses (SCCs — Article 46(2)(c))</td><td>Pre-approved contractual terms between exporter and importer — most widely used mechanism post-Schrems II</td></tr>
+    <tr><td>Binding Corporate Rules (BCRs — Article 47)</td><td>Internal rules within a multinational corporate group approved by an SA — complex and costly but covers intra-group transfers</td></tr>
+    <tr><td>EU-US Data Privacy Framework (DPF)</td><td>Adequacy decision adopted July 2023 replacing invalidated Privacy Shield — US companies self-certify; subject to future legal challenges</td></tr>
+    <tr><td>Derogations (Article 49)</td><td>Explicit consent, contractual necessity, important public interest, legal claims, vital interests — limited to non-repetitive, occasional transfers</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Exam Trap — Schrems II:</strong> The 2020 Schrems II ruling (CJEU) <strong>invalidated Privacy Shield</strong> and required organizations using SCCs to conduct <strong>Transfer Impact Assessments (TIAs)</strong> to evaluate whether the recipient country's laws undermine the protections offered by SCCs. Simply having SCCs is no longer sufficient — supplementary measures may be needed.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 GDPR Roles — "C-P-S-D-S":</strong><br>
+    <strong>C</strong>ontroller decides purpose → <strong>P</strong>rocessor follows instructions → <strong>S</strong>ubject owns the data → <strong>D</strong>PO oversees compliance → <strong>S</strong>upervisory Authority enforces<br><br>
+    Memory hook: <em>"Controller Commands; Processor Processes; Subject owns; DPO watches; SA enforces"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 7 GDPR Principles — "L-P-D-A-S-I-A":</strong><br>
+    <strong>L</strong>awfulness, <strong>P</strong>urpose limitation, <strong>D</strong>ata minimisation, <strong>A</strong>ccuracy, <strong>S</strong>torage limitation, <strong>I</strong>ntegrity &amp; Confidentiality, <strong>A</strong>ccountability<br><br>
+    Memory hook: <em>"Lawyers Prefer Data Accuracy — Securely, Isn't that Accountable?"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Data Subject Rights — "I ACCESS DP":</strong><br>
+    <strong>I</strong>nformed, <strong>A</strong>ccess, <strong>C</strong>orrection (rectification), <strong>C</strong>urtail (restrict), <strong>E</strong>rasure, <strong>S</strong>witching (portability), <strong>S</strong>top (object), <strong>D</strong>ecision-making (automated), <strong>P</strong>rofiling<br><br>
+    Memory hook: <em>"I ACCESS My Data Protection"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Breach Notification — "72 → SA; High Risk → Subject":</strong><br>
+    Controller notifies <strong>Supervisory Authority within 72 hours</strong> of awareness<br>
+    Processor notifies <strong>Controller without undue delay</strong><br>
+    Controller notifies <strong>Data Subjects without undue delay</strong> if high risk to rights/freedoms<br><br>
+    Memory hook: <em>"72 to the SA, ASAP to the Subject (if high risk)"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Controller vs. Processor — "Purpose Test":</strong><br>
+    Ask: <em>"Who decides WHY this data is processed?"</em> → That's the controller<br>
+    Ask: <em>"Who only does WHAT they're told with the data?"</em> → That's the processor<br>
+    If the processor starts deciding WHY → they become a controller
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Transfer Mechanisms — "A-S-B-D":</strong><br>
+    <strong>A</strong>dequacy decisions, <strong>S</strong>CCs, <strong>B</strong>CRs, <strong>D</strong>erogations<br><br>
+    Memory hook: <em>"A Safe Bridge for Data"</em>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>Key Point</th></tr>
+    <tr><td>Data Controller</td><td>Determines purposes and means of processing; bears primary accountability; must demonstrate compliance</td></tr>
+    <tr><td>Data Processor</td><td>Processes on behalf of controller; acts only on documented instructions; becomes controller if it exceeds its mandate</td></tr>
+    <tr><td>Data Subject</td><td>The living individual whose data is processed; has 8 rights under GDPR including erasure, portability, and objection</td></tr>
+    <tr><td>DPO</td><td>Independent expert role; reports to highest management; mandatory for public bodies, large-scale monitoring, and special categories; cannot also be CISO/IT Director</td></tr>
+    <tr><td>Supervisory Authority</td><td>Independent public body per member state; investigative, corrective, and advisory powers; fines up to €20M / 4% global turnover</td></tr>
+    <tr><td>DPA</td><td>Mandatory contract between controller and processor; specifies processing details, security requirements, audit rights, and data deletion obligations</td></tr>
+    <tr><td>Breach Notification</td><td>72 hours to SA from controller awareness; processor must notify controller without undue delay; subjects notified if high risk</td></tr>
+    <tr><td>Cross-Border Transfers</td><td>Adequacy decisions, SCCs (+ TIA post-Schrems II), BCRs, or derogations; Privacy Shield invalid; EU-US DPF is current framework</td></tr>
+    <tr><td>Accountability Principle</td><td>The controller must not only comply but must be able to <em>prove</em> compliance — ROPA, DPIAs, DPAs, training records, policies</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-031-theory.html" class="nav-btn">← Day 31: Data Loss Prevention</a>
+  <a href="day-032-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

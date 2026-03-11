@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 32 – MCQ: Data Roles Under GDPR</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:26px;margin-bottom:22px;transition:border-color .3s;}
+.question-card.correct{border-color:var(--green);background:#f1f8f1;}
+.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;font-weight:700;font-size:1rem;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.question-text{font-size:1.05rem;font-weight:600;line-height:1.5;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:10px;}
+.options label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border-radius:6px;border:1px solid var(--border);transition:background .2s;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9;border-color:var(--green);font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec;border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.explanation{display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#7f0000;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#bbb;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:30px;text-align:center;margin-bottom:28px;}
+.results h2{color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.2rem;margin-bottom:8px;font-weight:600;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 32 – Quiz: Data Roles Under GDPR</h1>
+  <div class="subtitle">Domain 2 – Asset Security</div>
+  <div class="meta">
+    <span>📅 Day 32 of 140</span>
+    <span>❓ 10 Questions</span>
+    <span>⏱️ ~15 min</span>
+    <span>🎯 Passing Score: 7/10</span>
+  </div>
+</div>
+<div class="container">
+  <div class="instructions">
+    <strong>📋 Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> when done. Correct answers and detailed explanations will appear immediately after submission. Passing threshold is <strong>7 out of 10 (70%)</strong>.
+  </div>
+
+  <form id="quizForm">
+
+    <!-- Q1 -->
+    <div class="question-card" id="q1-card">
+      <div class="question-header">
+        <span class="question-number">1</span>
+        <span class="question-text">A multinational retailer headquartered in Berlin collects customer purchase data across its EU stores. It uses a US-based cloud analytics provider to process this data for marketing insights. Under GDPR, which entity is the data controller?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q1" value="a"> The US-based cloud analytics provider, because it processes the data</label></li>
+        <li><label><input type="radio" name="q1" value="b"> The multinational retailer, because it determines the purposes and means of processing</label></li>
+        <li><label><input type="radio" name="q1" value="c"> Both entities equally, as they are joint controllers by default</label></li>
+        <li><label><input type="radio" name="q1" value="d"> The EU Supervisory Authority, as it governs all data processing within the EU</label></li>
+      </ul>
+      <div class="explanation" id="q1-exp"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="q2-card">
+      <div class="question-header">
+        <span class="question-number">2</span>
+        <span class="question-text">Under GDPR, a data processor discovers a personal data breach at 2:00 AM on Monday. By when must the data controller notify the supervisory authority?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q2" value="a"> Within 72 hours of the processor discovering the breach (by 2:00 AM Thursday)</label></li>
+        <li><label><input type="radio" name="q2" value="b"> Within 72 hours of the controller becoming aware of the breach</label></li>
+        <li><label><input type="radio" name="q2" value="c"> Within 24 hours of any party in the processing chain becoming aware</label></li>
+        <li><label><input type="radio" name="q2" value="d"> Within 30 days, as GDPR allows a reasonable investigation period before notification</label></li>
+      </ul>
+      <div class="explanation" id="q2-exp"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="q3-card">
+      <div class="question-header">
+        <span class="question-number">3</span>
+        <span class="question-text">A hospital's CISO is appointed as the Data Protection Officer (DPO) to save costs. Which GDPR requirement does this arrangement MOST likely violate?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q3" value="a"> The requirement for the DPO to hold a certified data protection qualification</label></li>
+        <li><label><input type="radio" name="q3" value="b"> The prohibition against the DPO holding a position that creates a conflict of interest with DPO duties</label></li>
+        <li><label><input type="radio" name="q3" value="c"> The requirement for the DPO to be an external consultant rather than an employee</label></li>
+        <li><label><input type="radio" name="q3" value="d"> The requirement that the DPO must be approved by the supervisory authority before appointment</label></li>
+      </ul>
+      <div class="explanation" id="q3-exp"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="q4-card">
+      <div class="question-header">
+        <span class="question-number">4</span>
+        <span class="question-text">A data subject requests that a social media platform erase all their personal data under Article 17. The platform has an ongoing legal dispute with the individual. Which of the following is the BEST response?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q4" value="a"> Comply immediately — the right to erasure is absolute under GDPR</label></li>
+        <li><label><input type="radio" name="q4" value="b"> Refuse entirely — ongoing disputes override all data subject rights</label></li>
+        <li><label><input type="radio" name="q4" value="c"> Refuse the erasure request for data necessary for the establishment, exercise, or defence of legal claims, but erase all other data not needed for this purpose</label></li>
+        <li><label><input type="radio" name="q4" value="d"> Delete the data but retain an anonymised copy for the legal dispute</label></li>
+      </ul>
+      <div class="explanation" id="q4-exp"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="q5-card">
+      <div class="question-header">
+        <span class="question-number">5</span>
+        <span class="question-text">After the Schrems II ruling, an EU company wants to transfer personal data to a US processor using Standard Contractual Clauses (SCCs). Which additional step is NOW required?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q5" value="a"> Register the SCCs with the European Data Protection Board before any transfer</label></li>
+        <li><label><input type="radio" name="q5" value="b"> Conduct a Transfer Impact Assessment (TIA) to evaluate whether the recipient country's laws undermine the protections in the SCCs</label></li>
+        <li><label><input type="radio" name="q5" value="c"> Obtain explicit consent from every data subject whose data will be transferred</label></li>
+        <li><label><input type="radio" name="q5" value="d"> Encrypt all data using AES-256 before transfer, which is the only supplementary measure the CJEU recognises</label></li>
+      </ul>
+      <div class="explanation" id="q5-exp"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="q6-card">
+      <div class="question-header">
+        <span class="question-number">6</span>
+        <span class="question-text">A cloud storage provider processes data for hundreds of EU clients. Without obtaining the controller's written authorisation, it engages a new sub-processor to handle data backups. Which GDPR provision has the cloud provider violated?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q6" value="a"> Article 25 — Data protection by design and by default</label></li>
+        <li><label><input type="radio" name="q6" value="b"> Article 28 — Requirement for processor to obtain written authorisation before engaging sub-processors</label></li>
+        <li><label><input type="radio" name="q6" value="c"> Article 35 — Failure to conduct a Data Protection Impact Assessment</label></li>
+        <li><label><input type="radio" name="q6" value="d"> Article 37 — Failure to appoint a Data Protection Officer</label></li>
+      </ul>
+      <div class="explanation" id="q6-exp"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card" id="q7-card">
+      <div class="question-header">
+        <span class="question-number">7</span>
+        <span class="question-text">Which of the following is NOT one of the seven GDPR principles listed in Article 5?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q7" value="a"> Data minimisation</label></li>
+        <li><label><input type="radio" name="q7" value="b"> Purpose limitation</label></li>
+        <li><label><input type="radio" name="q7" value="c"> Data sovereignty</label></li>
+        <li><label><input type="radio" name="q7" value="d"> Accountability</label></li>
+      </ul>
+      <div class="explanation" id="q7-exp"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card" id="q8-card">
+      <div class="question-header">
+        <span class="question-number">8</span>
+        <span class="question-text">A SaaS analytics company contracted as a processor begins using aggregated customer data from its EU clients to train its own machine learning models for product improvement — without the controllers' authorisation. What is the GDPR consequence?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q8" value="a"> No consequence — aggregated data is no longer personal data</label></li>
+        <li><label><input type="radio" name="q8" value="b"> The company becomes a data controller for this new processing purpose and assumes full controller liability</label></li>
+        <li><label><input type="radio" name="q8" value="c"> The original controllers become joint controllers with the SaaS company</label></li>
+        <li><label><input type="radio" name="q8" value="d"> The supervisory authority must reclassify the company before any liability attaches</label></li>
+      </ul>
+      <div class="explanation" id="q8-exp"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="q9-card">
+      <div class="question-header">
+        <span class="question-number">9</span>
+        <span class="question-text">Under GDPR, which lawful basis would MOST appropriately apply when a hospital needs to process an unconscious patient's medical records in an emergency?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q9" value="a"> Consent — because medical data always requires explicit consent</label></li>
+        <li><label><input type="radio" name="q9" value="b"> Legitimate interests — because the hospital has a business interest in treating patients</label></li>
+        <li><label><input type="radio" name="q9" value="c"> Vital interests — because processing is necessary to protect the life of the data subject</label></li>
+        <li><label><input type="radio" name="q9" value="d"> Public task — because hospitals serve the public interest</label></li>
+      </ul>
+      <div class="explanation" id="q9-exp"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="q10-card">
+      <div class="question-header">
+        <span class="question-number">10</span>
+        <span class="question-text">An EU-based company processes personal data of EU residents and has operations in France, Germany, and Italy. Its main decision-making centre for data processing is in France. Under the one-stop-shop mechanism, which supervisory authority is the lead SA?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q10" value="a"> The European Data Protection Board (EDPB), which coordinates all cross-border cases</label></li>
+        <li><label><input type="radio" name="q10" value="b"> The supervisory authority in each country independently, as GDPR does not recognise a lead SA</label></li>
+        <li><label><input type="radio" name="q10" value="c"> The French supervisory authority (CNIL), because the main establishment where data processing decisions are made is in France</label></li>
+        <li><label><input type="radio" name="q10" value="d"> The largest SA by budget, which is Germany's BfDI</label></li>
+      </ul>
+      <div class="explanation" id="q10-exp"></div>
+    </div>
+
+  </form>
+
+  <div class="submit-section">
+    <button id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+  </div>
+
+  <div class="results" id="results">
+    <h2>Quiz Complete!</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <div class="score-message" id="scoreMessage"></div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="day-032-theory.html" class="nav-btn">← Back to Theory</a>
+    <a href="day-033-theory.html" class="nav-btn">Day 33: Domain 2 Review →</a>
+  </div>
+</div>
+
+<script>
+const answers = {
+  q1:'b', q2:'b', q3:'b', q4:'c', q5:'b',
+  q6:'b', q7:'c', q8:'b', q9:'c', q10:'c'
+};
+
+const explanations = {
+  q1: {
+    correct: "Correct. The retailer determines the purposes (marketing insights) and means (using a cloud provider) of processing — making it the data controller under Article 4(7). The US cloud analytics provider is the data processor, acting on the retailer's instructions.",
+    incorrect: "Incorrect. The data controller is the entity that determines the purposes and means of processing. The retailer decides WHY (marketing) and HOW (cloud analytics) data is processed. The cloud provider merely processes on instruction — it is the processor. They are not automatically joint controllers."
+  },
+  q2: {
+    correct: "Correct. Article 33 requires the controller to notify the SA within 72 hours of the controller becoming aware of the breach. The clock starts when the controller learns of it — not when the processor discovered it. The processor must notify the controller 'without undue delay' (Article 33(2)), and then the controller's 72-hour window begins.",
+    incorrect: "Incorrect. The 72-hour clock runs from when the controller becomes aware, not from the processor's discovery. The processor must notify the controller without undue delay, and only then does the controller's 72 hours begin. GDPR does not use 24-hour or 30-day notification windows."
+  },
+  q3: {
+    correct: "Correct. GDPR Article 38(6) requires that the DPO does not hold a position that creates a conflict of interest. The CISO determines security means and measures — which are means of processing — creating a direct conflict. The DPO cannot simultaneously determine purposes/means of processing and oversee compliance with GDPR.",
+    incorrect: "Incorrect. GDPR does not require a specific certification for the DPO, does not require the DPO to be external, and does not require SA approval before appointment. The issue is conflict of interest (Article 38(6)): the CISO determines security measures (means of processing), which conflicts with the DPO's independent oversight role."
+  },
+  q4: {
+    correct: "Correct. Article 17(3)(e) provides an exception to the right to erasure for data necessary for the establishment, exercise, or defence of legal claims. The platform should retain only the data needed for the legal dispute and erase everything else — applying data minimisation alongside the exception.",
+    incorrect: "Incorrect. The right to erasure is NOT absolute — Article 17(3) lists exceptions including legal claims, freedom of expression, public health, and archiving. The correct approach is to retain only data necessary for the legal dispute and erase the rest. You cannot refuse entirely, as the exception is narrow."
+  },
+  q5: {
+    correct: "Correct. The CJEU's Schrems II ruling (2020) established that organisations using SCCs must conduct a Transfer Impact Assessment (TIA) to evaluate whether the legal framework in the recipient country provides equivalent protection. If not, supplementary measures (encryption, pseudonymisation, contractual commitments) may be needed.",
+    incorrect: "Incorrect. Schrems II requires a Transfer Impact Assessment — not registration, not universal consent, and not just encryption. The TIA evaluates whether the destination country's surveillance laws undermine SCC protections. Supplementary measures are context-dependent, not limited to AES-256."
+  },
+  q6: {
+    correct: "Correct. Article 28(2) explicitly requires that a processor shall not engage another processor (sub-processor) without prior specific or general written authorisation of the controller. Engaging a sub-processor without this authorisation is a direct violation of the processor's obligations under the DPA.",
+    incorrect: "Incorrect. The violation is Article 28 — the processor must obtain written authorisation before engaging sub-processors. Article 25 covers data protection by design, Article 35 covers DPIAs, and Article 37 covers DPO appointment — none relate to the sub-processor authorisation requirement."
+  },
+  q7: {
+    correct: "Correct. The seven GDPR principles in Article 5 are: Lawfulness/Fairness/Transparency, Purpose Limitation, Data Minimisation, Accuracy, Storage Limitation, Integrity & Confidentiality, and Accountability. 'Data sovereignty' is not a GDPR principle — it is a broader geopolitical concept about nations controlling data within their borders.",
+    incorrect: "Incorrect. Data sovereignty is NOT one of the seven GDPR principles. The actual principles are: Lawfulness/Fairness/Transparency, Purpose Limitation, Data Minimisation, Accuracy, Storage Limitation, Integrity & Confidentiality, and Accountability."
+  },
+  q8: {
+    correct: "Correct. When a processor processes data for its own purposes beyond the controller's instructions, it becomes a controller for that new processing activity under Article 28(10). The SaaS company is now a controller for the ML training purpose and bears full controller obligations and liability — including needing its own lawful basis.",
+    incorrect: "Incorrect. If aggregation does not truly anonymise the data (and GDPR's threshold for anonymisation is high), the data remains personal. The key issue is that the processor exceeded its mandate by processing for its own purpose — this makes it a controller for that activity regardless of aggregation. The SA does not need to reclassify it."
+  },
+  q9: {
+    correct: "Correct. Article 6(1)(d) — vital interests — applies when processing is necessary to protect the life of the data subject or another person. An unconscious patient cannot give consent, and vital interests is the appropriate lawful basis for emergency medical treatment.",
+    incorrect: "Incorrect. Consent cannot be obtained from an unconscious patient. Legitimate interests cannot be used by public authorities (hospitals often qualify) for their core tasks. Vital interests (Article 6(1)(d)) is the correct basis — it specifically covers situations where the data subject's life is at risk and consent is impossible."
+  },
+  q10: {
+    correct: "Correct. Under the one-stop-shop mechanism (Articles 56), the lead supervisory authority is the SA of the member state where the controller's main establishment is located — defined as the place where decisions about purposes and means of processing are made. Since the decision-making centre is in France, CNIL is the lead SA.",
+    incorrect: "Incorrect. The EDPB coordinates but does not act as lead SA. The lead SA is determined by the controller's main establishment — where decisions about data processing are made. Since that is France, CNIL is the lead SA. Budget size is irrelevant to lead SA determination."
+  }
+};
+
+function submitQuiz() {
+  let score = 0;
+  const total = 10;
+  document.getElementById('submitBtn').disabled = true;
+  document.querySelectorAll('input[type=radio]').forEach(r => r.disabled = true);
+
+  for (let i = 1; i <= total; i++) {
+    const key = 'q' + i;
+    const card = document.getElementById(key + '-card');
+    const selected = document.querySelector('input[name="' + key + '"]:checked');
+    const expDiv = document.getElementById(key + '-exp');
+    const correct = answers[key];
+
+    const correctLabel = document.querySelector('input[name="' + key + '"][value="' + correct + '"]')?.parentElement;
+    if (correctLabel) correctLabel.classList.add('correct-answer');
+
+    if (selected) {
+      if (selected.value === correct) {
+        score++;
+        card.classList.add('correct');
+        expDiv.className = 'explanation correct-exp';
+        expDiv.innerHTML = '✅ ' + explanations[key].correct;
+      } else {
+        card.classList.add('incorrect');
+        selected.parentElement.classList.add('wrong-answer');
+        expDiv.className = 'explanation incorrect-exp';
+        expDiv.innerHTML = '❌ ' + explanations[key].incorrect;
+      }
+    } else {
+      card.classList.add('incorrect');
+      expDiv.className = 'explanation incorrect-exp';
+      expDiv.innerHTML = '⚠️ Not answered. ' + explanations[key].incorrect;
+    }
+    expDiv.style.display = 'block';
+  }
+
+  const pct = Math.round(score / total * 100);
+  const pass = score >= 7;
+  document.getElementById('scoreDisplay').textContent = score + '/10';
+  document.getElementById('scoreDisplay').className = 'score-display ' + (pass ? 'pass' : 'fail');
+  document.getElementById('scoreMessage').textContent = pass ? '🎉 PASSED — Well done!' : '📚 FAILED — Review the explanations above and revisit the theory.';
+  document.getElementById('scoreBreakdown').textContent = score + ' correct out of 10 (' + pct + '%) — Passing threshold: 7/10 (70%)';
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

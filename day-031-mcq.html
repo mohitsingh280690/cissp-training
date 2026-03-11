@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Day 31 MCQ – Data Loss Prevention | CISSP Study</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:2rem;text-align:center;}
+.header h1{font-size:1.9rem;margin-bottom:.4rem;}
+.header .subtitle{opacity:.85;font-size:1rem;}
+.container{max-width:860px;margin:0 auto;padding:2rem;}
+.quiz-info{background:#fff;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;gap:2rem;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.quiz-info span{font-size:.9rem;color:var(--text-light);}
+.quiz-info strong{color:#4a148c;}
+.question-card{background:#fff;border-radius:8px;padding:1.75rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #ce93d8;}
+.question-card h3{font-size:1rem;margin-bottom:1rem;color:var(--text);}
+.question-num{color:#7b1fa2;font-weight:700;}
+.options{list-style:none;padding:0;}
+.options li{margin:.4rem 0;}
+.options label{display:flex;align-items:flex-start;gap:.65rem;padding:.6rem .9rem;border-radius:6px;cursor:pointer;border:1px solid var(--border);transition:background .15s;}
+.options label:hover{background:#f3e5f5;}
+.options input[type=radio]{margin-top:.2rem;accent-color:#7b1fa2;flex-shrink:0;}
+.feedback{margin-top:1rem;padding:.85rem 1rem;border-radius:6px;font-size:.9rem;display:none;}
+.feedback.correct{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.feedback.incorrect{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.btn{background:#7b1fa2;color:#fff;border:none;padding:.7rem 1.75rem;border-radius:6px;font-size:1rem;cursor:pointer;font-weight:600;}
+.btn:hover{background:#4a148c;}
+.btn-outline{background:transparent;border:2px solid #7b1fa2;color:#7b1fa2;padding:.6rem 1.5rem;border-radius:6px;font-size:.95rem;cursor:pointer;font-weight:600;margin-right:.75rem;}
+.btn-outline:hover{background:#7b1fa2;color:#fff;}
+.submit-area{text-align:center;margin:2rem 0;}
+.results{background:#fff;border-radius:8px;padding:2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1);display:none;margin-top:1.5rem;}
+.results h2{font-size:1.8rem;margin-bottom:.5rem;color:#4a148c;}
+.score-display{font-size:3.5rem;font-weight:700;color:#4a148c;margin:1rem 0;}
+.score-display span{font-size:1.5rem;color:var(--text-light);}
+.pass-msg{font-size:1.1rem;font-weight:600;padding:.6rem 1.25rem;border-radius:20px;display:inline-block;margin-bottom:1.25rem;}
+.pass{background:#e8f5e9;color:var(--green);}
+.fail{background:#fce4ec;color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;align-items:center;background:#fff;border-top:3px solid #4a148c;padding:1.25rem 2rem;margin-top:2rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.nav-footer a{background:#7b1fa2;color:#fff;padding:.6rem 1.25rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;}
+.nav-footer a:hover{background:#4a148c;}
+.correct-opt label{background:#e8f5e9!important;border-color:var(--green)!important;}
+.wrong-opt label{background:#fce4ec!important;border-color:var(--red)!important;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 31 Practice Quiz</h1>
+  <div class="subtitle">Data Loss Prevention — Domain 2: Asset Security</div>
+</div>
+<div class="container">
+  <div class="quiz-info">
+    <span>📝 <strong>10 Questions</strong></span>
+    <span>🎯 <strong>Pass Mark: 7/10</strong></span>
+    <span>⏱️ <strong>~12 minutes</strong></span>
+    <span>📊 <strong>Intermediate</strong></span>
+  </div>
+  <form id="quizForm">
+
+    <div class="question-card" id="qc1">
+      <h3><span class="question-num">Q1.</span> A CISO wants to prevent employees from emailing sensitive customer records to their personal Gmail accounts. Which DLP deployment type MOST directly addresses this threat vector?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q1" value="a"> A. Cloud DLP scanning at-rest data in SharePoint</label></li>
+        <li><label><input type="radio" name="q1" value="b"> B. Network DLP inline at the email gateway inspecting outbound SMTP traffic</label></li>
+        <li><label><input type="radio" name="q1" value="c"> C. Endpoint DLP blocking USB and printing</label></li>
+        <li><label><input type="radio" name="q1" value="d"> D. CASB API integration with Office 365</label></li>
+      </ul>
+      <div class="feedback" id="fb1"></div>
+    </div>
+
+    <div class="question-card" id="qc2">
+      <h3><span class="question-num">Q2.</span> A healthcare organization deploys Network DLP at its internet gateway. The SOC reports that the DLP system is not detecting any sensitive PHI in HTTPS web uploads even though users are known to use web-based file sharing. What is the MOST likely cause?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q2" value="a"> A. Network DLP cannot detect PHI — only credit card numbers</label></li>
+        <li><label><input type="radio" name="q2" value="b"> B. The organization should use Endpoint DLP instead of Network DLP</label></li>
+        <li><label><input type="radio" name="q2" value="c"> C. HTTPS traffic is encrypted end-to-end — without SSL/TLS inspection (SSL decryption) the DLP cannot inspect the content</label></li>
+        <li><label><input type="radio" name="q2" value="d"> D. DLP only operates on TCP port 80 (HTTP), not port 443 (HTTPS)</label></li>
+      </ul>
+      <div class="feedback" id="fb2"></div>
+    </div>
+
+    <div class="question-card" id="qc3">
+      <h3><span class="question-num">Q3.</span> An organization's DLP system is generating hundreds of false positive alerts per day — employees' product serial numbers (formatted as 16-digit strings) are triggering the credit card PAN detection rule. Which tuning approach BEST reduces false positives while maintaining PAN detection?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q3" value="a"> A. Add a Luhn algorithm validation requirement so only mathematically valid credit card numbers trigger the rule</label></li>
+        <li><label><input type="radio" name="q3" value="b"> B. Disable the credit card DLP rule entirely until a perfect solution is found</label></li>
+        <li><label><input type="radio" name="q3" value="c"> C. Switch the DLP system to monitor-only mode so false positives don't cause disruption</label></li>
+        <li><label><input type="radio" name="q3" value="d"> D. Require all employees to label sensitive files before DLP can scan them</label></li>
+      </ul>
+      <div class="feedback" id="fb3"></div>
+    </div>
+
+    <div class="question-card" id="qc4">
+      <h3><span class="question-num">Q4.</span> A software company wants its DLP system to detect if proprietary source code files (which have unique content and no standard format) are being exfiltrated. Which content inspection technique is MOST appropriate?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q4" value="a"> A. Regular expressions — pattern-match file extensions like .py, .java, .cpp</label></li>
+        <li><label><input type="radio" name="q4" value="b"> B. Data fingerprinting (exact data matching) — create cryptographic fingerprints of the specific source files and detect matches in outbound transfers</label></li>
+        <li><label><input type="radio" name="q4" value="c"> C. File type blocking — block all .zip archives since developers often zip code before exfiltrating</label></li>
+        <li><label><input type="radio" name="q4" value="d"> D. Keyword matching — detect words like "function" and "class" in outbound files</label></li>
+      </ul>
+      <div class="feedback" id="fb4"></div>
+    </div>
+
+    <div class="question-card" id="qc5">
+      <h3><span class="question-num">Q5.</span> A remote employee working offline (disconnected from VPN) copies a Confidential financial model to a personal USB drive. Which DLP type would DETECT and BLOCK this action, and why?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q5" value="a"> A. Endpoint DLP — it operates as a local agent on the device regardless of network connectivity</label></li>
+        <li><label><input type="radio" name="q5" value="b"> B. Network DLP — it monitors all traffic at the corporate gateway</label></li>
+        <li><label><input type="radio" name="q5" value="c"> C. Cloud DLP — it monitors files synced to cloud storage services</label></li>
+        <li><label><input type="radio" name="q5" value="d"> D. CASB — it intercepts cloud-bound traffic via forward proxy</label></li>
+      </ul>
+      <div class="feedback" id="fb5"></div>
+    </div>
+
+    <div class="question-card" id="qc6">
+      <h3><span class="question-num">Q6.</span> An organization is implementing DLP for the first time. The security manager recommends deploying immediately in block mode to provide maximum protection. A senior analyst objects. What is the CORRECT recommended deployment sequence?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q6" value="a"> A. Block → Alert → Monitor</label></li>
+        <li><label><input type="radio" name="q6" value="b"> B. Monitor → Alert → Block (tune before enforcing to avoid blocking legitimate business activity)</label></li>
+        <li><label><input type="radio" name="q6" value="c"> C. Alert → Monitor → Block</label></li>
+        <li><label><input type="radio" name="q6" value="d"> D. Block mode from day one — tuning can occur post-deployment without risk</label></li>
+      </ul>
+      <div class="feedback" id="fb6"></div>
+    </div>
+
+    <div class="question-card" id="qc7">
+      <h3><span class="question-num">Q7.</span> A CASB is deployed to extend DLP policies to cloud SaaS applications. For discovering sensitive data that has ALREADY been stored in SharePoint Online (not just monitoring new uploads), which CASB mode is MOST appropriate?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q7" value="a"> A. Forward proxy mode — all cloud-bound traffic routes through CASB</label></li>
+        <li><label><input type="radio" name="q7" value="b"> B. Reverse proxy mode — users authenticate through CASB before reaching SharePoint</label></li>
+        <li><label><input type="radio" name="q7" value="c"> C. Inline mode — CASB sits between user and cloud in real-time</label></li>
+        <li><label><input type="radio" name="q7" value="d"> D. API mode — CASB integrates with SharePoint Online API to scan existing at-rest content</label></li>
+      </ul>
+      <div class="feedback" id="fb7"></div>
+    </div>
+
+    <div class="question-card" id="qc8">
+      <h3><span class="question-num">Q8.</span> A DLP analyst notices that an insured employee has been emailing small fragments of a confidential merger document daily — no single email contains enough content to trigger the DLP rule. What technique does this represent, and which DLP approach would BEST address it?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q8" value="a"> A. Steganography; use network traffic analysis</label></li>
+        <li><label><input type="radio" name="q8" value="b"> B. Data chunking / low-and-slow exfiltration; use document fingerprinting that detects partial matches (document DNA/fingerprint fragments)</label></li>
+        <li><label><input type="radio" name="q8" value="c"> C. Tunneling; use deep packet inspection at the firewall</label></li>
+        <li><label><input type="radio" name="q8" value="d"> D. Credential theft; use SIEM anomaly detection for account takeover</label></li>
+      </ul>
+      <div class="feedback" id="fb8"></div>
+    </div>
+
+    <div class="question-card" id="qc9">
+      <h3><span class="question-num">Q9.</span> Which of the following is an accurate statement about the relationship between data classification and DLP effectiveness?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q9" value="a"> A. DLP works independently of data classification — classification labels are irrelevant to DLP operation</label></li>
+        <li><label><input type="radio" name="q9" value="b"> B. DLP can only protect data that has been manually labeled by users prior to creation</label></li>
+        <li><label><input type="radio" name="q9" value="c"> C. Data classification enables DLP by providing a policy framework: DLP rules are scoped by classification level, allowing more precise, lower false-positive enforcement (e.g., apply strict rules only to Confidential and above)</label></li>
+        <li><label><input type="radio" name="q9" value="d"> D. DLP replaces the need for data classification — if DLP is deployed, classification is unnecessary</label></li>
+      </ul>
+      <div class="feedback" id="fb9"></div>
+    </div>
+
+    <div class="question-card" id="qc10">
+      <h3><span class="question-num">Q10.</span> A DLP system detects a file matching a Confidential fingerprint being attached to an email from a finance employee to an external auditor. Rather than blocking the transfer, the DLP system requires the employee to provide a business justification, logs the response, and allows the email to proceed. What DLP response action is this?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q10" value="a"> A. Block — the transfer is prevented</label></li>
+        <li><label><input type="radio" name="q10" value="b"> B. Quarantine — the email is held pending security review</label></li>
+        <li><label><input type="radio" name="q10" value="c"> C. Justify (User Override with Audit Trail) — allows the action while requiring a logged justification, balancing business flexibility with accountability</label></li>
+        <li><label><input type="radio" name="q10" value="d"> D. Encrypt — the email is automatically encrypted before sending</label></li>
+      </ul>
+      <div class="feedback" id="fb10"></div>
+    </div>
+
+    <div class="submit-area">
+      <button type="button" class="btn-outline" onclick="resetQuiz()">↺ Reset</button>
+      <button type="button" class="btn" onclick="submitQuiz()">Submit Answers</button>
+    </div>
+  </form>
+  <div class="results" id="results">
+    <h2>Quiz Complete!</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <div class="pass-msg" id="passMsg"></div>
+    <p id="resultDetail" style="color:var(--text-light);margin-bottom:1.5rem;"></p>
+    <button class="btn-outline" onclick="resetQuiz()">↺ Try Again</button>
+  </div>
+</div>
+<div class="nav-footer">
+  <a href="day-031-theory.html">← Day 31 Theory</a>
+  <a href="day-032-theory.html">Day 32: GDPR Data Roles →</a>
+</div>
+<script>
+const answers={q1:'b',q2:'c',q3:'a',q4:'b',q5:'a',q6:'b',q7:'d',q8:'b',q9:'c',q10:'c'};
+const explanations={
+  q1:'<strong>Network DLP inline at the email gateway</strong> inspects outbound SMTP traffic and can block emails with sensitive attachments or content before they leave the organization. Cloud DLP (A) addresses files already stored; Endpoint DLP (C) handles local device actions like USB; CASB (D) is better for SaaS cloud service access.',
+  q2:'<strong>HTTPS encrypts the entire HTTP payload at TLS layer</strong> — without SSL/TLS inspection (man-in-the-middle decryption at the gateway), the DLP appliance only sees encrypted ciphertext and cannot inspect the data being uploaded. SSL inspection is mandatory for effective Network DLP in environments where HTTPS upload is a concern. This is a common misconfiguration.',
+  q3:'Adding <strong>Luhn algorithm validation</strong> ensures only mathematically valid credit card numbers trigger — product serial numbers that happen to be 16 digits will not pass Luhn validation and won\'t be flagged. This reduces false positives dramatically while maintaining detection of actual PANs. Disabling the rule (B) eliminates protection; monitor mode (C) doesn\'t reduce false positive count.',
+  q4:'<strong>Data fingerprinting (exact data matching)</strong> creates cryptographic hash signatures of the specific source files. When outbound data contains recognizable fragments matching these signatures, DLP triggers — regardless of file extension, compression, or encoding. This is the lowest false positive method for protecting specific known documents or code repositories.',
+  q5:'<strong>Endpoint DLP (EDLP)</strong> runs as an agent on the local machine and enforces policies directly at the device level — it monitors and blocks USB write operations, clipboard actions, and local data movement regardless of whether the device is connected to the corporate network. Network DLP (B) requires a network connection; Cloud DLP (C) and CASB (D) require internet connectivity.',
+  q6:'Best practice is <strong>Monitor → Alert → Block</strong>. Deploy in monitor mode first to establish a baseline of what triggers — assess the false positive rate, tune rules, then move to alert mode (notify the user and SOC but allow the action), then move to block mode only once rules are sufficiently calibrated. Deploying in block mode immediately (D, A) causes legitimate business activities to fail and creates immediate user and business complaints.',
+  q7:'<strong>API mode</strong> integrates with the cloud provider\'s REST API — it can scan existing documents, files, and data already stored in SharePoint/OneDrive at-rest without requiring traffic routing changes. It\'s the only CASB mode that discovers historical/legacy sensitive data. Forward proxy (A) and reverse proxy (B) modes are real-time controls that only inspect new transfers, not existing stored content.',
+  q8:'Low-and-slow data exfiltration involves sending <strong>small fragments below DLP thresholds</strong> to avoid detection. Advanced DLP solutions use <strong>document fingerprinting supporting partial match detection</strong> — they can identify that even a small fragment (e.g., 5% of a document) matches a fingerprinted Confidential document\'s "DNA" and trigger an alert. Contextual behavioral analytics (UEBA) also helps detect this pattern.',
+  q9:'<strong>Data classification and DLP are complementary</strong> — classification defines sensitivity levels and ownership; DLP enforces policies based on those levels. DLP scoped to classification labels is more precise: you apply the strictest rules to Confidential and above, avoiding false positives on Public data. Classification alone without DLP provides no automated enforcement; DLP without classification lacks policy basis.',
+  q10:'This is a <strong>Justify (User Override with Audit Trail) / "Soft Block"</strong> response — the system presents the user with a prompt, forces them to document a business justification, and logs this as an audit record. This balances security with business flexibility — legitimate transfers proceed with accountability, while suspicious transfers either get reported (user provided poor justification) or deterred (user realizes the action is being logged). It is particularly effective for privileged or finance personnel with legitimate exceptions.'
+};
+function submitQuiz(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const name='q'+i;
+    const selected=document.querySelector(`input[name="${name}"]:checked`);
+    const fb=document.getElementById('fb'+i);
+    const card=document.getElementById('qc'+i);
+    card.querySelectorAll('.options li').forEach(li=>li.classList.remove('correct-opt','wrong-opt'));
+    if(!selected){fb.className='feedback incorrect';fb.innerHTML='⚠️ Not answered. Correct: <strong>'+answers[name].toUpperCase()+'</strong><br>'+explanations[name];fb.style.display='block';continue;}
+    const correctLi=card.querySelector(`input[value="${answers[name]}"]`).closest('li');
+    if(selected.value===answers[name]){score++;selected.closest('li').classList.add('correct-opt');fb.className='feedback correct';fb.innerHTML='✅ Correct! '+explanations[name];}
+    else{selected.closest('li').classList.add('wrong-opt');correctLi.classList.add('correct-opt');fb.className='feedback incorrect';fb.innerHTML='❌ Incorrect. Correct: <strong>'+answers[name].toUpperCase()+'</strong><br>'+explanations[name];}
+    fb.style.display='block';
+  }
+  const pct=Math.round(score/10*100);
+  document.getElementById('scoreDisplay').innerHTML=score+'<span>/10</span>';
+  const pm=document.getElementById('passMsg');
+  pm.textContent=score>=7?'✅ PASS — Well done!':'❌ FAIL — Review the theory and retry';
+  pm.className='pass-msg '+(score>=7?'pass':'fail');
+  document.getElementById('resultDetail').textContent=`${score} correct (${pct}%) — Pass mark: 70%`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+function resetQuiz(){
+  document.getElementById('quizForm').reset();
+  for(let i=1;i<=10;i++){document.getElementById('fb'+i).style.display='none';document.getElementById('qc'+i).querySelectorAll('.options li').forEach(li=>li.classList.remove('correct-opt','wrong-opt'));}
+  document.getElementById('results').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

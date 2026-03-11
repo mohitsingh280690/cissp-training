@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 8 – Security Policies &amp; Frameworks MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 8: Security Policies &amp; Frameworks – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">An organisation publishes a document specifying the exact minimum configuration settings (e.g., TLS 1.2 minimum, AES-256, 15-minute screen lock) that must be applied to all Windows 11 workstations. This document is BEST classified as which type of policy instrument?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Security Policy — high-level management directive setting strategic intent</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Security Guideline — recommended practices that are not mandatory</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Security Procedure — step-by-step instructions for completing a specific task</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Security Baseline — minimum mandatory configuration requirements for a specific system type</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: D.</strong> A Security Baseline defines the minimum mandatory security configuration for a specific technology type (e.g., Windows workstations, web servers, network switches). It is derived from standards and is mandatory — all systems of that type must meet or exceed the baseline. CIS Benchmarks and DISA STIGs are industry-standard baseline examples. A Security Standard dictates what must be done; a Baseline specifies the specific technical settings that satisfy that standard for a given system class. Guidelines (B) are recommendations, not mandates.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A security team publishes a document stating: "When connecting to cloud services from untrusted networks, employees are encouraged to consider using a VPN client configured with split tunneling disabled." This document carries no disciplinary consequence if ignored. This is BEST classified as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Security Standard — mandatory minimum requirement for remote access configurations</label></li>
+    <li><label><input type="radio" name="q2" value="b"> Security Procedure — a step-by-step process for VPN connection</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Security Policy — executive-level management directive</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Security Guideline — optional, non-mandatory recommended practices providing flexibility for informed decision-making</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: D.</strong> A Security Guideline is advisory — it provides recommended best-practice guidance but is not mandatory and carries no enforcement mechanism. Keywords: "encouraged," "consider," "should." Guidelines give practitioners flexibility when situational context varies. This is distinct from Standards (mandatory "shalls") and Procedures (mandatory step-by-step). The policy hierarchy from high to specific: Policy → Standard → Procedure → Baseline → Guideline.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">NIST released an update to the Cybersecurity Framework (CSF 2.0) in 2024. What is the most significant structural change compared to CSF 1.1?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> The "Respond" function was renamed to "React" and the "Recover" function was merged into it</label></li>
+    <li><label><input type="radio" name="q3" value="b"> A sixth core function, "GOVERN," was added to emphasise cybersecurity governance, risk management strategy, and supply chain oversight as foundational activities</label></li>
+    <li><label><input type="radio" name="q3" value="c"> The framework tiers were eliminated and replaced with a continuous maturity scoring model</label></li>
+    <li><label><input type="radio" name="q3" value="d"> CSF 2.0 became mandatory for all US federal agencies, replacing NIST SP 800-53</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> NIST CSF 2.0 (February 2024) added the GOVERN function as its most significant structural addition. GOVERN emphasises: organisational context, risk management strategy, roles and responsibilities, policy, and supply chain risk management. The original five functions (Identify, Protect, Detect, Respond, Recover) remain. GOVERN recognises that governance activities enable and underpin all other functions. CSF remains voluntary for private sector; SP 800-53 remains the mandatory control catalog for federal agencies.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">An organisation's Information Security Policy states: "All data must be protected against unauthorised access in accordance with its classification level." A security manager argues the policy should also specify that AES-256 encryption must be used. Under sound policy architecture principles, is the manager correct?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> Yes — policies should be as specific as possible to prevent misinterpretation</label></li>
+    <li><label><input type="radio" name="q4" value="b"> No — policies should remain high-level and technology-agnostic; technical specifics belong in standards and baselines, which allows the policy to remain stable as technology evolves</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Yes — regulatory requirements mandate that encryption algorithms be specified in policy</label></li>
+    <li><label><input type="radio" name="q4" value="d"> No — encryption specifications are purely operational and should not appear anywhere in governance documents</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: B.</strong> Security policies should be high-level, principle-based, and technology-agnostic. Embedding specific technical requirements (like AES-256) in policy means the entire policy must be revised every time cryptographic standards evolve. Technical specifics belong in Security Standards (mandatory) and Baselines (system-specific mins). This creates a stable, durable policy layer with a more agile technical layer beneath it. The policy sets the "what and why"; standards and procedures set the "how."</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">An organisation wants to pursue ISO 27001 certification to demonstrate its information security management system to customers and regulators. A colleague suggests implementing ISO 27002 controls instead for the same certification benefit. What is the key distinction?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> ISO 27002 is for large enterprises; ISO 27001 is for small-medium organisations</label></li>
+    <li><label><input type="radio" name="q5" value="b"> ISO 27001 is a certifiable ISMS management standard with auditable requirements; ISO 27002 is a code of practice providing guidance on implementing controls — it cannot be certified against</label></li>
+    <li><label><input type="radio" name="q5" value="c"> ISO 27002 was superseded by ISO 27001 and is no longer relevant</label></li>
+    <li><label><input type="radio" name="q5" value="d"> ISO 27001 certification only covers technical controls; ISO 27002 covers both technical and organisational controls</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: B.</strong> ISO 27001 specifies the requirements for establishing, implementing, maintaining and continually improving an ISMS — it uses "shall" language and is auditable by accredited certification bodies. ISO 27002 provides guidance on implementing the controls listed in Annex A of ISO 27001 — it uses "should" language and is a code of practice, not a certifiable standard. Organisations get certified to ISO 27001; they use ISO 27002 as implementation guidance. Both were updated in 2022.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">During an audit, an organisation's security program is assessed as having: documented policies approved by management, regular security awareness training, and procedures that are consistently followed. However, the processes are not yet formally optimised or measured. Under the SSE-CMM maturity model, this MOST closely represents which maturity tier?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> Level 1 — Performed Informally (processes exist but are not documented)</label></li>
+    <li><label><input type="radio" name="q6" value="b"> Level 2 — Planned and Tracked (work products planned and tracked against a plan)</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Level 3 — Well Defined (standard processes documented, approved, and consistently used across the organisation)</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Level 5 — Continuously Improving (quantitative data drives optimisation)</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: C.</strong> SSE-CMM (Systems Security Engineering Capability Maturity Model) Level 3 "Well Defined" means: standard processes are documented, approved by management, and consistently used across the organisation. There is an organisational standard process set. Level 2 means individual projects are planned/tracked. Level 4 adds quantitative measurement. Level 5 adds continuous improvement based on data. The scenario — documented policies, approved procedures, consistent execution — maps to Level 3. The absence of quantitative measurement rules out Levels 4–5.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">An organisation distributes its Acceptable Use Policy to all employees at onboarding and requires a signed acknowledgment. One year later, an employee is disciplined for violating the AUP but claims: "I never knew personal device use was prohibited on the corporate network." What is the PRIMARY legal and governance value of the signed acknowledgment?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> It creates an enforceable software license for corporate systems</label></li>
+    <li><label><input type="radio" name="q7" value="b"> The signed acknowledgment establishes documented evidence that the employee was informed of and agreed to the policies — which refutes the "I didn't know" defence and supports disciplinary action</label></li>
+    <li><label><input type="radio" name="q7" value="c"> It transfers legal liability for any cyberattacks from the organisation to the employee</label></li>
+    <li><label><input type="radio" name="q7" value="d"> It satisfies PCI-DSS Requirement 12 for employee security training documentation</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> Signed policy acknowledgments are a foundational governance control — they provide documented proof that the employee received, read, and agreed to the policies. This is essential for: (1) supporting HR disciplinary actions without an "ignorance" defence; (2) establishing a legal basis for termination for cause; (3) demonstrating due diligence in security governance audits. Policies are only enforceable if employees are demonstrably notified. Annual re-signing is recommended as policies change and to ensure continued acknowledgment.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">A CISO is tasked with aligning the organisation's security governance program to a framework that helps demonstrate how security investments directly support and enable business objectives, and provides IT governance guidance to the board. Which framework is MOST appropriate?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> NIST SP 800-53 — comprehensive security and privacy controls catalog for federal systems</label></li>
+    <li><label><input type="radio" name="q8" value="b"> ISO 27001 — ISMS requirements for certification</label></li>
+    <li><label><input type="radio" name="q8" value="c"> COBIT (Control Objectives for Information and Related Technology) — an IT governance framework explicitly designed to align IT with business goals and provide governance value metrics</label></li>
+    <li><label><input type="radio" name="q8" value="d"> NIST CSF — a cybersecurity risk management framework for critical infrastructure</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: C.</strong> COBIT (published by ISACA) is specifically designed to align IT governance with business objectives. It provides: governance and management objectives, performance management, and a framework for presenting IT strategy to the board. NIST SP 800-53 (A) is a controls catalog focused on federal compliance. ISO 27001 (B) focuses on ISMS certification. NIST CSF (D) focuses on cybersecurity risk management. COBIT is the go-to framework when the question is about business-IT alignment, board reporting, or demonstrating IT's value to the organisation.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">An organisation's written standard states: "All user account passwords must be at least 12 characters, include uppercase, lowercase, number, and special character, and be changed every 90 days." This document is BEST described as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> A Security Policy — management directive for protecting user accounts</label></li>
+    <li><label><input type="radio" name="q9" value="b"> A Security Baseline — minimum technical configuration for authentication</label></li>
+    <li><label><input type="radio" name="q9" value="c"> A Security Standard — specific, mandatory, measurable requirements derived from policy that define what must be done</label></li>
+    <li><label><input type="radio" name="q9" value="d"> A Security Guideline — recommended password practices</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> A Security Standard contains specific, mandatory, measurable requirements that tell implementers exactly what must be achieved (the "what"). It's more specific than a Policy but does not prescribe step-by-step implementation steps (that's a Procedure). Password standards are a classic example: exact length, complexity rules, change frequency — all measurable and mandatory. A Baseline (B) goes further to specify system-specific technical configurations (e.g., Group Policy Object settings to enforce these requirements on Windows). The difference: Standards = what is required; Baselines = specific system settings to achieve it.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">An organisation has implemented an ISO 27001-aligned ISMS and conducts monthly internal audits and quarterly management reviews to verify control effectiveness. This continual improvement activity maps to which phase of the ISO PDCA (Plan-Do-Check-Act) cycle?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Plan — setting ISMS scope, policy, objectives, and risk treatment plans</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Do — implementing and operating the ISMS controls</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Check — monitoring, measuring, auditing, and reviewing ISMS performance against policy and objectives</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Act — taking corrective and preventive actions based on audit findings</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: C.</strong> The "Check" phase of the PDCA cycle encompasses: internal audits, management reviews, performance measurement against KPIs and KRIs, monitoring of control effectiveness, and compliance checks. The other phases: Plan = establish scope, risk assessment, risk treatment, controls selection; Do = implement selected controls, training, procedures; Act = take corrective/preventive actions, update policies based on lessons learned. Internal audits + management reviews are the defining activities of the Check phase in an ISO 27001-aligned ISMS.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-008-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-009-theory.html" class="nav-btn">Day 9: Risk Management Concepts →</a>
+</div>
+</div>
+<script>
+const answers={q1:'d',q2:'d',q3:'b',q4:'b',q5:'b',q6:'c',q7:'b',q8:'c',q9:'c',q10:'c'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

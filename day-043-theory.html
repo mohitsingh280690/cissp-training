@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 43 – Virtualization Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 43 – Virtualization Security</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 43 of 140</span><span>⏱️ ~45 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-042-theory.html">← Day 42</a> · Domain 3 · Day 43 · <a href="day-043-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Type 1 vs. Type 2 Hypervisors</a></li>
+  <li><a href="#s4">4. Virtualization Threats</a></li>
+  <li><a href="#s5">5. Container Security</a></li>
+  <li><a href="#s6">6. Serverless &amp; Microservices</a></li>
+  <li><a href="#s7">7. Virtualization Security Best Practices</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Medium-High — Type 1 vs Type 2, VM escape, container security are frequently tested</td></tr>
+  <tr><td>Why Tested</td><td>Virtualization is ubiquitous; security professionals must understand hypervisor trust boundaries, container isolation, and emerging serverless risks</td></tr>
+  <tr><td>Question Style</td><td>"Type 1 vs Type 2 hypervisor?", "What is VM escape?", "Which risk is associated with VM sprawl?", scenario-based container security</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 41 (CPU Ring -1 for hypervisors), Day 44 (cloud security builds on virtualization), Domain 7 (patch management for VMs), Domain 8 (microservices architecture)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Infrastructure teams manage hypervisors; DevOps manages containers; security reviews architecture and access</td></tr>
+  <tr><td>Implementation</td><td>VMware vSphere, Microsoft Hyper-V, KVM for VMs; Docker + Kubernetes for containers; AWS Lambda for serverless</td></tr>
+  <tr><td>Failure Modes</td><td>VM escape → full host compromise; VM sprawl → unpatched/forgotten VMs; container breakout → host access; image poisoning → supply chain attack</td></tr>
+  <tr><td>Business Impact</td><td>Virtualization reduces cost and increases agility, but introduces new attack surfaces that must be managed</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Type 1 vs. Type 2 Hypervisors</h2>
+<div class="callout definition">
+  <strong>📖 Hypervisor (Virtual Machine Monitor - VMM):</strong> Software that creates and manages virtual machines by abstracting hardware resources and distributing them among multiple guest operating systems.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Type 1 (Bare-Metal)</th><th>Type 2 (Hosted)</th></tr>
+  <tr><td>Runs On</td><td>Directly on hardware (no host OS)</td><td>On top of a host operating system</td></tr>
+  <tr><td>Performance</td><td>Higher — direct hardware access</td><td>Lower — extra OS layer overhead</td></tr>
+  <tr><td>Security</td><td>More secure — smaller attack surface</td><td>Less secure — depends on host OS security</td></tr>
+  <tr><td>Use Case</td><td>Enterprise data centers, production servers</td><td>Development, testing, desktop virtualization</td></tr>
+  <tr><td>Examples</td><td>VMware ESXi, Microsoft Hyper-V, Xen, KVM</td><td>VMware Workstation, VirtualBox, Parallels</td></tr>
+  <tr><td>CPU Ring</td><td>Ring -1 (VMX root mode)</td><td>Ring 0 within host OS context</td></tr>
+</table>
+
+<pre>
+  Type 1 (Bare-Metal)              Type 2 (Hosted)
+
+  ┌────────┐ ┌────────┐           ┌────────┐ ┌────────┐
+  │ VM 1   │ │ VM 2   │           │ VM 1   │ │ VM 2   │
+  │ Guest  │ │ Guest  │           │ Guest  │ │ Guest  │
+  │   OS   │ │   OS   │           │   OS   │ │   OS   │
+  └────────┘ └────────┘           └────────┘ └────────┘
+  ┌────────────────────┐          ┌────────────────────┐
+  │   Hypervisor       │          │    Hypervisor       │
+  │   (Type 1)         │          │    (Type 2)         │
+  └────────────────────┘          └────────────────────┘
+  ┌────────────────────┐          ┌────────────────────┐
+  │   Hardware         │          │   Host OS           │
+  └────────────────────┘          └────────────────────┘
+                                  ┌────────────────────┐
+                                  │   Hardware          │
+                                  └────────────────────┘
+</pre>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Type 1 (bare-metal) = MORE secure, runs directly on hardware. Type 2 (hosted) = runs on a host OS. When the exam says "enterprise virtualization," think Type 1. Memory aid: "1 = first on hardware."
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Virtualization Threats</h2>
+<table>
+  <tr><th>Threat</th><th>Description</th><th>Impact</th></tr>
+  <tr><td>VM Escape</td><td>Attacker breaks out of a guest VM and gains access to the hypervisor or other VMs</td><td>Critical — complete host compromise; access to all VMs</td></tr>
+  <tr><td>VM Sprawl</td><td>Uncontrolled proliferation of VMs; many become forgotten, unpatched, and unmanaged</td><td>Expanded attack surface; compliance violations; wasted resources</td></tr>
+  <tr><td>Inter-VM Attacks</td><td>One compromised VM attacks another VM on the same host via shared resources</td><td>Lateral movement; data exfiltration</td></tr>
+  <tr><td>Resource Exhaustion</td><td>One VM consumes excessive CPU/memory/disk, starving other VMs (DoS)</td><td>Availability impact on co-hosted VMs</td></tr>
+  <tr><td>Hypervisor Compromise</td><td>Attacker exploits vulnerability in the hypervisor itself</td><td>Control over all VMs on the host</td></tr>
+  <tr><td>Data Remnants</td><td>Sensitive data from decommissioned VMs persists on storage</td><td>Data leakage; compliance violations</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ VM Escape:</strong> The most critical virtualization threat. If an attacker escapes a guest VM to the hypervisor layer, they control ALL VMs on that host. Real examples: Venom (CVE-2015-3456) exploited the floppy disk controller in QEMU. Mitigations: patch hypervisors immediately, minimize attack surface in VMs, use hypervisor introspection.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 VM Sprawl Prevention:</strong><br>
+  • Implement VM lifecycle management policies<br>
+  • Require approval for new VM creation<br>
+  • Track all VMs in a CMDB (Configuration Management Database)<br>
+  • Automatically scan and decommission unused VMs<br>
+  • Apply the same patch management to VMs as physical servers
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Container Security</h2>
+<div class="callout definition">
+  <strong>📖 Containers:</strong> Lightweight, OS-level virtualization that packages an application with its dependencies. Unlike VMs, containers share the host OS kernel — they are NOT separate OS instances.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Virtual Machines</th><th>Containers</th></tr>
+  <tr><td>Isolation</td><td>Full OS per VM; hardware-level isolation</td><td>Shared kernel; namespace + cgroup isolation</td></tr>
+  <tr><td>Size</td><td>Gigabytes (includes full OS)</td><td>Megabytes (app + dependencies only)</td></tr>
+  <tr><td>Startup</td><td>Minutes</td><td>Seconds</td></tr>
+  <tr><td>Security Boundary</td><td>Stronger — hypervisor enforced</td><td>Weaker — shared kernel is larger attack surface</td></tr>
+  <tr><td>Density</td><td>Tens of VMs per host</td><td>Hundreds/thousands of containers per host</td></tr>
+</table>
+
+<h3>Container Security Concerns</h3>
+<table>
+  <tr><th>Risk</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td>Container Breakout</td><td>Escaping container isolation to access host kernel</td><td>Keep kernel patched; use security profiles (seccomp, AppArmor)</td></tr>
+  <tr><td>Image Poisoning</td><td>Malicious code injected into container images</td><td>Scan images; use signed/trusted base images; private registries</td></tr>
+  <tr><td>Privilege Escalation</td><td>Running containers as root grants host-level access</td><td>Run containers as non-root; drop unnecessary capabilities</td></tr>
+  <tr><td>Insecure Configuration</td><td>Overly permissive network, volume mounts, or capabilities</td><td>Use pod security policies; restrict network policies in Kubernetes</td></tr>
+  <tr><td>Supply Chain Risks</td><td>Vulnerable dependencies in container images</td><td>Regular image scanning; dependency updates; SBOM</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Container Orchestration (Kubernetes):</strong><br>
+  • Kubernetes manages container deployment, scaling, and networking<br>
+  • Security controls: RBAC, Network Policies, Pod Security Standards, Secrets management<br>
+  • Key risks: misconfigured RBAC, exposed API server, privileged pods, default namespace abuse
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Serverless &amp; Microservices</h2>
+<h3>Serverless Computing</h3>
+<div class="callout definition">
+  <strong>📖 Serverless:</strong> Cloud execution model where the provider manages all infrastructure. Developers deploy functions (code) that run in response to events. Examples: AWS Lambda, Azure Functions, Google Cloud Functions.
+</div>
+
+<table>
+  <tr><th>Benefit</th><th>Security Concern</th></tr>
+  <tr><td>No server management → reduced OS patching burden</td><td>Limited visibility into runtime environment</td></tr>
+  <tr><td>Auto-scaling → handles load spikes</td><td>Event injection (manipulating triggers)</td></tr>
+  <tr><td>Pay-per-use → cost efficient</td><td>Overly permissive function IAM roles</td></tr>
+  <tr><td>Short-lived functions → reduced attack window</td><td>Insecure third-party dependencies</td></tr>
+</table>
+
+<h3>Microservices Architecture</h3>
+<div class="callout definition">
+  <strong>📖 Microservices:</strong> An architectural style where an application is built as a collection of small, independent services that communicate via APIs. Each service handles one business function and can be deployed independently.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Microservices Security Concerns:</strong><br>
+  • <strong>API Security:</strong> Each service exposes an API — all must be authenticated and authorized<br>
+  • <strong>Service-to-Service Authentication:</strong> mTLS (mutual TLS) for inter-service communication<br>
+  • <strong>Increased Attack Surface:</strong> More services = more endpoints to secure<br>
+  • <strong>Service Mesh:</strong> Istio, Linkerd provide transparent security (mTLS, policy enforcement)
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Virtualization Security Best Practices</h2>
+<table>
+  <tr><th>Practice</th><th>Description</th></tr>
+  <tr><td>Patch Hypervisors Promptly</td><td>Hypervisor vulnerabilities enable VM escape — treat with highest priority</td></tr>
+  <tr><td>Limit Hypervisor Access</td><td>Restrict management interfaces; use strong authentication; separate management network</td></tr>
+  <tr><td>Monitor VM Lifecycle</td><td>Track creation, modification, and decommissioning of all VMs</td></tr>
+  <tr><td>Encrypt VM Disk Images</td><td>Protect data at rest within VM storage</td></tr>
+  <tr><td>Scan Container Images</td><td>Use vulnerability scanners before deploying any container image</td></tr>
+  <tr><td>Implement Network Segmentation</td><td>Use virtual switches and network policies to isolate VMs/containers</td></tr>
+  <tr><td>Avoid Running Containers as Root</td><td>Use non-root users; implement pod security standards</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Type 1 = First on the Floor (Hardware)":</strong> Type 1 hypervisors sit directly on the hardware — they're first on the floor. Type 2 sits on top of an OS — it's on the second floor.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "VM Escape = Prison Break":</strong> The VM is the prison cell. VM escape = the prisoner (attacker) breaks out of their cell and has access to the whole building (host + all VMs).
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Containers Share, VMs Don't Care":</strong> Containers share the host kernel (so a kernel bug affects all containers). VMs don't care about each other — each has its own OS and kernel.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Type 1 Hypervisor</td><td>Bare-metal; runs on hardware; more secure; enterprise use (ESXi, Hyper-V, KVM)</td></tr>
+  <tr><td>Type 2 Hypervisor</td><td>Hosted; runs on OS; less secure; dev/test use (VirtualBox, Workstation)</td></tr>
+  <tr><td>VM Escape</td><td>Most critical virtualization threat; attacker breaks out to hypervisor/host</td></tr>
+  <tr><td>VM Sprawl</td><td>Uncontrolled VM growth; leads to unpatched, unmanaged VMs</td></tr>
+  <tr><td>Containers</td><td>Share host kernel; lighter than VMs; weaker isolation boundary</td></tr>
+  <tr><td>Container Risks</td><td>Breakout, image poisoning, privilege escalation, insecure configs</td></tr>
+  <tr><td>Serverless</td><td>Provider manages infrastructure; risks: event injection, overly permissive IAM</td></tr>
+  <tr><td>Microservices</td><td>Many small services via APIs; secure with mTLS, API gateways, service mesh</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-042-theory.html" class="nav-btn">← Day 42: Operating System Security</a>
+<a href="day-043-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

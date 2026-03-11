@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 6 – Privacy Laws &amp; Regulations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 6: Privacy Laws &amp; Regulations</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 6 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 6: Privacy Laws &amp; Regulations</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Privacy Concepts &amp; Terminology</a></li>
+    <li><a href="#s4">GDPR – EU General Data Protection Regulation</a></li>
+    <li><a href="#s5">HIPAA – Health Privacy in the US</a></li>
+    <li><a href="#s6">CCPA &amp; CPRA – California Privacy Laws</a></li>
+    <li><a href="#s7">Other Key Privacy Laws</a></li>
+    <li><a href="#s8">OECD Privacy Guidelines</a></li>
+    <li><a href="#s9">Cross-Border Data Transfers</a></li>
+    <li><a href="#s10">Privacy as a Program: Roles &amp; Controls</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Privacy is one of the most tested areas of CISSP because nearly every organisation collects personal data and must comply with multiple overlapping privacy laws. A CISSP must advise on data protection requirements, breach notification timelines, and data subject rights.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based compliance decisions; breach notification obligations; identifying applicable law for a given organisation/data type; privacy-by-design questions</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (compliance—HIPAA, GDPR fines), D2 (data classification—PII, PHI categories), D3 (access control—data subject rights), D5 (data security—encryption of PII), D7 (incident response—breach notification)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>GDPR breach notification = <strong>72 hours</strong> to supervisory authority; HIPAA = <strong>60 days</strong> to HHS. Do NOT swap these.</li>
+      <li>GDPR applies to ANY organisation processing <strong>EU resident data</strong> — regardless of where the organisation is located.</li>
+      <li>Privacy ≠ Security. Privacy is about appropriate data use and individual rights; security is about protecting data from unauthorised access. Privacy <em>requires</em> security but extends well beyond it.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>The Privacy Explosion</h3>
+  <p>Privacy regulation has exploded since GDPR took effect in May 2018. Today, 137+ countries have data privacy laws. Organisations face a patchwork of overlapping requirements depending on where they operate, where their customers are located, and what type of data they process.</p>
+
+  <h3>The Business Case for Privacy</h3>
+  <ul>
+    <li><strong>Fines:</strong> GDPR fines up to €20M or 4% of global annual revenue (whichever is higher). Amazon fined €746M in 2021. Meta fined €1.2B in 2023.</li>
+    <li><strong>Reputation:</strong> Trust is a competitive differentiator. Privacy breaches destroy customer relationships even without regulatory fines.</li>
+    <li><strong>M&amp;A:</strong> Privacy compliance status is now a standard due diligence item in acquisitions. The Yahoo! breach (later attributed to 3 billion accounts) reduced its acquisition price by $350M.</li>
+  </ul>
+
+  <h3>Organizational Ownership</h3>
+  <p>Privacy is governed by the <strong>Chief Privacy Officer (CPO)</strong> or <strong>Data Protection Officer (DPO)</strong> in collaboration with Legal, IT, and Security. GDPR requires a DPO for certain classes of organisations (e.g., public authorities, those doing large-scale profiling). The DPO must report to the highest management level and cannot be penalised for performing their duties.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Privacy Concepts &amp; Terminology</h2>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
+    <tr><td><strong>Personally Identifiable Information (PII)</strong></td><td>Any information that can identify a specific individual, either alone or combined with other data</td><td>Name, SSN, email address, IP address, device IDs, location data, biometrics</td></tr>
+    <tr><td><strong>Protected Health Information (PHI)</strong></td><td>PII that also relates to health status, provision of healthcare, or payment for healthcare</td><td>Medical records, diagnoses, prescription history, insurance information tied to an individual</td></tr>
+    <tr><td><strong>Sensitive Personal Information (SPI)</strong></td><td>Subset of PII warranting extra protection due to higher risk of harm if exposed</td><td>Race, ethnicity, religion, political opinions, sexual orientation, financial data, criminal history</td></tr>
+    <tr><td><strong>Data Subject</strong></td><td>The identified or identifiable natural person whose data is processed</td><td>Customer, employee, patient, website visitor</td></tr>
+    <tr><td><strong>Data Controller</strong></td><td>Entity that determines the purposes and means of processing personal data</td><td>Organisation that decides what to collect and why</td></tr>
+    <tr><td><strong>Data Processor</strong></td><td>Entity that processes personal data on behalf of the controller</td><td>Cloud provider, payroll processor, analytics vendor</td></tr>
+    <tr><td><strong>Anonymisation</strong></td><td>Irreversible removal of identifiers such that re-identification is impossible</td><td>Properly anonymised data is generally outside GDPR scope</td></tr>
+    <tr><td><strong>Pseudonymisation</strong></td><td>Replacing identifiers with pseudonyms; re-identification possible with separate key</td><td>GDPR recognises this as a data protection measure but pseudonymised data is still personal data</td></tr>
+  </table>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. GDPR – EU General Data Protection Regulation</h2>
+  <p>The GDPR (Regulation 2016/679) is the gold standard of global privacy law. Effective May 25, 2018, it replaced the EU Data Protection Directive (95/46/EC). Its extraterritorial reach and severe penalties have made it the benchmark against which all other privacy laws are measured.</p>
+
+  <h3>Who GDPR Applies To</h3>
+  <ul>
+    <li>Organisations established in the EU (regardless of where they process data)</li>
+    <li>Organisations outside the EU that offer goods/services to EU residents</li>
+    <li>Organisations outside the EU that monitor the behaviour of EU residents (e.g., tracking cookies, profiling)</li>
+  </ul>
+
+  <h3>Seven GDPR Privacy Principles (Article 5)</h3>
+  <table>
+    <tr><th>Principle</th><th>Meaning</th></tr>
+    <tr><td><strong>1. Lawfulness, Fairness &amp; Transparency</strong></td><td>Processing must have a legal basis; individuals must be informed</td></tr>
+    <tr><td><strong>2. Purpose Limitation</strong></td><td>Data collected for specific purposes; cannot be reused for incompatible purposes</td></tr>
+    <tr><td><strong>3. Data Minimisation</strong></td><td>Collect only what is necessary (adequate, relevant, limited)</td></tr>
+    <tr><td><strong>4. Accuracy</strong></td><td>Data must be accurate and kept up to date; erasure of inaccurate data</td></tr>
+    <tr><td><strong>5. Storage Limitation</strong></td><td>Retain no longer than necessary for the stated purpose</td></tr>
+    <tr><td><strong>6. Integrity &amp; Confidentiality</strong></td><td>Appropriate security measures (technical and organisational)</td></tr>
+    <tr><td><strong>7. Accountability</strong></td><td>Controller is responsible and must be able to demonstrate compliance</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 GDPR 7 Principles: "Laughter Per Day Achieves Solid Integrating Accountability"</strong><br>
+    <strong>L</strong>awful → <strong>P</strong>urpose limited → <strong>D</strong>ata minimised → <strong>A</strong>ccurate → <strong>S</strong>torage limited → <strong>I</strong>ntegrity/Confidentiality → <strong>A</strong>ccountable
+  </div>
+
+  <h3>Lawful Bases for Processing (Article 6)</h3>
+  <ol>
+    <li><strong>Consent</strong> — freely given, specific, informed, unambiguous indication of agreement</li>
+    <li><strong>Contract</strong> — necessary for performance of or entering a contract with the data subject</li>
+    <li><strong>Legal obligation</strong> — necessary to comply with a legal obligation</li>
+    <li><strong>Vital interests</strong> — necessary to protect someone's life</li>
+    <li><strong>Public task</strong> — necessary for official/public interest functions</li>
+    <li><strong>Legitimate interests</strong> — necessary for legitimate interests of the controller/third party unless overridden by the data subject's rights</li>
+  </ol>
+
+  <h3>Data Subject Rights (Articles 12–22)</h3>
+  <table>
+    <tr><th>Right</th><th>Description</th></tr>
+    <tr><td><strong>Right to be informed</strong></td><td>Know that data is being collected and how it will be used (privacy notice)</td></tr>
+    <tr><td><strong>Right of access</strong></td><td>Obtain confirmation of processing and a copy of data (Subject Access Request)</td></tr>
+    <tr><td><strong>Right to rectification</strong></td><td>Correct inaccurate data</td></tr>
+    <tr><td><strong>Right to erasure ("right to be forgotten")</strong></td><td>Have data deleted under certain conditions</td></tr>
+    <tr><td><strong>Right to restrict processing</strong></td><td>Limit processing in certain situations while dispute is resolved</td></tr>
+    <tr><td><strong>Right to data portability</strong></td><td>Receive data in structured, machine-readable format; transmit to another controller</td></tr>
+    <tr><td><strong>Right to object</strong></td><td>Object to processing for direct marketing, research, or legitimate interests grounds</td></tr>
+    <tr><td><strong>Rights re: automated decisions</strong></td><td>Not be subject to solely automated decisions with significant effects; request human review</td></tr>
+  </table>
+
+  <h3>Breach Notification (Articles 33–34)</h3>
+  <ul>
+    <li><strong>To supervisory authority:</strong> Within <strong>72 hours</strong> of becoming aware of a breach that poses a risk to individuals' rights and freedoms</li>
+    <li><strong>To data subjects:</strong> Without undue delay when breach is likely to result in <strong>high risk</strong> to the individual</li>
+    <li>Notification not required if data was encrypted and the key was not compromised (risk mitigated)</li>
+  </ul>
+
+  <h3>GDPR Penalties</h3>
+  <ul>
+    <li><strong>Tier 1 (lower limit):</strong> Up to €10 million or 2% of global annual turnover — for breaches of processor obligations, technical measures, child protection</li>
+    <li><strong>Tier 2 (upper limit):</strong> Up to €20 million or 4% of global annual turnover — for breaches of core principles, data subject rights, international transfers</li>
+  </ul>
+
+  <h3>Data Protection Officer (DPO)</h3>
+  <p>Required when: (1) a public authority, (2) large-scale systematic monitoring of individuals, or (3) large-scale special category data processing. The DPO must: advise on GDPR obligations, monitor compliance, cooperate with the supervisory authority, and be a point of contact. Cannot be dismissed or penalised for performing their role.</p>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. HIPAA – Health Privacy in the US</h2>
+  <p>The Health Insurance Portability and Accountability Act (1996) governs the protection of health information in the United States. While covered in more detail on Day 3 (Compliance), the privacy aspects warrant deeper treatment here.</p>
+
+  <h3>What Is PHI?</h3>
+  <p>Protected Health Information (PHI) = any information that relates to:</p>
+  <ul>
+    <li>The individual's past, present, or future physical or mental health condition</li>
+    <li>The provision of healthcare to the individual</li>
+    <li>The past, present, or future payment for healthcare</li>
+  </ul>
+  <p>... AND can be used to identify the individual. The 18 HIPAA identifiers include: name, geographic data, dates, phone/fax numbers, email, SSN, medical record numbers, health plan numbers, account numbers, certificate/licence numbers, device IDs, URLs, IP addresses, biometric identifiers, photographs, and any unique identifying number or code.</p>
+
+  <h3>HIPAA Key Rules</h3>
+  <table>
+    <tr><th>Rule</th><th>What It Requires</th></tr>
+    <tr><td><strong>Privacy Rule</strong></td><td>Standards for when PHI may be used or disclosed; patients' rights to their health information; limited to minimum necessary disclosure; requires Notice of Privacy Practices</td></tr>
+    <tr><td><strong>Security Rule</strong></td><td>Administrative, physical, and technical safeguards specifically for <em>electronic</em> PHI (ePHI); covers confidentiality, integrity, and availability of ePHI</td></tr>
+    <tr><td><strong>Breach Notification Rule</strong></td><td>Covered entities must notify: affected individuals (within 60 days of discovery), HHS (within 60 days for breaches &gt;500 individuals), and media if breach affects &gt;500 people in a state</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ HIPAA vs. GDPR Breach Notification:</strong><br>
+    HIPAA breach notification to HHS = <strong>60 days</strong><br>
+    GDPR breach notification to supervisory authority = <strong>72 hours</strong><br>
+    This is a very common exam trap. GDPR is much stricter.
+  </div>
+
+  <h3>Business Associates</h3>
+  <p>HIPAA applies directly to Covered Entities (healthcare providers, health plans, healthcare clearinghouses) AND to <strong>Business Associates</strong> — any third party that creates, receives, maintains, or transmits PHI on behalf of a covered entity. Business Associate Agreements (BAAs) are mandatory contracts specifying how PHI must be protected. Failure to have a BAA is itself a HIPAA violation.</p>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. CCPA &amp; CPRA – California Privacy Laws</h2>
+  <h3>California Consumer Privacy Act (CCPA) – 2020</h3>
+  <p>California's CCPA is the most comprehensive state privacy law in the US, often called "the US version of GDPR" though it operates differently:</p>
+  <table>
+    <tr><th>CCPA Consumer Rights</th><th>Description</th></tr>
+    <tr><td>Right to Know</td><td>What personal information is collected, how it's used, and who it's shared with</td></tr>
+    <tr><td>Right to Delete</td><td>Request deletion of personal information (with exceptions)</td></tr>
+    <tr><td>Right to Opt-Out</td><td>Opt out of sale of personal information (the famous "Do Not Sell My Personal Information" link)</td></tr>
+    <tr><td>Right to Non-Discrimination</td><td>Cannot be denied service or charged different prices for exercising CCPA rights</td></tr>
+  </table>
+
+  <h3>California Privacy Rights Act (CPRA) – 2023</h3>
+  <p>CPRA amended and strengthened CCPA. Key additions:</p>
+  <ul>
+    <li>New right to <strong>correct</strong> inaccurate personal information</li>
+    <li>New right to <strong>limit use of sensitive personal information</strong></li>
+    <li>Expanded opt-out right to include <strong>sharing</strong> (not just selling) of data</li>
+    <li>Created <strong>California Privacy Protection Agency (CPPA)</strong> — dedicated enforcement authority</li>
+    <li>Additional requirements for automated decision-making and profiling</li>
+  </ul>
+
+  <div class="exam-tip">
+    <strong>💡 CCPA Thresholds:</strong> CCPA applies to for-profit businesses that do business in California AND meet ANY ONE of: (1) $25M+ annual gross revenue, (2) buy/sell/share 100,000+ consumers' or households' personal data annually, or (3) derive 50%+ of revenue from selling personal information.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Other Key Privacy Laws</h2>
+  <table>
+    <tr><th>Law</th><th>Scope</th><th>Key Provisions</th></tr>
+    <tr><td><strong>GLBA (Gramm-Leach-Bliley Act)</strong></td><td>US financial institutions</td><td>Financial Privacy Rule (notice + opt-out for sharing with non-affiliates); Safeguards Rule (security programme for customer financial information); Pretexting Protections</td></tr>
+    <tr><td><strong>FERPA</strong></td><td>US educational institutions receiving federal funding</td><td>Protects student education records; parents have rights until student turns 18; schools cannot disclose records without written consent</td></tr>
+    <tr><td><strong>COPPA</strong></td><td>Websites/apps directed at children under 13 in the US</td><td>Requires verifiable parental consent before collecting data from children under 13; FTC enforces</td></tr>
+    <tr><td><strong>Privacy Act of 1974</strong></td><td>US federal government agencies</td><td>Governs how agencies collect, maintain, use, and disseminate records about individuals; requires notice and access rights</td></tr>
+    <tr><td><strong>Canada PIPEDA / Law 25</strong></td><td>Canada / Quebec</td><td>Canada's federal private sector privacy law; Quebec's Law 25 is the most GDPR-like North American law</td></tr>
+    <tr><td><strong>Brazil LGPD</strong></td><td>Brazil</td><td>Lei Geral de Proteção de Dados; closely modelled on GDPR; enacted 2019, effective 2020</td></tr>
+    <tr><td><strong>China PIPL</strong></td><td>China (cross-border focus)</td><td>Personal Information Protection Law (2021); strict cross-border transfer rules; data localisation requirements for certain sensitive data</td></tr>
+  </table>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. OECD Privacy Guidelines</h2>
+  <p>The Organisation for Economic Co-operation and Development (OECD) Guidelines on the Protection of Privacy and Transborder Flows of Personal Data (1980, revised 2013) established eight foundational privacy principles that have influenced virtually every national privacy law. Understanding these is key to CISSP's systems-level view of privacy.</p>
+
+  <table>
+    <tr><th>OECD Principle</th><th>Description</th></tr>
+    <tr><td><strong>1. Collection Limitation</strong></td><td>Data collection should be limited and obtained lawfully with knowledge/consent of the individual</td></tr>
+    <tr><td><strong>2. Data Quality</strong></td><td>Data should be relevant, accurate, complete, and current</td></tr>
+    <tr><td><strong>3. Purpose Specification</strong></td><td>Purposes must be specified at time of collection</td></tr>
+    <tr><td><strong>4. Use Limitation</strong></td><td>Data should not be used for purposes other than specified except with consent or by authority of law</td></tr>
+    <tr><td><strong>5. Security Safeguards</strong></td><td>Reasonable security measures against loss, unauthorised access, destruction, use, modification, or disclosure</td></tr>
+    <tr><td><strong>6. Openness</strong></td><td>General policy of openness about practices and policies regarding personal data</td></tr>
+    <tr><td><strong>7. Individual Participation</strong></td><td>Individuals can inquire about their data, obtain access, and challenge accuracy</td></tr>
+    <tr><td><strong>8. Accountability</strong></td><td>Data controllers are accountable for complying with these principles</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 OECD 8 Principles: "Collection Quality, Purpose Use, Security Open, Individual Accountability"</strong><br>
+    Pairs: Collection + Quality | Purpose + Use | Security + Open | Individual + Accountability<br>
+    Or: <em>"CQ-PU-SO-IA"</em> — think: "See Queue — Push — Show — IA (intelligent agent)"
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Cross-Border Data Transfers</h2>
+  <p>Moving personal data across borders (e.g., from EU to US) requires legal mechanisms because different countries have different protections. GDPR Chapter V governs transfers of personal data to third countries.</p>
+
+  <h3>Transfer Mechanisms (GDPR)</h3>
+  <table>
+    <tr><th>Mechanism</th><th>Status</th><th>Description</th></tr>
+    <tr><td><strong>Adequacy Decision</strong></td><td>Available for ~15 countries</td><td>EU Commission determines a country has "adequate" protection; data can flow freely. Current: UK, Japan, Canada, New Zealand, South Korea, etc.</td></tr>
+    <tr><td><strong>Standard Contractual Clauses (SCCs)</strong></td><td>Active and most widely used</td><td>Pre-approved contract clauses providing appropriate safeguards; must be supplemented by Transfer Impact Assessment (TIA) after Schrems II</td></tr>
+    <tr><td><strong>Binding Corporate Rules (BCRs)</strong></td><td>For multinational groups</td><td>Company-wide privacy policies approved by a supervisory authority; allows intra-group transfers</td></tr>
+    <tr><td><strong>EU-US Data Privacy Framework</strong></td><td>Active since July 2023</td><td>Replaced Privacy Shield (invalidated by Schrems II in 2020); provides adequacy for certified US organisations; includes US executive order on signals intelligence reform</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Privacy Shield History:</strong> The EU-US Privacy Shield was invalidated by the Court of Justice of the EU in <em>Data Protection Commissioner v. Facebook Ireland (Schrems II)</em> in July 2020, due to insufficient protection against US government surveillance. It was replaced by the EU-US Data Privacy Framework in 2023, though this too faces potential legal challenges.
+  </div>
+
+  <div class="key-concept">
+    <strong>Data Localisation:</strong> Some countries require certain data to remain within their borders (e.g., Russia, China, India's financial data). This creates architectural complexity for cloud deployments and must be factored into data residency decisions.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Privacy as a Program: Roles &amp; Controls</h2>
+  <h3>Privacy by Design (PbD)</h3>
+  <p>Developed by Ann Cavoukian, Privacy by Design incorporates privacy as a default component of system design rather than a bolt-on afterthought. GDPR Article 25 mandates Privacy by Design and Privacy by Default.</p>
+  <p>Seven PbD Foundational Principles:</p>
+  <ol>
+    <li>Proactive, not reactive; preventative, not remedial</li>
+    <li>Privacy as the default setting</li>
+    <li>Privacy embedded into design</li>
+    <li>Full functionality — positive-sum, not zero-sum</li>
+    <li>End-to-end security — full lifecycle protection</li>
+    <li>Visibility and transparency</li>
+    <li>Respect for user privacy — keep it user-centric</li>
+  </ol>
+
+  <h3>Privacy Controls Technical Techniques</h3>
+  <table>
+    <tr><th>Technique</th><th>Description</th><th>Use Case</th></tr>
+    <tr><td>Encryption</td><td>Renders data unreadable without key</td><td>Protecting PII at rest and in transit</td></tr>
+    <tr><td>Tokenisation</td><td>Replace sensitive data with non-sensitive placeholder (token)</td><td>Payment card data (PCI-DSS); reducing scope of compliance</td></tr>
+    <tr><td>Data Masking</td><td>Obscure specific data within a dataset</td><td>Show last 4 digits of a credit card; test data generation</td></tr>
+    <tr><td>Pseudonymisation</td><td>Replace identity with pseudonym; key held separately</td><td>Analytics and research while reducing direct identification risk</td></tr>
+    <tr><td>Anonymisation</td><td>Irreversibly remove all identifiers</td><td>Excludes data from GDPR scope if truly irreversible</td></tr>
+    <tr><td>Data Minimisation</td><td>Collect and retain only required data</td><td>Reduce attack surface; GDPR compliance</td></tr>
+  </table>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 GDPR 7 Principles: Acronym "LPDA-SIA"</strong><br>
+    <strong>L</strong>awful, fair, transparent → <strong>P</strong>urpose limitation → <strong>D</strong>ata minimisation → <strong>A</strong>ccuracy → <strong>S</strong>torage limitation → <strong>I</strong>ntegrity &amp; Confidentiality → <strong>A</strong>ccountability<br>
+    Memory hook: <em>"Lawyers Prefer Data About Stuff In Archives"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Breach Notification Timelines:</strong><br>
+    <strong>GDPR = 72 hours</strong> (to supervisory authority) — think: <em>"GD-PR = 72 hours = 3 days"</em><br>
+    <strong>HIPAA = 60 days</strong> (to HHS) — think: <em>"HIPAA = Healthcare = 60 days — give hospitals time"</em><br>
+    Visual: GDPR is much stricter (72 h vs 1,440 h)
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 GDPR Data Subject Rights: "I-A-R-E-R-P-O-A"</strong><br>
+    <strong>I</strong>nformed → <strong>A</strong>ccess → <strong>R</strong>ectification → <strong>E</strong>rasure → <strong>R</strong>estriction → <strong>P</strong>ortability → <strong>O</strong>bject → <strong>A</strong>utomated decision rights<br>
+    Memory hook: <em>"I Always Request Everything, Rarely Paying Or Appealing"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 OECD 8 Principles in Pairs:</strong><br>
+    <em>Collect Carefully</em> → Collection Limitation + Data Quality<br>
+    <em>Purpose Properly</em> → Purpose Specification + Use Limitation<br>
+    <em>Secure Openly</em> → Security Safeguards + Openness<br>
+    <em>Individuals Are Accountable</em> → Individual Participation + Accountability
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Privacy ≠ Security:</strong><br>
+    Security without privacy = You protect data from hackers but still misuse it yourself (data brokers selling behavioural data).<br>
+    Privacy without security = You promise to be responsible with data but can't stop breaches.<br>
+    True compliance requires BOTH. GDPR Article 5(1)(f) — Integrity &amp; Confidentiality — explicitly ties security to privacy.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ GDPR Extraterritorial Reach:</strong><br>
+    A US company with no EU offices that runs a website, sells products to EU users, or uses tracking cookies on EU visitors IS subject to GDPR. "We're not in the EU" is not a defence.
+  </div>
+</div>
+
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>PII vs PHI</td><td>PII = any identifying data; PHI = PII + healthcare context (HIPAA)</td></tr>
+    <tr><td>Data Controller vs Processor</td><td>Controller decides why/how to process; Processor carries it out for the controller</td></tr>
+    <tr><td>GDPR Scope</td><td>Applies globally to any org processing EU resident data</td></tr>
+    <tr><td>GDPR Breach Notification</td><td>72 hours to supervisory authority for risky breaches</td></tr>
+    <tr><td>GDPR Fines</td><td>Up to €20M / 4% global annual revenue for most serious violations</td></tr>
+    <tr><td>HIPAA Breach Notification</td><td>60 days to HHS; media notification if 500+ in a state affected</td></tr>
+    <tr><td>CCPA/CPRA</td><td>California's privacy law; right to know, delete, opt-out of sale/sharing</td></tr>
+    <tr><td>OECD 8 Principles</td><td>Foundation for most privacy laws; 4 pairs: Collection/Quality, Purpose/Use, Security/Openness, Individual/Accountability</td></tr>
+    <tr><td>SCCs</td><td>Standard Contractual Clauses — primary mechanism for EU-to-non-adequate-country data transfers</td></tr>
+    <tr><td>Privacy by Design</td><td>Build privacy in from the start; GDPR Article 25 mandates it</td></tr>
+    <tr><td>Pseudonymisation</td><td>Reduces risk but data is STILL personal data under GDPR (unlike anonymisation)</td></tr>
+    <tr><td>DPO</td><td>Required for public authorities, large-scale monitoring, large-scale special category processing</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-005-theory.html" class="nav-btn">← Day 5: Intellectual Property</a>
+  <a href="day-007-theory.html" class="nav-btn">Day 7: Professional Ethics →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

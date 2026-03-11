@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 7 – Professional Ethics MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 7: Professional Ethics – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A CISSP-certified security manager discovers that her employer is systematically violating user privacy laws by selling customer data without consent — a clearly illegal practice. Her employer instructs her to remain silent. Under the (ISC)² Code of Ethics, what is her MOST appropriate course of action?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Follow employer instructions — Canon III (act honorably to employer) takes precedence in employment situations</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Resign immediately without reporting — she bears no personal liability once separated</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Report the illegal activity to appropriate authorities — Canon I (protect society) supersedes Canon III (act honorably to employer) when illegal activity is involved</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Notify customers directly and publish the information to warn the public</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: C.</strong> The (ISC)² Code of Ethics Canons are prioritised in order: Canon I (Protect society, common good, and public trust) takes absolute precedence. When employer instructions conflict with societal protection and legality, the security professional must give priority to the higher canon. Illegal activity that harms society cannot be justified by employer loyalty (Canon III). Unilateral disclosure to customers (D) bypasses the proper reporting channels and could itself create issues; the correct path is reporting to appropriate authorities.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">Which sequence correctly represents the four priority-ordered Canons of the (ISC)² Code of Ethics?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Protect society → Act honorably → Provide competent service → Advance the profession</label></li>
+    <li><label><input type="radio" name="q2" value="b"> Advance the profession → Protect society → Act honorably → Provide competent service</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Act honorably → Protect society → Advance the profession → Provide competent service</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Provide competent service → Act honorably → Protect society → Advance the profession</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: A.</strong> The four (ISC)² Code of Ethics Canons in priority order are: (I) Protect society, the common good, necessary public trust and confidence, and the infrastructure; (II) Act honorably, honestly, justly, responsibly, and legally; (III) Provide diligent and competent service to principals; (IV) Advance and protect the profession. The priority ordering matters — when canons conflict, lower-numbered canons take precedence. Mnemonic: "Society-Honorably-Competent-Advance" (SHCA).</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">A CISSP practitioner is employed by a managed security services provider. A client asks the practitioner to conduct a penetration test on a third party's network, claiming it is a subsidiary. The practitioner cannot verify this claim and has no written authorization from the target organisation. The employer pressures the practitioner to proceed. What does ethical conduct require?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Proceed — the client's contractual authority provides sufficient authorisation</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Decline to proceed without verified written authorisation from the actual system owner — conducting an unauthorised pentest is illegal and violates Canon II (act legally) regardless of employer pressure</label></li>
+    <li><label><input type="radio" name="q3" value="c"> File a report with (ISC)² before taking any action, then proceed while the investigation is pending</label></li>
+    <li><label><input type="radio" name="q3" value="d"> Proceed but limit the test to passive reconnaissance only</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> Penetration testing without proper authorisation from the system/network owner is unauthorised access — a crime under computer abuse statutes (CFAA in the US). Canon II requires acting legally. Employer instructions do not override the legal and ethical obligation to obtain verifiable written authorisation ("get-out-of-jail letter") before any offensive security activity. A verbal claim that a target is a subsidiary, without verification, is insufficient. This is one of the clearest ethics scenarios in CISSP: no written authorisation = no test.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">RFC 1087 ("Ethics and the Internet") describes uses of the internet considered unethical. Which of the following is NOT explicitly listed as unethical in RFC 1087?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> Compromising the privacy of users</label></li>
+    <li><label><input type="radio" name="q4" value="b"> Disrupting the intended use of the Internet</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Using the Internet for commercial purposes or business activity</label></li>
+    <li><label><input type="radio" name="q4" value="d"> Seeking to gain unauthorised access to Internet resources</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: C.</strong> RFC 1087 (1989) was written when the internet was a non-commercial academic/research network. It lists as unethical: seeking unauthorised access, disrupting intended use, wasting resources, destroying information integrity, and compromising user privacy. Commercial use of the internet is NOT listed as unethical in RFC 1087 — it simply wasn't the intended use at the time. Today, commercial use is entirely normalised. CISSP candidates sometimes confuse RFC 1087 with ARPANET's acceptable use policies that did restrict commercial use.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">A CISSP professional justifies a security decision by arguing: "This control will cause minor inconvenience to 1,000 employees but will prevent potential harm to 50,000 customers — the greatest good for the greatest number." Which ethical framework does this reasoning reflect?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Deontological ethics — following universal moral rules regardless of consequences</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Virtue ethics — acting as a person of good character would act</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Consequentialism (Utilitarianism) — evaluating the moral rightness of actions by their outcomes and maximising overall welfare</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Divine command theory — actions are right because they are commanded by a moral authority</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: C.</strong> Consequentialism (Utilitarianism, associated with Bentham and Mill) evaluates ethical decisions by their outcomes — "the greatest good for the greatest number." Security risk management is often grounded in utilitarian calculation (weigh costs vs. benefits to affected stakeholders). Deontology (A) focuses on rules and duties regardless of outcomes (Kant's categorical imperative). Virtue ethics (B) asks what a person of good character would do. CISSP examinees should recognise these frameworks and understand that risk-based security decisions align most closely with consequentialist thinking.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">The Computer Ethics Institute's Ten Commandments of Computer Ethics begins with: "Thou shalt not use a computer to harm other people." This first commandment MOST directly addresses which type of unethical act?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> Intentionally using computing systems to cause harm — whether through malware, fraud, harassment, or other means targeting individuals or organisations</label></li>
+    <li><label><input type="radio" name="q6" value="b"> Accidentally causing harm through negligent programming or misconfiguration</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Using computers for commercial purposes that harm competition</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Monitoring employees without disclosure</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: A.</strong> The first commandment establishes the foundational principle against intentional harm. It covers direct harm (deploying malware, launching attacks, committing fraud, cyberstalking) as well as indirect harm (writing code that facilitates criminal activity). Negligent harm (B) is covered by other professional standards. The Ten Commandments were written in 1992 and remain part of the CISSP ethics curriculum as a historical reference framework alongside the (ISC)² Code and RFC 1087.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">A security researcher discovers a critical zero-day vulnerability in widely-deployed industrial control system (ICS) firmware. They plan to publish full exploit code immediately on a public forum without notifying the vendor. Under responsible disclosure principles, what is the MOST ethical approach?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> Immediate public disclosure — the public right to know outweighs vendor notification concerns</label></li>
+    <li><label><input type="radio" name="q7" value="b"> Notify only the affected ICS operators directly and never disclose the vulnerability publicly</label></li>
+    <li><label><input type="radio" name="q7" value="c"> Notify the vendor privately, allow a defined remediation window (typically 90 days), then coordinate the public disclosure — giving operators time to patch before exploit details are published</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Submit the vulnerability exclusively to a government agency and let them decide on disclosure</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: C.</strong> Responsible (coordinated) disclosure is the industry-standard ethical approach: notify the vendor privately → allow a reasonable remediation period → coordinate public disclosure. Most vulnerability programs use a 90-day window (e.g., Google Project Zero). Publishing full exploit code immediately (A) is "full disclosure" — which maximises risk to unpatched systems and is generally considered irresponsible for critical infrastructure vulnerabilities. CISSPs must understand the spectrum from full disclosure to coordinated disclosure to vendor-only disclosure, and apply judgement based on the risk and vendor responsiveness.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">A CISSP professional volunteers to peer-review a colleague's published research paper, helps mentor junior security analysts, and contributes to (ISC)²'s CPE authoring program. These activities MOST directly fulfil which Canon of the (ISC)² Code of Ethics?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Canon I — Protect society and the public trust</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Canon II — Act honorably and legally</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Canon IV — Advance and protect the profession</label></li>
+    <li><label><input type="radio" name="q8" value="d"> Canon III — Provide competent service to principals</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: C.</strong> Canon IV (Advance and protect the profession) is fulfilled through activities that grow and strengthen the security field: mentoring newcomers, publishing research, contributing to standards, peer review, and participation in professional organisations. This Canon is intentionally last in priority (fourth) because it benefits the profession as a whole rather than a specific principal or society directly — but it is still mandatory. Canon III (D) refers to competent service to your clients/employer — the people you directly serve.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">A CISSP who works as a CISO discovers credible evidence of financial fraud by a senior executive involving the company's cybersecurity budget. After raising the issue internally through the audit committee and board, the issue is suppressed rather than investigated. What is the MOST ethically appropriate next step?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> Accept the board's decision — internal governance processes have been exhausted and the matter is closed</label></li>
+    <li><label><input type="radio" name="q9" value="b"> Resign immediately and take no further action to avoid personal liability</label></li>
+    <li><label><input type="radio" name="q9" value="c"> Report to the appropriate external authorities (regulators, law enforcement) — after internal channels have failed to address illegal activity, Canon I requires escalation outside the organisation</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Leak the evidence to the press to ensure public awareness</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> The (ISC)² Code requires exhausting internal channels first — which was done. When internal channels fail to address illegal activity, Canon I (protect society and public trust) requires reporting to appropriate external authorities — regulators, law enforcement, or government agencies with jurisdiction. This is the ethical escalation path. Media leaks (D) are a last resort that bypasses proper channels and may violate confidentiality obligations. Resignation without reporting (B) abandons the ethical obligation. Accepting the suppression (A) makes the CISSP complicit.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">A CISSP's certification is set to expire. She has been very busy and did not complete her required 120 Continuing Professional Education (CPE) credits over the three-year cycle. She is considering backdating some CPE records. Which statement MOST accurately describes the seriousness of this act under (ISC)² standards?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> CPE compliance is an administrative formality — minor documentation adjustments carry minimal professional risk</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Falsifying CPE records violates Canon II (act honestly) and is grounds for revocation of the CISSP certification and permanent bar from (ISC)² membership</label></li>
+    <li><label><input type="radio" name="q10" value="c"> (ISC)² will typically issue only a warning for first-time documentation errors</label></li>
+    <li><label><input type="radio" name="q10" value="d"> The Code of Ethics only applies when the professional is acting in a work capacity — personal compliance decisions are not subject to review</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: B.</strong> The (ISC)² Code of Ethics applies at all times — not just in a work context (eliminating D). Falsifying CPE records is dishonest conduct in direct violation of Canon II ("act honorably, honestly, justly"). (ISC)² can and does revoke certifications for ethical violations, including falsification of CPE records. The correct action is to acknowledge the shortfall, pay the reinstatement fee if required, and complete outstanding requirements honestly. The Code applies to ALL certified members across ALL contexts — personal, professional, and online.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-007-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-008-theory.html" class="nav-btn">Day 8: Security Policies &amp; Frameworks →</a>
+</div>
+</div>
+<script>
+const answers={q1:'c',q2:'a',q3:'b',q4:'c',q5:'c',q6:'a',q7:'c',q8:'c',q9:'c',q10:'b'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

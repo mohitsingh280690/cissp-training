@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 15 – Business Continuity Planning MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+.completion-banner{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:white;border-radius:10px;padding:28px 32px;text-align:center;margin-top:30px;}
+.completion-banner h2{font-size:1.6rem;margin-bottom:10px;}
+.completion-banner p{opacity:.9;font-size:1rem;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 15: Business Continuity Planning – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A major flood forces a company to activate its continuity plans. The IT team restores servers and applications at the alternate site within 4 hours. Meanwhile, finance, HR, and customer service teams execute manual paper-based procedures to maintain critical business operations during IT recovery. Which of the following MOST accurately maps these activities to the correct plan types?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Both activities are part of the Disaster Recovery Plan (DRP)</label></li>
+    <li><label><input type="radio" name="q1" value="b"> IT system restoration = DRP; manual business workarounds = BCP — the DRP addresses technology recovery while the BCP addresses continuity of business functions through disruption regardless of technology availability</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Both activities are part of the Business Continuity Plan (BCP)</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Manual procedures = DRP; IT restoration = BCP</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: B.</strong> BCP (Business Continuity Plan) addresses the continuation of critical BUSINESS FUNCTIONS during and after a disruption — including manual fallback procedures, alternate workflows, and temporary measures that keep the organisation operating when technology is unavailable. DRP (Disaster Recovery Plan) is a technical subset of BCP that focuses specifically on restoring IT systems, applications, and data to normal operating capability. The BCP is broader: it encompasses DRP plus people, processes, communications, facilities, and manual operations. Key CISSP distinction: DRP restores technology; BCP sustains business. DRP activates during the disruption; BCP governs the entire continuity lifecycle.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A Business Impact Analysis establishes the following parameters for an order management system: RTO = 36 hours, WRT = 18 hours, MTD = 48 hours. Is the current recovery plan adequate, and why?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Adequate — RTO (36 hours) is less than MTD (48 hours), so the plan is within tolerance</label></li>
+    <li><label><input type="radio" name="q2" value="b"> Inadequate — RTO + WRT = 54 hours exceeds MTD of 48 hours; total time from disruption to restored normal operations exceeds the business-tolerable limit</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Adequate — WRT occurs in parallel with RTO, so effective recovery time is max(RTO, WRT) = 36 hours</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Cannot be determined without knowing the RPO</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> Critical BCP timing formula: RTO + WRT must be ≤ MTD. Definitions: RTO (Recovery Time Objective) = maximum time to restore the system to a functional state. WRT (Work Recovery Time) = time required after system restoration to reprocess backlogs, reconcile data, and return to normal operations. MTD (Maximum Tolerable Downtime / MAO — Maximum Acceptable Outage) = maximum time the business can survive the disruption before suffering unacceptable consequences. RTO + WRT = 36 + 18 = 54 hours > MTD 48 hours. The plan is INADEQUATE — even if IT restores the system on time, the total time to full business normalisation (54h) exceeds the business tolerance (48h). The RTO must be reduced, or WRT must be reduced, or both.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">A financial trading firm determines its RPO for market position data at 4 hours. Which backup strategy MOST accurately satisfies this RPO requirement at minimum?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Daily full backups performed at midnight — sufficient since positions are reconciled daily</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Weekly full backups with daily differential backups — this limits data loss to at most 24 hours</label></li>
+    <li><label><input type="radio" name="q3" value="c"> Daily full backups with 4-hour transaction log backups — this limits maximum data loss to the RPO of 4 hours</label></li>
+    <li><label><input type="radio" name="q3" value="d"> Backups must occur at least every 4 hours — any backup interval ≤ 4 hours satisfies the RPO, with continuous replication being ideal</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: D.</strong> RPO (Recovery Point Objective) defines the maximum amount of data loss that is acceptable, measured in time. An RPO of 4 hours means: in the worst case, recovery efforts should result in no more than 4 hours of lost transactions. To satisfy a 4-hour RPO: backups or replication must occur at intervals of AT MOST 4 hours. Option C is a valid approach (full + 4-hour log backups) but "at minimum" means ANY schedule with ≤ 4-hour backup intervals satisfies the RPO. Continuous/synchronous replication achieves RPO ≈ 0 (ideal). Daily backups (A) yield up to 24 hours of data loss — violates a 4-hour RPO. Weekly full + daily diff (B) yields up to 24 hours of loss — also violates.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">An organisation has never conducted BCP testing. The BCP team wants to choose an initial test type that provides value, builds familiarity with the plan, requires no live failover, and poses minimal operational risk. Which test type should they start with?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> Full interruption test — the most thorough test activating all recovery procedures and failing over to the alternate site</label></li>
+    <li><label><input type="radio" name="q4" value="b"> Parallel test — bring alternate systems online while production continues operating</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Tabletop exercise — structured walkthrough of the plan by key personnel, discussing responses to simulated scenarios verbally, with no system or process activation</label></li>
+    <li><label><input type="radio" name="q4" value="d"> Simulation test — act out a realistic disaster scenario with all personnel executing their response roles</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: C.</strong> BCP test types in increasing order of complexity and risk: (1) Checklist review — verify plan completeness against a checklist; (2) Structured walkthrough / Tabletop exercise — team verbally discusses their responses to a scenario; (3) Simulation — act-out a realistic scenario; (4) Parallel test — activate alternate site while production stays live; (5) Full interruption test — actual failover to alternate site, production taken offline. For a first-time test, a Tabletop exercise is appropriate: zero risk to production, builds team familiarity, identifies plan gaps and communication issues, requires only a meeting room and the plan document. Always build test maturity progressively — never start with a full interruption test.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">During a BCP test, the recovery team brings all alternate site systems online and validates data integrity and processing capability — while all production systems remain fully operational and serving live traffic. This test type is classified as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Full interruption test — production is fully failed over to the alternate site</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Structured walkthrough — team verbally describes what they would do</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Parallel test — alternate site systems are activated and validated while production continues uninterrupted, providing recovery capability proof without production risk</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Simulation test — roleplay scenario but no actual systems activated</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: C.</strong> Parallel test: the alternate recovery site is brought fully online and validated (systems up, data loaded, processing confirmed), but production systems continue serving live traffic simultaneously — both environments run in parallel. Advantages: validates actual recovery capability; tests data synchronisation and alternate site functionality; no production risk. Full interruption test (A): production is actually taken offline and traffic shifted to alternate site — maximum realism but highest risk. Parallel (C) is the CISSP default "best of both worlds" test: it proves real recovery capability while protecting production availability. Organisations typically progress: Tabletop → Simulation → Parallel → Full interruption.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">A BCP steering committee is debating the appropriate role for senior management in the BCP program. A junior analyst suggests senior management's role is simply to fund BCP activities and receive summary reports. The security manager disagrees. Which of the following MOST accurately describes senior management's primary responsibilities in BCP?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> Conducting technical recovery exercises and maintaining backup systems</label></li>
+    <li><label><input type="radio" name="q6" value="b"> Acting as BCP coordinators and managing crisis communications with customers</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Sponsoring and authorising the BCP program, defining acceptable risk thresholds, approving the BCP policy, allocating resources, and formally accepting residual risks that the BCP cannot mitigate — ultimate accountability rests with senior management</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Delegating all BCP responsibilities to IT security staff and the business continuity coordinator</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: C.</strong> Senior management's BCP responsibilities (CISSP "manager mindset"): Programme sponsorship — authorise and champion the BCP programme; Risk appetite definition — establish acceptable levels of disruption and data loss (MTD, RTO, RPO targets); Policy approval — formally approve BCP policy and scope; Resource allocation — commit budget, personnel, and technology; Residual risk acceptance — formally accept risks that the BCP cannot fully mitigate; Accountability — bear ultimate legal and fiduciary responsibility for organisational resilience. Senior management CANNOT delegate this accountability. The BCP coordinator manages execution; senior management owns governance and accountability. This is the most important CISSP principle: management accountability cannot be delegated away.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">During a BIA, analysts discover that a retail company's primary revenue-generating system (online store) generates 40% of annual revenue per day during peak season. Analysis shows that at Day 7 of continuous outage, the company would be unable to meet payroll, service debt, or fulfil critical supplier contracts, resulting in potential insolvency. What BCP/BIA term MOST precisely describes this Day 7 threshold?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> Recovery Time Objective (RTO) — the target time for system restoration</label></li>
+    <li><label><input type="radio" name="q7" value="b"> Recovery Point Objective (RPO) — the data loss tolerance threshold</label></li>
+    <li><label><input type="radio" name="q7" value="c"> Maximum Tolerable Downtime (MTD) / Maximum Acceptable Outage (MAO) — the absolute maximum time the business can sustain disruption before suffering irreversible, catastrophic consequences</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Work Recovery Time (WRT) — the time to reprocess outstanding transactions after restoration</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: C.</strong> Maximum Tolerable Downtime (MTD) — also called Maximum Acceptable Outage (MAO) — is the absolute maximum time an organisation can survive a system or process disruption before suffering unacceptable, potentially irreversible harm. The Day 7 threshold (insolvency risk) is the textbook definition of MTD: beyond this point, the organisation cannot recover to a viable state. MTD is determined by the BIA and drives BCP design: RTO + WRT must be < MTD. MTD is the BUSINESS CONSTRAINT that makes BCP planning a critical necessity, not just a best practice. It translates business impact into technical recovery requirements by establishing the hard deadline that BCP objectives must satisfy.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">A financial exchange sets an RPO of zero (0) for its trade execution audit log. What data replication strategy is required to achieve RPO = 0?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Hourly transaction log backups to an offsite data centre — sufficient for near-zero data loss</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Synchronous real-time replication — every write operation is simultaneously committed to both primary and secondary storage before the transaction is confirmed, ensuring no data loss regardless of when failure occurs</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Asynchronous replication with 5-minute lag — provides near-zero data loss at lower cost</label></li>
+    <li><label><input type="radio" name="q8" value="d"> RAID mirroring on primary storage — provides redundancy against disk failure with zero data loss</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> RPO = 0 means ZERO data loss is acceptable — no transactions can be lost under any failure condition. This requires synchronous replication: every write is simultaneously confirmed on both primary and secondary storage before the application receives confirmation. If primary fails at any point, every committed transaction exists on the secondary. Asynchronous replication (C) introduces a replication lag (seconds to minutes) — any transactions in the replication buffer at time of failure are lost. Hourly backups (A) yield up to 60 minutes of data loss. RAID mirroring (D) protects against local disk failure only — not site-level failures. Synchronous replication has cost/performance implications (write latency increases) making it reserved for the most critical RPO=0 workloads.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">An organisation's BCM (Business Continuity Management) program requires certification against a recognised international standard for business continuity management systems. Which standard provides a certifiable BCM framework with internationally recognised organisational certification?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> NIST SP 800-34 — the US federal standard for contingency planning</label></li>
+    <li><label><input type="radio" name="q9" value="b"> ISO 22301 — the international standard for Security and Resilience: Business Continuity Management Systems, providing a certifiable BCMS framework</label></li>
+    <li><label><input type="radio" name="q9" value="c"> ISO 27001 — the information security management system standard covering business continuity</label></li>
+    <li><label><input type="radio" name="q9" value="d"> COBIT 2019 — the IT governance framework with BCM domain guidance</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: B.</strong> ISO 22301 (Security and Resilience — Business Continuity Management Systems — Requirements) is the internationally recognised, certifiable standard for BCM. Organisations can obtain third-party ISO 22301 certification demonstrating their BCMS meets international requirements. Key sections: Context, Leadership, Planning, Support, Operations, Performance evaluation, Improvement — following the standard ISO PDCA (Plan-Do-Check-Act) structure. ISO 27001 (C) covers information security broadly and includes Business Continuity as a control domain (Annex A 17), but it is not a dedicated BCM certification standard. NIST 800-34 (A) is US government guidance, not a certifiable standard. COBIT (D) is a governance framework, not a certifiable BCM standard.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">Following a major ransomware attack, an organisation successfully activates its BCP and restores all systems within RTO targets. Once the crisis is resolved and normal operations are fully restored, what is the MOST important immediate next step for the BCP program?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Archive the incident records and consider the event closed</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Conduct an after-action review (AAR) / lessons-learned exercise to identify what worked, what failed, and what gaps were discovered — then update the BCP, DRP, and related procedures accordingly</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Immediately begin procurement to replace all affected hardware</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Notify regulators that the incident has been resolved without further action</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: B.</strong> Post-incident after-action review (AAR) / lessons-learned is a mandatory BCP lifecycle activity. Every real-world BCP activation provides irreplaceable evidence about plan effectiveness that no exercise can replicate. The AAR must: document what occurred chronologically; identify decisions that worked and decisions that failed; quantify actual RTO/RPO vs. targets; identify plan gaps, outdated contact information, missing procedures; document improvements required. All findings must be fed back into the BCP, DRP, and related plans with formal plan updates, re-training, and schedule for re-testing improved procedures. BCP is a living document — without post-incident learning, the plan remains static while the threat landscape and organisation evolve. This is the "continuous improvement" principle central to ISO 22301 and CISSP BCM doctrine.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-015-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="../PROGRESS.md" class="nav-btn">📋 View Progress →</a>
+</div>
+<div class="completion-banner">
+  <h2>🎓 Module 1 Complete!</h2>
+  <p>You have completed all 15 days of CISSP Domain 1 — Security and Risk Management theory and practice quizzes.<br>
+  Topics covered: CISSP governance, legal frameworks, intellectual property, privacy law, ethics, security policy, risk management, quantitative &amp; qualitative risk analysis, risk response, threat modeling, supply chain risk, and business continuity planning.</p>
+</div>
+</div>
+<script>
+const answers={q1:'b',q2:'b',q3:'d',q4:'c',q5:'c',q6:'c',q7:'c',q8:'b',q9:'b',q10:'b'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

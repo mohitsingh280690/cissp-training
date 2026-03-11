@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 34 – MCQ: Security Engineering Principles</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:26px;margin-bottom:22px;transition:border-color .3s;}.question-card.correct{border-color:var(--green);background:#f1f8f1;}.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}.question-number{background:var(--primary);color:white;font-weight:700;font-size:1rem;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.question-text{font-size:1.05rem;font-weight:600;line-height:1.5;}
+.options{list-style:none;padding:0;margin:0;}.options li{margin-bottom:10px;}.options label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border-radius:6px;border:1px solid var(--border);transition:background .2s;}.options label:hover{background:#f0f4ff;}.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9;border-color:var(--green);font-weight:600;color:var(--green);}label.wrong-answer{background:#fce4ec;border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.explanation{display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:.95rem;line-height:1.6;}.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#7f0000;}
+.submit-section{text-align:center;margin:30px 0;}#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;}#submitBtn:hover{background:var(--primary);}#submitBtn:disabled{background:#bbb;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:30px;text-align:center;margin-bottom:28px;}.results h2{color:var(--primary);margin-bottom:16px;}.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}.score-display.pass{color:var(--green);}.score-display.fail{color:var(--red);}.score-message{font-size:1.2rem;margin-bottom:8px;font-weight:600;}.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 34 – Quiz: Security Engineering Principles</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 34 of 140</span><span>❓ 10 Questions</span><span>⏱️ ~15 min</span><span>🎯 Passing Score: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>📋 Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> when done. Questions cover <strong>Saltzer &amp; Schroeder's principles and secure design concepts</strong>. Passing threshold: <strong>7/10 (70%)</strong>.</div>
+
+<form id="quizForm">
+
+<div class="question-card" id="q1-card"><div class="question-header"><span class="question-number">1</span><span class="question-text">A web application checks a user's role at login and stores the result in a session cookie. For the rest of the session, the application trusts the cookie without re-verifying permissions. Which Saltzer &amp; Schroeder principle is violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q1" value="a"> Least privilege</label></li>
+<li><label><input type="radio" name="q1" value="b"> Complete mediation</label></li>
+<li><label><input type="radio" name="q1" value="c"> Economy of mechanism</label></li>
+<li><label><input type="radio" name="q1" value="d"> Open design</label></li>
+</ul><div class="explanation" id="q1-exp"></div></div>
+
+<div class="question-card" id="q2-card"><div class="question-header"><span class="question-number">2</span><span class="question-text">An organization deploys a new physical access control system. During a power outage, all doors automatically unlock to allow evacuation. While this meets life safety, which security engineering principle is compromised?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q2" value="a"> Psychological acceptability</label></li>
+<li><label><input type="radio" name="q2" value="b"> Separation of privilege</label></li>
+<li><label><input type="radio" name="q2" value="c"> Fail-safe defaults</label></li>
+<li><label><input type="radio" name="q2" value="d"> Least common mechanism</label></li>
+</ul><div class="explanation" id="q2-exp"></div></div>
+
+<div class="question-card" id="q3-card"><div class="question-header"><span class="question-number">3</span><span class="question-text">A security architect insists that the company's new encryption module should use AES rather than a proprietary, internally developed cipher. Which principle BEST supports this recommendation?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q3" value="a"> Least privilege</label></li>
+<li><label><input type="radio" name="q3" value="b"> Open design</label></li>
+<li><label><input type="radio" name="q3" value="c"> Separation of privilege</label></li>
+<li><label><input type="radio" name="q3" value="d"> Psychological acceptability</label></li>
+</ul><div class="explanation" id="q3-exp"></div></div>
+
+<div class="question-card" id="q4-card"><div class="question-header"><span class="question-number">4</span><span class="question-text">After implementing a security policy requiring 20-character passwords with special characters changed every 14 days, the security team discovers employees writing passwords on sticky notes. Which principle was violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q4" value="a"> Economy of mechanism</label></li>
+<li><label><input type="radio" name="q4" value="b"> Complete mediation</label></li>
+<li><label><input type="radio" name="q4" value="c"> Fail-safe defaults</label></li>
+<li><label><input type="radio" name="q4" value="d"> Psychological acceptability</label></li>
+</ul><div class="explanation" id="q4-exp"></div></div>
+
+<div class="question-card" id="q5-card"><div class="question-header"><span class="question-number">5</span><span class="question-text">A banking application requires both the branch manager and the operations officer to approve any wire transfer exceeding $50,000. This control implements which principle?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q5" value="a"> Least privilege</label></li>
+<li><label><input type="radio" name="q5" value="b"> Fail-safe defaults</label></li>
+<li><label><input type="radio" name="q5" value="c"> Separation of privilege</label></li>
+<li><label><input type="radio" name="q5" value="d"> Complete mediation</label></li>
+</ul><div class="explanation" id="q5-exp"></div></div>
+
+<div class="question-card" id="q6-card"><div class="question-header"><span class="question-number">6</span><span class="question-text">A company's application has grown to include 8 different authentication pathways (LDAP, SAML, OAuth, local database, API keys, certificate-based, OTP, and a legacy custom module). A security auditor flags this as a risk. Which principle is the auditor applying?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q6" value="a"> Complete mediation</label></li>
+<li><label><input type="radio" name="q6" value="b"> Economy of mechanism</label></li>
+<li><label><input type="radio" name="q6" value="c"> Open design</label></li>
+<li><label><input type="radio" name="q6" value="d"> Least privilege</label></li>
+</ul><div class="explanation" id="q6-exp"></div></div>
+
+<div class="question-card" id="q7-card"><div class="question-header"><span class="question-number">7</span><span class="question-text">Development and production workloads share the same physical server cluster and database instance. A vulnerability exploited in the development environment could expose production customer data. Which principle is violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q7" value="a"> Psychological acceptability</label></li>
+<li><label><input type="radio" name="q7" value="b"> Open design</label></li>
+<li><label><input type="radio" name="q7" value="c"> Least common mechanism</label></li>
+<li><label><input type="radio" name="q7" value="d"> Fail-safe defaults</label></li>
+</ul><div class="explanation" id="q7-exp"></div></div>
+
+<div class="question-card" id="q8-card"><div class="question-header"><span class="question-number">8</span><span class="question-text">A CI/CD pipeline grants the deployment service account full administrative rights (root) on all production servers to ensure deployments never fail due to permission issues. Which principle is violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q8" value="a"> Least privilege</label></li>
+<li><label><input type="radio" name="q8" value="b"> Economy of mechanism</label></li>
+<li><label><input type="radio" name="q8" value="c"> Open design</label></li>
+<li><label><input type="radio" name="q8" value="d"> Separation of privilege</label></li>
+</ul><div class="explanation" id="q8-exp"></div></div>
+
+<div class="question-card" id="q9-card"><div class="question-header"><span class="question-number">9</span><span class="question-text">Which of the following BEST describes the relationship between "defense in depth" and "economy of mechanism"?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q9" value="a"> They are synonymous — both advocate for minimal controls</label></li>
+<li><label><input type="radio" name="q9" value="b"> Defense in depth requires multiple layers, while economy of mechanism requires each layer to be as simple as possible</label></li>
+<li><label><input type="radio" name="q9" value="c"> Economy of mechanism supersedes defense in depth — fewer controls are always better</label></li>
+<li><label><input type="radio" name="q9" value="d"> Defense in depth only applies to network security, while economy of mechanism applies to application security</label></li>
+</ul><div class="explanation" id="q9-exp"></div></div>
+
+<div class="question-card" id="q10-card"><div class="question-header"><span class="question-number">10</span><span class="question-text">Saltzer and Schroeder's principle of fail-safe defaults is MOST closely aligned with which firewall configuration approach?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q10" value="a"> Allow all traffic, then create rules to block known malicious sources</label></li>
+<li><label><input type="radio" name="q10" value="b"> Deny all traffic by default, then create rules to allow only required traffic</label></li>
+<li><label><input type="radio" name="q10" value="c"> Log all traffic without blocking, then analyze logs to create rules</label></li>
+<li><label><input type="radio" name="q10" value="d"> Allow internal traffic and block external traffic based on IP reputation</label></li>
+</ul><div class="explanation" id="q10-exp"></div></div>
+
+</form>
+
+<div class="submit-section"><button id="submitBtn" onclick="submitQuiz()">Submit Answers</button></div>
+<div class="results" id="results"><h2>Quiz Complete!</h2><div class="score-display" id="scoreDisplay"></div><div class="score-message" id="scoreMessage"></div><div class="score-breakdown" id="scoreBreakdown"></div></div>
+
+<div class="nav-footer">
+<a href="day-034-theory.html" class="nav-btn">← Back to Theory</a>
+<a href="day-035-theory.html" class="nav-btn">Day 35: Bell-LaPadula Model →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'c',q3:'b',q4:'d',q5:'c',q6:'b',q7:'c',q8:'a',q9:'b',q10:'b'};
+const explanations={
+q1:{correct:"Correct. Complete mediation requires that every access request is checked for authorization — not just the first one. Caching the role in a session cookie and trusting it without re-verification means subsequent requests bypass the access check. If the user's role is revoked mid-session, the stale cookie still grants access.",incorrect:"Incorrect. The key issue is that the application only checks authorization once at login and trusts the cached result. This violates complete mediation — the principle that every access to every resource must be checked. Least privilege concerns the scope of permissions, not verification frequency."},
+q2:{correct:"Correct. Fail-safe defaults dictates that when a system fails, it should default to a secure state (access denied). Doors unlocking on power failure is 'fail-open' — the system defaults to an insecure state. Note: in practice, life safety codes may require fail-open for fire exits, creating a tension between safety and security that must be managed through compensating controls.",incorrect:"Incorrect. When a system fails and defaults to an insecure state (doors unlocking), the fail-safe defaults principle is violated. Fail-safe = fail to a safe/secure state. The scenario describes fail-open behavior."},
+q3:{correct:"Correct. Open design (Kerckhoffs' principle) states that security should not depend on the secrecy of the mechanism — only the key. AES is a publicly known, extensively peer-reviewed algorithm whose security relies on key secrecy. A proprietary cipher relies on algorithm secrecy, which violates this principle.",incorrect:"Incorrect. The architect is recommending a publicly documented, peer-reviewed algorithm over a secret proprietary one. This is the open design principle — security doesn't depend on mechanism secrecy. AES is secure because of its mathematical properties and key secrecy, not because its design is hidden."},
+q4:{correct:"Correct. Psychological acceptability states that security mechanisms should not make the resource significantly harder to access. When security controls are so burdensome that users find workarounds (sticky notes, password sharing), the design has failed. The solution is a more usable approach (passphrase, MFA, password manager) — not blaming users.",incorrect:"Incorrect. Users writing passwords on sticky notes indicates the security control is too burdensome to use as intended. This is a violation of psychological acceptability. The principle recognizes that overly complex controls drive users to circumvent them, which is a design problem."},
+q5:{correct:"Correct. Separation of privilege requires that critical operations need multiple conditions or parties to proceed. Dual authorization (two-person approval) for high-value transactions is the textbook implementation. No single person can unilaterally complete the operation.",incorrect:"Incorrect. Dual authorization for transactions is the classic example of separation of privilege — requiring multiple parties for critical operations. Least privilege would concern the scope of what each role can access, not the dual-approval mechanism itself."},
+q6:{correct:"Correct. Economy of mechanism calls for security mechanisms to be as simple and small as possible. Eight different authentication pathways dramatically increase complexity, attack surface, and audit difficulty. Each pathway could have unique vulnerabilities. The auditor would recommend consolidating to fewer, well-tested mechanisms.",incorrect:"Incorrect. Multiple overlapping authentication mechanisms create unnecessary complexity. Economy of mechanism states that simpler, smaller security designs are easier to verify, test, and maintain. Eight different auth pathways multiply the attack surface and make comprehensive auditing nearly impossible."},
+q7:{correct:"Correct. Least common mechanism states that shared resources between different security domains create covert channels and lateral movement risks. Sharing compute and database infrastructure between dev and production means a compromise in the less-secure dev environment can directly reach production data.",incorrect:"Incorrect. Shared infrastructure between different trust levels (dev and prod) violates least common mechanism. The principle requires minimizing shared resources between users/environments with different security requirements to prevent cross-contamination."},
+q8:{correct:"Correct. Granting root/admin access to a deployment service account 'to avoid permission issues' directly violates least privilege. The account should have only the specific permissions needed for deployment — not full administrative control. This over-provisioning means a compromised deployment pipeline could execute arbitrary commands across all production servers.",incorrect:"Incorrect. The scenario describes a service account with far more permissions than needed — full root access when only deployment-specific permissions are required. This is a textbook violation of least privilege. The principle requires minimum necessary permissions for users AND processes."},
+q9:{correct:"Correct. Defense in depth and economy of mechanism are complementary, not contradictory. Defense in depth requires multiple security layers (firewall + IDS + AV + encryption), while economy of mechanism requires that each individual layer be as simple and verifiable as possible. You want multiple simple layers, not one complex layer.",incorrect:"Incorrect. These principles complement each other: defense in depth adds multiple layers of protection, while economy of mechanism keeps each layer as simple and auditable as possible. They're not synonymous, contradictory, or domain-specific — they work together."},
+q10:{correct:"Correct. Fail-safe defaults requires that the default state is secure — access denied. A default-deny firewall policy (block all, then explicitly allow required traffic) is the textbook implementation. Traffic must be explicitly permitted, not explicitly blocked — permission-based, not exclusion-based.",incorrect:"Incorrect. Fail-safe defaults aligns with default-deny: block everything, then create explicit allow rules for required traffic. An allow-all approach (deny-listing) is the opposite — exclusion-based rather than permission-based. Fail-safe means the default is secure."}
+};
+
+function submitQuiz(){let score=0;const total=10;document.getElementById('submitBtn').disabled=true;document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);for(let i=1;i<=total;i++){const key='q'+i;const card=document.getElementById(key+'-card');const selected=document.querySelector('input[name="'+key+'"]:checked');const expDiv=document.getElementById(key+'-exp');const correct=answers[key];const correctLabel=document.querySelector('input[name="'+key+'"][value="'+correct+'"]')?.parentElement;if(correctLabel)correctLabel.classList.add('correct-answer');if(selected){if(selected.value===correct){score++;card.classList.add('correct');expDiv.className='explanation correct-exp';expDiv.innerHTML='✅ '+explanations[key].correct;}else{card.classList.add('incorrect');selected.parentElement.classList.add('wrong-answer');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='❌ '+explanations[key].incorrect;}}else{card.classList.add('incorrect');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='⚠️ Not answered. '+explanations[key].incorrect;}expDiv.style.display='block';}const pct=Math.round(score/total*100);const pass=score>=7;document.getElementById('scoreDisplay').textContent=score+'/10';document.getElementById('scoreDisplay').className='score-display '+(pass?'pass':'fail');document.getElementById('scoreMessage').textContent=pass?'🎉 PASSED — Well done!':'📚 FAILED — Review the explanations above and revisit the theory.';document.getElementById('scoreBreakdown').textContent=score+' correct out of 10 ('+pct+'%) — Passing threshold: 7/10 (70%)';document.getElementById('results').style.display='block';document.getElementById('results').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

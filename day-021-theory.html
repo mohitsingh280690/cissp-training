@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 21 – Information & Asset Classification</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 21: Information &amp; Asset Classification</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 21 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Beginner</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 21: Information &amp; Asset Classification</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Why Classification Matters</a></li>
+    <li><a href="#s4">The Classification Process</a></li>
+    <li><a href="#s5">Classification Criteria</a></li>
+    <li><a href="#s6">Asset Inventory and Management</a></li>
+    <li><a href="#s7">Declassification and Reclassification</a></li>
+    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s9">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Without knowing what assets exist and how sensitive they are, an organisation cannot apply proportionate protection. Classification is the foundation of all data protection activities in Domain 2.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario: "Who determines classification?"; Matching roles to responsibilities; definitions of classification terms; process order questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>Domain 1 (policy and governance); Domain 5 (access control — classification drives access decisions); Domain 3 (security architecture — classify assets before designing controls)</td></tr>
+    <tr><td>Typical Exam Scenarios</td><td>"Who is responsible for classifying data?"; "What should happen when data no longer meets its original classification criteria?"; "Which role implements controls once classification is set?"</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The data OWNER sets the classification — not the custodian, not the security team, not the user. The custodian implements the controls that the classification requires. This role confusion is one of the most common Domain 2 exam errors.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Without classification, every asset is treated the same — either everything gets maximum protection (unaffordably expensive and impractical) or nothing gets adequate protection (a data breach waiting to happen). Classification enables risk-proportionate security spending.</p>
+  <p>A hospital cannot afford to encrypt every piece of paper — but it must encrypt patient records. A law firm cannot store all documents in locked safes — but it must secure client privilege communications. Classification provides the decision framework for where to invest security controls and at what intensity.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Why Classification Matters</h2>
+  <p>Asset classification answers four critical questions that drive all downstream security decisions:</p>
+  <ul>
+    <li><strong>What do we have?</strong> — The asset inventory answers this</li>
+    <li><strong>How sensitive is it?</strong> — The classification level answers this</li>
+    <li><strong>Who is responsible for it?</strong> — The ownership model answers this</li>
+    <li><strong>How should we protect it?</strong> — The classification level drives the required controls</li>
+  </ul>
+  <div class="key-concept">
+    <strong>Key Concept — Classification Drives Controls:</strong> Classification is not an end in itself. It is the mechanism that determines which handling procedures, access controls, encryption requirements, retention policies, and destruction methods apply to a given piece of information or asset. Higher classification = stronger and more expensive controls.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. The Classification Process</h2>
+  <p>Classification should follow a defined, repeatable process rather than ad-hoc decisions. A structured process ensures consistency and defensibility:</p>
+  <table>
+    <tr><th>Step</th><th>Activity</th><th>Who</th></tr>
+    <tr><td>1. Identify assets</td><td>Create or update a comprehensive asset inventory including data, systems, applications, and physical assets</td><td>IT / Asset Management team with input from business units</td></tr>
+    <tr><td>2. Assign ownership</td><td>Designate a data owner (typically senior management / business function head) responsible for each asset category</td><td>Senior management / Business unit heads</td></tr>
+    <tr><td>3. Evaluate sensitivity</td><td>Data owner assesses the asset against classification criteria (regulatory requirements, competitive value, privacy sensitivity, operational impact of disclosure)</td><td>Data Owner</td></tr>
+    <tr><td>4. Assign classification</td><td>Data owner assigns the appropriate classification level from the organisation's classification scheme</td><td>Data Owner</td></tr>
+    <tr><td>5. Apply labels and markings</td><td>Mark data with its classification level in headers/footers (documents), metadata (digital files), and physical labels (equipment)</td><td>Data Custodian / Users</td></tr>
+    <tr><td>6. Implement controls</td><td>Apply the handling, access, encryption, transmission and storage controls required for that classification level</td><td>Data Custodian (IT operations)</td></tr>
+    <tr><td>7. Review and maintain</td><td>Periodically reassess classification — information value changes over time</td><td>Data Owner, periodic review</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Classification Criteria</h2>
+  <p>Data owners evaluate several factors when determining the appropriate classification level:</p>
+  <table>
+    <tr><th>Criterion</th><th>Considerations</th></tr>
+    <tr><td>Regulatory and legal requirements</td><td>Is this PII under GDPR? PHI under HIPAA? Payment card data under PCI-DSS? Legal requirements often mandate minimum classification levels.</td></tr>
+    <tr><td>Value to the organisation</td><td>Trade secrets, proprietary algorithms, client lists — high value to competitors or attackers if disclosed</td></tr>
+    <tr><td>Sensitivity / Privacy impact</td><td>Would disclosure cause personal harm to individuals? (Medical history, financial records, personnel files)</td></tr>
+    <tr><td>Operational impact of disclosure</td><td>Would disclosure compromise ongoing operations? (Merger plans, tender bids, security configuration)</td></tr>
+    <tr><td>National security implications</td><td>Relevant in government/defence: would disclosure harm national security?</td></tr>
+    <tr><td>Age and time sensitivity</td><td>Information value decays over time — merger plans disclosed after completion are no longer sensitive</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Asset Inventory and Management</h2>
+  <div class="definition">
+    <strong>Asset Inventory (ITAM — IT Asset Management):</strong> A comprehensive, maintained register of all organisational assets — hardware, software, data, and intellectual property. The starting point for classification, ownership assignment, and lifecycle management.
+  </div>
+  <p>An effective asset inventory includes:</p>
+  <ul>
+    <li>Asset identification (unique ID, name, description)</li>
+    <li>Asset type (hardware, software, data, service)</li>
+    <li>Owner (data/system owner name and role)</li>
+    <li>Classification level</li>
+    <li>Location (physical location and/or data location/jurisdiction)</li>
+    <li>Value or criticality rating</li>
+    <li>Lifecycle status (active, archived, decommissioned)</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The CISSP exam expects you to understand that an asset inventory must exist before classification can occur. "You cannot protect what you don't know you have" is a foundational security principle. An undiscovered asset (shadow IT, rogue cloud accounts, unregistered servers) cannot be classified, protected, or included in BCP/DR plans.
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Declassification and Reclassification</h2>
+  <div class="definition">
+    <strong>Declassification:</strong> Reducing or removing the classification level of information when it no longer meets the criteria that originally justified the higher classification. The data owner approves declassification.
+  </div>
+  <div class="definition">
+    <strong>Reclassification:</strong> Changing the classification level (up or down) based on a change in circumstances — new regulatory requirements, change in the information's sensitivity, or change in its operational importance.
+  </div>
+  <p>Common situations triggering reclassification:</p>
+  <ul>
+    <li>A merger plan is announced publicly → classified financial projections may be declassified</li>
+    <li>A new privacy regulation expands the definition of PII → some previously unclassified data now requires classification</li>
+    <li>A product design patent expires → formerly trade secret data may be declassified</li>
+    <li>A security incident exposes data → reclassification and damage assessment required</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠️ Remember:</strong> Only the data owner can approve reclassification or declassification. Custodians implement the resulting change in controls; they don't make the classification decision.
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Classification Process — "I-O-E-A-L-I-R":</strong><br>
+    <strong>I</strong>dentify assets (build inventory)<br>
+    <strong>O</strong>wnership assigned (who is responsible?)<br>
+    <strong>E</strong>valuate sensitivity (what are the criteria?)<br>
+    <strong>A</strong>ssign classification level<br>
+    <strong>L</strong>abel and mark all copies<br>
+    <strong>I</strong>mplement required controls<br>
+    <strong>R</strong>eview and maintain periodically
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Owner vs. Custodian:</strong><br>
+    Owner = DECIDES (classification level, who gets access, retention period)<br>
+    Custodian = DOES IT (implements controls, runs backups, applies patches)<br>
+    Think: Business Owner of a building DECIDES what rooms need locks; Facility Manager INSTALLS the locks.
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>Key Point</th></tr>
+    <tr><td>Classification purpose</td><td>Enables risk-proportionate protection; drives control selection and spending</td></tr>
+    <tr><td>Who classifies?</td><td>The Data Owner (senior management / business function head)</td></tr>
+    <tr><td>Who implements controls?</td><td>The Data Custodian (IT / security operations)</td></tr>
+    <tr><td>Asset inventory</td><td>Must exist before classification; cannot protect what you can't find</td></tr>
+    <tr><td>Classification criteria</td><td>Regulatory, value, privacy sensitivity, operational impact, time sensitivity</td></tr>
+    <tr><td>Declassification</td><td>Owner-approved reduction when original criteria no longer apply</td></tr>
+    <tr><td>Reclassification</td><td>Owner-approved change (up or down) when circumstances change</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-020-theory.html" class="nav-btn">← Day 20: Domain 1 Review</a>
+  <a href="day-021-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 27 MCQ – Data Retention &amp; Destruction</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:30px;text-align:center;}
+.header h1{font-size:1.8rem;margin-bottom:6px;}
+.container{max-width:800px;margin:0 auto;padding:30px 20px;}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-text{font-size:1rem;font-weight:600;margin-bottom:16px;line-height:1.6;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border:2px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s;}
+.option:hover{background:#f3e5f5;border-color:#9c27b0;}
+.option input{margin-top:3px;accent-color:#7b1fa2;}
+.option label{cursor:pointer;line-height:1.5;}
+.btn-check{margin-top:14px;padding:10px 28px;background:#7b1fa2;color:white;border:none;border-radius:6px;cursor:pointer;font-size:.95rem;font-weight:600;}
+.btn-check:hover{background:#4a148c;}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:6px;font-weight:500;display:none;}
+.correct{background:#e8f5e9;color:var(--green);border-left:4px solid var(--green);}
+.incorrect{background:#fce4ec;color:var(--red);border-left:4px solid var(--red);}
+.score-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;text-align:center;margin-top:20px;display:none;}
+.score-num{font-size:3rem;font-weight:700;color:#7b1fa2;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;flex-wrap:wrap;gap:10px;}
+.nav-btn{padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 27 Quiz – Data Retention &amp; Destruction</h1>
+  <div>Domain 2 – Asset Security | 10 Questions | Pass: 7/10</div>
+</div>
+<div class="container">
+
+<div class="question-card" id="q1">
+  <div class="question-text">1. A publicly traded company must retain financial records and audit work papers for how long under Sarbanes-Oxley (SOX)?</div>
+  <div class="option"><input type="radio" name="q1" value="a"><label><strong>A.</strong> 3 years</label></div>
+  <div class="option"><input type="radio" name="q1" value="b"><label><strong>B.</strong> 5 years</label></div>
+  <div class="option"><input type="radio" name="q1" value="c"><label><strong>C.</strong> 6 years</label></div>
+  <div class="option"><input type="radio" name="q1" value="d"><label><strong>D.</strong> 7 years</label></div>
+  <button class="btn-check" onclick="check('q1','d')">Check Answer</button>
+  <div class="feedback" id="q1-fb"></div>
+</div>
+
+<div class="question-card" id="q2">
+  <div class="question-text">2. A hospital receives a letter from a law firm indicating intent to sue over a patient's care. Normal backup rotation would destroy records in this cycle. What should the hospital do?</div>
+  <div class="option"><input type="radio" name="q2" value="a"><label><strong>A.</strong> Proceed with normal backup rotation as the lawsuit has not been formally filed</label></div>
+  <div class="option"><input type="radio" name="q2" value="b"><label><strong>B.</strong> Issue a litigation hold immediately to preserve all relevant data</label></div>
+  <div class="option"><input type="radio" name="q2" value="c"><label><strong>C.</strong> Destroy all records within that cycle before the lawsuit is filed</label></div>
+  <div class="option"><input type="radio" name="q2" value="d"><label><strong>D.</strong> Wait for a court order before placing any hold</label></div>
+  <button class="btn-check" onclick="check('q2','b')">Check Answer</button>
+  <div class="feedback" id="q2-fb"></div>
+</div>
+
+<div class="question-card" id="q3">
+  <div class="question-text">3. A company replaces its file servers and wants to dispose of the old HDDs securely. Which method would render a traditional magnetic HDD permanently unreadable without physical destruction of the drive casing?</div>
+  <div class="option"><input type="radio" name="q3" value="a"><label><strong>A.</strong> Formatting the drive using the operating system</label></div>
+  <div class="option"><input type="radio" name="q3" value="b"><label><strong>B.</strong> Degaussing</label></div>
+  <div class="option"><input type="radio" name="q3" value="c"><label><strong>C.</strong> Encrypting the drive after disposal</label></div>
+  <div class="option"><input type="radio" name="q3" value="d"><label><strong>D.</strong> Deleting all files and emptying the Recycle Bin</label></div>
+  <button class="btn-check" onclick="check('q3','b')">Check Answer</button>
+  <div class="feedback" id="q3-fb"></div>
+</div>
+
+<div class="question-card" id="q4">
+  <div class="question-text">4. A company uses a cloud storage provider and needs to securely destroy data stored in the cloud when it reaches the end of its retention period. Which destruction method is MOST appropriate?</div>
+  <div class="option"><input type="radio" name="q4" value="a"><label><strong>A.</strong> Degaussing the cloud servers</label></div>
+  <div class="option"><input type="radio" name="q4" value="b"><label><strong>B.</strong> Incinerating the storage drives</label></div>
+  <div class="option"><input type="radio" name="q4" value="c"><label><strong>C.</strong> Cryptographic erasure — destroying the encryption key</label></div>
+  <div class="option"><input type="radio" name="q4" value="d"><label><strong>D.</strong> Requesting that cloud provider staff manually delete files</label></div>
+  <button class="btn-check" onclick="check('q4','c')">Check Answer</button>
+  <div class="feedback" id="q4-fb"></div>
+</div>
+
+<div class="question-card" id="q5">
+  <div class="question-text">5. Under HIPAA, medical records must be retained for a minimum of how long from the date of creation or last effective date?</div>
+  <div class="option"><input type="radio" name="q5" value="a"><label><strong>A.</strong> 3 years</label></div>
+  <div class="option"><input type="radio" name="q5" value="b"><label><strong>B.</strong> 5 years</label></div>
+  <div class="option"><input type="radio" name="q5" value="c"><label><strong>C.</strong> 6 years</label></div>
+  <div class="option"><input type="radio" name="q5" value="d"><label><strong>D.</strong> 10 years</label></div>
+  <button class="btn-check" onclick="check('q5','c')">Check Answer</button>
+  <div class="feedback" id="q5-fb"></div>
+</div>
+
+<div class="question-card" id="q6">
+  <div class="question-text">6. An organisation contracts a third-party company to destroy decommissioned laptops. What document should the organisation require from the third party as proof of secure disposal?</div>
+  <div class="option"><input type="radio" name="q6" value="a"><label><strong>A.</strong> Non-disclosure agreement</label></div>
+  <div class="option"><input type="radio" name="q6" value="b"><label><strong>B.</strong> Certificate of destruction</label></div>
+  <div class="option"><input type="radio" name="q6" value="c"><label><strong>C.</strong> Data Processing Agreement</label></div>
+  <div class="option"><input type="radio" name="q6" value="d"><label><strong>D.</strong> Change management record</label></div>
+  <button class="btn-check" onclick="check('q6','b')">Check Answer</button>
+  <div class="feedback" id="q6-fb"></div>
+</div>
+
+<div class="question-card" id="q7">
+  <div class="question-text">7. An organisation uses degaussing to sanitise decommissioned solid-state drives (SSDs). What is the outcome?</div>
+  <div class="option"><input type="radio" name="q7" value="a"><label><strong>A.</strong> All data on the SSDs is permanently destroyed</label></div>
+  <div class="option"><input type="radio" name="q7" value="b"><label><strong>B.</strong> Only the file system tables are erased; data remains</label></div>
+  <div class="option"><input type="radio" name="q7" value="c"><label><strong>C.</strong> Degaussing has no effect on SSDs — the data remains intact</label></div>
+  <div class="option"><input type="radio" name="q7" value="d"><label><strong>D.</strong> SSDs are destroyed by the magnetic field and must be replaced</label></div>
+  <button class="btn-check" onclick="check('q7','c')">Check Answer</button>
+  <div class="feedback" id="q7-fb"></div>
+</div>
+
+<div class="question-card" id="q8">
+  <div class="question-text">8. The legal term for the destruction or alteration of evidence after a litigation hold should have been triggered is called:</div>
+  <div class="option"><input type="radio" name="q8" value="a"><label><strong>A.</strong> Subrogation</label></div>
+  <div class="option"><input type="radio" name="q8" value="b"><label><strong>B.</strong> Chain of custody violation</label></div>
+  <div class="option"><input type="radio" name="q8" value="c"><label><strong>C.</strong> Spoliation</label></div>
+  <div class="option"><input type="radio" name="q8" value="d"><label><strong>D.</strong> Due diligence failure</label></div>
+  <button class="btn-check" onclick="check('q8','c')">Check Answer</button>
+  <div class="feedback" id="q8-fb"></div>
+</div>
+
+<div class="question-card" id="q9">
+  <div class="question-text">9. Under GDPR, what principle governs how long personal data may be retained?</div>
+  <div class="option"><input type="radio" name="q9" value="a"><label><strong>A.</strong> Purpose limitation — data may be kept for any future purposes</label></div>
+  <div class="option"><input type="radio" name="q9" value="b"><label><strong>B.</strong> Storage limitation — personal data retained no longer than necessary for the purpose</label></div>
+  <div class="option"><input type="radio" name="q9" value="c"><label><strong>C.</strong> Data minimisation — retain a minimum amount of data forever</label></div>
+  <div class="option"><input type="radio" name="q9" value="d"><label><strong>D.</strong> Accountability — the DPO decides retention with unlimited discretion</label></div>
+  <button class="btn-check" onclick="check('q9','b')">Check Answer</button>
+  <div class="feedback" id="q9-fb"></div>
+</div>
+
+<div class="question-card" id="q10">
+  <div class="question-text">10. A company's vital records programme should focus on preserving which type of records?</div>
+  <div class="option"><input type="radio" name="q10" value="a"><label><strong>A.</strong> Daily operational logs and routine correspondence</label></div>
+  <div class="option"><input type="radio" name="q10" value="b"><label><strong>B.</strong> Marketing materials and public-facing documents</label></div>
+  <div class="option"><input type="radio" name="q10" value="c"><label><strong>C.</strong> Records essential to continuing organisational operations after a disaster (corporate charters, key contracts, licences)</label></div>
+  <div class="option"><input type="radio" name="q10" value="d"><label><strong>D.</strong> Data that has exceeded its retention period</label></div>
+  <button class="btn-check" onclick="check('q10','c')">Check Answer</button>
+  <div class="feedback" id="q10-fb"></div>
+</div>
+
+<div class="score-panel" id="score-panel">
+  <div class="score-num" id="score-display">0/10</div>
+  <p id="score-msg" style="font-size:1.1rem;margin-top:10px;"></p>
+</div>
+
+<div class="nav-footer">
+  <a href="day-027-theory.html" class="nav-btn">← Review Theory</a>
+  <a href="day-028-theory.html" class="nav-btn">Day 28: Data Security Controls →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'d',q2:'b',q3:'b',q4:'c',q5:'c',q6:'b',q7:'c',q8:'c',q9:'b',q10:'c'};
+const explanations={
+  q1:'D – SOX requires financial records and audit work papers to be retained for 7 years. This is the specific number tested on the CISSP exam.',
+  q2:'B – A litigation hold must be issued immediately when litigation is reasonably anticipated — even before formal filing. The threatening letter from a law firm triggers the "reasonably anticipated" threshold. Proceeding with destruction (A) would constitute spoliation.',
+  q3:'B – Degaussing applies a strong magnetic field that randomises the magnetic domains on magnetic HDD platters, rendering the drive permanently unreadable. Quick formatting (A) and deleting (D) only remove file system pointers. Encrypting after disposal does not destroy existing data.',
+  q4:'C – For cloud storage where you cannot physically access or destroy the media, cryptographic erasure (destroying the encryption key) is the standard approved approach. The data without its key is computationally irretrievable.',
+  q5:'C – HIPAA requires medical records to be retained for 6 years from date of creation or the date it was last in effect, whichever is later.',
+  q6:'B – A certificate of destruction is the required documentation from third-party disposal vendors. It provides evidence of the method used, date, and authorised witness — necessary for regulatory compliance (HIPAA, PCI-DSS).',
+  q7:'C – SSDs use flash memory (NAND), not magnetic storage. Degaussing only affects magnetic media. Applying a degausser to an SSD has no effect on the data — the SSD still contains all its original data.',
+  q8:'C – Spoliation is the legal term for the destruction, alteration, concealment, or failure to preserve evidence subject to a legal hold. It can result in adverse inference instructions, sanctions, or default judgement.',
+  q9:'B – GDPR\'s storage limitation principle (Article 5(1)(e)) requires personal data to not be kept in a form that permits identification for longer than is necessary for the purposes for which it was processed.',
+  q10:'C – Vital records are records that an organisation must have to resume or continue operations after a disaster — corporate charters, regulatory licences, critical contracts, financial data. They require special protection and backup strategies.'
+};
+let answered={};
+function check(qid,correct){
+  const sel=document.querySelector(`input[name="${qid}"]:checked`);
+  if(!sel){alert('Please select an answer.');return;}
+  const fb=document.getElementById(`${qid}-fb`);
+  const isCorrect=sel.value===correct;
+  answered[qid]=isCorrect;
+  fb.style.display='block';
+  fb.className='feedback '+(isCorrect?'correct':'incorrect');
+  fb.textContent=(isCorrect?'✅ Correct! ':'❌ Incorrect. ')+explanations[qid];
+  if(Object.keys(answered).length===10){
+    const score=Object.values(answered).filter(Boolean).length;
+    const panel=document.getElementById('score-panel');
+    panel.style.display='block';
+    document.getElementById('score-display').textContent=`${score}/10`;
+    const msg=document.getElementById('score-msg');
+    if(score>=7){msg.textContent='✅ PASSED – Solid command of retention and destruction requirements!';msg.style.color='#2e7d32';}
+    else{msg.textContent='❌ Review Needed – Review regulatory periods (SOX=7, HIPAA=6), legal hold triggers, and degaussing limits.';msg.style.color='#c62828';}
+    panel.scrollIntoView({behavior:'smooth'});
+  }
+}
+</script>
+</body>
+</html>

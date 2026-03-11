@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 26 MCQ – Privacy Protection</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:30px;text-align:center;}
+.header h1{font-size:1.8rem;margin-bottom:6px;}
+.container{max-width:800px;margin:0 auto;padding:30px 20px;}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-text{font-size:1rem;font-weight:600;margin-bottom:16px;line-height:1.6;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border:2px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s;}
+.option:hover{background:#f3e5f5;border-color:#9c27b0;}
+.option input{margin-top:3px;accent-color:#7b1fa2;}
+.option label{cursor:pointer;line-height:1.5;}
+.btn-check{margin-top:14px;padding:10px 28px;background:#7b1fa2;color:white;border:none;border-radius:6px;cursor:pointer;font-size:.95rem;font-weight:600;}
+.btn-check:hover{background:#4a148c;}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:6px;font-weight:500;display:none;}
+.correct{background:#e8f5e9;color:var(--green);border-left:4px solid var(--green);}
+.incorrect{background:#fce4ec;color:var(--red);border-left:4px solid var(--red);}
+.score-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;text-align:center;margin-top:20px;display:none;}
+.score-num{font-size:3rem;font-weight:700;color:#7b1fa2;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;flex-wrap:wrap;gap:10px;}
+.nav-btn{padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 26 Quiz – Privacy Protection</h1>
+  <div>Domain 2 – Asset Security | 10 Questions | Pass: 7/10</div>
+</div>
+<div class="container">
+
+<div class="question-card" id="q1">
+  <div class="question-text">1. A hospital wants to share patient records with researchers so that individual patients cannot be identified and GDPR regulations no longer apply to the dataset. Which technique achieves this goal?</div>
+  <div class="option"><input type="radio" name="q1" value="a"><label><strong>A.</strong> Pseudonymisation</label></div>
+  <div class="option"><input type="radio" name="q1" value="b"><label><strong>B.</strong> Data masking</label></div>
+  <div class="option"><input type="radio" name="q1" value="c"><label><strong>C.</strong> Tokenisation</label></div>
+  <div class="option"><input type="radio" name="q1" value="d"><label><strong>D.</strong> Anonymisation</label></div>
+  <button class="btn-check" onclick="check('q1','d')">Check Answer</button>
+  <div class="feedback" id="q1-fb"></div>
+</div>
+
+<div class="question-card" id="q2">
+  <div class="question-text">2. A company replaces patient names in a clinical trial database with patient IDs and keeps a separate secure mapping table. Does GDPR apply to the clinical trial database records?</div>
+  <div class="option"><input type="radio" name="q2" value="a"><label><strong>A.</strong> No — the data has been anonymised and GDPR no longer applies</label></div>
+  <div class="option"><input type="radio" name="q2" value="b"><label><strong>B.</strong> Yes — pseudonymised data is still personal data under GDPR</label></div>
+  <div class="option"><input type="radio" name="q2" value="c"><label><strong>C.</strong> No — replacing identifiers always removes GDPR applicability</label></div>
+  <div class="option"><input type="radio" name="q2" value="d"><label><strong>D.</strong> Only if the mapping table is in the same country as the data</label></div>
+  <button class="btn-check" onclick="check('q2','b')">Check Answer</button>
+  <div class="feedback" id="q2-fb"></div>
+</div>
+
+<div class="question-card" id="q3">
+  <div class="question-text">3. A call centre agent's screen shows a customer's credit card number as "****-****-****-1234" while the full card number remains unchanged in the backend database. This is an example of:</div>
+  <div class="option"><input type="radio" name="q3" value="a"><label><strong>A.</strong> Tokenisation</label></div>
+  <div class="option"><input type="radio" name="q3" value="b"><label><strong>B.</strong> Static data masking</label></div>
+  <div class="option"><input type="radio" name="q3" value="c"><label><strong>C.</strong> Dynamic data masking</label></div>
+  <div class="option"><input type="radio" name="q3" value="d"><label><strong>D.</strong> Pseudonymisation</label></div>
+  <button class="btn-check" onclick="check('q3','c')">Check Answer</button>
+  <div class="feedback" id="q3-fb"></div>
+</div>
+
+<div class="question-card" id="q4">
+  <div class="question-text">4. A payment processor replaces credit card numbers with randomly generated tokens and stores the card-to-token mapping in an isolated, secure vault. The merchant stores only tokens. Which technique is being used?</div>
+  <div class="option"><input type="radio" name="q4" value="a"><label><strong>A.</strong> Symmetric encryption</label></div>
+  <div class="option"><input type="radio" name="q4" value="b"><label><strong>B.</strong> Anonymisation</label></div>
+  <div class="option"><input type="radio" name="q4" value="c"><label><strong>C.</strong> Tokenisation</label></div>
+  <div class="option"><input type="radio" name="q4" value="d"><label><strong>D.</strong> Dynamic masking</label></div>
+  <button class="btn-check" onclick="check('q4','c')">Check Answer</button>
+  <div class="feedback" id="q4-fb"></div>
+</div>
+
+<div class="question-card" id="q5">
+  <div class="question-text">5. Under GDPR Article 9, which of the following is classified as a "special category" of personal data requiring heightened protection?</div>
+  <div class="option"><input type="radio" name="q5" value="a"><label><strong>A.</strong> Home address</label></div>
+  <div class="option"><input type="radio" name="q5" value="b"><label><strong>B.</strong> Email address</label></div>
+  <div class="option"><input type="radio" name="q5" value="c"><label><strong>C.</strong> Religious beliefs</label></div>
+  <div class="option"><input type="radio" name="q5" value="d"><label><strong>D.</strong> Date of birth</label></div>
+  <button class="btn-check" onclick="check('q5','c')">Check Answer</button>
+  <div class="feedback" id="q5-fb"></div>
+</div>
+
+<div class="question-card" id="q6">
+  <div class="question-text">6. Privacy by Design Principle 2 states that privacy should be the default. What does this mean in practice?</div>
+  <div class="option"><input type="radio" name="q6" value="a"><label><strong>A.</strong> Users must opt-in to privacy protection if they want it</label></div>
+  <div class="option"><input type="radio" name="q6" value="b"><label><strong>B.</strong> Maximum privacy is automatically applied — users must actively choose to share more</label></div>
+  <div class="option"><input type="radio" name="q6" value="c"><label><strong>C.</strong> Privacy applies only to users who have a paid subscription</label></div>
+  <div class="option"><input type="radio" name="q6" value="d"><label><strong>D.</strong> All data processing is prohibited by default</label></div>
+  <button class="btn-check" onclick="check('q6','b')">Check Answer</button>
+  <div class="feedback" id="q6-fb"></div>
+</div>
+
+<div class="question-card" id="q7">
+  <div class="question-text">7. A test environment uses a copy of the production database where all SSN values have been permanently replaced with random fictitious values. This is an example of:</div>
+  <div class="option"><input type="radio" name="q7" value="a"><label><strong>A.</strong> Dynamic data masking</label></div>
+  <div class="option"><input type="radio" name="q7" value="b"><label><strong>B.</strong> Pseudonymisation</label></div>
+  <div class="option"><input type="radio" name="q7" value="c"><label><strong>C.</strong> Static data masking</label></div>
+  <div class="option"><input type="radio" name="q7" value="d"><label><strong>D.</strong> Tokenisation</label></div>
+  <button class="btn-check" onclick="check('q7','c')">Check Answer</button>
+  <div class="feedback" id="q7-fb"></div>
+</div>
+
+<div class="question-card" id="q8">
+  <div class="question-text">8. What is the key difference between tokenisation and encryption?</div>
+  <div class="option"><input type="radio" name="q8" value="a"><label><strong>A.</strong> Encryption is reversible; tokenisation is irreversible</label></div>
+  <div class="option"><input type="radio" name="q8" value="b"><label><strong>B.</strong> Tokenisation uses a mathematical algorithm; encryption uses a vault</label></div>
+  <div class="option"><input type="radio" name="q8" value="c"><label><strong>C.</strong> Tokens have no mathematical relationship to the original value; encrypted data is mathematically derived from plaintext</label></div>
+  <div class="option"><input type="radio" name="q8" value="d"><label><strong>D.</strong> Encryption applies to physical media; tokenisation applies to databases only</label></div>
+  <button class="btn-check" onclick="check('q8','c')">Check Answer</button>
+  <div class="feedback" id="q8-fb"></div>
+</div>
+
+<div class="question-card" id="q9">
+  <div class="question-text">9. The k-anonymity model is associated with which privacy technique?</div>
+  <div class="option"><input type="radio" name="q9" value="a"><label><strong>A.</strong> Tokenisation</label></div>
+  <div class="option"><input type="radio" name="q9" value="b"><label><strong>B.</strong> Dynamic masking</label></div>
+  <div class="option"><input type="radio" name="q9" value="c"><label><strong>C.</strong> Anonymisation</label></div>
+  <div class="option"><input type="radio" name="q9" value="d"><label><strong>D.</strong> Pseudonymisation</label></div>
+  <button class="btn-check" onclick="check('q9','c')">Check Answer</button>
+  <div class="feedback" id="q9-fb"></div>
+</div>
+
+<div class="question-card" id="q10">
+  <div class="question-text">10. HIPAA defines 18 identifiers that, if present in health data, make it Protected Health Information (PHI). To legally share de-identified health data without HIPAA restrictions, an organisation must:</div>
+  <div class="option"><input type="radio" name="q10" value="a"><label><strong>A.</strong> Obtain a court order</label></div>
+  <div class="option"><input type="radio" name="q10" value="b"><label><strong>B.</strong> Remove all 18 HIPAA identifiers or obtain expert statistical certification of de-identification</label></div>
+  <div class="option"><input type="radio" name="q10" value="c"><label><strong>C.</strong> Pseudonymise the data using reversible patient IDs</label></div>
+  <div class="option"><input type="radio" name="q10" value="d"><label><strong>D.</strong> Apply dynamic masking to the patient name only</label></div>
+  <button class="btn-check" onclick="check('q10','b')">Check Answer</button>
+  <div class="feedback" id="q10-fb"></div>
+</div>
+
+<div class="score-panel" id="score-panel">
+  <div class="score-num" id="score-display">0/10</div>
+  <p id="score-msg" style="font-size:1.1rem;margin-top:10px;"></p>
+</div>
+
+<div class="nav-footer">
+  <a href="day-026-theory.html" class="nav-btn">← Review Theory</a>
+  <a href="day-027-theory.html" class="nav-btn">Day 27: Data Retention &amp; Destruction →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'d',q2:'b',q3:'c',q4:'c',q5:'c',q6:'b',q7:'c',q8:'c',q9:'c',q10:'b'};
+const explanations={
+  q1:'D – Only true anonymisation removes GDPR applicability by making re-identification impossible with reasonable effort. Pseudonymisation (A) still leaves GDPR applying. Masking (B) and tokenisation (C) are reversible processes — GDPR still applies to the original data.',
+  q2:'B – Replacing identifiers with patient IDs while keeping a mapping table is pseudonymisation. GDPR explicitly states that pseudonymised data is still personal data because identity restoration is possible via the mapping table.',
+  q3:'C – Dynamic data masking modifies what users see in real-time based on their role/permissions while the underlying stored data remains unchanged. Static masking permanently replaces values in a copy.',
+  q4:'C – Tokenisation replaces the card number with a random token stored in an isolated vault. Unlike encryption, there is no mathematical relationship between the token and original value.',
+  q5:'C – GDPR Article 9 special categories include racial/ethnic origin, political opinions, religious beliefs, trade union membership, genetic data, biometric data, health data, and sex life/sexual orientation. Home address, email, and date of birth are standard PII — not Article 9 special categories.',
+  q6:'B – Privacy as default means the default setting is maximum privacy protection. Users must actively take action to share more data — systems should not default to collecting or sharing maximum data and requiring users to opt-out.',
+  q7:'C – Permanently replacing sensitive values in a database copy with fictitious values so the test environment can use realistic-looking but non-sensitive data is static data masking.',
+  q8:'C – Tokens are arbitrary random values with no mathematical derivation from the original data. Encrypted data is mathematically transformed ciphertext that can be reversed with the key. Both are reversible but via different mechanisms.',
+  q9:'C – k-Anonymity is a formal privacy model associated with anonymisation, ensuring each record is indistinguishable from at least k-1 others on quasi-identifier attributes to prevent re-identification.',
+  q10:'B – HIPAA provides two methods for de-identification: the Safe Harbor method (remove all 18 identified types of information) or the Expert Determination method (statistical expert certifies re-identification risk is very small). Pseudonymisation is not sufficient — the data must be fully de-identified.'
+};
+let answered={};
+function check(qid,correct){
+  const sel=document.querySelector(`input[name="${qid}"]:checked`);
+  if(!sel){alert('Please select an answer.');return;}
+  const fb=document.getElementById(`${qid}-fb`);
+  const isCorrect=sel.value===correct;
+  answered[qid]=isCorrect;
+  fb.style.display='block';
+  fb.className='feedback '+(isCorrect?'correct':'incorrect');
+  fb.textContent=(isCorrect?'✅ Correct! ':'❌ Incorrect. ')+explanations[qid];
+  if(Object.keys(answered).length===10){
+    const score=Object.values(answered).filter(Boolean).length;
+    const panel=document.getElementById('score-panel');
+    panel.style.display='block';
+    document.getElementById('score-display').textContent=`${score}/10`;
+    const msg=document.getElementById('score-msg');
+    if(score>=7){msg.textContent='✅ PASSED – Strong privacy protection knowledge!';msg.style.color='#2e7d32';}
+    else{msg.textContent='❌ Review Needed – Focus on anonymisation vs. pseudonymisation and masking vs. tokenisation distinctions.';msg.style.color='#c62828';}
+    panel.scrollIntoView({behavior:'smooth'});
+  }
+}
+</script>
+</body>
+</html>

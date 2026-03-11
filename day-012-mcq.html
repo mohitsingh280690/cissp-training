@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 12 – Risk Response Strategies MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 12: Risk Response Strategies – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A risk analysis determines that a legacy system poses a $50,000 ALE. Implementing the only available mitigating control would cost $500,000. The system cannot be decommissioned because it supports a critical business function. What is the MOST appropriate risk response?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Transfer — purchase cyber insurance to cover the $50,000 expected annual loss</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Mitigate — implement the $500,000 control regardless of cost because the system is critical</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Accept — formally document the risk, obtain executive sign-off, and monitor it, since mitigation cost vastly exceeds ALE and the risk cannot be avoided or transferred cost-effectively</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Avoid — discontinue all use of the legacy system immediately</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: C.</strong> When a control cost (10×) far exceeds the ALE, and the risk cannot be avoided (business-critical system), formal Risk Acceptance is appropriate. Acceptance is NOT passive inaction — it is a documented, executive-authorized decision to tolerate the risk level. The acceptance should be: documented in the risk register, reviewed periodically, approved by an appropriate authority, and accompanied by monitoring. Option A (transfer) is also valid but cyber insurance premiums for a $50K ALE risk would likely approach the expected loss anyway.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A company purchases a $5M cyber liability insurance policy covering breach costs including incident response, breach notification, legal fees, and regulatory fines. Following a breach costing $4.2M, which statement MOST accurately describes the limitations of this risk transfer strategy?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> The insurer will cover all losses including loss of competitive advantage</label></li>
+    <li><label><input type="radio" name="q2" value="b"> While direct financial losses may be covered, residual risks remain: deductibles, sub-limits, policy exclusions, reputational damage, customer churn, and executive liability are not fully transferred to the insurer</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Risk transfer via insurance fully eliminates the organisation's risk exposure</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Insurance replaces the need for preventive controls since losses are covered</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> Risk transfer (insurance) shares financial consequences with a third party but does NOT eliminate risk. Key limitations: deductibles reduce recovery; sub-limits may cap specific categories (e.g., ransomware sublimit); policy exclusions may deny certain claims (war, nation-state attacks); reputational damage, customer attrition, employee morale impacts, and regulatory compliance failures are not covered by insurance. Insurance is a supplement to, not a replacement for, preventive controls. CISSP candidates must articulate what risk transfer does and does NOT address.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">An organisation's e-commerce platform processes credit card payments. After a risk assessment, the CISO recommends replacing direct card number storage with a tokenisation service where the organisation never handles raw PANs. Which risk response strategy does this MOST closely represent?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Mitigate — implementing controls to reduce the likelihood of card data theft</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Transfer — shifting card data liability to the tokenisation service provider</label></li>
+    <li><label><input type="radio" name="q3" value="c"> Avoid — eliminating the risk by restructuring the process so the organisation no longer handles cardholder data directly</label></li>
+    <li><label><input type="radio" name="q3" value="d"> Accept — acknowledging that card data risk is inherent in e-commerce</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: C.</strong> Risk Avoidance eliminates the risk by eliminating the activity or process that creates the risk. Tokenisation removes the organisation from the scope of PCI-DSS cardholder data environment — they never receive or store raw PANs, so the risk of cardholder data theft is avoided. This is different from Mitigation (reducing the likelihood/impact of a risk that still exists) and Transfer (shifting financial consequences while the risk remains). Avoidance is the most complete risk response but often involves business trade-offs.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">An organisation is subject to a regulatory requirement to log all privileged user activity. The SIEM required to fulfil this is expensive and technically complex to deploy on one legacy system. The security team proposes enhanced manual review procedures as an alternative. Under risk management, this enhanced manual review is classified as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> A risk transfer mechanism shifting liability to the manual reviewers</label></li>
+    <li><label><input type="radio" name="q4" value="b"> Risk avoidance — bypassing the logging requirement entirely</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Risk acceptance — acknowledging the logging gap without any mitigation</label></li>
+    <li><label><input type="radio" name="q4" value="d"> A compensating control — an alternative control that achieves equivalent risk reduction when the primary prescribed control cannot be implemented</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: D.</strong> A Compensating Control provides equivalent or acceptable risk reduction when the standard control cannot be implemented due to technical, operational, or financial constraints. PCI-DSS, HIPAA, and other frameworks formally recognise compensating controls — they require documented justification proving the alternative achieves the same control objective. Compensating controls are not permanent replacements; they should be reviewed regularly and replaced with primary controls when feasible. This is different from risk acceptance — compensating controls still address the risk; they just do so differently.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">A "Beware of Dog" sign posted at a facility entrance is intended to make potential intruders think twice before attempting to break in. Whether or not a dog is present, the sign attempts to reduce intrusion attempts. This is an example of which type of security control?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Preventive — physically prevents intruder access</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Detective — monitors for and identifies intrusion attempts</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Deterrent — discourages potential attackers through the perception of increased risk or effort, without necessarily preventing the act</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Corrective — restores the facility to a secure state following an intrusion</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: C.</strong> A Deterrent control discourages malicious acts by increasing the perceived cost, detection risk, or effort for the attacker — without necessarily stopping a determined attacker. Examples: warning banners ("this system is monitored"), security cameras (whether monitored or not), security guard presence. A Preventive control actually stops the attack (e.g., locked door). A Detective control identifies that an attack occurred (e.g., alarm triggered). Distinguishing deterrent from preventive is a frequent CISSP trap — deterrents influence perception/psychology; preventives impose physical/logical barriers.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">A security operations team reviews authentication logs daily looking for anomalous login patterns — multiple failed attempts followed by success from unusual geographic locations. This control is BEST classified as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> Preventive — Administrative: policy requiring strong passwords</label></li>
+    <li><label><input type="radio" name="q6" value="b"> Detective — Technical: automated system that identifies anomalous behavior after it occurs</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Preventive — Technical: MFA block preventing unauthorised login</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Corrective — Administrative: incident response policy triggered by detected anomalies</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> Log review for anomalous patterns is a Detective control — it identifies that a suspicious event has occurred or is occurring, triggering investigation and response. The control category is Technical (automated log collection, correlation) and the function is Detective (awareness, not prevention). Controls are classified by both FUNCTION (preventive, detective, corrective, deterrent, recovery, compensating) and TYPE (administrative/management, technical/logical, physical/operational). Reviewing logs does not prevent the login attempt — it detects it after the fact.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">After all controls are implemented, a risk register shows $150,000 in residual risk across several categories. The risk committee proposes formally accepting this residual risk. Who is the MOST appropriate party to sign off on formal risk acceptance?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> The CISO — as the technical owner of the risk management program</label></li>
+    <li><label><input type="radio" name="q7" value="b"> The IT security analyst who performed the risk assessment</label></li>
+    <li><label><input type="radio" name="q7" value="c"> The business executive or risk owner with authority and accountability for the business process creating the risk</label></li>
+    <li><label><input type="radio" name="q7" value="d"> The external auditor — as an independent party validating the acceptance decision</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: C.</strong> Risk acceptance must be authorized by the appropriate risk owner — the business executive or management authority accountable for the business processes creating the risk. The CISO can recommend but should not accept risk on behalf of the business — the CISO does not own the business consequences of a loss event. The analyst (B) has no authority to accept risk. The auditor (D) assesses controls but does not make risk treatment decisions. This is the CISSP "manager mindset": accountability and authority must align in risk acceptance decisions.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">An organisation implements a policy requiring that all wire transfers exceeding $50,000 must be initiated by one financial analyst and independently approved by a different senior manager. This control is BEST classified as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Detective — Technical: transaction monitoring system flagging large transfers</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Preventive — Administrative: Separation of Duties (SoD) policy preventing a single person from both initiating and approving high-value transactions</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Corrective — Technical: automated rollback of unauthorised transactions</label></li>
+    <li><label><input type="radio" name="q8" value="d"> Deterrent — Administrative: reminder to employees that transfers are monitored</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> Separation of Duties (SoD) — requiring two different people to complete a sensitive transaction — is a Preventive, Administrative control. It prevents fraud by ensuring no individual can both initiate and approve a transaction. "Administrative" refers to the control type: it's implemented through policy, procedure, and role design rather than technology or physical barriers. SoD is one of the most important fraud prevention controls in financial systems. The "four-eyes principle" is the common name for this two-person approval requirement.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">A hospital identifies that its end-of-life radiology systems run on Windows XP and cannot be patched. The vendor provides no security updates. The hospital applies network segmentation and host-based IDS around these systems as interim measures while planning migration. These measures represent which risk response?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> Risk Avoidance — the hospital is removing the risk by planning to migrate</label></li>
+    <li><label><input type="radio" name="q9" value="b"> Risk Transfer — the IDS vendor now bears liability for any breach of those systems</label></li>
+    <li><label><input type="radio" name="q9" value="c"> Risk Mitigation — implementing compensating controls (segmentation, IDS) to reduce both likelihood (network isolation) and impact (early detection) while migrating</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Risk Acceptance — the hospital acknowledges the vulnerability and takes no further action</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> Risk Mitigation reduces the likelihood, impact, or both. Network segmentation reduces the probability that an attacker can reach the unpatched systems from the broader network (likelihood reduction). Host-based IDS increases detection probability, enabling faster response to contain damage (impact reduction). These are compensating controls applied in mitigation mode. The migration plan represents future avoidance — but until complete, mitigation is the active response. This scenario is extremely common in healthcare and OT environments where legacy systems cannot be immediately replaced.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">A security manager recommends against deploying a DLP solution because quantitative analysis shows a negative ROI. However, the legal team advises that a specific regulation requires DLP-equivalent controls for the organisation's data categories. How should this conflict be resolved?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Avoid — stop processing the data category entirely to eliminate the regulatory requirement</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Formally accept the risk — regulatory requirements can always be overridden by negative CBA results</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Implement the required control — regulatory compliance obligations exist outside the standard risk acceptance framework; non-compliance risk (fines, licence revocation, criminal liability) typically exceeds the negative CBA</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Transfer the compliance obligation to a third-party managed service provider</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: C.</strong> Mandatory regulatory controls cannot be declined based on negative ROI — legal and regulatory obligations are constraints within which risk management operates, not options subject to cost-benefit analysis. The consequences of non-compliance (fines, regulatory sanctions, criminal liability, licence revocation, reputational damage) invariably dwarf the control implementation cost when assessed holistically. Risk acceptance is not appropriate for legally mandated controls. This is a critical CISSP principle: business decisions operate within legal and regulatory constraints — they do not override them.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-012-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-013-theory.html" class="nav-btn">Day 13: Threat Modeling →</a>
+</div>
+</div>
+<script>
+const answers={q1:'c',q2:'b',q3:'c',q4:'d',q5:'c',q6:'b',q7:'c',q8:'b',q9:'c',q10:'c'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

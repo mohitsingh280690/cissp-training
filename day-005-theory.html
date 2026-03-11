@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 5 – Intellectual Property</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 5: Intellectual Property</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 5 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 5: Intellectual Property</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Intellectual Property Overview</a></li>
+    <li><a href="#s4">Copyright</a></li>
+    <li><a href="#s5">Trademarks</a></li>
+    <li><a href="#s6">Patents</a></li>
+    <li><a href="#s7">Trade Secrets</a></li>
+    <li><a href="#s8">IP in Software</a></li>
+    <li><a href="#s9">Software Licensing</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>CISSPs protect organisational assets — and intellectual property is often the most valuable asset an organisation owns. IP theft, misuse of licensed software, and failure to protect trade secrets expose organisations to massive legal and financial risk.</td></tr>
+    <tr><td>Question Styles</td><td>Identifying what type of IP protection applies; best approach to protecting specific assets; legal obligations following IP theft detection</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D7 (software development — copyright for code, software vulnerability disclosure), D2 (asset classification — IP classified as confidential), D5 (access control — protecting proprietary data)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>Copyright protects the <em>expression</em>, not the idea. The idea of a sorting algorithm is not copyrightable; the specific code implementing it is.</li>
+      <li>Trade secrets require active protection measures — simply keeping something secret without formal procedures does NOT give legal protection if you later claim misappropriation.</li>
+      <li>Trademarks need to be actively defended or they can be lost ("genericisation").</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Business Impact of IP</h3>
+  <p>For technology companies, IP often constitutes 80%+ of total enterprise value. The source code, algorithms, customer databases, product designs, and brand identity are worth far more than physical assets. A CISSP must understand how to classify, protect, and respond to the theft or misuse of intellectual property.</p>
+
+  <h3>Incident Reality</h3>
+  <ul>
+    <li><strong>SolarWinds (2020):</strong> Among the most devastating IP theft elements was access to source code repositories — the attacker's goal was partly to understand and weaponise proprietary software.</li>
+    <li><strong>Waymo v. Uber (2017):</strong> An engineer left Google's self-driving unit and allegedly took 14,000 confidential files to Uber. Settled for $245 million in Uber equity. Classic trade secret case.</li>
+    <li><strong>Economic Espionage:</strong> The FBI estimates that IP theft costs the US economy $225–600 billion annually, predominantly from state-sponsored actors.</li>
+  </ul>
+
+  <h3>Who Owns IP in Your Organisation?</h3>
+  <p>Work-for-hire doctrine: in most jurisdictions, IP created by an employee <em>during the scope of employment</em> is owned by the employer, not the employee. This must be explicitly addressed in employment contracts. Contractors require specific IP assignment agreements — without them, the contractor may retain rights.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Intellectual Property Overview</h2>
+  <div class="definition">
+    <strong>Intellectual Property (IP):</strong> Legal rights protecting creations of the mind — inventions, literary and artistic works, symbols, names, images, and designs — granting the creator exclusive rights to use and commercialise them for a defined period.
+  </div>
+  <table>
+    <tr><th>Type</th><th>What It Protects</th><th>Duration (US)</th><th>Key Law</th><th>Registration Required?</th></tr>
+    <tr><td><strong>Copyright</strong></td><td>Original creative expression fixed in tangible form</td><td>Life of author + 70 years</td><td>Copyright Act of 1976; Berne Convention</td><td>Not required for protection; registration enhances remedies</td></tr>
+    <tr><td><strong>Trademark</strong></td><td>Words, symbols, logos, slogans identifying source of goods/services</td><td>Unlimited if used and renewed every 10 years</td><td>Lanham Act (1946)</td><td>Not required but strongly recommended (® vs ™)</td></tr>
+    <tr><td><strong>Patent</strong></td><td>Novel, non-obvious, useful inventions and processes</td><td>20 years from filing (utility); 15 years (design)</td><td>US Patent Act; Patent Cooperation Treaty (PCT)</td><td>Required — cannot be patented without filing</td></tr>
+    <tr><td><strong>Trade Secret</strong></td><td>Confidential business information providing competitive advantage</td><td>Unlimited as long as secrecy maintained</td><td>Defend Trade Secrets Act (2016); Economic Espionage Act (1996); Uniform Trade Secrets Act (UTSA)</td><td>Cannot register; must actively protect</td></tr>
+  </table>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Copyright</h2>
+  <div class="definition">
+    <strong>Copyright:</strong> Automatically protects original creative works fixed in any tangible medium of expression. The moment a work is created and fixed (written, recorded, compiled), copyright exists.
+  </div>
+
+  <h3>What Copyright Covers in Technology</h3>
+  <ul>
+    <li>Software source code and object code</li>
+    <li>User interfaces (to a degree — look and feel is more complex)</li>
+    <li>Documentation, manuals, technical writing</li>
+    <li>Databases (the selection and arrangement of data, not the raw facts)</li>
+    <li>Website content</li>
+    <li>Training materials, presentations</li>
+  </ul>
+
+  <h3>Copyright Does NOT Protect</h3>
+  <ul>
+    <li>Ideas, concepts, methods, or principles (only their expression)</li>
+    <li>Facts or data themselves (only the arrangement/selection)</li>
+    <li>Works not fixed in tangible form (extemporaneous speech)</li>
+    <li>Government works created by federal employees in their official capacity (US public domain)</li>
+  </ul>
+
+  <h3>Exclusive Rights of Copyright Holder</h3>
+  <p>The copyright holder has exclusive rights to reproduce, create derivative works, distribute, publicly perform, publicly display, and (for digital audio works) digitally transmit the work. All others need permission (license).</p>
+
+  <h3>Fair Use Doctrine</h3>
+  <p>Fair use is a legal defence that permits limited use without permission. Courts weigh four factors:</p>
+  <ol>
+    <li><strong>Purpose and character</strong> of use (commercial vs. non-profit, educational; transformative uses favoured)</li>
+    <li><strong>Nature of the work</strong> (factual works more permissible than creative)</li>
+    <li><strong>Amount and substantiality</strong> of the portion used</li>
+    <li><strong>Effect on the market</strong> for the original work</li>
+  </ol>
+
+  <h3>The Berne Convention</h3>
+  <p>International copyright treaty with 181 member countries. Key principle: <em>automatic protection</em> — copyright exists upon creation in any member country, and member countries must protect works from other member countries as they protect their own. This established the international baseline of life + 50 years (US extends to life + 70).</p>
+
+  <div class="exam-tip">
+    <strong>💡 DMCA:</strong> The Digital Millennium Copyright Act (1998) added two key provisions: (1) prohibits circumvention of technological protection measures (anti-circumvention); (2) safe harbour for internet service providers that promptly respond to takedown notices (ISPs not liable for user-uploaded infringing content if they comply). Relevant when your organisation uses third-party hosting platforms.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Trademarks</h2>
+  <div class="definition">
+    <strong>Trademark (™):</strong> A word, name, symbol, design, or combination that identifies the source of goods or services and distinguishes them from competitors. Service marks (℠) apply specifically to services.
+  </div>
+
+  <h3>™ vs ®</h3>
+  <table>
+    <tr><th>Symbol</th><th>Meaning</th><th>When to Use</th></tr>
+    <tr><td>™</td><td>Trademark claimed but NOT federally registered</td><td>Can use immediately upon claiming the mark; provides limited protection</td></tr>
+    <tr><td>®</td><td>Trademark officially registered with the USPTO (or equivalent authority)</td><td>Only after registration completed; provides stronger legal protection and presumptions</td></tr>
+    <tr><td>℠</td><td>Service mark claimed but not registered</td><td>Same as ™ but for services rather than goods</td></tr>
+  </table>
+
+  <h3>Trademark Duration &amp; Loss</h3>
+  <p>Trademarks can last indefinitely with continued use and periodic renewals. However, trademark rights can be <strong>lost</strong> through:</p>
+  <ul>
+    <li><strong>Abandonment:</strong> Ceasing use with intent not to resume</li>
+    <li><strong>Genericisation:</strong> When a trademark becomes the generic name for a product category. Former trademarks lost to genericisation: <em>aspirin</em>, <em>escalator</em>, <em>thermos</em>, <em>zipper</em>. Current risks: Velcro actively fights this.</li>
+    <li><strong>Improper Licensing:</strong> Failing to control quality of licensed goods can lead to loss</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>Cybersquatting:</strong> Registering domain names that contain trademarks of others with the intent to profit from them is addressed by the Anti-Cybersquatting Consumer Protection Act (ACPA) and the Uniform Domain Name Dispute Resolution Policy (UDRP) administered by ICANN. Relevant for protecting an organisation's brand online.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Patents</h2>
+  <div class="definition">
+    <strong>Patent:</strong> A government-granted exclusive right to make, use, and sell an invention for a limited time, in exchange for public disclosure of the invention. Patents are the strongest but most expensive form of IP protection.
+  </div>
+
+  <h3>Requirements for Patentability</h3>
+  <p>To be patentable, an invention must be:</p>
+  <ol>
+    <li><strong>Novel:</strong> Not previously known or used before the filing date</li>
+    <li><strong>Non-obvious:</strong> Not an obvious next step to a person having ordinary skill in the field</li>
+    <li><strong>Useful:</strong> Has some practical utility (very low bar)</li>
+    <li><strong>Patent-eligible subject matter:</strong> Laws of nature, abstract ideas, and natural phenomena cannot be patented (highly contested in software — <em>Alice Corp v. CLS Bank</em>, 2014)</li>
+  </ol>
+
+  <h3>Types of Patents</h3>
+  <table>
+    <tr><th>Type</th><th>Covers</th><th>Duration (from filing)</th><th>Example</th></tr>
+    <tr><td><strong>Utility Patent</strong></td><td>Processes, machines, manufactures, compositions of matter</td><td>20 years</td><td>New software method, cryptographic algorithm, hardware device</td></tr>
+    <tr><td><strong>Design Patent</strong></td><td>Ornamental design of a functional item</td><td>15 years</td><td>Unique appearance of a device, GUI icon design</td></tr>
+    <tr><td><strong>Plant Patent</strong></td><td>New asexually reproduced plant variety</td><td>20 years</td><td>Not relevant to CISSP</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Patent Trolls (Non-Practising Entities):</strong> Organisations that acquire patents not to use them but to sue others for licensing fees. This is a significant threat in the software industry. CISSPs advising on IP strategy should be aware of the risk and factor it into patent portfolio management.
+  </div>
+
+  <div class="exam-tip">
+    <strong>💡 Software Patents:</strong> Software patents are controversial and increasingly limited after <em>Alice Corp v. CLS Bank International</em> (2014), where the Supreme Court held that merely implementing an abstract idea on a computer does not make it patent-eligible. Security algorithms and protocols may still be patentable if they solve a specific technical problem in a non-abstract way.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Trade Secrets</h2>
+  <div class="definition">
+    <strong>Trade Secret:</strong> Any information — formula, process, algorithm, business method, customer list, pricing strategy — that provides a competitive business advantage and is kept confidential through reasonable security measures.
+  </div>
+
+  <h3>What Can Be a Trade Secret?</h3>
+  <ul>
+    <li>Software source code</li>
+    <li>Cryptographic keys and algorithms</li>
+    <li>Customer/prospect lists and pricing data</li>
+    <li>Manufacturing processes and formulas (Coca-Cola recipe is the most famous example)</li>
+    <li>Business strategies and plans</li>
+    <li>Security architecture details</li>
+  </ul>
+
+  <h3>Advantages Over Patents</h3>
+  <ul>
+    <li><strong>No disclosure required:</strong> Patents require full public disclosure; trade secrets remain completely hidden</li>
+    <li><strong>No expiration:</strong> Trade secrets last indefinitely if maintained; patents expire after 20 years</li>
+    <li><strong>Immediate protection:</strong> No registration, filing, or waiting period</li>
+  </ul>
+
+  <h3>Requirements for Trade Secret Protection</h3>
+  <p>The secret must have commercial value AND the owner must take <em>reasonable steps</em> to maintain secrecy. Courts examine:</p>
+  <ul>
+    <li>Physical security measures (access restrictions, clean-desk policies)</li>
+    <li>Access control — need-to-know basis, least privilege</li>
+    <li>Employee agreements (NDAs, non-compete clauses)</li>
+    <li>Marking of confidential documents</li>
+    <li>Third-party confidentiality agreements</li>
+    <li>Security training on protecting proprietary information</li>
+  </ul>
+
+  <div class="warning">
+    <strong>⚠️ Critical:</strong> If you do NOT take reasonable protective measures, you cannot later claim trade secret misappropriation. An organisation that leaves source code on a publicly accessible server, doesn't require NDAs, or shares details casually in meetings has essentially abandoned trade secret protection through its own negligence.
+  </div>
+
+  <h3>Key Laws</h3>
+  <table>
+    <tr><th>Law</th><th>Year</th><th>Key Provisions</th></tr>
+    <tr><td><strong>Defend Trade Secrets Act (DTSA)</strong></td><td>2016</td><td>Created a federal civil cause of action for trade secret misappropriation; allows a plaintiff to sue in federal court; "inevitable disclosure" doctrine; allows seizure of property without notice in extreme cases</td></tr>
+    <tr><td><strong>Economic Espionage Act (EEA)</strong></td><td>1996</td><td>Federal criminal law; makes it a crime to steal trade secrets for the benefit of a foreign government; up to 15 years imprisonment and $5 million fines for foreign economic espionage</td></tr>
+    <tr><td><strong>Uniform Trade Secrets Act (UTSA)</strong></td><td>1979/1985</td><td>Model state law providing consistent civil trade secret protection across the 48 states that adopted it</td></tr>
+  </table>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. IP in Software</h2>
+  <h3>Open Source Software Licensing</h3>
+  <p>Open source software is protected by copyright but licensed with minimal restrictions. However, license types MATTER — using the wrong open source component can "infect" proprietary code:</p>
+
+  <table>
+    <tr><th>License Type</th><th>Key Requirement</th><th>Risk to Proprietary Code</th><th>Examples</th></tr>
+    <tr><td><strong>Copyleft (GPL)</strong></td><td>Derivative works must also be licensed under GPL and source code made available</td><td>HIGH — if you incorporate GPL code into proprietary software and distribute it, you may be required to release your source code</td><td>Linux kernel (GPL v2), GNU tools</td></tr>
+    <tr><td><strong>Lesser GPL (LGPL)</strong></td><td>Libraries can be used by proprietary applications if linked dynamically; modifications to the library itself must be shared</td><td>MEDIUM — safe to link against, risky to modify</td><td>Many GNU libraries</td></tr>
+    <tr><td><strong>Permissive (MIT, Apache, BSD)</strong></td><td>Use for any purpose with attribution; no requirement to share source</td><td>LOW — can use in proprietary software freely</td><td>Apache, jQuery, Node.js packages</td></tr>
+    <tr><td><strong>Creative Commons</strong></td><td>Varies by CC variant (CC-BY, CC-SA, CC-NC, CC-ND)</td><td>Depends on variant — CC-SA requires share-alike; CC-NC prohibits commercial use</td><td>Wikipedia content, many public datasets</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 GPL Copyleft "Infection":</strong> If your proprietary software statically links to a GPL library, you may be required to release your entire product's source code. This is why many enterprises prohibit GPL components in products they distribute commercially. Software composition analysis (SCA) tools exist to audit open source components and their licenses.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Software Licensing</h2>
+  <h3>Types of Software Licenses</h3>
+  <table>
+    <tr><th>License Type</th><th>Description</th><th>Security/Compliance Concern</th></tr>
+    <tr><td><strong>End User License Agreement (EULA)</strong></td><td>Click-through agreement granting use rights; restricts reverse engineering, copying, redistribution</td><td>Must audit compliance — unauthorised copies = legal violation</td></tr>
+    <tr><td><strong>Per-Seat/Per-Device</strong></td><td>License covers a specific number of users or devices</td><td>Over-deployment is a legal violation with financial penalties</td></tr>
+    <tr><td><strong>Site License</strong></td><td>Covers all users within a defined location or organisation</td><td>Must comply with scope constraints (e.g., one campus vs. all sites)</td></tr>
+    <tr><td><strong>Subscription/SaaS</strong></td><td>Time-limited access; vendor retains data control</td><td>Data ownership, portability, and deletion upon termination must be contractually defined</td></tr>
+    <tr><td><strong>Freeware</strong></td><td>Free to use; source code may or may not be available; still copyrighted</td><td>May lack security support; must audit for vulnerabilities and policy compliance</td></tr>
+    <tr><td><strong>Shareware</strong></td><td>Trial software; must pay after trial period</td><td>Continued use without payment = copyright violation; often unauthorised in enterprise environments</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Software Asset Management (SAM):</strong> The process of managing and optimising the purchase, deployment, maintenance, utilisation, and disposal of software applications. A CISSP should understand SAM as a control to mitigate legal liability from unlicensed software and to reduce the attack surface from outdated or unknown software.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Four IP Types: "Can't Take People's Stuff"</strong><br>
+    <strong>C</strong>opyright → Creative works (auto-protected on creation)<br>
+    <strong>T</strong>rademark → Trade identity (brand names, logos)<br>
+    <strong>P</strong>atent → Physical/process inventions (20 years)<br>
+    <strong>S</strong>ecret → Trade Secrets (unlimited if protected)<br>
+    Or alternatively: <em>"C-T-P-S" = "Clever Thinkers Patent Secrets"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Copyright Duration:</strong><br>
+    <em>"Life of the Author PLUS seventy"</em> → Life + 70 years (US post-1978)<br>
+    Works made for hire: 95 years from publication OR 120 years from creation, whichever is shorter
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Patent Duration — "2020 Utility, 15 Design":</strong><br>
+    <strong>Utility patent = 20 years</strong> from filing date<br>
+    <strong>Design patent = 15 years</strong> from grant date<br>
+    Memory hook: Utilities last <em>twenty</em>; Designs (like a fancy number) last <em>fifteen</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Trade Secret Requirements — "VAP":</strong><br>
+    <strong>V</strong>alue — must provide competitive advantage<br>
+    <strong>A</strong>ctive — must take reasonable active protective measures<br>
+    <strong>P</strong>rivate — must actually be kept confidential<br>
+    No VAP = No trade secret protection!
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Open Source License Risk Levels:</strong><br>
+    GPL = <strong>G</strong>ive back (copyleft — high risk for proprietary code)<br>
+    LGPL = <strong>L</strong>imited copyleft (use library, but share library changes)<br>
+    MIT/Apache/BSD = <strong>F</strong>ree for all (permissive — safe for commercial use)<br>
+    Memory: <em>"GPL = Gives, LGPL = Lends, MIT = Frees"</em>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Copyright Expression vs. Idea:</strong><br>
+    The IDEA of building a to-do list app is NOT copyrightable.<br>
+    The SPECIFIC CODE you write to implement it IS copyrightable.<br>
+    The exam may present scenarios where an idea is "stolen" — copyright doesn't help there; it only protects the specific fixed expression.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Trade Secret vs. Patent Choice:</strong><br>
+    If you PATENT something, you MUST publicly disclose it — and protection expires in 20 years.<br>
+    If you keep it a TRADE SECRET, you disclose nothing — but if someone independently discovers or reverse-engineers it, you have NO protection. Patents give legal exclusivity even against independent discoverers; trade secrets do not.
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Copyright</td><td>Auto-protects creative expression on creation; lasts life +70 years; Berne Convention makes it international</td></tr>
+    <tr><td>DMCA</td><td>Prohibits circumvention of copy protection; safe harbour for ISPs responding to takedowns</td></tr>
+    <tr><td>Trademark</td><td>Protects brand identity; ™ = claimed, ® = registered; unlimited duration with use; can be lost through genericisation</td></tr>
+    <tr><td>Patent</td><td>Strongest protection; requires application and public disclosure; 20 years (utility), 15 (design); must be novel and non-obvious</td></tr>
+    <tr><td>Trade Secret</td><td>No registration; unlimited duration; requires active protection measures; Economic Espionage Act criminalises theft for foreign powers</td></tr>
+    <tr><td>GPL License</td><td>Copyleft — derivative works must also be GPL; using GPL code in proprietary product may require releasing your source code</td></tr>
+    <tr><td>Work for Hire</td><td>Employee IP created during employment scope belongs to the employer; contractors need explicit IP assignment agreements</td></tr>
+    <tr><td>DTSA</td><td>Federal civil law for trade secret misappropriation; allows federal court jurisdiction</td></tr>
+    <tr><td>Software SAM</td><td>Manage licenses to avoid legal violation and reduce attack surface from unknown/outdated software</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-004-theory.html" class="nav-btn">← Day 4: Legal Systems &amp; Law Types</a>
+  <a href="day-006-theory.html" class="nav-btn">Day 6: Privacy Laws &amp; Regulations →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

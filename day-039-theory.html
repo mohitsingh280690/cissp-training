@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 39 – Evaluation Criteria</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 39 – Evaluation Criteria</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 39 of 140</span><span>⏱️ ~50 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-038-theory.html">← Day 38</a> · Domain 3 · Day 39 · <a href="day-039-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. TCSEC (Orange Book)</a></li>
+  <li><a href="#s4">4. ITSEC (European Criteria)</a></li>
+  <li><a href="#s5">5. Common Criteria (ISO 15408)</a></li>
+  <li><a href="#s6">6. Evaluation Criteria Comparison</a></li>
+  <li><a href="#s7">7. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s8">8. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — Common Criteria is heavily tested; TCSEC/ITSEC are historical but examined</td></tr>
+  <tr><td>Why Tested</td><td>Understanding evaluation criteria helps assess product/system assurance levels; Common Criteria is the current international standard</td></tr>
+  <tr><td>Question Style</td><td>"Which EAL level requires formal verification?", "What is a Protection Profile?", "B1 in TCSEC corresponds to which concept?"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (governance — selecting evaluated products), Domain 6 (assessment and testing), Domain 8 (SDLC — security evaluation)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects specify evaluation requirements; procurement uses EAL ratings; compliance validates against evaluation standards</td></tr>
+  <tr><td>Implementation</td><td>Organizations require CC-certified products for government/military contracts; Protection Profiles standardize requirements across agencies</td></tr>
+  <tr><td>Failure Modes</td><td>Purchasing unevaluated products for sensitive operations → unknown assurance; misunderstanding EAL levels → false confidence</td></tr>
+  <tr><td>Business Impact</td><td>Proper evaluation criteria usage ensures appropriate assurance levels, supports compliance, and provides defensible product selection</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. TCSEC (Orange Book)</h2>
+<div class="callout definition">
+  <strong>📖 TCSEC (Trusted Computer System Evaluation Criteria):</strong> Published in 1983 by the U.S. DoD as DoD 5200.28-STD, nicknamed the "Orange Book" (part of the Rainbow Series). First widely-used security evaluation framework. Now superseded by Common Criteria but still appears on CISSP exams as foundational knowledge.
+</div>
+
+<h3>TCSEC Division Levels</h3>
+<table>
+  <tr><th>Division</th><th>Level</th><th>Name</th><th>Key Characteristics</th></tr>
+  <tr><td>D</td><td>D</td><td>Minimal Protection</td><td>No security — system evaluated but failed to meet higher requirements</td></tr>
+  <tr><td rowspan="2">C (Discretionary)</td><td>C1</td><td>Discretionary Security Protection</td><td>User-level access controls; identification and authentication; separation of users and data</td></tr>
+  <tr><td>C2</td><td>Controlled Access Protection</td><td>Object reuse protection; individual accountability; audit trails; DAC with finer granularity</td></tr>
+  <tr><td rowspan="3">B (Mandatory)</td><td>B1</td><td>Labeled Security Protection</td><td>Sensitivity labels on all subjects and objects; MAC enforced; Bell-LaPadula implemented; security policy model</td></tr>
+  <tr><td>B2</td><td>Structured Protection</td><td>Formal security model; trusted path; covert channel analysis; design must be verifiable; least privilege enforced</td></tr>
+  <tr><td>B3</td><td>Security Domains</td><td>Reference monitor; small TCB; highly resistant to penetration; recovery procedures; full audit</td></tr>
+  <tr><td>A</td><td>A1</td><td>Verified Design</td><td>Formally verified design; mathematical proofs; trusted distribution; same as B3 but with formal methods</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • D (lowest) → A1 (highest) — higher letter/number = more security<br>
+  • Division C = <strong>Discretionary</strong> (DAC-based)<br>
+  • Division B = <strong>Mandatory</strong> (MAC-based, labels required)<br>
+  • Division A = <strong>Verified</strong> (formal mathematical proofs)<br>
+  • C2 was the practical minimum for DoD systems (Windows NT was C2-certified)<br>
+  • Only evaluates <strong>confidentiality</strong> — no integrity or availability
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Limitation:</strong> TCSEC addresses ONLY confidentiality. It does not evaluate integrity or availability. This was a major criticism that led to ITSEC and eventually Common Criteria.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. ITSEC (European Criteria)</h2>
+<div class="callout definition">
+  <strong>📖 ITSEC (Information Technology Security Evaluation Criteria):</strong> Published in 1991 by the European Commission (France, Germany, Netherlands, UK). Addressed TCSEC's limitation by evaluating <strong>both functionality and assurance</strong> separately. Evaluated confidentiality, integrity, AND availability.
+</div>
+
+<h3>ITSEC Assurance Levels</h3>
+<table>
+  <tr><th>Level</th><th>Assurance</th><th>TCSEC Equivalent</th></tr>
+  <tr><td>E0</td><td>Inadequate assurance</td><td>D</td></tr>
+  <tr><td>E1</td><td>Informal description of design</td><td>C1</td></tr>
+  <tr><td>E2</td><td>Informal description with testing</td><td>C2</td></tr>
+  <tr><td>E3</td><td>Source code and hardware audit</td><td>B1</td></tr>
+  <tr><td>E4</td><td>Formal security model</td><td>B2</td></tr>
+  <tr><td>E5</td><td>Close correspondence between design and code</td><td>B3</td></tr>
+  <tr><td>E6</td><td>Formal methods for complete verification</td><td>A1</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Differences from TCSEC:</strong><br>
+  • ITSEC separates <strong>functionality</strong> from <strong>assurance</strong> — you rate each independently<br>
+  • Evaluates confidentiality, integrity, AND availability (TCSEC only evaluated confidentiality)<br>
+  • Functionality classes define WHAT the system does; assurance levels define HOW WELL it's verified<br>
+  • E0 (lowest) through E6 (highest)
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> ITSEC's key innovation was <strong>separating functionality from assurance</strong>. If an exam question asks what ITSEC added over TCSEC, the answer is evaluating integrity/availability and separating functionality from assurance.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Common Criteria (ISO 15408)</h2>
+<div class="callout definition">
+  <strong>📖 Common Criteria (CC):</strong> The international standard (ISO/IEC 15408) that replaced both TCSEC and ITSEC. Developed collaboratively by the U.S., Canada, UK, France, Germany, and the Netherlands. Mutually recognized via the Common Criteria Recognition Arrangement (CCRA).
+</div>
+
+<h3>Core Concepts</h3>
+<table>
+  <tr><th>Concept</th><th>Definition</th></tr>
+  <tr><td>Target of Evaluation (TOE)</td><td>The product or system being evaluated</td></tr>
+  <tr><td>Protection Profile (PP)</td><td>A document defining security requirements for a category of products (e.g., "firewalls"); written by the customer/community</td></tr>
+  <tr><td>Security Target (ST)</td><td>A document written by the vendor describing how their specific product meets a PP; vendor's security claims</td></tr>
+  <tr><td>Security Functional Requirements (SFRs)</td><td>Specify WHAT security functions the TOE provides</td></tr>
+  <tr><td>Security Assurance Requirements (SARs)</td><td>Specify HOW WELL the TOE's security is assured (level of rigor)</td></tr>
+</table>
+
+<h3>Evaluation Assurance Levels (EAL 1–7)</h3>
+<table>
+  <tr><th>EAL</th><th>Name</th><th>Description</th><th>Rigor</th></tr>
+  <tr><td>EAL 1</td><td>Functionally Tested</td><td>Basic functional testing; lowest meaningful assurance</td><td>Minimal</td></tr>
+  <tr><td>EAL 2</td><td>Structurally Tested</td><td>Analysis of security functions using developer design docs</td><td>Low</td></tr>
+  <tr><td>EAL 3</td><td>Methodically Tested and Checked</td><td>Gray-box testing; developer testing and evidence review</td><td>Moderate</td></tr>
+  <tr><td>EAL 4</td><td>Methodically Designed, Tested, and Reviewed</td><td>Full design review; independent testing; highest commercially practical level</td><td>High</td></tr>
+  <tr><td>EAL 5</td><td>Semiformally Designed and Tested</td><td>Semiformal design; covert channel analysis; modular design required</td><td>Very High</td></tr>
+  <tr><td>EAL 6</td><td>Semiformally Verified Design and Tested</td><td>Structured implementation; comprehensive analysis</td><td>Very High</td></tr>
+  <tr><td>EAL 7</td><td>Formally Verified Design and Tested</td><td>Formal mathematical verification; highest assurance; used for extreme risk</td><td>Maximum</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • <strong>EAL 4</strong> = highest level commercially practical (most COTS products aim for this)<br>
+  • <strong>EAL 7</strong> = formal mathematical proofs (equivalent to TCSEC A1)<br>
+  • Protection Profile (PP) = <strong>customer says "I need..."</strong> (category of products)<br>
+  • Security Target (ST) = <strong>vendor says "My product does..."</strong> (specific product)<br>
+  • TOE = the thing being evaluated (Target of Evaluation)
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Common Criteria replaced BOTH TCSEC and ITSEC. Remember: PP = what the customer wants (community requirements), ST = what the vendor claims (product-specific). EAL 4 is the practical ceiling for commercial products.
+</div>
+
+<h3>CC Process Flow</h3>
+<pre>
+  Customer/Community        →  Creates Protection Profile (PP)
+         ↓                      "What security do we need?"
+  Vendor                    →  Creates Security Target (ST)
+         ↓                      "Here's how my product meets the PP"
+  Independent Lab           →  Evaluates TOE against ST
+         ↓                      Tests and verifies claims
+  Certification Body        →  Assigns EAL rating
+         ↓                      "Product meets EAL X"
+  CCRA Members              →  Mutually recognize the evaluation
+                                (26+ countries accept each other's results)
+</pre>
+</section>
+
+<section id="s6">
+<h2>6. Evaluation Criteria Comparison</h2>
+<table>
+  <tr><th>Feature</th><th>TCSEC</th><th>ITSEC</th><th>Common Criteria</th></tr>
+  <tr><td>Year</td><td>1983</td><td>1991</td><td>1999 (ISO 2005)</td></tr>
+  <tr><td>Origin</td><td>U.S. DoD</td><td>EU (France, Germany, Netherlands, UK)</td><td>International (ISO 15408)</td></tr>
+  <tr><td>Levels</td><td>D, C1, C2, B1, B2, B3, A1</td><td>E0–E6</td><td>EAL 1–7</td></tr>
+  <tr><td>CIA Coverage</td><td>Confidentiality ONLY</td><td>C + I + A</td><td>C + I + A</td></tr>
+  <tr><td>Functionality vs Assurance</td><td>Combined</td><td>Separated</td><td>Separated (SFR vs SAR)</td></tr>
+  <tr><td>Status</td><td>Superseded (historical)</td><td>Superseded (historical)</td><td>Active international standard</td></tr>
+  <tr><td>Key Document</td><td>Orange Book (DoD 5200.28)</td><td>ITSEC Document</td><td>ISO/IEC 15408</td></tr>
+  <tr><td>Mutual Recognition</td><td>U.S. only</td><td>EU countries</td><td>CCRA (26+ countries)</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Common Misconception:</strong> Higher EAL ≠ "more secure." EAL measures the <strong>rigor of evaluation</strong>, not the strength of security features. An EAL 7 product evaluated with weak requirements could be less secure in practice than an EAL 4 product with strong requirements.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Orange = Old, E = European, EAL = Everyone Agreed Levels":</strong><br>
+  • Orange Book (TCSEC) = oldest, U.S. only<br>
+  • ITSEC (E levels) = European<br>
+  • Common Criteria (EAL) = internationally agreed
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "TCSEC: Do Computers Bring Assurance?":</strong> D → C → B → A (lowest to highest). Division letters go up alphabetically as security increases.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "PP = People's Profile, ST = Seller's Target":</strong><br>
+  • Protection Profile = what the community/customer wants<br>
+  • Security Target = what the seller/vendor claims<br>
+  • TOE = the actual product being tested
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "EAL 4 = For Commerce":</strong> EAL 4 is the highest commercially practical level. The "4" sounds like "for" — EAL 4 is "for" commercial use.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>TCSEC</td><td>Orange Book; D/C/B/A levels; confidentiality only; U.S. DoD; historical</td></tr>
+  <tr><td>ITSEC</td><td>European; E0-E6; separated functionality from assurance; CIA coverage</td></tr>
+  <tr><td>Common Criteria</td><td>ISO 15408; EAL 1-7; international; active standard; uses PP, ST, TOE</td></tr>
+  <tr><td>Protection Profile</td><td>Customer/community requirements document for a product category</td></tr>
+  <tr><td>Security Target</td><td>Vendor's claim of how their product meets a PP</td></tr>
+  <tr><td>TOE</td><td>Target of Evaluation — the product being assessed</td></tr>
+  <tr><td>EAL 4</td><td>Highest commercially practical assurance level</td></tr>
+  <tr><td>EAL 7</td><td>Formal verification with mathematical proofs (maximum assurance)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-038-theory.html" class="nav-btn">← Day 38: Architecture Frameworks</a>
+<a href="day-039-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

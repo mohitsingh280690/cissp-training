@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 45 – IoT &amp; Embedded Systems Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 45 – IoT &amp; Embedded Systems Security</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 45 of 140</span><span>⏱️ ~45 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-044-theory.html">← Day 44</a> · Domain 3 · Day 45 · <a href="day-045-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. IoT Architecture &amp; Constrained Devices</a></li>
+  <li><a href="#s4">4. SCADA / ICS Security</a></li>
+  <li><a href="#s5">5. Cyber-Physical Systems (CPS)</a></li>
+  <li><a href="#s6">6. Edge Computing Security</a></li>
+  <li><a href="#s7">7. IoT Protocols</a></li>
+  <li><a href="#s8">8. Firmware Security</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Medium — IoT/ICS/SCADA questions are increasing on the exam as these technologies proliferate</td></tr>
+  <tr><td>Why Tested</td><td>IoT and embedded systems introduce unique security challenges: constrained resources, long lifespans, physical safety implications, and expanding attack surfaces</td></tr>
+  <tr><td>Question Style</td><td>"What is the primary concern with SCADA systems?", "Which protocol is used for IoT messaging?", scenario-based ICS/CPS questions</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 43 (containerized IoT edge), Day 44 (cloud-connected IoT), Domain 4 (network protocols), Domain 7 (ICS incident response), Domain 8 (embedded software security)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>OT (Operational Technology) teams manage ICS/SCADA; IT security must collaborate for IT/OT convergence</td></tr>
+  <tr><td>Implementation</td><td>Smart factories (Industry 4.0), healthcare IoT (medical devices), smart buildings, connected vehicles, critical infrastructure</td></tr>
+  <tr><td>Failure Modes</td><td>Compromised SCADA → physical damage (Stuxnet); IoT botnet → DDoS (Mirai); medical device hack → patient safety; firmware backdoor → persistent access</td></tr>
+  <tr><td>Business Impact</td><td>Safety of human life, environmental damage, operational disruption, regulatory penalties (NERC CIP for power grid)</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. IoT Architecture &amp; Constrained Devices</h2>
+<div class="callout definition">
+  <strong>📖 Internet of Things (IoT):</strong> A network of physical objects ("things") embedded with sensors, software, and connectivity that enables them to collect and exchange data. IoT devices range from consumer wearables to industrial sensors to medical implants.
+</div>
+
+<h3>IoT Architecture Layers</h3>
+<table>
+  <tr><th>Layer</th><th>Function</th><th>Security Concern</th></tr>
+  <tr><td>Perception (Device)</td><td>Sensors and actuators that interact with the physical world</td><td>Physical tampering, weak authentication, default credentials</td></tr>
+  <tr><td>Network (Communication)</td><td>Transmits data between devices and cloud/servers</td><td>Eavesdropping, replay attacks, protocol vulnerabilities</td></tr>
+  <tr><td>Application (Service)</td><td>Processes data and delivers services to users</td><td>Insecure APIs, insufficient authorization, data privacy</td></tr>
+</table>
+
+<h3>Constrained Devices</h3>
+<div class="callout key-concept">
+  <strong>🔑 Why IoT Is Hard to Secure:</strong><br>
+  • <strong>Limited CPU/Memory:</strong> Cannot run full security stacks, antivirus, or complex encryption<br>
+  • <strong>Limited Power:</strong> Battery-operated; heavy crypto drains battery faster<br>
+  • <strong>No User Interface:</strong> Cannot prompt for credentials or display warnings<br>
+  • <strong>Long Lifespans:</strong> Deployed for 10–20 years; may outlive vendor support<br>
+  • <strong>Difficult to Patch:</strong> Many lack over-the-air (OTA) update capability<br>
+  • <strong>Massive Scale:</strong> Organizations may have thousands/millions of devices<br>
+  • <strong>Default Credentials:</strong> Many ship with admin/admin and users never change them
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Mirai Botnet (2016):</strong> Exploited IoT devices (cameras, DVRs, routers) using default credentials. Created a massive botnet that launched a 1.2 Tbps DDoS attack against Dyn DNS, taking down Twitter, Netflix, Reddit, and other major services. Lesson: Default credentials on IoT = weaponizable at scale.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. SCADA / ICS Security</h2>
+<div class="callout definition">
+  <strong>📖 SCADA (Supervisory Control and Data Acquisition):</strong> A system that monitors and controls industrial processes (power plants, water treatment, manufacturing). SCADA collects data from Remote Terminal Units (RTUs) and Programmable Logic Controllers (PLCs) and presents it to operators via a Human-Machine Interface (HMI).
+</div>
+
+<div class="callout definition">
+  <strong>📖 ICS (Industrial Control Systems):</strong> A broader term encompassing SCADA, Distributed Control Systems (DCS), and PLCs that control physical processes in critical infrastructure.
+</div>
+
+<table>
+  <tr><th>ICS Component</th><th>Function</th></tr>
+  <tr><td>PLC (Programmable Logic Controller)</td><td>Controls physical equipment (valves, motors, switches) based on programmed logic</td></tr>
+  <tr><td>RTU (Remote Terminal Unit)</td><td>Field device that collects sensor data and sends it to SCADA; can operate autonomously</td></tr>
+  <tr><td>HMI (Human-Machine Interface)</td><td>Operator dashboard that displays process data and allows manual overrides</td></tr>
+  <tr><td>DCS (Distributed Control System)</td><td>Controls processes within a single facility (e.g., a chemical plant); local loops</td></tr>
+  <tr><td>Historian</td><td>Database that records process data over time for analysis and compliance</td></tr>
+</table>
+
+<h3>ICS/SCADA Security Challenges</h3>
+<table>
+  <tr><th>Challenge</th><th>Description</th></tr>
+  <tr><td>Legacy Systems</td><td>Many run decades-old OSes (Windows XP) with no patches available</td></tr>
+  <tr><td>Availability Priority</td><td>Uptime is paramount — systems cannot be taken offline to patch</td></tr>
+  <tr><td>Insecure Protocols</td><td>Modbus, DNP3, and OPC lack built-in authentication or encryption</td></tr>
+  <tr><td>Air-Gap Erosion</td><td>Once isolated networks are now connected to IT networks and internet</td></tr>
+  <tr><td>Safety Implications</td><td>Compromise can cause physical damage, environmental harm, or loss of life</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Stuxnet (2010):</strong> First known cyber weapon targeting ICS. Destroyed ~1,000 Iranian nuclear centrifuges by modifying PLC code to spin centrifuges at incorrect speeds while displaying normal readings on the HMI. Demonstrated that cyber attacks can cause physical destruction of equipment.
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> SCADA/ICS priorities differ from IT: <strong>Safety → Availability → Integrity → Confidentiality</strong> (not CIA). Availability matters more than confidentiality because downtime can endanger lives. The Purdue Model (ISA/IEC 62443) defines ICS network zones and security levels.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Cyber-Physical Systems (CPS)</h2>
+<div class="callout definition">
+  <strong>📖 Cyber-Physical Systems (CPS):</strong> Systems where computational elements closely interact with physical processes, with feedback loops where physical processes affect computations and vice versa. CPS are a superset that includes IoT and ICS.
+</div>
+
+<table>
+  <tr><th>CPS Example</th><th>Cyber Component</th><th>Physical Component</th><th>Safety Risk if Compromised</th></tr>
+  <tr><td>Autonomous Vehicles</td><td>AI, sensors, navigation software</td><td>Steering, braking, acceleration</td><td>Vehicle crashes, loss of life</td></tr>
+  <tr><td>Medical Devices</td><td>Embedded controllers, wireless interfaces</td><td>Insulin pumps, pacemakers, infusion pumps</td><td>Incorrect dosage, cardiac events</td></tr>
+  <tr><td>Smart Grid</td><td>SCADA, demand response systems</td><td>Power generation, transmission, distribution</td><td>Blackouts, equipment damage</td></tr>
+  <tr><td>Industrial Robots</td><td>Control software, network interfaces</td><td>Mechanical arms, welding, assembly</td><td>Worker injury, product defects</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 CPS Security Principle:</strong> Because CPS directly interact with the physical world, compromises can lead to kinetic impacts — physical injury, environmental damage, or loss of life. This makes safety the #1 priority in CPS security, ahead of traditional CIA concerns.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Edge Computing Security</h2>
+<div class="callout definition">
+  <strong>📖 Edge Computing:</strong> Processing data near the source of data generation (at the "edge" of the network) rather than sending it to a centralized cloud. Reduces latency, bandwidth usage, and enables real-time decision-making.
+</div>
+
+<table>
+  <tr><th>Benefit</th><th>Security Consideration</th></tr>
+  <tr><td>Reduced latency for real-time processing</td><td>Physical security of distributed edge nodes is harder to maintain</td></tr>
+  <tr><td>Less data transmitted to cloud</td><td>Each edge node is a potential attack target</td></tr>
+  <tr><td>Local data processing (privacy)</td><td>Patching and updating distributed nodes is complex</td></tr>
+  <tr><td>Operates during cloud connectivity loss</td><td>Tamper-resistant hardware needed for exposed locations</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Edge computing = "process data closer to where it's generated." Fog computing is an extension where processing happens between the edge and the cloud (an intermediate layer). For CISSP, know that edge computing reduces latency but increases the physical attack surface.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. IoT Protocols</h2>
+<table>
+  <tr><th>Protocol</th><th>Purpose</th><th>Key Features</th><th>Security</th></tr>
+  <tr><td><strong>MQTT</strong><br>(Message Queuing Telemetry Transport)</td><td>Lightweight publish/subscribe messaging</td><td>Low bandwidth; runs over TCP; designed for constrained devices and unreliable networks</td><td>Supports TLS and username/password auth; no built-in encryption by default</td></tr>
+  <tr><td><strong>CoAP</strong><br>(Constrained Application Protocol)</td><td>RESTful protocol for constrained devices</td><td>Runs over UDP; similar to HTTP but lighter; supports GET, PUT, POST, DELETE</td><td>DTLS (Datagram TLS) for security; optional — not enforced by default</td></tr>
+  <tr><td><strong>Zigbee</strong></td><td>Short-range, low-power mesh networking</td><td>IEEE 802.15.4; mesh topology; 250 kbps; range ~10-100m; up to 65,000 nodes</td><td>AES-128 encryption built-in; key distribution is a known vulnerability</td></tr>
+  <tr><td><strong>Z-Wave</strong></td><td>Home automation mesh network</td><td>Sub-GHz frequency (less interference); mesh topology; range ~30m per hop</td><td>AES-128 encryption (S2 framework); early versions had weak key exchange</td></tr>
+  <tr><td><strong>BLE</strong><br>(Bluetooth Low Energy)</td><td>Short-range, low-power communication</td><td>Bluetooth 4.0+; 1 Mbps; range ~50m; used for wearables, beacons, sensors</td><td>AES-128; pairing vulnerabilities; BLE sniffing attacks</td></tr>
+  <tr><td><strong>LoRaWAN</strong></td><td>Long-range, low-power WAN</td><td>Range up to 15 km; very low data rate; star topology; excellent for remote sensors</td><td>AES-128 encryption at network and application layers</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> MQTT = publish/subscribe, TCP-based, lightweight messaging (most common IoT protocol on exam). CoAP = UDP-based REST for constrained devices. Zigbee = mesh network, IEEE 802.15.4. Know the transport layer: MQTT = TCP, CoAP = UDP.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Firmware Security</h2>
+<div class="callout definition">
+  <strong>📖 Firmware:</strong> Software permanently programmed into a device's read-only memory (ROM/flash) that provides low-level control. In IoT, firmware controls the device's core behavior and is a prime target for persistent attacks.
+</div>
+
+<table>
+  <tr><th>Firmware Risk</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td>Backdoors</td><td>Hardcoded credentials or hidden access points in firmware</td><td>Code review; firmware analysis tools; vendor vetting</td></tr>
+  <tr><td>No Secure Update</td><td>Device lacks OTA update mechanism or uses unsigned updates</td><td>Require signed firmware updates; secure boot chain</td></tr>
+  <tr><td>Extraction</td><td>Attacker dumps firmware from flash chip for reverse engineering</td><td>Encrypt firmware; use secure boot; hardware tamper detection</td></tr>
+  <tr><td>Supply Chain</td><td>Firmware modified during manufacturing or distribution</td><td>Signed firmware; hardware root of trust (TPM/secure element)</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Secure Boot Chain:</strong><br>
+  • <strong>Hardware Root of Trust:</strong> Immutable key stored in hardware (TPM, secure element) — the trust anchor<br>
+  • <strong>Secure Boot:</strong> Each stage of boot verifies the signature of the next stage before executing it<br>
+  • <strong>Measured Boot:</strong> Records measurements (hashes) of each boot component into TPM PCRs for remote attestation<br>
+  • If any component is tampered with, the signature check fails and boot is halted
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "SCADA Priorities: SAIC not CIA":</strong> Safety → Availability → Integrity → Confidentiality. In ICS/SCADA, safety comes first because people can die. Remember: "SAIC, not CIA."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "IoT = Insecurity of Things":</strong> Default creds, no patches, constrained resources, long lifespans, massive scale = a perfect storm for insecurity. The Mirai botnet proved it.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "MQTT = Message Queue, TCP-based":</strong> MQTT uses TCP (reliable). CoAP uses UDP (lightweight). Remember: MQTT = "Must Queue, TCP" — it queues messages reliably. CoAP = "Constrained Over UDP."
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>IoT Challenges</td><td>Constrained resources, default creds, long lifespans, hard to patch, massive scale</td></tr>
+  <tr><td>SCADA/ICS</td><td>Controls physical processes; priority: Safety > Availability > Integrity > Confidentiality</td></tr>
+  <tr><td>ICS Components</td><td>PLC (controls equipment), RTU (field data), HMI (operator display), DCS (facility control), Historian (data logging)</td></tr>
+  <tr><td>CPS</td><td>Cyber + physical integration; compromise can cause kinetic/physical harm</td></tr>
+  <tr><td>Edge Computing</td><td>Processing near data source; reduces latency but increases physical attack surface</td></tr>
+  <tr><td>MQTT</td><td>Pub/sub, TCP-based, lightweight IoT messaging — most tested IoT protocol</td></tr>
+  <tr><td>CoAP</td><td>RESTful, UDP-based, for constrained devices; secured with DTLS</td></tr>
+  <tr><td>Firmware Security</td><td>Secure boot chain, signed updates, hardware root of trust prevent persistent firmware attacks</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-044-theory.html" class="nav-btn">← Day 44: Cloud Security</a>
+<a href="day-045-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Day 29 – Data States | CISSP Study</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:2.5rem 2rem;text-align:center;}
+.header h1{font-size:2.2rem;margin-bottom:.5rem;}
+.header .subtitle{opacity:.85;font-size:1.05rem;margin-bottom:1rem;}
+.meta{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:.85rem;opacity:.8;}
+.meta span{background:rgba(255,255,255,.15);padding:.25rem .75rem;border-radius:20px;}
+.breadcrumb{background:#fff;border-bottom:1px solid var(--border);padding:.75rem 2rem;font-size:.85rem;color:var(--text-light);}
+.breadcrumb a{color:#7b1fa2;text-decoration:none;}
+.container{max-width:960px;margin:0 auto;padding:2rem;}
+.toc{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:2rem;}
+.toc h3{color:#4a148c;margin-bottom:.75rem;font-size:1rem;text-transform:uppercase;letter-spacing:.05em;}
+.toc ol{padding-left:1.25rem;}
+.toc li{margin:.3rem 0;}.toc a{color:#7b1fa2;text-decoration:none;font-size:.9rem;}
+.toc a:hover{text-decoration:underline;}
+.section{background:#fff;border-radius:8px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.section h2{font-size:1.4rem;color:#4a148c;margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:2px solid #ce93d8;}
+.section h3{font-size:1.1rem;color:#6a1b9a;margin:1.25rem 0 .6rem;}
+.section h4{font-size:1rem;color:#4a148c;margin:1rem 0 .4rem;}
+p{margin-bottom:.9rem;}
+ul,ol{padding-left:1.4rem;margin-bottom:.9rem;}
+li{margin:.35rem 0;}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+th{background:#4a148c;color:#fff;padding:.65rem .85rem;text-align:left;}
+td{padding:.6rem .85rem;border-bottom:1px solid var(--border);}
+tr:nth-child(even)td{background:#f9f4ff;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.callout-title{font-weight:700;margin-bottom:.35rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;}
+.state-card{border:2px solid;border-radius:10px;padding:1.25rem;margin:1rem 0;}
+.state-rest{border-color:#1565c0;background:#e3f2fd;}
+.state-transit{border-color:#1b5e20;background:#e8f5e9;}
+.state-use{border-color:#bf360c;background:#fbe9e7;}
+.state-card h3{margin-top:0;}
+.state-rest h3{color:#1565c0;}
+.state-transit h3{color:#1b5e20;}
+.state-use h3{color:#bf360c;}
+.nav-footer{display:flex;justify-content:space-between;align-items:center;background:#fff;border-top:3px solid #4a148c;padding:1.25rem 2rem;margin-top:2rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.nav-footer a{background:#7b1fa2;color:#fff;padding:.6rem 1.25rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;transition:background .2s;}
+.nav-footer a:hover{background:#4a148c;}
+.tag{display:inline-block;background:#e1bee7;color:#4a148c;font-size:.75rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;margin-right:.35rem;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 29: Data States</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 29 of 140</span>
+    <span>🏛️ Domain 2 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>📊 Intermediate</span>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="#">CISSP Study</a> › <a href="#">Domain 2: Asset Security</a> › Day 29: Data States
+</div>
+
+<div class="container">
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">The Three Data States</a></li>
+    <li><a href="#s4">Data at Rest</a></li>
+    <li><a href="#s5">Data in Transit</a></li>
+    <li><a href="#s6">Data in Use</a></li>
+    <li><a href="#s7">Matching Controls to States</a></li>
+    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s9">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security</td></tr>
+    <tr><td>Why it's tested</td><td>Every data protection question ultimately resolves to: what state is the data in, and what control is correct for that state? Mixing up controls is the #1 error candidates make.</td></tr>
+    <tr><td>Question style</td><td>Scenario: "An attacker intercepts packets on the corporate network…" or "An employee's laptop is stolen — what protects the data?" — pick the correct state + correct control.</td></tr>
+    <tr><td>Cross-domain links</td><td>Domain 3 (cryptographic algorithms); Day 28 (Data Security Controls overview)</td></tr>
+  </table>
+  <div class="warning">
+    <div class="callout-title">⚠️ Exam Trap</div>
+    TLS (Transport Layer Security) protects data <strong>in transit</strong>, not at rest. AES-256 full-disk encryption (FDE) protects data <strong>at rest</strong>, not in transit. Intel SGX protects data <strong>in use</strong>. Matching the wrong control to the wrong state is the most common mistake on this topic.
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>A hospital stores patient records in an encrypted database (<strong>at rest</strong>). When a doctor queries a record, the database engine transmits it over the network (<strong>in transit</strong>). The doctor's workstation loads the record into RAM so she can view and edit it (<strong>in use</strong>). Each transition exposes the data to a different attack surface, requiring a different control.</p>
+  <p>Understanding these three states is the foundation for building a <em>defense-in-depth</em> data protection strategy — you cannot protect data end-to-end without covering all three.</p>
+  <div class="key-concept">
+    <div class="callout-title">💡 Core Insight</div>
+    Data does not stay in one state. As it moves through its lifecycle, it continuously transitions between states. A security architect must ensure controls are applied <em>at every state transition</em> — not just one.
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <h2>3. The Three Data States</h2>
+  <p>The CISSP CBK defines three fundamental states in which data can exist:</p>
+  <table>
+    <tr><th>State</th><th>Where the Data Is</th><th>Primary Threat</th><th>Primary Control</th></tr>
+    <tr><td><strong>Data at Rest</strong></td><td>Stored on media — disk, SSD, USB, tape, cloud storage</td><td>Physical theft of media; unauthorized access to storage</td><td>Encryption (AES-256 FDE, TDE)</td></tr>
+    <tr><td><strong>Data in Transit</strong></td><td>Moving across a network — LAN, WAN, internet, cloud API calls</td><td>Man-in-the-middle (MitM) interception; eavesdropping</td><td>TLS 1.2/1.3; IPSec; VPN; SSH</td></tr>
+    <tr><td><strong>Data in Use</strong></td><td>Actively processed in CPU, RAM, registers, cache</td><td>Memory scraping; cold boot attack; DMA attacks; malicious hypervisor</td><td>Intel SGX; TEE; homomorphic encryption; memory scrubbing</td></tr>
+  </table>
+  <div class="exam-tip">
+    <div class="callout-title">✅ Exam Tip</div>
+    The CISSP exam will describe a scenario and ask which control applies. Always identify the <em>state first</em> — then select the control that matches that state exclusively.
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <h2>4. Data at Rest</h2>
+  <div class="state-card state-rest">
+    <h3>🗄️ Data at Rest — Stored on Physical or Logical Media</h3>
+    <p>Data at rest refers to data that is <strong>not actively being moved or processed</strong> — it exists on a storage medium awaiting retrieval. Examples include files on a hard drive, database records, backup tapes, cloud object storage (AWS S3), and archived email.</p>
+  </div>
+
+  <h3>Threat Landscape</h3>
+  <ul>
+    <li><strong>Physical theft:</strong> Laptop stolen → attacker accesses unencrypted files directly from the drive</li>
+    <li><strong>Unauthorized logical access:</strong> Misconfigured file permissions or ACLs allow access without authentication</li>
+    <li><strong>Insider threat:</strong> Privileged user copies sensitive data to an unencrypted USB drive</li>
+    <li><strong>Cloud misconfiguration:</strong> S3 bucket set to "Public" exposes millions of records</li>
+  </ul>
+
+  <h3>Controls for Data at Rest</h3>
+
+  <h4>Full Disk Encryption (FDE)</h4>
+  <p>Encrypts the entire storage device at the hardware or OS level. If a device is stolen and powered off, the attacker cannot read any data without the decryption key (typically tied to a PIN, password, or TPM chip).</p>
+  <ul>
+    <li><strong>BitLocker</strong> (Windows) — integrates with TPM 2.0; supports recovery keys in Active Directory</li>
+    <li><strong>FileVault</strong> (macOS) — AES-XTS 128-bit encryption; key stored in iCloud or locally</li>
+    <li><strong>VeraCrypt</strong> (cross-platform open source) — successor to TrueCrypt; supports hidden volumes</li>
+    <li><strong>Self-Encrypting Drives (SEDs)</strong> — hardware-level AES encryption built into the drive firmware; no performance penalty since encryption is done by the drive controller, not the CPU</li>
+  </ul>
+
+  <h4>File and Folder Encryption</h4>
+  <p>More granular than FDE — protects individual files or folders rather than the entire disk. Examples: EFS (Windows Encrypting File System); GPG-encrypted archives; password-protected ZIP/PDF files.</p>
+
+  <h4>Transparent Database Encryption (TDE)</h4>
+  <p>Encrypts database data files and backups at rest while allowing normal SQL queries to operate transparently. Supported by SQL Server, Oracle, MySQL, PostgreSQL. The database engine decrypts on-the-fly as authorized queries run — users and applications see no change.</p>
+
+  <h4>Access Controls</h4>
+  <p>Encryption is the primary control, but access controls (file system ACLs, NTFS permissions, database roles) layer additional protection by restricting who can even <em>access</em> the encrypted system.</p>
+
+  <div class="exam-tip">
+    <div class="callout-title">✅ Exam Tip</div>
+    FDE only protects data when the device is <strong>powered off</strong>. If a running, logged-in laptop is stolen, FDE does not help — the disk is already decrypted and mounted. Combine FDE with screen lock, strong authentication, and remote wipe capabilities for full protection.
+  </div>
+  <div class="definition">
+    <div class="callout-title">📖 Definition: Self-Encrypting Drive (SED)</div>
+    An SED performs AES encryption/decryption in hardware on the drive controller. The <strong>Data Encryption Key (DEK)</strong> is stored in the drive and never leaves it. The <strong>Authentication Credential (AC)</strong> (PIN/password) unlocks the DEK. To sanitize an SED, simply change/destroy the DEK — all data becomes instantly irrecoverable without needing to overwrite the entire drive.
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section" id="s5">
+  <h2>5. Data in Transit</h2>
+  <div class="state-card state-transit">
+    <h3>🌐 Data in Transit — Moving Across a Network</h3>
+    <p>Data in transit (also called <em>data in motion</em>) is data that is actively being transmitted from one location to another — across a LAN, WAN, the internet, or a cloud provider's internal network.</p>
+  </div>
+
+  <h3>Threat Landscape</h3>
+  <ul>
+    <li><strong>Man-in-the-Middle (MitM):</strong> Attacker intercepts communications between two parties, potentially reading or modifying traffic</li>
+    <li><strong>Packet sniffing / eavesdropping:</strong> Attacker uses Wireshark or similar tools to capture unencrypted traffic on a shared network segment</li>
+    <li><strong>Replay attacks:</strong> Captured credentials or tokens are re-transmitted by the attacker</li>
+    <li><strong>DNS hijacking / BGP hijacking:</strong> Traffic is silently rerouted through attacker-controlled infrastructure</li>
+  </ul>
+
+  <h3>Controls for Data in Transit</h3>
+
+  <h4>TLS (Transport Layer Security)</h4>
+  <p>The dominant protocol for encrypting application-layer traffic. TLS wraps application protocols to create encrypted equivalents:</p>
+  <ul>
+    <li><strong>HTTPS</strong> = HTTP over TLS (TCP port 443)</li>
+    <li><strong>SMTPS</strong> = SMTP over TLS (port 465 or STARTTLS on 587)</li>
+    <li><strong>IMAPS / POP3S</strong> = secure email retrieval</li>
+    <li><strong>LDAPS</strong> = secure directory queries</li>
+  </ul>
+  <p><strong>TLS 1.3</strong> (current standard): Removed weak cipher suites (RC4, DES, 3DES, MD5-based MACs); mandatory Perfect Forward Secrecy (PFS); 1-RTT handshake (faster than TLS 1.2). <strong>TLS 1.0 and 1.1 are deprecated and should not be used.</strong></p>
+
+  <h4>IPSec</h4>
+  <p>IPSec (IP Security) operates at Layer 3 (Network layer) and provides authentication, integrity, and encryption for IP traffic. Two critical modes for the exam:</p>
+  <table>
+    <tr><th>Mode</th><th>What Gets Encrypted</th><th>Typical Use</th></tr>
+    <tr><td><strong>Tunnel Mode</strong></td><td>Entire original IP packet (header + payload) is encrypted and encapsulated inside a new IP packet</td><td>Site-to-site VPN between gateways</td></tr>
+    <tr><td><strong>Transport Mode</strong></td><td>Only the payload (upper-layer data) is encrypted; original IP header is preserved</td><td>Host-to-host communication; end-to-end within a LAN</td></tr>
+  </table>
+  <p>IPSec uses two sub-protocols:</p>
+  <ul>
+    <li><strong>AH (Authentication Header)</strong> — provides integrity and authentication ONLY; no encryption</li>
+    <li><strong>ESP (Encapsulating Security Payload)</strong> — provides integrity, authentication, AND confidentiality (encryption)</li>
+  </ul>
+
+  <h4>VPN (Virtual Private Network)</h4>
+  <p>Creates an encrypted tunnel over a public network:</p>
+  <ul>
+    <li><strong>IPSec VPN:</strong> Used for site-to-site connections; encrypts all traffic at Layer 3</li>
+    <li><strong>SSL/TLS VPN:</strong> Used for remote access; works through firewalls more easily (port 443); client-less options via browser</li>
+    <li><strong>WireGuard:</strong> Modern, lightweight VPN protocol; faster than IPSec/OpenVPN; uses ChaCha20 encryption</li>
+  </ul>
+
+  <h4>SSH (Secure Shell)</h4>
+  <p>Replaces Telnet and FTP for secure remote administration. Provides encrypted command-line access (SSH), file transfer (SFTP, SCP), and port forwarding. Default TCP port 22.</p>
+
+  <div class="warning">
+    <div class="callout-title">⚠️ Exam Trap</div>
+    <strong>IPSec Tunnel Mode vs. Transport Mode</strong> is heavily tested. Remember: <em>Tunnel = two tunnels of privacy</em> (new IP header hides original). Tunnel mode is used at the perimeter (gateway-to-gateway VPN). Transport mode is used host-to-host inside a trusted network.
+  </div>
+  <div class="exam-tip">
+    <div class="callout-title">✅ Exam Tip</div>
+    TLS protects data <em>in transit only</em>. Once the server receives and decrypts the data and writes it to disk — the data is now "at rest" and TLS provides no protection. This is why defense-in-depth requires BOTH TLS AND disk encryption.
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section" id="s6">
+  <h2>6. Data in Use</h2>
+  <div class="state-card state-use">
+    <h3>💻 Data in Use — Actively Processed in Memory</h3>
+    <p>Data in use is data that is currently being <strong>processed by a CPU</strong> — loaded into RAM, CPU registers, cache memory, or GPU memory. To be processed, most encryption must first be decrypted, creating a temporary window of exposure.</p>
+  </div>
+
+  <h3>Threat Landscape</h3>
+  <ul>
+    <li><strong>Memory scraping:</strong> Malware reads process memory to extract plaintext data (POS terminal RAM scrapers steal credit card numbers before they're encrypted for transmission)</li>
+    <li><strong>Cold boot attack:</strong> Attacker physically removes RAM chips from a running/recently-powered-off system and reads them in another machine before the charge dissipates (DRAM remanence)</li>
+    <li><strong>DMA (Direct Memory Access) attack:</strong> Attacker uses Thunderbolt/FireWire/PCIe to bypass the CPU and read RAM directly (e.g., DMA-over-Thunderbolt attacks)</li>
+    <li><strong>Malicious hypervisor:</strong> A compromised or rogue hypervisor reads the memory of all guest VMs running on the physical host</li>
+    <li><strong>Speculative execution side channels:</strong> Meltdown, Spectre — CPU design flaws that allow processes to read memory outside their boundaries</li>
+  </ul>
+
+  <h3>Controls for Data in Use</h3>
+
+  <h4>Trusted Execution Environment (TEE)</h4>
+  <p>A hardware-isolated, secure processing area within the main processor where sensitive code and data can execute with confidentiality and integrity guarantees — even if the host OS, hypervisor, or firmware is compromised.</p>
+
+  <h4>Intel SGX (Software Guard Extensions)</h4>
+  <div class="definition">
+    <div class="callout-title">📖 Definition: Intel SGX</div>
+    Intel SGX creates hardware-enforced <strong>secure enclaves</strong> — isolated memory regions inside the CPU package that are encrypted at the hardware level. The encryption key lives only in the CPU and is <em>never accessible to the OS, hypervisor, BIOS, or any external software</em>, even with ring-0 (kernel) access.
+  </div>
+  <ul>
+    <li>Memory outside the enclave is encrypted with a key that only the CPU holds</li>
+    <li>Even a malicious OS cannot read enclave memory</li>
+    <li>Used for: DRM key storage, private key storage, secure computation in cloud</li>
+    <li>Limitation: Side-channel attacks (e.g., SGX-Step) can still leak information</li>
+  </ul>
+
+  <h4>ARM TrustZone</h4>
+  <p>ARM's equivalent of SGX — divides the CPU into a <strong>Secure World</strong> and a <strong>Normal World</strong>. The Secure World runs a trusted OS (e.g., OP-TEE) that handles sensitive operations (fingerprint processing, mobile payments). The Normal World runs the standard OS (Android, iOS) without access to Secure World data.</p>
+
+  <h4>Homomorphic Encryption</h4>
+  <div class="definition">
+    <div class="callout-title">📖 Definition: Homomorphic Encryption</div>
+    A cryptographic technique that allows computation to be performed <strong>directly on ciphertext</strong>, producing an encrypted result that, when decrypted, matches the result of performing the same computation on the plaintext — <em>without ever decrypting the data during processing</em>.
+  </div>
+  <ul>
+    <li><strong>Partial Homomorphic Encryption (PHE):</strong> Supports only one operation (e.g., multiplication or addition) — used in some e-voting systems</li>
+    <li><strong>Fully Homomorphic Encryption (FHE):</strong> Supports arbitrary computation — still computationally expensive; research stage for most applications</li>
+    <li><strong>Key use case:</strong> Cloud data analysis — send encrypted data to a cloud provider, get encrypted results back; the cloud never sees the plaintext</li>
+  </ul>
+
+  <h4>Memory Scrubbing</h4>
+  <p>The practice of explicitly overwriting sensitive data in memory (RAM) with zeros or random patterns <strong>immediately after it is no longer needed</strong> — reducing the window during which it is exposed to memory-based attacks. Languages like C/C++ allow direct memory overwrite; higher-level languages (Python, Java) rely on garbage collectors that may not guarantee immediate scrubbing.</p>
+
+  <div class="exam-tip">
+    <div class="callout-title">✅ Exam Tip</div>
+    The CISSP exam may present Intel SGX, TEE, TrustZone, or homomorphic encryption as answer options. All four are controls for <strong>data in use</strong>. If a scenario mentions a <em>compromised hypervisor</em> or <em>memory scraping</em>, the correct control is one of these — not TLS (transit) or FDE (rest).
+  </div>
+  <div class="warning">
+    <div class="callout-title">⚠️ Data in Use: The Hardest State to Protect</div>
+    Data in use represents the most technically challenging state. For most workloads, the data must be decrypted before processing. Traditional disk encryption (FDE) and TLS offer <em>zero protection</em> against memory scraping attacks — because the data is decrypted in RAM before any processing occurs.
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section" id="s7">
+  <h2>7. Matching Controls to States</h2>
+  <div class="key-concept">
+    <div class="callout-title">💡 The Most Exam-Tested Table in Domain 2</div>
+    Every encryption and data protection control maps to exactly one (or sometimes two) data states. Memorise this mapping cold.
+  </div>
+  <table>
+    <tr><th>Control / Technology</th><th>State Protected</th><th>Notes</th></tr>
+    <tr><td>AES-256 Full Disk Encryption (FDE / BitLocker / FileVault)</td><td><strong>At Rest</strong></td><td>Useless if device is powered on and logged in</td></tr>
+    <tr><td>Transparent Database Encryption (TDE)</td><td><strong>At Rest</strong></td><td>Encrypts database files and backups on disk</td></tr>
+    <tr><td>Self-Encrypting Drives (SEDs)</td><td><strong>At Rest</strong></td><td>Hardware-level; destroys key to sanitize</td></tr>
+    <tr><td>TLS 1.2 / TLS 1.3 (HTTPS, SMTPS)</td><td><strong>In Transit</strong></td><td>Layer 4/5 protection; ends at server decryption</td></tr>
+    <tr><td>IPSec Tunnel Mode</td><td><strong>In Transit</strong></td><td>Gateway-to-gateway VPN; encrypts entire packet</td></tr>
+    <tr><td>IPSec Transport Mode</td><td><strong>In Transit</strong></td><td>Host-to-host; encrypts payload only</td></tr>
+    <tr><td>SSH / SFTP</td><td><strong>In Transit</strong></td><td>Secure remote access and file transfer</td></tr>
+    <tr><td>VPN (IPSec, SSL/TLS, WireGuard)</td><td><strong>In Transit</strong></td><td>Encrypted tunnel over untrusted network</td></tr>
+    <tr><td>Intel SGX (Secure Enclaves)</td><td><strong>In Use</strong></td><td>Hardware-encrypted RAM region; OS cannot access</td></tr>
+    <tr><td>ARM TrustZone</td><td><strong>In Use</strong></td><td>Secure World / Normal World CPU partitioning</td></tr>
+    <tr><td>Trusted Execution Environment (TEE)</td><td><strong>In Use</strong></td><td>Umbrella term for SGX, TrustZone, and similar tech</td></tr>
+    <tr><td>Homomorphic Encryption</td><td><strong>In Use</strong></td><td>Compute on ciphertext; never decrypt during processing</td></tr>
+    <tr><td>Memory Scrubbing</td><td><strong>In Use</strong></td><td>Zero-overwrite RAM immediately after use</td></tr>
+  </table>
+
+  <h3>Scenario Walkthroughs</h3>
+  <p><strong>Scenario 1:</strong> An analyst's laptop is stolen from a car. The laptop was powered off. Which control prevents data exposure?</p>
+  <p>→ Data is <strong>at rest</strong> (powered off = not in transit or in use). Control: <strong>FDE (BitLocker/FileVault)</strong>. ✅</p>
+
+  <p><strong>Scenario 2:</strong> A user is entering a credit card number on a checkout website. Which protocol protects the number as it travels from browser to server?</p>
+  <p>→ Data is <strong>in transit</strong> (moving from browser to server). Control: <strong>TLS 1.3 (HTTPS)</strong>. ✅</p>
+
+  <p><strong>Scenario 3:</strong> A company stores encrypted data in a public cloud. They want to allow the cloud provider to run analytics on the data without ever decrypting it. Which technology should they use?</p>
+  <p>→ Data is <strong>in use</strong> (being processed). Control: <strong>Homomorphic encryption</strong>. ✅</p>
+
+  <p><strong>Scenario 4:</strong> An organization uses a multi-tenant cloud and is concerned about a rogue hypervisor reading VM memory. Which technology creates hardware-isolated memory the hypervisor cannot access?</p>
+  <p>→ Data is <strong>in use</strong> (in RAM, at risk from hypervisor). Control: <strong>Intel SGX (secure enclaves)</strong>. ✅</p>
+</div>
+
+<!-- SECTION 8 -->
+<div class="section" id="s8">
+  <h2>8. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <div class="callout-title">🧠 Mnemonic: "RAT" — The Three States</div>
+    <strong>R</strong>est → <strong>A</strong>t Rest = disk encryption (AES/FDE)<br>
+    <strong>A</strong>ir → in trAnsit = TLS/IPSec/VPN<br>
+    <strong>T</strong>hinking → in Use = TEE/SGX/Homomorphic<br><br>
+    The data is either <strong>R</strong>esting on disk, flying through the <strong>A</strong>ir (network), or being <strong>T</strong>hought about (processed in CPU).
+  </div>
+
+  <div class="mnemonic">
+    <div class="callout-title">🧠 IPSec Modes: "Tunnel Buries the Body"</div>
+    <strong>Tunnel Mode</strong> = buries the entire original packet inside a new envelope — the original IP header is hidden. Used between gateways.<br><br>
+    <strong>Transport Mode</strong> = only the payload is protected, the original IP header is exposed. Used host-to-host.
+  </div>
+
+  <div class="mnemonic">
+    <div class="callout-title">🧠 "SGX = Security Guard on the eXit"</div>
+    Intel SGX creates a <em>guard</em> at the CPU level — even the OS and hypervisor are locked <em>out</em>. The "eXit" from normal OS memory space leads to an encrypted enclave that only the CPU can access.
+  </div>
+
+  <div class="mnemonic">
+    <div class="callout-title">🧠 Homomorphic = "Homework on encrypted paper"</div>
+    You hand a tutor your homework in a sealed, opaque envelope. The tutor solves the problems <em>through the envelope</em> and hands back an equally sealed result envelope. When you open it, the answers are correct — but the tutor <em>never read your work</em>. That's homomorphic encryption.
+  </div>
+</div>
+
+<!-- SECTION 9 -->
+<div class="section" id="s9">
+  <h2>9. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>Remember This</th></tr>
+    <tr><td>Data at Rest</td><td>Stored on media (disk, tape, cloud storage); protected by AES-256 FDE, TDE, SEDs</td></tr>
+    <tr><td>Data in Transit</td><td>Moving across a network; protected by TLS 1.2/1.3, IPSec, VPN, SSH</td></tr>
+    <tr><td>Data in Use</td><td>Active in RAM/CPU; protected by Intel SGX, TEE, TrustZone, homomorphic encryption, memory scrubbing</td></tr>
+    <tr><td>TLS scope</td><td>Protects data <em>in transit only</em> — does NOT protect data once it arrives and is written to disk (at rest)</td></tr>
+    <tr><td>FDE scope</td><td>Protects data <em>at rest only</em> — when device is powered on and logged in, FDE has no effect on memory access</td></tr>
+    <tr><td>IPSec Tunnel Mode</td><td>Encrypts the entire original packet + new IP header; gateway-to-gateway VPN</td></tr>
+    <tr><td>IPSec Transport Mode</td><td>Encrypts payload only; original IP header intact; host-to-host</td></tr>
+    <tr><td>Intel SGX</td><td>Hardware-encrypted RAM enclaves; inaccessible to OS, hypervisor, BIOS — protects data in use</td></tr>
+    <tr><td>Homomorphic Encryption</td><td>Compute on encrypted data without decrypting — ideal for cloud analytics on sensitive data</td></tr>
+    <tr><td>Hardest state to protect</td><td>Data in Use — requires hardware-level controls; software alone is insufficient</td></tr>
+  </table>
+</div>
+
+</div><!-- /container -->
+
+<div class="nav-footer">
+  <a href="day-028-theory.html">← Day 28: Data Security Controls</a>
+  <a href="day-029-mcq.html">📝 Practice Quiz →</a>
+</div>
+
+</body>
+</html>

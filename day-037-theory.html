@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 37 – Security Models: Brewer-Nash, Graham-Denning, HRU, Lipner &amp; Take-Grant</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 37 – Security Models: Others</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 37 of 140</span><span>⏱️ ~40 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-036-theory.html">← Day 36</a> · Domain 3 · Day 37 · <a href="day-037-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Brewer-Nash (Chinese Wall) Model</a></li>
+  <li><a href="#s4">4. Graham-Denning Model</a></li>
+  <li><a href="#s5">5. Harrison-Ruzzo-Ullman (HRU) Model</a></li>
+  <li><a href="#s6">6. Lipner Model</a></li>
+  <li><a href="#s7">7. Take-Grant Model</a></li>
+  <li><a href="#s8">8. Complete Model Comparison</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Medium — these models appear less frequently than BLP/Biba/Clark-Wilson but are still testable</td></tr>
+  <tr><td>Why Tested</td><td>Demonstrates understanding of different security model approaches beyond the core three; Brewer-Nash is especially popular on the exam</td></tr>
+  <tr><td>Question Style</td><td>"Which model prevents conflicts of interest?", "A consulting firm needs to ensure analysts working on Bank A cannot access Bank B data…", model identification by description</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (ethical walls, SoD), Domain 5 (access control mechanisms), Domain 7 (operational separation)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Compliance officers enforce Chinese Wall rules; architects implement access control models; legal teams define conflict-of-interest boundaries</td></tr>
+  <tr><td>Implementation</td><td>Brewer-Nash in consulting/financial firms; Graham-Denning/HRU in OS access control; Lipner in dual-protection systems</td></tr>
+  <tr><td>Failure Modes</td><td>Brewer-Nash violations → conflict of interest, insider trading; HRU undecidability → cannot prove system is safe</td></tr>
+  <tr><td>Business Impact</td><td>Regulatory compliance (SEC, MiFID II), prevention of insider trading, defensible access control design</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Brewer-Nash (Chinese Wall) Model</h2>
+<div class="callout definition">
+  <strong>📖 Brewer-Nash Model (1989):</strong> A dynamic access control model that prevents conflicts of interest. Subjects are denied access to data that would create a conflict of interest with data they have already accessed. Named after the "Chinese Wall" ethical barrier concept in finance.
+</div>
+
+<h3>How It Works</h3>
+<p>Data is organized into <strong>conflict-of-interest classes (COI classes)</strong>. Each class contains <strong>company datasets</strong>. Once a subject accesses one company's data in a COI class, they are blocked from accessing any other company's data in the same class.</p>
+
+<div class="diagram">
+   COI Class: Banking
+   ┌─────────┐  ┌─────────┐  ┌─────────┐
+   │ Bank A  │  │ Bank B  │  │ Bank C  │
+   │  data   │  │  data   │  │  data   │
+   └─────────┘  └─────────┘  └─────────┘
+        ↑              ╳              ╳
+    Analyst           BLOCKED      BLOCKED
+   accessed          (conflict)    (conflict)
+   Bank A
+
+   COI Class: Oil Companies
+   ┌─────────┐  ┌─────────┐
+   │ Shell   │  │ BP data │
+   │  data   │  │         │
+   └─────────┘  └─────────┘
+        ↑              ╳
+    Same analyst      BLOCKED
+   can access
+   Shell (different COI class)
+   but once Shell is accessed, BP is blocked
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Properties:</strong><br>
+  • <strong>Dynamic:</strong> Access permissions change based on previous access history — unlike static models (BLP, Biba)<br>
+  • <strong>Write rule:</strong> A subject can write to an object only if they cannot read any object in a different company dataset within the same COI class<br>
+  • <strong>Over time:</strong> The wall grows taller — users lose access options as they view more data
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Brewer-Nash is the ONLY security model that uses <strong>dynamic, history-based</strong> access decisions. If a question mentions "conflict of interest," "Chinese Wall," or "consulting firm accessing competing client data," the answer is Brewer-Nash.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Graham-Denning Model</h2>
+<div class="callout definition">
+  <strong>📖 Graham-Denning Model (1972):</strong> Defines a formal set of eight primitive operations (protection rules) for securely creating, deleting, and managing subjects, objects, and access rights. It addresses what BLP, Biba, and Clark-Wilson do not — how to manage access rights themselves.
+</div>
+
+<h3>The Eight Primitive Operations</h3>
+<table>
+  <tr><th>#</th><th>Operation</th><th>Description</th></tr>
+  <tr><td>1</td><td>Create Object</td><td>Securely create a new object in the system</td></tr>
+  <tr><td>2</td><td>Create Subject</td><td>Securely create a new subject</td></tr>
+  <tr><td>3</td><td>Delete Object</td><td>Remove an object and all associated rights</td></tr>
+  <tr><td>4</td><td>Delete Subject</td><td>Remove a subject and revoke all its rights</td></tr>
+  <tr><td>5</td><td>Read Access Right</td><td>Read the access right of a subject to an object</td></tr>
+  <tr><td>6</td><td>Grant Access Right</td><td>Grant a specific access right from one subject to another</td></tr>
+  <tr><td>7</td><td>Delete Access Right</td><td>Remove a specific access right</td></tr>
+  <tr><td>8</td><td>Transfer Access Right</td><td>Transfer an access right from one subject to another</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Graham-Denning is about <strong>managing access rights</strong> — creating, deleting, reading, granting, and transferring rights. If a question asks about "how to securely create/delete subjects and objects" or "primitive protection operations," the answer is Graham-Denning.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Harrison-Ruzzo-Ullman (HRU) Model</h2>
+<div class="callout definition">
+  <strong>📖 HRU Model (1976):</strong> An extension of the Graham-Denning model that formally proves the decidability of access control. It uses an access control matrix and defines commands (sequences of primitive operations) to modify rights.
+</div>
+
+<h3>Key Contribution: The Safety Problem</h3>
+<p>HRU addresses: <strong>"Can the system ever reach an unsafe state?"</strong> — known as the <em>safety problem</em>.</p>
+<div class="callout warning">
+  <strong>⚠️ Critical Result:</strong> HRU proved that the general safety problem is <strong>undecidable</strong> — there is no algorithm that can determine for all possible systems whether an unsafe state is reachable. However, for restricted (mono-operational) systems, safety IS decidable.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Based On</td><td>Graham-Denning's eight operations, formalized as commands</td></tr>
+  <tr><td>Matrix</td><td>Uses an access control matrix (subjects × objects × rights)</td></tr>
+  <tr><td>Key Proof</td><td>General safety problem is undecidable; mono-operational commands allow decidability</td></tr>
+  <tr><td>Significance</td><td>Establishes theoretical limits on what access control verification can prove</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Lipner Model</h2>
+<div class="callout definition">
+  <strong>📖 Lipner Model (1982):</strong> Combines Bell-LaPadula (confidentiality) and Biba (integrity) into a single unified model that addresses both properties simultaneously. Developed by Steven Lipner.
+</div>
+
+<h3>How It Works</h3>
+<p>Lipner assigns subjects and objects <strong>both</strong> a BLP confidentiality label and a Biba integrity label. Access decisions must satisfy <em>both</em> models' rules simultaneously.</p>
+
+<table>
+  <tr><th>Rule Source</th><th>Property</th><th>Enforcement</th></tr>
+  <tr><td>BLP</td><td>Confidentiality</td><td>No Read Up, No Write Down (classification-based)</td></tr>
+  <tr><td>Biba</td><td>Integrity</td><td>No Read Down, No Write Up (integrity-based)</td></tr>
+  <tr><td>Combined</td><td>Both</td><td>Both rule sets must pass for access to be granted</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Lipner's Practical Approach:</strong> Lipner defined specific categories and levels for a commercial data processing environment:<br>
+  • Confidentiality levels: Public, Confidential<br>
+  • Integrity levels: System High, System Low<br>
+  • Categories separate production data from development data and production code from development code
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Take-Grant Model</h2>
+<div class="callout definition">
+  <strong>📖 Take-Grant Model:</strong> A graph-based model that uses directed graphs to represent rights transfer between subjects and objects. It defines four primitive operations: Take, Grant, Create, and Remove.
+</div>
+
+<table>
+  <tr><th>Operation</th><th>Description</th></tr>
+  <tr><td>Take</td><td>A subject takes access rights from another subject or object</td></tr>
+  <tr><td>Grant</td><td>A subject grants its access rights to another subject</td></tr>
+  <tr><td>Create</td><td>A subject creates a new object with specific rights</td></tr>
+  <tr><td>Remove</td><td>A subject removes rights from another subject or object</td></tr>
+</table>
+
+<div class="diagram">
+    Take-Grant Graph Example
+
+    Subject A ──take──→ Object X
+        │
+        │ grant rights
+        ▼
+    Subject B ──(now has rights)──→ Object X
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Feature:</strong> The Take-Grant model can determine if rights can "leak" — whether there exists any sequence of operations that allows an unauthorized subject to gain specific rights. Unlike HRU, this analysis is <strong>decidable</strong> because the model restricts operation types.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Complete Model Comparison</h2>
+<table>
+  <tr><th>Model</th><th>Year</th><th>Focus</th><th>Key Feature</th><th>Environment</th></tr>
+  <tr><td>Bell-LaPadula</td><td>1973</td><td>Confidentiality</td><td>No Read Up, No Write Down</td><td>Military/Government</td></tr>
+  <tr><td>Biba</td><td>1977</td><td>Integrity</td><td>No Read Down, No Write Up</td><td>Military/Government</td></tr>
+  <tr><td>Clark-Wilson</td><td>1987</td><td>Integrity</td><td>Well-formed transactions, SoD</td><td>Commercial</td></tr>
+  <tr><td>Brewer-Nash</td><td>1989</td><td>Conflict of Interest</td><td>Dynamic, history-based access</td><td>Finance/Consulting</td></tr>
+  <tr><td>Graham-Denning</td><td>1972</td><td>Access Rights Mgmt</td><td>8 primitive operations</td><td>Theoretical/OS</td></tr>
+  <tr><td>HRU</td><td>1976</td><td>Access Control Safety</td><td>Safety problem undecidability</td><td>Theoretical</td></tr>
+  <tr><td>Lipner</td><td>1982</td><td>Confidentiality + Integrity</td><td>Combines BLP + Biba</td><td>Commercial/Government</td></tr>
+  <tr><td>Take-Grant</td><td>—</td><td>Rights Transfer</td><td>Graph-based, 4 operations</td><td>Theoretical</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Chinese Wall = Brewer-Nash = Conflict of Interest":</strong> A consulting firm builds a "wall" between competing clié data. The wall gets higher each time an analyst accesses one client — blocking access to the competitor.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Graham-Denning = "8 G.D. Rules":</strong> G.D. has 8 rules for creating/deleting/granting/transferring rights. Think "Great Definitions" for how to manage access rights.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 HRU = "Hard to Resolve Universally":</strong> The general safety problem is undecidable — you can't always prove a system is safe. Hard to Resolve Universally.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Lipner = "Links BLP + Biba":</strong> Lipner <strong>L</strong>inks BLP and Biba. It combines confidentiality and integrity.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Take-Grant = "TG = Take, Grant, Create, Remove":</strong> Four operations on a directed graph showing how rights flow between subjects.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Brewer-Nash</td><td>Dynamic, history-based model preventing conflicts of interest (Chinese Wall)</td></tr>
+  <tr><td>Graham-Denning</td><td>8 primitive operations for managing subjects, objects, and access rights</td></tr>
+  <tr><td>HRU</td><td>Proves general access control safety problem is undecidable; decidable for mono-operational systems</td></tr>
+  <tr><td>Lipner</td><td>Combines BLP (confidentiality) + Biba (integrity) into one model</td></tr>
+  <tr><td>Take-Grant</td><td>Graph-based model with 4 operations (Take, Grant, Create, Remove); rights leakage is decidable</td></tr>
+  <tr><td>Dynamic vs. Static</td><td>Brewer-Nash is dynamic (changes based on history); all others are static</td></tr>
+  <tr><td>Exam Focus</td><td>Brewer-Nash and Lipner appear most frequently; know key identifying features of each</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-036-theory.html" class="nav-btn">← Day 36: Biba &amp; Clark-Wilson</a>
+<a href="day-037-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

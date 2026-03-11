@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 39 – Evaluation Criteria Quiz</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);border-radius:8px;padding:16px 20px;margin-bottom:30px;font-size:.97rem;}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px 28px;margin-bottom:20px;border:1px solid var(--border);}.question-card .question-number{background:var(--primary);color:white;display:inline-block;padding:2px 12px;border-radius:15px;font-size:.85rem;font-weight:600;margin-bottom:10px;}.question-card .question-text{font-size:1.05rem;font-weight:600;margin-bottom:14px;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin:6px 0;border-radius:6px;cursor:pointer;border:2px solid var(--border);transition:.2s;}.option:hover{border-color:var(--accent);background:#e3f2fd;}.option input{margin-top:4px;}.option label{cursor:pointer;width:100%;}
+.submit-btn{display:block;margin:30px auto;padding:14px 50px;font-size:1.1rem;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;}.submit-btn:hover{background:var(--primary);}
+.results{display:none;background:var(--card-bg);border-radius:10px;padding:24px 28px;margin:24px 0;border:2px solid var(--primary);}
+.results h3{color:var(--primary);margin-bottom:12px;font-size:1.3rem;}
+.results .score{font-size:1.6rem;font-weight:700;color:var(--primary);margin:10px 0;}
+.results .feedback{margin-top:16px;}
+.results .q-result{padding:12px 16px;margin:8px 0;border-radius:6px;border-left:4px solid;}.q-correct{background:#e8f5e9;border-color:var(--green);}.q-incorrect{background:#fce4ec;border-color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 39 – Evaluation Criteria Quiz</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 39 of 140</span><span>❓ 10 Questions</span><span>🎯 Passing: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>⚠️ Instructions:</strong> Choose the best answer for each question. You need at least 7 correct to pass. After submitting, review explanations for questions you missed.
+</div>
+
+<form id="quizForm">
+<div class="question-card">
+  <div class="question-number">Question 1</div>
+  <div class="question-text">Which security evaluation standard addresses ONLY confidentiality and does not evaluate integrity or availability?</div>
+  <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">A. Common Criteria</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">B. TCSEC</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">C. ITSEC</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">D. ISO 27001</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 2</div>
+  <div class="question-text">In Common Criteria, which document defines the security requirements for an entire CATEGORY of products (e.g., all firewalls)?</div>
+  <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">A. Security Target (ST)</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">B. Target of Evaluation (TOE)</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">C. Protection Profile (PP)</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">D. Evaluation Assurance Level (EAL)</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 3</div>
+  <div class="question-text">A government agency is procuring a database product and needs the highest commercially practical assurance level. Which Common Criteria EAL should they specify?</div>
+  <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">A. EAL 2</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">B. EAL 4</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">C. EAL 6</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">D. EAL 7</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 4</div>
+  <div class="question-text">What key innovation did ITSEC introduce over TCSEC?</div>
+  <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">A. Formal mathematical verification</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">B. Separating functionality from assurance</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">C. Protection Profiles and Security Targets</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">D. International mutual recognition</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 5</div>
+  <div class="question-text">In TCSEC, at which division level do sensitivity labels and mandatory access control (MAC) first appear?</div>
+  <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">A. C2</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">B. B1</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">C. B3</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">D. A1</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 6</div>
+  <div class="question-text">A vendor writes a document explaining how their specific product meets the security requirements for firewalls defined by a government agency. What is this document called?</div>
+  <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">A. Protection Profile (PP)</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">B. Security Target (ST)</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">C. Target of Evaluation (TOE)</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">D. Security Functional Requirement (SFR)</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 7</div>
+  <div class="question-text">Which EAL level requires FORMAL mathematical verification and represents the highest possible assurance?</div>
+  <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">A. EAL 4</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">B. EAL 5</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">C. EAL 7</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">D. EAL 6</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 8</div>
+  <div class="question-text">Which TCSEC level is characterized by a reference monitor, a minimal TCB, and high resistance to penetration?</div>
+  <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">A. B1</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">B. B2</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">C. B3</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">D. A1</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 9</div>
+  <div class="question-text">In Common Criteria, what does TOE stand for?</div>
+  <div class="option"><input type="radio" name="q9" id="q9a" value="a"><label for="q9a">A. Terms of Engagement</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9b" value="b"><label for="q9b">B. Target of Evaluation</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9c" value="c"><label for="q9c">C. Test of Effectiveness</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9d" value="d"><label for="q9d">D. Trust of Encryption</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 10</div>
+  <div class="question-text">A product has been evaluated at EAL 7. An auditor says this proves the product is "the most secure available." How should you respond?</div>
+  <div class="option"><input type="radio" name="q10" id="q10a" value="a"><label for="q10a">A. Agree — EAL 7 means the product has the strongest security features</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10b" value="b"><label for="q10b">B. Disagree — EAL measures evaluation rigor, not security strength of features</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10c" value="c"><label for="q10c">C. Agree — formal verification proves absolute security</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10d" value="d"><label for="q10d">D. Disagree — only TCSEC A1 can make that claim</label></div>
+</div>
+
+<button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</form>
+
+<div class="results" id="results">
+<h3>📊 Quiz Results</h3>
+<div class="score" id="scoreDisplay"></div>
+<div class="feedback" id="feedback"></div>
+</div>
+
+<div class="nav-footer">
+<a href="day-039-theory.html" class="nav-btn">← Back to Theory</a>
+<a href="day-040-theory.html" class="nav-btn">Day 40: System Security Architecture →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'c',q3:'b',q4:'b',q5:'b',q6:'b',q7:'c',q8:'c',q9:'b',q10:'b'};
+const explanations={
+  q1:{correct:"TCSEC (Orange Book) evaluates ONLY confidentiality. This was its major limitation, which led to the development of ITSEC (evaluates CIA) and Common Criteria.",incorrect:"ITSEC evaluates all three CIA attributes. Common Criteria also evaluates CIA. ISO 27001 is a management standard, not an evaluation criterion."},
+  q2:{correct:"A Protection Profile (PP) defines security requirements for an entire category of products (e.g., all firewalls, all smartcards). It is written by the customer or community.",incorrect:"A Security Target is vendor-specific (one product). TOE is the product itself. EAL is the assurance rating."},
+  q3:{correct:"EAL 4 (Methodically Designed, Tested, and Reviewed) is the highest level that is commercially practical for COTS products. Most commercial vendors aim for EAL 4.",incorrect:"EAL 2 is too low for government sensitive use. EAL 6 and 7 are not commercially practical — they require semiformal/formal verification and are extremely costly."},
+  q4:{correct:"ITSEC introduced the concept of separating functionality (what security features the system has) from assurance (how well those features are verified). TCSEC combined both into single ratings.",incorrect:"Formal verification existed in TCSEC A1. Protection Profiles and Security Targets are Common Criteria concepts. International recognition came with Common Criteria."},
+  q5:{correct:"B1 (Labeled Security Protection) is the first level where sensitivity labels are applied to all subjects and objects and MAC is enforced. Division B = Mandatory access control.",incorrect:"C2 uses DAC, not MAC. B3 and A1 also have MAC, but labels first appear at B1."},
+  q6:{correct:"The Security Target (ST) is written by the vendor to describe how their specific product meets the requirements defined in a Protection Profile.",incorrect:"PP is written by customers/community for a product category. TOE is the actual product. SFR specifies security functional requirements within a PP or ST."},
+  q7:{correct:"EAL 7 (Formally Verified Design and Tested) requires formal mathematical verification and provides the highest possible assurance level in Common Criteria.",incorrect:"EAL 4 is the highest commercially practical. EAL 5 uses semiformal methods. EAL 6 uses semiformal verification. Only EAL 7 requires FORMAL verification."},
+  q8:{correct:"B3 (Security Domains) requires a reference monitor, a minimal TCB (Trusted Computing Base), and the system must be highly resistant to penetration.",incorrect:"B1 introduces labels and MAC. B2 requires formal security model and covert channel analysis. A1 adds formal verification on top of B3."},
+  q9:{correct:"TOE stands for Target of Evaluation — the specific product or system that is being evaluated under Common Criteria.",incorrect:"The other options are made-up acronyms. TOE specifically means the product under evaluation."},
+  q10:{correct:"EAL measures the rigor of the evaluation process, NOT the strength of the security features. A product with weak security requirements evaluated at EAL 7 could be less secure than a well-designed product evaluated at EAL 4.",incorrect:"EAL does not measure feature strength, only evaluation rigor. Formal verification proves the design matches the specification, not that it's 'absolutely secure.' TCSEC A1 is historical and equivalent to EAL 7."}
+};
+function submitQuiz(){
+  let score=0,total=10,html='';
+  for(let i=1;i<=total;i++){const q='q'+i;const sel=document.querySelector('input[name="'+q+'"]:checked');const correct=sel&&sel.value===answers[q];if(correct)score++;html+='<div class="q-result '+(correct?'q-correct':'q-incorrect')+'"><strong>Question '+i+':</strong> '+(correct?'✅ Correct — ':'❌ Incorrect — ')+(correct?explanations[q].correct:explanations[q].incorrect)+'</div>';}
+  document.getElementById('scoreDisplay').textContent=score+' / '+total+' ('+(score>=7?'PASS ✅':'NEEDS REVIEW ⚠️')+')';
+  document.getElementById('feedback').innerHTML=html;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

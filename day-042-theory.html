@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 42 – Operating System Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 42 – Operating System Security</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 42 of 140</span><span>⏱️ ~45 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-041-theory.html">← Day 41</a> · Domain 3 · Day 42 · <a href="day-042-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. OS Hardening</a></li>
+  <li><a href="#s4">4. Patch Management</a></li>
+  <li><a href="#s5">5. Security Modes of Operation</a></li>
+  <li><a href="#s6">6. Process Isolation &amp; Sandboxing</a></li>
+  <li><a href="#s7">7. MAC vs. DAC in Operating Systems</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Medium-High — security modes heavily tested; hardening is fundamental</td></tr>
+  <tr><td>Why Tested</td><td>OS is the foundation of system security; understanding security modes is critical for cleared environments; hardening reduces attack surface</td></tr>
+  <tr><td>Question Style</td><td>"All users have Top Secret clearance but not all compartments — which mode?", "What is the first step in OS hardening?", scenario-based mode selection</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 41 (CPU rings, memory), Domain 7 (patch management, hardening in operations), Domain 5 (MAC/DAC access controls), Day 35 (BLP model — underlies security modes)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>System administrators harden OS; security teams define baselines; change management governs patches</td></tr>
+  <tr><td>Implementation</td><td>CIS Benchmarks for hardening; WSUS/SCCM/Intune for patching; SELinux/AppArmor for MAC; security modes in government/military</td></tr>
+  <tr><td>Failure Modes</td><td>Unhardened OS → unnecessary attack surface; missed patches → exploitation of known vulnerabilities; wrong security mode → data leakage across clearance levels</td></tr>
+  <tr><td>Business Impact</td><td>OS hardening reduces breach risk; timely patching prevents exploitation; correct security mode ensures compliance in classified environments</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. OS Hardening</h2>
+<div class="callout definition">
+  <strong>📖 OS Hardening:</strong> The process of reducing the attack surface by removing unnecessary components, services, and default configurations. Goal: leave only what is needed for the system's function.
+</div>
+
+<h3>Hardening Steps</h3>
+<table>
+  <tr><th>Step</th><th>Action</th><th>Example</th></tr>
+  <tr><td>1. Remove Unnecessary Software</td><td>Uninstall unused applications, services, protocols</td><td>Remove IIS on a database server; disable Telnet</td></tr>
+  <tr><td>2. Disable Unnecessary Services</td><td>Stop and disable services not required for function</td><td>Disable Print Spooler on servers that don't print</td></tr>
+  <tr><td>3. Close Unnecessary Ports</td><td>Block ports not used by the application</td><td>Only allow 443 on a web server; block all others</td></tr>
+  <tr><td>4. Apply Security Patches</td><td>Install all current security updates</td><td>Monthly Windows updates; Linux kernel patches</td></tr>
+  <tr><td>5. Configure Access Controls</td><td>Set file permissions, user rights, group policies</td><td>Remove "Everyone" from shares; enforce least privilege</td></tr>
+  <tr><td>6. Enable Logging & Auditing</td><td>Configure security event logging</td><td>Enable Windows Security Event Log; syslog forwarding</td></tr>
+  <tr><td>7. Change Default Credentials</td><td>Rename/disable default accounts; change default passwords</td><td>Rename "Administrator"; disable "Guest"</td></tr>
+  <tr><td>8. Apply Configuration Baselines</td><td>Use security baselines from trusted sources</td><td>CIS Benchmarks; DISA STIGs; Microsoft Security Baselines</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> CIS Benchmarks and DISA STIGs are the two most commonly referenced hardening baselines on the CISSP exam. CIS is industry-standard; DISA STIGs are U.S. DoD-specific.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Patch Management</h2>
+<div class="callout definition">
+  <strong>📖 Patch Management:</strong> The systematic process of identifying, testing, and applying software updates (patches) to fix vulnerabilities and bugs. A critical preventive control.
+</div>
+
+<h3>Patch Management Lifecycle</h3>
+<table>
+  <tr><th>Phase</th><th>Activity</th></tr>
+  <tr><td>1. Monitoring</td><td>Monitor vendor notifications, CVE databases, threat intelligence for new patches</td></tr>
+  <tr><td>2. Assessment</td><td>Evaluate which patches are relevant and prioritize by risk (CVSS score)</td></tr>
+  <tr><td>3. Testing</td><td>Test patches in a non-production environment before deployment</td></tr>
+  <tr><td>4. Deployment</td><td>Roll out patches to production systems per change management process</td></tr>
+  <tr><td>5. Verification</td><td>Confirm patches were applied successfully and systems are functioning</td></tr>
+  <tr><td>6. Documentation</td><td>Record patch status, exceptions, and timeline for compliance</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Virtual Patching:</strong> When a patch cannot be immediately applied (legacy system, testing delay), a virtual patch can be deployed via WAF or IPS rules to block exploitation of the vulnerability until the real patch is installed. This is a compensating control, not a substitute for actual patching.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Security Modes of Operation</h2>
+<div class="callout definition">
+  <strong>📖 Security Modes:</strong> Define the relationship between user clearances, system classification, and need-to-know requirements. Determine how a system handles users with different trust levels accessing data of different classifications.
+</div>
+
+<table>
+  <tr><th>Mode</th><th>Clearance</th><th>NTK Approval</th><th>NTK for ALL Data</th><th>Description</th></tr>
+  <tr><td>Dedicated</td><td>ALL users cleared for HIGHEST level</td><td>ALL users approved</td><td>Yes — all users NTK all data</td><td>System processes ONLY one classification level; all users cleared and need-to-know for all data</td></tr>
+  <tr><td>System High</td><td>ALL users cleared for HIGHEST level</td><td>ALL users approved for SOME</td><td>No — not all users NTK all data</td><td>All users cleared to highest level but NOT all have need-to-know for all data; MAC controls restrict</td></tr>
+  <tr><td>Compartmented</td><td>ALL users cleared for HIGHEST level</td><td>Some users approved for SOME</td><td>No</td><td>All cleared to highest level; formal access approval required for each compartment</td></tr>
+  <tr><td>Multilevel (MLS)</td><td>NOT all cleared for highest</td><td>Some users approved for SOME</td><td>No</td><td>Users with DIFFERENT clearance levels on the same system; requires B3/A1 TCB with labels and MAC</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Distinctions:</strong><br>
+  • <strong>Dedicated:</strong> Everyone is cleared, everyone needs to know everything → simplest, most restrictive use of system<br>
+  • <strong>System High:</strong> Everyone is cleared but NOT everyone NTK everything → need-to-know varies<br>
+  • <strong>Compartmented:</strong> Like System High but with formal compartment approvals → adds formal access approval<br>
+  • <strong>Multilevel (MLS):</strong> Mixed clearance levels → MOST complex, requires strongest TCB (B3/A1), labels, MAC
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The exam typically presents a scenario with clearance details and asks which mode applies. Key question: "Are ALL users cleared for the highest level?" If NO → Multilevel. If YES → check need-to-know details to distinguish Dedicated, System High, or Compartmented.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Process Isolation &amp; Sandboxing</h2>
+<h3>Process Isolation</h3>
+<p>Covered in Day 41 — each process has its own virtual address space enforced by MMU hardware. The OS kernel manages page tables and denies cross-process access.</p>
+
+<h3>Sandboxing</h3>
+<div class="callout definition">
+  <strong>📖 Sandboxing:</strong> A technique that runs an application in a restricted, isolated environment where it has limited access to system resources. If the application is compromised, damage is contained within the sandbox.
+</div>
+
+<table>
+  <tr><th>Sandbox Type</th><th>Example</th><th>Use Case</th></tr>
+  <tr><td>Browser Sandbox</td><td>Chrome renders each tab in a separate process</td><td>Prevents compromised web content from affecting OS</td></tr>
+  <tr><td>Application Sandbox</td><td>iOS/Android app sandboxes</td><td>Apps can only access their own data; must request permission for others</td></tr>
+  <tr><td>OS-Level Sandbox</td><td>Windows Sandbox, Firejail (Linux)</td><td>Run untrusted applications in disposable environments</td></tr>
+  <tr><td>Malware Analysis</td><td>Cuckoo Sandbox, Any.Run</td><td>Safely execute and analyze suspicious files</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. MAC vs. DAC in Operating Systems</h2>
+<table>
+  <tr><th>Feature</th><th>DAC (Discretionary)</th><th>MAC (Mandatory)</th></tr>
+  <tr><td>Who Controls</td><td>Resource owner sets permissions</td><td>System policy enforces labels</td></tr>
+  <tr><td>Basis</td><td>Identity / group membership</td><td>Security labels (classification + compartment)</td></tr>
+  <tr><td>Flexibility</td><td>High — users can modify permissions</td><td>Low — only admin can change labels/policy</td></tr>
+  <tr><td>Security Level</td><td>Lower — users can be tricked/coerced into granting access</td><td>Higher — policy cannot be overridden by users</td></tr>
+  <tr><td>Implementation</td><td>Windows NTFS ACLs, Unix file permissions</td><td>SELinux, AppArmor, Trusted Solaris</td></tr>
+  <tr><td>TCSEC Level</td><td>Division C (C1, C2)</td><td>Division B (B1, B2, B3)</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Common OS Security Extensions:</strong><br>
+  • <strong>SELinux</strong> (Security-Enhanced Linux): MAC implementation developed by NSA; uses security contexts (labels) on every file and process<br>
+  • <strong>AppArmor</strong>: Path-based MAC for Linux; simpler than SELinux; profile-based restrictions<br>
+  • <strong>Windows MIC</strong> (Mandatory Integrity Control): Uses integrity levels (Low, Medium, High, System) — "no write up" for processes
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Dedicated = Dedicated to ONE thing":</strong> Everyone cleared, everyone needs to know everything. The system is dedicated to one classification and one purpose.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Security Modes Escalation: D-S-C-M":</strong><br>
+  • <strong>D</strong>edicated → simplest (all clear, all NTK)<br>
+  • <strong>S</strong>ystem High → all clear, different NTK<br>
+  • <strong>C</strong>ompartmented → all clear, formal compartment access<br>
+  • <strong>M</strong>ultilevel → mixed clearances, most complex (B3/A1 TCB required)<br>
+  Remember: "Don't Stress — Compartments Multiply" (D-S-C-M, increasing complexity)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "MAC = Military, DAC = Desktop":</strong> MAC is used in military/government systems with labels. DAC is used on everyday desktops where users control their own file permissions.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>OS Hardening</td><td>Remove unnecessary software/services/ports; apply patches; use CIS Benchmarks/DISA STIGs</td></tr>
+  <tr><td>Patch Management</td><td>Monitor → Assess → Test → Deploy → Verify → Document; use virtual patching as compensating control</td></tr>
+  <tr><td>Dedicated Mode</td><td>All users cleared + all NTK = simplest mode</td></tr>
+  <tr><td>System High Mode</td><td>All users cleared to highest + varying NTK</td></tr>
+  <tr><td>Compartmented Mode</td><td>All cleared + formal compartment access approvals required</td></tr>
+  <tr><td>Multilevel (MLS)</td><td>Mixed clearance levels; most complex; requires B3/A1 TCB with MAC + labels</td></tr>
+  <tr><td>DAC vs MAC</td><td>DAC = owner controls (TCSEC C); MAC = system labels enforce (TCSEC B); SELinux implements MAC</td></tr>
+  <tr><td>Sandboxing</td><td>Runs apps in restricted environments; contains compromise within sandbox</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-041-theory.html" class="nav-btn">← Day 41: CPU Architecture & Memory</a>
+<a href="day-042-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

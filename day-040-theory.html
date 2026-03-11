@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 40 – System Security Architecture</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 40 – System Security Architecture</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 40 of 140</span><span>⏱️ ~50 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-039-theory.html">← Day 39</a> · Domain 3 · Day 40 · <a href="day-040-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Trusted Computing Base (TCB)</a></li>
+  <li><a href="#s4">4. Security Perimeter</a></li>
+  <li><a href="#s5">5. Reference Monitor &amp; Security Kernel</a></li>
+  <li><a href="#s6">6. Trusted Platform Module (TPM)</a></li>
+  <li><a href="#s7">7. Hardware Security Module (HSM)</a></li>
+  <li><a href="#s8">8. Trusted Paths &amp; Trusted Channels</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — TCB, reference monitor, and TPM/HSM are heavily tested</td></tr>
+  <tr><td>Why Tested</td><td>Security architects must understand hardware and architectural trust foundations to design secure systems</td></tr>
+  <tr><td>Question Style</td><td>"What is the primary function of the reference monitor?", "Which component stores cryptographic keys in hardware?", scenario-based selection questions</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 5 (IAM — trusted authentication paths), Domain 6 (security evaluation — TCB assurance), Day 39 (evaluation criteria), Day 41 (CPU architecture)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects design trust boundaries; system admins implement TPM/HSM; security engineers validate reference monitor enforcement</td></tr>
+  <tr><td>Implementation</td><td>TPM enables BitLocker, Secure Boot, attestation; HSMs protect CA keys, payment processing; reference monitor enforced by OS kernel</td></tr>
+  <tr><td>Failure Modes</td><td>Compromised TCB → all security guarantees fail; bypassed reference monitor → unauthorized access; lost HSM keys → service outage</td></tr>
+  <tr><td>Business Impact</td><td>Proper architectural trust foundations enable regulatory compliance, protect cryptographic assets, and establish root of trust</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Trusted Computing Base (TCB)</h2>
+<div class="callout definition">
+  <strong>📖 Trusted Computing Base (TCB):</strong> The totality of protection mechanisms within a computer system — including hardware, firmware, and software — that is responsible for enforcing the security policy. The TCB is the "trusted foundation" upon which all security depends.
+</div>
+
+<h3>TCB Components</h3>
+<table>
+  <tr><th>Component</th><th>Role in TCB</th></tr>
+  <tr><td>Hardware</td><td>CPU, memory management unit (MMU), I/O controllers</td></tr>
+  <tr><td>Firmware</td><td>BIOS/UEFI, boot loader, microcode</td></tr>
+  <tr><td>Software</td><td>OS kernel, security kernel, reference monitor</td></tr>
+  <tr><td>Configuration</td><td>Security policies, access control tables</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Principles:</strong><br>
+  • TCB should be as <strong>small as possible</strong> — smaller TCB = easier to verify = more trustworthy<br>
+  • Everything INSIDE the TCB must be trusted<br>
+  • Everything OUTSIDE the TCB is untrusted and must be mediated by the TCB<br>
+  • If the TCB is compromised, ALL security guarantees are void<br>
+  • TCSEC B3 and A1 require a minimal (small) TCB
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Critical Understanding:</strong> The TCB is NOT the entire operating system. It is only the subset of the system responsible for security enforcement. A well-designed TCB excludes non-security-relevant code to minimize the attack surface.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Security Perimeter</h2>
+<div class="callout definition">
+  <strong>📖 Security Perimeter:</strong> The boundary that separates the trusted TCB from the untrusted remainder of the system. Everything inside the security perimeter is part of the TCB; everything outside is untrusted.
+</div>
+
+<pre>
+  ┌─────────────────────────────────────────────┐
+  │           Security Perimeter                 │
+  │  ┌───────────────────────────────────┐       │
+  │  │     Trusted Computing Base (TCB)  │       │
+  │  │  ┌─────────┐  ┌──────────────┐   │       │
+  │  │  │ Security │  │  Reference   │   │       │
+  │  │  │  Kernel  │  │   Monitor    │   │       │
+  │  │  └─────────┘  └──────────────┘   │       │
+  │  │  ┌─────────┐  ┌──────────────┐   │       │
+  │  │  │Hardware  │  │   Security   │   │       │
+  │  │  │ (CPU,MMU)│  │   Policies   │   │       │
+  │  │  └─────────┘  └──────────────┘   │       │
+  │  └───────────────────────────────────┘       │
+  └─────────────────────────────────────────────┘
+           ↕ Trusted Paths ↕
+  ┌─────────────────────────────────────────────┐
+  │         Untrusted Space                      │
+  │   Applications, User Programs, Services      │
+  └─────────────────────────────────────────────┘
+</pre>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Communication across the security perimeter must occur through trusted channels/paths. Any path that bypasses the security perimeter is a covert channel — a vulnerability.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Reference Monitor &amp; Security Kernel</h2>
+<div class="callout definition">
+  <strong>📖 Reference Monitor:</strong> An abstract concept — a theoretical access control mechanism that mediates ALL access by subjects to objects. It is the "gatekeeper" that checks every access request against the security policy.
+</div>
+
+<div class="callout definition">
+  <strong>📖 Security Kernel:</strong> The actual implementation of the reference monitor concept in hardware, firmware, and software. If the reference monitor is the blueprint, the security kernel is the building.
+</div>
+
+<h3>Reference Monitor Properties</h3>
+<table>
+  <tr><th>Property</th><th>Meaning</th><th>Why It Matters</th></tr>
+  <tr><td>Complete Mediation</td><td>Must mediate EVERY access request — no exceptions</td><td>Bypassing even one check could allow unauthorized access</td></tr>
+  <tr><td>Tamper-Proof</td><td>Cannot be altered or bypassed by untrusted subjects</td><td>If attackers can modify it, security policy becomes meaningless</td></tr>
+  <tr><td>Verifiable (Small)</td><td>Must be small enough to be thoroughly tested and verified</td><td>A large, complex implementation cannot be proven correct</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Reference Monitor vs. Security Kernel:</strong><br>
+  • <strong>Reference Monitor</strong> = abstract CONCEPT (theoretical ideal)<br>
+  • <strong>Security Kernel</strong> = concrete IMPLEMENTATION (actual code/hardware)<br>
+  • The security kernel implements the reference monitor concept<br>
+  • Three properties: <strong>Complete Mediation</strong>, <strong>Tamper-Proof</strong>, <strong>Verifiable</strong>
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Trusted Platform Module (TPM)</h2>
+<div class="callout definition">
+  <strong>📖 Trusted Platform Module (TPM):</strong> A dedicated hardware chip (or firmware equivalent) on the motherboard that provides cryptographic functions, secure key storage, and platform integrity measurement. Standardized as ISO/IEC 11889.
+</div>
+
+<h3>TPM Capabilities</h3>
+<table>
+  <tr><th>Function</th><th>Description</th></tr>
+  <tr><td>Secure Key Storage</td><td>Stores encryption keys, certificates, and passwords in tamper-resistant hardware</td></tr>
+  <tr><td>Platform Integrity</td><td>Measures boot process components (PCR registers); detects unauthorized changes</td></tr>
+  <tr><td>Secure Boot</td><td>Validates that only trusted firmware and OS components load during boot</td></tr>
+  <tr><td>Full Disk Encryption</td><td>Stores BitLocker/LUKS keys; releases only if platform integrity check passes</td></tr>
+  <tr><td>Remote Attestation</td><td>Proves to a remote party that the platform is in a known-good state</td></tr>
+  <tr><td>Random Number Generation</td><td>Provides hardware-based random number generator for cryptographic operations</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • TPM is a <strong>chip on the motherboard</strong> (hardware root of trust)<br>
+  • Stores keys that <strong>never leave the chip</strong><br>
+  • TPM 2.0 is required for Windows 11<br>
+  • Uses Platform Configuration Registers (PCRs) to store integrity measurements<br>
+  • Enables <strong>measured boot</strong> — each component measures the next before loading
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> TPM = hardware chip on motherboard = root of trust. If the question says "hardware-based secure key storage on the endpoint," think TPM. If it says "central server for protecting CA keys," think HSM.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Hardware Security Module (HSM)</h2>
+<div class="callout definition">
+  <strong>📖 Hardware Security Module (HSM):</strong> A dedicated, tamper-resistant hardware device that manages cryptographic keys and performs cryptographic operations. HSMs are standalone devices (often rack-mounted or USB-attached) used for high-value key management.
+</div>
+
+<h3>TPM vs. HSM</h3>
+<table>
+  <tr><th>Feature</th><th>TPM</th><th>HSM</th></tr>
+  <tr><td>Form Factor</td><td>Chip on motherboard</td><td>Standalone device (rack, USB, PCI card)</td></tr>
+  <tr><td>Scope</td><td>Protects ONE endpoint</td><td>Serves multiple systems (centralized)</td></tr>
+  <tr><td>Primary Use</td><td>Platform integrity, secure boot, disk encryption</td><td>PKI key management, code signing, payment processing</td></tr>
+  <tr><td>Cost</td><td>Low (built into motherboard)</td><td>High ($10K–$100K+ for enterprise HSMs)</td></tr>
+  <tr><td>Performance</td><td>Basic crypto operations</td><td>High-performance crypto acceleration</td></tr>
+  <tr><td>Tamper Response</td><td>Tamper-resistant</td><td>Tamper-evident AND tamper-responsive (zeroizes keys)</td></tr>
+  <tr><td>Standard</td><td>ISO 11889 / TCG TPM 2.0</td><td>FIPS 140-2/140-3</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 HSM Use Cases:</strong><br>
+  • Protecting Certificate Authority (CA) root keys<br>
+  • Payment card processing (PCI DSS requires HSM for PIN management)<br>
+  • Code signing keys<br>
+  • Database encryption key management<br>
+  • Cloud HSM services (AWS CloudHSM, Azure Dedicated HSM)
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Trusted Paths &amp; Trusted Channels</h2>
+<div class="callout definition">
+  <strong>📖 Trusted Path:</strong> A secure, tamper-proof communication channel between a user and the TCB. Ensures the user is communicating directly with the security system and not with a spoofed interface (e.g., Ctrl+Alt+Del for Windows login — Secure Attention Sequence).
+</div>
+
+<div class="callout definition">
+  <strong>📖 Trusted Channel:</strong> A secure communication path between two components of the TCB (process-to-process within the trusted system), or between two trusted systems.
+</div>
+
+<table>
+  <tr><th>Type</th><th>Between</th><th>Example</th></tr>
+  <tr><td>Trusted Path</td><td>User ↔ TCB</td><td>Ctrl+Alt+Del (SAS) → ensures real login prompt; smart card reader direct to OS</td></tr>
+  <tr><td>Trusted Channel</td><td>TCB ↔ TCB</td><td>IPSec tunnel between two trusted servers; encrypted inter-process communication within kernel</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Covert Channels:</strong> A communication path that violates the security policy — it transfers information in a way NOT intended by the system designers. Covert channels bypass the reference monitor and are classified as:<br>
+  • <strong>Covert Storage Channel:</strong> Information transmitted through shared storage (e.g., disk space, file locks)<br>
+  • <strong>Covert Timing Channel:</strong> Information transmitted through timing of operations (e.g., CPU load patterns)
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "TCB = Trusted Core Building":</strong> The TCB is the core building of security — if any brick in the foundation fails, the whole building collapses. Keep it as small as possible.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Reference Monitor: CTV":</strong><br>
+  • <strong>C</strong>omplete Mediation (checks EVERYTHING)<br>
+  • <strong>T</strong>amper-proof (can't be modified)<br>
+  • <strong>V</strong>erifiable (small enough to test)<br>
+  The reference monitor is your "CTV" — it's like a security camera that Covers everything, is Tamper-proof, and is Verifiable.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "TPM = This PC's Module, HSM = High-Security Machine":</strong><br>
+  • TPM is a chip IN your PC (motherboard)<br>
+  • HSM is a separate machine for high-security crypto operations
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>TCB</td><td>Total protection mechanisms (HW + FW + SW) enforcing security policy; keep small</td></tr>
+  <tr><td>Security Perimeter</td><td>Boundary between trusted TCB and untrusted rest of system</td></tr>
+  <tr><td>Reference Monitor</td><td>Abstract concept: mediates ALL access; complete mediation, tamper-proof, verifiable</td></tr>
+  <tr><td>Security Kernel</td><td>Concrete implementation of the reference monitor in HW/FW/SW</td></tr>
+  <tr><td>TPM</td><td>Motherboard chip; secure boot, disk encryption, attestation; root of trust</td></tr>
+  <tr><td>HSM</td><td>Standalone device; high-value key management; PKI, payments; FIPS 140-2/3</td></tr>
+  <tr><td>Trusted Path</td><td>User ↔ TCB secure channel (e.g., Ctrl+Alt+Del)</td></tr>
+  <tr><td>Covert Channel</td><td>Unauthorized info transfer bypassing security policy (storage or timing)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-039-theory.html" class="nav-btn">← Day 39: Evaluation Criteria</a>
+<a href="day-040-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

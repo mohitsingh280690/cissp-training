@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 19 – Security Awareness & Training</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 19: Security Awareness &amp; Training</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 19 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Beginner</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 19: Security Awareness &amp; Training</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">The Three-Tier Model: Awareness, Training, Education</a></li>
+    <li><a href="#s4">Role-Based Training</a></li>
+    <li><a href="#s5">Social Engineering Awareness</a></li>
+    <li><a href="#s6">Phishing Simulations</a></li>
+    <li><a href="#s7">Measuring Programme Effectiveness</a></li>
+    <li><a href="#s8">NIST SP 800-50 Framework</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Human error contributes to the majority of breaches. CISSP candidates must understand how to build an effective human security layer through structured awareness and training programmes.</td></tr>
+    <tr><td>Question Styles</td><td>Programme design choices; distinguishing awareness vs. training vs. education; metrics selection; best programme for a specific user population</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>Domain 1 (security governance); Domain 7 (incident response — user reporting behaviour); Domain 6 (assessing programme effectiveness)</td></tr>
+    <tr><td>Typical Exam Scenarios</td><td>"What is the BEST first step when users cannot recognise phishing emails?"; "Which measure BEST indicates training programme effectiveness?"</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The CISSP exam often asks what BEST addresses human error or social engineering. The correct answer is almost always <em>security awareness training</em> (not a technical control like email filtering). Training addresses root cause; technical controls are compensating. When the scenario involves user behaviour, lean toward training as the answer.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>According to annual breach reports (Verizon DBIR, IBM X-Force), phishing and social engineering are consistently the top initial access vectors — used in over 80% of breaches. The single most cost-effective mitigation is not a new firewall or SIEM — it is a well-designed security awareness programme that changes employee behaviour.</p>
+  <p>Regulations and frameworks explicitly require awareness training: HIPAA (45 CFR §164.308), PCI-DSS Req. 12.6, ISO/IEC 27001 (Annex A.7.2.2), SOC 2, and NIST SP 800-53 (AT controls). An organisation without a formal programme is both vulnerable and likely non-compliant.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. The Three-Tier Model: Awareness, Training, Education</h2>
+  <p>ISC² and NIST define a progressive hierarchy for building human security capability. Each tier has a distinct purpose, audience, and delivery method:</p>
+  <table>
+    <tr><th>Tier</th><th>Goal</th><th>Audience</th><th>Depth</th><th>Example</th></tr>
+    <tr><td><strong>Awareness</strong></td><td>Change recognition and behaviour — "recognise and avoid"</td><td>All staff (everyone)</td><td>Shallow — exposure and reminder</td><td>Monthly security tip emails; posters; login banners; phishing simulation results</td></tr>
+    <tr><td><strong>Training</strong></td><td>Build specific skills needed to perform a security task</td><td>Role-specific groups (developers, finance staff, admins)</td><td>Moderate — skill-based, measurable</td><td>Secure coding course; incident response drill; privileged user training</td></tr>
+    <tr><td><strong>Education</strong></td><td>Build deep, theoretical understanding for security professionals and management</td><td>Security staff; executives; risk managers</td><td>Deep — conceptual, strategic</td><td>CISSP certification study; university security programme; master's degree</td></tr>
+  </table>
+  <div class="definition">
+    <strong>Key Distinction:</strong> Awareness changes perceptions and attitudes. Training builds skills. Education builds understanding. The CISSP exam expects you to select the right intervention for a given population: All employees → awareness; Role-specific vulnerability (e.g., developers writing insecure code) → training; Security professionals / leadership → education.
+  </div>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> When asked what to do about a specific role-based vulnerability (e.g., "developers are introducing SQL injection vulnerabilities"), the answer is role-based <em>training</em> (not awareness, not education). When asked about organisation-wide recognition of phishing, the answer is <em>awareness</em>.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Role-Based Training</h2>
+  <p>Different job roles face different threats and handle different categories of sensitive data. A one-size-fits-all annual video is insufficient. Effective security training is tailored to role-specific risk profiles:</p>
+  <table>
+    <tr><th>Role</th><th>Training Focus</th></tr>
+    <tr><td>All employees</td><td>Phishing recognition; password hygiene; physical security; acceptable use; reporting procedures</td></tr>
+    <tr><td>Software developers</td><td>Secure SDLC; OWASP Top 10; input validation; code review; threat modelling</td></tr>
+    <tr><td>Finance staff</td><td>Business email compromise (BEC) / wire fraud; social engineering of financial processes; dual authorisation</td></tr>
+    <tr><td>IT administrators</td><td>Privileged account security; patch management; vulnerability management; change management procedures</td></tr>
+    <tr><td>Executives / C-suite</td><td>Spear phishing (whaling); VIP targeting; mobile device security; travel security</td></tr>
+    <tr><td>Help desk staff</td><td>Social engineering defence; identity verification before password reset; vishing (voice phishing) tactics</td></tr>
+    <tr><td>HR staff</td><td>Data privacy (PII/PHI handling); background check procedures; social engineering of onboarding processes</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Social Engineering Awareness</h2>
+  <p>Social engineering exploits human psychology rather than technical vulnerabilities. A technically hardened network can be bypassed entirely if an employee can be manipulated into handing over credentials or bypassing access controls.</p>
+  <h3>Core Social Engineering Techniques</h3>
+  <table>
+    <tr><th>Technique</th><th>Description</th><th>Defence</th></tr>
+    <tr><td>Phishing</td><td>Mass deceptive emails impersonating trusted entities to steal credentials or deploy malware</td><td>Awareness training; email filtering; MFA</td></tr>
+    <tr><td>Spear Phishing</td><td>Targeted phishing against a specific individual or organisation using personalised details</td><td>Role-based training for high-value targets; DMARC/SPF/DKIM</td></tr>
+    <tr><td>Whaling</td><td>Spear phishing targeting senior executives (CFO, CEO)</td><td>Executive security awareness; out-of-band verification for financial requests</td></tr>
+    <tr><td>Vishing</td><td>Voice phishing — attackers call targets impersonating IT help desk, banks, or government</td><td>Identity verification protocols for help desk; callback verification</td></tr>
+    <tr><td>Smishing</td><td>SMS-based phishing with malicious links</td><td>Mobile device policies; awareness of SMS fraud</td></tr>
+    <tr><td>Pretexting</td><td>Fabricating a false scenario (pretext) to extract information or gain access</td><td>Identity verification; need-to-know enforcement; sceptical mindset training</td></tr>
+    <tr><td>Tailgating / Piggybacking</td><td>Physically following an authorised individual into a secured area</td><td>Badge-only entry; mantraps; anti-tailgating awareness</td></tr>
+    <tr><td>Baiting</td><td>Leaving infected USB drives in public places for victims to plug in</td><td>USB port controls; awareness; blocking autorun</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — Psychological Principles Used:</strong> Social engineers exploit urgency (act now!), authority (I'm calling from IT security), fear (your account will be closed), social proof (everyone in your department has done this), reciprocity, and liking. Awareness training should explicitly name these triggers so employees can recognise manipulation attempts.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Phishing Simulations</h2>
+  <p>Phishing simulations send fake phishing emails to employees to test and train real-world recognition skills. They are the most widely used security awareness tool and provide measurable behavioural data.</p>
+  <h3>Benefits</h3>
+  <ul>
+    <li>Real-world measurement of click rate, credential submission rate, and reporting rate</li>
+    <li>Immediate, contextual training at the moment of failure (teachable moment)</li>
+    <li>Tracks improvement over time — demonstrates programme ROI</li>
+    <li>Identifies high-risk individuals and departments requiring targeted training</li>
+  </ul>
+  <h3>Best Practices</h3>
+  <ul>
+    <li>Do not use simulations purely as a punishment exercise — the goal is learning, not blame</li>
+    <li>Ensure leadership and HR are briefed before running simulations</li>
+    <li>Vary simulation types (generic phishing, spear phishing, topical current events)</li>
+    <li>Provide immediate self-service remediation training upon click</li>
+    <li>Track and trend metrics over multiple simulation cycles</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠️ Ethical Consideration:</strong> Phishing simulations using highly distressing pretexts (e.g., impersonating HR to announce fake layoffs) can damage employee morale and organisational trust. The CISSP exam expects professional, ethically designed programmes. Effective awareness does not require emotional manipulation of employees.
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Measuring Programme Effectiveness</h2>
+  <p>A security awareness programme that cannot demonstrate results is difficult to sustain or fund. Metrics convert programme activities into evidence of organisational impact.</p>
+  <h3>Key Metrics</h3>
+  <table>
+    <tr><th>Metric</th><th>What It Measures</th><th>Direction</th></tr>
+    <tr><td>Phishing simulation click rate</td><td>% of employees who click on simulated phishing links</td><td>Should decrease over time</td></tr>
+    <tr><td>Credential submission rate</td><td>% who entered credentials on a simulated fake site</td><td>Should decrease over time</td></tr>
+    <tr><td>Phishing report rate</td><td>% of employees who reported the simulation as suspicious</td><td>Should increase over time</td></tr>
+    <tr><td>Training completion rate</td><td>% of assigned staff who completed required training modules</td><td>Target: 100% completion</td></tr>
+    <tr><td>Security incident rate (negligent)</td><td>Number of incidents attributed to user error per quarter</td><td>Should decrease</td></tr>
+    <tr><td>Policy violation rate</td><td>Frequency of detected acceptable use policy violations</td><td>Should decrease</td></tr>
+    <tr><td>Help desk security tickets</td><td>Number of password reset requests, lock-out incidents</td><td>Can indicate password policy friction</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The CISSP exam may ask which metric BEST demonstrates the effectiveness of a security awareness programme. The best answer is a <em>reduction in phishing click rate or increase in reporting rate</em> — these are direct behavioural measures, not just completion statistics. Completion rate measures activity; click rate measures behavioural change.
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. NIST SP 800-50 Framework</h2>
+  <div class="definition">
+    <strong>NIST SP 800-50:</strong> "Building an Information Technology Security Awareness and Training Program" — NIST's foundational guidance document for the design, implementation, and management of federal IT security awareness and training programmes. Widely adopted beyond federal agencies as best practice.
+  </div>
+  <p>Key NIST SP 800-50 phases and their programme implications:</p>
+  <table>
+    <tr><th>Phase</th><th>Activities</th></tr>
+    <tr><td>Design</td><td>Assess needs; identify target audiences; define learning objectives; select delivery methods</td></tr>
+    <tr><td>Develop</td><td>Create role-appropriate content; align with organisational policies; incorporate current threats</td></tr>
+    <tr><td>Implement</td><td>Deliver training; track participation; integrate into onboarding and recurring schedules</td></tr>
+    <tr><td>Post-Implementation</td><td>Evaluate effectiveness; collect feedback; measure behavioural change; update content based on new threats</td></tr>
+    <tr><td>Maintain</td><td>Continuous improvement cycle; annual review minimum; threat-triggered updates</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Three Tiers — "ATE":</strong><br>
+    <strong>A</strong>wareness — recognition and behaviour change — EVERYONE<br>
+    <strong>T</strong>raining — skills for role-specific tasks — ROLE GROUPS<br>
+    <strong>E</strong>ducation — deep understanding — SECURITY PROFESSIONALS<br>
+    Everything escalates: A → T → E (broader audience → narrower, deeper expertise)
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Best Measure of Effectiveness:</strong><br>
+    Completion rate = did they WATCH it? (activity measure)<br>
+    Click rate / report rate = did it CHANGE BEHAVIOUR? (outcome measure)<br>
+    CISSP = outcome measures beat activity measures every time
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Social Engineering Vectors — "PVSTB":</strong><br>
+    <strong>P</strong>hishing (email mass) / Pretexting (fabricated scenario)<br>
+    <strong>V</strong>ishing (voice) / Vishing variants (smishing = SMS)<br>
+    <strong>S</strong>pear (targeted email) / Whaling (spear for VIPs)<br>
+    <strong>T</strong>ailgating (physical follow-through)<br>
+    <strong>B</strong>aiting (USB drop)
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>Key Point</th></tr>
+    <tr><td>Awareness</td><td>Shallow, all-staff, behaviour change — recognise and avoid</td></tr>
+    <tr><td>Training</td><td>Role-specific skills — measurable, practical</td></tr>
+    <tr><td>Education</td><td>Deep conceptual — for security professionals and leadership</td></tr>
+    <tr><td>NIST SP 800-50</td><td>Federal guidance for IT security awareness/training programmes — design → develop → implement → evaluate → maintain</td></tr>
+    <tr><td>Phishing simulation</td><td>Best hands-on measurement tool; tracks click rate and report rate over time</td></tr>
+    <tr><td>Best effectiveness metric</td><td>Reduction in click rate / increase in reporting rate (behavioural measures) &gt; completion rate (activity measure)</td></tr>
+    <tr><td>Best fix for human error root cause</td><td>Security awareness training (not just technical controls) — addresses root cause</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-018-theory.html" class="nav-btn">← Day 18: Personnel Security</a>
+  <a href="day-019-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 4 – Legal Systems & Law Types MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 4: Legal Systems &amp; Law Types – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A prosecutor brings cybercrime charges against a hacker who compromised a financial institution's servers. What standard of proof must be met for a criminal conviction?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Preponderance of the evidence (more likely than not — >50%)</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Clear and convincing evidence (~75% certainty)</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Beyond reasonable doubt — the highest standard of proof in law</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Probable cause — the standard used to obtain arrest warrants</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: C.</strong> Criminal law requires proof "beyond reasonable doubt" — the highest evidentiary standard. This reflects the severity of consequences (imprisonment, criminal record). Civil law uses "preponderance of evidence" (~51%). Clear and convincing evidence (~75%) appears in some civil and administrative proceedings. Knowing these three standards and which context each applies to is a CISSP exam staple.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A terminated employee continues to access their former employer's systems using credentials that were not promptly deactivated. Under the Computer Fraud and Abuse Act (CFAA), this access is MOST likely considered:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> A civil matter only, with no criminal implications</label></li>
+    <li><label><input type="radio" name="q2" value="b"> A violation of 18 U.S.C. § 1030, which can result in both civil and criminal consequences</label></li>
+    <li><label><input type="radio" name="q2" value="c"> An employment dispute not covered by computer crime statutes</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Legal, since the credentials were never formally revoked</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> The CFAA (18 U.S.C. § 1030) prohibits unauthorized access to protected computers. Upon termination, authorization to access the system ends — credential persistence does not constitute authorization. The CFAA provides for both civil (private lawsuits) and criminal (DOJ prosecution) remedies. Option D is a dangerous misconception: authorization is determined by employment status, not by whether IT remembered to revoke credentials.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">A customer whose credit card data was stolen in a breach sues the company for negligence. The plaintiff must establish four elements. Which element requires proving that the security failure was the PROXIMATE CAUSE of the harm, not merely one of many contributing factors?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Duty of care — the organization owed the customer a legal duty to protect the data</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Breach — the organization fell below the expected standard of protection</label></li>
+    <li><label><input type="radio" name="q3" value="c"> Causation — the breach of duty was the direct and proximate cause of the harm</label></li>
+    <li><label><input type="radio" name="q3" value="d"> Damages — the customer suffered measurable harm as a result</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: C.</strong> Causation (specifically proximate cause) is often the most contested element in cybersecurity negligence cases. Defendants frequently argue that the attacker's sophistication, not the defendant's failure, was the proximate cause. Establishing that the security failure directly led to the harm — rather than being one of several contributing factors — is the key causation challenge. The four negligence elements are: Duty → Breach → Causation → Damages (mnemonic: "Duty Broken Causes Damage").</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">The Budapest Convention on Cybercrime (Council of Europe Convention 185) is significant in international cybersecurity law primarily because it:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> Creates a binding international cybercrime court with global prosecutorial authority</label></li>
+    <li><label><input type="radio" name="q4" value="b"> Establishes a framework for mutual legal assistance and international cooperation in cybercrime investigations across signatory nations</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Prohibits member nations from conducting offensive cyber operations</label></li>
+    <li><label><input type="radio" name="q4" value="d"> Requires all 193 UN member states to adopt harmonised cybercrime legislation</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: B.</strong> The Budapest Convention provides a framework for international cooperation: harmonising criminal laws on cybercrime, establishing investigative procedures, and enabling mutual legal assistance (MLA) between signatory nations. It does NOT create an international court (A), prohibit state-sponsored cyber operations (C), or apply to all UN members — only the 68+ signatories (D is wrong because it says "all 193 UN members").</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">A US company discovers a cyberattack originated from servers in a country that has not signed the Budapest Convention and with which the US has no bilateral cybercrime treaty. What is the MOST significant legal challenge this creates?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> The attack is legal under international law since it originated outside US jurisdiction</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Mutual legal assistance, evidence collection, and extradition of attackers is significantly hampered by the absence of treaty obligations</label></li>
+    <li><label><input type="radio" name="q5" value="c"> US law enforcement has absolutely no jurisdiction over the attackers</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Criminal prosecution is legally impossible if the attacker never physically enters the US</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: B.</strong> The primary challenge is practical: without treaty obligations, the host country has no legal obligation to cooperate, extradite, or share evidence. The US may still assert jurisdiction (protective or nationality principles) and charge the attackers — but actually apprehending them or obtaining evidence requires that country's cooperation. Options C and D overstate the limitation; US law can still apply, but enforcement is severely constrained.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">A company's security team wants to use server access logs as evidence in a civil lawsuit. Under the Federal Rules of Evidence Business Records Exception, which condition MOST critically ensures admissibility of these logs?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> The logs must be digitally signed by a C-level executive</label></li>
+    <li><label><input type="radio" name="q6" value="b"> The logs must be created and maintained in the ordinary course of business by personnel with knowledge of the recorded events, and kept as a regular practice</label></li>
+    <li><label><input type="radio" name="q6" value="c"> The logs must be encrypted with a certified third-party key to prove non-tampering</label></li>
+    <li><label><input type="radio" name="q6" value="d"> The logs must have been created specifically in anticipation of litigation</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> The Business Records Exception to hearsay (FRE Rule 803(6)) requires: records kept in the regular course of business; by someone with knowledge of the events; as a regular practice of the business. Option D is the exact opposite of what the exception requires — records created specifically for litigation do NOT qualify for this exception (they may be self-serving). This is why routine, automated log generation is more legally defensible than manually assembled logs.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">A nation asserts the right to prosecute cybercrimes committed by its own citizens regardless of where in the world those crimes were committed. This is known as which basis of jurisdiction?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> Territorial jurisdiction — based on where the crime occurred</label></li>
+    <li><label><input type="radio" name="q7" value="b"> Protective jurisdiction — based on protecting national interests</label></li>
+    <li><label><input type="radio" name="q7" value="c"> Passive personality jurisdiction — based on the nationality of victims</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Nationality (active personality) jurisdiction — based on the nationality of the perpetrator</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: D.</strong> Nationality (active personality) jurisdiction allows a state to prosecute its own nationals for crimes committed abroad. This is distinct from territorial (where it happened), protective (protecting national security interests), and passive personality (prosecuting offenses against the state's nationals abroad). The US uses nationality jurisdiction for some cybercrime cases involving US citizens committing crimes against foreign entities.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">Which type of law governs disputes between private parties where the typical remedy is monetary compensation rather than incarceration?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Criminal law — where the state prosecutes on behalf of society</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Administrative law — where regulatory agencies impose fines for non-compliance</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Civil (Tort) law — where individuals or organizations sue each other for damages</label></li>
+    <li><label><input type="radio" name="q8" value="d"> International law — where disputes between sovereign states are resolved</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: C.</strong> Civil/Tort law governs disputes between private parties (person vs. person, person vs. company, company vs. company). The typical remedy is monetary damages. Criminal law involves state prosecution with imprisonment as a possible remedy. Administrative law involves regulatory agencies. The distinction between civil, criminal, and administrative is fundamental for the CISSP exam's legal topics.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">A security analyst detects an active intrusion from an identified external attacker. A colleague suggests launching a retaliatory "hack-back" attack to shut down the attacker's systems. Under the CFAA, the MOST accurate legal assessment is:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> Hack-back is legal as a form of cyber self-defense</label></li>
+    <li><label><input type="radio" name="q9" value="b"> Hack-back would likely constitute a federal crime under the CFAA regardless of the provocation</label></li>
+    <li><label><input type="radio" name="q9" value="c"> Hack-back is permitted if the attack caused more than $5,000 in damages</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Hack-back is lawful if the source IP is traced to a foreign nation</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: B.</strong> The CFAA (18 U.S.C. § 1030) prohibits unauthorized access to computer systems. Hack-back means accessing systems you don't own without authorization — and that is a federal crime regardless of whether you're "retaliating." There is no self-defense exception in the CFAA. Additionally, attackers frequently use compromised systems ("bounce points") as intermediaries, meaning hack-back could harm innocent third-party victims. The Active Cyber Defense Certainty Act proposed but has NOT been enacted as law.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">An organization receives a notice from the FTC threatening administrative fines for alleged unfair data privacy practices. This situation falls under which category of law?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Criminal law — the FTC is a law enforcement agency</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Tort law — the FTC is suing on behalf of harmed consumers</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Administrative/Regulatory law — a government agency imposing fines for regulatory violations</label></li>
+    <li><label><input type="radio" name="q10" value="d"> International law — the FTC coordinates with foreign data protection authorities</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: C.</strong> Administrative/Regulatory law involves government agencies exercising delegated legislative authority to establish and enforce rules. The FTC, FCC, SEC, HIPAA via HHS, and similar agencies are administrative bodies. Their enforcement actions — including fines and consent decrees — are administrative law proceedings. These are distinct from criminal prosecutions (beyond reasonable doubt, jail time) and civil tort suits (private plaintiff, monetary damages).</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-004-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-005-theory.html" class="nav-btn">Day 5: Intellectual Property →</a>
+</div>
+</div>
+<script>
+const answers={q1:'c',q2:'b',q3:'c',q4:'b',q5:'b',q6:'b',q7:'d',q8:'c',q9:'b',q10:'c'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

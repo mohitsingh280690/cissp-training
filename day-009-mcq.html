@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 9 – Risk Management Concepts MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 9: Risk Management Concepts – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">The FAIR (Factor Analysis of Information Risk) model defines risk as a function of two primary components. Which combination correctly represents the FAIR risk formula?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Threat Capability × Control Strength</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Loss Event Frequency × Loss Magnitude</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Asset Value × Vulnerability Severity</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Probability of Occurrence × Impact Severity</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: B.</strong> FAIR (Factor Analysis of Information Risk) defines Risk = Loss Event Frequency (LEF) × Loss Magnitude (LM). LEF is further decomposed into Threat Event Frequency × Vulnerability (probability of action succeeding). LM is decomposed into Primary Loss and Secondary Loss (reputational, regulatory, competitive). FAIR is notable for providing a rigorous, quantitative, probabilistic approach to risk that avoids the "red/yellow/green" imprecision of qualitative matrices. Option D describes a generic risk formula, not specifically FAIR.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">A security manager calculates that a critical server has an ALE of $15,000 (ARO of 0.01 per year; SLE of $1.5M). A vendor proposes a $2M control that would reduce the ARO to near zero. What does sound risk management analysis suggest?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Implement the control immediately — eliminating an ALE of $15,000 is always worthwhile</label></li>
+    <li><label><input type="radio" name="q2" value="b"> The control is not cost-justified — the annual cost far exceeds the ALE; formal risk acceptance or a cheaper alternative should be considered</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Transfer the risk via insurance since the single loss exceeds $1M</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Avoid the risk by immediately decommissioning the server</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> Cost-Benefit Analysis (CBA) requires that the annualised cost of a control not exceed the ALE it mitigates. A $2M control (or even its annualised amortisation) vastly exceeds a $15,000 ALE — the investment is economically unjustified. The correct response is to formally accept the risk (document it, notify risk owners) or find a proportionate control. This is a classic CISSP scenario testing whether candidates understand that risk elimination is not always the goal — cost-efficiency is. Residual risk after acceptance must still be tracked.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">A company's web application is running on an unpatched version of a web server software known to have a publicly documented buffer overflow flaw. No attack has been detected yet. In risk terminology, the unpatched software MOST accurately represents:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> A Threat — the potential source of harm to the system</label></li>
+    <li><label><input type="radio" name="q3" value="b"> A Threat Event — an attack in progress against the server</label></li>
+    <li><label><input type="radio" name="q3" value="c"> A Vulnerability — a weakness in the system that could be exploited by a threat agent</label></li>
+    <li><label><input type="radio" name="q3" value="d"> An Exposure — the condition of being susceptible to attack with no possibility of mitigation</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: C.</strong> A Vulnerability is a weakness or flaw in a system — unpatched software with a known flaw is the textbook definition. A Threat is the potential source of harm (e.g., a threat actor who could exploit it). A Threat Event (B) is the actual occurrence of an attack. Exposure (D) is a condition where vulnerability is exposed to threats but it's often used interchangeably with vulnerability in common usage — however, CISSP specifically distinguishes vulnerability as the weakness. Risk = Threat × Vulnerability × Asset Value.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">During a risk assessment, an analyst calculates that a particular risk scores a 9 out of 10 — well above the organisation's defined risk appetite threshold of 6. The risk owner is a business unit manager. What is the MOST appropriate immediate action?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> The analyst should implement a risk mitigation control immediately using the IT security budget</label></li>
+    <li><label><input type="radio" name="q4" value="b"> The risk must be escalated to senior management for a formal risk treatment decision, since it exceeds the organisation's risk appetite</label></li>
+    <li><label><input type="radio" name="q4" value="c"> The risk can be formally accepted by the business unit manager since they own the business process</label></li>
+    <li><label><input type="radio" name="q4" value="d"> The risk should be immediately transferred to a cyber insurance provider</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: B.</strong> Risk appetite defines the level of risk an organisation is willing to accept without additional treatment. When risk exceeds appetite, it must be escalated for formal senior management decision — not unilaterally handled by the analyst (no budget authority) or the business unit manager (whose authority to accept risk may be limited). Senior management is responsible for setting risk appetite and authorising exceptions. Only they can formally raise the risk tolerance threshold or commit organisational resources to treatment. This is the CISSP "manager mindset" — escalate rather than act unilaterally.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">The NIST Risk Management Framework (RMF) consists of seven steps. In the "Assess" step, what is the primary objective?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Select an initial set of security controls based on the system's impact level</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Categorise the information system according to FIPS 199 impact levels</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Test and evaluate whether the implemented security controls are operating effectively and producing the desired outcomes</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Authorise the information system for operation based on a determination of acceptable risk</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: C.</strong> The NIST RMF steps are: Prepare → Categorise → Select → Implement → Assess → Authorise → Monitor. The Assess step involves security control assessments (SCA) — an independent party tests whether the controls selected and implemented are in place, operating as intended, and producing the desired security outcomes. This produces a Security Assessment Report (SAR). Categorise (B) is Step 2; Select (A) is Step 3; Authorise (D) is Step 6. Confusing Assess with Authorise is a common exam mistake.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">An organisation lacks historical loss data and has limited security staff. It wants to perform a risk assessment that is primarily self-directed, driven by the organisation's own asset owners identifying risks, without requiring external security expertise or financial data inputs. Which risk assessment methodology MOST closely fits this profile?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> FAIR — quantitative analysis requiring historical loss data</label></li>
+    <li><label><input type="radio" name="q6" value="b"> OCTAVE Allegro — a self-directed, workshop-based qualitative methodology focused on information assets and risk profiles without requiring financial data</label></li>
+    <li><label><input type="radio" name="q6" value="c"> NIST SP 800-30 — comprehensive technical assessment requiring an independent assessor</label></li>
+    <li><label><input type="radio" name="q6" value="d"> ISO 31000 — a universal risk framework that specifies exact assessment procedures</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> OCTAVE Allegro (Operationally Critical Threat, Asset, and Vulnerability Evaluation) is Carnegie Mellon's streamlined self-assessment methodology. It is designed to be performed by internal staff without deep security expertise, focusing on information assets and operational risk profiles. It uses workshops and worksheets — no financial modelling is required. FAIR (A) requires quantitative data. NIST 800-30 (C) is more comprehensive and typically uses independent assessors. ISO 31000 (D) is a principles framework, not a specific assessment method.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">An organisation wants a risk management framework applicable across all types of risk — not just information security — including financial, operational, strategic, and reputational risk. Which framework provides the MOST generic, universally applicable risk management principles and guidelines?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> NIST SP 800-37 (RMF) — designed for federal information systems</label></li>
+    <li><label><input type="radio" name="q7" value="b"> ISO 31000 — an international standard providing principles and guidelines for risk management applicable to any organisation, any sector, and any type of risk</label></li>
+    <li><label><input type="radio" name="q7" value="c"> COBIT — IT governance framework for business-IT alignment</label></li>
+    <li><label><input type="radio" name="q7" value="d"> OCTAVE — operationally focused information security risk assessment</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> ISO 31000:2018 is deliberately generic — it provides universal risk management principles, a framework, and a process applicable to any organisation (regardless of size, sector, or type) for any category of risk. It is not prescriptive about specific controls or assessment methods. NIST 800-37 (A) is specific to US federal information systems. COBIT (C) addresses IT governance. OCTAVE (D) is specific to information security operational risk. When the question says "all types of risk" or "universal applicability," ISO 31000 is the answer.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">An asset is valued at $1,000,000. A risk analyst implements a control that reduces the expected annual loss by 75%. What is the residual risk (remaining ALE) after control implementation, assuming original ALE was $1,000,000?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> $750,000 — the amount saved by the control</label></li>
+    <li><label><input type="radio" name="q8" value="b"> $250,000 — the remaining annual expected loss after the 75% reduction</label></li>
+    <li><label><input type="radio" name="q8" value="c"> $0 — the control eliminates the risk entirely</label></li>
+    <li><label><input type="radio" name="q8" value="d"> $1,000,000 — residual risk equals original risk before controls</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> Residual Risk = Total Risk × (1 − Control Effectiveness). With 75% reduction: $1,000,000 × (1 − 0.75) = $1,000,000 × 0.25 = $250,000. Option A ($750,000) is the risk mitigated (the "savings"), not the residual. Option C is incorrect because controls reduce but virtually never eliminate risk entirely — some residual risk always remains. This distinction is fundamental: risk management reduces risk to an acceptable residual level, it does not eliminate it.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">A company deploys a new intrusion detection system (IDS) to monitor its network. The IDS itself has a known web management interface vulnerability. The risk introduced by adding this security control is BEST described as:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> Inherent Risk — the baseline risk before any controls are applied</label></li>
+    <li><label><input type="radio" name="q9" value="b"> Residual Risk — the remaining risk after the IDS partially mitigates other threats</label></li>
+    <li><label><input type="radio" name="q9" value="c"> Secondary Risk — new risk introduced as a direct result of implementing a risk response</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Transferred Risk — risk moved to the IDS vendor through the support contract</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> Secondary Risk (also called "risk of the risk response") is new risk that arises as a direct consequence of implementing a risk treatment. Deploying an IDS with its own vulnerability creates a new attack surface — that's secondary risk. This concept appears explicitly in PMBOK and risk management standards. It reinforces a key principle: risk responses must themselves be risk-assessed. Inherent risk (A) is pre-control baseline risk. Residual risk (B) is post-control remaining risk. Transferred risk (D) involves shifting risk to another party (e.g., insurance).</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">After implementing all planned security controls, a CISO presents the board with a residual risk dashboard showing $200,000 in annualised risk exposure remains across several accepted risks. A board member asks whether they can simply implement more controls to bring this to zero. What is the MOST accurate response?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Yes — zero residual risk is achievable with sufficient investment</label></li>
+    <li><label><input type="radio" name="q10" value="b"> No — controls reduce risk but always leave residual risk; the goal of risk management is to reduce risk to an acceptable level within cost constraints, not to eliminate it entirely</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Yes — all $200,000 can be transferred to cyber insurance, achieving zero net risk</label></li>
+    <li><label><input type="radio" name="q10" value="d"> No — additional controls would exceed SOX compliance requirements</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: B.</strong> A foundational principle of risk management is that risk cannot be fully eliminated — only reduced to an acceptable residual level. Zero-risk is neither achievable nor economically sensible. Additional controls have diminishing returns and introduce secondary risks of their own. Risk transfer (C) via insurance also leaves residual risk — insurers don't cover all scenarios, have deductibles, and don't cover reputational damage. The board's role is to accept the remaining residual risk after controls are deemed cost-effective — this is a governance decision, not a technical one.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-009-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-010-theory.html" class="nav-btn">Day 10: Quantitative Risk Analysis →</a>
+</div>
+</div>
+<script>
+const answers={q1:'b',q2:'b',q3:'c',q4:'b',q5:'c',q6:'b',q7:'b',q8:'b',q9:'c',q10:'b'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

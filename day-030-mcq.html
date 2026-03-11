@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Day 30 MCQ – Data Remanence &amp; Sanitization | CISSP Study</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:2rem;text-align:center;}
+.header h1{font-size:1.9rem;margin-bottom:.4rem;}
+.header .subtitle{opacity:.85;font-size:1rem;}
+.container{max-width:860px;margin:0 auto;padding:2rem;}
+.quiz-info{background:#fff;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;gap:2rem;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.quiz-info span{font-size:.9rem;color:var(--text-light);}
+.quiz-info strong{color:#4a148c;}
+.question-card{background:#fff;border-radius:8px;padding:1.75rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid #ce93d8;}
+.question-card h3{font-size:1rem;margin-bottom:1rem;color:var(--text);}
+.question-num{color:#7b1fa2;font-weight:700;}
+.options{list-style:none;padding:0;}
+.options li{margin:.4rem 0;}
+.options label{display:flex;align-items:flex-start;gap:.65rem;padding:.6rem .9rem;border-radius:6px;cursor:pointer;border:1px solid var(--border);transition:background .15s;}
+.options label:hover{background:#f3e5f5;}
+.options input[type=radio]{margin-top:.2rem;accent-color:#7b1fa2;flex-shrink:0;}
+.feedback{margin-top:1rem;padding:.85rem 1rem;border-radius:6px;font-size:.9rem;display:none;}
+.feedback.correct{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.feedback.incorrect{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.btn{background:#7b1fa2;color:#fff;border:none;padding:.7rem 1.75rem;border-radius:6px;font-size:1rem;cursor:pointer;font-weight:600;transition:background .2s;}
+.btn:hover{background:#4a148c;}
+.btn-outline{background:transparent;border:2px solid #7b1fa2;color:#7b1fa2;padding:.6rem 1.5rem;border-radius:6px;font-size:.95rem;cursor:pointer;font-weight:600;transition:all .2s;margin-right:.75rem;}
+.btn-outline:hover{background:#7b1fa2;color:#fff;}
+.submit-area{text-align:center;margin:2rem 0;}
+.results{background:#fff;border-radius:8px;padding:2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1);display:none;margin-top:1.5rem;}
+.results h2{font-size:1.8rem;margin-bottom:.5rem;color:#4a148c;}
+.score-display{font-size:3.5rem;font-weight:700;color:#4a148c;margin:1rem 0;}
+.pass-msg{font-size:1.1rem;font-weight:600;padding:.6rem 1.25rem;border-radius:20px;display:inline-block;margin-bottom:1.25rem;}
+.pass{background:#e8f5e9;color:var(--green);}
+.fail{background:#fce4ec;color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;align-items:center;background:#fff;border-top:3px solid #4a148c;padding:1.25rem 2rem;margin-top:2rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.nav-footer a{background:#7b1fa2;color:#fff;padding:.6rem 1.25rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;transition:background .2s;}
+.nav-footer a:hover{background:#4a148c;}
+.correct-opt label{background:#e8f5e9!important;border-color:var(--green)!important;}
+.wrong-opt label{background:#fce4ec!important;border-color:var(--red)!important;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 30 Practice Quiz</h1>
+  <div class="subtitle">Data Remanence &amp; Sanitization — Domain 2: Asset Security</div>
+</div>
+<div class="container">
+  <div class="quiz-info">
+    <span>📝 <strong>10 Questions</strong></span>
+    <span>🎯 <strong>Pass Mark: 7/10</strong></span>
+    <span>⏱️ <strong>~12 minutes</strong></span>
+    <span>📊 <strong>Advanced</strong></span>
+  </div>
+  <form id="quizForm">
+
+    <div class="question-card" id="qc1">
+      <h3><span class="question-num">Q1.</span> A security engineer explains to junior staff that when a file is "deleted" using the OS recycle bin and emptied, the data is NOT removed from the disk. What term BEST describes the residual data that persists on the drive after deletion?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q1" value="a"> A. Data remanence</label></li>
+        <li><label><input type="radio" name="q1" value="b"> B. Data provenance</label></li>
+        <li><label><input type="radio" name="q1" value="c"> C. Data at rest</label></li>
+        <li><label><input type="radio" name="q1" value="d"> D. Data archiving</label></li>
+      </ul>
+      <div class="feedback" id="fb1"></div>
+    </div>
+
+    <div class="question-card" id="qc2">
+      <h3><span class="question-num">Q2.</span> An organization is retiring HDDs classified as SECRET. Per NIST SP 800-88, which sanitization level makes recovery "infeasible even with state-of-the-art laboratory techniques" and should be applied when media will leave organizational control?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q2" value="a"> A. Clear — overwrite with a single pass of zeros</label></li>
+        <li><label><input type="radio" name="q2" value="b"> B. Purge — degaussing or cryptographic erasure</label></li>
+        <li><label><input type="radio" name="q2" value="c"> C. Format — quick format using the operating system</label></li>
+        <li><label><input type="radio" name="q2" value="d"> D. Delete — removing directory entries</label></li>
+      </ul>
+      <div class="feedback" id="fb2"></div>
+    </div>
+
+    <div class="question-card" id="qc3">
+      <h3><span class="question-num">Q3.</span> An SSD used in a finance server must be sanitized before being transferred to the HR department. Traditional multi-pass overwrite tools report the drive as sanitized, but NIST 800-88 warns these tools may not reach all physical blocks on SSDs. What sanitization method is MOST reliable for SSDs?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q3" value="a"> A. DoD 5220.22-M 7-pass overwrite</label></li>
+        <li><label><input type="radio" name="q3" value="b"> B. Physical degaussing</label></li>
+        <li><label><input type="radio" name="q3" value="c"> C. Cryptographic erasure (destroy the encryption key)</label></li>
+        <li><label><input type="radio" name="q3" value="d"> D. Single-pass zero-fill</label></li>
+      </ul>
+      <div class="feedback" id="fb3"></div>
+    </div>
+
+    <div class="question-card" id="qc4">
+      <h3><span class="question-num">Q4.</span> A media disposal vendor suggests degaussing all retired storage media. The security team objects that degaussing will be ineffective for certain device types. Which media type is NOT sanitized by degaussing?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q4" value="a"> A. Traditional magnetic tape cartridges</label></li>
+        <li><label><input type="radio" name="q4" value="b"> B. Magnetic hard disk drives (HDDs)</label></li>
+        <li><label><input type="radio" name="q4" value="c"> C. Floppy disks</label></li>
+        <li><label><input type="radio" name="q4" value="d"> D. Solid-State Drives (SSDs) and USB flash drives</label></li>
+      </ul>
+      <div class="feedback" id="fb4"></div>
+    </div>
+
+    <div class="question-card" id="qc5">
+      <h3><span class="question-num">Q5.</span> NIST SP 800-88 defines three sanitization categories. Which of the following CORRECTLY maps all three levels to their primary method?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q5" value="a"> A. Clear=shredding, Purge=overwrite, Destroy=degaussing</label></li>
+        <li><label><input type="radio" name="q5" value="b"> B. Clear=deletion, Purge=formatting, Destroy=overwrite</label></li>
+        <li><label><input type="radio" name="q5" value="c"> C. Clear=overwrite/reset to factory, Purge=degaussing or cryptographic erasure, Destroy=physical destruction (shred/disintegrate/incinerate)</label></li>
+        <li><label><input type="radio" name="q5" value="d"> D. Clear=degaussing, Purge=shredding, Destroy=overwrite</label></li>
+      </ul>
+      <div class="feedback" id="fb5"></div>
+    </div>
+
+    <div class="question-card" id="qc6">
+      <h3><span class="question-num">Q6.</span> A data center uses self-encrypting drives (SEDs) for all servers. When a drive must be retired, the security operations team performs "cryptographic erasure." What operation does cryptographic erasure actually perform?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q6" value="a"> A. Overwrites the drive contents with cryptographically random data, 7 passes</label></li>
+        <li><label><input type="radio" name="q6" value="b"> B. Reformats the drive file system and regenerates partition tables</label></li>
+        <li><label><input type="radio" name="q6" value="c"> C. Destroys or replaces the Media Encryption Key (MEK) stored in the drive, rendering all encrypted data permanently indecipherable without physical modification</label></li>
+        <li><label><input type="radio" name="q6" value="d"> D. Degausses the drive platters using a strong external magnetic field</label></li>
+      </ul>
+      <div class="feedback" id="fb6"></div>
+    </div>
+
+    <div class="question-card" id="qc7">
+      <h3><span class="question-num">Q7.</span> An organization transfers used laptops to a local charity. The drives contain former employee data classified as Internal. Which NIST SP 800-88 sanitization method is minimally required before this transfer since media is leaving organizational control?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q7" value="a"> A. Clear — overwrite is sufficient since this is only Internal classification</label></li>
+        <li><label><input type="radio" name="q7" value="b"> B. No sanitization required — the charity signed an NDA</label></li>
+        <li><label><input type="radio" name="q7" value="c"> C. Purge — media is leaving organizational control and must be purged regardless of classification level</label></li>
+        <li><label><input type="radio" name="q7" value="d"> D. Destroy — all donated media must be physically destroyed</label></li>
+      </ul>
+      <div class="feedback" id="fb7"></div>
+    </div>
+
+    <div class="question-card" id="qc8">
+      <h3><span class="question-num">Q8.</span> A forensic researcher uses a magnetic force microscope to analyze the track edges of an overwritten hard drive and recovers fragments of the original data. This technique exploits which concept directly?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q8" value="a"> A. Data provenance — tracking data origin and handling history</label></li>
+        <li><label><input type="radio" name="q8" value="b"> B. Data remanence — residual physical representation of erased data that persists on the medium</label></li>
+        <li><label><input type="radio" name="q8" value="c"> C. Data sovereignty — jurisdiction-based data residency</label></li>
+        <li><label><input type="radio" name="q8" value="d"> D. Data archiving — long-term data retention strategy</label></li>
+      </ul>
+      <div class="feedback" id="fb8"></div>
+    </div>
+
+    <div class="question-card" id="qc9">
+      <h3><span class="question-num">Q9.</span> An external auditor requests evidence that decommissioned servers containing PII were properly sanitized before physical disposal by a third-party vendor. Which document BEST satisfies this audit requirement?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q9" value="a"> A. The vendor's proposed Statement of Work</label></li>
+        <li><label><input type="radio" name="q9" value="b"> B. The asset inventory spreadsheet showing the assets as "decommissioned"</label></li>
+        <li><label><input type="radio" name="q9" value="c"> C. A Certificate of Destruction/Sanitization listing device serial numbers, method used, and date — signed by the disposal vendor</label></li>
+        <li><label><input type="radio" name="q9" value="d"> D. The original drive purchase receipts showing encryption-capable hardware</label></li>
+      </ul>
+      <div class="feedback" id="fb9"></div>
+    </div>
+
+    <div class="question-card" id="qc10">
+      <h3><span class="question-num">Q10.</span> NAND flash memory (SSDs, USB drives) presents a unique sanitization challenge compared to magnetic HDDs. Which property of NAND flash is the ROOT CAUSE of this challenge?</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q10" value="a"> A. Flash memory uses magnetic domains that require stronger degaussing fields than standard HDD degaussers provide</label></li>
+        <li><label><input type="radio" name="q10" value="b"> B. Wear-leveling algorithms distribute writes across physical blocks, so overwriting logical addresses does not guarantee all physical blocks containing old data are overwritten</label></li>
+        <li><label><input type="radio" name="q10" value="c"> C. Flash memory operates at higher voltage than HDDs, making overwrite tools incompatible</label></li>
+        <li><label><input type="radio" name="q10" value="d"> D. SSDs are WORM (Write Once, Read Many) devices that cannot be overwritten by design</label></li>
+      </ul>
+      <div class="feedback" id="fb10"></div>
+    </div>
+
+    <div class="submit-area">
+      <button type="button" class="btn-outline" onclick="resetQuiz()">↺ Reset</button>
+      <button type="button" class="btn" onclick="submitQuiz()">Submit Answers</button>
+    </div>
+  </form>
+
+  <div class="results" id="results">
+    <h2>Quiz Complete!</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <div class="pass-msg" id="passMsg"></div>
+    <p id="resultDetail" style="color:var(--text-light);margin-bottom:1.5rem;"></p>
+    <button class="btn-outline" onclick="resetQuiz()">↺ Try Again</button>
+  </div>
+</div>
+
+<div class="nav-footer">
+  <a href="day-030-theory.html">← Day 30 Theory</a>
+  <a href="day-031-theory.html">Day 31: Data Loss Prevention →</a>
+</div>
+
+<script>
+const answers={q1:'a',q2:'b',q3:'c',q4:'d',q5:'c',q6:'c',q7:'c',q8:'b',q9:'c',q10:'b'};
+const explanations={
+  q1:'<strong>Data remanence</strong> is the residual representation of data remaining after deletion or erasure attempts. "Deleting" a file via the OS only removes the directory entry and marks the sectors as available — the actual data remains magnetically until overwritten. This is why proper sanitization is required before disposal.',
+  q2:'NIST 800-88 defines <strong>Purge</strong> as the level that makes recovery infeasible even with laboratory forensic techniques. Methods include degaussing (for magnetic media), cryptographic erasure (for encrypted media), and secure overwrite tools. Clear (overwrite) is only adequate when media stays within the same security domain.',
+  q3:'Wear-leveling on SSDs ensures the controller distributes writes evenly across all physical NAND cells — meaning a 7-pass overwrite of logical sectors does NOT reach every physical cell that previously stored the data. <strong>Cryptographic erasure</strong> (destroying the AES encryption key a SED uses) instantly and completely renders all data unreadable regardless of wear-leveling, making it the most reliable method for SSDs.',
+  q4:'Degaussing works only on <strong>magnetic media</strong> (HDDs, magnetic tape, floppy disks) by disrupting the magnetic domains storing the data. <strong>SSDs and USB flash drives use NAND flash memory</strong> (electronic charge in floating-gate transistors) — they have no magnetic domains to disrupt, so degaussing has zero effect on them.',
+  q5:'NIST 800-88 three levels: <strong>Clear</strong> — overwrite or reset to factory defaults (protects against keyboard-level recovery); <strong>Purge</strong> — degaussing, cryptographic erasure, or secure erase commands (protects against laboratory recovery); <strong>Destroy</strong> — shredding, disintegration, pulverizing, melting, or incineration (media cannot be reused). Clear uses overwriting; Purge uses advanced techniques; Destroy eliminates the medium entirely.',
+  q6:'Cryptographic erasure works by <strong>destroying the Media Encryption Key (MEK)</strong> — the AES key built into the Self-Encrypting Drive. All data on the drive was encrypted with this key at write time. Once the key is destroyed (replaced with a new random key), every bit on the drive becomes permanently unreadable ciphertext — an instant, verified sanitization requiring no data overwriting. This is the fastest and most reliable SED sanitization method.',
+  q7:'NIST 800-88 states that <strong>Purge is required whenever media leaves organizational control</strong>, regardless of classification level. Clear (overwriting) is only acceptable for reuse within the SAME security domain. Since the laptops are being donated externally, purge is the minimum requirement. Classification level does not lower this requirement — the transfer boundary does.',
+  q8:'<strong>Data remanence</strong> is demonstrated here — magnetic recording heads write slightly outside their exact track boundaries, leaving residual magnetic signals adjacent to the overwritten track. Using a magnetic force microscope, forensic labs can sometimes detect these "ghost" signals. Modern high-density drives make this progressively more difficult, but it confirms why single-pass overwrite may be insufficient for highly sensitive media.',
+  q9:'A <strong>Certificate of Destruction/Sanitization</strong> (also called a Certificate of Data Destruction) is the auditable proof of sanitization. It must list: each device by serial number, the sanitization method applied, the date performed, and the signature of the authorised vendor. This creates non-repudiable evidence for regulatory compliance, legal proceedings, and audit requirements.',
+  q10:'NAND flash <strong>wear-leveling</strong> is a controller-level technique that spreads write/erase cycles evenly across all physical blocks to extend drive lifespan. When you "overwrite" a file, the controller writes to new physical locations and marks old blocks as available — but the old data remains in those blocks until the controller chooses to erase them. Standard overwrite tools work at the logical layer and cannot control or verify which physical blocks are erased, making data recovery from "overwritten" SSDs plausible without cryptographic erasure or physical destruction.'
+};
+function submitQuiz(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const name='q'+i;
+    const selected=document.querySelector(`input[name="${name}"]:checked`);
+    const fb=document.getElementById('fb'+i);
+    const card=document.getElementById('qc'+i);
+    card.querySelectorAll('.options li').forEach(li=>li.classList.remove('correct-opt','wrong-opt'));
+    if(!selected){
+      fb.className='feedback incorrect';
+      fb.innerHTML='⚠️ Not answered. Correct: <strong>'+answers[name].toUpperCase()+'</strong><br>'+explanations[name];
+      fb.style.display='block';continue;
+    }
+    const correctLi=card.querySelector(`input[value="${answers[name]}"]`).closest('li');
+    if(selected.value===answers[name]){
+      score++;
+      selected.closest('li').classList.add('correct-opt');
+      fb.className='feedback correct';
+      fb.innerHTML='✅ Correct! '+explanations[name];
+    }else{
+      selected.closest('li').classList.add('wrong-opt');
+      correctLi.classList.add('correct-opt');
+      fb.className='feedback incorrect';
+      fb.innerHTML='❌ Incorrect. Correct: <strong>'+answers[name].toUpperCase()+'</strong><br>'+explanations[name];
+    }
+    fb.style.display='block';
+  }
+  const pct=Math.round(score/10*100);
+  document.getElementById('scoreDisplay').innerHTML=score+'<span>/10</span>';
+  const pm=document.getElementById('passMsg');
+  pm.textContent=score>=7?'✅ PASS — Well done!':'❌ FAIL — Review the theory and retry';
+  pm.className='pass-msg '+(score>=7?'pass':'fail');
+  document.getElementById('resultDetail').textContent=`${score} correct (${pct}%) — Pass mark: 70%`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+function resetQuiz(){
+  document.getElementById('quizForm').reset();
+  for(let i=1;i<=10;i++){
+    document.getElementById('fb'+i).style.display='none';
+    document.getElementById('qc'+i).querySelectorAll('.options li').forEach(li=>li.classList.remove('correct-opt','wrong-opt'));
+  }
+  document.getElementById('results').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

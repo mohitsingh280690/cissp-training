@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 14 – Supply Chain Risk Management MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 14: Supply Chain Risk Management – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A procurement manager presents a SOC 2 Type I report from a cloud storage vendor dated 18 months ago during a vendor onboarding review. The security team must decide whether this report provides sufficient assurance. What is the MOST appropriate response?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Accept it — SOC 2 Type I reports are permanent assessments and do not expire</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Reject it as insufficient — request a current SOC 2 Type II report covering a recent 12-month period, since Type I only validates design at a point in time, not operational effectiveness, and 18 months is stale</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Accept it — the vendor's ISO 27001 certification makes the SOC 2 redundant anyway</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Accept it assuming the vendor names no exceptions in the report</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: B.</strong> SOC 2 Type I assesses whether controls are suitably designed at a single point in time — it does NOT evaluate whether controls operated effectively over time. SOC 2 Type II covers a period (typically 6–12 months) and tests operating effectiveness. 18 months is stale regardless of type — most organisations require reports no older than 12 months. For vendor due diligence, a current Type II report provides substantially stronger assurance. CISSP candidates must know the difference: Type I = design sufficiency at a point in time; Type II = operational effectiveness over a period.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">In 2020, attackers compromised the SolarWinds Orion software build pipeline, inserting malicious code that was compiled into legitimate, digitally signed software updates distributed to approximately 18,000 organisations. Which supply chain attack vector does this BEST illustrate?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Hardware implant — physical modification of network components before delivery</label></li>
+    <li><label><input type="radio" name="q2" value="b"> Build pipeline compromise — malicious code injected into the CI/CD build process, resulting in legitimate-signed malicious software delivered through normal update channels</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Open source dependency poisoning — a popular npm/PyPI package was replaced with a malicious version</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Watering hole attack — the SolarWinds download page was replaced with a malicious site</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> The SolarWinds Sunburst attack compromised the Orion build pipeline — attackers modified source code or build scripts so the compiled output contained the SUNBURST backdoor. The resulting binaries were legitimately code-signed by SolarWinds, passing all integrity checks. This is a build pipeline / CI-CD compromise — the most dangerous supply chain vector because: the attacker rides inside legitimate, trusted distribution infrastructure; standard verification (code signing, hash checks) provides false assurance; victims have no reason to suspect updates from their trusted vendor. Counter-measures: build pipeline integrity monitoring, reproducible builds, build environment isolation, software attestation.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">US Executive Order 14028 (May 2021) mandates Software Bill of Materials (SBOM) requirements for software sold to the federal government. What is the PRIMARY security purpose of an SBOM in the context of supply chain risk management?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> To replace penetration testing by automatically identifying exploitable vulnerabilities in dependencies</label></li>
+    <li><label><input type="radio" name="q3" value="b"> To enable rapid identification of all software components, including open-source dependencies, so organisations can quickly assess and respond when a vulnerability (e.g., Log4Shell) is discovered in a component</label></li>
+    <li><label><input type="radio" name="q3" value="c"> To satisfy PCI-DSS cardholder data environment scoping requirements</label></li>
+    <li><label><input type="radio" name="q3" value="d"> To prevent developers from using open-source components in commercial software</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> An SBOM (Software Bill of Materials) is a formal, machine-readable inventory of all software components: first-party code, third-party libraries, open-source dependencies, and their versions. Its primary supply chain risk management value: when a critical vulnerability (like Log4Shell CVE-2021-44228) is disclosed, organisations with SBOMs can immediately query their inventory to determine which products and systems are affected and prioritise response. Without SBOMs, organisations must manually scan every application — often taking weeks. SBOM standards include SPDX (Linux Foundation) and CycloneDX (OWASP). EO 14028 established SBOM as a federal procurement requirement to improve software supply chain transparency.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">An organisation is evaluating three SaaS vendors for a system that will process classified HR data. Vendor A provides a recent SOC 2 Type II with zero exceptions. Vendor B has ISO 27001 certification renewed last year. Vendor C provides both an ISO 27001 certificate and a SOC 2 Type II report from the past 6 months with no exceptions. Which combination provides the STRONGEST third-party assurance?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> Vendor A — SOC 2 Type II is the gold standard and standalone sufficient</label></li>
+    <li><label><input type="radio" name="q4" value="b"> Vendor B — ISO 27001 demonstrates comprehensive ISMS management commitment</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Vendor C — both ISO 27001 (comprehensive ISMS framework certification) and a current, clean SOC 2 Type II (operational effectiveness testing) together provide broader and deeper assurance than either alone</label></li>
+    <li><label><input type="radio" name="q4" value="d"> All three are equivalent — any single framework certification is sufficient for sensitive HR data</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: C.</strong> ISO 27001 certification validates that a vendor has implemented a systematic Information Security Management System (ISMS) across 93 Annex A controls — a comprehensive framework covering governance, risk management, HR security, physical security, etc. SOC 2 Type II provides independent auditor testing of operational effectiveness for defined trust service criteria (Security, Availability, Confidentiality, etc.) over a period. Together they are complementary: ISO 27001 proves the framework is comprehensive; SOC 2 Type II proves controls operated effectively. For sensitive HR data, the combination of a certified ISMS + independently audited operational controls provides the strongest available third-party assurance.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">A hospital uses a critical patient monitoring application hosted by a vendor whose SLA guarantees 99.9% availability (approximately 8.7 hours of downtime per year). The hospital's business continuity requirement for this system is 99.99% availability (approximately 52 minutes per year). How should the hospital address this SLA gap?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Accept the SLA gap — 8.7 hours of downtime per year is acceptable in a healthcare context</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Negotiate with the vendor for a higher-availability SLA or implement architectural redundancy (multi-vendor or multi-region failover) to meet the 99.99% requirement independently of the vendor's SLA</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Immediately terminate the vendor contract and build the system in-house</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Add an uptime monitoring service — vendor accountability is sufficient to ensure the SLA is met</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: B.</strong> When a vendor SLA cannot meet the organisation's availability requirements, two remediation paths exist: (1) Contract renegotiation — require contractually committed SLA uplifts with financial penalties for non-compliance; (2) Architectural redundancy — deploy multi-vendor, multi-region, or hybrid on-premise failover so the organisation's effective availability exceeds any single vendor's guarantee. For life-critical systems (patient monitoring), the organisation cannot rely solely on vendor SLAs — they must architect resilience independently. SLA gap analysis should happen during vendor selection, not after go-live. Monitoring alone (D) provides visibility but does not improve availability.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">An organisation outsources its IT infrastructure to a Managed Service Provider (MSP). The MSP hosts its servers in a colocation facility owned by a third company. That colocation facility suffers a cooling failure causing outages. From the organisation's perspective, this outage is caused by a risk arising at which supply chain tier?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> First-party risk — the outage directly affects the organisation's infrastructure</label></li>
+    <li><label><input type="radio" name="q6" value="b"> Third-party risk — the MSP is the direct vendor whose failure caused the outage</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Fourth-party risk — the colocation facility is a vendor of the organisation's vendor (MSP), two tiers removed from the organisation</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Supply chain risk is not applicable when the failure is caused by a physical event</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: C.</strong> Supply chain risk tiers: First-party = the organisation itself. Third-party = direct vendors/suppliers. Fourth-party = vendors of vendors (sub-suppliers, sub-processors). The colocation facility serves the MSP (third party), making it a fourth-party from the organisation's perspective. Fourth-party risk is pervasive and often unconsidered — organisations frequently have no direct contractual or visibility relationship with fourth parties. Mitigation: include vendor sub-contractor disclosure requirements in contracts; extend due diligence questionnaires to fourth-party processors; require concentration risk analysis from primary vendors; implement right-to-audit clauses that flow through the supply chain.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">An organisation is contracting an offshore software development firm for a project involving sensitive customer data. Which set of contractual provisions MOST comprehensively addresses the supply chain security risks of this arrangement?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> Non-Disclosure Agreement only — the vendor is legally prohibited from disclosing data</label></li>
+    <li><label><input type="radio" name="q7" value="b"> Background screening requirements for all personnel, NDA, IP assignment clause, data handling restrictions, right-to-audit, secure coding standards compliance, and incident notification obligations</label></li>
+    <li><label><input type="radio" name="q7" value="c"> SLA covering uptime requirements — availability is the primary concern for development contracts</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Insurance requirement — the vendor's liability insurance covers data breach costs sufficiently</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> Offshore development contracts with access to sensitive data require comprehensive contractual protections: Background screening — verifies personnel trustworthiness before data access; NDA — prohibits disclosure; IP assignment — ensures all code produced belongs to the contracting organisation; Data handling restrictions — limits data access to minimum necessary; Right-to-audit — enables the organisation to verify compliance without relying solely on vendor representations; Secure coding standards — mandates OWASP-aligned development practices; Incident notification — requires timely breach notification. An NDA alone (A) is insufficient — it only addresses post-breach remedies, not prevention. Insurance (D) compensates losses but does not prevent them.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">An organisation procures server hardware through an authorised reseller of a reputable manufacturer. A security team discovers that components in five delivered servers do not match the manufacturer's genuine component database. What is the MOST significant security concern raised by this finding?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Warranty invalidation — non-genuine components void manufacturer support agreements</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Counterfeit hardware components or hardware-level backdoors implanted in the supply chain may allow persistent, firmware-level compromise that survives OS reinstallation and is undetectable by software-based security tools</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Performance degradation — counterfeit components typically have lower specifications than genuine parts</label></li>
+    <li><label><input type="radio" name="q8" value="d"> Licensing violation — using non-genuine hardware breaches the OEM software licence agreement</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> Hardware supply chain compromise — counterfeit or backdoored components — is one of the most serious and hardest to detect supply chain threats. Hardware implants (evidenced by the Bloomberg "Big Hack" reporting and documented in intelligence community advisories) can: operate at the firmware or BMC level, survive OS wipes; be invisible to operating system or network security tools; exfiltrate data or provide persistent remote access. Counterfeit components may also contain malicious firmware from the counterfeit manufacturer. Countermeasures: Trusted Platform Module (TPM) verification; hardware provenance attestation; purchase from authorised channels with tamper-evident packaging; component authentication programmes.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">NIST SP 800-161 (Supply Chain Risk Management Practices for Federal Information Systems) recommends that organisations flow security requirements down through their entire supply chain. A primary vendor argues that this obligation ends at the first-tier supplier level. What is the MOST accurate position according to NIST 800-161?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> The vendor is correct — NIST 800-161 obligations apply only to direct first-tier suppliers</label></li>
+    <li><label><input type="radio" name="q9" value="b"> NIST 800-161 requires that security requirements and contractual obligations flow ALL the way through the supply chain to sub-suppliers and sub-contractors — organisations must require their prime vendors to impose equivalent requirements on their own supply chains</label></li>
+    <li><label><input type="radio" name="q9" value="c"> NIST 800-161 is voluntary guidance and does not require any specific contractual flow-down provisions</label></li>
+    <li><label><input type="radio" name="q9" value="d"> Flow-down requirements apply only to classified government systems, not commercial supply chains</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: B.</strong> NIST SP 800-161 explicitly addresses multi-tier supply chain risk — it requires organisations to establish SCRM requirements that flow through the entire supply chain, not just first-tier suppliers. This means prime vendors must: include equivalent security requirements in their own supplier contracts; ensure their sub-suppliers also flow requirements further down. The rationale: supply chain attacks frequently exploit the weakest link in sub-tier supply chains (as demonstrated by SolarWinds, where the build pipeline compromise happened below the level visible to end customers). NIST 800-161 Rev. 1 (2022) expanded C-SCRM (Cyber Supply Chain Risk Management) guidance to cover deeper supply chain tiers.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">An organisation's IT operations depend on a single MSP that manages 90% of its infrastructure. During a board risk review, the CISO highlights that a simultaneous failure, price increase, or insolvency of this MSP could critically disrupt operations. What supply chain risk does this scenario MOST specifically illustrate?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Vendor lock-in risk — proprietary technology preventing migration to alternatives</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Concentration risk — excessive operational dependency on a single supplier creates a single point of failure across multiple risk dimensions (operational, financial, security)</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Counterparty risk — the MSP may default on contractual obligations</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Regulatory risk — single-vendor arrangements may violate data residency requirements</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: B.</strong> Concentration risk is the risk arising from excessive dependency on a single supplier, geography, technology, or counterparty such that a single failure event has outsourced disproportionate impact to the organisation. In supply chain risk management, concentration risk is identified when any single vendor represents too large a proportion of critical services. It is a multi-dimensional risk: operational (single point of failure), financial (price leverage / renegotiation power), security (single MSP compromise = total compromise), and continuity (MSP insolvency = immediate crisis). Mitigations: multi-vendor strategy, vendor diversification requirements, exit strategy and transition planning, escrow arrangements for critical configurations and data.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-014-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-015-theory.html" class="nav-btn">Day 15: Business Continuity →</a>
+</div>
+</div>
+<script>
+const answers={q1:'b',q2:'b',q3:'b',q4:'c',q5:'b',q6:'c',q7:'b',q8:'b',q9:'b',q10:'b'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

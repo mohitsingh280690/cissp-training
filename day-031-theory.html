@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Day 31 – Data Loss Prevention (DLP) | CISSP Study</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:2.5rem 2rem;text-align:center;}
+.header h1{font-size:2.2rem;margin-bottom:.5rem;}
+.header .subtitle{opacity:.85;font-size:1.05rem;margin-bottom:1rem;}
+.meta{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:.85rem;opacity:.8;}
+.meta span{background:rgba(255,255,255,.15);padding:.25rem .75rem;border-radius:20px;}
+.breadcrumb{background:#fff;border-bottom:1px solid var(--border);padding:.75rem 2rem;font-size:.85rem;color:var(--text-light);}
+.breadcrumb a{color:#7b1fa2;text-decoration:none;}
+.container{max-width:960px;margin:0 auto;padding:2rem;}
+.toc{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:2rem;}
+.toc h3{color:#4a148c;margin-bottom:.75rem;font-size:1rem;text-transform:uppercase;letter-spacing:.05em;}
+.toc ol{padding-left:1.25rem;}
+.toc li{margin:.3rem 0;}
+.toc a{color:#7b1fa2;text-decoration:none;font-size:.9rem;}
+.toc a:hover{text-decoration:underline;}
+.section{background:#fff;border-radius:8px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.section h2{font-size:1.4rem;color:#4a148c;margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:2px solid #ce93d8;}
+.section h3{font-size:1.1rem;color:#6a1b9a;margin:1.25rem 0 .6rem;}
+.section h4{font-size:1rem;color:#4a148c;margin:1rem 0 .4rem;}
+p{margin-bottom:.9rem;}
+ul,ol{padding-left:1.4rem;margin-bottom:.9rem;}
+li{margin:.35rem 0;}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+th{background:#4a148c;color:#fff;padding:.65rem .85rem;text-align:left;}
+td{padding:.6rem .85rem;border-bottom:1px solid var(--border);}
+tr:nth-child(even) td{background:#f9f4ff;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:1rem 1.25rem;border-radius:0 6px 6px 0;margin:1rem 0;}
+.callout-title{font-weight:700;margin-bottom:.35rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;}
+.nav-footer{display:flex;justify-content:space-between;align-items:center;background:#fff;border-top:3px solid #4a148c;padding:1.25rem 2rem;margin-top:2rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.nav-footer a{background:#7b1fa2;color:#fff;padding:.6rem 1.25rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;}
+.nav-footer a:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 31: Data Loss Prevention (DLP)</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 31 of 140</span>
+    <span>🏛️ Domain 2 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>📊 Intermediate</span>
+  </div>
+</div>
+<div class="breadcrumb">
+  <a href="#">CISSP Study</a> › <a href="#">Domain 2: Asset Security</a> › Day 31: Data Loss Prevention
+</div>
+<div class="container">
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">DLP Fundamentals</a></li>
+    <li><a href="#s4">DLP Deployment Types</a></li>
+    <li><a href="#s5">Content Inspection Techniques</a></li>
+    <li><a href="#s6">DLP Architecture & Modes</a></li>
+    <li><a href="#s7">DLP Policy Design & False Positives</a></li>
+    <li><a href="#s8">CASB Integration</a></li>
+    <li><a href="#s9">Memory Tricks</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <div class="exam-tip">
+    <div class="callout-title">📋 Exam Context</div>
+    <strong>Domain:</strong> Domain 2 – Asset Security (10% of exam weight)<br>
+    <strong>Why tested:</strong> DLP is the primary technical control enforcing data classification policies — CISSP tests whether candidates understand DLP as a data-centric (not perimeter-centric) security control.<br>
+    <strong>Question style:</strong> Scenario-based — "Which DLP type should be deployed?" and "A DLP rule generates excessive false positives — what adjustment should be made?"<br>
+    <strong>Cross-domain:</strong> DLP supports Domain 1 (information security policies), Domain 7 (incident detection), and Domain 8 (SDLE — preventing data exfiltration from applications).<br>
+    <strong>Exam traps:</strong> (1) CASB ≠ DLP — CASB extends DLP to cloud but is not synonymous; (2) DLP blocks data in transit but cannot protect data already exfiltrated; (3) Endpoint DLP monitors the device, not just the network.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <div class="key-concept">
+    <div class="callout-title">🏢 Organizational Context</div>
+    <strong>Ownership:</strong> DLP is owned by the CISO / Data Security team, implemented by IT Security or SOC, and governed by policies written by the Data Owner and Legal/Compliance.<br>
+    <strong>Reality:</strong> Organizations typically deploy DLP in monitor-only mode first (to tune rules and reduce false positives), then move to block mode once thresholds are calibrated.<br>
+    <strong>Failure modes:</strong> Untuned DLP rules that block legitimate business processes erode user trust and lead to workarounds (shadow IT). Under-scoped DLP that ignores USB drives or cloud apps creates blind spots.<br>
+    <strong>Business drivers:</strong> Regulatory compliance (GDPR, HIPAA, PCI-DSS), breach prevention, insider threat detection, and protecting intellectual property.
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. DLP Fundamentals</h2>
+  <div class="definition">
+    <div class="callout-title">📘 Definition</div>
+    <strong>Data Loss Prevention (DLP)</strong> is a set of tools and processes that monitor, detect, and block unauthorized transmission, storage, or use of sensitive data — enforcing data handling policies based on content inspection rather than network perimeter alone.
+  </div>
+  <p>DLP shifts security from "protect the network boundary" to "protect the data itself." A DLP system identifies sensitive data by its content, context, or user behaviour — and enforces policy regardless of where the data is or how it's being moved.</p>
+  <h3>DLP vs. Traditional Security Controls</h3>
+  <table>
+    <tr><th>Aspect</th><th>Firewall / IDS</th><th>DLP</th></tr>
+    <tr><td>Inspection basis</td><td>Protocol / IP / port</td><td>Data content and context</td></tr>
+    <tr><td>Triggers on</td><td>Network anomalies</td><td>Sensitive data patterns (PII, PAN, IP)</td></tr>
+    <tr><td>Protects against</td><td>External network attacks</td><td>Insider threats and accidental data loss</td></tr>
+    <tr><td>Placement</td><td>Network perimeter</td><td>Endpoint, network, and cloud</td></tr>
+  </table>
+  <h3>Data DLP Can Protect</h3>
+  <ul>
+    <li>Personally Identifiable Information (PII) — SSNs, email addresses, dates of birth</li>
+    <li>Payment card data (PAN — Primary Account Numbers matching Luhn algorithm)</li>
+    <li>Protected Health Information (PHI) — diagnoses, prescriptions, patient records</li>
+    <li>Intellectual Property — source code, CAD files, proprietary formulas</li>
+    <li>Financial data — earnings reports, M&amp;A communications, salary data</li>
+    <li>Credentials — hardcoded passwords, private keys, API keys</li>
+  </ul>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. DLP Deployment Types</h2>
+  <p>DLP is deployed across three primary locations — each covering a different data state and exposure vector.</p>
+
+  <h3>Network DLP (NDLP)</h3>
+  <p>Deployed as an inline device or mirror/span tap at network egress points (internet gateway, email relay, web proxy). Inspects data <strong>in transit</strong> — email attachments, HTTP/HTTPS uploads, FTP transfers, cloud sync traffic.</p>
+  <div class="key-concept">
+    <div class="callout-title">Key Point</div>
+    For HTTPS traffic, Network DLP requires <strong>SSL/TLS inspection (SSL decryption)</strong> — otherwise all HTTPS traffic is opaque and content cannot be inspected.
+  </div>
+
+  <h3>Endpoint DLP (EDLP)</h3>
+  <p>Agent-based software installed on workstations and laptops. Monitors data <strong>at rest and in use</strong>. Can block: copying to USB drives, printing sensitive documents, screen capture, email via local client, uploading via browser.</p>
+  <p>Endpoint DLP operates even when the device is off-network (e.g., a remote employee). This is a critical advantage over Network DLP for mobile and remote workforces.</p>
+
+  <h3>Cloud / Storage DLP</h3>
+  <p>Scans data <strong>at rest</strong> in cloud storage (SharePoint, OneDrive, Google Drive, S3 buckets). Identifies sensitive content that has already been stored and can quarantine, encrypt, or alert on discoveries. Often called "Cloud DLP" or integrated into CASB platforms.</p>
+
+  <table>
+    <tr><th>Type</th><th>Data State</th><th>Deployment</th><th>Key Threat Addressed</th></tr>
+    <tr><td>Network DLP</td><td>In transit</td><td>Gateway/proxy inline</td><td>Email exfiltration, web upload</td></tr>
+    <tr><td>Endpoint DLP</td><td>At rest / In use</td><td>Agent on endpoint</td><td>USB copy, print, off-network exfil</td></tr>
+    <tr><td>Cloud DLP</td><td>At rest</td><td>API integration to cloud</td><td>Sensitive files stored in SaaS/cloud</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Content Inspection Techniques</h2>
+  <p>DLP identifies sensitive data using several content analysis methods, often combined for accuracy:</p>
+
+  <h3>Regular Expressions (Regex)</h3>
+  <p>Pattern matching for structured data formats: SSN (###-##-####), credit card numbers (16-digit Luhn-valid), US passport numbers, IP addresses. Fast but generates false positives if patterns appear in non-sensitive contexts (e.g., product codes that look like SSNs).</p>
+
+  <h3>Data Fingerprinting (Exact Data Matching)</h3>
+  <p>Creates cryptographic fingerprints of specific sensitive documents or database records. The DLP system checks whether outgoing content matches these fingerprints. Excellent for protecting specific known documents (contracts, source code files, HR records). Very low false positive rate.</p>
+
+  <h3>Statistical / Machine Learning Analysis</h3>
+  <p>Trains models on samples of sensitive and non-sensitive content to classify documents probabilistically. Effective for unstructured data (white papers, emails, design docs) where pattern matching fails.</p>
+
+  <h3>File Type Detection</h3>
+  <p>Blocks or alerts on specific file types (CAD, source code, database exports) regardless of content. Coarse but useful as a first-pass filter.</p>
+
+  <h3>Contextual Analysis</h3>
+  <p>Considers the context of data use: who is moving the data, to where, via what application, at what time. A finance employee emailing a spreadsheet at 11pm to a personal Gmail address is contextually suspicious even if the content passes pattern matching.</p>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. DLP Architecture &amp; Operating Modes</h2>
+
+  <h3>Inline Mode (Active / Block Mode)</h3>
+  <p>DLP sits in the data path and can actively <strong>block, quarantine, or encrypt</strong> data before it leaves. Provides enforcement but introduces latency and creates a single point of failure if the DLP appliance fails.</p>
+
+  <h3>Passive / Monitor Mode</h3>
+  <p>DLP receives a copy of traffic (via SPAN port or BCC on email) and generates alerts but cannot block. Used for initial tuning phases and for environments where availability is critical (delay is unacceptable).</p>
+
+  <div class="exam-tip">
+    <div class="callout-title">⭐ Exam Tip — Deployment Sequence</div>
+    Best practice DLP deployment sequence: <strong>Monitor → Alert → Block</strong>. Deploy in monitor mode first to baseline false positives, tune rules, then move to alert mode (log and notify user), then block mode once rules are calibrated. Jumping straight to block mode causes business disruption.
+  </div>
+
+  <h3>DLP Responses</h3>
+  <ul>
+    <li><strong>Block</strong> — prevent the transfer entirely</li>
+    <li><strong>Quarantine</strong> — hold for review before release</li>
+    <li><strong>Encrypt</strong> — allow transfer but enforce encryption</li>
+    <li><strong>Alert</strong> — notify security team and/or user</li>
+    <li><strong>Log</strong> — record for audit trail without user notification</li>
+    <li><strong>Justify</strong> — require user to provide business justification (and log it)</li>
+  </ul>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. DLP Policy Design &amp; False Positives</h2>
+
+  <h3>The False Positive Problem</h3>
+  <p>A DLP rule that triggers on every document containing a 16-digit number will block legitimate purchase order numbers, employee IDs, and product codes in addition to credit card numbers. Managing false positives is the central operational challenge of DLP implementation.</p>
+
+  <h3>Tuning Strategies</h3>
+  <ul>
+    <li><strong>Increase specificity:</strong> Add additional conditions (e.g., 16-digit number + Luhn validation + expiration date pattern nearby)</li>
+    <li><strong>Whitelist trusted pathways:</strong> Finance team emailing to payment processors may be an approved exception</li>
+    <li><strong>Use fingerprinting over regex:</strong> Fingerprinting known sensitive documents has near-zero false positives</li>
+    <li><strong>Scope by classification label:</strong> Only trigger DLP rules on documents labeled Confidential or above — ignores Public content entirely</li>
+  </ul>
+
+  <div class="warning">
+    <div class="callout-title">⚠️ Exam Trap</div>
+    <strong>High false positives erode DLP effectiveness</strong> — users begin ignoring DLP alerts (alert fatigue), seeking workarounds, or escalating to management to disable rules. A DLP system with a 50% false positive rate is worse than no DLP because it desensitizes the SOC. Always tune before moving to block mode.
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. CASB Integration</h2>
+  <div class="definition">
+    <div class="callout-title">📘 Definition</div>
+    A <strong>Cloud Access Security Broker (CASB)</strong> is a security control point between cloud service consumers and cloud providers that enforces security policies including DLP, visibility, threat protection, and compliance for cloud-hosted data and applications (SaaS, IaaS, PaaS).
+  </div>
+  <p>CASB extends DLP into cloud services that traditional network or endpoint DLP cannot reach. CASB can inspect data flowing to/from Salesforce, Office 365, Box, Google Workspace, and AWS S3 — applying the same DLP policies regardless of how users access these services.</p>
+
+  <h3>CASB Deployment Modes</h3>
+  <ul>
+    <li><strong>API mode:</strong> CASB integrates via cloud provider API — excellent for discovering sensitive data already at rest in cloud storage, but does not block real-time uploads</li>
+    <li><strong>Reverse proxy:</strong> Users authenticate through CASB before reaching the cloud app — enables real-time blocking but requires DNS and certificate changes</li>
+    <li><strong>Forward proxy:</strong> All cloud-bound traffic routes through CASB (agent or PAC file) — comprehensive but requires endpoint agent</li>
+  </ul>
+
+  <div class="key-concept">
+    <div class="callout-title">Key Concept — DLP vs. CASB</div>
+    DLP is the <em>policy engine</em>. CASB is a <em>deployment architecture</em> for enforcing DLP (and other policies) specifically for cloud services. CASB alone is not DLP; CASB typically incorporates DLP capabilities or integrates with an existing DLP solution. The exam sometimes uses these interchangeably — recognize CASB as the cloud-specific enforcement point.
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <div class="callout-title">🧠 DLP Three Types — "NEC"</div>
+    <strong>N</strong>etwork DLP → data in transit (at the gateway)<br>
+    <strong>E</strong>ndpoint DLP → data at rest &amp; in use (on the device)<br>
+    <strong>C</strong>loud DLP → data at rest (in SaaS/cloud storage)
+  </div>
+  <div class="mnemonic">
+    <div class="callout-title">🧠 DLP Deployment Sequence — "MAB"</div>
+    <strong>M</strong>onitor → <strong>A</strong>lert → <strong>B</strong>lock<br>
+    Never deploy in block mode before tuning. Always start with Monitor.
+  </div>
+  <div class="mnemonic">
+    <div class="callout-title">🧠 Content Inspection Methods — "RFSCM"</div>
+    <strong>R</strong>egex (pattern matching) → <strong>F</strong>ingerprinting (exact document match) → <strong>S</strong>tatistical/ML → <strong>C</strong>ontext analysis → <strong>M</strong>etadata/file type
+  </div>
+  <div class="mnemonic">
+    <div class="callout-title">🧠 CASB Deployment Modes — "ARF"</div>
+    <strong>A</strong>PI mode (discovery, at-rest) → <strong>R</strong>everse proxy (real-time SaaS blocking) → <strong>F</strong>orward proxy (all cloud traffic)
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>Key Fact</th></tr>
+    <tr><td>DLP purpose</td><td>Prevent unauthorized transmission/storage of sensitive data based on content</td></tr>
+    <tr><td>Network DLP</td><td>Inline at gateway; inspects data in transit; requires SSL inspection for HTTPS</td></tr>
+    <tr><td>Endpoint DLP</td><td>Agent on device; blocks USB/print/browser; works off-network</td></tr>
+    <tr><td>Cloud DLP</td><td>API-based; discovers sensitive data at rest in SaaS/IaaS</td></tr>
+    <tr><td>Deployment sequence</td><td>Monitor → Alert → Block (tune before blocking)</td></tr>
+    <tr><td>Fingerprinting</td><td>Best for known documents; lowest false positive rate</td></tr>
+    <tr><td>Regex</td><td>Best for structured PII (SSN, PAN); prone to false positives</td></tr>
+    <tr><td>CASB role</td><td>Enforces DLP (and other policies) for cloud-based services; three modes: API, forward proxy, reverse proxy</td></tr>
+    <tr><td>False positive problem</td><td>Over-sensitive rules cause alert fatigue and user workarounds; tune before enforcing</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-030-theory.html">← Day 30: Data Remanence</a>
+  <a href="day-031-mcq.html">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

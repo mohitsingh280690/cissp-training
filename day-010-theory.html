@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 10 – Quantitative Risk Analysis</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+.formula{background:#e8eaf6;border:2px solid var(--primary);border-radius:8px;padding:16px 20px;margin:16px 0;font-family:'Courier New',monospace;font-size:1.05rem;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 10: Quantitative Risk Analysis</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 10 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate (math-heavy)</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 10: Quantitative Risk Analysis</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Quantitative vs. Qualitative: An Overview</a></li>
+    <li><a href="#s4">Core Quantitative Formulas</a></li>
+    <li><a href="#s5">Worked Example 1 — Basic ALE Calculation</a></li>
+    <li><a href="#s6">Worked Example 2 — Cost-Benefit Analysis</a></li>
+    <li><a href="#s7">Return on Security Investment (ROSI)</a></li>
+    <li><a href="#s8">Formula Reference Card</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>The ALE/SLE/ARO formula set is THE most commonly tested calculation in Domain 1. You must be able to calculate all values in any order — given any two, calculate the third. Cost-benefit analysis is tested conceptually and sometimes with numbers.</td></tr>
+    <tr><td>Question Styles</td><td>Direct calculation; "which control is worth implementing?"; CBA scenario; interpreting results to advise management</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (qualitative analysis — comparison with Day 11), D9 (risk response — using ALE to justify controls)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Critical Exam Fact:</strong> You MUST memorise: <strong>SLE = AV × EF</strong> and <strong>ALE = SLE × ARO</strong>. These two formulas and their components are tested heavily. The exam will give you values and ask you to calculate SLE, ALE, residual ALE, or determine whether a control is worth purchasing.
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Quantitative risk analysis translates security risk into the language executives and boards speak: <strong>dollars</strong>. When a CISO says "we need to spend $200K on a new firewall," the CFO wants to know: what is the expected annual loss we're preventing? Is the $200K justified?</p>
+  <p>Quantitative analysis enables:</p>
+  <ul>
+    <li>Prioritisation of security investments based on financial impact</li>
+    <li>Communication of risk to non-technical stakeholders</li>
+    <li>Objective comparison of control costs vs. risk reduction</li>
+    <li>Insurance decisions (how much cyber insurance to purchase)</li>
+    <li>Regulatory justification for control expenditures</li>
+  </ul>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Quantitative vs. Qualitative: An Overview</h2>
+  <table>
+    <tr><th>Attribute</th><th>Quantitative</th><th>Qualitative</th></tr>
+    <tr><td>Output</td><td>Dollar figures, percentages, probabilities</td><td>Ratings: High/Medium/Low; 1–5 scales; colour matrices</td></tr>
+    <tr><td>Data needed</td><td>Precise asset values, loss estimates, historical data</td><td>Expert judgment; surveys; interviews</td></tr>
+    <tr><td>Objectivity</td><td>More objective — based on measurable quantities</td><td>More subjective — based on expert opinion</td></tr>
+    <tr><td>Time/Cost</td><td>More time-consuming and expensive</td><td>Faster, less resource-intensive</td></tr>
+    <tr><td>Precision</td><td>Higher — specific dollar risks calculated</td><td>Lower — approximate risk ranking</td></tr>
+    <tr><td>Communication</td><td>Board/CFO language (dollars)</td><td>Operational teams (colour charts, rank ordering)</td></tr>
+    <tr><td>When to Use</td><td>When precise data is available; for major investment decisions</td><td>When starting a new area; limited data; quick assessment needed</td></tr>
+    <tr><td>Examples</td><td>ALE calculations, insurance decisions, FAIR analysis</td><td>Risk matrices, Delphi technique, OCTAVE</td></tr>
+  </table>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Core Quantitative Formulas</h2>
+
+  <h3>Asset Value (AV)</h3>
+  <div class="definition">
+    <strong>Asset Value (AV):</strong> The monetary value of the asset being analysed. May include replacement cost, revenue it generates, data sensitivity value, and cost of loss-of-use.
+  </div>
+
+  <h3>Exposure Factor (EF)</h3>
+  <div class="definition">
+    <strong>Exposure Factor (EF):</strong> The percentage (0–100%) of the asset's value that would be lost in a single threat occurrence. If a fire would destroy 75% of a data centre, EF = 0.75 (or 75%).
+  </div>
+
+  <h3>Single Loss Expectancy (SLE)</h3>
+  <div class="formula">SLE = AV × EF</div>
+  <p>SLE represents the expected dollar loss <em>each time</em> a specific threat occurs once. It is the severity of a single event.</p>
+
+  <h3>Annualised Rate of Occurrence (ARO)</h3>
+  <div class="definition">
+    <strong>ARO:</strong> The estimated frequency with which a threat is expected to occur per year. ARO = 1 means once per year; ARO = 0.1 means once every 10 years; ARO = 10 means 10 times per year.
+  </div>
+
+  <h3>Annualised Loss Expectancy (ALE)</h3>
+  <div class="formula">ALE = SLE × ARO</div>
+  <p>ALE represents the expected annual dollar loss from a specific threat. This is the primary number used to justify security spending. A control is financially justified if it costs less than the ALE reduction it produces.</p>
+
+  <div class="mnemonic">
+    <strong>🧠 The Quantitative Chain — memorise left to right:</strong><br>
+    <strong>AV × EF = SLE</strong><br>
+    <strong>SLE × ARO = ALE</strong><br>
+    Full chain: AV → (×EF) → SLE → (×ARO) → ALE<br>
+    Memory hook: <em>"Assets Exposed Suffer Losses Annually"</em><br>
+    AV × EF = SLE | SLE × ARO = ALE
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Worked Example 1 — Basic ALE Calculation</h2>
+
+  <h3>Scenario</h3>
+  <p>A company has a database server worth $400,000. Security analysts estimate that a ransomware attack would destroy or encrypt 50% of its data and operations. Historical industry data suggests ransomware attacks of this type occur approximately 3 times per year across similar organisations in their sector.</p>
+
+  <h3>Step-by-Step Calculation</h3>
+  <table>
+    <tr><th>Variable</th><th>Value</th><th>Explanation</th></tr>
+    <tr><td>AV (Asset Value)</td><td>$400,000</td><td>Full value of the database server and its data</td></tr>
+    <tr><td>EF (Exposure Factor)</td><td>0.50 (50%)</td><td>Ransomware would destroy/encrypt 50% of value</td></tr>
+    <tr><td>SLE = AV × EF</td><td>$400,000 × 0.50 = <strong>$200,000</strong></td><td>Expected loss per ransomware incident</td></tr>
+    <tr><td>ARO</td><td>3 (per year)</td><td>Expected to happen 3 times per year</td></tr>
+    <tr><td>ALE = SLE × ARO</td><td>$200,000 × 3 = <strong>$600,000</strong></td><td>Expected annual ransomware loss</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Interpretation:</strong> The organisation should expect to lose approximately $600,000 per year to ransomware events on this asset if no additional controls are implemented.
+  </div>
+
+  <h3>Reverse Calculations (Exam Common)</h3>
+  <p>The exam may give you any two values and ask you to calculate the third:</p>
+  <ul>
+    <li>Given SLE and ARO → <strong>ALE = SLE × ARO</strong></li>
+    <li>Given ALE and ARO → <strong>SLE = ALE ÷ ARO</strong></li>
+    <li>Given ALE and SLE → <strong>ARO = ALE ÷ SLE</strong></li>
+    <li>Given AV and EF → <strong>SLE = AV × EF</strong></li>
+    <li>Given SLE and AV → <strong>EF = SLE ÷ AV</strong></li>
+  </ul>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Worked Example 2 — Cost-Benefit Analysis</h2>
+
+  <h3>Scenario (continued from above)</h3>
+  <p>A vendor offers a backup and ransomware protection solution for $150,000 per year. The vendor claims it will reduce the ransomware exposure factor from 50% to 10% (the remaining 10% represents cases where the backup fails or recovery takes time).</p>
+
+  <h3>CBA Calculation</h3>
+  <table>
+    <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+    <tr><td>Original ALE (before control)</td><td>$200,000 × 3 = ALE before</td><td>$600,000/year</td></tr>
+    <tr><td>New SLE after control</td><td>AV × New EF = $400,000 × 0.10</td><td>$40,000</td></tr>
+    <tr><td>New ALE (after control)</td><td>$40,000 × 3</td><td>$120,000/year</td></tr>
+    <tr><td>ALE Reduction (value of control)</td><td>$600,000 – $120,000</td><td>$480,000/year saved</td></tr>
+    <tr><td>Annual Cost of Control</td><td>(given)</td><td>$150,000/year</td></tr>
+    <tr><td>Net Benefit</td><td>$480,000 – $150,000</td><td><strong>$330,000/year net benefit</strong></td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Decision:</strong> The control should be implemented. It saves $480,000/year in expected losses and costs only $150,000/year — a net benefit of $330,000/year. The return on investment is positive and clear.
+  </div>
+
+  <h3>CBA Formula</h3>
+  <div class="formula">
+    Value of Control = ALE(before) – ALE(after) – Annual Cost of Control<br>
+    If result is positive → control is financially justified<br>
+    If result is negative or zero → control may not be financially justified
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ CBA Doesn't Tell the Whole Story:</strong><br>
+    Some controls are required by law or regulation regardless of CBA. A negative CBA doesn't mean "skip the control" if compliance demands it. CBA is a financial tool, not the final word on whether to implement a control.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Return on Security Investment (ROSI)</h2>
+  <div class="definition">
+    <strong>ROSI (Return on Security Investment):</strong> A metric that expresses the financial return from investing in a security control, analogous to ROI in general business.
+  </div>
+  <div class="formula">
+    ROSI = (ALE Reduction – Cost of Control) / Cost of Control × 100%<br>
+    Or: ROSI = (Risk Mitigated – Control Cost) / Control Cost
+  </div>
+
+  <h3>ROSI Worked Example</h3>
+  <p>Using the previous scenario:</p>
+  <ul>
+    <li>ALE Reduction = $480,000/year</li>
+    <li>Control Cost = $150,000/year</li>
+    <li>ROSI = ($480,000 – $150,000) / $150,000 = $330,000 / $150,000 = <strong>2.2 or 220% ROSI</strong></li>
+  </ul>
+  <p>A ROSI of 220% means for every dollar spent on this control, the organisation gets $2.20 in value (savings). Strong positive ROSI indicates a good security investment.</p>
+
+  <div class="exam-tip">
+    <strong>💡 Limitation of Quantitative Methods:</strong> Quantitative analysis is only as good as its inputs. AV, EF, and ARO estimates are often based on limited historical data or industry averages, which may not accurately reflect a specific organisation's risk profile. This is why qualitative methods remain valuable — they capture expert judgment that numbers may miss.
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Formula Reference Card</h2>
+  <table>
+    <tr><th>Formula</th><th>Components</th><th>Meaning</th></tr>
+    <tr><td><strong>SLE = AV × EF</strong></td><td>AV = Asset Value; EF = Exposure Factor (0–1)</td><td>Dollar loss per single threat occurrence</td></tr>
+    <tr><td><strong>ALE = SLE × ARO</strong></td><td>SLE = Single Loss Expectancy; ARO = Annual Rate of Occurrence</td><td>Expected dollar loss per year from this threat</td></tr>
+    <tr><td><strong>ALE(before) – ALE(after) = ALE Reduction</strong></td><td>Before = without control; After = with control</td><td>Dollar value provided by a control per year</td></tr>
+    <tr><td><strong>CBA = ALE Reduction – Annual Control Cost</strong></td><td>Positive = financially justified</td><td>Net financial benefit of a control</td></tr>
+    <tr><td><strong>ROSI = (ALE Reduction – Control Cost) / Control Cost</strong></td><td>Express as % to compare investments</td><td>Percentage return on security investment</td></tr>
+  </table>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 The ALE Formula Chain — The Most Important CISSP Formulas:</strong><br>
+    Step 1: <strong>AV × EF = SLE</strong> (how bad is one hit?)<br>
+    Step 2: <strong>SLE × ARO = ALE</strong> (how often does it happen × how bad = yearly cost)<br>
+    <br>
+    Think of it as: <em>Asset × Exposure → Single Loss → × Annual Rate → Annual Loss</em><br>
+    Memory hook: <em>"Avoid Every Single Awful Risk Always" → AV × EF = SLE × ARO = ALE</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 CBA Decision Rule:</strong><br>
+    ALE(before) – ALE(after) = Annual Value of Control<br>
+    If Annual Value > Cost of Control → <strong>BUY THE CONTROL</strong><br>
+    If Annual Value &lt; Cost of Control → <strong>QUESTION the investment</strong> (unless legally required)<br>
+    Memory hook: <em>"Does the control SAVE more than it COSTS?"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 ARO Values to Know:</strong><br>
+    ARO = 1 → once per year<br>
+    ARO = 0.5 → once every 2 years<br>
+    ARO = 0.1 → once every 10 years<br>
+    ARO = 10 → 10 times per year<br>
+    ARO is always times/year — not a probability percentage!
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ EF is a Decimal, Not a Whole Number:</strong><br>
+    EF = 50% should be entered as 0.50 in calculations, not as 50.<br>
+    SLE = $400,000 × 0.50 = $200,000 ✓<br>
+    SLE = $400,000 × 50 = $20,000,000 ✗ (wrong — 50× not 50%)<br>
+    Always convert percentages to decimals before multiplying!
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ ALE Is Annualised, Not Per-Event:</strong><br>
+    ALE is what you expect to LOSE PER YEAR on average. It's not what you'll lose in any single year — some years may see no events, others may see multiple. ALE is an actuarial average used for budget planning and control justification.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>AV</td><td>Asset Value — dollar value of the asset</td></tr>
+    <tr><td>EF</td><td>Exposure Factor — % of AV lost per event (use as decimal: 50% = 0.50)</td></tr>
+    <tr><td>SLE</td><td>Single Loss Expectancy = AV × EF — expected loss from one event</td></tr>
+    <tr><td>ARO</td><td>Annualised Rate of Occurrence — expected frequency per year</td></tr>
+    <tr><td>ALE</td><td>Annualised Loss Expectancy = SLE × ARO — expected annual loss</td></tr>
+    <tr><td>CBA</td><td>ALE(before) – ALE(after) – Control Cost &gt; 0 → control is financially justified</td></tr>
+    <tr><td>ROSI</td><td>(ALE Reduction – Control Cost) / Control Cost — % return on security investment</td></tr>
+    <tr><td>Quantitative advantage</td><td>Produces dollar figures enabling direct comparison with control costs</td></tr>
+    <tr><td>Quantitative limitation</td><td>Only as accurate as the input estimates (AV, EF, ARO must be credible)</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-009-theory.html" class="nav-btn">← Day 9: Risk Management Concepts</a>
+  <a href="day-011-theory.html" class="nav-btn">Day 11: Qualitative Risk Analysis →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 20 – Domain 1 Review – 20-Question MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:36px 0;text-align:center;}
+.header h1{font-size:1.9rem;margin-bottom:6px;}
+.header .subtitle{opacity:.9;}
+.container{max-width:860px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 6px 6px 0;margin-bottom:28px;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:26px;margin-bottom:20px;transition:border-color .3s;}
+.question-card.correct{border-color:var(--green);background:#f1f8e9;}
+.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-card h3{font-size:1rem;color:var(--primary);margin-bottom:16px;font-weight:600;}
+.option label{display:block;padding:10px 14px;margin:6px 0;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:background .2s;}
+.option label:hover{background:#f0f0f0;}
+.option input{margin-right:10px;}
+.correct-answer label{background:#e8f5e9 !important;border-color:var(--green) !important;font-weight:600;}
+.wrong-answer label{background:#fce4ec !important;border-color:var(--red) !important;}
+.explanation{display:none;margin-top:14px;padding:12px 16px;border-radius:6px;font-size:.95rem;}
+.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);}
+.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);}
+#submitBtn{display:block;width:100%;padding:16px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;margin:24px 0;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:8px;padding:28px;text-align:center;margin:20px 0;}
+.score-display{font-size:3rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 20 – Domain 1 Comprehensive Review</h1>
+  <div class="subtitle">20-Question MCQ – Domain 1: Security and Risk Management</div>
+</div>
+<div class="container">
+  <div class="instructions">
+    <strong>📋 Instructions:</strong> 20 CISSP-style questions covering all of Domain 1. Select one answer per question. Click <em>Submit All Answers</em> to see your score and explanations. Pass mark: <strong>14/20 (70%)</strong>.
+  </div>
+
+  <form id="quizForm">
+    <!-- Q1 -->
+    <div class="question-card" id="q1-card">
+      <h3>Question 1: A server has an AV of $200,000, an EF of 50%, and the threat occurs 0.25 times per year. What is the ALE?</h3>
+      <div class="option"><label><input type="radio" name="q1" value="a"> A. $25,000</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="b"> B. $50,000</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="c"> C. $100,000</label></div>
+      <div class="option"><label><input type="radio" name="q1" value="d"> D. $10,000</label></div>
+      <div class="explanation" id="q1-exp">✅ <strong>Correct: A.</strong> SLE = AV × EF = $200,000 × 0.50 = $100,000. ALE = SLE × ARO = $100,000 × 0.25 = $25,000 per year.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="q2-card">
+      <h3>Question 2: An organisation's MTD for a critical application is 24 hours. Its RTO is set at 18 hours. What is the MAXIMUM allowable WRT?</h3>
+      <div class="option"><label><input type="radio" name="q2" value="a"> A. 18 hours</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="b"> B. 42 hours</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="c"> C. 6 hours</label></div>
+      <div class="option"><label><input type="radio" name="q2" value="d"> D. 24 hours</label></div>
+      <div class="explanation" id="q2-exp">✅ <strong>Correct: C.</strong> RTO + WRT ≤ MTD. WRT ≤ MTD − RTO = 24 − 18 = 6 hours. The WRT cannot exceed 6 hours without violating the MTD constraint.</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="q3-card">
+      <h3>Question 3: Which security model focuses on INTEGRITY and uses the principles "no write up, no read down"?</h3>
+      <div class="option"><label><input type="radio" name="q3" value="a"> A. Bell-LaPadula</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="b"> B. Biba Integrity Model</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="c"> C. Clark-Wilson</label></div>
+      <div class="option"><label><input type="radio" name="q3" value="d"> D. Brewer-Nash (Chinese Wall)</label></div>
+      <div class="explanation" id="q3-exp">✅ <strong>Correct: B.</strong> The Biba model protects integrity: subjects cannot write to higher-integrity objects (no write up) and cannot read from lower-integrity objects (no read down). Bell-LaPadula protects confidentiality (no read up, no write down). Clark-Wilson uses transaction controls for integrity. Brewer-Nash addresses conflict of interest.</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="q4-card">
+      <h3>Question 4: Management decides to accept risk after reviewing risk assessment results. What documentation requirement MUST accompany this decision?</h3>
+      <div class="option"><label><input type="radio" name="q4" value="a"> A. A detailed technical remediation plan</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="b"> B. A formal written acknowledgment by management accepting the risk</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="c"> C. Board of Directors approval in all cases</label></div>
+      <div class="option"><label><input type="radio" name="q4" value="d"> D. External auditor sign-off</label></div>
+      <div class="explanation" id="q4-exp">✅ <strong>Correct: B.</strong> Risk acceptance must be formally documented and signed off by management. This distinguishes "accepting" risk (conscious, documented decision) from "ignoring" risk (no decision, no documentation). The documentation demonstrates due care — management acknowledged the risk and consciously chose to bear it.</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="q5-card">
+      <h3>Question 5: A system has an MTBF of 900 hours and an MTTR of 100 hours. What is its availability?</h3>
+      <div class="option"><label><input type="radio" name="q5" value="a"> A. 90%</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="b"> B. 80%</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="c"> C. 95%</label></div>
+      <div class="option"><label><input type="radio" name="q5" value="d"> D. 99%</label></div>
+      <div class="explanation" id="q5-exp">✅ <strong>Correct: A.</strong> Availability = MTBF ÷ (MTBF + MTTR) = 900 ÷ (900 + 100) = 900 ÷ 1000 = 0.90 = 90%.</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="q6-card">
+      <h3>Question 6: Which of the following represents the policy hierarchy in DESCENDING order of authority (highest to lowest)?</h3>
+      <div class="option"><label><input type="radio" name="q6" value="a"> A. Procedures → Standards → Guidelines → Policies</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="b"> B. Policies → Standards → Guidelines → Procedures</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="c"> C. Policies → Guidelines → Standards → Procedures</label></div>
+      <div class="option"><label><input type="radio" name="q6" value="d"> D. Standards → Policies → Procedures → Guidelines</label></div>
+      <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> The hierarchy from highest authority/broadest to lowest/most specific: Policy (management intent) → Standards (mandatory requirements) → Guidelines (recommended practices, optional) → Procedures (step-by-step instructions). Standards are mandatory; guidelines are not — this is a frequent exam distinction.</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card" id="q7-card">
+      <h3>Question 7: An organisation wants to transfer risk for cyber incidents. Which action BEST achieves this?</h3>
+      <div class="option"><label><input type="radio" name="q7" value="a"> A. Implement multi-factor authentication</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="b"> B. Discontinue the vulnerable business process</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="c"> C. Purchase a cyber liability insurance policy</label></div>
+      <div class="option"><label><input type="radio" name="q7" value="d"> D. Accept residual risk and document management approval</label></div>
+      <div class="explanation" id="q7-exp">✅ <strong>Correct: C.</strong> Risk transfer shifts the financial consequences of a risk to a third party (usually an insurance company). Cyber liability insurance is the primary mechanism for risk transfer in cybersecurity. MFA (A) is risk mitigation (reducing probability). Discontinuing the process (B) is risk avoidance. Document acceptance (D) is risk acceptance.</div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card" id="q8-card">
+      <h3>Question 8: What is the PRIMARY difference between due care and due diligence?</h3>
+      <div class="option"><label><input type="radio" name="q8" value="a"> A. Due care applies to management; due diligence applies to IT staff</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="b"> B. Due care is researching what needs to be done; due diligence is doing it</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="c"> C. Due care is doing what a prudent person would do; due diligence is researching and monitoring continuously</label></div>
+      <div class="option"><label><input type="radio" name="q8" value="d"> D. There is no difference; they are legally interchangeable terms</label></div>
+      <div class="explanation" id="q8-exp">✅ <strong>Correct: C.</strong> Due care means taking reasonable, appropriate actions to protect assets — the doing. Due diligence means continuously researching, investigating, and monitoring to understand what those actions should be — the knowing. Option B reverses the definitions. They are NOT interchangeable and appear on the exam as a classic distinction test.</div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="q9-card">
+      <h3>Question 9: A business continuity plan test involves shutting down production systems and fully activating the disaster recovery site. This is BEST described as:</h3>
+      <div class="option"><label><input type="radio" name="q9" value="a"> A. Parallel test</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="b"> B. Tabletop exercise</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="c"> C. Full interruption test</label></div>
+      <div class="option"><label><input type="radio" name="q9" value="d"> D. Simulation</label></div>
+      <div class="explanation" id="q9-exp">✅ <strong>Correct: C.</strong> Full interruption test (also called full-scale test) is the most disruptive but most realistic BCP test — production is shut down and the recovery site must handle real operations. A parallel test activates the recovery site WHILE production stays up. A tabletop exercise is a discussion only. A simulation involves some system participation but not full failover.</div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="q10-card">
+      <h3>Question 10: Under GDPR, an organisation must report a qualifying personal data breach to the supervisory authority within:</h3>
+      <div class="option"><label><input type="radio" name="q10" value="a"> A. 24 hours of discovery</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="b"> B. 72 hours of becoming aware</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="c"> C. 30 days of discovery</label></div>
+      <div class="option"><label><input type="radio" name="q10" value="d"> D. 7 business days of the incident date</label></div>
+      <div class="explanation" id="q10-exp">✅ <strong>Correct: B.</strong> GDPR Article 33 requires notification to the supervisory authority within 72 hours of becoming aware of a qualifying personal data breach. If notification cannot be made within 72 hours, the reasons for the delay must be reported. Data subjects must also be notified "without undue delay" when the breach is likely to result in high risk to their rights and freedoms.</div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question-card" id="q11-card">
+      <h3>Question 11: Which IP protection mechanism BEST protects a company's customer database schema and proprietary algorithms that have never been publicly disclosed?</h3>
+      <div class="option"><label><input type="radio" name="q11" value="a"> A. Patent</label></div>
+      <div class="option"><label><input type="radio" name="q11" value="b"> B. Copyright</label></div>
+      <div class="option"><label><input type="radio" name="q11" value="c"> C. Trademark</label></div>
+      <div class="option"><label><input type="radio" name="q11" value="d"> D. Trade secret</label></div>
+      <div class="explanation" id="q11-exp">✅ <strong>Correct: D.</strong> Trade secrets protect confidential business information that derives value from not being publicly known and is subject to reasonable secrecy precautions. There is no registration requirement — protection depends on maintaining secrecy. Patents require public disclosure. Copyright protects expression, not underlying methods. Trademarks protect brand identity.</div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question-card" id="q12-card">
+      <h3>Question 12: Which framework uses the Identify, Protect, Detect, Respond, Recover lifecycle and is widely used as a voluntary cybersecurity framework by US and international organisations?</h3>
+      <div class="option"><label><input type="radio" name="q12" value="a"> A. ISO/IEC 27001</label></div>
+      <div class="option"><label><input type="radio" name="q12" value="b"> B. COBIT 2019</label></div>
+      <div class="option"><label><input type="radio" name="q12" value="c"> C. NIST Cybersecurity Framework (CSF)</label></div>
+      <div class="option"><label><input type="radio" name="q12" value="d"> D. SABSA</label></div>
+      <div class="explanation" id="q12-exp">✅ <strong>Correct: C.</strong> The NIST CSF uses five functions: Identify, Protect, Detect, Respond, Recover. It is voluntary, risk-based, and widely adopted. ISO 27001 uses Plan-Do-Check-Act and is certifiable. COBIT focuses on IT governance (goals, enablers). SABSA is a security architecture framework.</div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question-card" id="q13-card">
+      <h3>Question 13: A security policy states: "All remote access connections must use VPN with AES-256 encryption." This document is BEST classified as:</h3>
+      <div class="option"><label><input type="radio" name="q13" value="a"> A. Policy</label></div>
+      <div class="option"><label><input type="radio" name="q13" value="b"> B. Guideline</label></div>
+      <div class="option"><label><input type="radio" name="q13" value="c"> C. Standard</label></div>
+      <div class="option"><label><input type="radio" name="q13" value="d"> D. Procedure</label></div>
+      <div class="explanation" id="q13-exp">✅ <strong>Correct: C.</strong> A standard is a mandatory, specific, measurable requirement — "MUST use VPN with AES-256" defines a required specification. A policy would say something like "Remote access shall be secured appropriately" (what, not how specifically). A guideline would say "Consider using VPN with strong encryption" (recommended, not required). A procedure would provide step-by-step instructions on how to set up the VPN.</div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="question-card" id="q14-card">
+      <h3>Question 14: A warm site recovery option was selected for a business continuity plan. A disaster occurs. Which statement BEST describes the warm site's readiness?</h3>
+      <div class="option"><label><input type="radio" name="q14" value="a"> A. The site is immediately operational with live mirrored data</label></div>
+      <div class="option"><label><input type="radio" name="q14" value="b"> B. Hardware is pre-staged but data must be restored from backup tapes, taking 1–7 days</label></div>
+      <div class="option"><label><input type="radio" name="q14" value="c"> C. The site has only power and connectivity; all hardware must be sourced and installed</label></div>
+      <div class="option"><label><input type="radio" name="q14" value="d"> D. The site operates in parallel with production continuously</label></div>
+      <div class="explanation" id="q14-exp">✅ <strong>Correct: B.</strong> A warm site has hardware pre-staged and configured but requires restoration of data from backup media before it is fully operational — typically taking 1–7 days. A hot site (A) has live mirrored data and can fail over in hours. A cold site (C) is just a facility with power; no pre-staged equipment. Parallel operation (D) would describe a redundant active-active architecture, not a standard recovery site type.</div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="question-card" id="q15-card">
+      <h3>Question 15: Which type of security policy MUST be complied with based on regulatory or legal requirements and carries legal penalties for non-compliance?</h3>
+      <div class="option"><label><input type="radio" name="q15" value="a"> A. Informative policy</label></div>
+      <div class="option"><label><input type="radio" name="q15" value="b"> B. Advisory policy</label></div>
+      <div class="option"><label><input type="radio" name="q15" value="c"> C. Regulatory policy</label></div>
+      <div class="option"><label><input type="radio" name="q15" value="d"> D. Issue-specific policy</label></div>
+      <div class="explanation" id="q15-exp">✅ <strong>Correct: C.</strong> A regulatory policy is required to comply with applicable laws and regulations (HIPAA, PCI-DSS, GDPR, SOX). Non-compliance carries regulatory penalties, fines, or legal liability. Advisory policies strongly recommend behaviour but have no external legal mandate. Informative policies provide information and education. Issue-specific policies address specific security topics within an organisation.</div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="question-card" id="q16-card">
+      <h3>Question 16: The ISC² Code of Ethics canon that takes precedence over all others in case of conflict is:</h3>
+      <div class="option"><label><input type="radio" name="q16" value="a"> A. Provide diligent and competent service to principals</label></div>
+      <div class="option"><label><input type="radio" name="q16" value="b"> B. Protect society, the common good, necessary public infrastructure, and the global information infrastructure</label></div>
+      <div class="option"><label><input type="radio" name="q16" value="c"> C. Act honourably, honestly, justly, responsibly, and legally</label></div>
+      <div class="option"><label><input type="radio" name="q16" value="d"> D. Advance and protect the profession</label></div>
+      <div class="explanation" id="q16-exp">✅ <strong>Correct: B.</strong> The ISC² Code of Ethics has four canons in priority order. Canon 1 — "Protect society, the common good, necessary public infrastructure, and the global information infrastructure" — takes precedence when canons conflict. This means CISSP holders have an obligation to society above even client obligations in crisis situations. The exam occasionally asks about this ordering.</div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="question-card" id="q17-card">
+      <h3>Question 17: An organisation discovers a software vendor it relies on has not patched a critical CVE in their product for six months. Which risk management concept BEST describes this situation?</h3>
+      <div class="option"><label><input type="radio" name="q17" value="a"> A. Inherent risk</label></div>
+      <div class="option"><label><input type="radio" name="q17" value="b"> B. Supply chain risk</label></div>
+      <div class="option"><label><input type="radio" name="q17" value="c"> C. Residual risk</label></div>
+      <div class="option"><label><input type="radio" name="q17" value="d"> D. Risk transference</label></div>
+      <div class="explanation" id="q17-exp">✅ <strong>Correct: B.</strong> Supply chain risk arises from dependencies on external vendors and third parties. An organisation's security posture is only as strong as its supply chain. A vendor's failure to patch a known vulnerability creates risk in all organisations that depend on that product — this is a supply chain risk management issue. SCRM (Supply Chain Risk Management) includes vendor assessment, contractual security requirements, and ongoing vendor monitoring.</div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="question-card" id="q18-card">
+      <h3>Question 18: Which personnel control BEST addresses the risk of a single administrator having unchecked ability to both create and approve changes to production systems?</h3>
+      <div class="option"><label><input type="radio" name="q18" value="a"> A. Mandatory vacation</label></div>
+      <div class="option"><label><input type="radio" name="q18" value="b"> B. Background screening</label></div>
+      <div class="option"><label><input type="radio" name="q18" value="c"> C. Separation of Duties</label></div>
+      <div class="option"><label><input type="radio" name="q18" value="d"> D. Least privilege</label></div>
+      <div class="explanation" id="q18-exp">✅ <strong>Correct: C.</strong> Separation of Duties prevents a single person from having end-to-end control of a sensitive process. The administrator should be able to create changes OR approve them — not both. This is a classic SoD control in change management and matches the "two-person integrity" principle. Least privilege limits what they can access, but SoD addresses the more specific risk of unchecked single-person authority over a complete process.</div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="question-card" id="q19-card">
+      <h3>Question 19: A security awareness programme's phishing simulation shows a 40% click rate in January, 20% in April, and 9% in October. What can be concluded about this data?</h3>
+      <div class="option"><label><input type="radio" name="q19" value="a"> A. The programme is failing since 9% of staff still click phishing links</label></div>
+      <div class="option"><label><input type="radio" name="q19" value="b"> B. The programme is demonstrating measurable behavioural improvement over time</label></div>
+      <div class="option"><label><input type="radio" name="q19" value="c"> C. The data proves the organisation is now secure from phishing attacks</label></div>
+      <div class="option"><label><input type="radio" name="q19" value="d"> D. The simulation should be stopped as it is causing unnecessary employee stress</label></div>
+      <div class="explanation" id="q19-exp">✅ <strong>Correct: B.</strong> A declining click rate from 40% to 9% over three measurement periods demonstrates clear, measurable behavioural improvement — this is exactly what a successful security awareness programme should show. No programme achieves 0% (humans remain fallible), so 9% at year-end is a significant success. The data trend is valuable for demonstrating ROI to management and continuing programme funding.</div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="question-card" id="q20-card">
+      <h3>Question 20: Which of the following BEST describes the relationship between risk appetite and risk tolerance?</h3>
+      <div class="option"><label><input type="radio" name="q20" value="a"> A. Risk appetite is operational; risk tolerance is strategic</label></div>
+      <div class="option"><label><input type="radio" name="q20" value="b"> B. Risk appetite is the strategic level of risk an organisation is willing to accept; risk tolerance is the acceptable variation around that appetite</label></div>
+      <div class="option"><label><input type="radio" name="q20" value="c"> C. They are equivalent terms describing the same concept</label></div>
+      <div class="option"><label><input type="radio" name="q20" value="d"> D. Risk tolerance is always higher than risk appetite in well-governed organisations</label></div>
+      <div class="explanation" id="q20-exp">✅ <strong>Correct: B.</strong> Risk appetite is the broad, strategic declaration of how much risk the organisation is willing to accept in pursuit of its objectives — set at the board/executive level. Risk tolerance is the acceptable deviation around that appetite — the practical operational boundaries within which the organisation can function without escalation. Example: risk appetite = "low risk in data handling"; risk tolerance = "no more than 0.1% of customer records exposed per quarter."</div>
+    </div>
+
+    <button type="button" id="submitBtn">Submit All Answers</button>
+  </form>
+
+  <div class="results" id="results">
+    <h2>Your Results</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <p id="scoreMessage" style="font-size:1.2rem;margin:10px 0;font-weight:600;"></p>
+    <p id="scoreBreakdown" style="color:var(--text-light);"></p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="day-020-theory.html" class="nav-btn">← Review Theory</a>
+    <a href="day-021-theory.html" class="nav-btn">Day 21: Domain 2 Begins →</a>
+  </div>
+</div>
+
+<script>
+const answers={q1:'a',q2:'c',q3:'b',q4:'b',q5:'a',q6:'b',q7:'c',q8:'c',q9:'c',q10:'b',q11:'d',q12:'c',q13:'c',q14:'b',q15:'c',q16:'b',q17:'b',q18:'c',q19:'b',q20:'b'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=20;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/20*100);const pass=score>=14;
+  document.getElementById('scoreDisplay').textContent=`${score}/20`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Excellent Domain 1 mastery!':'❌ Below passing threshold — Review weak areas in the theory pages and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 20 (${pct}%) — Pass threshold: 14/20`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>

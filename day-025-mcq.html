@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 25 MCQ – Data Handling Requirements</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:30px;text-align:center;}
+.header h1{font-size:1.8rem;margin-bottom:6px;}
+.container{max-width:800px;margin:0 auto;padding:30px 20px;}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-text{font-size:1rem;font-weight:600;margin-bottom:16px;line-height:1.6;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border:2px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s;}
+.option:hover{background:#f3e5f5;border-color:#9c27b0;}
+.option input{margin-top:3px;accent-color:#7b1fa2;}
+.option label{cursor:pointer;line-height:1.5;}
+.btn-check{margin-top:14px;padding:10px 28px;background:#7b1fa2;color:white;border:none;border-radius:6px;cursor:pointer;font-size:.95rem;font-weight:600;}
+.btn-check:hover{background:#4a148c;}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:6px;font-weight:500;display:none;}
+.correct{background:#e8f5e9;color:var(--green);border-left:4px solid var(--green);}
+.incorrect{background:#fce4ec;color:var(--red);border-left:4px solid var(--red);}
+.score-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;text-align:center;margin-top:20px;display:none;}
+.score-num{font-size:3rem;font-weight:700;color:#7b1fa2;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;flex-wrap:wrap;gap:10px;}
+.nav-btn{padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 25 Quiz – Data Handling Requirements</h1>
+  <div>Domain 2 – Asset Security | 10 Questions | Pass: 7/10</div>
+</div>
+<div class="container">
+
+<div class="question-card" id="q1">
+  <div class="question-text">1. An employee finds a printed document with no classification label on it. What is the PRIMARY risk created by the absence of a classification marking?</div>
+  <div class="option"><input type="radio" name="q1" value="a"><label><strong>A.</strong> The document likely has no sensitive content</label></div>
+  <div class="option"><input type="radio" name="q1" value="b"><label><strong>B.</strong> Handlers cannot determine the appropriate protection level required</label></div>
+  <div class="option"><input type="radio" name="q1" value="c"><label><strong>C.</strong> The document must be immediately destroyed</label></div>
+  <div class="option"><input type="radio" name="q1" value="d"><label><strong>D.</strong> The document defaults to Top Secret classification</label></div>
+  <button class="btn-check" onclick="check('q1','b')">Check Answer</button>
+  <div class="feedback" id="q1-fb"></div>
+</div>
+
+<div class="question-card" id="q2">
+  <div class="question-text">2. Which physical security policy requires employees to clear sensitive documents from their work surfaces when they leave their desk?</div>
+  <div class="option"><input type="radio" name="q2" value="a"><label><strong>A.</strong> Clear screen policy</label></div>
+  <div class="option"><input type="radio" name="q2" value="b"><label><strong>B.</strong> Need-to-know policy</label></div>
+  <div class="option"><input type="radio" name="q2" value="c"><label><strong>C.</strong> Clean desk policy</label></div>
+  <div class="option"><input type="radio" name="q2" value="d"><label><strong>D.</strong> Least privilege policy</label></div>
+  <button class="btn-check" onclick="check('q2','c')">Check Answer</button>
+  <div class="feedback" id="q2-fb"></div>
+</div>
+
+<div class="question-card" id="q3">
+  <div class="question-text">3. To prevent documents from being left uncollected in open printer trays, an organisation should implement:</div>
+  <div class="option"><input type="radio" name="q3" value="a"><label><strong>A.</strong> DLP on the print server</label></div>
+  <div class="option"><input type="radio" name="q3" value="b"><label><strong>B.</strong> Pull printing (follow-me printing) requiring authentication at the printer</label></div>
+  <div class="option"><input type="radio" name="q3" value="c"><label><strong>C.</strong> Encrypting all print jobs</label></div>
+  <div class="option"><input type="radio" name="q3" value="d"><label><strong>D.</strong> Restricting all printing to one centralised printer</label></div>
+  <button class="btn-check" onclick="check('q3','b')">Check Answer</button>
+  <div class="feedback" id="q3-fb"></div>
+</div>
+
+<div class="question-card" id="q4">
+  <div class="question-text">4. A government employee mails a USB drive containing Classified data via standard postal service without additional security. Which handling requirement is violated?</div>
+  <div class="option"><input type="radio" name="q4" value="a"><label><strong>A.</strong> Least privilege</label></div>
+  <div class="option"><input type="radio" name="q4" value="b"><label><strong>B.</strong> Approved courier / secure transport requirements for classified media</label></div>
+  <div class="option"><input type="radio" name="q4" value="c"><label><strong>C.</strong> Backup policy</label></div>
+  <div class="option"><input type="radio" name="q4" value="d"><label><strong>D.</strong> Separation of duties</label></div>
+  <button class="btn-check" onclick="check('q4','b')">Check Answer</button>
+  <div class="feedback" id="q4-fb"></div>
+</div>
+
+<div class="question-card" id="q5">
+  <div class="question-text">5. Before a decommissioned laptop is donated to a charity, what MUST be done to its hard drive according to data handling requirements?</div>
+  <div class="option"><input type="radio" name="q5" value="a"><label><strong>A.</strong> Format the drive using the operating system's quick format option</label></div>
+  <div class="option"><input type="radio" name="q5" value="b"><label><strong>B.</strong> Delete all user files and empty the Recycle Bin</label></div>
+  <div class="option"><input type="radio" name="q5" value="c"><label><strong>C.</strong> Sanitise the drive using an approved method (Clear, Purge, or Destroy per NIST 800-88)</label></div>
+  <div class="option"><input type="radio" name="q5" value="d"><label><strong>D.</strong> Change ownership in Active Directory only</label></div>
+  <button class="btn-check" onclick="check('q5','c')">Check Answer</button>
+  <div class="feedback" id="q5-fb"></div>
+</div>
+
+<div class="question-card" id="q6">
+  <div class="question-text">6. An organisation's CASB (Cloud Access Security Broker) blocks employees from uploading Confidential files to personal Dropbox accounts. Which data handling requirement is being enforced?</div>
+  <div class="option"><input type="radio" name="q6" value="a"><label><strong>A.</strong> Secure destruction policy</label></div>
+  <div class="option"><input type="radio" name="q6" value="b"><label><strong>B.</strong> Clean desk policy</label></div>
+  <div class="option"><input type="radio" name="q6" value="c"><label><strong>C.</strong> Approved storage / data residency policy</label></div>
+  <div class="option"><input type="radio" name="q6" value="d"><label><strong>D.</strong> Chain of custody documentation</label></div>
+  <button class="btn-check" onclick="check('q6','c')">Check Answer</button>
+  <div class="feedback" id="q6-fb"></div>
+</div>
+
+<div class="question-card" id="q7">
+  <div class="question-text">7. The purpose of a chain of custody document when shipping sensitive media is to:</div>
+  <div class="option"><input type="radio" name="q7" value="a"><label><strong>A.</strong> Encrypt the data on the media during shipping</label></div>
+  <div class="option"><input type="radio" name="q7" value="b"><label><strong>B.</strong> Track every party who had possession of the asset from sender to receiver</label></div>
+  <div class="option"><input type="radio" name="q7" value="c"><label><strong>C.</strong> Declassify the data once it reaches the destination</label></div>
+  <div class="option"><input type="radio" name="q7" value="d"><label><strong>D.</strong> Replace tamper-evident packaging at each handoff</label></div>
+  <button class="btn-check" onclick="check('q7','b')">Check Answer</button>
+  <div class="feedback" id="q7-fb"></div>
+</div>
+
+<div class="question-card" id="q8">
+  <div class="question-text">8. Sensitivity labels embedded as document metadata that allow DLP systems to automatically enforce handling rules are an example of:</div>
+  <div class="option"><input type="radio" name="q8" value="a"><label><strong>A.</strong> Physical document marking only</label></div>
+  <div class="option"><input type="radio" name="q8" value="b"><label><strong>B.</strong> Digital/electronic classification marking using machine-readable labels</label></div>
+  <div class="option"><input type="radio" name="q8" value="c"><label><strong>C.</strong> Data destruction certificates</label></div>
+  <div class="option"><input type="radio" name="q8" value="d"><label><strong>D.</strong> Biometric access controls</label></div>
+  <button class="btn-check" onclick="check('q8','b')">Check Answer</button>
+  <div class="feedback" id="q8-fb"></div>
+</div>
+
+<div class="question-card" id="q9">
+  <div class="question-text">9. An employee prints a Confidential report for a meeting, makes handwritten notes on it, crosses out some numbers, and then throws the paper in the regular office trash bin. What data handling violation has occurred?</div>
+  <div class="option"><input type="radio" name="q9" value="a"><label><strong>A.</strong> Clean screen policy violation</label></div>
+  <div class="option"><input type="radio" name="q9" value="b"><label><strong>B.</strong> Improper disposal — sensitive waste must be shredded, not placed in regular bins</label></div>
+  <div class="option"><input type="radio" name="q9" value="c"><label><strong>C.</strong> Chain of custody violation</label></div>
+  <div class="option"><input type="radio" name="q9" value="d"><label><strong>D.</strong> No violation — the document was voided with handwritten markings</label></div>
+  <button class="btn-check" onclick="check('q9','b')">Check Answer</button>
+  <div class="feedback" id="q9-fb"></div>
+</div>
+
+<div class="question-card" id="q10">
+  <div class="question-text">10. A company that processes data for EU citizens must ensure the data remains within EU borders due to national regulations. This requirement is called:</div>
+  <div class="option"><input type="radio" name="q10" value="a"><label><strong>A.</strong> Data minimisation</label></div>
+  <div class="option"><input type="radio" name="q10" value="b"><label><strong>B.</strong> Data sovereignty / data residency</label></div>
+  <div class="option"><input type="radio" name="q10" value="c"><label><strong>C.</strong> Storage limitation</label></div>
+  <div class="option"><input type="radio" name="q10" value="d"><label><strong>D.</strong> Purpose limitation</label></div>
+  <button class="btn-check" onclick="check('q10','b')">Check Answer</button>
+  <div class="feedback" id="q10-fb"></div>
+</div>
+
+<div class="score-panel" id="score-panel">
+  <div class="score-num" id="score-display">0/10</div>
+  <p id="score-msg" style="font-size:1.1rem;margin-top:10px;"></p>
+</div>
+
+<div class="nav-footer">
+  <a href="day-025-theory.html" class="nav-btn">← Review Theory</a>
+  <a href="day-026-theory.html" class="nav-btn">Day 26: Privacy Protection →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'c',q3:'b',q4:'b',q5:'c',q6:'c',q7:'b',q8:'b',q9:'b',q10:'b'};
+const explanations={
+  q1:'B – Without a classification label, the person handling the document has no indication of what protection level it requires. It could contain highly sensitive information but be treated as public.',
+  q2:'C – Clean desk policy requires clearing sensitive materials from desks when leaving. Clear screen policy (A) addresses workstation screens. They are complementary but distinct policies.',
+  q3:'B – Pull printing (follow-me printing) holds the print job until the user authenticates at the printer device, preventing documents from sitting uncollected in the output tray.',
+  q4:'B – Classified media requires secure transport methods — approved encrypted couriers, chain of custody documentation, tamper-evident packaging. Regular postal mail does not meet these requirements.',
+  q5:'C – Standard OS deletion and quick format leave data recoverable. NIST SP 800-88 sanitisation (Clear for internal reuse, Purge for external reuse like donation) must be applied.',
+  q6:'C – A CASB enforces cloud storage policies by preventing data uploads to unapproved services. This enforces the approved storage / data residency requirement that Confidential data may only reside on approved platforms.',
+  q7:'B – Chain of custody documents record every handoff — who had the asset and when. This creates accountability and enables detection when items go missing in transit.',
+  q8:'B – Machine-readable metadata tags (Microsoft Purview sensitivity labels, DLP policy tags) are digital classification markings that automated systems like DLP can read and act upon.',
+  q9:'B – Confidential documents are sensitive waste regardless of handwritten modifications. Sensitive waste must be placed in secure shredding bins or cross-cut shredded, never placed in standard trash.',
+  q10:'B – Data residency (also called data sovereignty) requirements mandate that data stay within specific geographic or political boundaries. This differs from storage limitation (keeping data no longer than needed) and data minimisation (collecting only what is needed).'
+};
+let answered={};
+function check(qid,correct){
+  const sel=document.querySelector(`input[name="${qid}"]:checked`);
+  if(!sel){alert('Please select an answer.');return;}
+  const fb=document.getElementById(`${qid}-fb`);
+  const isCorrect=sel.value===correct;
+  answered[qid]=isCorrect;
+  fb.style.display='block';
+  fb.className='feedback '+(isCorrect?'correct':'incorrect');
+  fb.textContent=(isCorrect?'✅ Correct! ':'❌ Incorrect. ')+explanations[qid];
+  if(Object.keys(answered).length===10){
+    const score=Object.values(answered).filter(Boolean).length;
+    const panel=document.getElementById('score-panel');
+    panel.style.display='block';
+    document.getElementById('score-display').textContent=`${score}/10`;
+    const msg=document.getElementById('score-msg');
+    if(score>=7){msg.textContent='✅ PASSED – Strong understanding of data handling requirements!';msg.style.color='#2e7d32';}
+    else{msg.textContent='❌ Review Needed – Focus on marking, clean desk, transport, and media sanitisation rules.';msg.style.color='#c62828';}
+    panel.scrollIntoView({behavior:'smooth'});
+  }
+}
+</script>
+</body>
+</html>

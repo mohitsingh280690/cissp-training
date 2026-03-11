@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 1 – MCQ: CISSP Overview & Foundations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:26px;margin-bottom:22px;transition:border-color .3s;}
+.question-card.correct{border-color:var(--green);background:#f1f8f1;}
+.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;font-weight:700;font-size:1rem;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.question-text{font-size:1.05rem;font-weight:600;line-height:1.5;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:10px;}
+.options label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border-radius:6px;border:1px solid var(--border);transition:background .2s;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9;border-color:var(--green);font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec;border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.explanation{display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#7f0000;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#bbb;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:30px;text-align:center;margin-bottom:28px;}
+.results h2{color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.2rem;margin-bottom:8px;font-weight:600;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 1 – Quiz: CISSP Overview &amp; Foundations</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta">
+    <span>📅 Day 1 of 140</span>
+    <span>❓ 10 Questions</span>
+    <span>⏱️ ~15 min</span>
+    <span>🎯 Passing Score: 7/10</span>
+  </div>
+</div>
+<div class="container">
+  <div class="instructions">
+    <strong>📋 Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> when done. Correct answers and detailed explanations will appear immediately after submission. Passing threshold is <strong>7 out of 10 (70%)</strong>.
+  </div>
+
+  <form id="quizForm">
+
+    <!-- Q1 -->
+    <div class="question-card" id="q1-card">
+      <div class="question-header">
+        <span class="question-number">1</span>
+        <span class="question-text">The CISSP Computerized Adaptive Testing (CAT) format adjusts question difficulty based on candidate performance. Which statement BEST describes the implication of receiving a high proportion of difficult questions during a CAT exam?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q1" value="a"> The candidate is likely failing, as the system is routing them to harder material to find their threshold</label></li>
+        <li><label><input type="radio" name="q1" value="b"> The candidate is performing well; the algorithm is seeking to confirm competence at a higher difficulty level</label></li>
+        <li><label><input type="radio" name="q1" value="c"> The exam has incorrectly calibrated the candidate's starting difficulty and will reset</label></li>
+        <li><label><input type="radio" name="q1" value="d"> The candidate should slow down, as difficult questions are always scenario-based and require more time</label></li>
+      </ul>
+      <div class="explanation" id="q1-exp"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card" id="q2-card">
+      <div class="question-header">
+        <span class="question-number">2</span>
+        <span class="question-text">An organisation's web application allows users to view only their own account records. A flaw is discovered that allows authenticated users to modify a URL parameter to access other users' records. Which component of the CIA Triad is PRIMARILY violated?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q2" value="a"> Availability — because other users' sessions may be disrupted</label></li>
+        <li><label><input type="radio" name="q2" value="b"> Integrity — because data may be modified by unauthorised users</label></li>
+        <li><label><input type="radio" name="q2" value="c"> Confidentiality — because unauthorised parties can access data they should not see</label></li>
+        <li><label><input type="radio" name="q2" value="d"> Non-repudiation — because actions cannot be attributed to the correct user</label></li>
+      </ul>
+      <div class="explanation" id="q2-exp"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card" id="q3-card">
+      <div class="question-header">
+        <span class="question-number">3</span>
+        <span class="question-text">A company's database server has been encrypted by ransomware and is completely inaccessible. The threat actor demands payment within 72 hours. From the CIA Triad perspective, which property is MOST directly impacted, and which component of the DAD Triad corresponds to this attack?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q3" value="a"> Confidentiality (CIA) / Disclosure (DAD)</label></li>
+        <li><label><input type="radio" name="q3" value="b"> Integrity (CIA) / Alteration (DAD)</label></li>
+        <li><label><input type="radio" name="q3" value="c"> Availability (CIA) / Destruction (DAD)</label></li>
+        <li><label><input type="radio" name="q3" value="d"> Integrity (CIA) / Destruction (DAD)</label></li>
+      </ul>
+      <div class="explanation" id="q3-exp"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card" id="q4-card">
+      <div class="question-header">
+        <span class="question-number">4</span>
+        <span class="question-text">A security architect is designing a system where a single compromised layer should NOT provide an attacker full access to sensitive assets. Multiple independent controls — network firewall, application-layer gateway, host-based IDS, and encryption at rest — are layered. Which principle BEST describes this design?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q4" value="a"> Least Privilege</label></li>
+        <li><label><input type="radio" name="q4" value="b"> Defense in Depth</label></li>
+        <li><label><input type="radio" name="q4" value="c"> Separation of Duties</label></li>
+        <li><label><input type="radio" name="q4" value="d"> Fail-Safe Defaults</label></li>
+      </ul>
+      <div class="explanation" id="q4-exp"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card" id="q5-card">
+      <div class="question-header">
+        <span class="question-number">5</span>
+        <span class="question-text">Which of the following MOST accurately describes the "manager mindset" the CISSP exam tests in scenario-based questions?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q5" value="a"> Prioritise immediate technical fixes that resolve the specific vulnerability identified in the scenario</label></li>
+        <li><label><input type="radio" name="q5" value="b"> Evaluate risks in terms of business impact, align security decisions with organisational objectives, and apply cost-effective controls</label></li>
+        <li><label><input type="radio" name="q5" value="c"> Escalate all security decisions to the CISO to ensure proper governance and reduce personal liability</label></li>
+        <li><label><input type="radio" name="q5" value="d"> Default to the most secure option available regardless of cost because security should never be compromised for business reasons</label></li>
+      </ul>
+      <div class="explanation" id="q5-exp"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card" id="q6-card">
+      <div class="question-header">
+        <span class="question-number">6</span>
+        <span class="question-text">During a post-incident review, it is discovered that an attacker was able to exfiltrate data even though encryption was in place at rest and in transit. Investigation reveals the attacker had elevated their privileges on the application server and accessed the decrypted data directly in memory. Which CIA Triad property failed, and which aspect of the system represented the weakest link?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q6" value="a"> Integrity failed; the weakest link was data in transit</label></li>
+        <li><label><input type="radio" name="q6" value="b"> Confidentiality failed; the weakest link was protection of data in use (in memory)</label></li>
+        <li><label><input type="radio" name="q6" value="c"> Availability failed; the weakest link was the absence of a network IDS</label></li>
+        <li><label><input type="radio" name="q6" value="d"> Confidentiality failed; the weakest link was encryption key management</label></li>
+      </ul>
+      <div class="explanation" id="q6-exp"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card" id="q7-card">
+      <div class="question-header">
+        <span class="question-number">7</span>
+        <span class="question-text">A CISSP candidate sees the following CISSP exam domain weights: Security and Risk Management 15%, Security Operations 13%, Software Development Security 11%. A candidate who is weak on Domain 1 topics but strong everywhere else should MOST be concerned because:</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q7" value="a"> Domain 1 is tested first in the CAT exam and a poor start reduces overall confidence</label></li>
+        <li><label><input type="radio" name="q7" value="b"> Domain 1 has the highest single-domain weighting (15%) and foundational concepts underpin correct reasoning in all other domains</label></li>
+        <li><label><input type="radio" name="q7" value="c"> The CAT algorithm heavily penalises incorrect Domain 1 answers more than other domains</label></li>
+        <li><label><input type="radio" name="q7" value="d"> Domain 1 uniquely tests calculation questions that cannot be skipped or guessed effectively</label></li>
+      </ul>
+      <div class="explanation" id="q7-exp"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card" id="q8-card">
+      <div class="question-header">
+        <span class="question-number">8</span>
+        <span class="question-text">An attacker modifies a financial transaction record during transmission from a client to a bank server, changing the transfer amount from $500 to $50,000. No other data is accessed or made unavailable. Which DAD Triad component BEST classifies this attack?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q8" value="a"> Disclosure</label></li>
+        <li><label><input type="radio" name="q8" value="b"> Alteration</label></li>
+        <li><label><input type="radio" name="q8" value="c"> Destruction</label></li>
+        <li><label><input type="radio" name="q8" value="d"> Denial</label></li>
+      </ul>
+      <div class="explanation" id="q8-exp"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card" id="q9-card">
+      <div class="question-header">
+        <span class="question-number">9</span>
+        <span class="question-text">A security manager is asked to justify the security programme budget to the CFO. The CFO is primarily interested in understanding whether security spending is proportional to the risk reduction achieved. Which approach BEST supports this conversation?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q9" value="a"> Present a comprehensive list of all security controls currently deployed to demonstrate thoroughness</label></li>
+        <li><label><input type="radio" name="q9" value="b"> Quantify risks using ALE (Annualised Loss Expectancy) before and after controls, and show cost-benefit analysis of each major investment</label></li>
+        <li><label><input type="radio" name="q9" value="c"> Reference compliance requirements (PCI-DSS, HIPAA) to show that spending is legally mandated</label></li>
+        <li><label><input type="radio" name="q9" value="d"> Provide a qualitative risk matrix showing High/Medium/Low ratings for all identified risks</label></li>
+      </ul>
+      <div class="explanation" id="q9-exp"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card" id="q10-card">
+      <div class="question-header">
+        <span class="question-number">10</span>
+        <span class="question-text">Within the CISSP CAT exam structure, a candidate answers 125 questions and the exam ends. Which of the following conclusions is CORRECT?</span>
+      </div>
+      <ul class="options">
+        <li><label><input type="radio" name="q10" value="a"> The candidate has definitely passed, as reaching 125 questions means the algorithm confirmed competence</label></li>
+        <li><label><input type="radio" name="q10" value="b"> The candidate has definitely failed, as the exam reaches 175 questions only if there is still doubt about competence — stopping at 125 means marginal performance</label></li>
+        <li><label><input type="radio" name="q10" value="c"> The exam ended because the algorithm reached sufficient statistical confidence the candidate either clearly passes or clearly fails at the 700/1000 threshold</label></li>
+        <li><label><input type="radio" name="q10" value="d"> The candidate ran out of time; the exam stops at 125 only when the 4-hour window expires</label></li>
+      </ul>
+      <div class="explanation" id="q10-exp"></div>
+    </div>
+
+  </form>
+
+  <div class="submit-section">
+    <button id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+  </div>
+
+  <div class="results" id="results">
+    <h2>Quiz Complete!</h2>
+    <div class="score-display" id="scoreDisplay"></div>
+    <div class="score-message" id="scoreMessage"></div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="day-001-theory.html" class="nav-btn">← Back to Theory</a>
+    <a href="day-002-theory.html" class="nav-btn">Day 2: Security Governance →</a>
+  </div>
+</div>
+
+<script>
+const answers = {
+  q1:'b', q2:'c', q3:'c', q4:'b', q5:'b',
+  q6:'b', q7:'b', q8:'b', q9:'b', q10:'c'
+};
+
+const explanations = {
+  q1: {
+    correct: "Correct. In CAT, the algorithm continuously refines its estimate of your ability. When you answer correctly, it escalates difficulty to probe the upper bound of your competence. Receiving many hard questions is a positive sign — the algorithm is trying to confirm you are definitively above the passing threshold.",
+    incorrect: "Incorrect. Receiving difficult questions in CAT indicates strong performance, not failure. The algorithm escalates to harder questions when you answer correctly. Hard questions = the system is trying to confirm you PASS, not that you are failing. The exam terminates early (at 125) when it has high statistical confidence in the outcome."
+  },
+  q2: {
+    correct: "Correct. This is an Insecure Direct Object Reference (IDOR) vulnerability — a classic OWASP Top 10 finding. The primary violation is Confidentiality: an authenticated user is accessing data they are not authorised to view. While integrity could also be affected if modification is possible, the question specifies access/viewing, making Confidentiality the primary CIA violation.",
+    incorrect: "Incorrect. The primary violation here is Confidentiality — unauthorised access to another user's data. The flaw (IDOR) allows an authenticated user to access records belonging to others, which is a Confidentiality breach. Non-repudiation and Availability are not primarily impacted by simple record access."
+  },
+  q3: {
+    correct: "Correct. Ransomware encrypts data, making it completely inaccessible — the primary impact is Availability (CIA). In the DAD Triad, making data inaccessible/unusable corresponds to Destruction (the 'D' of destruction/denial of access). Note: if the ransomware also exfiltrated data before encrypting, Confidentiality/Disclosure would also be involved, but the scenario specifies encryption/inaccessibility only.",
+    incorrect: "Incorrect. Ransomware prevents access to data by encrypting it — this is an attack on Availability (CIA). In the DAD Triad, rendering data inaccessible/unusable maps to Destruction. Disclosure (exfiltration) and Alteration (data modification) are separate attacks not described in this scenario."
+  },
+  q4: {
+    correct: "Correct. Defense in Depth (also called layered security) is the principle of deploying multiple independent security controls so that the failure or bypass of any single layer does not provide full access to assets. The attacker must defeat each layer independently. This is directly referenced in NIST SP 800-53 and is a core CISSP concept for security architecture.",
+    incorrect: "Incorrect. While Least Privilege and Separation of Duties are important principles, they address access rights and role separation respectively — not layered control deployment. Defense in Depth specifically describes multiple independent control layers where each must be individually defeated by an attacker."
+  },
+  q5: {
+    correct: "Correct. The CISSP 'manager mindset' means thinking as a security manager who balances business risk against security investment. The exam penalises answers that are purely technical (fix the specific bug) or ignore cost/feasibility. The correct approach is always: assess business risk, align with organisational objectives, apply proportionate controls, and communicate in business language.",
+    incorrect: "Incorrect. The CISSP manager mindset explicitly rejects 'maximum security at all costs' thinking. Security must be proportional to risk and aligned with business objectives. Escalating all decisions to the CISO is also wrong — a CISSP professional is expected to make competent decisions within their scope. 'Most secure regardless of cost' fails the CBA test."
+  },
+  q6: {
+    correct: "Correct. Encryption at rest and in transit protected data in those states, but the attacker bypassed both by escalating privileges on the application server and accessing decrypted data in memory (data in use). Confidentiality was violated. This is exactly why data-in-use protection (secure enclaves, TEE, homomorphic encryption) is a separate and important security concern beyond standard encryption.",
+    incorrect: "Incorrect. The scenario describes data exfiltration (reading sensitive data without authorisation) — this is a Confidentiality violation. The attacker obtained the data by accessing it in memory after privilege escalation, which means data-in-use protection failed. Encryption at rest and in transit were both intact; the gap was the unprotected in-memory state."
+  },
+  q7: {
+    correct: "Correct. Domain 1 carries the highest single weight (15%) of all eight domains. Additionally, Domain 1 concepts — risk management, governance, ethics, legal frameworks — provide the foundational reasoning framework that influences correct answer selection across ALL other domains. A CISSP manager mindset is rooted in Domain 1 principles.",
+    incorrect: "Incorrect. The CAT algorithm does not weight domains differently in its scoring — it tests across all domains. The concern about Domain 1 weakness is its 15% exam weight (highest of all domains) and the fact that its foundational concepts (risk-based thinking, governance, ethics) inform correct reasoning throughout the exam, not CAT-specific penalties."
+  },
+  q8: {
+    correct: "Correct. The DAD Triad (Disclosure, Alteration, Destruction) is the threat model counterpart to CIA. Modifying data without authorisation — changing a transaction amount — is Alteration, which corresponds to an attack on Integrity. Disclosure would mean reading data; Destruction would mean deleting or wiping it.",
+    incorrect: "Incorrect. The attacker changed the transaction amount — this is data modification, which maps to Alteration in the DAD Triad (corresponding to an Integrity violation in CIA). Disclosure means unauthorised reading; Destruction means destroying/deleting/making unavailable; neither applies to this modification scenario."
+  },
+  q9: {
+    correct: "Correct. A CFO responds to financial arguments. ALE quantifies risk in dollars — by showing ALE before and after controls, and comparing the control cost to the ALE reduction (CBA), the security manager speaks the CFO's language. This approach directly answers 'is spending proportional to risk reduction?' with measurable numbers. Compliance arguments answer 'must we?' not 'is it worth it?'",
+    incorrect: "Incorrect. While compliance mandates and qualitative risk matrices are valuable, they don't directly answer the CFO's question about proportionality of spending. A CFO needs financial justification — ALE-based cost-benefit analysis (ALE reduction vs. control cost) provides exactly the dollar-denominated answer that finance leaders require."
+  },
+  q10: {
+    correct: "Correct. The CISSP CAT stops between 125 and 175 questions — at the minimum (125) or maximum (175). The exam terminates when the algorithm reaches statistical confidence that the candidate is either clearly above or clearly below the 700/1000 passing threshold. Stopping at 125 means the algorithm was confident early — this can mean either a clear pass OR a clear fail, not a guaranteed outcome in either direction.",
+    incorrect: "Incorrect. The CAT ending at 125 questions does NOT guarantee a pass or fail — it means the algorithm reached sufficient statistical confidence in either direction early. Both passing and failing candidates can finish at 125. Finishing at 175 means the algorithm needed the maximum questions to reach confidence. Time limits do not cause early termination at exactly 125."
+  }
+};
+
+function submitQuiz() {
+  let score = 0;
+  const total = 10;
+  document.getElementById('submitBtn').disabled = true;
+  document.querySelectorAll('input[type=radio]').forEach(r => r.disabled = true);
+
+  for (let i = 1; i <= total; i++) {
+    const key = 'q' + i;
+    const card = document.getElementById(key + '-card');
+    const selected = document.querySelector('input[name="' + key + '"]:checked');
+    const expDiv = document.getElementById(key + '-exp');
+    const correct = answers[key];
+
+    // Mark correct option label
+    const correctLabel = document.querySelector('input[name="' + key + '"][value="' + correct + '"]')?.parentElement;
+    if (correctLabel) correctLabel.classList.add('correct-answer');
+
+    if (selected) {
+      if (selected.value === correct) {
+        score++;
+        card.classList.add('correct');
+        expDiv.className = 'explanation correct-exp';
+        expDiv.innerHTML = '✅ ' + explanations[key].correct;
+      } else {
+        card.classList.add('incorrect');
+        selected.parentElement.classList.add('wrong-answer');
+        expDiv.className = 'explanation incorrect-exp';
+        expDiv.innerHTML = '❌ ' + explanations[key].incorrect;
+      }
+    } else {
+      card.classList.add('incorrect');
+      expDiv.className = 'explanation incorrect-exp';
+      expDiv.innerHTML = '⚠️ Not answered. ' + explanations[key].incorrect;
+    }
+    expDiv.style.display = 'block';
+  }
+
+  const pct = Math.round(score / total * 100);
+  const pass = score >= 7;
+  const resultsDiv = document.getElementById('results');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const scoreMessage = document.getElementById('scoreMessage');
+  const scoreBreakdown = document.getElementById('scoreBreakdown');
+
+  scoreDisplay.textContent = score + '/10';
+  scoreDisplay.className = 'score-display ' + (pass ? 'pass' : 'fail');
+  scoreMessage.textContent = pass ? '🎉 PASSED — Well done!' : '📚 FAILED — Review the explanations above and revisit the theory.';
+  scoreBreakdown.textContent = score + ' correct out of 10 (' + pct + '%) — Passing threshold: 7/10 (70%)';
+  resultsDiv.style.display = 'block';
+  resultsDiv.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

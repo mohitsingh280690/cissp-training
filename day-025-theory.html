@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 25 – Data Handling Requirements</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 25: Data Handling Requirements</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 25 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 25: Data Handling Requirements</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">Marking and Labelling</a></li>
+    <li><a href="#s4">Handling Procedures by Classification</a></li>
+    <li><a href="#s5">Shipping and Transport Security</a></li>
+    <li><a href="#s6">Physical Storage Requirements</a></li>
+    <li><a href="#s7">Digital Storage Requirements</a></li>
+    <li><a href="#s8">Media Management</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Data handling is where classification policy becomes operational practice. The exam tests whether you can identify appropriate handling controls for different classification levels, recognise failures in marking/labelling, and understand media management.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based: "A document with no classification marking is found — what risk does this create?"; "A USB drive with Top Secret data is mailed via standard courier — what handling requirement was violated?"</td></tr>
+    <tr><td>Cross-Domain</td><td>Domain 2 (classification governs handling); Domain 7 (physical security of media); Domain 3 (cryptographic protection in storage and transit)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> Stricter classification = stricter handling at every stage (transmission, storage, disposal). A common exam trap presents handling procedures that are appropriate for a lower classification applied to a higher classification — and asks you to identify the violation.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Data handling failures are a primary vector for data breaches. Unmarked sensitive documents treated as public; employees emailing confidential data via unencrypted channels; USB drives with PII left in parking lots — all handling failures. Clear, enforced handling procedures reduce human error and create accountability chains for sensitive information.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Marking and Labelling</h2>
+  <div class="definition">
+    <strong>Marking:</strong> The application of visual or digital indicators to data assets indicating their classification level, enabling users and systems to handle them appropriately.
+  </div>
+  <h3>Physical Document Marking</h3>
+  <ul>
+    <li>Headers and footers on every page bearing the classification label (e.g., "CONFIDENTIAL – INTERNAL USE ONLY")</li>
+    <li>Cover page classification marking (mandatory for multi-page documents)</li>
+    <li>Individual page marking for documents where pages may be separated (government use case)</li>
+    <li>Marking must be visible and unambiguous — abbreviations should follow organisational standards</li>
+  </ul>
+  <h3>Digital / Electronic Marking</h3>
+  <ul>
+    <li><strong>Metadata tags:</strong> Document properties containing classification metadata readable by DLP systems</li>
+    <li><strong>Email sensitivity labels:</strong> Microsoft Purview / MIP sensitivity labels (Public, General, Confidential, Highly Confidential) applied to emails and documents</li>
+    <li><strong>Watermarks:</strong> Visible classification watermarks embedded in digital documents</li>
+    <li><strong>File naming conventions:</strong> Some organisations include classification in file names (e.g., "budget_FY24_CONFIDENTIAL.xlsx")</li>
+    <li><strong>DLP policy tags:</strong> Machine-readable labels consumed by Data Loss Prevention tools to enforce handling policies automatically</li>
+  </ul>
+  <h3>Physical Equipment / Media Labelling</h3>
+  <ul>
+    <li>Physical labels on storage devices (USB drives, external HDDs, backup tapes) indicating the highest classification of data they contain</li>
+    <li>Server/cabinet labels indicating classification of hosted data</li>
+    <li>Colour-coded labels for quick visual identification in secure facilities</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The purpose of marking is to allow any person (or automated system) handling the asset to immediately know what protection level it requires without having to read the contents. Unmarked sensitive data is a handling failure even if the contents are inherently sensitive.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Handling Procedures by Classification</h2>
+  <p>The classification level determines every handling requirement. Higher classification = more restrictive procedures at every stage:</p>
+  <table>
+    <tr><th>Classification</th><th>Transmission</th><th>Storage</th><th>Disposal</th><th>Access</th></tr>
+    <tr><td>Public / Unclassified</td><td>Any channel</td><td>Standard systems</td><td>Standard recycling / deletion</td><td>No restrictions</td></tr>
+    <tr><td>Internal / Private</td><td>Encrypted internal channels</td><td>Access controlled systems; encryption recommended</td><td>Shredding / secure delete</td><td>Employees only</td></tr>
+    <tr><td>Confidential / Restricted</td><td>Encrypted channels only (TLS required); no personal email</td><td>Encrypted at rest; need-to-know access controls</td><td>Secure shredding / NIST 800-88 Purge</td><td>Authorised personnel with need-to-know; logged access</td></tr>
+    <tr><td>Top Secret / Classified (Gov)</td><td>Approved government-grade encrypted circuits; in-person couriers with clearance</td><td>Approved secure systems; compartmented facilities (SCIFs)</td><td>NSA-approved destruction (incineration/degaussing + shredding)</td><td>Clearance + specific need-to-know; two-person control in some cases</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Shipping and Transport Security</h2>
+  <p>When sensitive data must physically move (printed documents, storage media, hardware), transport security controls must match the classification:</p>
+  <ul>
+    <li><strong>Encrypted transport media:</strong> USB drives and removable media should be hardware-encrypted; if media containing sensitive data is lost in transit, encryption prevents disclosure</li>
+    <li><strong>Chain of custody documentation:</strong> Record of every person or organisation that had possession of the asset, from sender to receiver</li>
+    <li><strong>Tamper-evident packaging:</strong> Security envelopes and containers that show if the package has been opened or tampered with in transit</li>
+    <li><strong>Approved couriers:</strong> For classified government material — only GSA-approved or agency-cleared couriers; for commercial sensitive data — tracked courier services with insurance</li>
+    <li><strong>Sealed transit containers:</strong> Double-envelope system for highly classified material; inner envelope marked with classification, outer envelope unmarked</li>
+    <li><strong>Receipt acknowledgement:</strong> Receiver confirms receipt; enables detection of lost-in-transit incidents</li>
+  </ul>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Physical Storage Requirements</h2>
+  <ul>
+    <li><strong>Locked cabinets and safes:</strong> Printed sensitive material must be stored in locked storage when not in use; classification level determines lock grade</li>
+    <li><strong>Clean desk policy:</strong> No sensitive documents left unattended on desk surfaces — a core physical security control against shoulder-surfing and casual access</li>
+    <li><strong>Clear screen policy:</strong> Lock screens / screensavers when leaving a workstation; prevents casual viewing of sensitive data on screen</li>
+    <li><strong>Secure printing:</strong> Pull printing / follow-me printing — documents not released from printer until user authenticates at the device (prevents documents left uncollected in printer trays)</li>
+    <li><strong>Shredding of drafts:</strong> Waste paper containing sensitive data (even draft copies, error printouts) must be shredded — not placed in regular waste bins</li>
+    <li><strong>Visitor management:</strong> Sensitive areas require visitor escort; restrict visitor line-of-sight to sensitive screens and documents</li>
+  </ul>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Digital Storage Requirements</h2>
+  <ul>
+    <li><strong>Encryption at rest:</strong> Required for confidential and above; AES-256 minimum; FDE for endpoint devices</li>
+    <li><strong>Access controls:</strong> Classification-appropriate access control mechanisms (file system ACLs, database roles, application-level controls)</li>
+    <li><strong>Approved systems:</strong> Sensitive data may only be stored on approved, accredited systems — not personal devices, personal cloud storage, or unmanaged USB drives</li>
+    <li><strong>Data residency:</strong> Some regulations require data to remain in specific countries/regions (GDPR for EU data; Chinese data localisation laws); cloud storage must comply with data residency requirements</li>
+    <li><strong>Shadow IT controls:</strong> Unapproved cloud syncing (personal Dropbox, Google Drive) can violate storage requirements; DLP and CASB controls enforce approved storage boundaries</li>
+  </ul>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Media Management</h2>
+  <p>Media management refers to the policies and controls governing physical and logical storage media throughout its lifecycle:</p>
+  <ul>
+    <li><strong>Removable media policy:</strong> Restrict or disable USB ports and removable drives via endpoint management (Group Policy, MDM); auto-run disabled; only organisation-approved encrypted devices allowed</li>
+    <li><strong>Media inventory:</strong> Track all removable media used for sensitive data — who has it, what it contains, where it is stored</li>
+    <li><strong>Media sanitisation before reuse:</strong> Any media reused for a different classification level or user must be sanitised (Clear or Purge per NIST 800-88)</li>
+    <li><strong>Cloud storage policy:</strong> Define approved cloud services; enforce via CASB (Cloud Access Security Broker); data classification determines which cloud tiers are permissible (e.g., Top Secret data may not be stored in commercial public cloud)</li>
+    <li><strong>Backup media security:</strong> Backup tapes/drives require the same protection level as the data they contain; encrypted off-site backups; chain of custody for off-site rotation</li>
+    <li><strong>End-of-life media disposal:</strong> Media must be sanitised (Clear/Purge/Destroy per classification) before disposal or decommissioning; never donate, sell, or discard unwiped media</li>
+  </ul>
+  <div class="key-concept">
+    <strong>Key Concept — Media Sanitisation Standard:</strong> NIST SP 800-88 "Guidelines for Media Sanitization" is the authoritative standard. It defines Clear, Purge, and Destroy methods suited to different media types and classification levels. (Covered in depth on Day 30.)
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Marking Purpose:</strong><br>
+    "If it's not marked, it's not managed." — Unmarked sensitive data is a governance failure. Classification without marking is classification in name only.
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Physical Handling Rules — "Clean, Clear, Lock, Shred":</strong><br>
+    <strong>Clean</strong> desk — nothing sensitive left in the open<br>
+    <strong>Clear</strong> screen — lock when away<br>
+    <strong>Lock</strong> cabinets — sensitive material secured when not in use<br>
+    <strong>Shred</strong> — all sensitive waste destroyed, not binned
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Media Rules — "No Random USB":</strong><br>
+    <strong>N</strong>o unmanaged USB drives with sensitive data<br>
+    <strong>R</strong>esidency requirements — know where data can and cannot be stored<br>
+    <strong>U</strong>se approved encrypted media only<br>
+    <strong>S</strong>anitise before reuse, disposal, or any reclassification<br>
+    <strong>B</strong>ackups encrypted at the same level as the source data
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Topic</th><th>Key Requirement</th></tr>
+    <tr><td>Marking / Labelling</td><td>Every sensitive asset must bear its classification label (physical headers/footers; digital metadata/sensitivity labels)</td></tr>
+    <tr><td>Handling by Level</td><td>Higher classification = stricter transmission, storage, access, and disposal requirements</td></tr>
+    <tr><td>Physical Transport</td><td>Encrypted media; chain of custody; tamper-evident packaging; approved couriers</td></tr>
+    <tr><td>Physical Storage</td><td>Clean desk; locked cabinets; secure printing; shred all sensitive waste</td></tr>
+    <tr><td>Digital Storage</td><td>Encryption at rest; approved systems; data residency compliance; CASB for cloud</td></tr>
+    <tr><td>Media Management</td><td>Restrict removable media; sanitise before reuse/disposal; inventory tracking; backup encryption</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-024-theory.html" class="nav-btn">← Day 24: Data Lifecycle</a>
+  <a href="day-025-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

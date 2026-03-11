@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 13 – Threat Modeling</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#f0f0f0;padding:16px;border-radius:6px;font-family:'Courier New',monospace;font-size:.9rem;overflow-x:auto;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 13: Threat Modeling</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 13 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate–Advanced</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 13: Threat Modeling</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">What Is Threat Modeling?</a></li>
+    <li><a href="#s4">STRIDE Framework</a></li>
+    <li><a href="#s5">PASTA (7-Stage Process)</a></li>
+    <li><a href="#s6">Attack Trees</a></li>
+    <li><a href="#s7">MITRE ATT&amp;CK Framework</a></li>
+    <li><a href="#s8">Data Flow Diagrams and Trust Boundaries</a></li>
+    <li><a href="#s9">Other Frameworks (DREAD, LINDDUN)</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%); also tested in Domain 8 – Software Development Security</td></tr>
+    <tr><td>Why Tested</td><td>Threat modeling is the structured way to identify what can go wrong with a system — it's a key proactive risk management activity. The CISSP requires understanding of the major frameworks (STRIDE, PASTA, MITRE ATT&amp;CK) and when each is used.</td></tr>
+    <tr><td>Question Styles</td><td>Identifying which framework to apply in a scenario; STRIDE categories and what they cover; PASTA stage descriptions; MITRE ATT&amp;CK terminology; purpose of Data Flow Diagrams; what tool is used to visualise attack paths</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (risk management — threat identification), D8 (software/SDLC — threat modelling during design phase), D6 (network threats — STRIDE applied to network components)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Top Exam Traps:</strong><br>
+    1. STRIDE is for identifying threats <em>to software/systems</em> — it is not a risk scoring method<br>
+    2. PASTA is business/attacker-centric — often described as the most complete methodology<br>
+    3. DREAD is largely deprecated in industry (Microsoft stopped using it ~2008) — but still occasionally tested<br>
+    4. MITRE ATT&amp;CK describes REAL attacker TTPs — it is not a design-time framework, it's used for detection and response
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Threat modeling is most valuable when done early in the Software Development Lifecycle (SDLC), during the design phase. Microsoft's "Security Development Lifecycle" (SDL) mandates threat modeling before code is written. Fixing security flaws at design stage costs approximately 6× less than fixing them in production.</p>
+  <p>MITRE ATT&amp;CK has become a de facto industry standard for describing threat actor behaviour. SOC teams, threat intelligence analysts, and red teams all use ATT&amp;CK to communicate about attack techniques using a common vocabulary.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. What Is Threat Modeling?</h2>
+  <div class="definition">
+    <strong>Threat Modeling:</strong> A structured, systematic process of identifying potential threats to a system, understanding their likelihood and impact, and defining countermeasures — typically performed during system design rather than after deployment.
+  </div>
+
+  <h3>Goals of Threat Modeling</h3>
+  <ul>
+    <li>Identify threats early when they're cheapest to mitigate</li>
+    <li>Understand the system from an attacker's perspective</li>
+    <li>Prioritise security investments based on real threats</li>
+    <li>Document security design decisions for future reference</li>
+    <li>Satisfy compliance requirements (GDPR Art. 25 Privacy by Design, NIST SSDF)</li>
+  </ul>
+
+  <h3>High-Level Process</h3>
+  <ol>
+    <li><strong>Scope the system:</strong> What are we protecting? What's in scope?</li>
+    <li><strong>Decompose the application:</strong> Create Data Flow Diagrams — identify data stores, data flows, processes, external entities, and trust boundaries</li>
+    <li><strong>Identify threats:</strong> Apply threat classification framework (STRIDE, PASTA, etc.)</li>
+    <li><strong>Rate and prioritise threats:</strong> Score by impact and likelihood</li>
+    <li><strong>Define mitigations:</strong> Map controls to each threat</li>
+    <li><strong>Validate:</strong> Review and test that mitigations are effective</li>
+  </ol>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. STRIDE Framework</h2>
+  <div class="definition">
+    <strong>STRIDE:</strong> A threat classification framework developed by Microsoft (Loren Kohnfelder &amp; Praerit Garg, 1999) that categorises threats into six types, each violating a specific security property. Used to systematically identify threats to software components, services, and data flows.
+  </div>
+
+  <table>
+    <tr><th>Category</th><th>Security Property Violated</th><th>Example Threat</th><th>Example Countermeasure</th></tr>
+    <tr><td><strong>S</strong>poofing</td><td>Authentication</td><td>Attacker impersonates a legitimate user or service</td><td>Multi-factor authentication, digital certificates, mutual TLS</td></tr>
+    <tr><td><strong>T</strong>ampering</td><td>Integrity</td><td>Attacker modifies data in transit or at rest</td><td>Digital signatures, HMAC, checksums, database write controls</td></tr>
+    <tr><td><strong>R</strong>epudiation</td><td>Non-repudiation</td><td>User denies performing an action; no audit trail exists</td><td>Audit logs, digital signatures, tamper-proof logging (WORM)</td></tr>
+    <tr><td><strong>I</strong>nformation Disclosure</td><td>Confidentiality</td><td>Sensitive data exposed to unauthorised parties</td><td>Encryption, access controls, data masking, TLS in transit</td></tr>
+    <tr><td><strong>D</strong>enial of Service</td><td>Availability</td><td>Attacker overwhelms system; legitimate users denied access</td><td>Rate limiting, load balancing, DDoS protection, failover</td></tr>
+    <tr><td><strong>E</strong>levation of Privilege</td><td>Authorisation</td><td>Attacker gains higher-level access than permitted</td><td>Principle of least privilege, privilege separation, sandboxing</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 STRIDE Application:</strong> STRIDE is applied at the Data Flow Diagram level — each arrow (data flow), box (process), cylinder (data store), and rectangle (external entity) is examined against all 6 STRIDE categories. This systematic approach ensures no threat type is overlooked.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. PASTA (Process for Attack Simulation and Threat Analysis)</h2>
+  <div class="definition">
+    <strong>PASTA:</strong> A risk-centric, seven-stage threat modeling methodology that aligns technical threat analysis with business objectives and risk appetite. Developed by Tony UcedaVélez and Marco Morana. Considered the most comprehensive mainstream threat modeling framework.
+  </div>
+
+  <h3>PASTA's 7 Stages</h3>
+  <table>
+    <tr><th>Stage</th><th>Name</th><th>Activities</th></tr>
+    <tr><td>I</td><td>Define Objectives</td><td>Align security requirements with business objectives; define risk appetite; identify compliance requirements</td></tr>
+    <tr><td>II</td><td>Define Technical Scope</td><td>Inventory components, infrastructure, dependencies; define system boundaries</td></tr>
+    <tr><td>III</td><td>Application Decomposition</td><td>Create DFDs; identify data flows, trust levels, and attack surfaces</td></tr>
+    <tr><td>IV</td><td>Threat Analysis</td><td>Identify threat actors (insider, competitor, nation-state); use threat intelligence feeds</td></tr>
+    <tr><td>V</td><td>Vulnerability &amp; Weakness Analysis</td><td>Correlate existing vulnerabilities (CVSS scores, CVE data) with threat actors</td></tr>
+    <tr><td>VI</td><td>Attack Modelling</td><td>Develop attack trees; map MITRE ATT&amp;CK techniques; model likely attack paths</td></tr>
+    <tr><td>VII</td><td>Risk &amp; Impact Analysis</td><td>Calculate business risk; prioritise by impact to business objectives; define countermeasures</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>PASTA vs. STRIDE:</strong><br>
+    STRIDE = technical, design-time, focused on software components<br>
+    PASTA = business-risk-centric, includes threat intelligence and attack simulation, outputs business risk in business language<br>
+    When the exam asks "most comprehensive" or "business-aligned" → PASTA
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Attack Trees</h2>
+  <div class="definition">
+    <strong>Attack Tree:</strong> A tree diagram where the root node represents the attacker's goal and branches represent different methods to achieve that goal. Sub-nodes can be connected with AND (all required) or OR (any one sufficient) logic. Developed by Bruce Schneier.
+  </div>
+
+  <pre>
+        GOAL: Steal Customer Credit Card Data
+                     |
+         +-----------+-----------+
+         |                       |
+  Breach the Database      Intercept Traffic
+         |                       |
+    +----+----+             +----+----+
+    |         |             |         |
+SQL Injection Stolen     MITM Attack  TLS
+              Credentials             Downgrade
+    |
++---+---+
+|       |
+Via Web  Via API
+Form     Endpoint</pre>
+
+  <p>Attack trees help visualise compound attack scenarios, identify choke points where defences have maximum effect, and support adversarial thinking during design reviews.</p>
+
+  <div class="exam-tip">
+    <strong>💡 AND vs. OR Nodes:</strong><br>
+    OR node: attacker only needs ONE child path to succeed — each path represents a separate vulnerability<br>
+    AND node: attacker needs ALL child paths to simultaneously succeed — multiple conditions required<br>
+    AND nodes represent stronger security (more conditions needed to attack); OR nodes represent architectural weakness.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. MITRE ATT&amp;CK Framework</h2>
+  <div class="definition">
+    <strong>MITRE ATT&amp;CK</strong> (Adversarial Tactics, Techniques, and Common Knowledge): A publicly available knowledge base documenting real-world attacker Tactics, Techniques, and Procedures (TTPs) observed in actual attacks. Maintained by MITRE Corporation. Used for threat detection, hunting, and response — NOT for design-time threat modeling.
+  </div>
+
+  <h3>ATT&amp;CK Structure</h3>
+  <table>
+    <tr><th>Level</th><th>Definition</th><th>Example</th></tr>
+    <tr><td><strong>Tactic</strong></td><td>The attacker's why — high-level objective or goal</td><td>Credential Access, Lateral Movement, Exfiltration</td></tr>
+    <tr><td><strong>Technique</strong></td><td>The how — specific method to achieve the tactic</td><td>T1059 – Command and Scripting Interpreter</td></tr>
+    <tr><td><strong>Sub-technique</strong></td><td>More specific implementation of a technique</td><td>T1059.001 – PowerShell</td></tr>
+    <tr><td><strong>Procedure</strong></td><td>Specific observed implementation by real threat groups</td><td>APT29 using PowerShell for initial access in SolarWinds attack</td></tr>
+  </table>
+
+  <h3>ATT&amp;CK Use Cases</h3>
+  <ul>
+    <li><strong>Threat Intelligence:</strong> Map known threat actor TTPs to your environment</li>
+    <li><strong>Gap Analysis:</strong> Identify which ATT&amp;CK techniques you cannot currently detect</li>
+    <li><strong>Red Team Planning:</strong> Use ATT&amp;CK to design realistic adversary simulation exercises</li>
+    <li><strong>SOC Detection Rules:</strong> Build SIEM detections aligned to ATT&amp;CK techniques</li>
+    <li><strong>Incident Response:</strong> Document attacker behaviour using common taxonomy</li>
+  </ul>
+
+  <h3>MITRE D3FEND</h3>
+  <p>D3FEND is the defensive counterpart to ATT&amp;CK — it maps defensive techniques (detect, harden, isolate, deceive, evict) to the ATT&amp;CK offensive techniques. Enables defenders to systematically address known attacker TTPs.</p>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Data Flow Diagrams and Trust Boundaries</h2>
+  <div class="definition">
+    <strong>Data Flow Diagram (DFD):</strong> A diagram showing how data moves through a system — between processes, data stores, and external entities. The primary input for STRIDE-based threat modeling. Represents the system from a data-movement perspective rather than a code perspective.
+  </div>
+
+  <h3>DFD Elements</h3>
+  <table>
+    <tr><th>Symbol</th><th>Name</th><th>Represents</th><th>STRIDE Applicable?</th></tr>
+    <tr><td>Rectangle / Square</td><td>External Entity</td><td>Systems or users outside the application (users, external services)</td><td>Spoofing, Repudiation</td></tr>
+    <tr><td>Rounded Rectangle / Circle</td><td>Process</td><td>Application logic that transforms or routes data</td><td>All 6 STRIDE categories</td></tr>
+    <tr><td>Cylinder / Double Lines</td><td>Data Store</td><td>Persistent storage (database, file, cache)</td><td>Tampering, Information Disclosure, DoS</td></tr>
+    <tr><td>Arrow</td><td>Data Flow</td><td>Movement of data between elements</td><td>Tampering, Information Disclosure, DoS</td></tr>
+  </table>
+
+  <div class="definition">
+    <strong>Trust Boundary:</strong> A line on the DFD that separates components with different trust levels. Whenever data crosses a trust boundary, it must be validated and authenticated. Trust boundaries are the most important security checkpoints in a system design.
+  </div>
+
+  <div class="key-concept">
+    <strong>Trust Boundary Examples:</strong><br>
+    • Between internet (untrusted) and DMZ (partially trusted)<br>
+    • Between DMZ and internal network (trusted)<br>
+    • Between user space and kernel space<br>
+    • Between different user privilege levels<br>
+    • Between on-premises and cloud components
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Other Frameworks (DREAD, LINDDUN)</h2>
+  <h3>DREAD (Legacy Scoring)</h3>
+  <table>
+    <tr><th>Letter</th><th>Category</th><th>What It Measures</th></tr>
+    <tr><td><strong>D</strong></td><td>Damage</td><td>How severe is the damage if exploited?</td></tr>
+    <tr><td><strong>R</strong></td><td>Reproducibility</td><td>How easy is it to reproduce the attack?</td></tr>
+    <tr><td><strong>E</strong></td><td>Exploitability</td><td>How easy is it to exploit the vulnerability?</td></tr>
+    <tr><td><strong>A</strong></td><td>Affected Users</td><td>How many users are affected?</td></tr>
+    <tr><td><strong>D</strong></td><td>Discoverability</td><td>How easy is it to find the vulnerability?</td></tr>
+  </table>
+  <p>Each category is scored 1–10 and averaged. DREAD was used by Microsoft until ~2008 when they found the scoring was too subjective and inconsistent. It has largely been replaced by CVSS in industry but may still appear on the exam.</p>
+
+  <h3>LINDDUN (Privacy Threat Modeling)</h3>
+  <p>LINDDUN (Linkability, Identifiability, Non-repudiation, Detectability, Disclosure, Unawareness, Non-compliance) is a privacy-specific threat modeling methodology developed at KU Leuven. It follows the same DFD-based approach as STRIDE but focuses on privacy threats rather than security threats — a natural complement to GDPR compliance and Privacy by Design (Day 6).</p>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 STRIDE — "STRIDE is what attackers do to violate security properties":</strong><br>
+    <strong>S</strong>poofing → violates Authentication<br>
+    <strong>T</strong>ampering → violates Integrity<br>
+    <strong>R</strong>epudiation → violates Non-repudiation<br>
+    <strong>I</strong>nformation Disclosure → violates Confidentiality<br>
+    <strong>D</strong>enial of Service → violates Availability<br>
+    <strong>E</strong>levation of Privilege → violates Authorisation<br>
+    Memory sentence: <em>"Six Threats Really Irritate Diligent Experts"</em><br>
+    Note: STRIDE maps almost perfectly to CIA Triad + Authentication + Authorisation + Non-repudiation
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 PASTA Stages — "DO TA VV AR":</strong><br>
+    <strong>D</strong>efine objectives → <strong>O</strong>bjective setting<br>
+    <strong>T</strong>echnical scope → <strong>A</strong>pplication decomposition<br>
+    <strong>V</strong>ulnerability analysis → <strong>V</strong>alue (threat) analysis<br>
+    <strong>A</strong>ttack modeling → <strong>R</strong>isk assessment<br>
+    Simpler: PASTA = <em>"Purpose: Align Technical Security to Attacker goals"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Framework Selection Quick Guide:</strong><br>
+    Software component threat identification → <strong>STRIDE</strong><br>
+    Business-risk-aligned comprehensive analysis → <strong>PASTA</strong><br>
+    Visualise compound attack paths → <strong>Attack Trees</strong><br>
+    Describe/detect real attacker TTPs → <strong>MITRE ATT&amp;CK</strong><br>
+    Privacy-specific threats → <strong>LINDDUN</strong><br>
+    Deprecated scoring but still tested → <strong>DREAD</strong>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 ATT&amp;CK Hierarchy — "Tactics Tell Techniques, Procedures Prove":</strong><br>
+    <strong>T</strong>actic = Why (goal) → <strong>T</strong>echnique = How (method) → <strong>P</strong>rocedure = Who did what specifically<br>
+    Think: Military analogy — Tactic is "capture the hill" / Technique is "flanking manoeuvre" / Procedure is "3rd platoon went left"
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Threat Modeling</td><td>Structured, systematic identification of threats — best done at design time in SDLC</td></tr>
+    <tr><td>STRIDE</td><td>Six threat categories (Spoofing/Tampering/Repudiation/Info Disclosure/DoS/EoP); each violates a security property; applied to DFD components</td></tr>
+    <tr><td>PASTA</td><td>Seven-stage, business-risk-centric, attacker-centric methodology; most comprehensive framework; aligns security to business objectives</td></tr>
+    <tr><td>Attack Trees</td><td>Root=goal; branches=paths; AND nodes=harder to attack; OR nodes=multiple weaknesses; Bruce Schneier</td></tr>
+    <tr><td>MITRE ATT&amp;CK</td><td>Real-world attacker TTPs knowledge base; Tactics→Techniques→Procedures; used for detection and hunting, NOT design-time modeling</td></tr>
+    <tr><td>DFD</td><td>External Entities + Processes + Data Stores + Data Flows; trust boundaries are key security checkpoints</td></tr>
+    <tr><td>Trust Boundary</td><td>Wherever data crosses privilege/trust levels — must validate and authenticate at every crossing</td></tr>
+    <tr><td>DREAD</td><td>Legacy Microsoft scoring (D+R+E+A+D ÷ 5); subjective; largely replaced by CVSS but still exam-relevant</td></tr>
+    <tr><td>LINDDUN</td><td>Privacy-specific threat modeling — complement to STRIDE for GDPR/Privacy by Design contexts</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-012-theory.html" class="nav-btn">← Day 12: Risk Response Strategies</a>
+  <a href="day-014-theory.html" class="nav-btn">Day 14: Supply Chain Risk Management →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 4 – Legal Systems &amp; Law Types</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 4: Legal Systems &amp; Law Types</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 4 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 4: Legal Systems &amp; Law Types</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Global Legal System Types</a></li>
+    <li><a href="#s4">Categories of Law</a></li>
+    <li><a href="#s5">Criminal vs. Civil Law in Cybersecurity</a></li>
+    <li><a href="#s6">Liability, Due Care &amp; Negligence</a></li>
+    <li><a href="#s7">Computer Crime Laws</a></li>
+    <li><a href="#s8">Jurisdiction Issues in Cybersecurity</a></li>
+    <li><a href="#s9">Evidence and Legal Admissibility</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>CISSPs advise organisations on legal exposure. Understanding the type of legal system, what constitutes a crime vs. a civil wrong, and what makes evidence admissible is essential for security managers handling incidents, investigations, and litigation.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based (what type of law applies?); best-answer legal strategy; evidence handling questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>D7 (digital forensics—evidence admissibility), D7 (incident response—legal notification requirements), D6 (audit and investigation)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The CISSP is not a legal exam — you are not expected to know specific statutes in detail. You are expected to know: (1) which type of law applies in a scenario, (2) the distinction between criminal and civil liability, (3) what constitutes due care, and (4) basics of evidence admissibility.
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Organizational Ownership</h3>
+  <p>Legal issues in cybersecurity are handled by a triangle: <strong>General Counsel / Legal team</strong> (interprets law, advises on exposure), <strong>CISO</strong> (implements controls to mitigate legal risk), and <strong>HR</strong> (handles employment law aspects — insider threats, terminations, background checks). External events involving law enforcement require legal counsel to take the lead immediately.</p>
+
+  <h3>Implementation Reality</h3>
+  <p>When a breach occurs, the first call a CISO makes is typically to <strong>legal counsel</strong>, not IT. Why? Because legal protects communications under attorney-client privilege, advises on notification obligations, and determines whether law enforcement should be engaged. Acting without legal involvement can inadvertently waive privilege or create liability.</p>
+
+  <h3>Failure Modes</h3>
+  <ul>
+    <li>Organisations that destroy logs or evidence after discovering a breach may face obstruction of justice charges in addition to the original breach liability.</li>
+    <li>Security staff who conduct "hack-back" (counter-attacking an attacker) can be prosecuted under computer fraud laws even if acting with good intent — the CFAA does not recognise a right of self-defence in most jurisdictions.</li>
+  </ul>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Global Legal System Types</h2>
+  <p>The world has four major legal system traditions. CISSP candidates must understand these because they affect what laws apply in different operating jurisdictions.</p>
+  <table>
+    <tr><th>System</th><th>Basis</th><th>Used In</th><th>Characteristics</th></tr>
+    <tr><td><strong>Common Law</strong></td><td>Judicial precedent — court decisions build a body of case law over time</td><td>UK, USA, Canada, Australia, India</td><td>Flexible; judges interpret law; prior rulings (stare decisis) guide future decisions; used for civil and criminal matters</td></tr>
+    <tr><td><strong>Civil Law (Code Law)</strong></td><td>Comprehensive written codes that cover entire areas of law</td><td>France, Germany, Spain, Japan, most of continental Europe and Latin America</td><td>Rigid; judges apply the code; less judicial discretion; comprehensive statutory codes</td></tr>
+    <tr><td><strong>Religious Law</strong></td><td>Derived from religious texts and interpretations by religious scholars</td><td>Iran, Saudi Arabia (Sharia); Israel (Jewish law for limited matters); Vatican (Canon law)</td><td>Governs personal status, family, and in some jurisdictions commercial transactions; may coexist with civil/common law</td></tr>
+    <tr><td><strong>Customary Law</strong></td><td>Based on long-standing traditions and customs accepted as obligatory</td><td>Parts of Africa, Asia, indigenous communities within many nations</td><td>Often coexists with a formal legal system; governs community relationships and land rights</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Key Insight:</strong> Most modern nations have a <em>mixed</em> legal system. For example, the USA uses common law but also has comprehensive statutory codes. Louisiana (US) uses civil law traditions due to French heritage. Scotland uses a mix of common and civil law. When operating globally, always determine which legal system applies in each jurisdiction.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Categories of Law</h2>
+  <p>Within any legal system, laws fall into categories that determine who can bring a case, what remedies are available, and what the burden of proof is.</p>
+
+  <table>
+    <tr><th>Category</th><th>Who Brings the Case</th><th>Standard of Proof</th><th>Outcome</th><th>Cybersecurity Example</th></tr>
+    <tr><td><strong>Criminal Law</strong></td><td>Government (state/federal prosecutor)</td><td>Beyond reasonable doubt (&gt;95% certainty)</td><td>Imprisonment, fines paid to government, probation</td><td>Hacker prosecuted under CFAA; insider charged with theft of trade secrets</td></tr>
+    <tr><td><strong>Civil Law (Tort)</strong></td><td>Injured party (individual/organisation) sues defendant</td><td>Preponderance of evidence (&gt;50% "more likely than not")</td><td>Monetary damages, injunctions; no imprisonment</td><td>Customer class action against company after breach of PII; competitor sues for theft of trade secrets</td></tr>
+    <tr><td><strong>Administrative / Regulatory Law</strong></td><td>Government regulatory agency</td><td>Substantial evidence (lower than criminal)</td><td>Civil fines, licence revocation, mandatory corrective action</td><td>HIPAA OCR investigation → fine; PCI-DSS card brand fine; FTC enforcement action</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Critical Distinction:</strong> A single incident can result in <em>all three</em> types simultaneously. A healthcare breach could trigger: (1) criminal prosecution of the attacker (criminal law), (2) a patient class action (civil law), and (3) an HHS OCR investigation and fine (administrative/regulatory law). These proceed <em>independently</em> of each other.
+  </div>
+
+  <h3>Tort Law Types (Civil)</h3>
+  <p>Torts are civil wrongs. The most common in cybersecurity contexts:</p>
+  <table>
+    <tr><th>Tort Type</th><th>Definition</th><th>Example</th></tr>
+    <tr><td><strong>Negligence</strong></td><td>Failure to exercise reasonable care, causing harm to another party</td><td>Organisation fails to patch a known critical vulnerability; breach results; customers sue for negligence</td></tr>
+    <tr><td><strong>Strict Liability</strong></td><td>Liability regardless of intent or negligence — certain activities are inherently risky</td><td>Less common in cybersecurity; applies more to product liability for defective software</td></tr>
+    <tr><td><strong>Intentional Torts</strong></td><td>Deliberate acts causing harm</td><td>Intentional destruction of another company's data; deliberate defamation</td></tr>
+  </table>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Criminal vs. Civil Law in Cybersecurity</h2>
+  <p>The most important distinction for CISSP exam scenarios is criminal vs. civil. Here is the operative comparison:</p>
+
+  <table>
+    <tr><th>Attribute</th><th>Criminal Law</th><th>Civil Law (Tort)</th></tr>
+    <tr><td>Who initiates?</td><td>Government prosecutor</td><td>Injured private party</td></tr>
+    <tr><td>Burden of proof</td><td>Beyond reasonable doubt</td><td>Preponderance of evidence (51%+)</td></tr>
+    <tr><td>Goal</td><td>Punish wrongdoer; deter crime; protect society</td><td>Compensate the injured party; make them whole</td></tr>
+    <tr><td>Outcomes</td><td>Prison, fines paid to state, criminal record</td><td>Money damages, injunctions</td></tr>
+    <tr><td>Example</td><td>US v. Kevin Mitnick (unauthorised computer access)</td><td>eBay v. Bidder's Edge (trespass to chattels — automated scraping)</td></tr>
+    <tr><td>Can both apply?</td><td colspan="2">Yes — the same act can be both a crime (government prosecutes) and a tort (victim sues). These are parallel proceedings.</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 Criminal vs. Civil: "The Government went Criminal; the Victim went Civil"</strong><br>
+    Criminal = Government acts → sends attacker to prison<br>
+    Civil = Victim acts → gets money damages<br>
+    Burden of proof: <em>"Criminal needs CERTAINTY (beyond reasonable doubt); Civil needs 51%"</em>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Liability, Due Care &amp; Negligence</h2>
+  <div class="definition">
+    <strong>Liability:</strong> Legal responsibility for harm caused to another. Can be imposed by law (statutory liability), contract, or common-law tort doctrines.
+  </div>
+
+  <h3>The Negligence Test (Four Elements)</h3>
+  <p>To prove negligence in a cybersecurity context, four elements must be established:</p>
+  <ol>
+    <li><strong>Duty of Care:</strong> The defendant had a legal obligation to protect the plaintiff. Example: a company that collects customer PII owes that customer a duty of care to protect it.</li>
+    <li><strong>Breach of Duty:</strong> The defendant failed to meet the standard of care expected. Example: failing to patch a critical vulnerability that had a vendor patch available for 90 days.</li>
+    <li><strong>Causation:</strong> The breach caused the harm. Example: the unpatched vulnerability is what the attacker exploited in the breach.</li>
+    <li><strong>Damages:</strong> The plaintiff suffered actual measurable harm. Example: customers suffered identity theft; company suffered financial losses.</li>
+  </ol>
+
+  <div class="mnemonic">
+    <strong>🧠 Four Elements of Negligence: "D-B-C-D"</strong><br>
+    <strong>D</strong>uty → <strong>B</strong>reach → <strong>C</strong>ausation → <strong>D</strong>amages<br>
+    Memory hook: <em>"Duty Broken Causes Damage"</em>
+  </div>
+
+  <h3>Reducing Liability Through Due Care</h3>
+  <p>Organisations can reduce—but not eliminate—liability by demonstrating that they exercised <strong>due care</strong> (took reasonable protective actions) and <strong>due diligence</strong> (verified those actions worked). This does not guarantee immunity but can significantly reduce damages awarded and is often decisive in whether a court finds negligence.</p>
+
+  <div class="key-concept">
+    <strong>Prudent Man (Person) Rule:</strong> The standard of care in many jurisdictions is what a <em>reasonable and prudent person in the same circumstances</em> would do. In cybersecurity, this is interpreted as: what would a competent security professional with the same resources and knowledge have done?
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Computer Crime Laws</h2>
+  <h3>United States – Key Federal Laws</h3>
+  <table>
+    <tr><th>Law</th><th>Year</th><th>Key Provisions</th></tr>
+    <tr><td><strong>Computer Fraud and Abuse Act (CFAA)</strong></td><td>1986/amended</td><td>Prohibits unauthorised access to "protected computers" (any computer connected to the internet); covers hacking, malware deployment, denial of service, trafficking in passwords; both criminal penalties and civil remedies</td></tr>
+    <tr><td><strong>Electronic Communications Privacy Act (ECPA)</strong></td><td>1986</td><td>Extends wiretapping laws to electronic communications; covers email, stored communications, and transactional records; governs when law enforcement can access electronic communications</td></tr>
+    <tr><td><strong>Identity Theft Enforcement and Restitution Act</strong></td><td>2008</td><td>Strengthens penalties for identity theft; allows federal prosecution without jurisdictional minimums</td></tr>
+    <tr><td><strong>USA PATRIOT Act</strong></td><td>2001</td><td>Expanded surveillance and intelligence-sharing authorities after 9/11; controversial impact on privacy rights; relevant to national security investigations</td></tr>
+    <tr><td><strong>Cyber Intelligence Sharing and Protection Act (CISPA) / CISA</strong></td><td>2015</td><td>Allows private sector entities to share cyber threat indicators with the government without antitrust liability; voluntary program</td></tr>
+    <tr><td><strong>Federal Information Security Modernization Act (FISMA)</strong></td><td>2014</td><td>Requires federal agencies to implement comprehensive information security programmes; NIST frameworks mandated</td></tr>
+  </table>
+
+  <h3>International – Notable Laws and Conventions</h3>
+  <table>
+    <tr><th>Law/Convention</th><th>Scope</th><th>Key Points</th></tr>
+    <tr><td><strong>Budapest Convention on Cybercrime</strong></td><td>Council of Europe, 65+ signatories</td><td>First international treaty on cybercrime; harmonises national laws; facilitates international cooperation; covers illegal access, data interference, system interference, misuse of devices</td></tr>
+    <tr><td><strong>UK Computer Misuse Act (1990)</strong></td><td>United Kingdom</td><td>Criminalises unauthorised computer access; unauthorised access with intent to commit further offences; unauthorised modification of computer material; DoS attacks (added 2006)</td></tr>
+    <tr><td><strong>EU Network and Information Security (NIS) Directive / NIS2</strong></td><td>European Union</td><td>Cybersecurity requirements for operators of essential services and digital service providers; incident reporting obligations</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 CFAA Key Points for CISSP:</strong> The CFAA applies to any computer connected to the internet ("protected computer"). Both civil and criminal remedies are available. The controversial "authorisation" provision has been used against security researchers — accessing a system even with permission for one purpose but using it for another may constitute a violation. The Supreme Court narrowed this interpretation in Van Buren v. United States (2021).
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Jurisdiction Issues in Cybersecurity</h2>
+  <div class="definition">
+    <strong>Jurisdiction:</strong> The legal authority of a court or government to apply its laws to a case. In cybersecurity, determining jurisdiction is complex because attackers, victims, and infrastructure may all be in different countries.
+  </div>
+
+  <h3>Why Jurisdiction Is Difficult in Cybercrime</h3>
+  <ul>
+    <li>An attacker in Country A attacks a server in Country B that serves customers in Country C, using a botnet distributed across 30 countries.</li>
+    <li>Different countries have different definitions of what constitutes a computer crime; some acts legal in one country are criminal in another.</li>
+    <li>Attribution (proving who the attacker is) is technically difficult; nation-state attackers often have sovereign immunity.</li>
+    <li>Mutual Legal Assistance Treaties (MLATs) govern how countries assist each other in collecting evidence — slow and bureaucratic.</li>
+  </ul>
+
+  <h3>Factors Courts Use to Claim Jurisdiction</h3>
+  <table>
+    <tr><th>Basis</th><th>Requirement</th><th>Example</th></tr>
+    <tr><td><strong>Territorial</strong></td><td>Crime occurred in the jurisdiction</td><td>Server attacked is physically in the US → US courts have jurisdiction</td></tr>
+    <tr><td><strong>Nationality</strong></td><td>Attacker is a citizen</td><td>US citizen commits cybercrime from abroad → can be extradited and prosecuted in US</td></tr>
+    <tr><td><strong>Protective</strong></td><td>Threatens national security or vital interests</td><td>Attack against US financial infrastructure from abroad</td></tr>
+    <tr><td><strong>Passive Personality</strong></td><td>Victim is a citizen or corporation</td><td>US company victimised abroad — used in some civil cases</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>GDPR Extraterritorial Reach:</strong> GDPR applies to any organisation worldwide that processes data of EU residents, regardless of where the organisation is located. This is one of the most significant examples of <em>extraterritorial jurisdiction</em> in modern data protection law.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Evidence and Legal Admissibility</h2>
+  <p>For digital evidence to be used in legal proceedings, it must meet admissibility requirements. This topic overlaps significantly with Day 102 (Digital Forensics — Evidence) in Domain 7, but the legal foundations are covered here.</p>
+
+  <h3>Admissibility Requirements</h3>
+  <p>Evidence must be:</p>
+  <ol>
+    <li><strong>Relevant:</strong> Directly related to the facts at issue in the case</li>
+    <li><strong>Reliable:</strong> Obtained through sound, documented processes; accurate and complete</li>
+    <li><strong>Legally Obtained:</strong> Not obtained through illegal searches or in violation of constitutional rights; proper warrants obtained where required</li>
+  </ol>
+
+  <h3>Types of Evidence</h3>
+  <table>
+    <tr><th>Type</th><th>Definition</th><th>Cybersecurity Example</th></tr>
+    <tr><td><strong>Real Evidence</strong></td><td>Physical objects</td><td>Hard drive, USB drive, router, keyboard</td></tr>
+    <tr><td><strong>Documentary Evidence</strong></td><td>Documents in any form</td><td>Printed log files, emails, screenshots, system reports</td></tr>
+    <tr><td><strong>Testimonial Evidence</strong></td><td>Witness statements under oath</td><td>Expert testimony by forensic analyst; employee testimony about breach events</td></tr>
+    <tr><td><strong>Demonstrative Evidence</strong></td><td>Visual aids to support testimony</td><td>Network diagram showing attacker's path; timeline chart</td></tr>
+  </table>
+
+  <h3>Best Evidence Rule &amp; Hearsay</h3>
+  <div class="definition">
+    <strong>Best Evidence Rule:</strong> Courts prefer original evidence over copies. For digital evidence, a forensically sound bit-for-bit copy (hash-verified disk image) is typically accepted as equivalent to the original because the original digital data cannot be practically "produced" — only copies of it can exist.
+  </div>
+  <div class="definition">
+    <strong>Hearsay Rule:</strong> Out-of-court statements offered to prove the truth of the matter asserted are generally inadmissible. Exceptions exist for business records (logs and records kept in the ordinary course of business are admissible as a hearsay exception — critical for security logs).
+  </div>
+
+  <div class="exam-tip">
+    <strong>💡 Business Records Exception:</strong> System logs kept in the normal course of business operations qualify as business records and are admissible under the hearsay exception. This is why log integrity and consistent log practices (not created just for litigation) matter.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Four Legal System Types:</strong><br>
+    <strong>C</strong>ommon law (UK, US — <strong>C</strong>ourt precedent)<br>
+    <strong>C</strong>ivil/Code law (France, Germany — <strong>C</strong>omprehensive codes)<br>
+    <strong>R</strong>eligious law (Islamic, Jewish, Canon — <strong>R</strong>eligious texts)<br>
+    <strong>C</strong>ustomary law (traditions — <strong>C</strong>ommunity customs)<br>
+    Memory hook: <em>"Common Codes, Religious Customs"</em> or just <em>"3 C's + R"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Criminal vs. Civil vs. Administrative:</strong><br>
+    <strong>Criminal</strong> = Government puts you in <strong>jail</strong> — requires near certainty<br>
+    <strong>Civil</strong> = Victim takes your <strong>money</strong> — requires 51%<br>
+    <strong>Administrative</strong> = Regulator fines your <strong>company</strong> — regulatory action<br>
+    Memory hook: <em>"Jail, Money, Fine"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Negligence — "Duty Broken Causes Damage":</strong><br>
+    <ol>
+      <li><strong>D</strong>uty of care</li>
+      <li><strong>B</strong>reach of duty</li>
+      <li><strong>C</strong>ausation</li>
+      <li><strong>D</strong>amages</li>
+    </ol>
+    All four must be present for negligence to be established.
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Evidence Admissibility — "R-R-L":</strong><br>
+    <strong>R</strong>elevant (to the case)<br>
+    <strong>R</strong>eliable (collected properly)<br>
+    <strong>L</strong>egally obtained (lawful process)<br>
+    Memory hook: <em>"Really Reliable and Legal"</em>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Hack-Back is Illegal:</strong><br>
+    No matter how certain you are of an attacker's identity, launching counter-attacks ("hack-back") is illegal under the CFAA and equivalent laws in most jurisdictions. The legally correct response is to: (1) contain the attack, (2) collect evidence forensically, (3) report to law enforcement. Advising "hack-back" on the exam is wrong.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Jurisdiction Doesn't Mean Prosecution:</strong><br>
+    Having jurisdiction to prosecute does not mean prosecution will happen. Political factors, resource constraints, evidence challenges, and lack of extradition treaties all limit practical enforcement — especially against nation-state actors.
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Common Law</td><td>Precedent-based (UK, US); judges interpret; prior rulings bind future decisions</td></tr>
+    <tr><td>Civil/Code Law</td><td>Statutory codes (France, Germany); comprehensive written rules; less judicial discretion</td></tr>
+    <tr><td>Criminal Law</td><td>Government prosecutes; beyond reasonable doubt; can result in imprisonment</td></tr>
+    <tr><td>Civil/Tort Law</td><td>Victim sues; preponderance of evidence (51%+); results in money damages</td></tr>
+    <tr><td>Administrative Law</td><td>Regulatory agency enforces; fines, licence revocation, corrective action</td></tr>
+    <tr><td>Negligence Elements</td><td>Duty → Breach → Causation → Damages (all four required)</td></tr>
+    <tr><td>CFAA</td><td>US federal law criminalising unauthorised computer access; civil and criminal remedies</td></tr>
+    <tr><td>Budapest Convention</td><td>First international cybercrime treaty; harmonises laws and enables cooperation</td></tr>
+    <tr><td>Jurisdiction</td><td>Complex in cybercrime — territorial, nationality, protective, passive personality principles all apply</td></tr>
+    <tr><td>Evidence Admissibility</td><td>Must be relevant, reliable, and legally obtained</td></tr>
+    <tr><td>Business Records Exception</td><td>System logs kept in ordinary course of business are admissible as hearsay exception</td></tr>
+    <tr><td>Hack-Back</td><td>Illegal in virtually all jurisdictions — do not recommend on exam or in practice</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-003-theory.html" class="nav-btn">← Day 3: Compliance &amp; Regulatory Issues</a>
+  <a href="day-005-theory.html" class="nav-btn">Day 5: Intellectual Property →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

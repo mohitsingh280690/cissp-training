@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 3 – Compliance &amp; Regulatory Issues</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 3: Compliance &amp; Regulatory Issues</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 3 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Beginner–Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 3: Compliance &amp; Regulatory Issues</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Key Definitions: Law vs. Regulation vs. Standard vs. Compliance</a></li>
+    <li><a href="#s4">PCI-DSS</a></li>
+    <li><a href="#s5">SOX (Sarbanes-Oxley Act)</a></li>
+    <li><a href="#s6">HIPAA</a></li>
+    <li><a href="#s7">GLBA (Gramm-Leach-Bliley Act)</a></li>
+    <li><a href="#s8">FERPA &amp; Other Key Regulations</a></li>
+    <li><a href="#s9">Contractual, Legal, and Regulatory Obligations</a></li>
+    <li><a href="#s10">Compliance Monitoring and Reporting</a></li>
+    <li><a href="#s11">Consequences of Non-Compliance</a></li>
+    <li><a href="#s12">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s13">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>CISSP holders are expected to advise organisations on regulatory obligations. Understanding which regulations apply, what they require, and how to demonstrate compliance is core senior-security work.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based ("A healthcare company must comply with…"); best-answer compliance strategy; identifying which regulation applies to a given industry/data type</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>D2 (data classification drives compliance requirements), D5 (access controls for compliance), D6 (audits as compliance evidence), D7 (incident response notification requirements)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The exam tests <em>which regulation applies</em> to a scenario, not the detailed technical requirements. Know: PCI-DSS = payment cards; HIPAA = healthcare data (US); SOX = financial reporting (public companies); GLBA = financial industry; FERPA = student education records. Mix-ups between these are extremely common.
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Organizational Ownership</h3>
+  <p>Compliance ownership sits with <strong>Legal/General Counsel</strong> (for regulatory requirements), the <strong>CISO</strong> (for security controls that evidence compliance), <strong>Internal Audit</strong> (for assessing compliance), and <strong>Business Unit Leaders</strong> (for operational compliance in their domain). The CFO owns financial compliance obligations (SOX). HR owns personnel-related compliance (background checks, training records).</p>
+
+  <h3>Implementation Reality</h3>
+  <p>Most organisations maintain a <strong>compliance programme</strong> with a dedicated compliance officer or team. The programme maps each regulatory obligation to specific controls, control owners, and evidence requirements. A "compliance gap" — where a required control does not exist or is not documented — triggers a remediation project with a defined timeline.</p>
+
+  <h3>Failure Modes</h3>
+  <ul>
+    <li><strong>British Airways (2019):</strong> GDPR non-compliance — inadequate security controls led to 500,000 customer records compromised. ICO issued a £20M fine (reduced from initial £183M). The breach involved script injection on their payment page — a PCI-DSS violation that occurred because security controls were not maintained.</li>
+    <li><strong>Anthem (2015):</strong> HIPAA — 78.8 million health insurance records stolen. No encryption at rest (not required but considered best practice); inadequate access controls. Settled for $16M — largest HIPAA settlement at the time.</li>
+  </ul>
+
+  <h3>Business Impact</h3>
+  <p>Compliance is no longer optional — it is a condition of operating. Loss of PCI-DSS compliance means card networks (Visa, Mastercard) can prohibit a company from processing card payments. HIPAA violations can result in criminal prosecution of individuals. GDPR fines can reach 4% of <em>global annual turnover</em>. For a company like Google, that is billions of dollars.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Key Definitions</h2>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Who Creates It</th><th>Binding?</th></tr>
+    <tr><td><strong>Law / Legislation</strong></td><td>Rules enacted by a legislative body (Parliament, Congress); violation is a crime or civil wrong</td><td>Government legislature</td><td>Yes — legally enforceable</td></tr>
+    <tr><td><strong>Regulation</strong></td><td>Detailed rules issued by a government agency implementing a law; has the force of law</td><td>Regulatory agency (SEC, FTC, ICO, HHS)</td><td>Yes — legally enforceable</td></tr>
+    <tr><td><strong>Standard</strong></td><td>Detailed technical or process requirements; may be mandatory (if referenced in regulation) or voluntary</td><td>Standards bodies (NIST, ISO, PCI SSC) or industry groups</td><td>Depends — mandatory if legally mandated or contractually required</td></tr>
+    <tr><td><strong>Guideline</strong></td><td>Recommended practices; not mandatory</td><td>Standards bodies, vendors, industry groups</td><td>No — advisory only</td></tr>
+    <tr><td><strong>Compliance</strong></td><td>The state of meeting all applicable legal, regulatory, and contractual requirements</td><td>N/A</td><td>N/A</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Critical Distinction:</strong> A <em>standard</em> becomes <em>mandatory</em> in two ways: (1) a regulation references it as the required method of compliance (e.g., HIPAA's "Security Rule" effectively mandates certain NIST controls); or (2) a contract requires it (e.g., a merchant agreement with Visa requires PCI-DSS compliance as a contractual obligation, not a law).
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. PCI-DSS (Payment Card Industry Data Security Standard)</h2>
+  <div class="definition">
+    <strong>PCI-DSS:</strong> A contractual standard (not a law) created and maintained by the <strong>PCI Security Standards Council</strong> (PCI SSC), founded by the major card brands: Visa, Mastercard, American Express, Discover, and JCB. Any entity that <em>stores, processes, or transmits cardholder data</em> must comply.
+  </div>
+  <p>PCI-DSS is enforced through <em>contractual obligation</em> — when a merchant signs an agreement to accept card payments, they agree to comply with PCI-DSS. Non-compliance can result in fines from card networks and ultimately loss of the ability to process card payments.</p>
+
+  <h3>PCI-DSS Six Goals and Twelve Requirements (Summary)</h3>
+  <table>
+    <tr><th>Goal</th><th>Requirements</th><th>Plain Language</th></tr>
+    <tr><td>Build and maintain a secure network</td><td>1–2</td><td>Install and maintain network controls; do not use vendor defaults</td></tr>
+    <tr><td>Protect cardholder data</td><td>3–4</td><td>Protect stored data; encrypt data in transit</td></tr>
+    <tr><td>Maintain a vulnerability management program</td><td>5–6</td><td>AV/anti-malware; develop secure systems</td></tr>
+    <tr><td>Implement strong access control</td><td>7–9</td><td>Restrict access; assign unique IDs; restrict physical access</td></tr>
+    <tr><td>Regularly monitor and test networks</td><td>10–11</td><td>Track and monitor access; regularly test systems</td></tr>
+    <tr><td>Maintain an information security policy</td><td>12</td><td>Maintain a policy that addresses information security for all personnel</td></tr>
+  </table>
+
+  <h3>Merchant Levels</h3>
+  <table>
+    <tr><th>Level</th><th>Volume (Visa/Mastercard)</th><th>Validation Requirement</th></tr>
+    <tr><td>Level 1</td><td>&gt;6 million transactions/year</td><td>Annual on-site QSA audit; quarterly network scans</td></tr>
+    <tr><td>Level 2</td><td>1–6 million transactions/year</td><td>Annual SAQ (Self-Assessment Questionnaire); quarterly scans</td></tr>
+    <tr><td>Level 3</td><td>20K–1 million e-commerce transactions</td><td>Annual SAQ; quarterly scans</td></tr>
+    <tr><td>Level 4</td><td>&lt;20K e-commerce; &lt;1M all others</td><td>Annual SAQ recommended; quarterly scans recommended</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Key Point:</strong> PCI-DSS is <strong>not a law</strong> — it is a <strong>contractual requirement</strong>. Violation does not result in prosecution by government; it results in fines from card brands and potentially losing the right to process card payments.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. SOX – Sarbanes-Oxley Act (2002)</h2>
+  <div class="definition">
+    <strong>SOX:</strong> US federal law passed in 2002 in response to accounting scandals (Enron, WorldCom). Applies to all US <em>publicly traded companies</em> and their auditors. Mandates internal controls over financial reporting and significant accountability for executives.
+  </div>
+
+  <h3>Key SOX Sections for Security</h3>
+  <table>
+    <tr><th>Section</th><th>Content</th><th>Security Relevance</th></tr>
+    <tr><td><strong>Section 302</strong></td><td>CEO and CFO must personally certify quarterly/annual financial reports</td><td>Executives are personally liable — cannot claim ignorance of material misstatements</td></tr>
+    <tr><td><strong>Section 404</strong></td><td>Management must assess internal controls over financial reporting (ICFR) annually; external auditor must attest</td><td>IT general controls (ITGC) — access management, change management, computer operations, data backup — are assessed</td></tr>
+    <tr><td><strong>Section 802</strong></td><td>Criminalises altering, destroying, or falsifying records in federal investigations</td><td>Audit logs must be tamper-proof; records must be retained per policy</td></tr>
+    <tr><td><strong>Section 409</strong></td><td>Real-time disclosure of material changes to financial condition</td><td>Security breaches that are "material" (financially significant) must be disclosed promptly</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>SOX and IT/Security:</strong> SOX does not prescribe specific technical controls — it requires management to <em>demonstrate</em> that financial data is accurate and protected. In practice, auditors assess IT General Controls (ITGCs) against frameworks like COBIT. Common ITGC areas: logical access controls, change management, data backup/recovery, incident management.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. HIPAA – Health Insurance Portability and Accountability Act (1996)</h2>
+  <div class="definition">
+    <strong>HIPAA:</strong> US federal law protecting the privacy and security of <strong>Protected Health Information (PHI)</strong>. Applies to <em>covered entities</em> (healthcare providers, health plans, healthcare clearinghouses) and their <em>business associates</em> (vendors handling PHI on their behalf).
+  </div>
+
+  <h3>PHI – Protected Health Information</h3>
+  <p>PHI is any individually identifiable health information that relates to a person's past, present, or future health condition, the provision of healthcare, or the payment for healthcare. This includes: name, address, dates, phone numbers, Social Security numbers, medical record numbers, health plan numbers, account numbers, and more — when combined with health information.</p>
+  <p><strong>ePHI</strong> = electronic PHI. The HIPAA Security Rule specifically governs ePHI.</p>
+
+  <h3>HIPAA's Key Rules</h3>
+  <table>
+    <tr><th>Rule</th><th>Focus</th><th>Key Requirements</th></tr>
+    <tr><td><strong>Privacy Rule</strong></td><td>Who can use and disclose PHI</td><td>Minimum necessary standard; patient rights (access, amendment, accounting of disclosures); Notice of Privacy Practices</td></tr>
+    <tr><td><strong>Security Rule</strong></td><td>Protecting ePHI</td><td>Administrative, Physical, and Technical safeguards; risk analysis required; addressable vs. required specifications</td></tr>
+    <tr><td><strong>Breach Notification Rule</strong></td><td>What to do after a breach</td><td>Notify affected individuals within 60 days; notify HHS; if &gt;500 individuals in a state, notify prominent media; annual report for small breaches</td></tr>
+    <tr><td><strong>Enforcement Rule</strong></td><td>Penalties</td><td>Civil: $100–$50,000 per violation; $1.5M annual cap per violation category. Criminal: up to $250K and 10 years imprisonment</td></tr>
+  </table>
+
+  <div class="definition">
+    <strong>Business Associate:</strong> Any person or organisation that performs functions involving PHI on behalf of a covered entity. Examples: cloud hosting provider, billing service, law firm reviewing patient records, IT support with access to ePHI systems. Business Associates must sign a <strong>Business Associate Agreement (BAA)</strong> to legally handle PHI.
+  </div>
+
+  <div class="exam-tip">
+    <strong>💡 Addressable vs. Required Specifications (HIPAA Security Rule):</strong> <em>Required</em> specifications must be implemented as stated — no flexibility. <em>Addressable</em> specifications must be assessed: if reasonable and appropriate, implement as stated; otherwise, document why and implement an equivalent alternative. Encryption of ePHI is <em>addressable</em> — meaning if you decide not to encrypt, you must document that decision and implement compensating controls.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. GLBA – Gramm-Leach-Bliley Act (1999)</h2>
+  <div class="definition">
+    <strong>GLBA (also known as the Financial Services Modernization Act):</strong> US federal law requiring financial institutions to protect the privacy and security of customer <strong>Non-Public Personal Information (NPPI / NPI)</strong>. Applies to banks, insurance companies, investment firms, mortgage lenders, tax preparers, and others providing financial services.
+  </div>
+
+  <h3>Three Key GLBA Rules</h3>
+  <table>
+    <tr><th>Rule</th><th>Purpose</th><th>Key Requirement</th></tr>
+    <tr><td><strong>Financial Privacy Rule</strong></td><td>Governs collection and sharing of NPPI</td><td>Customers must receive a privacy notice; must be given an opt-out option for sharing with non-affiliated third parties</td></tr>
+    <tr><td><strong>Safeguards Rule</strong></td><td>Requires security program for NPPI</td><td>Designate a security coordinator; risk assessment; employee training; vendor oversight; incident response plan; written comprehensive security program</td></tr>
+    <tr><td><strong>Pretexting Rule</strong></td><td>Prohibits social engineering to obtain NPPI</td><td>Makes it illegal to use false pretences to acquire customer financial information</td></tr>
+  </table>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. FERPA &amp; Other Key Regulations</h2>
+
+  <h3>FERPA (Family Educational Rights and Privacy Act)</h3>
+  <div class="definition">
+    <strong>FERPA:</strong> US federal law that protects the privacy of <strong>student education records</strong>. Applies to educational institutions that receive federal funding (effectively all public schools and most private universities). Parents have rights over records until the student turns 18.
+  </div>
+
+  <h3>FISMA (Federal Information Security Management Act)</h3>
+  <div class="definition">
+    <strong>FISMA:</strong> US federal law requiring federal agencies to develop, document, and implement information security programs. Mandates risk-based security for federal information systems. Agencies must use NIST frameworks (RMF, 800-53). Annual IG reports submitted to Congress.
+  </div>
+
+  <h3>GDPR (Preview — Covered Fully on Day 6)</h3>
+  <p>The <strong>General Data Protection Regulation</strong> — EU regulation protecting personal data of EU residents. Key for the CISSP: enormous fines (up to 4% global annual turnover), strict breach notification (72 hours to supervisory authority), explicit consent requirements, data subject rights. Applies to <em>any organisation worldwide</em> processing EU resident data.</p>
+
+  <h3>Regulation Applicability Quick Reference</h3>
+  <table>
+    <tr><th>Regulation</th><th>Industry/Data Type</th><th>Geographic Scope</th><th>Governing Body</th></tr>
+    <tr><td>PCI-DSS</td><td>Payment card data</td><td>Global (contractual)</td><td>PCI Security Standards Council</td></tr>
+    <tr><td>SOX</td><td>Financial reporting (public companies)</td><td>US (public companies listed on US exchanges)</td><td>SEC, PCAOB</td></tr>
+    <tr><td>HIPAA</td><td>Health information (PHI)</td><td>US</td><td>HHS OCR</td></tr>
+    <tr><td>GLBA</td><td>Financial services customer data</td><td>US</td><td>FTC, federal banking regulators</td></tr>
+    <tr><td>FERPA</td><td>Student education records</td><td>US (federally funded institutions)</td><td>US Dept. of Education</td></tr>
+    <tr><td>GDPR</td><td>Personal data of EU residents</td><td>Global (applies to any org processing EU resident data)</td><td>EU Supervisory Authorities (ICO in UK)</td></tr>
+    <tr><td>FISMA</td><td>Federal government IT systems</td><td>US federal agencies</td><td>NIST, OMB, DHS</td></tr>
+  </table>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Contractual, Legal, and Regulatory Obligations</h2>
+  <p>Compliance obligations come from three sources, and organisations must meet <em>all three</em>:</p>
+  <table>
+    <tr><th>Source</th><th>Nature</th><th>Examples</th><th>Consequence of Breach</th></tr>
+    <tr><td><strong>Regulatory</strong></td><td>Government-imposed rules</td><td>GDPR, HIPAA, SOX, FISMA</td><td>Fines, licence revocation, criminal prosecution</td></tr>
+    <tr><td><strong>Legal</strong></td><td>Common law obligations, tort law</td><td>Negligence (duty of care), breach of confidence, computer fraud laws</td><td>Civil lawsuits, damages, injunctions, criminal charges</td></tr>
+    <tr><td><strong>Contractual</strong></td><td>Obligations agreed between parties</td><td>PCI-DSS (via merchant agreement), SLAs, NDAs, BAAs, Data Processing Agreements</td><td>Contract termination, financial penalties, loss of status (e.g., losing merchant status)</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Important Principle — Compliance ≠ Security:</strong> Meeting compliance requirements does not guarantee security. Compliance sets a <em>minimum baseline</em>. An organisation can be fully PCI-DSS compliant and still be breached — TJX was breached while pursuing PCI compliance certification. Security must go beyond compliance minimums.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Compliance Monitoring and Reporting</h2>
+  <p>Compliance is not a one-time event — it requires ongoing monitoring, evidence collection, and structured reporting.</p>
+
+  <h3>Monitoring Mechanisms</h3>
+  <ul>
+    <li><strong>Continuous monitoring:</strong> Automated tools (SIEM, vulnerability scanners, DLP) constantly assess the control environment and alert on deviations.</li>
+    <li><strong>Internal audits:</strong> Periodic reviews by an independent internal function to assess whether controls are operating effectively.</li>
+    <li><strong>External audits:</strong> Third-party auditors (Big Four or specialist firms) assess compliance against regulations and issue formal reports.</li>
+    <li><strong>Self-assessment questionnaires (SAQ):</strong> Used in PCI-DSS for lower-level merchants; organisation attests to compliance through a structured questionnaire.</li>
+    <li><strong>Regulatory inspections:</strong> Regulatory bodies (ICO, OCR, FTC) may conduct announced or unannounced inspections.</li>
+  </ul>
+
+  <h3>Evidence Types and Retention</h3>
+  <p>Compliance programmes must retain evidence of control operation. Common evidence types:</p>
+  <ul>
+    <li>System logs (access logs, change logs, audit trails)</li>
+    <li>Configuration screenshots and records</li>
+    <li>Training completion records</li>
+    <li>Signed policy acknowledgements</li>
+    <li>Vulnerability scan reports and remediation records</li>
+    <li>Business Associate Agreements (HIPAA)</li>
+    <li>Minutes of governance meetings</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>💡 Retention:</strong> Evidence retention periods are driven by the regulation. SOX requires 7 years. HIPAA requires 6 years from creation or last effective date. When in doubt on the exam, the answer involving longer retention and more thorough documentation is usually correct.
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Consequences of Non-Compliance</h2>
+  <table>
+    <tr><th>Regulation</th><th>Maximum Penalty</th><th>Notable Case</th></tr>
+    <tr><td>GDPR</td><td>€20M or 4% global annual turnover (higher of two)</td><td>Meta: €1.2B (2023); Google: €50M (2019)</td></tr>
+    <tr><td>HIPAA</td><td>$1.9M per violation category/year; up to 10 years imprisonment for criminal violation</td><td>Anthem: $16M settlement (2018)</td></tr>
+    <tr><td>PCI-DSS</td><td>$5K–$100K/month from card brands; loss of merchant status</td><td>Heartland Payment Systems: $140M settlements</td></tr>
+    <tr><td>SOX</td><td>Up to $5M fine; 20 years imprisonment (willful violation)</td><td>Adelphia Communications executives prosecuted</td></tr>
+    <tr><td>GLBA</td><td>$100K per violation; $10K per officer per violation; up to 5 years imprisonment</td><td>Multiple FTC enforcement actions</td></tr>
+  </table>
+</div>
+
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Regulation Applicability — Industry Anchors:</strong><br>
+    <strong>PCI</strong> = <strong>P</strong>ayment <strong>C</strong>ard <strong>I</strong>ndustry — anything with card transactions<br>
+    <strong>HIPAA</strong> = <strong>H</strong>ealth = <strong>H</strong>ospital / Healthcare<br>
+    <strong>SOX</strong> = <strong>S</strong>tock market / public company financial <strong>S</strong>candals<br>
+    <strong>GLBA</strong> = <strong>G</strong>ramm-<strong>L</strong>each-<strong>B</strong>liley = financial industry (Banks and insurance)<br>
+    <strong>FERPA</strong> = <strong>F</strong>amily <strong>E</strong>ducation = schools and universities<br>
+    Memory hook: <em>"Pay Healthy Stocks Going For Education"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 HIPAA Three Rules:</strong><br>
+    <strong>P</strong>rivacy Rule = who can <strong>P</strong>eek at PHI<br>
+    <strong>S</strong>ecurity Rule = how to <strong>S</strong>ecure ePHI<br>
+    <strong>B</strong>reach Notification = what to do when things go <strong>B</strong>ad<br>
+    Memory hook: <em>"</em>PSB — Privacy, Security, Breach"
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 GDPR 72-Hour Rule:</strong><br>
+    <em>"GDPR gives you 3 days to tell the regulator"</em> — 72 hours to report a breach to the supervisory authority (e.g., ICO in UK). Customer notification depends on risk of harm — high risk = must notify; low risk = may not need to.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Compliance ≠ Security:</strong><br>
+    The exam may present a scenario where an organisation is compliant but still breached. The correct answer in such cases will acknowledge that compliance is a floor, not a ceiling. <em>"What additional steps should be taken?"</em> — more rigorous controls beyond compliance minimums.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ PCI-DSS is contractual, not statutory:</strong><br>
+    Non-compliance with PCI-DSS is enforced by card brands through merchant agreements — not by government prosecution. This distinguishes it from HIPAA, SOX, GDPR, and GLBA.
+  </div>
+</div>
+
+<!-- S13 -->
+<div class="section" id="s13">
+  <h2>13. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Law</td><td>Enacted by legislature; government-enforced criminal/civil penalties</td></tr>
+    <tr><td>Regulation</td><td>Detailed rules from government agencies implementing a law; force of law</td></tr>
+    <tr><td>Standard</td><td>Technical requirements; mandatory only if legally or contractually mandated</td></tr>
+    <tr><td>PCI-DSS</td><td>Contractual standard for payment card processing; enforced by card brands</td></tr>
+    <tr><td>SOX</td><td>US law for public companies; financial reporting controls; CEO/CFO personal liability</td></tr>
+    <tr><td>HIPAA</td><td>US law protecting PHI; Privacy, Security, and Breach Notification Rules; applies via Business Associates</td></tr>
+    <tr><td>GLBA</td><td>US financial services privacy law; requires safeguards for NPPI</td></tr>
+    <tr><td>FERPA</td><td>US student education records privacy; federally funded institutions</td></tr>
+    <tr><td>GDPR</td><td>EU law; global reach; 72-hour breach notification; fines up to 4% global revenue</td></tr>
+    <tr><td>Compliance ≠ Security</td><td>Compliance is the minimum; real security exceeds it</td></tr>
+    <tr><td>Monitoring</td><td>Continuous—audits, scans, evidence retention—not a one-time check</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-002-theory.html" class="nav-btn">← Day 2: Security Governance</a>
+  <a href="day-004-theory.html" class="nav-btn">Day 4: Legal Systems &amp; Law Types →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

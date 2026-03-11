@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 35 – MCQ: Bell-LaPadula Model</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;}.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:26px;margin-bottom:22px;transition:border-color .3s;}.question-card.correct{border-color:var(--green);background:#f1f8f1;}.question-card.incorrect{border-color:var(--red);background:#fff5f5;}
+.question-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}.question-number{background:var(--primary);color:white;font-weight:700;font-size:1rem;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.question-text{font-size:1.05rem;font-weight:600;line-height:1.5;}
+.options{list-style:none;padding:0;margin:0;}.options li{margin-bottom:10px;}.options label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border-radius:6px;border:1px solid var(--border);transition:background .2s;}.options label:hover{background:#f0f4ff;}.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9;border-color:var(--green);font-weight:600;color:var(--green);}label.wrong-answer{background:#fce4ec;border-color:var(--red);color:var(--red);text-decoration:line-through;}
+.explanation{display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:.95rem;line-height:1.6;}.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#7f0000;}
+.submit-section{text-align:center;margin:30px 0;}#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;}#submitBtn:hover{background:var(--primary);}#submitBtn:disabled{background:#bbb;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:30px;text-align:center;margin-bottom:28px;}.results h2{color:var(--primary);margin-bottom:16px;}.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}.score-display.pass{color:var(--green);}.score-display.fail{color:var(--red);}.score-message{font-size:1.2rem;margin-bottom:8px;font-weight:600;}.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 35 – Quiz: Bell-LaPadula Model</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 35 of 140</span><span>❓ 10 Questions</span><span>⏱️ ~15 min</span><span>🎯 Passing Score: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>📋 Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> when done. Questions cover the <strong>Bell-LaPadula confidentiality model, its properties, and limitations</strong>. Passing threshold: <strong>7/10 (70%)</strong>.</div>
+
+<form id="quizForm">
+
+<div class="question-card" id="q1-card"><div class="question-header"><span class="question-number">1</span><span class="question-text">An analyst with Secret clearance attempts to open a Top Secret document in a multi-level security system implementing Bell-LaPadula. What happens?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q1" value="a"> Access is granted because the analyst has a government clearance</label></li>
+<li><label><input type="radio" name="q1" value="b"> Access is denied — the Simple Security Property (no read up) prevents reading above clearance level</label></li>
+<li><label><input type="radio" name="q1" value="c"> Access is denied — the Star Property (no write down) prevents this operation</label></li>
+<li><label><input type="radio" name="q1" value="d"> Access is granted for read-only mode but write is denied</label></li>
+</ul><div class="explanation" id="q1-exp"></div></div>
+
+<div class="question-card" id="q2-card"><div class="question-header"><span class="question-number">2</span><span class="question-text">A Top Secret user writes a summary of classified intelligence into an Unclassified shared drive. Which BLP property is violated?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q2" value="a"> Simple Security Property</label></li>
+<li><label><input type="radio" name="q2" value="b"> Discretionary Security Property</label></li>
+<li><label><input type="radio" name="q2" value="c"> Star (*) Property — no write down</label></li>
+<li><label><input type="radio" name="q2" value="d"> Strong Tranquility Property</label></li>
+</ul><div class="explanation" id="q2-exp"></div></div>
+
+<div class="question-card" id="q3-card"><div class="question-header"><span class="question-number">3</span><span class="question-text">Bell-LaPadula focuses exclusively on which aspect of security?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q3" value="a"> Integrity — preventing unauthorized modification</label></li>
+<li><label><input type="radio" name="q3" value="b"> Availability — ensuring systems remain operational</label></li>
+<li><label><input type="radio" name="q3" value="c"> Confidentiality — preventing unauthorized disclosure</label></li>
+<li><label><input type="radio" name="q3" value="d"> Non-repudiation — ensuring actions cannot be denied</label></li>
+</ul><div class="explanation" id="q3-exp"></div></div>
+
+<div class="question-card" id="q4-card"><div class="question-header"><span class="question-number">4</span><span class="question-text">In a BLP system, a Confidential-level process writes data to a Secret-level file. Under standard BLP rules, is this permitted?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q4" value="a"> No — BLP prohibits all cross-level writes</label></li>
+<li><label><input type="radio" name="q4" value="b"> Yes — writing UP is permitted; the Star Property only prevents writing DOWN</label></li>
+<li><label><input type="radio" name="q4" value="c"> No — the Simple Security Property blocks this operation</label></li>
+<li><label><input type="radio" name="q4" value="d"> Yes — but only if the subject has DAC permission in the access control matrix</label></li>
+</ul><div class="explanation" id="q4-exp"></div></div>
+
+<div class="question-card" id="q5-card"><div class="question-header"><span class="question-number">5</span><span class="question-text">Which BLP principle states that security classification labels cannot be changed after initial assignment?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q5" value="a"> Weak Tranquility</label></li>
+<li><label><input type="radio" name="q5" value="b"> Strong Tranquility</label></li>
+<li><label><input type="radio" name="q5" value="c"> Star (*) Property</label></li>
+<li><label><input type="radio" name="q5" value="d"> Discretionary Security Property</label></li>
+</ul><div class="explanation" id="q5-exp"></div></div>
+
+<div class="question-card" id="q6-card"><div class="question-header"><span class="question-number">6</span><span class="question-text">A major criticism of the Bell-LaPadula model is that it does not address:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q6" value="a"> Confidentiality of classified data</label></li>
+<li><label><input type="radio" name="q6" value="b"> Data integrity — allowing unreliable lower-level data to be written to higher-level objects</label></li>
+<li><label><input type="radio" name="q6" value="c"> Access control matrices</label></li>
+<li><label><input type="radio" name="q6" value="d"> Classification levels and clearances</label></li>
+</ul><div class="explanation" id="q6-exp"></div></div>
+
+<div class="question-card" id="q7-card"><div class="question-header"><span class="question-number">7</span><span class="question-text">Which security model was specifically developed to address the integrity weakness in Bell-LaPadula by inverting its rules?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q7" value="a"> Clark-Wilson</label></li>
+<li><label><input type="radio" name="q7" value="b"> Brewer-Nash (Chinese Wall)</label></li>
+<li><label><input type="radio" name="q7" value="c"> Biba</label></li>
+<li><label><input type="radio" name="q7" value="d"> Graham-Denning</label></li>
+</ul><div class="explanation" id="q7-exp"></div></div>
+
+<div class="question-card" id="q8-card"><div class="question-header"><span class="question-number">8</span><span class="question-text">The Basic Security Theorem (BST) of Bell-LaPadula states that:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q8" value="a"> All data must be encrypted at rest and in transit</label></li>
+<li><label><input type="radio" name="q8" value="b"> If a system starts in a secure state and all transitions preserve security, every reachable state is secure</label></li>
+<li><label><input type="radio" name="q8" value="c"> Users with the highest clearance can bypass all access controls</label></li>
+<li><label><input type="radio" name="q8" value="d"> Classification labels must be immutable throughout the system lifecycle</label></li>
+</ul><div class="explanation" id="q8-exp"></div></div>
+
+<div class="question-card" id="q9-card"><div class="question-header"><span class="question-number">9</span><span class="question-text">Under the Strong Star Property of BLP, a Secret-cleared subject can:</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q9" value="a"> Read Secret and below, write Secret and above</label></li>
+<li><label><input type="radio" name="q9" value="b"> Read and write at the Secret level only — no cross-level access</label></li>
+<li><label><input type="radio" name="q9" value="c"> Read any level but write only at Secret</label></li>
+<li><label><input type="radio" name="q9" value="d"> Write at any level but read only at Secret and below</label></li>
+</ul><div class="explanation" id="q9-exp"></div></div>
+
+<div class="question-card" id="q10-card"><div class="question-header"><span class="question-number">10</span><span class="question-text">A defense contractor needs a security model that prevents information disclosure while also enforcing integrity controls. Which approach BEST addresses both needs?</span></div>
+<ul class="options">
+<li><label><input type="radio" name="q10" value="a"> Implement BLP alone — it handles both confidentiality and integrity</label></li>
+<li><label><input type="radio" name="q10" value="b"> Implement the Lipner model, which combines BLP (confidentiality) and Biba (integrity)</label></li>
+<li><label><input type="radio" name="q10" value="c"> Implement Brewer-Nash, which addresses conflict of interest and integrity</label></li>
+<li><label><input type="radio" name="q10" value="d"> Implement Graham-Denning, which handles both read/write rules and integrity</label></li>
+</ul><div class="explanation" id="q10-exp"></div></div>
+
+</form>
+
+<div class="submit-section"><button id="submitBtn" onclick="submitQuiz()">Submit Answers</button></div>
+<div class="results" id="results"><h2>Quiz Complete!</h2><div class="score-display" id="scoreDisplay"></div><div class="score-message" id="scoreMessage"></div><div class="score-breakdown" id="scoreBreakdown"></div></div>
+
+<div class="nav-footer">
+<a href="day-035-theory.html" class="nav-btn">← Back to Theory</a>
+<a href="day-036-theory.html" class="nav-btn">Day 36: Biba &amp; Clark-Wilson →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'c',q3:'c',q4:'b',q5:'b',q6:'b',q7:'c',q8:'b',q9:'b',q10:'b'};
+const explanations={
+q1:{correct:"Correct. The Simple Security Property ('no read up') prevents any subject from reading objects classified above their clearance level. A Secret-cleared analyst cannot read Top Secret data — access is denied regardless of any other permissions.",incorrect:"Incorrect. The Simple Security Property (ss-property) — 'no read up' — prevents a Secret-cleared subject from reading Top Secret data. The Star Property governs write operations, not reads. Having a clearance doesn't mean access to all levels — only up to your level."},
+q2:{correct:"Correct. The Star (*) Property — 'no write down' — prevents subjects from writing to objects at a lower classification level. A Top Secret user writing to an Unclassified location would leak classified information downward, directly violating this property.",incorrect:"Incorrect. Writing classified information to a lower classification level violates the Star (*) Property ('no write down'). The Simple Security Property governs read operations. The Star Property specifically prevents information flowing downward through write operations."},
+q3:{correct:"Correct. Bell-LaPadula is exclusively a confidentiality model. It prevents unauthorized disclosure through its no-read-up and no-write-down rules. It does NOT address integrity (that's Biba/Clark-Wilson) or availability.",incorrect:"Incorrect. BLP focuses solely on confidentiality — preventing unauthorized disclosure of information. Integrity is addressed by Biba and Clark-Wilson models. BLP's rules (no read up, no write down) are designed to prevent information from being disclosed to unauthorized subjects."},
+q4:{correct:"Correct. Under BLP, writing UP (to a higher level) is permitted by the Star Property. The Star Property only prevents writing DOWN. A Confidential process writing to a Secret file is writing up — information flows upward, which doesn't compromise confidentiality. However, DAC permissions must also allow the operation.",incorrect:"Incorrect. BLP's Star Property prevents writing DOWN, not writing UP. A Confidential process writing to a Secret file moves information upward in the lattice, which is permitted because it doesn't leak classified information to lower levels. The Simple Security Property governs reads, not writes."},
+q5:{correct:"Correct. Strong Tranquility states that classification and clearance labels cannot be changed once assigned — they are immutable throughout the system's lifecycle. Weak Tranquility allows changes as long as the security policy is preserved.",incorrect:"Incorrect. Strong Tranquility prevents any label changes after initial assignment. Weak Tranquility allows label changes that don't violate policy. The Star Property governs write operations, and the Discretionary Property is about the access control matrix."},
+q6:{correct:"Correct. BLP's biggest limitation is that it does not address integrity. Because BLP allows writing UP, a lower-clearance subject can write unreliable or malicious data to a higher-level object, potentially corrupting it. The Biba model was specifically created to address this gap.",incorrect:"Incorrect. BLP's well-known limitation is its lack of integrity protection. It handles confidentiality, classification levels, and even includes a DAC matrix — but it cannot prevent unreliable lower-level data from being written up to corrupt higher-level objects."},
+q7:{correct:"Correct. The Biba model (1977) was specifically designed to address BLP's integrity weakness. It inverts BLP's rules: No Read Down (don't read unreliable lower-level data) and No Write Up (don't corrupt higher-level data with lower-level input). Clark-Wilson also addresses integrity but through a different mechanism (well-formed transactions).",incorrect:"Incorrect. Biba directly inverts BLP's rules to protect integrity: No Read Down, No Write Up — the mirror image of BLP's No Read Up, No Write Down. Clark-Wilson addresses integrity through well-formed transactions, not by inverting BLP. Brewer-Nash handles conflicts of interest. Graham-Denning defines object creation/deletion rules."},
+q8:{correct:"Correct. The Basic Security Theorem proves that if a system starts in a secure state (no BLP rule violated) and every state transition preserves the BLP properties, then every reachable state is also secure. This is the mathematical foundation of the model.",incorrect:"Incorrect. The BST is a formal mathematical proof about state transitions: secure start + secure transitions = all states secure. It's not about encryption, clearance bypasses, or label immutability."},
+q9:{correct:"Correct. The Strong Star Property is the most restrictive form — subjects can only read and write at their own classification level. A Secret subject can only read Secret objects and write Secret objects. No cross-level access in any direction.",incorrect:"Incorrect. The Strong Star Property restricts subjects to read and write only at their own level — no reading down, no writing up, no reading up, no writing down. It's the most restrictive BLP property, confining all operations to a single classification level."},
+q10:{correct:"Correct. The Lipner model (1982) was specifically designed to combine BLP's confidentiality controls with Biba's integrity controls into a single unified model. BLP alone doesn't address integrity, Brewer-Nash is for conflicts of interest, and Graham-Denning is for access rights management.",incorrect:"Incorrect. BLP alone doesn't handle integrity. The Lipner model combines BLP (confidentiality) and Biba (integrity) to provide dual protection. Brewer-Nash addresses conflict of interest scenarios. Graham-Denning defines rules for creating/deleting objects and granting/revoking rights."}
+};
+
+function submitQuiz(){let score=0;const total=10;document.getElementById('submitBtn').disabled=true;document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);for(let i=1;i<=total;i++){const key='q'+i;const card=document.getElementById(key+'-card');const selected=document.querySelector('input[name="'+key+'"]:checked');const expDiv=document.getElementById(key+'-exp');const correct=answers[key];const correctLabel=document.querySelector('input[name="'+key+'"][value="'+correct+'"]')?.parentElement;if(correctLabel)correctLabel.classList.add('correct-answer');if(selected){if(selected.value===correct){score++;card.classList.add('correct');expDiv.className='explanation correct-exp';expDiv.innerHTML='✅ '+explanations[key].correct;}else{card.classList.add('incorrect');selected.parentElement.classList.add('wrong-answer');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='❌ '+explanations[key].incorrect;}}else{card.classList.add('incorrect');expDiv.className='explanation incorrect-exp';expDiv.innerHTML='⚠️ Not answered. '+explanations[key].incorrect;}expDiv.style.display='block';}const pct=Math.round(score/total*100);const pass=score>=7;document.getElementById('scoreDisplay').textContent=score+'/10';document.getElementById('scoreDisplay').className='score-display '+(pass?'pass':'fail');document.getElementById('scoreMessage').textContent=pass?'🎉 PASSED — Well done!':'📚 FAILED — Review the explanations above and revisit the theory.';document.getElementById('scoreBreakdown').textContent=score+' correct out of 10 ('+pct+'%) — Passing threshold: 7/10 (70%)';document.getElementById('results').style.display='block';document.getElementById('results').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

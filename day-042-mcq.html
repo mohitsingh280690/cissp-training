@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 42 – Operating System Security Quiz</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);border-radius:8px;padding:16px 20px;margin-bottom:30px;font-size:.97rem;}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px 28px;margin-bottom:20px;border:1px solid var(--border);}.question-card .question-number{background:var(--primary);color:white;display:inline-block;padding:2px 12px;border-radius:15px;font-size:.85rem;font-weight:600;margin-bottom:10px;}.question-card .question-text{font-size:1.05rem;font-weight:600;margin-bottom:14px;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin:6px 0;border-radius:6px;cursor:pointer;border:2px solid var(--border);transition:.2s;}.option:hover{border-color:var(--accent);background:#e3f2fd;}.option input{margin-top:4px;}.option label{cursor:pointer;width:100%;}
+.submit-btn{display:block;margin:30px auto;padding:14px 50px;font-size:1.1rem;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;}.submit-btn:hover{background:var(--primary);}
+.results{display:none;background:var(--card-bg);border-radius:10px;padding:24px 28px;margin:24px 0;border:2px solid var(--primary);}
+.results h3{color:var(--primary);margin-bottom:12px;font-size:1.3rem;}
+.results .score{font-size:1.6rem;font-weight:700;color:var(--primary);margin:10px 0;}
+.results .feedback{margin-top:16px;}
+.results .q-result{padding:12px 16px;margin:8px 0;border-radius:6px;border-left:4px solid;}.q-correct{background:#e8f5e9;border-color:var(--green);}.q-incorrect{background:#fce4ec;border-color:var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 42 – Operating System Security Quiz</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 42 of 140</span><span>❓ 10 Questions</span><span>🎯 Passing: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>⚠️ Instructions:</strong> Choose the best answer for each question. You need at least 7 correct to pass. After submitting, review explanations for questions you missed.
+</div>
+
+<form id="quizForm">
+<div class="question-card">
+  <div class="question-number">Question 1</div>
+  <div class="question-text">A military system processes data classified up to Top Secret. All users have Top Secret clearance and formal access approval for every compartment on the system. All users have a need-to-know for ALL data. Which security mode is this?</div>
+  <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">A. System High</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">B. Dedicated</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">C. Compartmented</label></div>
+  <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">D. Multilevel</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 2</div>
+  <div class="question-text">Which security mode requires the MOST comprehensive TCB (B3/A1 level) because users with DIFFERENT clearance levels access the same system?</div>
+  <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">A. Dedicated</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">B. System High</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">C. Multilevel Security (MLS)</label></div>
+  <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">D. Compartmented</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 3</div>
+  <div class="question-text">What is the FIRST step in OS hardening?</div>
+  <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">A. Enable logging and auditing</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">B. Remove unnecessary software and services</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">C. Install antivirus software</label></div>
+  <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">D. Configure a firewall</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 4</div>
+  <div class="question-text">A critical vulnerability is discovered in a production database server, but the patch requires extensive testing to ensure application compatibility. What should the security team implement IMMEDIATELY as a compensating control?</div>
+  <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">A. Accept the risk until testing is complete</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">B. Apply a virtual patch via WAF/IPS rules</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">C. Take the server offline until the patch is tested</label></div>
+  <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">D. Apply the patch directly to production without testing</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 5</div>
+  <div class="question-text">Which Linux security module implements Mandatory Access Control using security labels (contexts) on files and processes?</div>
+  <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">A. iptables</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">B. SELinux</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">C. chroot</label></div>
+  <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">D. sudo</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 6</div>
+  <div class="question-text">In DAC, who determines access permissions to a resource?</div>
+  <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">A. The system administrator only</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">B. The resource owner</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">C. The security kernel based on labels</label></div>
+  <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">D. A central policy server</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 7</div>
+  <div class="question-text">All users on a classified system hold Top Secret clearance, but NOT all users have been granted need-to-know for all data on the system. Which security mode is appropriate?</div>
+  <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">A. Dedicated</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">B. System High</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">C. Multilevel</label></div>
+  <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">D. Compartmented</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 8</div>
+  <div class="question-text">Which hardening baseline is specifically required for U.S. Department of Defense systems?</div>
+  <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">A. CIS Benchmarks</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">B. DISA STIGs</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">C. OWASP Guidelines</label></div>
+  <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">D. NIST SP 800-53</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 9</div>
+  <div class="question-text">A web browser runs each tab in a separate, restricted process with limited access to system resources. This technique is called:</div>
+  <div class="option"><input type="radio" name="q9" id="q9a" value="a"><label for="q9a">A. Virtualization</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9b" value="b"><label for="q9b">B. Sandboxing</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9c" value="c"><label for="q9c">C. Containerization</label></div>
+  <div class="option"><input type="radio" name="q9" id="q9d" value="d"><label for="q9d">D. Encapsulation</label></div>
+</div>
+
+<div class="question-card">
+  <div class="question-number">Question 10</div>
+  <div class="question-text">In the patch management lifecycle, what should occur AFTER a patch is identified as relevant but BEFORE it is deployed to production?</div>
+  <div class="option"><input type="radio" name="q10" id="q10a" value="a"><label for="q10a">A. Verification that the patch was applied</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10b" value="b"><label for="q10b">B. Testing in a non-production environment</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10c" value="c"><label for="q10c">C. Documentation of the exception</label></div>
+  <div class="option"><input type="radio" name="q10" id="q10d" value="d"><label for="q10d">D. Rollback of the previous patch</label></div>
+</div>
+
+<button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</form>
+
+<div class="results" id="results">
+<h3>📊 Quiz Results</h3>
+<div class="score" id="scoreDisplay"></div>
+<div class="feedback" id="feedback"></div>
+</div>
+
+<div class="nav-footer">
+<a href="day-042-theory.html" class="nav-btn">← Back to Theory</a>
+<a href="day-043-theory.html" class="nav-btn">Day 43: Virtualization Security →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'c',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'b',q10:'b'};
+const explanations={
+  q1:{correct:"This is Dedicated mode — all users are cleared for the highest level AND all users have need-to-know for ALL data. The system is dedicated to a single classification level and purpose.",incorrect:"System High means all cleared but NOT all NTK everything. Compartmented requires formal compartment access. Multilevel has mixed clearance levels."},
+  q2:{correct:"Multilevel Security (MLS) allows users with DIFFERENT clearance levels on the same system, requiring the most robust TCB (B3/A1), mandatory access controls, and security labels to prevent data leakage between levels.",incorrect:"Dedicated, System High, and Compartmented all require all users to be cleared to the highest level. Only MLS handles mixed clearances."},
+  q3:{correct:"The first step in hardening is reducing the attack surface by removing unnecessary software, services, and components. You can't secure what shouldn't be there in the first place.",incorrect:"Logging, antivirus, and firewalls are important but come after reducing the attack surface. Remove first, then configure what remains."},
+  q4:{correct:"A virtual patch via WAF or IPS rules can block exploitation of the known vulnerability immediately while the actual patch is being tested. This is the proper compensating control approach.",incorrect:"Accepting the risk or applying untested patches are both inappropriate. Taking the server offline may not be feasible for a critical system."},
+  q5:{correct:"SELinux (Security-Enhanced Linux) implements MAC using security contexts (labels) on every file and process. Developed by the NSA, it enforces mandatory access control policies.",incorrect:"iptables is a firewall. chroot is process isolation. sudo is privilege elevation. Only SELinux implements label-based MAC."},
+  q6:{correct:"In Discretionary Access Control (DAC), the resource owner determines who can access the resource. The owner has discretion to set and modify permissions.",incorrect:"In DAC, it's the owner who controls access, not sys admins, security kernels, or central servers. MAC uses system-enforced labels."},
+  q7:{correct:"System High mode: all users cleared to the highest classification, but not all have need-to-know for all data. The system enforces need-to-know through access controls.",incorrect:"Dedicated requires all NTK all data. Multilevel has mixed clearances. Compartmented adds formal compartment approvals beyond just NTK."},
+  q8:{correct:"DISA STIGs (Security Technical Implementation Guides) are the required hardening baselines for U.S. Department of Defense systems. They are more prescriptive than CIS Benchmarks.",incorrect:"CIS Benchmarks are industry-standard but not DoD-specific. OWASP is for web application security. NIST SP 800-53 is a controls catalog, not OS-specific hardening."},
+  q9:{correct:"Sandboxing runs applications in restricted, isolated environments with limited system access. Browser tab isolation is a classic sandboxing example (e.g., Chrome's multi-process architecture).",incorrect:"Virtualization uses hypervisors for full OS isolation. Containerization uses OS-level isolation (Docker). Encapsulation is an OOP concept."},
+  q10:{correct:"Testing in a non-production environment must occur AFTER identifying a relevant patch and BEFORE deploying to production. This prevents patches from causing outages or compatibility issues.",incorrect:"Verification comes after deployment. Documentation of exceptions is when patches can't be applied. Rollback of previous patches is not a standard pre-deployment step."}
+};
+function submitQuiz(){
+  let score=0,total=10,html='';
+  for(let i=1;i<=total;i++){const q='q'+i;const sel=document.querySelector('input[name="'+q+'"]:checked');const correct=sel&&sel.value===answers[q];if(correct)score++;html+='<div class="q-result '+(correct?'q-correct':'q-incorrect')+'"><strong>Question '+i+':</strong> '+(correct?'✅ Correct — ':'❌ Incorrect — ')+(correct?explanations[q].correct:explanations[q].incorrect)+'</div>';}
+  document.getElementById('scoreDisplay').textContent=score+' / '+total+' ('+(score>=7?'PASS ✅':'NEEDS REVIEW ⚠️')+')';
+  document.getElementById('feedback').innerHTML=html;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

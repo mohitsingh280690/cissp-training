@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 8 – Security Policies &amp; Frameworks</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.hierarchy{font-family:'Courier New',monospace;background:#f8f9fa;border:1px dashed var(--border);padding:20px;border-radius:6px;margin:16px 0;line-height:2;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 8: Security Policies &amp; Frameworks</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 8 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 8: Security Policies &amp; Frameworks</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Policy Hierarchy Overview</a></li>
+    <li><a href="#s4">Policy Types</a></li>
+    <li><a href="#s5">Policy Document Anatomy</a></li>
+    <li><a href="#s6">NIST Cybersecurity Framework (CSF)</a></li>
+    <li><a href="#s7">ISO 27001 &amp; ISO 27002</a></li>
+    <li><a href="#s8">COBIT</a></li>
+    <li><a href="#s9">Comparing Frameworks</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Policies are the foundation of an organisation's security programme. Every security control, procedure, or standard must trace back to a policy. CISSPs must know the hierarchy and the major frameworks used to structure security programs.</td></tr>
+    <tr><td>Question Styles</td><td>Identifying which document type is appropriate for a given situation; distinguishing frameworks from standards from procedures; selecting the right framework for a given scenario</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (compliance — policies enforce regulatory requirements), all domains (controls reference standards and procedures), D2 (security program), D6 (audit — uses policies as evaluation criteria)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>Policies are the <strong>WHY</strong> — not the how. "The organisation will protect customer data" is a policy. Step-by-step backup instructions are a <em>procedure</em>.</li>
+      <li>ISO 27001 is <em>certifiable</em>; ISO 27002 is <em>guidance/controls catalogue</em>. You cannot be "ISO 27002 certified" — only ISO 27001.</li>
+      <li>NIST CSF is <strong>voluntary</strong> for the private sector but mandatory for US federal agencies under Executive Order 13800.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Why Policies Exist</h3>
+  <p>Without documented policies, there is no baseline for what "good" security looks like, no accountability framework for enforcement, and no way to pass an audit. When a breach occurs, regulatory bodies and courts ask: <em>Did the organisation have policies? Were they enforced?</em> Having policies also defines the employment and disciplinary basis for action against violators.</p>
+
+  <h3>The Policy-Reality Gap</h3>
+  <p>Many organisations have beautifully written policies that nobody reads and nobody enforces. The CISSP manager mindset is that a policy without implementation, training, monitoring, and enforcement provides almost no security value — and may actually increase liability by demonstrating that the organisation <em>knew</em> what it should do but failed to do it.</p>
+
+  <h3>Framework Adoption in Practice</h3>
+  <ul>
+    <li><strong>NIST CSF:</strong> Dominant in US organisations, especially any regulated industry or government contractor</li>
+    <li><strong>ISO 27001:</strong> Required or preferred in European markets, financial services, and many multinational contracts</li>
+    <li><strong>COBIT:</strong> Used when alignment with IT governance and audit is paramount; common in large enterprises with internal audit functions</li>
+    <li>Many organisations use <em>multiple</em> frameworks simultaneously, mapping controls between them</li>
+  </ul>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Policy Hierarchy Overview</h2>
+  <p>Security documentation follows a strict hierarchy from high-level strategic intent to operational specifics. Each level is more detailed and more frequently updated than the one above it.</p>
+
+  <div class="hierarchy">
+    ┌─────────────────────────────────────┐
+    │           POLICY                    │  ← WHY (strategic intent, management directive)
+    │     "What" must be done             │     Signed by senior management / board
+    └──────────────┬──────────────────────┘     Rarely changes (years)
+                   │
+    ┌──────────────▼──────────────────────┐
+    │          STANDARD                   │  ← WHAT specifically (measurable requirements)
+    │   "This is the minimum bar"         │     AES-256 for encryption, 12-char passwords
+    └──────────────┬──────────────────────┘     Changes as technology changes
+                   │
+    ┌──────────────▼──────────────────────┐
+    │         PROCEDURE                   │  ← HOW step-by-step (operational instructions)
+    │   "Follow these steps exactly"      │     How to provision an account, how to respond
+    └──────────────┬──────────────────────┘     Changes frequently
+                   │
+    ┌──────────────▼──────────────────────┐
+    │          BASELINE                   │  ← MINIMUM configuration (hardened defaults)
+    │   "This is the minimum config"      │     CIS Benchmark settings for Windows Server
+    └──────────────┬──────────────────────┘     System/platform-specific
+                   │
+    ┌──────────────▼──────────────────────┐
+    │         GUIDELINE                   │  ← RECOMMENDATIONS (optional best practices)
+    │   "You should consider this"        │     Non-mandatory suggestions; flexible
+    └─────────────────────────────────────┘
+  </div>
+
+  <h3>Detailed Definitions</h3>
+  <table>
+    <tr><th>Document</th><th>Mandatory?</th><th>Written By</th><th>Example</th></tr>
+    <tr><td><strong>Policy</strong></td><td>Yes — compliance required</td><td>Senior management / Board</td><td>"All customer data must be encrypted at rest and in transit."</td></tr>
+    <tr><td><strong>Standard</strong></td><td>Yes — sets the specific requirement baseline</td><td>CISO / Security team</td><td>"Encryption of customer data must use AES-256 for stored data and TLS 1.2+ for transmitted data."</td></tr>
+    <tr><td><strong>Procedure</strong></td><td>Yes — must be followed for covered activities</td><td>Operations / IT / Security</td><td>Step-by-step guide for encrypting a new database; steps for onboarding a new user with encrypted drives</td></tr>
+    <tr><td><strong>Baseline</strong></td><td>Yes — for applicable systems</td><td>Security / Systems teams</td><td>CIS Benchmark for Windows Server hardening configuration; minimum patch level requirements</td></tr>
+    <tr><td><strong>Guideline</strong></td><td>No — advisory only</td><td>Security / IT</td><td>"It is recommended to use a password manager to generate and store complex passwords."</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 Policy Hierarchy — "Please Send Procedures Before Guidelines":</strong><br>
+    <strong>P</strong>olicy → <strong>S</strong>tandard → <strong>P</strong>rocedure → <strong>B</strong>aseline → <strong>G</strong>uideline<br>
+    Or the old standby: <em>"Policies, Standards, Procedures, Baselines, Guidelines"</em><br>
+    Mandatory: Policy, Standard, Procedure, Baseline | Optional: Guideline
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Policy Types</h2>
+  <p>Policies can be further classified by their purpose and audience:</p>
+  <table>
+    <tr><th>Policy Type</th><th>Purpose</th><th>Who It's For</th><th>Example</th></tr>
+    <tr><td><strong>Regulatory Policy</strong></td><td>Ensures compliance with laws and regulations; non-compliance has legal consequences</td><td>Entire organisation</td><td>HIPAA compliance policy; PCI-DSS policy; GDPR data protection policy</td></tr>
+    <tr><td><strong>Advisory Policy</strong></td><td>Strongly recommends actions; consequences for non-compliance are outlined but policy is not legally mandated</td><td>Employees</td><td>Acceptable Use Policy (AUP); clean desk policy; social media policy</td></tr>
+    <tr><td><strong>Informative Policy</strong></td><td>Informs and educates; no direct compliance requirement; shares organisation's stance or position</td><td>Internal and/or public</td><td>Privacy policy (public-facing); IT security awareness notices; "what to do if you suspect a breach" guidance</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Acceptable Use Policy (AUP):</strong> Among the most important advisory policies. Defines authorised use of organisational systems. Employees must sign it, it defines monitoring rights, and it is the basis for disciplinary action if systems are misused. Without a signed AUP, organisations have very limited ability to take action against employees for improper computer use.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Policy Document Anatomy</h2>
+  <p>A well-formed policy document typically contains:</p>
+  <ol>
+    <li><strong>Purpose:</strong> Why this policy exists and what problem it addresses</li>
+    <li><strong>Scope:</strong> Who and what it applies to (all employees? contractors? specific systems?)</li>
+    <li><strong>Policy Statements:</strong> The actual requirements — clear "shall" or "must" language</li>
+    <li><strong>Exceptions:</strong> How to request exceptions and who approves them</li>
+    <li><strong>Roles and Responsibilities:</strong> Who owns what under the policy</li>
+    <li><strong>Definitions:</strong> Key terms used in the document</li>
+    <li><strong>Enforcement and Consequences:</strong> What happens if the policy is violated</li>
+    <li><strong>Version History and Review Cycle:</strong> When was it last reviewed; who approved it</li>
+  </ol>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. NIST Cybersecurity Framework (CSF)</h2>
+  <p>Developed by the National Institute of Standards and Technology (NIST) in response to a 2013 US Executive Order on critical infrastructure cybersecurity. Version 2.0 released in 2024 added the "Govern" function.</p>
+
+  <h3>CSF 2.0 – Six Core Functions</h3>
+  <table>
+    <tr><th>Function</th><th>Purpose</th><th>Key Activities</th></tr>
+    <tr><td><strong>GOVERN</strong></td><td>Establish context, expectations, and accountability [new in 2.0]</td><td>Organisational context; risk management strategy; supply chain risk; roles &amp; responsibilities; policies</td></tr>
+    <tr><td><strong>IDENTIFY</strong></td><td>Understand assets, risks, and gaps</td><td>Asset management; business environment; governance; risk assessment; supply chain risk</td></tr>
+    <tr><td><strong>PROTECT</strong></td><td>Safeguards to limit impact</td><td>Access control; awareness training; data security; maintenance; protective technology</td></tr>
+    <tr><td><strong>DETECT</strong></td><td>Identify occurrences of cybersecurity events</td><td>Anomalies &amp; events; continuous monitoring; detection processes</td></tr>
+    <tr><td><strong>RESPOND</strong></td><td>Actions taken after detecting an incident</td><td>Response planning; communications; analysis; mitigation; improvements</td></tr>
+    <tr><td><strong>RECOVER</strong></td><td>Restore capabilities after an incident</td><td>Recovery planning; improvements; communications</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 NIST CSF 2.0 Functions: "GI-PD-RR"</strong><br>
+    <strong>G</strong>overn → <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover<br>
+    Memory hook: <em>"Good Investigators Protect Detective Results Reliably"</em><br>
+    CSF 1.1 (original): IPDRR; CSF 2.0 adds Govern at the start
+  </div>
+
+  <h3>CSF Three Implementation Tiers</h3>
+  <table>
+    <tr><th>Tier</th><th>Name</th><th>Characteristics</th></tr>
+    <tr><td>1</td><td>Partial</td><td>Informal, reactive processes; limited risk awareness; no formal program</td></tr>
+    <tr><td>2</td><td>Risk Informed</td><td>Management-approved practices; risk-informed but not org-wide</td></tr>
+    <tr><td>3</td><td>Repeatable</td><td>Formal, organisation-wide processes; regularly reviewed and updated</td></tr>
+    <tr><td>4</td><td>Adaptive</td><td>Continuously learning; adapts based on lessons learned and threat intelligence</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>NIST CSF Is Not a Checklist:</strong> The CSF is a risk-based framework — it's designed to help organisations understand their current cybersecurity state, define their target state, and prioritise improvements. It does not prescribe specific controls. For specific control guidance, use NIST SP 800-53. For critical infrastructure, supplement with NIST SP 800-82 (ICS security).
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. ISO 27001 &amp; ISO 27002</h2>
+  <h3>ISO 27001 — The Certifiable Standard</h3>
+  <p>ISO/IEC 27001 defines requirements for establishing, implementing, maintaining, and continually improving an Information Security Management System (ISMS). It is structured around Plan-Do-Check-Act (PDCA) continual improvement.</p>
+  <ul>
+    <li>Organisations can be <strong>certified</strong> to ISO 27001 (third-party audit)</li>
+    <li>Certification demonstrates to customers, partners, and regulators that a formal ISMS is in place</li>
+    <li>Covers 11 clauses — Clauses 4-10 are mandatory requirements; Annex A contains 93 controls (2022 version)</li>
+    <li>Annex A controls are grouped into 4 themes: Organisational, People, Physical, Technological</li>
+  </ul>
+
+  <h3>ISO 27002 — The Controls Catalogue</h3>
+  <p>ISO/IEC 27002 is the supporting code of practice — it provides detailed guidance on implementing the 93 controls referenced in ISO 27001 Annex A. It is <em>guidance</em>, not a certifiable standard. Think of it as the "how-to" companion to ISO 27001's "what".</p>
+
+  <div class="warning">
+    <strong>⚠️ ISO 27001 vs ISO 27002:</strong><br>
+    ISO 27001 = Requirements (SHALL statements) = Certifiable<br>
+    ISO 27002 = Guidelines (SHOULD statements) = Not certifiable<br>
+    "We are ISO 27002 certified" is an incorrect statement — no such certification exists.
+  </div>
+
+  <h3>ISMS Lifecycle (PDCA)</h3>
+  <table>
+    <tr><th>Phase</th><th>Activities</th></tr>
+    <tr><td><strong>Plan</strong></td><td>Define ISMS scope; risk assessment; risk treatment plan; select controls; set objectives</td></tr>
+    <tr><td><strong>Do</strong></td><td>Implement controls; training; procedures; Annex A controls</td></tr>
+    <tr><td><strong>Check</strong></td><td>Monitor and review; internal audits; management reviews; measure effectiveness</td></tr>
+    <tr><td><strong>Act</strong></td><td>Take corrective and preventive action; improve the ISMS</td></tr>
+  </table>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. COBIT</h2>
+  <div class="definition">
+    <strong>COBIT (Control Objectives for Information and Related Technologies):</strong> A framework for the governance and management of enterprise IT, developed by ISACA. Current version: COBIT 2019. Focus: aligning IT with business objectives and ensuring effective governance.
+  </div>
+
+  <h3>COBIT vs. NIST vs. ISO</h3>
+  <table>
+    <tr><th>Attribute</th><th>COBIT</th><th>NIST CSF</th><th>ISO 27001</th></tr>
+    <tr><td>Primary Focus</td><td>IT governance and business alignment</td><td>Cybersecurity risk management</td><td>Information security management system</td></tr>
+    <tr><td>Created By</td><td>ISACA</td><td>NIST (US government)</td><td>ISO/IEC</td></tr>
+    <tr><td>Certifiable?</td><td>No (individuals can be certified)</td><td>No</td><td>Yes (organisational certification)</td></tr>
+    <tr><td>Primary Audience</td><td>IT management, internal audit, governance</td><td>Security teams, risk managers</td><td>Security managers, compliance teams</td></tr>
+    <tr><td>Typical Use</td><td>IT governance alignment with business strategy</td><td>Cybersecurity programme structure</td><td>Formal ISMS certification</td></tr>
+  </table>
+
+  <h3>COBIT 2019 Six Principles</h3>
+  <ol>
+    <li>Provide Stakeholder Value</li>
+    <li>Holistic Approach</li>
+    <li>Dynamic Governance System</li>
+    <li>Governance Distinct from Management</li>
+    <li>Tailored to Enterprise Needs</li>
+    <li>End-to-End Governance System</li>
+  </ol>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Comparing Frameworks</h2>
+  <table>
+    <tr><th>Scenario</th><th>Best Framework</th><th>Reason</th></tr>
+    <tr><td>US healthcare company needs to structure its cybersecurity programme</td><td>NIST CSF + HIPAA controls</td><td>NIST CSF provides structure; HIPAA provides specific requirements</td></tr>
+    <tr><td>Company wants to get certified to demonstrate security to European clients</td><td>ISO 27001</td><td>Internationally recognised, certifiable</td></tr>
+    <tr><td>Organisation wants to align security with business strategy and improve IT governance</td><td>COBIT</td><td>Designed specifically for IT governance and business alignment</td></tr>
+    <tr><td>US federal agency must comply with a security mandate</td><td>NIST (RMF + SP 800-53)</td><td>FISMA requires NIST frameworks for federal agencies</td></tr>
+    <tr><td>Organisation wants to assess and improve its security maturity level</td><td>NIST CSF (Implementation Tiers) or CMMI</td><td>Tiers provide maturity model; CMMI for maturity across dimensions</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 NIST SP 800-53:</strong> While the CSF provides the framework structure, NIST SP 800-53 provides the detailed security and privacy controls catalogue. It is the most comprehensive controls reference published by NIST and is mandatory for US federal information systems. The CSF maps to 800-53 controls.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Policy Hierarchy: "Policies Should Probably Be Good"</strong><br>
+    <strong>P</strong>olicies (WHY — strategic, mandatory) <br>
+    <strong>S</strong>tandards (WHAT — specific requirements, mandatory)<br>
+    <strong>P</strong>rocedures (HOW — step-by-step, mandatory)<br>
+    <strong>B</strong>aselines (MINIMUM config — platform-specific, mandatory)<br>
+    <strong>G</strong>uidelines (SUGGESTIONS — optional best practices)<br>
+    Only guidelines are optional!
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 NIST CSF 2.0 Functions: "GIPDRR"</strong><br>
+    <strong>G</strong>overn → <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover<br>
+    Think: <em>"Generally Intellectual People Don't Resist Recovery"</em><br>
+    Govern is NEW in v2.0!
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 ISO 27001 vs ISO 27002:</strong><br>
+    27001 ends in <strong>1</strong> = <strong>1</strong> stop certifiable standard<br>
+    27002 ends in <strong>2</strong> = <strong>2</strong>nd document (the "how-to" guidance)<br>
+    27001 = "ISMS Requirements" = requirements = CERTIFIABLE<br>
+    27002 = "Code of Practice" = guidance = NOT certifiable
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Framework Selection Memory Aid:</strong><br>
+    <strong>NIST CSF</strong> = US risk-based structure (any industry)<br>
+    <strong>ISO 27001</strong> = International certification (European preference)<br>
+    <strong>COBIT</strong> = IT Governance alignment (board/management/audit)<br>
+    Think: <em>"NIST for Structure, ISO for Cert, COBIT for Governance"</em>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Policies Must Be Enforced:</strong><br>
+    On the exam, "issue a policy" is never the complete answer. Policies must be: communicated, trained, monitored, audited, and enforced. A policy without enforcement is worse than no policy — it demonstrates knowing failure to act.
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Policy</td><td>High-level strategic WHY; signed by management; compliance mandatory; changes rarely</td></tr>
+    <tr><td>Standard</td><td>Specific measurable WHAT requirement; mandatory; e.g., "must use AES-256"</td></tr>
+    <tr><td>Procedure</td><td>Step-by-step HOW; mandatory for covered activities; operational</td></tr>
+    <tr><td>Baseline</td><td>Minimum configuration for a specific platform; based on hardening guides (CIS, DISA STIG)</td></tr>
+    <tr><td>Guideline</td><td>Optional best practice recommendations; advisory only</td></tr>
+    <tr><td>Regulatory Policy</td><td>Compliance-driven; legal consequences for violation</td></tr>
+    <tr><td>Advisory Policy</td><td>Strongly recommended; internal consequences; e.g., AUP</td></tr>
+    <tr><td>NIST CSF 2.0</td><td>6 Functions: Govern, Identify, Protect, Detect, Respond, Recover; voluntary for private sector; framework not a checklist</td></tr>
+    <tr><td>ISO 27001</td><td>Certifiable ISMS standard; PDCA model; 93 controls in Annex A (2022 version)</td></tr>
+    <tr><td>ISO 27002</td><td>Controls guidance/code of practice; NOT certifiable; supports 27001 Annex A</td></tr>
+    <tr><td>COBIT</td><td>IT governance framework by ISACA; aligns IT with business; used for governance and audit alignment</td></tr>
+    <tr><td>NIST SP 800-53</td><td>Detailed controls catalogue; mandatory for US federal agencies; maps to NIST CSF</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-007-theory.html" class="nav-btn">← Day 7: Professional Ethics</a>
+  <a href="day-009-theory.html" class="nav-btn">Day 9: Risk Management Concepts →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

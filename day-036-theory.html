@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 36 – Security Models: Biba &amp; Clark-Wilson</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 36 – Security Models: Biba &amp; Clark-Wilson</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 36 of 140</span><span>⏱️ ~45 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-035-theory.html">← Day 35</a> · Domain 3 · Day 36 · <a href="day-036-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Biba Integrity Model</a></li>
+  <li><a href="#s4">4. Biba Properties (Rules)</a></li>
+  <li><a href="#s5">5. BLP vs. Biba Comparison</a></li>
+  <li><a href="#s6">6. Clark-Wilson Integrity Model</a></li>
+  <li><a href="#s7">7. Clark-Wilson Components</a></li>
+  <li><a href="#s8">8. Biba vs. Clark-Wilson Comparison</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — Biba and Clark-Wilson are among the top-tested models alongside BLP</td></tr>
+  <tr><td>Why Tested</td><td>Integrity models complement BLP's confidentiality focus. CISSP expects you to compare all three models and identify which applies to a given scenario.</td></tr>
+  <tr><td>Question Style</td><td>"Which model enforces well-formed transactions?", "In Biba, a subject at integrity level X attempts to…", scenario-based model identification</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 2 (data integrity controls), Domain 5 (access control enforcement), Domain 8 (software integrity via Clark-Wilson concepts)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects implement integrity models; compliance teams verify enforcement; business owners define integrity requirements</td></tr>
+  <tr><td>Implementation</td><td>Biba: military/government integrity requirements; Clark-Wilson: commercial transaction systems (banking, ERP, accounting)</td></tr>
+  <tr><td>Failure Modes</td><td>Biba violations: untrusted data corrupts trusted systems; Clark-Wilson violations: unauthorized data modification bypasses audit trails</td></tr>
+  <tr><td>Business Impact</td><td>Financial fraud prevention, regulatory compliance (SOX), audit integrity, supply chain data trustworthiness</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Biba Integrity Model</h2>
+<div class="callout definition">
+  <strong>📖 Biba Model (1977):</strong> A formal integrity model developed by Kenneth Biba. It is the mathematical inverse of Bell-LaPadula — where BLP protects confidentiality, Biba protects integrity using inverted rules.
+</div>
+<p>Biba uses <strong>integrity levels</strong> (not confidentiality levels) assigned to subjects and objects. Higher integrity levels indicate more trustworthy/reliable data. The model prevents corruption of high-integrity data by lower-integrity sources.</p>
+
+<div class="diagram">
+  High Integrity    ← Most trusted
+      │
+  Medium Integrity
+      │
+  Low Integrity     ← Least trusted
+
+  Goal: Prevent low-integrity data from corrupting high-integrity data
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Critical Distinction:</strong> BLP uses <em>classification/clearance</em> levels (confidentiality). Biba uses <em>integrity</em> levels (trustworthiness). They look structurally similar but address opposite security properties.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Biba Properties (Rules)</h2>
+
+<h3>4.1 Simple Integrity Property — "No Read Down"</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject cannot <strong>read</strong> an object at a <strong>lower</strong> integrity level. Reading unreliable data could corrupt the subject's decision-making or output.
+</div>
+<p>Example: A high-integrity financial reporting process should not read from an unvalidated, low-integrity data source — this could introduce corrupted or fraudulent data into financial reports.</p>
+
+<h3>4.2 Star (*) Integrity Property — "No Write Up"</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject cannot <strong>write</strong> to an object at a <strong>higher</strong> integrity level. A less-trusted subject should not modify more-trusted data.
+</div>
+<p>Example: An untrained intern's process (low integrity) should not be able to modify a production database (high integrity). This prevents unreliable sources from corrupting trusted systems.</p>
+
+<h3>4.3 Invocation Property</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject cannot invoke (call/execute) another subject at a <strong>higher</strong> integrity level. This prevents a low-integrity process from leveraging a high-integrity process to indirectly modify trusted data.
+</div>
+
+<div class="diagram">
+         BIBA ACCESS RULES (Mirror of BLP)
+╔══════════════════════════════════════════════╗
+║  Subject (Medium Integrity)                  ║
+║                                              ║
+║  Can READ:                                   ║
+║    ❌ Low Integrity   (NO READ DOWN!)        ║
+║    ✅ Medium Integrity (same level)          ║
+║    ✅ High Integrity   (read up – OK)        ║
+║                                              ║
+║  Can WRITE:                                  ║
+║    ✅ Low Integrity   (write down – OK)      ║
+║    ✅ Medium Integrity (same level)          ║
+║    ❌ High Integrity   (NO WRITE UP!)        ║
+╚══════════════════════════════════════════════╝
+</div>
+
+<table>
+  <tr><th>Property</th><th>Rule</th><th>Purpose</th></tr>
+  <tr><td>Simple Integrity</td><td>No Read Down</td><td>Don't trust unreliable data sources</td></tr>
+  <tr><td>Star (*) Integrity</td><td>No Write Up</td><td>Don't let untrusted subjects modify trusted data</td></tr>
+  <tr><td>Invocation</td><td>No Invoke Up</td><td>Don't leverage higher-integrity processes from lower levels</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. BLP vs. Biba Comparison</h2>
+<table>
+  <tr><th>Aspect</th><th>Bell-LaPadula</th><th>Biba</th></tr>
+  <tr><td>Focus</td><td>Confidentiality</td><td>Integrity</td></tr>
+  <tr><td>Labels</td><td>Classification / Clearance</td><td>Integrity levels</td></tr>
+  <tr><td>Read Rule</td><td>No Read Up</td><td>No Read Down</td></tr>
+  <tr><td>Write Rule</td><td>No Write Down</td><td>No Write Up</td></tr>
+  <tr><td>Allows</td><td>Write Up, Read Down</td><td>Write Down, Read Up</td></tr>
+  <tr><td>Origin</td><td>1973, U.S. DoD / MITRE</td><td>1977, Kenneth Biba</td></tr>
+  <tr><td>Environment</td><td>Military / Government</td><td>Military / Government</td></tr>
+  <tr><td>Relationship</td><td colspan="2">Exact mathematical inverses of each other</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> On the CISSP exam, if a question describes information flowing from a low-trust source to a high-trust destination (data corruption), think <strong>Biba</strong>. If it describes classified data being disclosed to unauthorized subjects, think <strong>BLP</strong>.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Clark-Wilson Integrity Model</h2>
+<div class="callout definition">
+  <strong>📖 Clark-Wilson Model (1987):</strong> A commercial integrity model by David Clark and David Wilson. Unlike Biba's lattice-based approach, Clark-Wilson ensures integrity through <strong>well-formed transactions</strong> and <strong>separation of duties</strong>. It is the most widely implemented integrity model in commercial environments.
+</div>
+<p>Clark-Wilson recognizes that in real-world business, integrity is maintained not by access lattices, but by ensuring all data modifications go through validated, authorized processes with complete audit trails.</p>
+<div class="callout key-concept">
+  <strong>🔑 Two Key Integrity Goals:</strong><br>
+  1. <strong>Internal consistency:</strong> Data is internally valid and self-consistent<br>
+  2. <strong>External consistency:</strong> Data accurately represents real-world facts it models
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Clark-Wilson Components</h2>
+
+<h3>7.1 Core Elements</h3>
+<table>
+  <tr><th>Component</th><th>Abbreviation</th><th>Definition</th></tr>
+  <tr><td>Constrained Data Items</td><td>CDI</td><td>High-integrity data objects protected by the model (e.g., account balances, financial records)</td></tr>
+  <tr><td>Unconstrained Data Items</td><td>UDI</td><td>Input data not yet validated (e.g., user input, external feeds). Must be validated before becoming CDIs.</td></tr>
+  <tr><td>Transformation Procedures</td><td>TP</td><td>Authorized programs/processes that modify CDIs. These are the "well-formed transactions" — programmed to maintain data integrity.</td></tr>
+  <tr><td>Integrity Verification Procedures</td><td>IVP</td><td>Procedures that verify CDIs conform to integrity constraints. Like an auditor checking that debits = credits.</td></tr>
+</table>
+
+<h3>7.2 Clark-Wilson Access Control Triple</h3>
+<div class="callout key-concept">
+  <strong>🔑 The Triple:</strong> (Subject, TP, CDI) — A user (subject) can only access a CDI through a specific authorized Transformation Procedure. Users never directly access data; they go through controlled programs.
+</div>
+
+<div class="diagram">
+    CLARK-WILSON ACCESS MODEL
+
+    ┌────────┐         ┌──────┐         ┌──────┐
+    │ Subject│ ──────→ │  TP  │ ──────→ │ CDI  │
+    │ (User) │         │(Prog)│         │(Data)│
+    └────────┘         └──────┘         └──────┘
+         │                │
+         │ Must be        │ Maintains
+         │ authorized     │ integrity
+         │ for this TP    │ via well-formed
+         │                │ transactions
+         ▼                ▼
+    Separation         IVP verifies
+    of Duties          CDI integrity
+</div>
+
+<h3>7.3 Clark-Wilson Enforcement Rules</h3>
+<ul>
+  <li><strong>C1:</strong> All IVPs must ensure CDIs are in a valid state (consistency)</li>
+  <li><strong>C2:</strong> TPs must transform CDIs from one valid state to another (well-formed transactions)</li>
+  <li><strong>C3:</strong> CDI access only through authorized TPs — separation of duty must be enforced</li>
+  <li><strong>C4:</strong> Subjects must be authorized to execute specific TPs on specific CDIs (access triple)</li>
+  <li><strong>C5:</strong> TPs must write to an append-only audit log</li>
+  <li><strong>E1-E4:</strong> Enforcement rules that ensure the certification rules are implemented</li>
+</ul>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Clark-Wilson's defining features are: <strong>(1) well-formed transactions</strong> (TPs), <strong>(2) separation of duties</strong>, and <strong>(3) the (Subject, TP, CDI) access triple</strong>. If any of these three appear in a question, the answer is Clark-Wilson.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Biba vs. Clark-Wilson Comparison</h2>
+<table>
+  <tr><th>Aspect</th><th>Biba</th><th>Clark-Wilson</th></tr>
+  <tr><td>Focus</td><td>Integrity (lattice-based)</td><td>Integrity (transaction-based)</td></tr>
+  <tr><td>Approach</td><td>Formal mathematical model with integrity levels</td><td>Practical model with well-formed transactions</td></tr>
+  <tr><td>Access Control</td><td>Lattice-based MAC (mandatory)</td><td>Access control triple (Subject, TP, CDI)</td></tr>
+  <tr><td>Environment</td><td>Military/Government</td><td>Commercial (banking, ERP, accounting)</td></tr>
+  <tr><td>Direct Data Access</td><td>Subjects read/write objects within integrity rules</td><td>Subjects NEVER access data directly — always through TPs</td></tr>
+  <tr><td>Separation of Duties</td><td>Not explicitly addressed</td><td>Core requirement — built into the model</td></tr>
+  <tr><td>Audit</td><td>Not explicitly addressed</td><td>Mandatory — TPs must log all operations</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 BLP vs. Biba — Mirror Rule:</strong><br>
+  <strong>BLP</strong>: No Read Up, No Write Down (protects <strong>C</strong>onfidentiality)<br>
+  <strong>Biba</strong>: No Read Down, No Write Up (protects <strong>I</strong>ntegrity)<br>
+  Remember: They are exact opposites. Flip BLP's rules and you get Biba.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "BIBA = Boy I'm Being Accurate":</strong> Biba is about integrity — ensuring data accuracy and trustworthiness.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Clark-Wilson = "CW = Commercial World":</strong> Clark-Wilson is the commercial integrity model used in banking and business. Biba is the military/government integrity model.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 CDI-TP-IVP:</strong> "Constrained Data goes through Transformation Programs, verified by Integrity Verification Procedures." Think of a bank: CDI = account balance, TP = transfer program, IVP = monthly reconciliation.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Well-Formed Transaction" = Clark-Wilson:</strong> Whenever you see "well-formed transaction" on the exam, the answer is Clark-Wilson. No other model uses this term.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Biba Focus</td><td>Integrity — prevents corruption of trusted data by untrusted sources</td></tr>
+  <tr><td>Biba Rules</td><td>No Read Down, No Write Up, No Invoke Up — inverse of BLP</td></tr>
+  <tr><td>Clark-Wilson Focus</td><td>Commercial integrity via well-formed transactions and SoD</td></tr>
+  <tr><td>CDI</td><td>Constrained Data Items — protected data objects in Clark-Wilson</td></tr>
+  <tr><td>UDI</td><td>Unconstrained Data Items — unvalidated input that must be processed through TPs</td></tr>
+  <tr><td>TP</td><td>Transformation Procedure — authorized program that modifies CDIs while preserving integrity</td></tr>
+  <tr><td>IVP</td><td>Integrity Verification Procedure — validates CDIs maintain consistency</td></tr>
+  <tr><td>Access Triple</td><td>(Subject, TP, CDI) — users access data only through authorized programs</td></tr>
+  <tr><td>Biba vs. CW</td><td>Biba = lattice/military; Clark-Wilson = transactions/commercial</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-035-theory.html" class="nav-btn">← Day 35: Bell-LaPadula</a>
+<a href="day-036-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 44 – Cloud Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 44 – Cloud Security</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 44 of 140</span><span>⏱️ ~50 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-043-theory.html">← Day 43</a> · Domain 3 · Day 44 · <a href="day-044-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Cloud Service Models</a></li>
+  <li><a href="#s4">4. Cloud Deployment Models</a></li>
+  <li><a href="#s5">5. Shared Responsibility Model</a></li>
+  <li><a href="#s6">6. Cloud Security Challenges</a></li>
+  <li><a href="#s7">7. CSA Cloud Controls Matrix &amp; CASB</a></li>
+  <li><a href="#s8">8. Cloud-Native Security</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — cloud questions appear across multiple domains; expect several on the exam</td></tr>
+  <tr><td>Why Tested</td><td>Cloud adoption is nearly universal; security professionals must understand service models, shared responsibility, and cloud-specific risks</td></tr>
+  <tr><td>Question Style</td><td>"Who is responsible for X in IaaS vs SaaS?", "What is multi-tenancy risk?", scenario-based shared responsibility, CASB use cases</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 43 (virtualization underpins cloud), Day 31 (DLP/CASB), Domain 1 (cloud governance), Domain 5 (IAM in cloud), Domain 7 (cloud incident response)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Cloud architect designs; DevOps implements; CISO governs; legal reviews contracts and data residency</td></tr>
+  <tr><td>Implementation</td><td>AWS, Azure, GCP for IaaS/PaaS; Microsoft 365, Salesforce for SaaS; hybrid/multi-cloud strategies</td></tr>
+  <tr><td>Failure Modes</td><td>Misconfigured storage buckets → data breach; unclear shared responsibility → security gaps; vendor lock-in → loss of control</td></tr>
+  <tr><td>Business Impact</td><td>Cloud enables agility and scalability but requires new security models, contractual controls (SLAs), and compliance verification</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cloud Service Models</h2>
+<div class="callout definition">
+  <strong>📖 Cloud Computing:</strong> On-demand delivery of IT resources (compute, storage, networking, applications) over the internet with pay-as-you-go pricing. Defined by NIST SP 800-145 with five essential characteristics: on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service.
+</div>
+
+<table>
+  <tr><th>Model</th><th>Customer Manages</th><th>Provider Manages</th><th>Examples</th></tr>
+  <tr><td><strong>IaaS</strong><br>Infrastructure as a Service</td><td>OS, middleware, runtime, applications, data</td><td>Hardware, networking, storage, virtualization</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
+  <tr><td><strong>PaaS</strong><br>Platform as a Service</td><td>Applications, data</td><td>Everything below (OS, middleware, runtime, infrastructure)</td><td>AWS Elastic Beanstalk, Azure App Service, Google App Engine, Heroku</td></tr>
+  <tr><td><strong>SaaS</strong><br>Software as a Service</td><td>Data and user access configuration</td><td>Everything (application, platform, infrastructure)</td><td>Microsoft 365, Salesforce, Google Workspace, Dropbox</td></tr>
+</table>
+
+<pre>
+                         Customer Responsibility ▲
+                                                 │
+  ┌─────────────────┐   ┌────────────────┐   ┌──┴──────────────┐
+  │      SaaS       │   │     PaaS       │   │      IaaS       │
+  │                 │   │                │   │                 │
+  │  Data & Access  │   │  Applications  │   │  Applications   │
+  │   config only   │   │  Data          │   │  Data           │
+  │                 │   │                │   │  Runtime        │
+  │  Provider       │   │  Provider      │   │  Middleware     │
+  │  manages ALL    │   │  manages       │   │  OS             │
+  │  the rest       │   │  platform      │   │                 │
+  │                 │   │  + infra       │   │  Provider       │
+  │                 │   │                │   │  manages infra  │
+  └─────────────────┘   └────────────────┘   └─────────────────┘
+       Least                                      Most
+    Customer Control                         Customer Control
+</pre>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The "pizza analogy" helps: SaaS = dining out (provider does everything), PaaS = meal kit (you cook from prepared ingredients), IaaS = grocery store (you buy raw materials and do everything). Remember: as you move from SaaS → PaaS → IaaS, customer responsibility INCREASES.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Cloud Deployment Models</h2>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Use Case</th><th>Security Consideration</th></tr>
+  <tr><td><strong>Public</strong></td><td>Infrastructure owned by provider; shared among multiple tenants over the internet</td><td>General business apps, web hosting, development</td><td>Multi-tenancy risks; data sovereignty; dependence on provider security</td></tr>
+  <tr><td><strong>Private</strong></td><td>Infrastructure dedicated to a single organization; on-premises or provider-hosted</td><td>Regulated industries (healthcare, finance, government)</td><td>More control but higher cost; still need proper security configuration</td></tr>
+  <tr><td><strong>Hybrid</strong></td><td>Combination of public and private cloud with orchestration between them</td><td>Burst capacity; keep sensitive data on-premises</td><td>Complex security policies across environments; data in transit between clouds</td></tr>
+  <tr><td><strong>Community</strong></td><td>Shared infrastructure for organizations with common concerns (mission, compliance, policy)</td><td>Government agencies, healthcare consortiums, research institutions</td><td>Shared governance; trust among community members; common security controls</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Multi-Tenancy:</strong> Multiple customers share the same physical resources (compute, storage, networking) while maintaining logical separation. This is a fundamental characteristic of public cloud. Risks include data leakage between tenants, noisy neighbor (resource contention), and side-channel attacks. Mitigations: strong isolation at hypervisor/network/storage layers, encryption, and strict access controls.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Shared Responsibility Model</h2>
+<div class="callout definition">
+  <strong>📖 Shared Responsibility Model:</strong> A framework that defines what the cloud provider secures (security "of" the cloud) versus what the customer secures (security "in" the cloud). Responsibility shifts based on the service model.
+</div>
+
+<table>
+  <tr><th>Security Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr>
+  <tr><td>Data Classification & Accountability</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+  <tr><td>Identity & Access Management</td><td>Customer</td><td>Customer</td><td>Shared</td></tr>
+  <tr><td>Application Security</td><td>Customer</td><td>Customer</td><td>Provider</td></tr>
+  <tr><td>Network Controls</td><td>Customer</td><td>Shared</td><td>Provider</td></tr>
+  <tr><td>Operating System</td><td>Customer</td><td>Provider</td><td>Provider</td></tr>
+  <tr><td>Virtualization / Hypervisor</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+  <tr><td>Physical Security</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Critical Principle:</strong> Data classification and accountability ALWAYS remain the customer's responsibility, regardless of the service model. You cannot outsource accountability. Even if the provider loses your data, your organization is accountable to regulators and data subjects.
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> If the question asks "Who is responsible for patching the OS in PaaS?" — the answer is the provider. If it asks about IaaS — the answer is the customer. Data responsibility is ALWAYS the customer. This is the #1 tested cloud concept.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Cloud Security Challenges</h2>
+<table>
+  <tr><th>Challenge</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td>Data Sovereignty</td><td>Data is subject to the laws of the country where it's stored; cloud providers have data centers globally</td><td>Contractual data residency requirements; choose regions carefully; encryption with customer-managed keys</td></tr>
+  <tr><td>Vendor Lock-In</td><td>Difficulty migrating between cloud providers due to proprietary formats and APIs</td><td>Use open standards; multi-cloud strategy; containerization; contractual exit clauses</td></tr>
+  <tr><td>Insecure APIs</td><td>Cloud services are accessed via APIs; vulnerable APIs = exposed attack surface</td><td>API authentication (OAuth 2.0); rate limiting; input validation; API gateway</td></tr>
+  <tr><td>Misconfiguration</td><td>The #1 cause of cloud breaches — exposed storage, open security groups, overly permissive IAM</td><td>Cloud Security Posture Management (CSPM); automated compliance scanning; infrastructure as code</td></tr>
+  <tr><td>Loss of Control</td><td>Organizations lose direct control over infrastructure and security configurations</td><td>SLA contracts; right-to-audit clauses; third-party attestations (SOC 2, ISO 27001)</td></tr>
+  <tr><td>Account Hijacking</td><td>Compromised cloud credentials grant access to all cloud resources</td><td>MFA; least privilege; credential monitoring; privileged access management</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Misconfiguration — The #1 Cloud Breach Cause:</strong> The Capital One breach (2019) resulted from a misconfigured WAF that allowed SSRF, exposing 100+ million customer records from AWS S3. Always implement CSPM tools and treat infrastructure configuration as code with automated security checks.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. CSA Cloud Controls Matrix &amp; CASB</h2>
+<h3>CSA Cloud Controls Matrix (CCM)</h3>
+<div class="callout definition">
+  <strong>📖 CSA CCM:</strong> A cybersecurity control framework by the Cloud Security Alliance specifically for cloud computing. It maps controls to major compliance frameworks (ISO 27001, NIST 800-53, PCI DSS, HIPAA, COBIT) and is organized into 17 domains covering cloud-specific security requirements.
+</div>
+
+<p>Key CSA CCM domains include: Application & Interface Security, Audit Assurance & Compliance, Data Security & Privacy, Encryption & Key Management, Identity & Access Management, Infrastructure & Virtualization, and Supply Chain Management.</p>
+
+<h3>Cloud Access Security Broker (CASB)</h3>
+<div class="callout definition">
+  <strong>📖 CASB:</strong> A security policy enforcement point placed between cloud service consumers and cloud service providers. CASBs combine and interject enterprise security policies as cloud-based resources are accessed.
+</div>
+
+<table>
+  <tr><th>CASB Pillar</th><th>Function</th></tr>
+  <tr><td>Visibility</td><td>Discover shadow IT; identify all cloud services in use</td></tr>
+  <tr><td>Compliance</td><td>Enforce regulatory requirements (GDPR, HIPAA) across cloud services</td></tr>
+  <tr><td>Data Security</td><td>DLP, encryption, tokenization of data in cloud</td></tr>
+  <tr><td>Threat Protection</td><td>Detect anomalous behavior, compromised accounts, malware in cloud</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 CASB Deployment Modes:</strong><br>
+  • <strong>Forward Proxy:</strong> Intercepts traffic from user to cloud (requires endpoint agent or network config)<br>
+  • <strong>Reverse Proxy:</strong> Sits in front of cloud service (no agent needed; agentless)<br>
+  • <strong>API-Based:</strong> Connects directly to cloud service APIs (out-of-band; no inline traffic inspection)
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Cloud-Native Security</h2>
+<table>
+  <tr><th>Concept</th><th>Description</th></tr>
+  <tr><td>Cloud Security Posture Management (CSPM)</td><td>Continuously monitors cloud environments for misconfigurations and compliance violations; auto-remediation</td></tr>
+  <tr><td>Cloud Workload Protection Platform (CWPP)</td><td>Secures workloads (VMs, containers, serverless) across cloud environments</td></tr>
+  <tr><td>Infrastructure as Code (IaC)</td><td>Define infrastructure in code (Terraform, CloudFormation); enables security scanning before deployment</td></tr>
+  <tr><td>DevSecOps in Cloud</td><td>Integrating security into CI/CD pipelines; shift-left security; automated testing</td></tr>
+  <tr><td>Zero Trust in Cloud</td><td>Never trust, always verify; microsegmentation; continuous authentication; identity-centric perimeter</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> CSPM = configuration monitoring (are my cloud resources properly configured?). CWPP = workload protection (are my running VMs/containers secure?). CASB = access brokering (who's accessing which cloud services and what are they doing?). Know the difference.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "SPI" for Service Models:</strong> SaaS → PaaS → IaaS. Going down this list, customer responsibility INCREASES. "SPI" = Software, Platform, Infrastructure.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Data is ALWAYS Yours":</strong> Regardless of cloud model (IaaS, PaaS, SaaS), data classification and accountability are ALWAYS the customer's responsibility. You can outsource operations, never accountability.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "CASB = Cloud's Security Guard":</strong> Visibility (who's going in?), Compliance (are they following the rules?), Data Security (what are they carrying?), Threat Protection (are they dangerous?). Four pillars = V-C-D-T.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>IaaS / PaaS / SaaS</td><td>Customer responsibility increases from SaaS → PaaS → IaaS</td></tr>
+  <tr><td>Deployment Models</td><td>Public (multi-tenant), Private (single org), Hybrid (mix), Community (shared interest)</td></tr>
+  <tr><td>Shared Responsibility</td><td>Provider secures "of" the cloud; customer secures "in" the cloud; data accountability is always customer's</td></tr>
+  <tr><td>Misconfiguration</td><td>#1 cause of cloud breaches; mitigate with CSPM and IaC</td></tr>
+  <tr><td>CASB</td><td>Enforcement point between users and cloud; four pillars: Visibility, Compliance, Data Security, Threat Protection</td></tr>
+  <tr><td>CSA CCM</td><td>Cloud-specific control framework; maps to ISO 27001, NIST, PCI DSS, HIPAA</td></tr>
+  <tr><td>Data Sovereignty</td><td>Data is subject to laws where it's stored; control with contracts and region selection</td></tr>
+  <tr><td>Cloud-Native Security</td><td>CSPM (config), CWPP (workloads), IaC (code-defined infra), DevSecOps (shift left)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-043-theory.html" class="nav-btn">← Day 43: Virtualization Security</a>
+<a href="day-044-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

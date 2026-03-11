@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 11 – Qualitative Risk Analysis MCQ</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);padding:16px 20px;margin-bottom:28px;border-radius:0 6px 6px 0;}
+.instructions strong{color:var(--orange);}
+.question-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.question-card.correct{border:2px solid var(--green);}
+.question-card.incorrect{border:2px solid var(--red);}
+.question-header{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;margin-top:2px;}
+.question-text{font-weight:600;font-size:1rem;line-height:1.6;}
+.options{list-style:none;padding:0;margin:0;}
+.options li{margin-bottom:8px;}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;}
+.options label:hover{background:#f0f4ff;}
+.options input[type=radio]{margin-top:3px;flex-shrink:0;}
+label.correct-answer{background:#e8f5e9!important;border-color:var(--green)!important;font-weight:600;color:var(--green);}
+label.wrong-answer{background:#fce4ec!important;border-color:var(--red)!important;color:var(--red);}
+.explanation{display:none;margin-top:16px;padding:14px 16px;border-radius:6px;font-size:.95rem;line-height:1.6;}
+.explanation.correct-exp{background:#e8f5e9;border-left:4px solid var(--green);color:#1b5e20;}
+.explanation.incorrect-exp{background:#fce4ec;border-left:4px solid var(--red);color:#b71c1c;}
+.submit-section{text-align:center;margin:30px 0;}
+#submitBtn{background:var(--accent);color:white;border:none;padding:14px 48px;font-size:1.1rem;font-weight:700;border-radius:8px;cursor:pointer;}
+#submitBtn:hover{background:var(--primary);}
+#submitBtn:disabled{background:#aaa;cursor:not-allowed;}
+.results{display:none;background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:30px 0;}
+.results h2{font-size:1.5rem;color:var(--primary);margin-bottom:16px;}
+.score-display{font-size:3.5rem;font-weight:900;margin:10px 0;}
+.score-display.pass{color:var(--green);}
+.score-display.fail{color:var(--red);}
+.score-message{font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.score-breakdown{color:var(--text-light);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 11: Qualitative Risk Analysis – Practice Quiz</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management</div>
+  <div class="meta"><span>📝 10 Questions</span><span>🎯 CISSP Level</span><span>✅ Pass: 7/10</span></div>
+</div>
+<div class="container">
+<div class="instructions"><strong>Instructions:</strong> Select the BEST answer for each question. Click <strong>Submit Answers</strong> to reveal explanations and your score. Pass threshold: 7/10 (70%).</div>
+<form id="quizForm">
+
+<div class="question-card" id="q1-card">
+  <div class="question-header"><span class="question-number">1</span><span class="question-text">A CISO must rapidly assess security risks across 15 newly acquired business units. Historical financial loss data is unavailable for most of them, and the assessment must be completed within two weeks. Which risk analysis approach is MOST appropriate?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q1" value="a"> Quantitative analysis — produces the most defensible C-suite outputs</label></li>
+    <li><label><input type="radio" name="q1" value="b"> Qualitative analysis — uses expert judgement and ordinal scales; does not require historical data and can be completed quickly across many units</label></li>
+    <li><label><input type="radio" name="q1" value="c"> Actuarial analysis — industry standard for loss projection without internal data</label></li>
+    <li><label><input type="radio" name="q1" value="d"> Defer assessment until sufficient financial data is collected over 12–24 months</label></li>
+  </ul>
+  <div class="explanation" id="q1-exp">✅ <strong>Correct: B.</strong> Qualitative risk analysis uses expert judgment, interviews, and ordinal rating scales (High/Medium/Low, 1–5) rather than financial data. It is faster, requires less data, and can be applied consistently across diverse environments. Its key advantages in this scenario: speed (two-week deadline), breadth (15 units), and no dependency on historical loss data. Quantitative analysis's accuracy requires months of data gathering. Deferral (D) is not a valid risk management response when the organisation is already exposed.</div>
+</div>
+
+<div class="question-card" id="q2-card">
+  <div class="question-header"><span class="question-number">2</span><span class="question-text">Two risks are scored on a 5×5 qualitative risk matrix. Risk A: Likelihood 4, Impact 2 (score = 8). Risk B: Likelihood 2, Impact 4 (score = 8). A junior analyst argues they should receive identical treatment since they have the same score. What is a fundamental limitation of risk matrices this scenario illustrates?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q2" value="a"> Risk matrices cannot compare risks with equal scores — a tiebreaker algorithm is needed</label></li>
+    <li><label><input type="radio" name="q2" value="b"> Equal risk scores can represent fundamentally different risk profiles requiring different response strategies — a high-likelihood/low-impact risk and a low-likelihood/high-impact risk demand different treatment even if their matrix scores are identical</label></li>
+    <li><label><input type="radio" name="q2" value="c"> Risk matrices are invalid for any risk with likelihood over 3</label></li>
+    <li><label><input type="radio" name="q2" value="d"> Only quantitative analysis can differentiate risks with the same qualitative score</label></li>
+  </ul>
+  <div class="explanation" id="q2-exp">✅ <strong>Correct: B.</strong> This is a well-documented limitation of risk matrices called "risk score conflation." Risk A (frequent, minor impact) is best addressed by operational controls that reduce frequency. Risk B (rare, catastrophic impact) is best addressed by consequence-reduction controls and contingency planning. Treating them identically based on equal scores leads to misallocation of resources. Risk A requires different treatment (frequency reduction) than Risk B (impact reduction/transfer). Good risk practitioners look beyond the score to the underlying likelihood/impact profile.</div>
+</div>
+
+<div class="question-card" id="q3-card">
+  <div class="question-header"><span class="question-number">3</span><span class="question-text">A risk assessment team uses a technique where each expert submits risk ratings independently and anonymously. The facilitator aggregates results and shares them with the group without revealing who said what. Experts revise ratings based on the summary, and the process repeats until consensus emerges. This technique is called:</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q3" value="a"> Brainstorming — open group discussion to generate risk ideas</label></li>
+    <li><label><input type="radio" name="q3" value="b"> Nominal Group Technique — structured silent voting followed by discussion</label></li>
+    <li><label><input type="radio" name="q3" value="c"> Delphi Technique — iterative anonymous expert consensus method designed to eliminate dominant personality influence</label></li>
+    <li><label><input type="radio" name="q3" value="d"> SWOT Analysis — evaluating Strengths, Weaknesses, Opportunities, and Threats</label></li>
+  </ul>
+  <div class="explanation" id="q3-exp">✅ <strong>Correct: C.</strong> The Delphi Technique is an iterative, structured, anonymous expert consensus process. Key features: anonymous inputs prevent group dynamics from biasing results; facilitator aggregates and shares summaries (not individual responses); multiple rounds allow convergence. It was developed by RAND Corporation for forecasting. In security risk assessment, it is particularly valuable for sensitive topics where participants might not speak freely in open forums. The Nominal Group Technique (B) involves structured silent idea generation followed by voting — it's not iterative.</div>
+</div>
+
+<div class="question-card" id="q4-card">
+  <div class="question-header"><span class="question-number">4</span><span class="question-text">During risk matrix review, a risk scores 3 (Likelihood) × 1 (Impact) = 3 out of 25. Another risk scores 1 (Likelihood) × 5 (Impact) = 5 out of 25. Risk management policy treats any risk with Impact ≥ 5 as a priority regardless of overall score. Why is this policy sound?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q4" value="a"> It ensures all risks with likelihood ≥ 3 receive adequate attention</label></li>
+    <li><label><input type="radio" name="q4" value="b"> It allows low-likelihood risks to be ignored when budgets are constrained</label></li>
+    <li><label><input type="radio" name="q4" value="c"> Catastrophic-impact risks warrant special treatment regardless of probability — even low-probability, high-impact events can be existential threats that cannot be handled through normal residual risk tolerance</label></li>
+    <li><label><input type="radio" name="q4" value="d"> It satisfies ISO 27001 Annex A minimum risk treatment requirements</label></li>
+  </ul>
+  <div class="explanation" id="q4-exp">✅ <strong>Correct: C.</strong> Risk matrices can underweight catastrophic but rare risks. A score of 5 from a catastrophic event (1×5) may be lower than a medium risk score (3×3=9) — but the catastrophic event could be existential (enterprise failure, mass casualty, critical infrastructure destruction). Many risk frameworks establish "bright line" rules that escalate any risk scoring the maximum impact severity regardless of its total risk score. This prevents "black swan" risks from being buried under numerically higher but less severe risks. CISSP candidates should recognise when impact alone justifies priority treatment.</div>
+</div>
+
+<div class="question-card" id="q5-card">
+  <div class="question-header"><span class="question-number">5</span><span class="question-text">An organisation's risk matrix defines "High" impact as "disrupts primary business operations for more than 72 hours." A junior analyst rates a vulnerability as "High" impact because it "could be bad." A senior analyst disagrees, saying the impact should be "Medium." What is the MOST important control to prevent this inconsistency?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q5" value="a"> Define anchored, criteria-based descriptions for each rating level so that analysts apply scales consistently based on measurable conditions rather than subjective impression</label></li>
+    <li><label><input type="radio" name="q5" value="b"> Require all risk ratings to be made by the CISO personally to ensure consistency</label></li>
+    <li><label><input type="radio" name="q5" value="c"> Use quantitative analysis for all risks to avoid subjective rating differences</label></li>
+    <li><label><input type="radio" name="q5" value="d"> Accept the junior analyst's rating as the conservative worst-case assumption</label></li>
+  </ul>
+  <div class="explanation" id="q5-exp">✅ <strong>Correct: A.</strong> The most critical design requirement for qualitative risk scales is anchored definitions — each rating level must be defined with specific, observable criteria (e.g., "High = business disruption &gt;72h; financial impact &gt;$1M; regulatory fine certain"). Without anchors, ratings reflect assessors' subjective interpretation rather than objective conditions, making comparisons across assessors and time periods invalid. This is a well-known weakness of qualitative methods — it is addressed through well-designed rating rubrics, calibration workshops, and consensus reviews.</div>
+</div>
+
+<div class="question-card" id="q6-card">
+  <div class="question-header"><span class="question-number">6</span><span class="question-text">The Delphi Technique's anonymous submission process is specifically designed to address which cognitive and group dynamics challenge in risk assessment workshops?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q6" value="a"> Analysis paralysis — when too many options prevent decision-making</label></li>
+    <li><label><input type="radio" name="q6" value="b"> HiPPO Effect and groupthink — where the Highest Paid Person's Opinion (or dominant personality) suppresses independent expert judgement, biasing group outputs</label></li>
+    <li><label><input type="radio" name="q6" value="c"> Scope creep — when the risk assessment expands beyond planned boundaries</label></li>
+    <li><label><input type="radio" name="q6" value="d"> Single point of failure — when only one expert can provide the required domain knowledge</label></li>
+  </ul>
+  <div class="explanation" id="q6-exp">✅ <strong>Correct: B.</strong> The HiPPO Effect (Highest Paid Person's Opinion) describes the tendency in group settings for participants to defer to authority figures — even when they have better information. Groupthink is the broader phenomenon where conformity pressures suppress dissenting views. Delphi's anonymity breaks both: experts cannot be identified, so seniority, politics, and personality cannot distort the aggregated view. This is the fundamental reason for Delphi's design — it extracts true expert knowledge uncontaminated by social pressure. The CISSP exam tests awareness of these cognitive biases.</div>
+</div>
+
+<div class="question-card" id="q7-card">
+  <div class="question-header"><span class="question-number">7</span><span class="question-text">A risk workshop is conducted where the CISO presents his risk ratings first before other participants share their views. Several participants who initially disagreed privately end up adopting the CISO's ratings after hearing them. This scenario illustrates which specific cognitive bias?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q7" value="a"> Availability bias — over-weighting recent or memorable events in probability estimates</label></li>
+    <li><label><input type="radio" name="q7" value="b"> Anchoring bias / HiPPO Effect — where the first value presented (the CISO's rating) becomes the implicit reference point, and subsequent estimates cluster around it due to authority influence</label></li>
+    <li><label><input type="radio" name="q7" value="c"> Optimism bias — systematically underestimating risk probability due to overconfidence</label></li>
+    <li><label><input type="radio" name="q7" value="d"> Escalation of commitment — continuing a poor risk decision because of prior investment</label></li>
+  </ul>
+  <div class="explanation" id="q7-exp">✅ <strong>Correct: B.</strong> Anchoring bias occurs when the first information presented disproportionately influences subsequent judgments — all subsequent estimates "anchor" to the initial value. When combined with the HiPPO Effect (deference to authority), participants who hear the CISO's rating first are doubly biased: they anchor to it and defer to it socially. This illustrates why independent, anonymous initial ratings (as in Delphi) produce more accurate risk assessments than open voting after a senior person stakes a position.</div>
+</div>
+
+<div class="question-card" id="q8-card">
+  <div class="question-header"><span class="question-number">8</span><span class="question-text">Which of the following is a valid ADVANTAGE of qualitative risk analysis compared to quantitative analysis for an organisation with diverse, rapidly changing IT assets?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q8" value="a"> Qualitative analysis produces financial values directly usable in budget justifications</label></li>
+    <li><label><input type="radio" name="q8" value="b"> Qualitative analysis can be completed faster, requires less data preparation, provides actionable prioritisation, and can be performed by business stakeholders without financial modelling expertise</label></li>
+    <li><label><input type="radio" name="q8" value="c"> Qualitative analysis eliminates subjectivity through standardised scoring algorithms</label></li>
+    <li><label><input type="radio" name="q8" value="d"> Qualitative analysis is the only approach recognised by ISO 27001</label></li>
+  </ul>
+  <div class="explanation" id="q8-exp">✅ <strong>Correct: B.</strong> Qualitative analysis advantages: faster execution (hours/days vs. weeks/months), no historical data requirement, accessible to non-financial stakeholders, easily repeatable, produces actionable risk priority rankings. Its primary disadvantage is the inability to directly calculate ROI or CBA for control investments. Many organisations use a hybrid approach: qualitative for broad assessment and prioritisation, then quantitative for the top-priority risks to support budget decisions. ISO 27001 accepts both approaches.</div>
+</div>
+
+<div class="question-card" id="q9-card">
+  <div class="question-header"><span class="question-number">9</span><span class="question-text">Which risk assessment methodology was developed by Carnegie Mellon's Software Engineering Institute, is self-directed by the organisation's own staff, and uses workshop-based asset-centric threat profiling without requiring external facilitators or financial calculations?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q9" value="a"> TARA (Threat Agent Risk Assessment) — Intel's methodology for hardware threat analysis</label></li>
+    <li><label><input type="radio" name="q9" value="b"> OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation) — Carnegie Mellon's family of self-directed, workshop-based qualitative risk assessment methods</label></li>
+    <li><label><input type="radio" name="q9" value="c"> CRAMM (CCTA Risk Analysis and Management Method) — UK government quantitative method</label></li>
+    <li><label><input type="radio" name="q9" value="d"> MEHARI (Method for Harmonised Analysis of Risk) — French national information systems risk analysis method</label></li>
+  </ul>
+  <div class="explanation" id="q9-exp">✅ <strong>Correct: B.</strong> OCTAVE was developed by Carnegie Mellon's CERT/SEI. The OCTAVE family includes: OCTAVE (original, large organisations), OCTAVE-S (small organisations), and OCTAVE Allegro (streamlined, information-asset focused). All versions are self-directed — performed by internal staff using structured worksheets — and are qualitative, focusing on identifying critical assets, threats, and vulnerabilities without financial modelling. CISSP candidates regularly encounter OCTAVE in qualitative methodology questions.</div>
+</div>
+
+<div class="question-card" id="q10-card">
+  <div class="question-header"><span class="question-number">10</span><span class="question-text">After completing a qualitative risk assessment that prioritises 20 risks as High/Medium/Low, the board asks for dollar figures to justify next year's security budget. What is the MOST appropriate follow-on action?</span></div>
+  <ul class="options">
+    <li><label><input type="radio" name="q10" value="a"> Rerun the entire risk assessment using qualitative methods with a wider group of participants</label></li>
+    <li><label><input type="radio" name="q10" value="b"> Estimate dollar values by assigning arbitrary currency amounts to High/Medium/Low ratings</label></li>
+    <li><label><input type="radio" name="q10" value="c"> Decline to provide financial estimates — qualitative outputs cannot be monetised</label></li>
+    <li><label><input type="radio" name="q10" value="d"> Perform targeted quantitative analysis (SLE/ALE/ROSI calculations) on the top-priority risks identified in the qualitative assessment to support budget justification</label></li>
+  </ul>
+  <div class="explanation" id="q10-exp">✅ <strong>Correct: D.</strong> The optimal hybrid approach uses qualitative analysis to rapidly prioritise risks, then applies quantitative analysis to the highest-priority subset to generate the financial figures needed for CBA and budget justification. This is efficient: you avoid the cost and time of quantifying all 20 risks and focus rigorous financial modelling where it matters most. Arbitrarily assigning dollars to qualitative scales (B) corrupts the analysis with false precision. This hybrid methodology is increasingly adopted in enterprise risk management frameworks including NIST RMF.</div>
+</div>
+
+</form>
+<div class="submit-section"><button id="submitBtn" type="button">Submit Answers</button></div>
+<div class="results" id="results">
+  <h2>Quiz Complete!</h2>
+  <div class="score-display" id="scoreDisplay"></div>
+  <div class="score-message" id="scoreMessage"></div>
+  <div class="score-breakdown" id="scoreBreakdown"></div>
+</div>
+<div class="nav-footer">
+  <a href="day-011-theory.html" class="nav-btn">← Back to Theory</a>
+  <a href="day-012-theory.html" class="nav-btn">Day 12: Risk Response Strategies →</a>
+</div>
+</div>
+<script>
+const answers={q1:'b',q2:'b',q3:'c',q4:'c',q5:'a',q6:'b',q7:'b',q8:'b',q9:'b',q10:'d'};
+document.getElementById('submitBtn').addEventListener('click',function(){
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`q${i}-card`);
+    const exp=document.getElementById(`q${i}-exp`);
+    const correct=answers[`q${i}`];
+    exp.style.display='block';
+    if(!sel){card.classList.add('incorrect');exp.classList.add('incorrect-exp');}
+    else if(sel.value===correct){score++;card.classList.add('correct');exp.classList.add('correct-exp');sel.parentElement.classList.add('correct-answer');}
+    else{card.classList.add('incorrect');exp.classList.add('incorrect-exp');sel.parentElement.classList.add('wrong-answer');document.querySelector(`input[name="q${i}"][value="${correct}"]`).parentElement.classList.add('correct-answer');}
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+  }
+  const pct=Math.round(score/10*100);const pass=score>=7;
+  document.getElementById('scoreDisplay').textContent=`${score}/10`;
+  document.getElementById('scoreDisplay').className=`score-display ${pass?'pass':'fail'}`;
+  document.getElementById('scoreMessage').textContent=pass?'✅ Pass — Well done!':'❌ Below passing threshold — Review the theory and retry.';
+  document.getElementById('scoreBreakdown').textContent=`${score} correct out of 10 (${pct}%)`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  this.disabled=true;
+});
+</script>
+</body>
+</html>
