@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 51 – Cryptographic Attacks &amp; Key Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 51 – Cryptographic Attacks &amp; Key Management</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 51 of 140</span><span>⏱️ ~55 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-050-theory.html">← Day 50</a> · Domain 3 · Day 51 · <a href="day-051-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Cryptanalytic Attacks</a></li>
+  <li><a href="#s4">4. Implementation &amp; Side-Channel Attacks</a></li>
+  <li><a href="#s5">5. Social &amp; Physical Attacks on Cryptography</a></li>
+  <li><a href="#s6">6. Key Management Lifecycle</a></li>
+  <li><a href="#s7">7. Key Stretching</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — understanding attack types is essential for selecting appropriate algorithms and key lengths; key management is often called the hardest part of cryptography</td></tr>
+  <tr><td>Why Tested</td><td>CISSP tests your ability to choose the right countermeasure for each attack type, and to understand that strong algorithms with poor key management = weak security</td></tr>
+  <tr><td>Question Style</td><td>"Attacker obtains multiple ciphertexts encrypted under the same key…", "Which attack is THIS scenario?", key management best practices</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 5 (password hashing attacks), Domain 4 (TLS configuration), Domain 7 (forensic evidence integrity)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects select algorithms; operations teams manage key lifecycle; compliance ensures key rotation and destruction</td></tr>
+  <tr><td>Implementation</td><td>HSMs for critical key storage, key management systems (KMS — AWS KMS, Azure Key Vault), automated rotation policies</td></tr>
+  <tr><td>Failure Modes</td><td>Heartbleed (side-channel leaked server private keys), Sony PS3 ECDSA nonce reuse (private key recovered), hard-coded keys in source code</td></tr>
+  <tr><td>Business Impact</td><td>Compromised keys force emergency certificate replacement across all systems; poor key management undermines even the strongest algorithms</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cryptanalytic Attacks</h2>
+<div class="callout definition">
+  <strong>📖 Cryptanalytic Attack:</strong> An attack that targets the mathematical properties of the cryptographic algorithm or protocol to break or weaken the encryption, rather than attacking the implementation or human factors.
+</div>
+
+<table>
+  <tr><th>Attack</th><th>Attacker Has</th><th>Goal</th><th>Example</th></tr>
+  <tr><td><strong>Ciphertext Only (COA)</strong></td><td>Only ciphertext</td><td>Deduce plaintext or key</td><td>Frequency analysis on substitution ciphers; simplest but hardest attack</td></tr>
+  <tr><td><strong>Known Plaintext (KPA)</strong></td><td>Some plaintext-ciphertext pairs</td><td>Deduce the key</td><td>WWII Enigma — Allies knew standard message openings ("Heil Hitler"); used this to reverse the daily key</td></tr>
+  <tr><td><strong>Chosen Plaintext (CPA)</strong></td><td>Ability to encrypt chosen plaintexts</td><td>Deduce the key</td><td>BEAST attack (TLS 1.0 CBC) — attacker injects chosen blocks to recover session cookie</td></tr>
+  <tr><td><strong>Chosen Ciphertext (CCA)</strong></td><td>Ability to decrypt chosen ciphertexts</td><td>Deduce the key</td><td>Bleichenbacher attack on RSA PKCS#1 v1.5 padding — send crafted ciphertexts and observe error responses</td></tr>
+  <tr><td><strong>Frequency Analysis</strong></td><td>Ciphertext of substitution cipher</td><td>Map cipher letters to plaintext letters</td><td>In English, 'E' is most common (~13%); in ciphertext, the most frequent letter likely maps to 'E'</td></tr>
+  <tr><td><strong>Birthday Attack</strong></td><td>Access to hash function</td><td>Find any two inputs with the same hash</td><td>For n-bit hash, collision in ~2^(n/2); effective against MD5 (2^64)</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Attack Hierarchy:</strong> The attacks go from least to most powerful: Ciphertext-Only → Known-Plaintext → Chosen-Plaintext → Chosen-Ciphertext. Each gives the attacker more power. Remember: <strong>"C-K-CP-CC"</strong> = increasing attacker capability.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Clustering:</strong> When two different keys produce the same ciphertext from the same plaintext. This is a weakness because it reduces the effective key space. Modern algorithms are designed to minimize key clustering.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Implementation &amp; Side-Channel Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Exploits</th><th>Example</th></tr>
+  <tr><td><strong>Timing Attack</strong></td><td>Measures time taken by cryptographic operations; different key bits cause different execution paths</td><td>Comparing password hashes byte-by-byte — early termination on mismatch leaks which bytes are correct</td></tr>
+  <tr><td><strong>Power Analysis</strong></td><td>Monitors power consumption during cryptographic operations; different operations draw different amounts of power</td><td>Simple Power Analysis (SPA) and Differential Power Analysis (DPA) against smart cards</td></tr>
+  <tr><td><strong>Electromagnetic (EM) Analysis</strong></td><td>Captures electromagnetic emissions from a device during cryptographic computation</td><td>Similar to power analysis but measured from a distance via EM radiation</td></tr>
+  <tr><td><strong>Fault Injection</strong></td><td>Deliberately introduces errors (voltage glitches, laser pulses, clock manipulation) to cause faulty outputs that reveal the key</td><td>Bellcore attack on RSA-CRT (Chinese Remainder Theorem) — a single faulty signature reveals the private key</td></tr>
+  <tr><td><strong>Cache Timing</strong></td><td>Exploits CPU cache behavior — cache hits are faster than misses, leaking information about which memory addresses were accessed</td><td>Spectre/Meltdown-style attacks; Flush+Reload against AES T-tables</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Side-Channel ≠ Cryptanalysis:</strong> Side-channel attacks do NOT target the mathematical strength of the algorithm. The algorithm may be perfectly secure, but the <em>physical implementation</em> leaks information. Countermeasures include constant-time coding, power filtering, electromagnetic shielding, and HSMs.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Social &amp; Physical Attacks on Cryptography</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td><strong>Rubber-Hose Attack</strong></td><td>Coercion or torture to extract the key from a person (a human factors attack, not a technical one)</td><td>Plausible deniability (hidden volumes, e.g., VeraCrypt), duress codes, M-of-N key splitting</td></tr>
+  <tr><td><strong>Social Engineering</strong></td><td>Manipulating people into revealing keys or passphrases through deception</td><td>Security awareness training; strict key handling procedures</td></tr>
+  <tr><td><strong>Shoulder Surfing</strong></td><td>Observing someone entering a password or encryption passphrase</td><td>Privacy screens, awareness, not entering keys in public</td></tr>
+  <tr><td><strong>Dumpster Diving</strong></td><td>Searching through discarded materials for written-down keys or passwords</td><td>Secure document destruction; clean desk policies</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam loves the rubber-hose attack as a distractor. It tests whether you understand that not all attacks are technical. If the question describes physical coercion to extract a key, the answer is <strong>rubber-hose attack</strong>.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Key Management Lifecycle</h2>
+<div class="callout definition">
+  <strong>📖 Key Management:</strong> The policies, procedures, and mechanisms for generating, distributing, storing, using, rotating, archiving, and destroying cryptographic keys. NIST SP 800-57 is the primary reference for key management recommendations.
+</div>
+
+<table>
+  <tr><th>Phase</th><th>Description</th><th>Best Practice</th></tr>
+  <tr><td><strong>1. Generation</strong></td><td>Create keys using cryptographically secure random number generators (CSPRNG)</td><td>Use FIPS 140-2/3 validated modules; never use predictable seeds</td></tr>
+  <tr><td><strong>2. Distribution</strong></td><td>Securely transport keys to where they're needed</td><td>Use key exchange protocols (DH, ECDHE); never send keys in plaintext; out-of-band for symmetric keys</td></tr>
+  <tr><td><strong>3. Storage</strong></td><td>Protect keys at rest</td><td>HSMs, key vaults, encrypted key stores; never hard-code keys in source code; split knowledge for critical keys</td></tr>
+  <tr><td><strong>4. Usage</strong></td><td>Use keys for their intended purpose only</td><td>Separate encryption keys from signing keys; enforce key usage restrictions via certificates (Key Usage extension)</td></tr>
+  <tr><td><strong>5. Rotation</strong></td><td>Periodically replace keys (cryptoperiod)</td><td>Rotate before expiration; shorter cryptoperiods = more re-encryption but less risk; automate rotation</td></tr>
+  <tr><td><strong>6. Archival</strong></td><td>Retain old encryption keys to decrypt previously encrypted data</td><td>Archive encryption keys securely; do NOT archive signing keys</td></tr>
+  <tr><td><strong>7. Destruction</strong></td><td>Permanently destroy keys when no longer needed</td><td>Zeroize key material; use FIPS-compliant destruction methods; ensure no copies remain; destroy in HSMs</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Cryptoperiod:</strong> The time span during which a specific key is authorized for use. NIST SP 800-57 defines recommended cryptoperiods based on key type. Shorter cryptoperiods reduce the impact of key compromise (less data encrypted under one key). Example: TLS session keys change per session; CA root keys may have 20+ year cryptoperiods.
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Split Knowledge &amp; Dual Control:</strong><br>
+  <strong>Split Knowledge:</strong> No single person knows the entire key — each person knows only their portion (e.g., M-of-N key shares with Shamir's Secret Sharing).<br>
+  <strong>Dual Control:</strong> Two or more people must collaborate to perform a key operation — no single person can act alone.<br>
+  These are <strong>different concepts</strong> but often used together. Both implement separation of duties for cryptographic operations.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Key Stretching</h2>
+<div class="callout definition">
+  <strong>📖 Key Stretching:</strong> The process of taking a weak key (like a user's password) and making it more resistant to brute-force attacks by applying a computationally expensive function that produces a stronger derived key.
+</div>
+
+<table>
+  <tr><th>Algorithm</th><th>Mechanism</th><th>Notes</th></tr>
+  <tr><td><strong>PBKDF2</strong></td><td>Applies HMAC-SHA1/SHA256 repeatedly (configurable iterations, e.g., 600,000+)</td><td>NIST recommended (SP 800-132); used in WPA2 (4,096 iterations); CPU-intensive only</td></tr>
+  <tr><td><strong>bcrypt</strong></td><td>Based on Blowfish cipher; configurable cost factor that doubles computation per increment</td><td>Memory-hard by design; widely used for password hashing; includes built-in salt</td></tr>
+  <tr><td><strong>scrypt</strong></td><td>Requires large amounts of memory in addition to CPU time; configurable CPU and memory cost</td><td>Designed to resist GPU/ASIC attacks by being memory-intensive; used in cryptocurrency</td></tr>
+  <tr><td><strong>Argon2</strong></td><td>Winner of the Password Hashing Competition (2015); configurable time, memory, and parallelism</td><td>Current best practice for new designs; three variants: Argon2d (GPU resistant), Argon2i (side-channel resistant), Argon2id (hybrid)</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Know that PBKDF2 and bcrypt are key stretching algorithms that make password brute-forcing slower. Argon2 is the newest and most recommended. The key concept: stretch a weak password into a strong derived key by making computation deliberately expensive.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Attack Hierarchy — "Climb the Knowledge Ladder":</strong><br>
+  <strong>C</strong>iphertext-Only → <strong>K</strong>nown-Plaintext → <strong>C</strong>hosen-<strong>P</strong>laintext → <strong>C</strong>hosen-<strong>C</strong>iphertext<br>
+  Each rung gives the attacker more power. Remember: "CK-CP-CC"
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Key Management Phases — "Good Dogs Stay Until Routinely Assessed Daily":</strong><br>
+  <strong>G</strong>eneration → <strong>D</strong>istribution → <strong>S</strong>torage → <strong>U</strong>sage → <strong>R</strong>otation → <strong>A</strong>rchival → <strong>D</strong>estruction
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Side-Channel — "The POWER of TIME":</strong> Side-channel attacks leak info through <strong>P</strong>ower, <strong>T</strong>iming, and <strong>E</strong>lectromagnetic emissions — not through the algorithm's math.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Split Knowledge vs. Dual Control:</strong> "Split = knowledge (what you know is divided). Dual = action (two people must act together)."
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Ciphertext-Only</td><td>Weakest attack — attacker only has ciphertext; uses frequency analysis</td></tr>
+  <tr><td>Known/Chosen Plaintext</td><td>Attacker has or can create plaintext-ciphertext pairs; more powerful</td></tr>
+  <tr><td>Chosen Ciphertext</td><td>Most powerful — attacker can decrypt chosen ciphertexts and analyze results</td></tr>
+  <tr><td>Side-Channel</td><td>Attacks on implementation (timing, power, EM); not on algorithm math</td></tr>
+  <tr><td>Rubber-Hose</td><td>Physical coercion to extract keys — not a technical attack</td></tr>
+  <tr><td>Key Management</td><td>7 phases: Generate → Distribute → Store → Use → Rotate → Archive → Destroy</td></tr>
+  <tr><td>Cryptoperiod</td><td>Time a key is authorized for use; shorter = less data at risk per compromise</td></tr>
+  <tr><td>Split Knowledge</td><td>Key divided among multiple people; no one knows the full key</td></tr>
+  <tr><td>Key Stretching</td><td>PBKDF2, bcrypt, scrypt, Argon2 — make weak passwords computationally expensive to brute-force</td></tr>
+  <tr><td>HSMs</td><td>Tamper-resistant hardware for key generation, storage, and operations</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-050-theory.html" class="nav-btn">← Day 50: PKI</a>
+<a href="day-051-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 52 – Domain 3 Comprehensive Review</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.badge{display:inline-block;padding:8px 20px;border-radius:20px;font-weight:700;font-size:1rem;margin:10px 0;}
+.badge-complete{background:#e8f5e9;color:var(--green);border:2px solid var(--green);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 52 – Domain 3 Comprehensive Review</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 52 of 140</span><span>⏱️ ~60 min</span><span>📊 Review</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-051-theory.html">← Day 51</a> · Domain 3 · Day 52 (Review) · <a href="day-052-mcq.html">Take Review Quiz (20 Qs) →</a></div>
+
+<p style="text-align:center;"><span class="badge badge-complete">🏆 Domain 3 Complete — Days 34–52</span></p>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 3 Overview</a></li>
+  <li><a href="#s2">2. Security Models Summary</a></li>
+  <li><a href="#s3">3. Security Architecture Concepts</a></li>
+  <li><a href="#s4">4. Symmetric Encryption Summary</a></li>
+  <li><a href="#s5">5. Asymmetric Encryption Summary</a></li>
+  <li><a href="#s6">6. Hashing &amp; Digital Signatures Summary</a></li>
+  <li><a href="#s7">7. PKI Summary</a></li>
+  <li><a href="#s8">8. Cryptographic Attacks Summary</a></li>
+  <li><a href="#s9">9. Key Management Summary</a></li>
+  <li><a href="#s10">10. Top 20 Exam Flashcards</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 3 Overview</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain Weight</td><td>13% of the CISSP exam</td></tr>
+  <tr><td>Topics Covered</td><td>Security models, security evaluation criteria, system architecture, cryptography (symmetric, asymmetric, hashing, PKI), cryptographic attacks, key management</td></tr>
+  <tr><td>Days Covered</td><td>Day 34 (Security Models) through Day 52 (this review)</td></tr>
+  <tr><td>Exam Focus</td><td>Know models by name, algorithm comparison tables, what each algorithm provides (C, I, A, non-repudiation), key management lifecycle</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Security Models Summary</h2>
+<table>
+  <tr><th>Model</th><th>Focus</th><th>Key Rules</th></tr>
+  <tr><td><strong>Bell-LaPadula</strong></td><td>Confidentiality</td><td>Simple Security (no read up), Star Property (no write down), Strong Star (read/write only at own level)</td></tr>
+  <tr><td><strong>Biba</strong></td><td>Integrity</td><td>Simple Integrity (no read down), Star Integrity (no write up) — exact inverse of Bell-LaPadula</td></tr>
+  <tr><td><strong>Clark-Wilson</strong></td><td>Integrity (commercial)</td><td>Constrained Data Items (CDIs), Unconstrained Data Items (UDIs), Transformation Procedures (TPs), Integrity Verification Procedures (IVPs), well-formed transactions, separation of duties</td></tr>
+  <tr><td><strong>Brewer-Nash (Chinese Wall)</strong></td><td>Conflict of Interest</td><td>Dynamic access control — once you access data in one conflict class, you're blocked from competing classes</td></tr>
+  <tr><td><strong>Lipner</strong></td><td>Both Confidentiality &amp; Integrity</td><td>Combines Bell-LaPadula and Biba in a single implementation</td></tr>
+  <tr><td><strong>Graham-Denning</strong></td><td>Object Operations</td><td>8 primitive protection operations (create/delete objects and subjects, grant/revoke rights)</td></tr>
+  <tr><td><strong>Harrison-Ruzzo-Ullman (HRU)</strong></td><td>Access Rights</td><td>Extension of Graham-Denning; provably secure but undecidable in general case</td></tr>
+</table>
+
+<div class="callout mnemonic">
+  <strong>🧠 Quick Recall:</strong> "Bell-LaPadula = <strong>no read UP, no write DOWN</strong> (protects secrets from leaking down). Biba = <strong>no read DOWN, no write UP</strong> (protects integrity from corruption flowing up)."
+</div>
+</section>
+
+<section id="s3">
+<h2>3. Security Architecture Concepts</h2>
+<table>
+  <tr><th>Concept</th><th>Description</th></tr>
+  <tr><td><strong>TCB (Trusted Computing Base)</strong></td><td>Totality of hardware, firmware, and software responsible for enforcing security policy</td></tr>
+  <tr><td><strong>Reference Monitor</strong></td><td>Abstract concept — mediates all access between subjects and objects</td></tr>
+  <tr><td><strong>Security Kernel</strong></td><td>Implementation of the reference monitor — must be tamperproof, always invoked, verifiable</td></tr>
+  <tr><td><strong>Protection Rings</strong></td><td>Ring 0 (kernel/most privileged) → Ring 3 (user apps/least privileged)</td></tr>
+  <tr><td><strong>Common Criteria (CC)</strong></td><td>ISO 15408; replaced TCSEC/ITSEC; uses EAL1–EAL7 evaluation levels; Protection Profiles (PP), Security Targets (ST), Target of Evaluation (TOE)</td></tr>
+  <tr><td><strong>TCSEC (Orange Book)</strong></td><td>D (minimal) → C1 → C2 → B1 → B2 → B3 → A1 (verified design); US DoD; replaced by CC</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Symmetric Encryption Summary</h2>
+<table>
+  <tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Block Size</th><th>Status</th></tr>
+  <tr><td><strong>DES</strong></td><td>Block (Feistel)</td><td>56-bit</td><td>64-bit</td><td>❌ Broken — brute-forceable</td></tr>
+  <tr><td><strong>3DES</strong></td><td>Block (Feistel×3)</td><td>112 or 168-bit</td><td>64-bit</td><td>⚠️ Deprecated (2023 NIST withdrawal); Sweet32 attack</td></tr>
+  <tr><td><strong>AES</strong></td><td>Block (SP-network)</td><td>128/192/256-bit</td><td>128-bit</td><td>✅ Current standard</td></tr>
+  <tr><td><strong>Blowfish</strong></td><td>Block (Feistel)</td><td>32–448 bit</td><td>64-bit</td><td>⚠️ Legacy; basis for bcrypt</td></tr>
+  <tr><td><strong>Twofish</strong></td><td>Block (Feistel)</td><td>128/192/256-bit</td><td>128-bit</td><td>✅ AES finalist; patent-free</td></tr>
+  <tr><td><strong>RC4</strong></td><td>Stream</td><td>40–2048 bit</td><td>N/A</td><td>❌ Broken — biases found; removed from TLS</td></tr>
+  <tr><td><strong>ChaCha20</strong></td><td>Stream</td><td>256-bit</td><td>N/A</td><td>✅ Modern alternative; used in TLS 1.3</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Block Cipher Modes:</strong><br>
+  <strong>ECB</strong> — No IV; identical blocks → identical ciphertext (insecure pattern leakage)<br>
+  <strong>CBC</strong> — Chained blocks with IV; error propagates; padding oracle attack risk<br>
+  <strong>CTR</strong> — Counter mode; turns block cipher into stream cipher; parallelizable<br>
+  <strong>GCM</strong> — Galois/Counter Mode; provides authenticated encryption (confidentiality + integrity); used in TLS 1.3
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Asymmetric Encryption Summary</h2>
+<table>
+  <tr><th>Algorithm</th><th>Hard Problem</th><th>Capabilities</th><th>Min Key Size</th></tr>
+  <tr><td><strong>RSA</strong></td><td>Integer factorization</td><td>Encryption + Signatures + Key exchange</td><td>2048-bit</td></tr>
+  <tr><td><strong>Diffie-Hellman</strong></td><td>Discrete logarithm</td><td>Key exchange ONLY</td><td>2048-bit</td></tr>
+  <tr><td><strong>DSA</strong></td><td>Discrete logarithm</td><td>Signatures ONLY</td><td>2048-bit</td></tr>
+  <tr><td><strong>ElGamal</strong></td><td>Discrete logarithm</td><td>Encryption + Signatures</td><td>2048-bit (ciphertext doubles)</td></tr>
+  <tr><td><strong>ECC</strong></td><td>Elliptic curve discrete log</td><td>ECDH (exchange) + ECDSA/EdDSA (signatures)</td><td>256-bit (≈RSA 3072)</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Count Formulas:</strong><br>
+  Symmetric keys needed: <strong>n(n-1)/2</strong> (for n users)<br>
+  Asymmetric keys needed: <strong>2n</strong> (each user has one key pair)
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Hashing &amp; Digital Signatures Summary</h2>
+<table>
+  <tr><th>Algorithm</th><th>Output</th><th>Status</th></tr>
+  <tr><td>MD5</td><td>128-bit</td><td>❌ Broken (collisions since 2004)</td></tr>
+  <tr><td>SHA-1</td><td>160-bit</td><td>❌ Broken (SHAttered, 2017)</td></tr>
+  <tr><td>SHA-256</td><td>256-bit</td><td>✅ Current standard (Merkle-Damgård)</td></tr>
+  <tr><td>SHA-3 (Keccak)</td><td>224/256/384/512</td><td>✅ Alternative standard (sponge construction)</td></tr>
+</table>
+
+<h3>What Provides What</h3>
+<table>
+  <tr><th>Mechanism</th><th>Confidentiality</th><th>Integrity</th><th>Authentication</th><th>Non-Repudiation</th></tr>
+  <tr><td>Encryption</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+  <tr><td>Hashing</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td></tr>
+  <tr><td>HMAC</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td>Digital Signature</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. PKI Summary</h2>
+<table>
+  <tr><th>Component</th><th>Purpose</th></tr>
+  <tr><td>CA</td><td>Issues and signs certificates; root CA must be offline</td></tr>
+  <tr><td>RA</td><td>Verifies identity; does NOT sign certificates</td></tr>
+  <tr><td>CRL</td><td>Periodic list of revoked certificate serial numbers</td></tr>
+  <tr><td>OCSP</td><td>Real-time certificate status queries (good/revoked/unknown)</td></tr>
+  <tr><td>OCSP Stapling</td><td>Server pre-fetches OCSP response; solves latency + privacy</td></tr>
+  <tr><td>Certificate Transparency</td><td>Public logs of all issued certificates; modern detection of misissued certs</td></tr>
+</table>
+
+<h3>Trust Models</h3>
+<table>
+  <tr><th>Model</th><th>Authority</th><th>Example</th></tr>
+  <tr><td>Hierarchical</td><td>Centralized (Root CA → Sub-CAs)</td><td>TLS/HTTPS, enterprise PKI</td></tr>
+  <tr><td>Web of Trust</td><td>Decentralized (users sign each other's keys)</td><td>PGP/GPG</td></tr>
+  <tr><td>Bridge CA</td><td>Neutral broker between PKI hierarchies</td><td>US Federal PKI Bridge</td></tr>
+  <tr><td>Mesh</td><td>CAs cross-certify each other</td><td>M&amp;A / partnership scenarios</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Cryptographic Attacks Summary</h2>
+<table>
+  <tr><th>Attack Type</th><th>What Attacker Has/Does</th></tr>
+  <tr><td>Ciphertext-Only</td><td>Only ciphertext; frequency analysis</td></tr>
+  <tr><td>Known-Plaintext</td><td>Some plaintext + corresponding ciphertext</td></tr>
+  <tr><td>Chosen-Plaintext</td><td>Can encrypt arbitrary plaintexts</td></tr>
+  <tr><td>Chosen-Ciphertext</td><td>Can decrypt arbitrary ciphertexts (most powerful)</td></tr>
+  <tr><td>Birthday Attack</td><td>Find hash collisions in 2^(n/2)</td></tr>
+  <tr><td>Rainbow Table</td><td>Precomputed hash lookup; defeated by salting</td></tr>
+  <tr><td>Side-Channel</td><td>Timing, power, EM emissions — attacks implementation</td></tr>
+  <tr><td>Rubber-Hose</td><td>Physical coercion for key extraction</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Key Management Summary</h2>
+<table>
+  <tr><th>Phase</th><th>Critical Practice</th></tr>
+  <tr><td>Generation</td><td>CSPRNG; FIPS 140-2/3 validated modules</td></tr>
+  <tr><td>Distribution</td><td>Key exchange protocols; never plaintext; out-of-band for symmetric</td></tr>
+  <tr><td>Storage</td><td>HSMs; key vaults; never in source code</td></tr>
+  <tr><td>Usage</td><td>Separate encryption and signing keys; enforce key usage restrictions</td></tr>
+  <tr><td>Rotation</td><td>Define cryptoperiods; automate; re-key after compromise</td></tr>
+  <tr><td>Archival</td><td>Archive encryption keys (for decrypting old data); NEVER archive signing keys</td></tr>
+  <tr><td>Destruction</td><td>Zeroize; FIPS-compliant methods; ensure no copies remain</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Remember:</strong> Escrow/archive <strong>encryption</strong> keys only. Never escrow <strong>signing</strong> keys (destroys non-repudiation). Split knowledge = key divided among people. Dual control = two people must act together.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Top 20 Exam Flashcards</h2>
+<table>
+  <tr><th>#</th><th>Question</th><th>Answer</th></tr>
+  <tr><td>1</td><td>Bell-LaPadula protects?</td><td>Confidentiality (no read up, no write down)</td></tr>
+  <tr><td>2</td><td>Biba protects?</td><td>Integrity (no read down, no write up)</td></tr>
+  <tr><td>3</td><td>AES key sizes?</td><td>128, 192, or 256 bits; 128-bit block</td></tr>
+  <tr><td>4</td><td>DH provides?</td><td>Key exchange ONLY; vulnerable to MitM without auth</td></tr>
+  <tr><td>5</td><td>DSA provides?</td><td>Signatures ONLY; cannot encrypt</td></tr>
+  <tr><td>6</td><td>What provides non-repudiation?</td><td>Digital signatures (asymmetric private key)</td></tr>
+  <tr><td>7</td><td>HMAC provides?</td><td>Integrity + Authentication; NOT non-repudiation (shared key)</td></tr>
+  <tr><td>8</td><td>Birthday attack complexity?</td><td>2^(n/2) for n-bit hash</td></tr>
+  <tr><td>9</td><td>Defeat rainbow tables with?</td><td>Unique random salt per password</td></tr>
+  <tr><td>10</td><td>SHA-3 construction?</td><td>Sponge (Keccak); different from Merkle-Damgård</td></tr>
+  <tr><td>11</td><td>Root CA should be?</td><td>Offline (air-gapped)</td></tr>
+  <tr><td>12</td><td>RA does NOT?</td><td>Sign certificates (only verifies identity)</td></tr>
+  <tr><td>13</td><td>OCSP Stapling benefit?</td><td>Reduces latency + protects client privacy</td></tr>
+  <tr><td>14</td><td>PGP trust model?</td><td>Web of Trust (decentralized; no CA)</td></tr>
+  <tr><td>15</td><td>ECC-256 ≈ RSA-?</td><td>RSA-3072 (equivalent strength)</td></tr>
+  <tr><td>16</td><td>ECB mode weakness?</td><td>Identical plaintext blocks → identical ciphertext blocks</td></tr>
+  <tr><td>17</td><td>Most powerful crypto attack?</td><td>Chosen-ciphertext (CCA)</td></tr>
+  <tr><td>18</td><td>Key stretching algorithms?</td><td>PBKDF2, bcrypt, scrypt, Argon2</td></tr>
+  <tr><td>19</td><td>Never escrow which keys?</td><td>Signing keys (destroys non-repudiation)</td></tr>
+  <tr><td>20</td><td>Sym key count for n users?</td><td>n(n-1)/2; Asym = 2n</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-051-theory.html" class="nav-btn">← Day 51: Crypto Attacks</a>
+<a href="day-052-mcq.html" class="nav-btn">📝 Take Domain 3 Review Quiz (20 Qs) →</a>
+</div>
+</div>
+</body>
+</html>

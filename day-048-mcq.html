@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 48 – Asymmetric Encryption Quiz</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);border-radius:8px;padding:16px 20px;margin-bottom:30px;font-size:.97rem;}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px;margin-bottom:20px;border:1px solid var(--border);}.question-number{background:var(--primary);color:white;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-bottom:12px;}.question-text{font-size:1.05rem;font-weight:600;margin-bottom:16px;}
+.option{display:block;padding:10px 16px;margin:6px 0;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:.2s;}.option:hover{border-color:var(--accent);background:#e3f2fd;}.option input{margin-right:10px;}
+.submit-btn{display:block;width:100%;padding:14px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:24px;}.submit-btn:hover{background:var(--primary);}
+.results{display:none;background:var(--card-bg);border-radius:10px;padding:24px;margin-top:24px;border:2px solid var(--border);}.results h3{color:var(--primary);margin-bottom:16px;font-size:1.3rem;}.results .score{font-size:2rem;font-weight:700;text-align:center;margin:16px 0;}.results .feedback{margin:12px 0;padding:12px 16px;border-radius:8px;font-size:.95rem;}.correct-feedback{background:#e8f5e9;border-left:4px solid var(--green);}.incorrect-feedback{background:#fce4ec;border-left:4px solid var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 48 – Asymmetric Encryption Quiz</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 48 of 140</span><span>❓ 10 Questions</span><span>🎯 CISSP-Level MCQ</span></div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>⚠️ Instructions:</strong> Select the best answer for each question. Click <strong>Submit Answers</strong> to see your score and detailed explanations. Aim for 80% or higher before moving on.
+</div>
+
+<form id="quizForm">
+
+<div class="question-card">
+  <div class="question-number">1</div>
+  <div class="question-text">RSA's security is based on which mathematical problem?</div>
+  <label class="option"><input type="radio" name="q1" value="a"> The discrete logarithm problem</label>
+  <label class="option"><input type="radio" name="q1" value="b"> The difficulty of factoring the product of two large primes</label>
+  <label class="option"><input type="radio" name="q1" value="c"> The elliptic curve discrete logarithm problem</label>
+  <label class="option"><input type="radio" name="q1" value="d"> The knapsack problem</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">2</div>
+  <div class="question-text">What is the PRIMARY limitation of Diffie-Hellman key exchange?</div>
+  <label class="option"><input type="radio" name="q2" value="a"> It cannot generate symmetric keys</label>
+  <label class="option"><input type="radio" name="q2" value="b"> It provides no authentication, making it vulnerable to MitM attacks</label>
+  <label class="option"><input type="radio" name="q2" value="c"> It requires a pre-shared secret between parties</label>
+  <label class="option"><input type="radio" name="q2" value="d"> It can only be used with RSA certificates</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">3</div>
+  <div class="question-text">An organization needs to support 100 users with encrypted communications. How many keys are needed with symmetric vs. asymmetric encryption?</div>
+  <label class="option"><input type="radio" name="q3" value="a"> Symmetric: 200 keys; Asymmetric: 4,950 keys</label>
+  <label class="option"><input type="radio" name="q3" value="b"> Symmetric: 4,950 keys; Asymmetric: 200 keys</label>
+  <label class="option"><input type="radio" name="q3" value="c"> Symmetric: 100 keys; Asymmetric: 100 keys</label>
+  <label class="option"><input type="radio" name="q3" value="d"> Symmetric: 10,000 keys; Asymmetric: 100 keys</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">4</div>
+  <div class="question-text">Which property does Ephemeral Diffie-Hellman (DHE) provide that static DH does not?</div>
+  <label class="option"><input type="radio" name="q4" value="a"> Stronger encryption through larger key sizes</label>
+  <label class="option"><input type="radio" name="q4" value="b"> Perfect Forward Secrecy — past sessions remain safe even if long-term keys are compromised</label>
+  <label class="option"><input type="radio" name="q4" value="c"> Built-in authentication preventing MitM attacks</label>
+  <label class="option"><input type="radio" name="q4" value="d"> Support for digital signatures</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">5</div>
+  <div class="question-text">What is the ECC key size equivalent to RSA-3072 in terms of security strength?</div>
+  <label class="option"><input type="radio" name="q5" value="a"> ECC-128</label>
+  <label class="option"><input type="radio" name="q5" value="b"> ECC-256</label>
+  <label class="option"><input type="radio" name="q5" value="c"> ECC-384</label>
+  <label class="option"><input type="radio" name="q5" value="d"> ECC-512</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">6</div>
+  <div class="question-text">In a hybrid cryptosystem like TLS, why is asymmetric encryption not used to encrypt all data directly?</div>
+  <label class="option"><input type="radio" name="q6" value="a"> Asymmetric algorithms cannot encrypt data larger than their key size</label>
+  <label class="option"><input type="radio" name="q6" value="b"> Asymmetric encryption is 1,000–10,000× slower than symmetric — impractical for bulk data</label>
+  <label class="option"><input type="radio" name="q6" value="c"> Asymmetric encryption does not provide confidentiality</label>
+  <label class="option"><input type="radio" name="q6" value="d"> Asymmetric algorithms are only approved for government use</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">7</div>
+  <div class="question-text">Which asymmetric algorithm produces ciphertext that is TWICE the size of the plaintext?</div>
+  <label class="option"><input type="radio" name="q7" value="a"> RSA</label>
+  <label class="option"><input type="radio" name="q7" value="b"> ElGamal</label>
+  <label class="option"><input type="radio" name="q7" value="c"> ECC</label>
+  <label class="option"><input type="radio" name="q7" value="d"> Diffie-Hellman</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">8</div>
+  <div class="question-text">Why does ONLY asymmetric cryptography provide non-repudiation, while symmetric cannot?</div>
+  <label class="option"><input type="radio" name="q8" value="a"> Symmetric keys are too short to generate unique signatures</label>
+  <label class="option"><input type="radio" name="q8" value="b"> With symmetric encryption, both parties share the same key — either could have created the message</label>
+  <label class="option"><input type="radio" name="q8" value="c"> Symmetric encryption does not support hashing</label>
+  <label class="option"><input type="radio" name="q8" value="d"> Non-repudiation requires quantum-resistant algorithms</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">9</div>
+  <div class="question-text">TLS 1.3 mandates which key exchange mechanism?</div>
+  <label class="option"><input type="radio" name="q9" value="a"> Static RSA key exchange</label>
+  <label class="option"><input type="radio" name="q9" value="b"> ECDHE or DHE only (ephemeral key exchange providing PFS)</label>
+  <label class="option"><input type="radio" name="q9" value="c"> Any Diffie-Hellman variant including static</label>
+  <label class="option"><input type="radio" name="q9" value="d"> Pre-shared keys only</label>
+</div>
+
+<div class="question-card">
+  <div class="question-number">10</div>
+  <div class="question-text">What is the MINIMUM RSA key size considered acceptable for current use?</div>
+  <label class="option"><input type="radio" name="q10" value="a"> 1024 bits</label>
+  <label class="option"><input type="radio" name="q10" value="b"> 2048 bits</label>
+  <label class="option"><input type="radio" name="q10" value="c"> 3072 bits</label>
+  <label class="option"><input type="radio" name="q10" value="d"> 4096 bits</label>
+</div>
+
+</form>
+
+<button class="submit-btn" onclick="submitQuiz()">Submit Answers</button>
+
+<div class="results" id="results">
+  <h3>Quiz Results</h3>
+  <div class="score" id="score"></div>
+  <div id="feedback"></div>
+</div>
+
+<div class="nav-footer">
+<a href="day-048-theory.html" class="nav-btn">← Review Theory</a>
+<a href="day-049-theory.html" class="nav-btn">Day 49: Hashing &amp; Digital Signatures →</a>
+</div>
+</div>
+
+<script>
+const answers={q1:'b',q2:'b',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'b',q10:'b'};
+const explanations={
+  q1:{correct:"RSA's security depends on the integer factorization problem — specifically, the difficulty of factoring a large composite number n = p × q back into its two prime factors. The discrete logarithm problem is used by DH and ElGamal. ECDLP is used by ECC.",incorrect:"RSA is based on factoring, not discrete logarithms or elliptic curves. The knapsack problem was the basis for Merkle-Hellman, which was broken."},
+  q2:{correct:"Basic Diffie-Hellman provides no authentication — it only establishes a shared secret. Without authentication, an attacker can intercept both sides (MitM) and establish separate shared secrets with each party. This is why DH is always combined with certificates or digital signatures in practice (e.g., TLS).",incorrect:"DH does generate symmetric keys (that's its purpose). It does not require a pre-shared secret — that's the whole point. It works independently of RSA."},
+  q3:{correct:"Symmetric: n(n−1)/2 = 100 × 99 / 2 = 4,950 keys. Asymmetric: 2n = 2 × 100 = 200 keys (one public + one private per user). This dramatic difference is one of the key advantages of asymmetric cryptography at scale.",incorrect:"The symmetric formula is n(n−1)/2 (every pair needs a unique shared key). The asymmetric formula is 2n (each user gets a key pair). 100 users = 4,950 symmetric keys vs. 200 asymmetric keys."},
+  q4:{correct:"Ephemeral DH (DHE) generates new temporary key pairs for each session, then discards them. If the long-term private key is later compromised, attackers cannot decrypt previously captured traffic because the session keys no longer exist. This is Perfect Forward Secrecy (PFS).",incorrect:"DHE doesn't use larger keys than static DH. It still doesn't provide built-in authentication (needs certificates). DH doesn't support digital signatures at all."},
+  q5:{correct:"ECC-256 provides approximately 128 bits of security, equivalent to RSA-3072. This is the standard equivalence table: ECC-256 ≈ RSA-3072. \"ECC punches above its weight\" — smaller keys for the same security level.",incorrect:"ECC-128 would be too small. ECC-384 ≈ RSA-7680. ECC-512 ≈ RSA-15360. The mapping is approximately: divide RSA key size by 12 to estimate equivalent ECC size."},
+  q6:{correct:"Asymmetric encryption is 1,000–10,000× slower than symmetric encryption due to complex mathematical operations (modular exponentiation, elliptic curve point multiplication). Using it for bulk data would be impractical. Hybrid systems use asymmetric only for key exchange, then symmetric for data.",incorrect:"While RSA has practical limits on plaintext size, the primary reason hybrid systems exist is performance. Asymmetric encryption does provide confidentiality. It is not restricted to government use."},
+  q7:{correct:"ElGamal produces ciphertext that is twice the size of the plaintext (message expansion). This is because it outputs two values (c1, c2) for each encrypted block. This message expansion is ElGamal's primary disadvantage compared to RSA.",incorrect:"RSA ciphertext is the same size as the modulus, not double. DH is a key exchange protocol, not an encryption algorithm. ECC-based encryption doesn't have this specific doubling property."},
+  q8:{correct:"With symmetric encryption, both parties share the identical secret key. Either party could have encrypted/MACed the message, so you cannot prove which one did it — no non-repudiation. With asymmetric cryptography, only the private key holder can sign, and since the private key is unique to one person, the signature proves origin.",incorrect:"Key length has nothing to do with non-repudiation. Symmetric can work with HMAC (hashing). Non-repudiation doesn't require quantum-resistant algorithms."},
+  q9:{correct:"TLS 1.3 removed all non-PFS cipher suites. Only ephemeral key exchange (ECDHE or DHE) is allowed, ensuring Perfect Forward Secrecy for all connections. Static RSA key exchange was removed entirely from TLS 1.3.",incorrect:"Static RSA key exchange was explicitly removed from TLS 1.3 because it doesn't provide PFS. Static DH is also not allowed. While TLS 1.3 does support PSK mode, the question asks about the mandated key exchange mechanism."},
+  q10:{correct:"2048 bits is the current minimum acceptable RSA key size per NIST and industry standards. 1024-bit RSA is deprecated and considered factorable with sufficient resources. NIST recommends 3072+ for use beyond 2030.",incorrect:"1024-bit RSA is deprecated. While 3072 and 4096 are stronger, 2048 is the minimum standard, not 3072 or 4096."}
+};
+function submitQuiz(){
+  let score=0;const total=10;const fb=document.getElementById('feedback');fb.innerHTML='';
+  for(let i=1;i<=total;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const exp=explanations[`q${i}`];
+    if(sel&&sel.value===answers[`q${i}`]){score++;fb.innerHTML+=`<div class="feedback correct-feedback"><strong>Q${i}: ✅ Correct!</strong> ${exp.correct}</div>`;}
+    else{fb.innerHTML+=`<div class="feedback incorrect-feedback"><strong>Q${i}: ❌ Incorrect.</strong> ${exp.correct} ${exp.incorrect}</div>`;}
+  }
+  document.getElementById('score').textContent=`${score} / ${total}`;
+  document.getElementById('score').style.color=score>=8?'var(--green)':score>=6?'var(--orange)':'var(--red)';
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

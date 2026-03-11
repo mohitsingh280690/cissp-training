@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 54 – MCQ – OSI Model Layers 5–7 &amp; TCP/IP Model</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--highlight);border-left:4px solid var(--orange);border-radius:8px;padding:16px 20px;margin-bottom:28px;font-size:.97rem;}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px;margin-bottom:22px;border:1px solid var(--border);}.question-card h3{margin-bottom:14px;color:var(--primary);}
+.options label{display:block;padding:10px 16px;margin:6px 0;border-radius:6px;cursor:pointer;border:2px solid var(--border);transition:.2s;}.options label:hover{border-color:var(--accent);background:#e3f2fd;}
+.options input[type="radio"]{margin-right:10px;}
+.options input[type="radio"]:checked+span{font-weight:600;}
+#submitBtn{display:block;margin:30px auto;padding:14px 48px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;}#submitBtn:hover{background:var(--primary);}
+#results{margin-top:24px;}.results-box{padding:24px;border-radius:10px;text-align:center;font-size:1.5rem;font-weight:700;}.score-high{background:#e8f5e9;color:var(--green);border:2px solid var(--green);}.score-med{background:var(--highlight);color:var(--orange);border:2px solid var(--orange);}.score-low{background:#fce4ec;color:var(--red);border:2px solid var(--red);}
+.explanation{margin-top:12px;padding:14px;border-radius:6px;display:none;font-size:.95rem;}.explanation.correct{background:#e8f5e9;border:1px solid var(--green);}.explanation.incorrect{background:#fce4ec;border:1px solid var(--red);}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 54 – MCQ Quiz</h1>
+  <div class="subtitle">OSI Model Layers 5–7 &amp; TCP/IP Model</div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>📝 Instructions:</strong> Choose the BEST answer for each question. After submitting, review the explanations to reinforce your understanding. Score ≥ 80% to pass. These questions test your knowledge of the upper OSI layers, the TCP/IP model, and encapsulation.
+</div>
+
+<form id="quizForm">
+
+<div class="question-card" id="qcard1">
+<h3>Q1. Which OSI layer is primarily responsible for establishing, maintaining, and terminating communication sessions?</h3>
+<div class="options">
+  <label><input type="radio" name="q1" value="a"><span>A. Application (Layer 7)</span></label>
+  <label><input type="radio" name="q1" value="b"><span>B. Session (Layer 5)</span></label>
+  <label><input type="radio" name="q1" value="c"><span>C. Transport (Layer 4)</span></label>
+  <label><input type="radio" name="q1" value="d"><span>D. Presentation (Layer 6)</span></label>
+</div>
+<div class="explanation" id="exp1"></div>
+</div>
+
+<div class="question-card" id="qcard2">
+<h3>Q2. In the OSI model, which layer handles data translation, compression, and encryption?</h3>
+<div class="options">
+  <label><input type="radio" name="q2" value="a"><span>A. Session (Layer 5)</span></label>
+  <label><input type="radio" name="q2" value="b"><span>B. Application (Layer 7)</span></label>
+  <label><input type="radio" name="q2" value="c"><span>C. Presentation (Layer 6)</span></label>
+  <label><input type="radio" name="q2" value="d"><span>D. Transport (Layer 4)</span></label>
+</div>
+<div class="explanation" id="exp2"></div>
+</div>
+
+<div class="question-card" id="qcard3">
+<h3>Q3. A Web Application Firewall (WAF) operates at which OSI layer?</h3>
+<div class="options">
+  <label><input type="radio" name="q3" value="a"><span>A. Layer 4 – Transport</span></label>
+  <label><input type="radio" name="q3" value="b"><span>B. Layer 3 – Network</span></label>
+  <label><input type="radio" name="q3" value="c"><span>C. Layer 7 – Application</span></label>
+  <label><input type="radio" name="q3" value="d"><span>D. Layer 5 – Session</span></label>
+</div>
+<div class="explanation" id="exp3"></div>
+</div>
+
+<div class="question-card" id="qcard4">
+<h3>Q4. How many layers does the TCP/IP model have?</h3>
+<div class="options">
+  <label><input type="radio" name="q4" value="a"><span>A. 7</span></label>
+  <label><input type="radio" name="q4" value="b"><span>B. 5</span></label>
+  <label><input type="radio" name="q4" value="c"><span>C. 4</span></label>
+  <label><input type="radio" name="q4" value="d"><span>D. 6</span></label>
+</div>
+<div class="explanation" id="exp4"></div>
+</div>
+
+<div class="question-card" id="qcard5">
+<h3>Q5. Which three OSI layers are combined into the Application layer of the TCP/IP model?</h3>
+<div class="options">
+  <label><input type="radio" name="q5" value="a"><span>A. Physical, Data Link, and Network</span></label>
+  <label><input type="radio" name="q5" value="b"><span>B. Session, Presentation, and Application</span></label>
+  <label><input type="radio" name="q5" value="c"><span>C. Network, Transport, and Session</span></label>
+  <label><input type="radio" name="q5" value="d"><span>D. Transport, Session, and Presentation</span></label>
+</div>
+<div class="explanation" id="exp5"></div>
+</div>
+
+<div class="question-card" id="qcard6">
+<h3>Q6. What type of communication allows data to flow in both directions simultaneously?</h3>
+<div class="options">
+  <label><input type="radio" name="q6" value="a"><span>A. Simplex</span></label>
+  <label><input type="radio" name="q6" value="b"><span>B. Half-duplex</span></label>
+  <label><input type="radio" name="q6" value="c"><span>C. Full-duplex</span></label>
+  <label><input type="radio" name="q6" value="d"><span>D. Multiplex</span></label>
+</div>
+<div class="explanation" id="exp6"></div>
+</div>
+
+<div class="question-card" id="qcard7">
+<h3>Q7. During encapsulation, what happens as data moves DOWN through the OSI layers?</h3>
+<div class="options">
+  <label><input type="radio" name="q7" value="a"><span>A. Headers are stripped at each layer</span></label>
+  <label><input type="radio" name="q7" value="b"><span>B. Headers (and sometimes trailers) are added at each layer</span></label>
+  <label><input type="radio" name="q7" value="c"><span>C. Data is compressed at each layer</span></label>
+  <label><input type="radio" name="q7" value="d"><span>D. Data is encrypted at each layer</span></label>
+</div>
+<div class="explanation" id="exp7"></div>
+</div>
+
+<div class="question-card" id="qcard8">
+<h3>Q8. Which protocol is an example of a Layer 5 (Session) protocol?</h3>
+<div class="options">
+  <label><input type="radio" name="q8" value="a"><span>A. HTTP</span></label>
+  <label><input type="radio" name="q8" value="b"><span>B. TCP</span></label>
+  <label><input type="radio" name="q8" value="c"><span>C. NetBIOS</span></label>
+  <label><input type="radio" name="q8" value="d"><span>D. IP</span></label>
+</div>
+<div class="explanation" id="exp8"></div>
+</div>
+
+<div class="question-card" id="qcard9">
+<h3>Q9. The TCP/IP "Internet" layer corresponds to which OSI layer?</h3>
+<div class="options">
+  <label><input type="radio" name="q9" value="a"><span>A. Data Link (Layer 2)</span></label>
+  <label><input type="radio" name="q9" value="b"><span>B. Transport (Layer 4)</span></label>
+  <label><input type="radio" name="q9" value="c"><span>C. Network (Layer 3)</span></label>
+  <label><input type="radio" name="q9" value="d"><span>D. Session (Layer 5)</span></label>
+</div>
+<div class="explanation" id="exp9"></div>
+</div>
+
+<div class="question-card" id="qcard10">
+<h3>Q10. An attacker injects malicious SQL statements through a web form to manipulate a database. At which OSI layer does this attack primarily occur?</h3>
+<div class="options">
+  <label><input type="radio" name="q10" value="a"><span>A. Layer 4 – Transport</span></label>
+  <label><input type="radio" name="q10" value="b"><span>B. Layer 7 – Application</span></label>
+  <label><input type="radio" name="q10" value="c"><span>C. Layer 6 – Presentation</span></label>
+  <label><input type="radio" name="q10" value="d"><span>D. Layer 3 – Network</span></label>
+</div>
+<div class="explanation" id="exp10"></div>
+</div>
+
+<button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+</form>
+
+<div id="results"></div>
+
+<div class="nav-footer">
+<a href="day-054-theory.html" class="nav-btn">← Review Theory</a>
+<a href="day-055-theory.html" class="nav-btn">Day 55 →</a>
+</div>
+</div>
+
+<script>
+const answers = {q1:'b',q2:'c',q3:'c',q4:'c',q5:'b',q6:'c',q7:'b',q8:'c',q9:'c',q10:'b'};
+
+const explanations = {
+  q1:{
+    correct:"Correct! Layer 5 (Session) manages the establishment, maintenance, synchronization, and termination of communication sessions between hosts.",
+    incorrect:"Incorrect. The Session layer (L5) is specifically responsible for managing dialogs/sessions, including establishment, maintenance, and teardown."
+  },
+  q2:{
+    correct:"Correct! Layer 6 (Presentation) handles data translation (e.g., ASCII ↔ EBCDIC), compression (JPEG, MPEG), and encryption/decryption.",
+    incorrect:"Incorrect. The Presentation layer (L6), also called the 'syntax layer,' is responsible for data format translation, compression, and encryption."
+  },
+  q3:{
+    correct:"Correct! A WAF operates at Layer 7 (Application) because it inspects HTTP/HTTPS traffic at the application level, detecting attacks like SQL injection and XSS.",
+    incorrect:"Incorrect. A WAF is an application-layer security device operating at Layer 7 — it inspects HTTP payloads, not just packet headers."
+  },
+  q4:{
+    correct:"Correct! The TCP/IP model (also called the DoD model) has 4 layers: Network Access, Internet, Transport, and Application.",
+    incorrect:"Incorrect. The TCP/IP model has 4 layers, not 7 (that's OSI). The 4 TCP/IP layers are: Network Access, Internet, Transport, and Application."
+  },
+  q5:{
+    correct:"Correct! OSI Layers 5 (Session), 6 (Presentation), and 7 (Application) are all combined into the single Application layer of the TCP/IP model.",
+    incorrect:"Incorrect. The TCP/IP Application layer combines OSI layers 5 (Session), 6 (Presentation), and 7 (Application)."
+  },
+  q6:{
+    correct:"Correct! Full-duplex allows simultaneous two-way communication (like a telephone call). Half-duplex allows two-way but only one direction at a time.",
+    incorrect:"Incorrect. Full-duplex allows data to flow in both directions simultaneously. Simplex = one-way only, half-duplex = alternating directions."
+  },
+  q7:{
+    correct:"Correct! Encapsulation adds headers (and trailers at Layer 2) as data moves down the stack. Decapsulation strips them moving up.",
+    incorrect:"Incorrect. During encapsulation, each layer adds its header to the data from the layer above. Layer 2 also adds a trailer (FCS). Headers are stripped during decapsulation (going UP)."
+  },
+  q8:{
+    correct:"Correct! NetBIOS is a Session layer (L5) protocol used for session management. HTTP is L7, TCP is L4, and IP is L3.",
+    incorrect:"Incorrect. NetBIOS operates at Layer 5 (Session). HTTP = L7, TCP = L4, IP = L3. Other L5 examples include RPC and SIP."
+  },
+  q9:{
+    correct:"Correct! The TCP/IP Internet layer maps directly to OSI Layer 3 (Network). Both handle logical addressing and routing (IP, ICMP).",
+    incorrect:"Incorrect. The TCP/IP Internet layer corresponds to OSI Layer 3 (Network), where IP addressing and routing occur."
+  },
+  q10:{
+    correct:"Correct! SQL injection is an application-layer (L7) attack because it targets the web application's input handling and database interaction.",
+    incorrect:"Incorrect. SQL injection occurs at Layer 7 (Application) — it exploits the application's handling of user input to manipulate database queries."
+  }
+};
+
+function submitQuiz(){
+  let score=0;const total=10;
+  for(let i=1;i<=total;i++){
+    const sel=document.querySelector('input[name="q'+i+'"]:checked');
+    const expDiv=document.getElementById('exp'+i);
+    const card=document.getElementById('qcard'+i);
+    if(sel&&sel.value===answers['q'+i]){
+      score++;
+      expDiv.className='explanation correct';
+      expDiv.innerHTML='✅ '+explanations['q'+i].correct;
+      card.style.borderColor='var(--green)';
+    }else{
+      expDiv.className='explanation incorrect';
+      expDiv.innerHTML='❌ '+explanations['q'+i].incorrect;
+      card.style.borderColor='var(--red)';
+    }
+    expDiv.style.display='block';
+  }
+  const pct=Math.round(score/total*100);
+  let cls='score-low',msg='Keep studying — review the theory and try again.';
+  if(pct>=80){cls='score-high';msg='Excellent work! You have a strong grasp of the upper OSI layers and TCP/IP model.';}
+  else if(pct>=60){cls='score-med';msg='Good effort — review the missed topics before moving on.';}
+  document.getElementById('results').innerHTML='<div class="results-box '+cls+'">'+score+'/'+total+' ('+pct+'%)<br><span style="font-size:.9rem;font-weight:400">'+msg+'</span></div>';
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').style.opacity='0.5';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

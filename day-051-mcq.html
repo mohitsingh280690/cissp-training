@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 51 – Cryptographic Attacks &amp; Key Management – Quiz</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px;margin-bottom:30px;font-size:.95rem;color:var(--text-light);}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px;margin-bottom:20px;border:1px solid var(--border);}.question-card h3{color:var(--primary);margin-bottom:14px;font-size:1.05rem;}
+.options{list-style:none;padding:0;}.options li{margin-bottom:10px;}.options label{display:flex;align-items:baseline;gap:10px;cursor:pointer;padding:10px;border-radius:6px;border:2px solid var(--border);transition:all .2s;}.options label:hover{border-color:var(--accent);background:#e3f2fd;}
+.options input[type="radio"]{accent-color:var(--accent);margin-top:3px;flex-shrink:0;}
+.submit-btn{display:block;width:100%;max-width:400px;margin:30px auto;padding:14px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;}.submit-btn:hover{background:var(--primary);}
+.results{margin-top:20px;padding:20px;border-radius:10px;display:none;}.results.show{display:block;}.results h3{margin-bottom:10px;}
+.correct-answer{background:#e8f5e9;border-left:4px solid var(--green);padding:12px 16px;margin:8px 0;border-radius:4px;}
+.incorrect-answer{background:#fce4ec;border-left:4px solid var(--red);padding:12px 16px;margin:8px 0;border-radius:4px;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 51 – Cryptographic Attacks &amp; Key Management – Quiz</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering · 10 Questions</div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>Instructions:</strong> Select the best answer for each question, then click Submit to see your results with detailed explanations. Review the <a href="day-051-theory.html">Day 51 Theory</a> before attempting this quiz.
+</div>
+
+<form id="quizForm">
+
+<div class="question-card">
+<h3>Q1. An attacker has captured several ciphertexts but has no corresponding plaintexts. The attacker uses frequency analysis to attempt decryption. What type of attack is this?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q1" value="a"> a) Known-plaintext attack</label></li>
+  <li><label><input type="radio" name="q1" value="b"> b) Chosen-plaintext attack</label></li>
+  <li><label><input type="radio" name="q1" value="c"> c) Ciphertext-only attack</label></li>
+  <li><label><input type="radio" name="q1" value="d"> d) Chosen-ciphertext attack</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q2. During WWII, Allied codebreakers used the fact that German messages always started with predictable phrases to help break the Enigma cipher. What type of attack does this describe?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q2" value="a"> a) Ciphertext-only attack</label></li>
+  <li><label><input type="radio" name="q2" value="b"> b) Known-plaintext attack</label></li>
+  <li><label><input type="radio" name="q2" value="c"> c) Chosen-ciphertext attack</label></li>
+  <li><label><input type="radio" name="q2" value="d"> d) Birthday attack</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q3. An attacker measures the precise time a server takes to process different RSA decryption requests. The variations in timing reveal information about the private key bits. What type of attack is this?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q3" value="a"> a) Known-plaintext attack</label></li>
+  <li><label><input type="radio" name="q3" value="b"> b) Timing attack (side-channel)</label></li>
+  <li><label><input type="radio" name="q3" value="c"> c) Frequency analysis</label></li>
+  <li><label><input type="radio" name="q3" value="d"> d) Birthday attack</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q4. What is the PRIMARY purpose of a cryptoperiod?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q4" value="a"> a) To increase the key length over time</label></li>
+  <li><label><input type="radio" name="q4" value="b"> b) To limit the amount of data encrypted under a single key, reducing the impact of compromise</label></li>
+  <li><label><input type="radio" name="q4" value="c"> c) To ensure encryption algorithms are updated annually</label></li>
+  <li><label><input type="radio" name="q4" value="d"> d) To synchronize key expiration across all systems</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q5. Which key management concept ensures that no single individual possesses the entire cryptographic key?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q5" value="a"> a) Dual control</label></li>
+  <li><label><input type="radio" name="q5" value="b"> b) Key escrow</label></li>
+  <li><label><input type="radio" name="q5" value="c"> c) Split knowledge</label></li>
+  <li><label><input type="radio" name="q5" value="d"> d) Key rotation</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q6. A criminal threatens to harm a system administrator unless the administrator reveals the encryption passphrase. What type of attack is this?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q6" value="a"> a) Social engineering</label></li>
+  <li><label><input type="radio" name="q6" value="b"> b) Brute-force attack</label></li>
+  <li><label><input type="radio" name="q6" value="c"> c) Rubber-hose attack</label></li>
+  <li><label><input type="radio" name="q6" value="d"> d) Side-channel attack</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q7. Which key stretching algorithm won the Password Hashing Competition in 2015 and is considered the current best practice for new password hashing implementations?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q7" value="a"> a) PBKDF2</label></li>
+  <li><label><input type="radio" name="q7" value="b"> b) bcrypt</label></li>
+  <li><label><input type="radio" name="q7" value="c"> c) scrypt</label></li>
+  <li><label><input type="radio" name="q7" value="d"> d) Argon2</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q8. In the key management lifecycle, what should happen to encryption keys when they are no longer needed?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q8" value="a"> a) Transfer them to the Root CA for permanent storage</label></li>
+  <li><label><input type="radio" name="q8" value="b"> b) Securely destroy (zeroize) the key material</label></li>
+  <li><label><input type="radio" name="q8" value="c"> c) Make them publicly available for transparency</label></li>
+  <li><label><input type="radio" name="q8" value="d"> d) Convert them to asymmetric keys for archival</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q9. An attacker can choose arbitrary ciphertexts and obtain the corresponding decrypted plaintexts from a decryption oracle. This is the MOST powerful type of which attack category?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q9" value="a"> a) Ciphertext-only attack</label></li>
+  <li><label><input type="radio" name="q9" value="b"> b) Known-plaintext attack</label></li>
+  <li><label><input type="radio" name="q9" value="c"> c) Chosen-plaintext attack</label></li>
+  <li><label><input type="radio" name="q9" value="d"> d) Chosen-ciphertext attack</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q10. Which of the following is the BEST practice for storing critical cryptographic keys?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q10" value="a"> a) In the application's configuration file alongside the application code</label></li>
+  <li><label><input type="radio" name="q10" value="b"> b) In a Hardware Security Module (HSM) with FIPS 140-2/3 validation</label></li>
+  <li><label><input type="radio" name="q10" value="c"> c) Encrypted on a network file share accessible to the security team</label></li>
+  <li><label><input type="radio" name="q10" value="d"> d) In the database alongside the encrypted data for convenience</label></li>
+</ul>
+</div>
+
+<button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</form>
+
+<div id="results" class="results"></div>
+
+<div class="nav-footer">
+<a href="day-051-theory.html" class="nav-btn">← Review Theory</a>
+<a href="day-052-theory.html" class="nav-btn">Day 52 →</a>
+</div>
+</div>
+
+<script>
+const answers = {q1:'c',q2:'b',q3:'b',q4:'b',q5:'c',q6:'c',q7:'d',q8:'b',q9:'d',q10:'b'};
+const explanations = {
+  q1:{correct:"A ciphertext-only attack (COA) is when the attacker has only ciphertext and no corresponding plaintext. Frequency analysis is a classic ciphertext-only technique used against substitution ciphers.",incorrect:"Known-plaintext requires some plaintext-ciphertext pairs. Chosen-plaintext allows the attacker to encrypt chosen messages. Chosen-ciphertext allows decryption of chosen ciphertexts. With only ciphertext available, this is a ciphertext-only attack."},
+  q2:{correct:"The Allies knew standard phrases that appeared in German Enigma messages (known plaintexts) and had the corresponding ciphertexts. This is a known-plaintext attack — having plaintext-ciphertext pairs to deduce the key.",incorrect:"This isn't ciphertext-only (they had known plaintexts). It's not chosen-ciphertext or birthday attack. The key is that the Allies didn't choose what to encrypt — they simply knew some of the content that was encrypted."},
+  q3:{correct:"A timing attack is a side-channel attack that exploits variations in the time taken by cryptographic operations to leak information about secret keys. It targets the implementation, not the mathematical algorithm.",incorrect:"This is not a plaintext-related attack, frequency analysis, or birthday attack. The attacker is measuring physical timing characteristics of the implementation — a classic side-channel attack."},
+  q4:{correct:"A cryptoperiod limits how long a key is used, which limits the volume of data encrypted under that key. If the key is compromised, only data from that cryptoperiod is at risk. Shorter cryptoperiods = less exposure per compromise.",incorrect:"Cryptoperiods don't increase key length, update algorithms, or synchronize expiration. They specifically limit the amount of data protected by a single key, reducing the impact of potential compromise."},
+  q5:{correct:"Split knowledge means the key is divided into parts (using techniques like Shamir's Secret Sharing), and no single person possesses the complete key. Each custodian holds only a portion.",incorrect:"Dual control requires multiple people to collaborate for an operation, but doesn't specifically mean the key is divided. Key escrow stores a copy of the key with a third party. Key rotation replaces keys periodically."},
+  q6:{correct:"A rubber-hose attack uses physical coercion, threats, or torture to extract cryptographic keys or passphrases. It's a human factors attack that bypasses all technical security measures.",incorrect:"Social engineering uses deception, not violence. Brute-force tries all possible keys. Side-channel attacks exploit physical characteristics of hardware. The use of threats and physical harm specifically defines a rubber-hose attack."},
+  q7:{correct:"Argon2 won the Password Hashing Competition (PHC) in 2015 and is considered the current best practice. It offers configurable time, memory, and parallelism parameters, with three variants: Argon2d, Argon2i, and Argon2id.",incorrect:"PBKDF2 is NIST-recommended but only CPU-intensive. bcrypt is widely used but older. scrypt added memory-hardness but predates Argon2. Argon2 specifically won the 2015 PHC and represents the state of the art."},
+  q8:{correct:"When cryptographic keys are no longer needed, they should be securely destroyed (zeroized) — the key material must be overwritten to prevent recovery. FIPS-compliant destruction methods ensure no copies remain.",incorrect:"Keys should not be transferred to a CA, made public, or converted. Secure destruction means the key material is permanently and irrecoverably eliminated."},
+  q9:{correct:"A chosen-ciphertext attack (CCA) is the most powerful of the standard cryptanalytic attacks. The attacker can submit arbitrary ciphertexts to a decryption oracle and observe the outputs, giving maximum information about the key.",incorrect:"The hierarchy from weakest to strongest is: ciphertext-only → known-plaintext → chosen-plaintext → chosen-ciphertext. Chosen-ciphertext is the most powerful because the attacker controls what gets decrypted."},
+  q10:{correct:"Hardware Security Modules (HSMs) with FIPS 140-2 or 140-3 validation provide tamper-resistant, dedicated hardware for key storage and cryptographic operations. Critical keys should never leave the HSM.",incorrect:"Storing keys in config files, databases, or file shares is insecure — they can be accessed by anyone with system access. HSMs provide physical tamper resistance and are the industry standard for critical key protection."}
+};
+function submitQuiz(){
+  let score=0,total=Object.keys(answers).length,html='';
+  for(let q in answers){
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const num=q.replace('q','');
+    if(!sel){html+='<div class="incorrect-answer"><strong>Q'+num+':</strong> No answer selected. '+explanations[q].correct+'</div>';continue;}
+    if(sel.value===answers[q]){score++;html+='<div class="correct-answer"><strong>Q'+num+': ✅ Correct!</strong> '+explanations[q].correct+'</div>';}
+    else{html+='<div class="incorrect-answer"><strong>Q'+num+': ❌ Incorrect.</strong> '+explanations[q].incorrect+' <em>Correct answer: '+answers[q].toUpperCase()+'.</em></div>';}
+  }
+  const pct=Math.round(score/total*100);
+  const col=pct>=80?'var(--green)':pct>=60?'var(--orange)':'var(--red)';
+  const res=document.getElementById('results');
+  res.innerHTML='<h3 style="color:'+col+'">Score: '+score+'/'+total+' ('+pct+'%)</h3>'+html;
+  res.className='results show';
+  res.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 53 – OSI Model Layers 1–4</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 53 – OSI Model Layers 1–4</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 53 of 140</span><span>⏱️ ~55 min</span><span>📊 Intermediate</span><span>🔧 Domain 4</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-052-theory.html">← Day 52</a> · Domain 4 · Day 53 · <a href="day-053-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. OSI Model Overview</a></li>
+  <li><a href="#s4">4. Layer 1 – Physical</a></li>
+  <li><a href="#s5">5. Layer 2 – Data Link</a></li>
+  <li><a href="#s6">6. Layer 3 – Network</a></li>
+  <li><a href="#s7">7. Layer 4 – Transport</a></li>
+  <li><a href="#s8">8. PDUs at Each Layer</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td>Weight</td><td>Very High — the OSI model is the foundational framework for understanding all networking topics in the CISSP</td></tr>
+  <tr><td>Why Tested</td><td>Security controls operate at specific OSI layers; knowing which layer a protocol or attack targets is essential for selecting the right defense</td></tr>
+  <tr><td>Question Style</td><td>"At which OSI layer does X operate?", "Which device operates at Layer Y?", scenario-based layer identification</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 3 (encryption operates at various layers), Domain 7 (forensics at network layer), Domain 8 (application layer security)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Network engineering owns infrastructure (L1-L3); security team owns firewall/IDS rules (L3-L4); application teams own L5-L7</td></tr>
+  <tr><td>Implementation</td><td>Defense in depth: physical security (L1), port security (L2), firewalls/ACLs (L3-L4), WAFs (L7)</td></tr>
+  <tr><td>Failure Modes</td><td>Cable tapping (L1), ARP spoofing (L2), IP spoofing (L3), SYN flood (L4) — each layer has distinct attack vectors</td></tr>
+  <tr><td>Business Impact</td><td>Understanding layer-specific threats enables targeted investment; network segmentation (L2/L3) is critical for breach containment</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. OSI Model Overview</h2>
+<div class="callout definition">
+  <strong>📖 OSI Model:</strong> The Open Systems Interconnection model is a conceptual 7-layer framework standardized by ISO (ISO 7498) that describes how data moves from an application on one device to an application on another device. Each layer serves the layer above it and is served by the layer below it.
+</div>
+
+<div class="diagram">
+    OSI MODEL — 7 LAYERS
+╔═══════════════════════════════════╗
+║  Layer 7  │  Application          ║  ← User interface, HTTP, FTP, SMTP
+║  Layer 6  │  Presentation         ║  ← Data format, encryption, compression
+║  Layer 5  │  Session              ║  ← Session management, RPC, NetBIOS
+╠═══════════╪═══════════════════════╣  (covered in Day 54)
+║  Layer 4  │  Transport            ║  ← TCP/UDP, ports, segmentation
+║  Layer 3  │  Network              ║  ← IP, routing, logical addressing
+║  Layer 2  │  Data Link            ║  ← MAC, switches, frames
+║  Layer 1  │  Physical             ║  ← Cables, hubs, signals
+╚═══════════════════════════════════╝
+    ↑ Data moves UP on receiving host
+    ↓ Data moves DOWN on sending host
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Layer 1 – Physical</h2>
+<div class="callout definition">
+  <strong>📖 Layer 1 (Physical):</strong> Handles the transmission of raw bitstreams over a physical medium. Concerned with electrical signals, light pulses, radio frequencies, connectors, cable specifications, and timing.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Bits</td></tr>
+  <tr><td><strong>Devices</strong></td><td>Hubs, repeaters, cables, modems, wireless access points (physical radio)</td></tr>
+  <tr><td><strong>Protocols/Standards</strong></td><td>Ethernet (physical specs: 10BASE-T, 100BASE-TX, 1000BASE-T), RS-232, DSL, SONET, 802.11 (physical radio)</td></tr>
+  <tr><td><strong>Addressing</strong></td><td>None — no logical or physical addressing at this layer</td></tr>
+  <tr><td><strong>Function</strong></td><td>Defines voltage levels, data rates, maximum distances, physical connectors, encoding schemes</td></tr>
+</table>
+
+<h3>Layer 1 Security Concerns</h3>
+<table>
+  <tr><th>Attack/Threat</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td>Wiretapping / Cable tapping</td><td>Physical interception of signals on copper or fiber</td><td>Fiber optic (harder to tap), conduit protection, physical access controls</td></tr>
+  <tr><td>Electromagnetic emanations</td><td>TEMPEST — devices emit EM radiation that can be captured and decoded</td><td>TEMPEST shielding (Faraday cage), zone-based facility design</td></tr>
+  <tr><td>Signal jamming</td><td>Interference with wireless signals to cause denial of service</td><td>Frequency hopping (FHSS), spectrum monitoring, physical shielding</td></tr>
+  <tr><td>Physical destruction</td><td>Cutting cables, damaging hardware</td><td>Redundant paths, physical security, cable plant protection</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> A <strong>hub</strong> operates at Layer 1 — it repeats signals to all ports (no intelligence). A <strong>switch</strong> operates at Layer 2 — it uses MAC addresses to forward frames only to the correct port. Know this distinction.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Layer 2 – Data Link</h2>
+<div class="callout definition">
+  <strong>📖 Layer 2 (Data Link):</strong> Provides reliable transfer of data across the physical link. Handles framing, physical addressing (MAC), error detection, and media access control. Divided into two sublayers: <strong>LLC</strong> (Logical Link Control) and <strong>MAC</strong> (Media Access Control).
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Frames</td></tr>
+  <tr><td><strong>Devices</strong></td><td>Switches, bridges, NICs (network interface cards)</td></tr>
+  <tr><td><strong>Protocols</strong></td><td>Ethernet (802.3), Wi-Fi (802.11), PPP, ARP, LLDP, STP (Spanning Tree Protocol)</td></tr>
+  <tr><td><strong>Addressing</strong></td><td><strong>MAC addresses</strong> — 48-bit (6 bytes), burned-in hardware address, format: AA:BB:CC:DD:EE:FF; first 3 bytes = OUI (manufacturer), last 3 = device</td></tr>
+  <tr><td><strong>Sublayers</strong></td><td><strong>LLC:</strong> multiplexing, flow control, error detection. <strong>MAC:</strong> media access (CSMA/CD for Ethernet, CSMA/CA for Wi-Fi)</td></tr>
+</table>
+
+<h3>Layer 2 Security Concerns</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td>ARP Spoofing / Poisoning</td><td>Attacker sends fake ARP replies to associate their MAC with a victim's IP, enabling MitM or DoS</td><td>Dynamic ARP Inspection (DAI), static ARP entries, 802.1X</td></tr>
+  <tr><td>MAC Flooding</td><td>Overwhelm switch's CAM table with random MACs, forcing it to broadcast all traffic (hub behavior)</td><td>Port security (limit MACs per port), 802.1X</td></tr>
+  <tr><td>VLAN Hopping</td><td>Attacker jumps between VLANs via switch spoofing (DTP) or double tagging (802.1Q)</td><td>Disable DTP; set native VLAN to unused VLAN; explicitly configure trunk ports</td></tr>
+  <tr><td>STP Manipulation</td><td>Attacker sends forged BPDU frames to become the root bridge, redirecting traffic</td><td>BPDU Guard, Root Guard on access ports</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 ARP (Address Resolution Protocol):</strong> Resolves IP addresses (Layer 3) to MAC addresses (Layer 2). ARP operates at Layer 2 but bridges L2 and L3. ARP has no authentication — any device can claim any IP-to-MAC mapping, making ARP spoofing trivial.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Layer 3 – Network</h2>
+<div class="callout definition">
+  <strong>📖 Layer 3 (Network):</strong> Handles logical addressing and routing — determining the best path for data to travel from source to destination across multiple networks. This is where IP addressing and routing protocols operate.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Packets</td></tr>
+  <tr><td><strong>Devices</strong></td><td>Routers, Layer 3 switches, firewalls (packet-filtering)</td></tr>
+  <tr><td><strong>Protocols</strong></td><td>IP (IPv4/IPv6), ICMP, IGMP, IPSec, routing protocols (OSPF, BGP, RIP, EIGRP)</td></tr>
+  <tr><td><strong>Addressing</strong></td><td><strong>IP addresses</strong> — logical addresses assigned to interfaces; IPv4 (32-bit), IPv6 (128-bit)</td></tr>
+  <tr><td><strong>Functions</strong></td><td>Routing, logical addressing, fragmentation/reassembly, TTL (time to live)</td></tr>
+</table>
+
+<h3>Layer 3 Security Concerns</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td>IP Spoofing</td><td>Forge source IP address to bypass ACLs or impersonate trusted hosts</td><td>Ingress/egress filtering (BCP 38/RFC 2827), uRPF (unicast reverse path forwarding)</td></tr>
+  <tr><td>ICMP Attacks</td><td>Smurf (ICMP amplification), Ping of Death, ICMP redirect manipulation</td><td>Rate-limit ICMP, disable directed broadcasts, filter ICMP at firewalls</td></tr>
+  <tr><td>Route Hijacking</td><td>BGP hijacking — announce false routes to redirect internet traffic</td><td>RPKI (Resource Public Key Infrastructure), BGP route filtering, MANRS</td></tr>
+  <tr><td>Fragmentation Attacks</td><td>Overlapping fragments (Teardrop) or tiny fragments that evade firewall inspection</td><td>Fragment reassembly at firewall, drop overlapping fragments</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> <strong>IPSec</strong> operates at Layer 3. It provides encryption (ESP) and authentication (AH) at the network layer. This means it can protect all traffic between two hosts/networks regardless of the application — unlike TLS which operates at a higher layer.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Layer 4 – Transport</h2>
+<div class="callout definition">
+  <strong>📖 Layer 4 (Transport):</strong> Provides end-to-end communication between applications on different hosts. Handles segmentation, flow control, error recovery, and port-based addressing. TCP and UDP are the primary transport protocols.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Segments (TCP) / Datagrams (UDP)</td></tr>
+  <tr><td><strong>Devices</strong></td><td>Stateful firewalls, load balancers</td></tr>
+  <tr><td><strong>Protocols</strong></td><td>TCP (Transmission Control Protocol), UDP (User Datagram Protocol), TLS (spans L4-L7 but primarily L4-L5)</td></tr>
+  <tr><td><strong>Addressing</strong></td><td><strong>Port numbers</strong> — 16-bit (0–65535); Well-known: 0–1023; Registered: 1024–49151; Dynamic: 49152–65535</td></tr>
+  <tr><td><strong>Functions</strong></td><td>Segmentation/reassembly, flow control, error recovery (TCP), multiplexing via ports</td></tr>
+</table>
+
+<h3>TCP vs. UDP</h3>
+<table>
+  <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
+  <tr><td>Connection</td><td>Connection-oriented (3-way handshake: SYN → SYN-ACK → ACK)</td><td>Connectionless</td></tr>
+  <tr><td>Reliability</td><td>Guaranteed delivery (acknowledgments, retransmission)</td><td>Best-effort (no guarantees)</td></tr>
+  <tr><td>Ordering</td><td>Ordered delivery (sequence numbers)</td><td>Unordered</td></tr>
+  <tr><td>Flow Control</td><td>Yes (sliding window)</td><td>No</td></tr>
+  <tr><td>Overhead</td><td>Higher (20+ byte header)</td><td>Lower (8-byte header)</td></tr>
+  <tr><td>Use Cases</td><td>HTTP, HTTPS, FTP, SMTP, SSH</td><td>DNS (queries), DHCP, VoIP, streaming, SNMP, TFTP</td></tr>
+</table>
+
+<h3>Layer 4 Security Concerns</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td>SYN Flood</td><td>Send massive SYN requests without completing handshake; exhausts server's connection table</td><td>SYN cookies, rate limiting, firewall SYN proxy</td></tr>
+  <tr><td>Port Scanning</td><td>Probe open ports to discover running services (Nmap)</td><td>Close unnecessary ports, IDS/IPS detection, firewall rules</td></tr>
+  <tr><td>Session Hijacking</td><td>Predict or steal TCP sequence numbers to take over an established session</td><td>Encrypted sessions (TLS), random initial sequence numbers, IPSec</td></tr>
+  <tr><td>UDP Flood</td><td>Send mass UDP packets to random ports; host replies with ICMP unreachable, consuming resources</td><td>Rate limiting, firewall rules, DDoS mitigation services</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Common Port Numbers (CISSP Must-Know):</strong><br>
+  FTP: 20 (data), 21 (control) · SSH: 22 · Telnet: 23 · SMTP: 25 · DNS: 53 · HTTP: 80 · POP3: 110 · IMAP: 143 · HTTPS: 443 · LDAP: 389 · LDAPS: 636 · RDP: 3389 · SNMP: 161/162
+</div>
+</section>
+
+<section id="s8">
+<h2>8. PDUs at Each Layer</h2>
+<table>
+  <tr><th>Layer</th><th>PDU Name</th><th>Key Addressing</th></tr>
+  <tr><td>Layer 4 – Transport</td><td>Segments (TCP) / Datagrams (UDP)</td><td>Port numbers</td></tr>
+  <tr><td>Layer 3 – Network</td><td>Packets</td><td>IP addresses</td></tr>
+  <tr><td>Layer 2 – Data Link</td><td>Frames</td><td>MAC addresses</td></tr>
+  <tr><td>Layer 1 – Physical</td><td>Bits</td><td>None</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Encapsulation adds headers as data moves DOWN the stack: Data → Segment → Packet → Frame → Bits. Decapsulation removes headers as data moves UP. Each layer only communicates with its peer layer on the other host.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 OSI Layers (Bottom → Top):</strong> "<strong>P</strong>lease <strong>D</strong>o <strong>N</strong>ot <strong>T</strong>hrow <strong>S</strong>ausage <strong>P</strong>izza <strong>A</strong>way"<br>
+  Physical → Data Link → Network → Transport → Session → Presentation → Application
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 PDU Names (Bottom → Top):</strong> "<strong>B</strong>ig <strong>F</strong>rogs <strong>P</strong>ounce <strong>S</strong>ilently" — Bits → Frames → Packets → Segments
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Layer Devices:</strong><br>
+  L1: <strong>H</strong>ub (dumb repeater)<br>
+  L2: <strong>S</strong>witch (uses MAC addresses)<br>
+  L3: <strong>R</strong>outer (uses IP addresses)<br>
+  L4: <strong>F</strong>irewall (stateful, uses ports)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 TCP vs UDP:</strong> "TCP is like <strong>registered mail</strong> (guaranteed delivery, signed receipt). UDP is like <strong>dropping a postcard in the mailbox</strong> (no guarantee, no receipt, but fast)."
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>OSI Model</td><td>7-layer framework: Physical → Data Link → Network → Transport → Session → Presentation → Application</td></tr>
+  <tr><td>Layer 1 (Physical)</td><td>Bits; hubs, cables; TEMPEST, wiretapping threats</td></tr>
+  <tr><td>Layer 2 (Data Link)</td><td>Frames; switches; MAC addresses; ARP spoofing, VLAN hopping, MAC flooding</td></tr>
+  <tr><td>Layer 3 (Network)</td><td>Packets; routers; IP addresses; IP spoofing, ICMP attacks, IPSec operates here</td></tr>
+  <tr><td>Layer 4 (Transport)</td><td>Segments/datagrams; TCP (reliable) vs UDP (fast); port numbers; SYN flood</td></tr>
+  <tr><td>PDU Progression</td><td>Bits → Frames → Packets → Segments (bottom to top)</td></tr>
+  <tr><td>Hub vs. Switch</td><td>Hub = L1 (repeats to all). Switch = L2 (forwards to specific MAC)</td></tr>
+  <tr><td>ARP</td><td>Resolves IP → MAC; no authentication; basis for ARP spoofing attacks</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-052-theory.html" class="nav-btn">← Day 52: Domain 3 Review</a>
+<a href="day-053-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

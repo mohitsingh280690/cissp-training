@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 53 – OSI Model Layers 1–4 – Quiz</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.instructions{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px;margin-bottom:30px;font-size:.95rem;color:var(--text-light);}
+.question-card{background:var(--card-bg);border-radius:10px;padding:24px;margin-bottom:20px;border:1px solid var(--border);}.question-card h3{color:var(--primary);margin-bottom:14px;font-size:1.05rem;}
+.options{list-style:none;padding:0;}.options li{margin-bottom:10px;}.options label{display:flex;align-items:baseline;gap:10px;cursor:pointer;padding:10px;border-radius:6px;border:2px solid var(--border);transition:all .2s;}.options label:hover{border-color:var(--accent);background:#e3f2fd;}
+.options input[type="radio"]{accent-color:var(--accent);margin-top:3px;flex-shrink:0;}
+.submit-btn{display:block;width:100%;max-width:400px;margin:30px auto;padding:14px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;}.submit-btn:hover{background:var(--primary);}
+.results{margin-top:20px;padding:20px;border-radius:10px;display:none;}.results.show{display:block;}.results h3{margin-bottom:10px;}
+.correct-answer{background:#e8f5e9;border-left:4px solid var(--green);padding:12px 16px;margin:8px 0;border-radius:4px;}
+.incorrect-answer{background:#fce4ec;border-left:4px solid var(--red);padding:12px 16px;margin:8px 0;border-radius:4px;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 53 – OSI Model Layers 1–4 – Quiz</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security · 10 Questions</div>
+</div>
+<div class="container">
+<div class="instructions">
+  <strong>Instructions:</strong> Select the best answer for each question, then click Submit to see your results with detailed explanations. Review the <a href="day-053-theory.html">Day 53 Theory</a> before attempting this quiz.
+</div>
+
+<form id="quizForm">
+
+<div class="question-card">
+<h3>Q1. At which OSI layer does a network switch primarily operate?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q1" value="a"> a) Layer 1 – Physical</label></li>
+  <li><label><input type="radio" name="q1" value="b"> b) Layer 2 – Data Link</label></li>
+  <li><label><input type="radio" name="q1" value="c"> c) Layer 3 – Network</label></li>
+  <li><label><input type="radio" name="q1" value="d"> d) Layer 4 – Transport</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q2. What is the Protocol Data Unit (PDU) at Layer 3 (Network)?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q2" value="a"> a) Bits</label></li>
+  <li><label><input type="radio" name="q2" value="b"> b) Frames</label></li>
+  <li><label><input type="radio" name="q2" value="c"> c) Packets</label></li>
+  <li><label><input type="radio" name="q2" value="d"> d) Segments</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q3. An attacker sends false ARP replies to map their MAC address to the default gateway's IP address, intercepting all traffic intended for the gateway. What is this attack called?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q3" value="a"> a) IP spoofing</label></li>
+  <li><label><input type="radio" name="q3" value="b"> b) DNS poisoning</label></li>
+  <li><label><input type="radio" name="q3" value="c"> c) ARP spoofing (ARP poisoning)</label></li>
+  <li><label><input type="radio" name="q3" value="d"> d) SYN flood</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q4. Which transport protocol uses a three-way handshake (SYN → SYN-ACK → ACK) to establish connections?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q4" value="a"> a) UDP</label></li>
+  <li><label><input type="radio" name="q4" value="b"> b) ICMP</label></li>
+  <li><label><input type="radio" name="q4" value="c"> c) TCP</label></li>
+  <li><label><input type="radio" name="q4" value="d"> d) ARP</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q5. A SYN flood attack targets which OSI layer?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q5" value="a"> a) Layer 2 – Data Link</label></li>
+  <li><label><input type="radio" name="q5" value="b"> b) Layer 3 – Network</label></li>
+  <li><label><input type="radio" name="q5" value="c"> c) Layer 4 – Transport</label></li>
+  <li><label><input type="radio" name="q5" value="d"> d) Layer 7 – Application</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q6. IPSec operates at which OSI layer?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q6" value="a"> a) Layer 2 – Data Link</label></li>
+  <li><label><input type="radio" name="q6" value="b"> b) Layer 3 – Network</label></li>
+  <li><label><input type="radio" name="q6" value="c"> c) Layer 4 – Transport</label></li>
+  <li><label><input type="radio" name="q6" value="d"> d) Layer 5 – Session</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q7. An attacker floods a switch's CAM table with random MAC addresses, causing the switch to broadcast all traffic. What is this attack?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q7" value="a"> a) VLAN hopping</label></li>
+  <li><label><input type="radio" name="q7" value="b"> b) MAC flooding</label></li>
+  <li><label><input type="radio" name="q7" value="c"> c) ARP spoofing</label></li>
+  <li><label><input type="radio" name="q7" value="d"> d) IP spoofing</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q8. Which well-known port number is used by HTTPS?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q8" value="a"> a) 80</label></li>
+  <li><label><input type="radio" name="q8" value="b"> b) 443</label></li>
+  <li><label><input type="radio" name="q8" value="c"> c) 22</label></li>
+  <li><label><input type="radio" name="q8" value="d"> d) 8080</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q9. TEMPEST shielding protects against which type of Layer 1 threat?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q9" value="a"> a) Cable tapping</label></li>
+  <li><label><input type="radio" name="q9" value="b"> b) Signal jamming</label></li>
+  <li><label><input type="radio" name="q9" value="c"> c) Electromagnetic emanation eavesdropping</label></li>
+  <li><label><input type="radio" name="q9" value="d"> d) Physical cable destruction</label></li>
+</ul>
+</div>
+
+<div class="question-card">
+<h3>Q10. What is the key difference between a hub and a switch?</h3>
+<ul class="options">
+  <li><label><input type="radio" name="q10" value="a"> a) A hub uses IP addresses; a switch uses MAC addresses</label></li>
+  <li><label><input type="radio" name="q10" value="b"> b) A hub operates at Layer 1 and broadcasts to all ports; a switch operates at Layer 2 and forwards to specific ports based on MAC addresses</label></li>
+  <li><label><input type="radio" name="q10" value="c"> c) A hub is faster than a switch</label></li>
+  <li><label><input type="radio" name="q10" value="d"> d) A hub uses port numbers; a switch uses MAC addresses</label></li>
+</ul>
+</div>
+
+<button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+</form>
+
+<div id="results" class="results"></div>
+
+<div class="nav-footer">
+<a href="day-053-theory.html" class="nav-btn">← Review Theory</a>
+<a href="day-054-theory.html" class="nav-btn">Day 54 →</a>
+</div>
+</div>
+
+<script>
+const answers = {q1:'b',q2:'c',q3:'c',q4:'c',q5:'c',q6:'b',q7:'b',q8:'b',q9:'c',q10:'b'};
+const explanations = {
+  q1:{correct:"A network switch operates primarily at Layer 2 (Data Link). It uses MAC addresses to forward frames only to the specific port where the destination device is connected, unlike a hub which broadcasts to all ports.",incorrect:"Layer 1 is for hubs and repeaters. Layer 3 is for routers (some switches have L3 capabilities, but standard switches are L2). Layer 4 applies to stateful firewalls and load balancers."},
+  q2:{correct:"At Layer 3 (Network), the PDU is called a packet. Packets contain IP headers with source and destination IP addresses and are routed between networks.",incorrect:"Bits are the Layer 1 PDU. Frames are the Layer 2 PDU. Segments are the Layer 4 PDU (TCP). The progression bottom-up is: Bits → Frames → Packets → Segments."},
+  q3:{correct:"ARP spoofing (also called ARP poisoning) involves sending fake ARP replies to associate the attacker's MAC address with a legitimate IP address (like the default gateway), enabling man-in-the-middle attacks at Layer 2.",incorrect:"IP spoofing forges IP addresses (Layer 3). DNS poisoning corrupts DNS records (Layer 7). SYN flood is a Layer 4 denial-of-service attack. ARP spoofing specifically targets the ARP protocol at Layer 2."},
+  q4:{correct:"TCP (Transmission Control Protocol) uses a three-way handshake: SYN → SYN-ACK → ACK to establish a reliable, connection-oriented session before data transfer begins.",incorrect:"UDP is connectionless (no handshake). ICMP is a network layer protocol (not transport). ARP resolves IP to MAC addresses. Only TCP uses the three-way handshake for connection establishment."},
+  q5:{correct:"A SYN flood attacks Layer 4 (Transport) by sending massive numbers of TCP SYN packets without completing the three-way handshake, exhausting the server's half-open connection table.",incorrect:"SYN floods target TCP, which operates at Layer 4 (Transport). Layer 2 attacks include ARP spoofing. Layer 3 attacks include IP spoofing. Layer 7 attacks include HTTP floods."},
+  q6:{correct:"IPSec operates at Layer 3 (Network). It provides encryption (ESP — Encapsulating Security Payload) and authentication (AH — Authentication Header) at the IP level, protecting all traffic between endpoints regardless of application.",incorrect:"IPSec operates at the Network layer. It works with IP packets directly. Layer 2 security examples include MACsec. Layer 4/5 security includes TLS. IPSec is specifically a Layer 3 protocol suite."},
+  q7:{correct:"MAC flooding overwhelms a switch's Content Addressable Memory (CAM) table with thousands of random MAC addresses. When the CAM table is full, the switch can no longer learn new addresses and falls back to broadcasting all frames — essentially behaving like a hub.",incorrect:"VLAN hopping jumps between VLANs. ARP spoofing forges ARP replies. IP spoofing forges source IP addresses. MAC flooding specifically targets the switch's CAM table to force broadcast behavior."},
+  q8:{correct:"HTTPS uses port 443 (TCP). HTTP uses port 80. These are the most commonly tested port numbers on the CISSP exam.",incorrect:"Port 80 is HTTP (unencrypted). Port 22 is SSH. Port 8080 is an alternate HTTP port often used for proxies. HTTPS specifically uses port 443."},
+  q9:{correct:"TEMPEST is a set of standards for shielding electronic equipment against electromagnetic emanation eavesdropping. Attackers can capture and analyze EM emissions from devices to reconstruct data (screens, keystrokes, cryptographic operations). Faraday cages and TEMPEST-rated equipment are countermeasures.",incorrect:"Cable tapping is a direct physical intercept. Signal jamming is radio interference. Physical destruction is a different threat. TEMPEST specifically addresses electromagnetic emanation leakage."},
+  q10:{correct:"A hub is a Layer 1 device that blindly repeats all incoming signals to every port (no intelligence). A switch is a Layer 2 device that learns MAC addresses and forwards frames only to the port where the destination MAC resides, dramatically improving efficiency and security.",incorrect:"Hubs don't use any addressing — they simply repeat electrical signals. Switches don't use IP addresses or port numbers — they use MAC addresses. The fundamental difference is layer of operation and intelligence."}
+};
+function submitQuiz(){
+  let score=0,total=Object.keys(answers).length,html='';
+  for(let q in answers){
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const num=q.replace('q','');
+    if(!sel){html+='<div class="incorrect-answer"><strong>Q'+num+':</strong> No answer selected. '+explanations[q].correct+'</div>';continue;}
+    if(sel.value===answers[q]){score++;html+='<div class="correct-answer"><strong>Q'+num+': ✅ Correct!</strong> '+explanations[q].correct+'</div>';}
+    else{html+='<div class="incorrect-answer"><strong>Q'+num+': ❌ Incorrect.</strong> '+explanations[q].incorrect+' <em>Correct answer: '+answers[q].toUpperCase()+'.</em></div>';}
+  }
+  const pct=Math.round(score/total*100);
+  const col=pct>=80?'var(--green)':pct>=60?'var(--orange)':'var(--red)';
+  const res=document.getElementById('results');
+  res.innerHTML='<h3 style="color:'+col+'">Score: '+score+'/'+total+' ('+pct+'%)</h3>'+html;
+  res.className='results show';
+  res.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

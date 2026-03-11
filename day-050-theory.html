@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 50 – PKI &amp; Certificate Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 50 – PKI &amp; Certificate Management</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 50 of 140</span><span>⏱️ ~55 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-049-theory.html">← Day 49</a> · Domain 3 · Day 50 · <a href="day-050-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. PKI Components</a></li>
+  <li><a href="#s4">4. X.509 Digital Certificates</a></li>
+  <li><a href="#s5">5. Certificate Lifecycle</a></li>
+  <li><a href="#s6">6. Certificate Revocation</a></li>
+  <li><a href="#s7">7. Trust Models</a></li>
+  <li><a href="#s8">8. Key Escrow &amp; Recovery</a></li>
+  <li><a href="#s9">9. Certificate Pinning</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Very High — PKI underpins TLS/HTTPS, email security, code signing, VPN authentication, and smart card logon</td></tr>
+  <tr><td>Why Tested</td><td>PKI is the trust infrastructure for the internet and enterprise; understanding CA hierarchies, revocation, and trust models is critical</td></tr>
+  <tr><td>Question Style</td><td>"What component issues certificates?", "What is the purpose of a CRL?", scenario-based certificate chain validation, trust model comparisons</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 4 (TLS/HTTPS uses certificates), Domain 5 (smart card authentication), Domain 8 (code signing for software integrity)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>PKI team or security architecture team manages CA infrastructure; DevOps provisions TLS certificates; compliance monitors expiration</td></tr>
+  <tr><td>Implementation</td><td>Internal CAs for employee certificates, public CAs (DigiCert, Let's Encrypt) for web servers, automated certificate lifecycle with ACME protocol</td></tr>
+  <tr><td>Failure Modes</td><td>Expired certificates cause outages; compromised CAs destroy trust chains; missing revocation checks enable use of compromised certificates</td></tr>
+  <tr><td>Business Impact</td><td>Certificate expiration caused high-profile outages (Equifax monitoring failure); CA compromise (DigiNotar 2011) led to complete organizational shutdown</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. PKI Components</h2>
+<div class="callout definition">
+  <strong>📖 Public Key Infrastructure (PKI):</strong> A framework of policies, procedures, hardware, software, and people that manages the creation, distribution, storage, use, and revocation of digital certificates. PKI binds public keys to identities through a trusted third party.
+</div>
+
+<table>
+  <tr><th>Component</th><th>Role</th><th>Analogy</th></tr>
+  <tr><td><strong>Certificate Authority (CA)</strong></td><td>Issues, signs, and revokes digital certificates; the root of trust</td><td>Like a government passport office — trusted authority that issues identity documents</td></tr>
+  <tr><td><strong>Registration Authority (RA)</strong></td><td>Verifies the identity of certificate requestors before the CA issues the certificate; does NOT sign certificates</td><td>Like a post office that verifies your identity before forwarding your passport application</td></tr>
+  <tr><td><strong>Certificate Repository</strong></td><td>Stores and distributes certificates and CRLs; typically uses LDAP or HTTP</td><td>Like a phone directory for public keys</td></tr>
+  <tr><td><strong>Certificate Revocation List (CRL)</strong></td><td>A signed list of serial numbers of certificates that have been revoked before expiration</td><td>Like a "lost/stolen passport" list published by the passport office</td></tr>
+  <tr><td><strong>OCSP Responder</strong></td><td>Online Certificate Status Protocol — provides real-time certificate status checks (good/revoked/unknown)</td><td>Like calling the passport office to check if a specific passport is still valid</td></tr>
+</table>
+
+<div class="diagram">
+    PKI HIERARCHY
+╔════════════════════════════════╗
+║         Root CA (Offline)      ║  ← Signs subordinate CAs
+║    Self-signed certificate     ║  ← Trust anchor
+╚══════════════╦═════════════════╝
+               │
+    ┌──────────┴──────────┐
+    ▼                     ▼
+╔═══════════╗     ╔═══════════╗
+║ Sub-CA 1  ║     ║ Sub-CA 2  ║  ← Issue end-entity certs
+║ (Issuing) ║     ║ (Issuing) ║
+╚═════╦═════╝     ╚═════╦═════╝
+      │                 │
+  ┌───┴───┐        ┌───┴───┐
+  ▼       ▼        ▼       ▼
+[User]  [Server] [Code]  [Email]   ← End-entity certificates
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The Root CA should be kept <strong>offline</strong> (air-gapped) and only brought online to sign subordinate CA certificates. This protects the root trust anchor. If the Root CA is compromised, the <strong>entire PKI hierarchy</strong> must be rebuilt.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. X.509 Digital Certificates</h2>
+<div class="callout definition">
+  <strong>📖 X.509:</strong> The ITU-T standard that defines the format for public key certificates. Currently on version 3 (X.509v3). Used in TLS/HTTPS, S/MIME, IPSec, and code signing.
+</div>
+
+<h3>Key Fields in an X.509v3 Certificate</h3>
+<table>
+  <tr><th>Field</th><th>Description</th></tr>
+  <tr><td><strong>Version</strong></td><td>Certificate version (typically v3)</td></tr>
+  <tr><td><strong>Serial Number</strong></td><td>Unique identifier assigned by the CA; used in CRLs for revocation</td></tr>
+  <tr><td><strong>Signature Algorithm</strong></td><td>Algorithm used by the CA to sign the certificate (e.g., sha256WithRSAEncryption)</td></tr>
+  <tr><td><strong>Issuer</strong></td><td>Distinguished name (DN) of the CA that issued the certificate</td></tr>
+  <tr><td><strong>Validity Period</strong></td><td>Not Before and Not After dates — the certificate's active window</td></tr>
+  <tr><td><strong>Subject</strong></td><td>Distinguished name of the entity the certificate identifies (CN=www.example.com)</td></tr>
+  <tr><td><strong>Subject Public Key Info</strong></td><td>The public key and the algorithm it uses</td></tr>
+  <tr><td><strong>Extensions (v3)</strong></td><td>Key Usage, Extended Key Usage, Subject Alternative Name (SAN), Basic Constraints, CRL Distribution Points</td></tr>
+  <tr><td><strong>CA Signature</strong></td><td>The CA's digital signature over the entire certificate content</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Subject Alternative Name (SAN):</strong> A v3 extension that allows a single certificate to be valid for multiple domain names (e.g., example.com, www.example.com, mail.example.com). This has largely replaced wildcard certificates in modern deployments.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Certificate Lifecycle</h2>
+<table>
+  <tr><th>Phase</th><th>Description</th></tr>
+  <tr><td><strong>1. Enrollment / Request</strong></td><td>Subject generates a key pair and submits a Certificate Signing Request (CSR) containing the public key and identity information</td></tr>
+  <tr><td><strong>2. Verification</strong></td><td>The RA verifies the requester's identity (domain ownership, organizational identity, or extended validation)</td></tr>
+  <tr><td><strong>3. Issuance</strong></td><td>The CA signs the certificate with its private key and returns it to the subject</td></tr>
+  <tr><td><strong>4. Distribution / Publication</strong></td><td>Certificate is installed on the server/device and optionally published to a certificate repository</td></tr>
+  <tr><td><strong>5. Usage</strong></td><td>Certificate is used for TLS, email signing, code signing, authentication, etc.</td></tr>
+  <tr><td><strong>6. Renewal / Re-key</strong></td><td>Before expiration, the certificate is renewed (same key) or re-keyed (new key pair)</td></tr>
+  <tr><td><strong>7. Revocation (if needed)</strong></td><td>Certificate is revoked before expiration if the private key is compromised, employee leaves, or information changes</td></tr>
+  <tr><td><strong>8. Expiration / Archival</strong></td><td>Certificate reaches its Not After date; keys may be archived for future decryption of old data</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Renewal vs. Re-key:</strong> Renewal extends the validity period with the same key pair. Re-keying generates a new key pair with a new certificate. After a key compromise, you must <strong>re-key</strong> (not just renew) because the old key pair is no longer trusted.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Certificate Revocation</h2>
+<h3>CRL vs. OCSP</h3>
+<table>
+  <tr><th>Feature</th><th>CRL (Certificate Revocation List)</th><th>OCSP (Online Certificate Status Protocol)</th></tr>
+  <tr><td>Type</td><td>Offline — periodic download</td><td>Online — real-time query</td></tr>
+  <tr><td>Freshness</td><td>Depends on publishing interval (hours to days); can be stale</td><td>Real-time or near-real-time status</td></tr>
+  <tr><td>Size</td><td>Grows over time; large CRLs are bandwidth-heavy</td><td>Small per-request responses</td></tr>
+  <tr><td>Privacy</td><td>No privacy concern — client downloads entire list</td><td>OCSP responder sees which certificates the client is checking (privacy concern)</td></tr>
+  <tr><td>Solution</td><td>Delta CRLs (incremental updates)</td><td>OCSP Stapling — server pre-fetches OCSP response and includes it in TLS handshake</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> <strong>OCSP Stapling</strong> solves BOTH the latency problem (no extra round trip to the OCSP responder) and the privacy problem (the CA doesn't see which sites the client is visiting). The web server periodically fetches its own OCSP response and "staples" it to the TLS handshake.
+</div>
+
+<h3>Revocation Reasons</h3>
+<table>
+  <tr><th>Reason</th><th>When Used</th></tr>
+  <tr><td>Key Compromise</td><td>Private key is stolen, leaked, or suspected compromised</td></tr>
+  <tr><td>CA Compromise</td><td>The issuing CA's private key is compromised → all certs from that CA are suspect</td></tr>
+  <tr><td>Affiliation Changed</td><td>Employee leaves organization; certificate no longer represents a valid relationship</td></tr>
+  <tr><td>Superseded</td><td>New certificate replaces the old one (re-key or updated information)</td></tr>
+  <tr><td>Cessation of Operation</td><td>Entity no longer operates; certificate has no purpose</td></tr>
+  <tr><td>Certificate Hold</td><td>Temporary suspension — certificate may be "un-held" later; useful for investigation</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Trust Models</h2>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td><strong>Hierarchical (Tree)</strong></td><td>Single root CA at the top; subordinate CAs branch below; trust flows from the root down through the certificate chain</td><td>Clear authority; scalable; easy chain validation</td><td>Root = single point of failure; compromise requires full rebuild</td></tr>
+  <tr><td><strong>Mesh / Cross-Certification</strong></td><td>Multiple CAs certify each other through cross-certificates; peer-to-peer trust</td><td>No single point of failure; flexible for mergers/partnerships</td><td>Complex trust paths; harder to manage and audit</td></tr>
+  <tr><td><strong>Bridge CA</strong></td><td>A neutral CA acts as a trust broker between multiple separate PKI hierarchies (used by US Federal PKI Bridge)</td><td>Connects disparate PKIs without requiring each to cross-certify with all others</td><td>Bridge becomes a high-value target; complex policy mapping</td></tr>
+  <tr><td><strong>Web of Trust (PGP/GPG)</strong></td><td>No central CA — users sign each other's keys to establish trust; trust builds through connections</td><td>Decentralized; no single authority needed</td><td>Doesn't scale; no formal revocation; requires user effort</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Certificate Chain Validation:</strong> When a browser receives a server certificate, it walks the chain: End-Entity Cert → Subordinate CA → Root CA. The browser trusts the chain ONLY if the Root CA is in its <strong>trusted root store</strong>. Each certificate in the chain must be valid (not expired, not revoked) and the signatures must verify.
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Web of Trust vs. Hierarchical PKI:</strong> PGP's Web of Trust has NO central authority — users decide whom to trust. Hierarchical PKI has a CA that makes trust decisions for everyone. The CISSP exam may ask you to compare these — the key difference is <strong>centralized authority vs. decentralized trust</strong>.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Key Escrow &amp; Recovery</h2>
+<div class="callout definition">
+  <strong>📖 Key Escrow:</strong> A copy of a user's private key (typically an encryption key) is held by a trusted third party so the organization can recover data if the user is unavailable. Also known as key recovery or key archival.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>When Used</strong></td><td>Organization needs to recover encrypted data if employee leaves, is terminated, or loses their key</td></tr>
+  <tr><td><strong>Never Escrow</strong></td><td>Signature keys should NEVER be escrowed — this would allow someone else to forge your digital signature and destroy non-repudiation</td></tr>
+  <tr><td><strong>Dual Control</strong></td><td>Escrow systems should require multiple parties (M-of-N key splitting) to reconstruct the key, preventing single-party abuse</td></tr>
+  <tr><td><strong>Government Context</strong></td><td>Controversial — the US Clipper chip (1993) proposed government key escrow; it was abandoned due to privacy concerns and technical weaknesses</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Remember: <strong>Escrow encryption keys, NEVER signature keys.</strong> Escrowing a signature key would allow the escrow agent to forge digital signatures, which destroys non-repudiation — one of the primary security services of digital signatures.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Certificate Pinning</h2>
+<div class="callout definition">
+  <strong>📖 Certificate Pinning:</strong> A technique where an application associates (pins) a specific certificate or public key to a host, bypassing the standard CA trust chain. If the server presents a different certificate — even one signed by a trusted CA — the connection is rejected.
+</div>
+
+<table>
+  <tr><th>Type</th><th>Description</th></tr>
+  <tr><td><strong>Static Pinning</strong></td><td>Hard-code the expected certificate/public key in the application; requires app update to change pins</td></tr>
+  <tr><td><strong>HTTP Public Key Pinning (HPKP)</strong></td><td>Server sends pin via HTTP header on first visit; browser remembers for future visits. <strong>Note: HPKP is deprecated</strong> due to risk of bricking sites if pins are misconfigured</td></tr>
+  <tr><td><strong>Certificate Transparency</strong></td><td>The modern replacement approach — all issued certificates are logged in public, append-only logs that can be monitored for unauthorized certificate issuance</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Certificate Transparency (CT):</strong> Rather than pinning, the industry has moved toward Certificate Transparency. CAs must log all certificates they issue to public CT logs. Domain owners can monitor these logs to detect unauthorized certificates. All major browsers now require CT for publicly trusted certificates.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 PKI Components — "CARROT":</strong><br>
+  <strong>C</strong>A — Certificate Authority (signs certs)<br>
+  <strong>A</strong> — (is the) Authority<br>
+  <strong>R</strong>A — Registration Authority (verifies identity)<br>
+  <strong>R</strong>epository — stores certs &amp; CRLs<br>
+  <strong>O</strong>CSP — real-time revocation checks<br>
+  <strong>T</strong>rust anchor — root CA is the trust foundation
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 CRL vs. OCSP:</strong> "CRL is a <strong>List</strong> (batch download). OCSP is a <strong>Question</strong> (real-time query). <strong>Stapling</strong> is the server pre-answering the question."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Never Escrow Signatures:</strong> "Encryption keys may be escrowed. Signature keys? <strong>NEVER.</strong> If someone else has your signing key, they can sign as you — destroying non-repudiation."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Trust Models:</strong> "Hierarchy (tree) = centralized, Web of Trust (PGP) = decentralized, Bridge = connector, Mesh = cross-certify."
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>PKI</td><td>Framework of CA, RA, repositories, CRLs/OCSP that manages certificates</td></tr>
+  <tr><td>CA</td><td>Issues and signs certificates; root CA must be kept offline</td></tr>
+  <tr><td>RA</td><td>Verifies identity; does NOT sign certificates</td></tr>
+  <tr><td>X.509v3</td><td>Standard certificate format; key fields include Subject, Issuer, Validity, Public Key, Extensions, Signature</td></tr>
+  <tr><td>CRL</td><td>Periodic list of revoked certificates; can become large and stale</td></tr>
+  <tr><td>OCSP / OCSP Stapling</td><td>Real-time revocation checking; stapling solves latency and privacy issues</td></tr>
+  <tr><td>Hierarchical PKI</td><td>Root → Sub-CA → End Entity; clear trust chain; root is single point of failure</td></tr>
+  <tr><td>Web of Trust</td><td>PGP/GPG; no central CA; users sign each other's keys; doesn't scale</td></tr>
+  <tr><td>Key Escrow</td><td>Escrow encryption keys only; NEVER escrow signature keys</td></tr>
+  <tr><td>Certificate Transparency</td><td>Public logs of all issued certificates; modern alternative to pinning</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-049-theory.html" class="nav-btn">← Day 49: Hashing &amp; Signatures</a>
+<a href="day-050-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

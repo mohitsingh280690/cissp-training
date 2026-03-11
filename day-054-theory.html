@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 54 – OSI Model Layers 5–7 &amp; TCP/IP Model</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 54 – OSI Model Layers 5–7 &amp; TCP/IP Model</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 54 of 140</span><span>⏱️ ~55 min</span><span>📊 Intermediate</span><span>🔧 Domain 4</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-053-theory.html">← Day 53</a> · Domain 4 · Day 54 · <a href="day-054-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Layer 5 – Session</a></li>
+  <li><a href="#s4">4. Layer 6 – Presentation</a></li>
+  <li><a href="#s5">5. Layer 7 – Application</a></li>
+  <li><a href="#s6">6. TCP/IP Model</a></li>
+  <li><a href="#s7">7. OSI vs. TCP/IP Comparison</a></li>
+  <li><a href="#s8">8. Encapsulation &amp; Decapsulation</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td>Weight</td><td>High — completes the OSI model; the TCP/IP model comparison is frequently tested</td></tr>
+  <tr><td>Why Tested</td><td>Many application-layer attacks (XSS, SQL injection) target L7; understanding where TLS, DNS, and HTTP operate is essential</td></tr>
+  <tr><td>Question Style</td><td>"Which OSI layer handles encryption/decryption?", "Map TLS to the OSI model", "Compare OSI to TCP/IP layers"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 3 (TLS encryption at L5/L6), Domain 8 (application security at L7), Domain 5 (authentication protocols at L7)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Application teams own L7 security; security teams manage WAFs (L7) and TLS configuration (L5/L6); network ops handles lower layers</td></tr>
+  <tr><td>Implementation</td><td>WAFs for L7 attacks, TLS termination at load balancers, application-layer gateways, content-type validation at L6</td></tr>
+  <tr><td>Failure Modes</td><td>SQL injection/XSS (L7), TLS misconfiguration (L5/L6), session hijacking (L5), data format manipulation (L6)</td></tr>
+  <tr><td>Business Impact</td><td>Most breaches target L7 (OWASP Top 10); proper understanding of upper layers is critical for application security programs</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Layer 5 – Session</h2>
+<div class="callout definition">
+  <strong>📖 Layer 5 (Session):</strong> Manages sessions (dialogues) between applications. Responsible for establishing, maintaining, synchronizing, and terminating communication sessions between two hosts. Handles session checkpointing and recovery.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Data (no specific L5 PDU name in practice)</td></tr>
+  <tr><td><strong>Protocols/APIs</strong></td><td>NetBIOS, RPC (Remote Procedure Call), PPTP (Point-to-Point Tunneling Protocol), SIP (Session Initiation Protocol), NFS (Network File System)</td></tr>
+  <tr><td><strong>Functions</strong></td><td>Session establishment/teardown, dialog control (simplex, half-duplex, full-duplex), synchronization checkpoints, session recovery after interruption</td></tr>
+</table>
+
+<h3>Communication Modes (Dialog Control)</h3>
+<table>
+  <tr><th>Mode</th><th>Direction</th><th>Example</th></tr>
+  <tr><td><strong>Simplex</strong></td><td>One-way only</td><td>Radio broadcast, TV signal, fire alarm sensor</td></tr>
+  <tr><td><strong>Half-Duplex</strong></td><td>Both directions, but not simultaneously</td><td>Walkie-talkie, CB radio</td></tr>
+  <tr><td><strong>Full-Duplex</strong></td><td>Both directions simultaneously</td><td>Telephone, modern Ethernet, VoIP</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> TLS/SSL are often described as operating at Layer 5 (Session) and Layer 6 (Presentation), because TLS manages the secure session AND handles encryption. The CISSP exam may place TLS at L5, L6, or "between L4 and L7" — all are acceptable. The key point is that TLS sits above TCP (L4) and below Application (L7).
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Layer 6 – Presentation</h2>
+<div class="callout definition">
+  <strong>📖 Layer 6 (Presentation):</strong> Translates data between the network format and the application format. Handles data representation, character encoding, compression, and encryption/decryption. Often called the "syntax layer" because it ensures data is in a usable format.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Data</td></tr>
+  <tr><td><strong>Functions</strong></td><td>Data translation (ASCII ↔ EBCDIC), character encoding (UTF-8, Unicode), compression (JPEG, MPEG), encryption/decryption (TLS/SSL), serialization (XML, JSON, ASN.1)</td></tr>
+  <tr><td><strong>Standards</strong></td><td>JPEG, MPEG, GIF, ASCII, Unicode, TLS/SSL (encryption aspect), XDR (External Data Representation)</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Encryption at Layer 6:</strong> Encryption and decryption are conceptually a Layer 6 function — they transform data into a different representation. When the CISSP exam asks "at which layer does encryption occur?", Layer 6 (Presentation) is the traditional OSI answer. However, real-world encryption happens at various layers: IPSec at L3, TLS at L5/L6, application encryption at L7.
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Layer 6 in Practice:</strong> The Presentation layer is one of the least used layers in the TCP/IP model (it's absorbed into the Application layer). However, the CISSP exam tests the OSI model as a conceptual framework, so know what L6 handles: translation, compression, and encryption.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Layer 7 – Application</h2>
+<div class="callout definition">
+  <strong>📖 Layer 7 (Application):</strong> The closest layer to the end user. Provides network services directly to user applications. This is NOT the application itself — it is the interface between the network and the application.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>PDU</strong></td><td>Data</td></tr>
+  <tr><td><strong>Protocols</strong></td><td>HTTP/HTTPS, FTP, SMTP, POP3, IMAP, DNS, DHCP, SNMP, LDAP, SSH, Telnet, NTP, RDP</td></tr>
+  <tr><td><strong>Devices</strong></td><td>Application-layer firewalls / proxies, WAFs (Web Application Firewalls), load balancers (L7)</td></tr>
+  <tr><td><strong>Functions</strong></td><td>Network services for applications: file transfer, email, directory services, web browsing, remote access</td></tr>
+</table>
+
+<h3>Layer 7 Security Concerns</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td>SQL Injection</td><td>Inject malicious SQL through application input to manipulate the database</td><td>Parameterized queries, input validation, WAF</td></tr>
+  <tr><td>Cross-Site Scripting (XSS)</td><td>Inject malicious scripts into web pages viewed by other users</td><td>Output encoding, Content Security Policy (CSP), WAF</td></tr>
+  <tr><td>DNS Poisoning / Spoofing</td><td>Corrupt DNS cache to redirect users to malicious sites</td><td>DNSSEC (DNS Security Extensions), DNS over HTTPS (DoH)</td></tr>
+  <tr><td>HTTP Flood (DDoS)</td><td>Overwhelm web server with legitimate-looking HTTP requests</td><td>Rate limiting, CDN, WAF, behavioral analysis</td></tr>
+  <tr><td>Phishing</td><td>Fraudulent emails/sites impersonating trusted entities</td><td>SPF, DKIM, DMARC, user awareness training</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> When a CISSP question mentions "application-layer gateway" or "proxy firewall," both operate at Layer 7. They can inspect the full content of the traffic (including payload), unlike packet-filtering firewalls (L3) or stateful firewalls (L3-L4). A WAF is specifically an L7 firewall for web applications.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. TCP/IP Model</h2>
+<div class="callout definition">
+  <strong>📖 TCP/IP Model:</strong> A 4-layer practical networking model (also called the DoD model or Internet Protocol Suite) that describes how the internet actually works. Unlike the OSI model (which is conceptual/reference), TCP/IP is the implementation model.
+</div>
+
+<table>
+  <tr><th>TCP/IP Layer</th><th>Equivalent OSI Layers</th><th>Protocols</th></tr>
+  <tr><td><strong>4. Application</strong></td><td>L5 + L6 + L7 (Session + Presentation + Application)</td><td>HTTP, FTP, SMTP, DNS, SSH, TLS, SNMP, DHCP</td></tr>
+  <tr><td><strong>3. Transport</strong></td><td>L4 (Transport)</td><td>TCP, UDP</td></tr>
+  <tr><td><strong>2. Internet</strong></td><td>L3 (Network)</td><td>IP, ICMP, IGMP, IPSec, ARP*</td></tr>
+  <tr><td><strong>1. Network Access</strong></td><td>L1 + L2 (Physical + Data Link)</td><td>Ethernet, Wi-Fi (802.11), PPP, Frame Relay</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ ARP Layer Placement:</strong> ARP placement varies by source. ARP resolves L3 (IP) addresses to L2 (MAC) addresses, so it bridges both layers. In the OSI model, it's typically placed at Layer 2 (Data Link). In the TCP/IP model, it's sometimes placed at the Internet layer. The CISSP exam may accept either — focus on what ARP does rather than its exact layer.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. OSI vs. TCP/IP Comparison</h2>
+<div class="diagram">
+    OSI MODEL              TCP/IP MODEL
+╔════════════════╗    ╔════════════════╗
+║ 7. Application ║    ║                ║
+║ 6. Presentation║ ──▶║ 4. Application ║
+║ 5. Session     ║    ║                ║
+╠════════════════╣    ╠════════════════╣
+║ 4. Transport   ║ ──▶║ 3. Transport   ║
+╠════════════════╣    ╠════════════════╣
+║ 3. Network     ║ ──▶║ 2. Internet    ║
+╠════════════════╣    ╠════════════════╣
+║ 2. Data Link   ║ ──▶║ 1. Network     ║
+║ 1. Physical    ║    ║    Access      ║
+╚════════════════╝    ╚════════════════╝
+   7 Layers              4 Layers
+   Conceptual            Practical
+   ISO Standard          DoD / IETF
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>OSI Model</th><th>TCP/IP Model</th></tr>
+  <tr><td>Layers</td><td>7</td><td>4</td></tr>
+  <tr><td>Origin</td><td>ISO (International Organization for Standardization)</td><td>DoD (Department of Defense) / IETF</td></tr>
+  <tr><td>Purpose</td><td>Conceptual reference model for understanding networking</td><td>Practical implementation model for the internet</td></tr>
+  <tr><td>Session/Presentation</td><td>Separate layers (L5, L6)</td><td>Combined into Application layer</td></tr>
+  <tr><td>Physical/Data Link</td><td>Separate layers (L1, L2)</td><td>Combined into Network Access layer</td></tr>
+  <tr><td>CISSP Focus</td><td>Primary framework for exam questions</td><td>Must know both and be able to map between them</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Encapsulation &amp; Decapsulation</h2>
+<div class="callout definition">
+  <strong>📖 Encapsulation:</strong> The process of adding layer-specific headers (and sometimes trailers) as data moves DOWN through the protocol stack. Each layer wraps the data from the layer above with its own control information.
+</div>
+
+<div class="diagram">
+    ENCAPSULATION (Sending)
+╔══════════════════════════════════════════════════╗
+║  Application Data                                ║
+║  ┌─────────────────────────────────────────────┐ ║
+║  │ L4 Header │ Data                  = Segment │ ║
+║  ├───────────┼──────────────────────────────────┤ ║
+║  │ L3 │ L4  │ Data                  = Packet   │ ║
+║  ├────┼──────┼──────────────────────────────────┤ ║
+║  │L2  │ L3  │ L4  │ Data │ L2 Trlr = Frame    │ ║
+║  ├────┼─────┼─────┼──────┼──────────────────────┤ ║
+║  │ 1010110101010101010101010101010  = Bits      │ ║
+║  └──────────────────────────────────────────────┘ ║
+║  Direction: DOWN the stack →                      ║
+╚══════════════════════════════════════════════════╝
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Decapsulation:</strong> The reverse process on the receiving host. As data moves UP the stack, each layer strips its header, processes the control information, and passes the remaining data to the layer above. Layer 2 also strips the trailer (FCS — Frame Check Sequence used for error detection).
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Upper Layers — "SPA":</strong><br>
+  <strong>S</strong>ession (L5) — manages dialogs<br>
+  <strong>P</strong>resentation (L6) — translates, compresses, encrypts<br>
+  <strong>A</strong>pplication (L7) — network services for apps
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 TCP/IP vs. OSI:</strong> "TCP/IP merges the edges: top 3 → Application, bottom 2 → Network Access. Middle stays the same: Transport = Transport, Network = Internet."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Where Encryption Happens (OSI):</strong> "L6 = Presentation = Encryption" (conceptual). But remember: IPSec=L3, TLS=L5/L6, App encryption=L7. The exam answer for "which layer handles encryption?" is typically L6 unless a specific protocol is named.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Simplex / Half / Full:</strong> "Simplex = one-way Street, Half = Walkie-talkie, Full = Phone call"
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Layer 5 (Session)</td><td>Manages dialogs; simplex/half-duplex/full-duplex; checkpointing; NetBIOS, RPC, SIP</td></tr>
+  <tr><td>Layer 6 (Presentation)</td><td>Data translation, compression, encryption; JPEG, MPEG, ASCII, TLS (encryption aspect)</td></tr>
+  <tr><td>Layer 7 (Application)</td><td>Network services; HTTP, FTP, SMTP, DNS; WAFs and proxy firewalls operate here</td></tr>
+  <tr><td>TCP/IP Model</td><td>4 layers: Network Access → Internet → Transport → Application</td></tr>
+  <tr><td>OSI → TCP/IP Mapping</td><td>L1+L2 = Network Access, L3 = Internet, L4 = Transport, L5+L6+L7 = Application</td></tr>
+  <tr><td>Encapsulation</td><td>Headers added going DOWN; stripped going UP; each layer wraps the layer above</td></tr>
+  <tr><td>TLS Placement</td><td>Between L4 and L7; commonly described at L5/L6 in OSI terms</td></tr>
+  <tr><td>L7 Attacks</td><td>SQL injection, XSS, DNS poisoning — most breaches target this layer</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-053-theory.html" class="nav-btn">← Day 53: OSI Layers 1–4</a>
+<a href="day-054-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>
