@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 34 – Security Engineering Principles</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 34 – Security Engineering Principles</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 34 of 140</span><span>⏱️ ~40 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-033-theory.html">← Day 33</a> · Domain 3 · Day 34 · <a href="day-034-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Introduction to Security Engineering Principles</a></li>
+  <li><a href="#s4">4. Saltzer &amp; Schroeder's Eight Principles</a></li>
+  <li><a href="#s5">5. Additional Engineering Principles</a></li>
+  <li><a href="#s6">6. Applying Principles to System Design</a></li>
+  <li><a href="#s7">7. Principle Violations &amp; Consequences</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Fundamental principles tested across multiple question types</td></tr>
+  <tr><td>Why Tested</td><td>These principles are the foundation for evaluating security architectures, models, and system designs throughout the entire domain</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "Which principle was violated when…" or "Which principle BEST supports…"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (least privilege in governance), Domain 5 (IAM authorization), Domain 7 (operational fail-safes), Domain 8 (secure software design)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects and enterprise architects embed these principles into system design; developers implement them in code</td></tr>
+  <tr><td>Implementation</td><td>Integrated into secure development lifecycles (SDLC), architecture review boards, and design documentation</td></tr>
+  <tr><td>Failure Modes</td><td>Ignoring fail-safe defaults → systems fail open, exposing data; violating least privilege → privilege escalation; ignoring economy of mechanism → complex, unauditable systems</td></tr>
+  <tr><td>Business Impact</td><td>Reduces attack surface, supports compliance audits, decreases remediation costs, and enables defensible architecture decisions</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Introduction to Security Engineering Principles</h2>
+<div class="callout definition">
+  <strong>📖 Security Engineering Principles:</strong> Foundational design guidelines that govern how secure systems should be conceptualized, built, and maintained. First formally articulated by Jerome Saltzer and Michael Schroeder in 1975.
+</div>
+<p>These principles are not specific technologies — they are <strong>design philosophy</strong>. They guide architects and engineers in making decisions that minimize risk, reduce attack surface, and create systems that degrade safely when compromised.</p>
+<p>The original 1975 paper "The Protection of Information in Computer Systems" defined eight principles. Several additional principles have since joined the canon and are tested on CISSP.</p>
+</section>
+
+<section id="s4">
+<h2>4. Saltzer &amp; Schroeder's Eight Principles</h2>
+
+<h3>4.1 Least Privilege</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Every subject should operate with the minimum set of privileges necessary to perform its authorized task — no more, no less.
+</div>
+<p><strong>In practice:</strong> A database application user account should have SELECT permission only on the tables it needs, not DBA-level access. An employee in HR should not have access to engineering source code repositories.</p>
+<p><strong>Key distinction:</strong> Least privilege applies to both <em>users</em> and <em>processes</em>. A web server process should run under a minimal service account, not root/SYSTEM.</p>
+
+<h3>4.2 Fail-Safe Defaults</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Access decisions should be based on permission (allow-listing) rather than exclusion (deny-listing). When a system fails, it should default to a secure state — deny access.
+</div>
+<p><strong>In practice:</strong> A firewall should deny all traffic by default and only allow explicitly permitted flows. If an authentication server is unreachable, users should be denied access — not granted it.</p>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> "Fail-safe" means fail to a <strong>safe/secure</strong> state (access denied). "Fail-open" means the system allows access on failure — this violates fail-safe defaults. The exam WILL test this distinction.
+</div>
+
+<h3>4.3 Economy of Mechanism</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Security mechanisms should be as simple and small as possible. Simpler designs are easier to verify, test, and maintain.
+</div>
+<p><strong>In practice:</strong> A single, well-tested authentication library is preferable to five different authentication mechanisms scattered across an application. Complex systems have more potential failure points and are harder to audit.</p>
+
+<h3>4.4 Complete Mediation</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Every access to every resource must be checked for authorization. No caching of previous authorization decisions without revalidation.
+</div>
+<p><strong>In practice:</strong> A web application should verify authorization on every request, not assume that because a user was authenticated at login, they have permission to access any endpoint. A reference monitor implements this principle by mediating all access between subjects and objects.</p>
+<div class="callout warning">
+  <strong>⚠️ Common Violation:</strong> Session token caching without re-checking permissions. If a user's role is revoked but their cached session token still grants access, complete mediation is violated.
+</div>
+
+<h3>4.5 Open Design</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Security of a system should not depend on the secrecy of its design or implementation — only on the secrecy of its keys or passwords. (Also known as Kerckhoffs' Principle in cryptography.)
+</div>
+<p><strong>In practice:</strong> AES encryption is publicly documented yet remains secure because security relies on key secrecy, not algorithm secrecy. Contrast with proprietary "security through obscurity" algorithms that, when reverse-engineered, are often trivially broken.</p>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Open design ≠ open source. Open design means the security mechanism doesn't depend on secrecy of the mechanism itself. A proprietary product can follow open design if its security doesn't rely on hidden algorithms.
+</div>
+
+<h3>4.6 Separation of Privilege</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> A system should not grant permission based on a single condition. Multiple conditions (or multiple parties) should be required for critical operations.
+</div>
+<p><strong>In practice:</strong> Nuclear launch requires two-person integrity (two-man rule). Banking transactions above a threshold need dual authorization. Code deployment requires both developer and reviewer approval. Multi-factor authentication implements this at the individual level.</p>
+
+<h3>4.7 Least Common Mechanism</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Minimize the amount of mechanism shared between users. Shared resources create potential covert channels and increase the risk that one user's actions affect another's security.
+</div>
+<p><strong>In practice:</strong> Separate security domains should have separate processing environments. Shared file systems, shared memory, and shared communication channels between different trust levels create information leakage risks. Virtual machine isolation addresses this by giving each tenant separate resources.</p>
+
+<h3>4.8 Psychological Acceptability</h3>
+<div class="callout key-concept">
+  <strong>🔑 Principle:</strong> Security mechanisms should not make resources more difficult to access than if the mechanisms were not present. If security is burdensome, users will circumvent it.
+</div>
+<p><strong>In practice:</strong> A password policy requiring 30-character passwords changed weekly will lead to passwords on sticky notes. SSO reduces friction while maintaining security. Biometric authentication can be both more secure and more convenient than passwords.</p>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> When an exam scenario describes users finding workarounds for security controls, psychological acceptability is the violated principle. Users bypassing controls is a <strong>design failure</strong>, not a user failure.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Additional Engineering Principles</h2>
+<h3>5.1 Defense in Depth (Layered Security)</h3>
+<p>No single control is sufficient. Multiple overlapping security controls ensure that if one layer fails, others still protect the asset. Example: firewall + IDS + host-based antivirus + endpoint encryption + user training.</p>
+
+<h3>5.2 Zero Trust</h3>
+<p>Never trust, always verify. Every access request is authenticated and authorized regardless of network location. Assumes breach and minimizes blast radius. Aligns with complete mediation.</p>
+
+<h3>5.3 Privacy by Design</h3>
+<p>Build privacy protections into systems from inception, not bolted on after deployment. Required by GDPR Article 25. Seven foundational principles by Ann Cavoukian.</p>
+
+<h3>5.4 Secure Defaults</h3>
+<p>Systems should ship in the most secure configuration. Users should have to explicitly reduce security, not explicitly enable it. Relates closely to fail-safe defaults.</p>
+</section>
+
+<section id="s6">
+<h2>6. Applying Principles to System Design</h2>
+<table>
+  <tr><th>Design Decision</th><th>Principle Applied</th><th>Example</th></tr>
+  <tr><td>Firewall default-deny rule</td><td>Fail-Safe Defaults</td><td>Only explicitly allowed traffic passes</td></tr>
+  <tr><td>Service account with minimal permissions</td><td>Least Privilege</td><td>Web app DB user has SELECT only</td></tr>
+  <tr><td>Authorization check on every API call</td><td>Complete Mediation</td><td>Token validated per request, not cached</td></tr>
+  <tr><td>Using AES instead of custom cipher</td><td>Open Design + Economy of Mechanism</td><td>Proven, simple, publicly vetted algorithm</td></tr>
+  <tr><td>Two-person approval for production deploy</td><td>Separation of Privilege</td><td>Developer + reviewer required</td></tr>
+  <tr><td>SSO with biometric unlock</td><td>Psychological Acceptability</td><td>Secure yet low-friction authentication</td></tr>
+  <tr><td>Separate VLANs per department</td><td>Least Common Mechanism</td><td>Reduces shared network attack surface</td></tr>
+</table>
+
+<div class="diagram">
+┌─────────────────────────────────────────────┐
+│           SECURE SYSTEM DESIGN              │
+│                                             │
+│  ┌─────────┐  ┌──────────┐  ┌───────────┐  │
+│  │ Least   │  │ Fail-Safe│  │ Economy   │  │
+│  │Privilege│  │ Defaults │  │ of Mech.  │  │
+│  └────┬────┘  └────┬─────┘  └─────┬─────┘  │
+│       │            │              │         │
+│  ┌────▼────┐  ┌────▼─────┐  ┌────▼──────┐  │
+│  │Complete │  │ Open     │  │Separation │  │
+│  │Mediation│  │ Design   │  │of Priv.   │  │
+│  └────┬────┘  └────┬─────┘  └─────┬─────┘  │
+│       │            │              │         │
+│  ┌────▼────┐  ┌────▼─────┐               │  │
+│  │ Least   │  │ Psych.   │               │  │
+│  │Common   │  │ Accept.  │               │  │
+│  │ Mech.   │  │          │               │  │
+│  └─────────┘  └──────────┘               │  │
+│                                             │
+│        All → Defense in Depth               │
+└─────────────────────────────────────────────┘
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Principle Violations &amp; Consequences</h2>
+<table>
+  <tr><th>Violated Principle</th><th>Scenario</th><th>Consequence</th></tr>
+  <tr><td>Least Privilege</td><td>All employees given admin access "for convenience"</td><td>Malware or insider can access/modify any system resource — massive blast radius</td></tr>
+  <tr><td>Fail-Safe Defaults</td><td>Door fails open during power outage</td><td>Unauthorized physical access to secured area</td></tr>
+  <tr><td>Complete Mediation</td><td>API only checks auth on first request, caches result</td><td>Revoked users retain access until cache expires</td></tr>
+  <tr><td>Open Design</td><td>Proprietary encryption algorithm kept secret</td><td>Algorithm lacks peer review; once reverse-engineered, all data is compromised</td></tr>
+  <tr><td>Economy of Mechanism</td><td>System has 12 different authentication paths</td><td>Attack surface multiplied; impossible to audit all paths thoroughly</td></tr>
+  <tr><td>Separation of Privilege</td><td>Single person can approve and execute wire transfer</td><td>Insider fraud with no check or balance</td></tr>
+  <tr><td>Least Common Mechanism</td><td>Dev and prod share same database server</td><td>Vulnerability in dev can pivot to compromise production data</td></tr>
+  <tr><td>Psychological Acceptability</td><td>30-char password changed weekly</td><td>Passwords on sticky notes; users share credentials to reduce burden</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "LESS COPS" — Saltzer &amp; Schroeder's 8 Principles:</strong><br>
+  <strong>L</strong> – Least privilege<br>
+  <strong>E</strong> – Economy of mechanism<br>
+  <strong>S</strong> – Separation of privilege<br>
+  <strong>S</strong> – (fail-) Safe defaults<br>
+  <strong>C</strong> – Complete mediation<br>
+  <strong>O</strong> – Open design<br>
+  <strong>P</strong> – Psychological acceptability<br>
+  <strong>S</strong> – (least common mechanism) Shared resources minimized
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Fail-Safe vs. Fail-Open:</strong> "Safe = Shut." If a system fails and it shuts down access → fail-safe (good). If it fails and stays open → fail-open (bad, violates the principle).
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Complete Mediation = "Check Every Time":</strong> Think of a bouncer who checks every person's ID every time they enter — not just once at the beginning of the night.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Open Design = "Kerckhoffs' Principle":</strong> "The enemy knows the system" — security relies on the key, not the lock's design being secret.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Saltzer &amp; Schroeder</td><td>Eight foundational principles for secure system design (1975)</td></tr>
+  <tr><td>Least Privilege</td><td>Minimum permissions needed — applies to users AND processes</td></tr>
+  <tr><td>Fail-Safe Defaults</td><td>Deny by default; system fails to secure state</td></tr>
+  <tr><td>Economy of Mechanism</td><td>Keep it simple — simpler = more verifiable = more secure</td></tr>
+  <tr><td>Complete Mediation</td><td>Verify every access every time — no caching authorization</td></tr>
+  <tr><td>Open Design</td><td>Security through key secrecy, not design secrecy</td></tr>
+  <tr><td>Separation of Privilege</td><td>Multiple conditions/parties for critical operations</td></tr>
+  <tr><td>Least Common Mechanism</td><td>Minimize shared resources between different trust levels</td></tr>
+  <tr><td>Psychological Acceptability</td><td>Security must be usable or users will bypass it</td></tr>
+  <tr><td>Defense in Depth</td><td>Multiple overlapping layers — no single point of failure</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-033-theory.html" class="nav-btn">← Day 33: Domain 2 Review</a>
+<a href="day-034-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

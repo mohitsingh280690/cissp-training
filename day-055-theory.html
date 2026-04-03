@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 55 – IP Addressing &amp; Subnetting</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 55 – IP Addressing &amp; Subnetting</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 55 of 140</span><span>⏱️ ~60 min</span><span>📊 Intermediate</span><span>🔧 Domain 4</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-054-theory.html">← Day 54</a> · Domain 4 · Day 55 · <a href="day-055-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. IPv4 Addressing</a></li>
+  <li><a href="#s4">4. IPv4 Address Classes</a></li>
+  <li><a href="#s5">5. Private Address Ranges (RFC 1918)</a></li>
+  <li><a href="#s6">6. CIDR Notation</a></li>
+  <li><a href="#s7">7. Subnetting Fundamentals</a></li>
+  <li><a href="#s8">8. IPv6 Addressing</a></li>
+  <li><a href="#s9">9. NAT &amp; PAT</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td>Weight</td><td>High — IP addressing is foundational; subnetting concepts appear in network design and segmentation questions</td></tr>
+  <tr><td>Why Tested</td><td>Network segmentation (subnetting) is a core security control; understanding NAT/PAT is essential for perimeter design; IPv6 security implications are increasingly tested</td></tr>
+  <tr><td>Question Style</td><td>"Which address range is private?", "What is the purpose of NAT?", "How does subnetting improve security?", "What advantage does IPv6 offer?"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 7 (physical network design), Domain 2 (asset management and network segmentation), Domain 3 (IPSec integration with IPv6)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Network engineering owns IP address management (IPAM); security teams define segmentation policy; compliance teams verify network isolation</td></tr>
+  <tr><td>Implementation</td><td>IP address plans, VLAN-to-subnet mapping, firewall rules based on subnets, DMZ design using separate address spaces, NAT at perimeter</td></tr>
+  <tr><td>Failure Modes</td><td>Flat networks without segmentation increase blast radius; IP address exhaustion; NAT misconfigurations exposing internal hosts; IPv6 tunnels bypassing IPv4 security controls</td></tr>
+  <tr><td>Business Impact</td><td>Proper subnetting limits lateral movement; NAT provides address conservation and a degree of obscurity; IPv6 migration requires updated security controls</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. IPv4 Addressing</h2>
+<div class="callout definition">
+  <strong>📖 IPv4 Address:</strong> A 32-bit logical address written in dotted-decimal notation (4 octets separated by dots). Each octet ranges from 0 to 255. Example: 192.168.1.100. Total theoretical address space: 2³² = ~4.3 billion addresses.
+</div>
+
+<div class="diagram">
+IPv4 Address Structure (32 bits):
+
+  192    .    168    .     1     .    100
+┌────────┬────────┬────────┬────────┐
+│11000000│10101000│00000001│01100100│
+└────────┴────────┴────────┴────────┘
+ Octet 1   Octet 2  Octet 3  Octet 4
+ (8 bits)  (8 bits) (8 bits) (8 bits)
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Network vs. Host Portion:</strong> Every IP address has two parts: the <strong>network portion</strong> (identifies the network) and the <strong>host portion</strong> (identifies the specific device). The subnet mask determines the dividing line between these two parts.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. IPv4 Address Classes</h2>
+<table>
+  <tr><th>Class</th><th>First Octet</th><th>Range</th><th>Default Mask</th><th>Network / Host Bits</th><th>Purpose</th></tr>
+  <tr><td><strong>A</strong></td><td>1–126</td><td>1.0.0.0 – 126.255.255.255</td><td>255.0.0.0 (/8)</td><td>8 / 24</td><td>Very large networks (~16.7M hosts)</td></tr>
+  <tr><td><strong>B</strong></td><td>128–191</td><td>128.0.0.0 – 191.255.255.255</td><td>255.255.0.0 (/16)</td><td>16 / 16</td><td>Medium networks (~65,534 hosts)</td></tr>
+  <tr><td><strong>C</strong></td><td>192–223</td><td>192.0.0.0 – 223.255.255.255</td><td>255.255.255.0 (/24)</td><td>24 / 8</td><td>Small networks (254 hosts)</td></tr>
+  <tr><td><strong>D</strong></td><td>224–239</td><td>224.0.0.0 – 239.255.255.255</td><td>N/A</td><td>N/A</td><td>Multicast</td></tr>
+  <tr><td><strong>E</strong></td><td>240–255</td><td>240.0.0.0 – 255.255.255.255</td><td>N/A</td><td>N/A</td><td>Reserved / experimental</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Special Addresses:</strong>
+  <ul>
+    <li><strong>127.0.0.0/8</strong> — Loopback (127.0.0.1 = localhost). Not a Class A usable range.</li>
+    <li><strong>0.0.0.0</strong> — "This host" / default route</li>
+    <li><strong>255.255.255.255</strong> — Limited broadcast (local subnet only)</li>
+    <li><strong>169.254.0.0/16</strong> — APIPA (Automatic Private IP Addressing) — assigned when DHCP fails</li>
+  </ul>
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Classful addressing is largely obsolete (replaced by CIDR), but the CISSP exam still tests on address classes, especially Class A/B/C ranges and private address ranges. Know the first-octet boundaries.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Private Address Ranges (RFC 1918)</h2>
+<div class="callout definition">
+  <strong>📖 RFC 1918:</strong> Defines three private IP address ranges that are not routable on the public internet. Any organization can use these internally. Routers on the internet will drop packets with private source/destination addresses.
+</div>
+
+<table>
+  <tr><th>Class</th><th>Private Range</th><th>CIDR</th><th>Number of Addresses</th></tr>
+  <tr><td>A</td><td>10.0.0.0 – 10.255.255.255</td><td>10.0.0.0/8</td><td>16,777,216</td></tr>
+  <tr><td>B</td><td>172.16.0.0 – 172.31.255.255</td><td>172.16.0.0/12</td><td>1,048,576</td></tr>
+  <tr><td>C</td><td>192.168.0.0 – 192.168.255.255</td><td>192.168.0.0/16</td><td>65,536</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The most commonly tested private range boundary is Class B: 172.16.x.x through 172.31.x.x. Students often forget it stops at 172.31, not 172.255. The CIDR for this range is /12, not /16.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. CIDR Notation</h2>
+<div class="callout definition">
+  <strong>📖 CIDR (Classless Inter-Domain Routing):</strong> Replaces classful addressing with variable-length subnet masks. Written as IP/prefix-length (e.g., 192.168.1.0/24). The prefix length indicates how many leading bits are the network portion. Introduced in 1993 to slow IPv4 address exhaustion and reduce routing table sizes.
+</div>
+
+<table>
+  <tr><th>CIDR</th><th>Subnet Mask</th><th>Usable Hosts</th><th>Total Addresses</th></tr>
+  <tr><td>/8</td><td>255.0.0.0</td><td>16,777,214</td><td>16,777,216</td></tr>
+  <tr><td>/16</td><td>255.255.0.0</td><td>65,534</td><td>65,536</td></tr>
+  <tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>256</td></tr>
+  <tr><td>/25</td><td>255.255.255.128</td><td>126</td><td>128</td></tr>
+  <tr><td>/26</td><td>255.255.255.192</td><td>62</td><td>64</td></tr>
+  <tr><td>/27</td><td>255.255.255.224</td><td>30</td><td>32</td></tr>
+  <tr><td>/28</td><td>255.255.255.240</td><td>14</td><td>16</td></tr>
+  <tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>4</td></tr>
+  <tr><td>/32</td><td>255.255.255.255</td><td>1 (host route)</td><td>1</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Usable Hosts Formula:</strong> Usable hosts = 2^(32 − prefix) − 2. The two subtracted addresses are the <strong>network address</strong> (all host bits = 0) and the <strong>broadcast address</strong> (all host bits = 1). Exception: /31 point-to-point links (RFC 3021) and /32 host routes.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Subnetting Fundamentals</h2>
+<div class="callout definition">
+  <strong>📖 Subnetting:</strong> The practice of dividing a single network into smaller logical networks (subnets) by borrowing bits from the host portion of the address. This is a critical security control because it creates network segments that can be isolated with firewalls and ACLs.
+</div>
+
+<h3>Why Subnet? (Security Benefits)</h3>
+<table>
+  <tr><th>Benefit</th><th>Explanation</th></tr>
+  <tr><td><strong>Network Segmentation</strong></td><td>Isolate sensitive systems (e.g., HR, finance, servers) into separate subnets</td></tr>
+  <tr><td><strong>Reduced Broadcast Domain</strong></td><td>Smaller subnets = less broadcast traffic = better performance and less information leakage</td></tr>
+  <tr><td><strong>Access Control</strong></td><td>Firewalls and ACLs between subnets can restrict lateral movement</td></tr>
+  <tr><td><strong>Monitoring</strong></td><td>Traffic between subnets passes through routers/firewalls that can log and inspect</td></tr>
+  <tr><td><strong>Containment</strong></td><td>A compromise in one subnet is harder to spread to others (blast radius reduction)</td></tr>
+</table>
+
+<h3>Subnetting Example</h3>
+<div class="diagram">
+Network: 192.168.10.0/24  →  Split into 4 subnets (/26)
+
+Subnet 1: 192.168.10.0/26    (Hosts: .1 – .62)     → Servers
+Subnet 2: 192.168.10.64/26   (Hosts: .65 – .126)   → Finance
+Subnet 3: 192.168.10.128/26  (Hosts: .129 – .190)  → HR
+Subnet 4: 192.168.10.192/26  (Hosts: .193 – .254)  → General
+
+Borrowing 2 bits from host portion:
+  /24 → /26 = 2² = 4 subnets, each with 62 usable hosts
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> For the CISSP, focus on WHY you subnet (security segmentation, containment, monitoring) rather than performing complex subnetting math. However, know the powers of 2, how to calculate usable hosts (2^n − 2), and the concept of borrowing bits.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. IPv6 Addressing</h2>
+<div class="callout definition">
+  <strong>📖 IPv6:</strong> 128-bit addresses written as eight groups of four hexadecimal digits separated by colons (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334). Provides approximately 3.4 × 10³⁸ unique addresses — essentially unlimited.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>IPv4</th><th>IPv6</th></tr>
+  <tr><td>Address Size</td><td>32 bits</td><td>128 bits</td></tr>
+  <tr><td>Notation</td><td>Dotted decimal (192.168.1.1)</td><td>Colon hexadecimal (2001:db8::1)</td></tr>
+  <tr><td>Address Space</td><td>~4.3 billion</td><td>~3.4 × 10³⁸</td></tr>
+  <tr><td>IPSec</td><td>Optional</td><td>Mandatory in specification (though not always enforced)</td></tr>
+  <tr><td>Auto-Configuration</td><td>DHCP required</td><td>SLAAC (Stateless Address Autoconfiguration) + optional DHCPv6</td></tr>
+  <tr><td>Broadcast</td><td>Supported</td><td>No broadcast — uses multicast and anycast instead</td></tr>
+  <tr><td>NAT</td><td>Widely used</td><td>Generally not needed (abundant addresses), though NAT66 exists</td></tr>
+  <tr><td>Header</td><td>Variable length, complex</td><td>Fixed 40-byte simplified header with optional extension headers</td></tr>
+</table>
+
+<h3>Key IPv6 Address Types</h3>
+<table>
+  <tr><th>Type</th><th>Prefix</th><th>Description</th></tr>
+  <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>Publicly routable (equivalent to public IPv4)</td></tr>
+  <tr><td><strong>Link-Local</strong></td><td>fe80::/10</td><td>Auto-configured on every interface; not routable beyond the link</td></tr>
+  <tr><td><strong>Unique Local (ULA)</strong></td><td>fc00::/7 (fd00::/8 in practice)</td><td>Private addresses (equivalent to RFC 1918)</td></tr>
+  <tr><td><strong>Multicast</strong></td><td>ff00::/8</td><td>One-to-many (replaces broadcast)</td></tr>
+  <tr><td><strong>Loopback</strong></td><td>::1</td><td>Equivalent to 127.0.0.1</td></tr>
+  <tr><td><strong>Unspecified</strong></td><td>::</td><td>Equivalent to 0.0.0.0</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ IPv6 Security Concerns:</strong>
+  <ul>
+    <li><strong>Dual-stack risks:</strong> Running IPv4 and IPv6 simultaneously means two attack surfaces; if IPv6 isn't monitored, attackers can use it to bypass IPv4 security controls</li>
+    <li><strong>IPv6 tunneling:</strong> Protocols like Teredo and 6to4 can tunnel IPv6 over IPv4, potentially bypassing firewalls</li>
+    <li><strong>Router Advertisement (RA) spoofing:</strong> Attackers can send rogue RAs to redirect traffic (mitigated with RA Guard)</li>
+    <li><strong>Large address space:</strong> Traditional scanning is impractical, but this makes asset discovery harder for defenders too</li>
+  </ul>
+</div>
+</section>
+
+<section id="s9">
+<h2>9. NAT &amp; PAT</h2>
+<div class="callout definition">
+  <strong>📖 NAT (Network Address Translation):</strong> Translates private (RFC 1918) IP addresses to public IP addresses at a network boundary device (router/firewall). This conserves public IPv4 addresses and hides the internal network structure from external observers.
+</div>
+
+<table>
+  <tr><th>Type</th><th>Description</th><th>Mapping</th></tr>
+  <tr><td><strong>Static NAT</strong></td><td>1:1 mapping — one private address permanently maps to one public address</td><td>10.0.0.5 ↔ 203.0.113.5</td></tr>
+  <tr><td><strong>Dynamic NAT</strong></td><td>Many-to-many — private addresses map to a pool of public addresses on first-come basis</td><td>10.0.0.x ↔ pool of 203.0.113.x</td></tr>
+  <tr><td><strong>PAT (Port Address Translation)</strong></td><td>Many-to-one — multiple private addresses share a single public IP, differentiated by port numbers. Also called NAT Overload.</td><td>10.0.0.5:1025 → 203.0.113.1:40001<br>10.0.0.6:1026 → 203.0.113.1:40002</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 NAT Security Implications:</strong>
+  <ul>
+    <li><strong>Obscurity (not security):</strong> NAT hides internal addresses but is NOT a security control by itself — it should be combined with firewalls</li>
+    <li><strong>Breaks end-to-end:</strong> NAT modifies packet headers, which can break IPSec AH (Authentication Header) since AH authenticates the original header</li>
+    <li><strong>Stateful:</strong> NAT devices maintain a translation table — they must track all active connections</li>
+    <li><strong>PAT is most common:</strong> Home routers and most corporate internet gateways use PAT to share one public IP among many internal hosts</li>
+  </ul>
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam does NOT consider NAT a security control — it's an address conservation mechanism. If a question asks "which control hides internal IP addresses from external attackers?", the answer is typically NAT, but remember it provides obscurity, not security. Always pair NAT with proper firewall rules.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Class A/B/C First-Octet Ranges:</strong><br>
+  <strong>A</strong> = 1–126 (starts low, big networks)<br>
+  <strong>B</strong> = 128–191 (middle range, medium networks)<br>
+  <strong>C</strong> = 192–223 (starts high, small networks)<br>
+  Remember: "127 is loopback, so Class A stops at 126"
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Private Ranges — "10, 172, 192":</strong><br>
+  <strong>10</strong>.0.0.0/8 — the whole Class A<br>
+  <strong>172</strong>.16.0.0/12 — Class B (16 through 31 only!)<br>
+  <strong>192.168</strong>.0.0/16 — Class C (most familiar: home routers)<br>
+  Memory aid: "1 ten, 172 sixteen, 192 one-sixty-eight"
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 NAT Types — "S-D-P":</strong><br>
+  <strong>S</strong>tatic = 1:1 (Single map)<br>
+  <strong>D</strong>ynamic = many:pool (Dynamic pool)<br>
+  <strong>P</strong>AT = many:1 (Port-based sharing)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 IPv6 — "128 bits, 8 groups, hex colons":</strong> IPv6 is 128 bits = 8 groups × 16 bits per group, written in hex with colons. IPv4 has 32 bits = 4 octets in decimal with dots.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>IPv4 Structure</td><td>32-bit address, 4 octets, ~4.3 billion addresses, dotted-decimal notation</td></tr>
+  <tr><td>Address Classes</td><td>A (1–126), B (128–191), C (192–223), D (multicast), E (experimental); 127 = loopback</td></tr>
+  <tr><td>RFC 1918 Private</td><td>10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 — not routable on the internet</td></tr>
+  <tr><td>CIDR</td><td>Classless addressing with variable prefix lengths; usable hosts = 2^(32−prefix) − 2</td></tr>
+  <tr><td>Subnetting (Security)</td><td>Divides networks for segmentation, access control, monitoring, and blast-radius reduction</td></tr>
+  <tr><td>IPv6</td><td>128 bits, hex:colon notation, IPSec mandatory in spec, SLAAC, no broadcast, multicast/anycast</td></tr>
+  <tr><td>IPv6 Risks</td><td>Dual-stack attack surfaces, tunneling bypasses, RA spoofing</td></tr>
+  <tr><td>NAT / PAT</td><td>NAT = address translation (not a security control); PAT = many-to-one using ports; breaks IPSec AH</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-054-theory.html" class="nav-btn">← Day 54: OSI Layers 5–7</a>
+<a href="day-055-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

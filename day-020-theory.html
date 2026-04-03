@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 20 – Domain 1 Comprehensive Review</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.formula{background:#e8eaf6;border:2px solid var(--accent);border-radius:8px;padding:18px;text-align:center;font-size:1.1rem;font-family:'Courier New',monospace;margin:12px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 20: Domain 1 Comprehensive Review</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 20 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Difficulty: Review</span>
+    <span>📝 20-Question MCQ</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 20: Domain 1 Review</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Domain 1 Scope and Coverage</a></li>
+    <li><a href="#s2">Core Concepts: Governance, Compliance &amp; Frameworks</a></li>
+    <li><a href="#s3">Risk Management Fundamentals</a></li>
+    <li><a href="#s4">Key Formulas You Must Know</a></li>
+    <li><a href="#s5">Threat, Vulnerability &amp; Impact Concepts</a></li>
+    <li><a href="#s6">Legal, Regulatory &amp; Privacy</a></li>
+    <li><a href="#s7">Business Continuity &amp; Disaster Recovery</a></li>
+    <li><a href="#s8">Personnel Security Summary</a></li>
+    <li><a href="#s9">Common CISSP Traps in Domain 1</a></li>
+    <li><a href="#s10">Master Summary Table</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Domain 1 Scope and Coverage</h2>
+  <p>Domain 1 covers the strategic, governance, and policy foundations of information security. It is the broadest domain (15% of the CISSP exam) and establishes the "why" before the later domains address the "how." All 19 days of Domain 1 content feeds this review.</p>
+  <table>
+    <tr><th>Day</th><th>Topic</th><th>Key Concept</th></tr>
+    <tr><td>1</td><td>CIA Triad &amp; CISSP Overview</td><td>Confidentiality, Integrity, Availability; DAD Triad; Parkerian Hexad</td></tr>
+    <tr><td>2</td><td>Security Governance</td><td>Policies → Standards → Guidelines → Procedures; Due Care vs. Due Diligence</td></tr>
+    <tr><td>3</td><td>Compliance &amp; Legal</td><td>Computer laws; GDPR; regulatory frameworks; compliance vs. security</td></tr>
+    <tr><td>4</td><td>Risk Management Basics</td><td>Risk = Threat × Vulnerability × Asset Value; Risk responses (MATA)</td></tr>
+    <tr><td>5</td><td>Risk Analysis Methods</td><td>Qualitative vs. Quantitative; heat maps; ALE formula</td></tr>
+    <tr><td>6</td><td>Threats &amp; Vulnerabilities</td><td>Threat agents; vulnerability types; inherent vs. residual risk</td></tr>
+    <tr><td>7</td><td>Security Frameworks</td><td>NIST CSF; ISO 27001; COBIT; TOGAF; SABSA</td></tr>
+    <tr><td>8</td><td>Security Models</td><td>Bell-LaPadula (confidentiality); Biba (integrity); Clark-Wilson; Brewer-Nash</td></tr>
+    <tr><td>9</td><td>Ethics</td><td>ISC² Code of Ethics; RFC 1087; GDPR ethical obligations</td></tr>
+    <tr><td>10</td><td>Privacy Fundamentals</td><td>PII; PHI; privacy principles; GDPR rights</td></tr>
+    <tr><td>11</td><td>Qualitative Risk Analysis</td><td>Risk matrix/heat map; Delphi technique; scenario analysis; qualitative vs. quantitative comparison</td></tr>
+    <tr><td>12</td><td>Risk Response Strategies</td><td>MATA framework (Mitigate, Accept, Transfer, Avoid); control types; residual risk</td></tr>
+    <tr><td>13</td><td>Threat Modeling</td><td>STRIDE; PASTA (7 stages); Attack Trees; MITRE ATT&amp;CK; DFDs; DREAD; LINDDUN</td></tr>
+    <tr><td>14</td><td>Supply Chain Risk Management</td><td>SCRM; vendor lifecycle; SOC 2; SLAs; SBOM; NIST SP 800-161; fourth-party risk</td></tr>
+    <tr><td>15</td><td>Business Continuity Planning (BCP)</td><td>BCP vs. DRP; BCP lifecycle; BIA overview; MTD/RTO/RPO/WRT; testing types; ISO 22301</td></tr>
+    <tr><td>16</td><td>BIA</td><td>MTD; RTO; RPO; WRT; MTBF; MTTR; availability formula</td></tr>
+    <tr><td>17</td><td>BCP Strategy</td><td>Hot/warm/cold sites; testing types; vital records; crisis communications</td></tr>
+    <tr><td>18</td><td>Personnel Security</td><td>Background checks; NDA/AUP/NCA; SoD; job rotation; mandatory vacation</td></tr>
+    <tr><td>19</td><td>Awareness &amp; Training</td><td>Awareness/Training/Education tiers; phishing simulation; NIST SP 800-50</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Core Concepts: Governance, Compliance &amp; Frameworks</h2>
+  <h3>Policy Hierarchy</h3>
+  <div class="definition">
+    <strong>Policy → Standard → Guideline → Procedure:</strong><br>
+    Policy = High-level management intent and direction (WHY and WHAT)<br>
+    Standard = Mandatory, specific, measurable requirements (WHAT exactly is required)<br>
+    Guideline = Recommended, flexible practices (non-mandatory HOW suggestions)<br>
+    Procedure = Step-by-step instructions (HOW to perform a specific task)
+  </div>
+  <h3>Due Care vs. Due Diligence</h3>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Memory Aid</th></tr>
+    <tr><td>Due Care</td><td>Doing what a prudent person would reasonably do to protect assets; the standard of care actually implemented</td><td>Care = ACT (doing something)</td></tr>
+    <tr><td>Due Diligence</td><td>Researching, investigating, and continually monitoring to understand what needs to be done to exercise due care</td><td>Diligence = RESEARCH (knowing what to do)</td></tr>
+  </table>
+  <h3>Security Governance Frameworks</h3>
+  <table>
+    <tr><th>Framework</th><th>Focus Area</th><th>Key Feature</th></tr>
+    <tr><td>NIST CSF</td><td>Identify, Protect, Detect, Respond, Recover</td><td>Risk-based; voluntary; US federal and widely adopted</td></tr>
+    <tr><td>ISO/IEC 27001</td><td>ISMS design and certification</td><td>International; certifiable; Plan-Do-Check-Act</td></tr>
+    <tr><td>COBIT</td><td>IT governance and management</td><td>Business-IT alignment; control objectives</td></tr>
+    <tr><td>SABSA</td><td>Security architecture</td><td>Business-driven security architecture (like Zachman for security)</td></tr>
+    <tr><td>NIST SP 800-37</td><td>Risk Management Framework (RMF)</td><td>Seven steps: Prepare, Categorise, Select, Implement, Assess, Authorise, Monitor</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Risk Management Fundamentals</h2>
+  <h3>Risk Responses — MATA</h3>
+  <table>
+    <tr><th>Response</th><th>Action</th><th>Example</th></tr>
+    <tr><td><strong>T</strong>ransfer</td><td>Shift risk to a third party</td><td>Cyber liability insurance; outsourcing risk</td></tr>
+    <tr><td><strong>A</strong>void</td><td>Eliminate the risky activity entirely</td><td>Stop storing credit card numbers; exit a high-risk market</td></tr>
+    <tr><td><strong>M</strong>itigate</td><td>Reduce likelihood or impact through controls</td><td>Apply patches; implement MFA; deploy encryption</td></tr>
+    <tr><td><strong>A</strong>ccept</td><td>Acknowledge the risk and bear the consequences</td><td>Accept residual risk after controls; document decision</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Remember:</strong> "Ignore" is not a valid risk response. Accepting risk is a conscious, documented decision made by management. Ignoring risk is a failure of governance. The CISSP exam will not accept "ignore" as an answer — the closest valid response is "accept" (with documented management sign-off).
+  </div>
+  <h3>Risk Types</h3>
+  <ul>
+    <li><strong>Inherent Risk:</strong> Risk before any controls are applied</li>
+    <li><strong>Residual Risk:</strong> Risk remaining after controls are applied</li>
+    <li><strong>Total Risk:</strong> Risk if no controls existed at all (theoretical maximum)</li>
+    <li><strong>Risk Appetite:</strong> How much risk the organisation is willing to accept strategically</li>
+    <li><strong>Risk Tolerance:</strong> Acceptable variation around risk appetite targets</li>
+  </ul>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Key Formulas You Must Know</h2>
+  <div class="formula">ALE = SLE × ARO</div>
+  <p><strong>ALE</strong> = Annualised Loss Expectancy (annual risk cost)<br>
+  <strong>SLE</strong> = Single Loss Expectancy = Asset Value (AV) × Exposure Factor (EF)<br>
+  <strong>ARO</strong> = Annualised Rate of Occurrence (how often the threat happens per year)</p>
+
+  <div class="formula">SLE = AV × EF</div>
+  <p><strong>AV</strong> = Asset Value; <strong>EF</strong> = Exposure Factor (percentage of asset lost per incident, 0.0–1.0)</p>
+
+  <div class="formula">ROSI = (ALE_before − ALE_after) − Cost_of_Control</div>
+  <p>Return on Security Investment — the annual net benefit of implementing a control</p>
+
+  <div class="formula">RTO + WRT ≤ MTD</div>
+  <p><strong>RTO</strong> = Recovery Time Objective (time to restore systems after incident)<br>
+  <strong>WRT</strong> = Work Recovery Time (time to restore data/backlogs after systems return)<br>
+  <strong>MTD</strong> = Maximum Tolerable Downtime (maximum survivable outage)</p>
+
+  <div class="formula">Availability = MTBF ÷ (MTBF + MTTR)</div>
+  <p><strong>MTBF</strong> = Mean Time Between Failures (average reliability interval)<br>
+  <strong>MTTR</strong> = Mean Time To Repair (average time to restore after failure)</p>
+
+  <div class="exam-tip">
+    <strong>✅ Exam Tip — Formula Application:</strong>
+    Server AV = $100,000; EF = 40%; ARO = 0.5/year<br>
+    SLE = $100,000 × 0.40 = $40,000<br>
+    ALE = $40,000 × 0.5 = $20,000 per year<br>
+    If a control costs $8,000/year and reduces ARO to 0.1: New ALE = $40,000 × 0.1 = $4,000<br>
+    ROSI = ($20,000 − $4,000) − $8,000 = $8,000/year benefit
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Threat, Vulnerability &amp; Impact Concepts</h2>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
+    <tr><td>Threat</td><td>Any potential event or actor that could cause harm</td><td>Ransomware gang; insider threat; earthquake; hurricane</td></tr>
+    <tr><td>Threat Agent</td><td>The actor that executes or causes the threat</td><td>Hacker group; disgruntled employee; nation-state APT</td></tr>
+    <tr><td>Vulnerability</td><td>A weakness that a threat can exploit</td><td>Unpatched OS; weak passwords; no MFA; unlocked server room</td></tr>
+    <tr><td>Exposure</td><td>The opportunity a threat has to exploit a vulnerability</td><td>Server accessible from the internet without patching</td></tr>
+    <tr><td>Risk</td><td>The probability × impact of a threat exploiting a vulnerability</td><td>30% chance ransomware encrypts server worth $500K = risk of $150K</td></tr>
+    <tr><td>Control / Safeguard</td><td>A measure that reduces probability or impact of risk</td><td>Patch, MFA, backup, encryption, training</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Legal, Regulatory &amp; Privacy</h2>
+  <table>
+    <tr><th>Law/Regulation</th><th>Jurisdiction</th><th>Focus</th></tr>
+    <tr><td>GDPR</td><td>EU/EEA (global impact)</td><td>Personal data protection; right to erasure; data breach notification (72 hrs)</td></tr>
+    <tr><td>HIPAA</td><td>USA</td><td>Protected Health Information (PHI) — healthcare providers, insurers, business associates</td></tr>
+    <tr><td>PCI-DSS</td><td>Global (card industry)</td><td>Cardholder data protection; 12 requirements; merchant levels</td></tr>
+    <tr><td>SOX</td><td>USA (public companies)</td><td>Financial reporting integrity; Section 302 (accountability) and 404 (internal controls)</td></tr>
+    <tr><td>GLBA</td><td>USA (financial institutions)</td><td>Customer financial data protection; safeguards rule; privacy notice requirements</td></tr>
+    <tr><td>FISMA</td><td>USA (federal agencies)</td><td>Federal information security; requires RMF; FIPS-compliant controls</td></tr>
+    <tr><td>ECPA</td><td>USA</td><td>Electronic communications privacy; wiretap protections; stored communications</td></tr>
+  </table>
+  <h3>Computer Crime Law Types</h3>
+  <table>
+    <tr><th>Category</th><th>Example</th></tr>
+    <tr><td>Computer as target</td><td>Hacking, DoS, ransomware against systems</td></tr>
+    <tr><td>Computer as tool</td><td>Using computer for fraud, money laundering, harassment</td></tr>
+    <tr><td>Computer as container</td><td>Storing illegal data on a computer</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Business Continuity &amp; Disaster Recovery</h2>
+  <h3>BCP vs. DRP</h3>
+  <div class="definition">
+    <strong>BCP (Business Continuity Plan):</strong> Strategic-level plan for how the organisation continues business operations during a disruption. Focuses on business functions, not just IT. Longer-term.<br><br>
+    <strong>DRP (Disaster Recovery Plan):</strong> Tactical-level plan for how IT systems are recovered after a disaster. Subset of BCP. More technical, shorter-term recovery focus.
+  </div>
+  <h3>Recovery Site Types</h3>
+  <table>
+    <tr><th>Site Type</th><th>Ready Time</th><th>Cost</th><th>Notes</th></tr>
+    <tr><td>Hot site</td><td>Hours (minutes to hours)</td><td>Highest</td><td>Fully operational with live data replication; immediate failover</td></tr>
+    <tr><td>Warm site</td><td>Days (1–7 days)</td><td>Medium</td><td>Hardware ready but data backup restoration required</td></tr>
+    <tr><td>Cold site</td><td>Weeks (1–4 weeks)</td><td>Lowest</td><td>Just a facility with power/cooling; no equipment pre-staged</td></tr>
+    <tr><td>Mobile site</td><td>Hours–Days</td><td>Medium</td><td>Portable/trailer-based; can be deployed to incident location</td></tr>
+    <tr><td>Cloud/Virtual</td><td>Minutes–Hours</td><td>Variable (OPEX)</td><td>On-demand capacity; pay-per-use model; geographic flexibility</td></tr>
+  </table>
+  <h3>Testing Types (Least to Most Disruptive)</h3>
+  <table>
+    <tr><th>Test Type</th><th>Method</th><th>Disruption</th></tr>
+    <tr><td>Checklist review</td><td>Review plan document for completeness and accuracy</td><td>None</td></tr>
+    <tr><td>Tabletop exercise</td><td>Walk through a scenario verbally — discussion, no execution</td><td>None</td></tr>
+    <tr><td>Walkthrough / Structured walkthrough</td><td>Team walks through procedures step-by-step without activating systems</td><td>Minimal</td></tr>
+    <tr><td>Simulation</td><td>Scenario played out with some actual system participation</td><td>Low–Medium</td></tr>
+    <tr><td>Parallel test</td><td>Recovery systems activated alongside production — production stays up</td><td>Medium</td></tr>
+    <tr><td>Full interruption test</td><td>Production systems shut down; full failover to recovery system</td><td>High — highest realism</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Personnel Security Summary</h2>
+  <table>
+    <tr><th>Control</th><th>Primary Purpose</th><th>Type</th></tr>
+    <tr><td>Background screening</td><td>Prevent hiring insider threats / verify credentials</td><td>Preventive – Administrative</td></tr>
+    <tr><td>NDA</td><td>Legal prohibition on disclosure — survives termination</td><td>Preventive – Legal/Administrative</td></tr>
+    <tr><td>AUP</td><td>Behaviour rules; basis for monitoring; signed before access</td><td>Preventive – Administrative</td></tr>
+    <tr><td>Separation of Duties</td><td>Prevent single-person fraud; dual-control for sensitive acts</td><td>Preventive – Administrative</td></tr>
+    <tr><td>Job rotation</td><td>Detect fraud; build knowledge resilience</td><td>Detective – Administrative</td></tr>
+    <tr><td>Mandatory vacation</td><td>Detect fraud requiring perpetrator's continuous presence</td><td>Detective – Administrative</td></tr>
+    <tr><td>Least privilege</td><td>Minimise blast radius of insider incident</td><td>Preventive – Technical/Admin</td></tr>
+    <tr><td>Access revocation (offboarding)</td><td>FIRST action on departure — remove all access</td><td>Preventive – Technical</td></tr>
+  </table>
+  <h3>Security Awareness Tier Summary</h3>
+  <table>
+    <tr><th>Tier</th><th>Audience</th><th>Goal</th><th>Example</th></tr>
+    <tr><td>Awareness</td><td>All staff</td><td>Recognition and behaviour change</td><td>Phishing sim; tip emails; posters</td></tr>
+    <tr><td>Training</td><td>Role-specific groups</td><td>Build skills for security tasks</td><td>Secure coding course; incident drill</td></tr>
+    <tr><td>Education</td><td>Security professionals</td><td>Deep conceptual understanding</td><td>CISSP; graduate degree; research</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Common CISSP Traps in Domain 1</h2>
+  <div class="warning">
+    <strong>⚠️ Trap 1 — Ignore ≠ Accept:</strong> "Ignore" is not a valid risk response. The correct term is "Accept" — a documented management decision to bear the risk. Don't confuse the two.
+  </div>
+  <div class="warning">
+    <strong>⚠️ Trap 2 — Guideline vs. Standard:</strong> Guidelines are optional recommendations; Standards are mandatory requirements. "Best practice guidance documents" are guidelines; "You MUST use AES-256" is a standard.
+  </div>
+  <div class="warning">
+    <strong>⚠️ Trap 3 — Due Care vs. Due Diligence:</strong> Due Care = acting (implementing controls); Due Diligence = researching and monitoring. Confusion on these terms appears frequently.
+  </div>
+  <div class="warning">
+    <strong>⚠️ Trap 4 — RTO vs. MTD:</strong> RTO must be less than MTD. RTO + WRT ≤ MTD. If RTO equals MTD, there is zero tolerance for any data recovery delay (WRT = 0). This often trips up candidates.
+  </div>
+  <div class="warning">
+    <strong>⚠️ Trap 5 — Hot Site Speed:</strong> Hot sites can restore service in hours (or minutes for immediate failover). The exam sometimes implies they're "instantaneous" — in practice, some configuration, testing, and DNS changes are still needed, so "hours" not "seconds."
+  </div>
+  <div class="warning">
+    <strong>⚠️ Trap 6 — First Action on Termination:</strong> Always revoke access first — before HR meeting, before exit interview, before equipment retrieval (especially for hostile terminations).
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Master Summary Table — Domain 1</h2>
+  <table>
+    <tr><th>Category</th><th>Key Term</th><th>One-Line Definition</th></tr>
+    <tr><td>CIA</td><td>Confidentiality</td><td>Only authorised entities can access information</td></tr>
+    <tr><td>CIA</td><td>Integrity</td><td>Information is accurate and unaltered by unauthorised parties</td></tr>
+    <tr><td>CIA</td><td>Availability</td><td>Authorised entities can access information when needed</td></tr>
+    <tr><td>Risk Formula</td><td>ALE = SLE × ARO</td><td>Annual expected loss = single-event loss × annual frequency</td></tr>
+    <tr><td>Risk Formula</td><td>SLE = AV × EF</td><td>Single-event loss = asset value × fraction lost</td></tr>
+    <tr><td>BCP Formula</td><td>RTO + WRT ≤ MTD</td><td>Recovery time + data recovery time must fit within tolerable downtime</td></tr>
+    <tr><td>BCP Formula</td><td>Availability = MTBF ÷ (MTBF+MTTR)</td><td>Fraction of time a system is operational</td></tr>
+    <tr><td>Security Models</td><td>Bell-LaPadula</td><td>No read up, no write down — confidentiality model</td></tr>
+    <tr><td>Security Models</td><td>Biba</td><td>No write up, no read down — integrity model</td></tr>
+    <tr><td>Governance</td><td>Due Care</td><td>Acting reasonably to protect assets</td></tr>
+    <tr><td>Governance</td><td>Due Diligence</td><td>Researching and monitoring obligations</td></tr>
+    <tr><td>Personnel</td><td>SoD</td><td>No single person can commit fraud alone in sensitive processes</td></tr>
+    <tr><td>Personnel</td><td>Mandatory Vacation</td><td>Forces absence to surface fraud requiring perpetrator's presence</td></tr>
+    <tr><td>BCP</td><td>Hot Site</td><td>Fully operational recovery facility; hours of failover time</td></tr>
+    <tr><td>BCP</td><td>Full Interruption Test</td><td>Most realistic BCP test; shuts down production; highest disruption risk</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-019-theory.html" class="nav-btn">← Day 19: Awareness &amp; Training</a>
+  <a href="day-020-mcq.html" class="nav-btn">📝 Take Domain 1 Review Quiz (20 Qs) →</a>
+</div>
+</div>
+</body>
+</html>

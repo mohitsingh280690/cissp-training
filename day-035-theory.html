@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 35 – Security Models: Bell-LaPadula</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 35 – Security Models: Bell-LaPadula</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 35 of 140</span><span>⏱️ ~40 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-034-theory.html">← Day 34</a> · Domain 3 · Day 35 · <a href="day-035-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. What is Bell-LaPadula?</a></li>
+  <li><a href="#s4">4. The State Machine Concept</a></li>
+  <li><a href="#s5">5. BLP Properties (Rules)</a></li>
+  <li><a href="#s6">6. Tranquility Principles</a></li>
+  <li><a href="#s7">7. BLP Limitations &amp; Criticisms</a></li>
+  <li><a href="#s8">8. BLP vs. Other Models</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — security models are frequently tested; BLP is the most tested model</td></tr>
+  <tr><td>Why Tested</td><td>BLP is the foundational formal security model for confidentiality. Understanding its properties is essential for comparing all other models.</td></tr>
+  <tr><td>Question Style</td><td>"Which BLP property prevents…", "A system enforcing no-read-up and no-write-down is implementing…", scenario-based classification questions</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 2 (data classification links to BLP clearance levels), Domain 5 (MAC = mandatory access control enforces BLP), Domain 7 (operational security policies)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects select and implement formal models; data owners define classification levels</td></tr>
+  <tr><td>Implementation</td><td>Military/government systems (MLS — Multi-Level Security), SELinux MAC policies, classified network architectures</td></tr>
+  <tr><td>Failure Modes</td><td>If BLP is not enforced: classified data leaks to lower clearance levels (confidentiality breach); covert channels bypass formal controls</td></tr>
+  <tr><td>Business Impact</td><td>Prevents unauthorized disclosure of classified or highly sensitive information; required for government/defense system certification (e.g., Common Criteria EAL)</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. What is Bell-LaPadula?</h2>
+<div class="callout definition">
+  <strong>📖 Bell-LaPadula (BLP) Model:</strong> A formal state machine security model developed in 1973 by David Bell and Leonard LaPadula at MITRE Corporation for the U.S. Department of Defense. It focuses exclusively on <strong>confidentiality</strong> — preventing unauthorized disclosure of information.
+</div>
+<p>BLP was the first mathematical model to formalize the concept of a secure state. It uses <strong>security labels</strong> (classification levels) assigned to subjects (users/processes) and objects (files/data) to enforce mandatory access control.</p>
+<h3>Classification Levels (Lattice)</h3>
+<p>BLP operates on a lattice of security levels, ordered from lowest to highest:</p>
+<div class="diagram">
+  Top Secret  ← Highest
+      │
+    Secret
+      │
+  Confidential
+      │
+  Unclassified ← Lowest
+
+  Subject clearance ≥ Object classification → Access may be granted
+</div>
+<p>Each subject has a <strong>clearance level</strong>; each object has a <strong>classification level</strong>. The BLP rules determine what read/write operations are permitted based on these levels.</p>
+</section>
+
+<section id="s4">
+<h2>4. The State Machine Concept</h2>
+<div class="callout key-concept">
+  <strong>🔑 State Machine:</strong> A system is modeled as a set of states. Each state defines the permissions between all subjects and objects. A <strong>secure state</strong> is one where no BLP rule is violated. If the system starts in a secure state and every transition (read, write, execute) preserves security, the system is always secure.
+</div>
+<p>This is the <strong>Basic Security Theorem (BST)</strong> of BLP: if a system starts in a secure state and all state transitions are secure, every subsequent state is also secure.</p>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The state machine concept is shared by BLP, Biba, and Clark-Wilson. What differs is what property each model protects: BLP = confidentiality, Biba = integrity, Clark-Wilson = integrity via well-formed transactions.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. BLP Properties (Rules)</h2>
+
+<h3>5.1 Simple Security Property (ss-property) — "No Read Up"</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject cannot <strong>read</strong> an object at a <strong>higher</strong> classification level than the subject's clearance. A Secret-cleared user cannot read Top Secret documents.
+</div>
+
+<h3>5.2 Star (*) Property — "No Write Down"</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject cannot <strong>write</strong> to an object at a <strong>lower</strong> classification level than the subject's current clearance. A Top Secret user cannot write to an Unclassified file. This prevents high-clearance subjects from leaking information to lower levels.
+</div>
+<div class="callout warning">
+  <strong>⚠️ Critical Understanding:</strong> The * property prevents <em>information flow</em> downward. Even if a Top Secret user creates an innocuous document, writing it to an Unclassified location would create a channel that could be exploited.
+</div>
+
+<h3>5.3 Strong Star Property</h3>
+<div class="callout key-concept">
+  <strong>🔑 Rule:</strong> A subject can read and write <strong>only</strong> at their own classification level. No reading up, no writing down, no reading down, no writing up. This is the most restrictive form.
+</div>
+
+<h3>5.4 Discretionary Security Property (ds-property)</h3>
+<p>BLP also incorporates a discretionary access control matrix (like an ACL) that operates <strong>within</strong> the mandatory rules. Even if BLP allows access based on clearance levels, the DAC matrix can further restrict it.</p>
+
+<div class="diagram">
+                BELL-LaPADULA ACCESS RULES
+╔══════════════════════════════════════════════════╗
+║                                                  ║
+║   Subject (Secret clearance)                     ║
+║                                                  ║
+║   Can READ:                                      ║
+║     ✅ Unclassified  (read down – permitted)     ║
+║     ✅ Confidential  (read down – permitted)     ║
+║     ✅ Secret        (read same – permitted)     ║
+║     ❌ Top Secret    (NO READ UP!)               ║
+║                                                  ║
+║   Can WRITE:                                     ║
+║     ❌ Unclassified  (NO WRITE DOWN!)            ║
+║     ❌ Confidential  (NO WRITE DOWN!)            ║
+║     ✅ Secret        (write same – permitted)    ║
+║     ✅ Top Secret    (write up – permitted)      ║
+║                                                  ║
+╚══════════════════════════════════════════════════╝
+</div>
+
+<table>
+  <tr><th>Property</th><th>Rule</th><th>Direction</th><th>Protects</th></tr>
+  <tr><td>Simple Security (ss)</td><td>No Read Up</td><td>Subject cannot read objects above their clearance</td><td>Confidentiality</td></tr>
+  <tr><td>Star (*)</td><td>No Write Down</td><td>Subject cannot write objects below their clearance</td><td>Prevents information leakage</td></tr>
+  <tr><td>Strong Star</td><td>Read/Write at own level only</td><td>Most restrictive — no cross-level access</td><td>Maximum confidentiality</td></tr>
+  <tr><td>Discretionary (ds)</td><td>Access control matrix</td><td>Additional restrictions within mandatory rules</td><td>Fine-grained authorization</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Tranquility Principles</h2>
+<div class="callout definition">
+  <strong>📖 Tranquility:</strong> Rules about whether classification/clearance levels can change during system operation.
+</div>
+<table>
+  <tr><th>Principle</th><th>Definition</th></tr>
+  <tr><td>Strong Tranquility</td><td>Classification and clearance labels <strong>never change</strong> once assigned. Most restrictive — eliminates all label manipulation risks.</td></tr>
+  <tr><td>Weak Tranquility</td><td>Labels <strong>can change</strong>, but changes must not violate the security policy. A document can be reclassified upward (never downward if it still contains classified data).</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Strong tranquility is simpler to enforce and verify. Weak tranquility is more practical but introduces complexity. The exam may ask which type prevents label changes — the answer is <strong>Strong</strong> tranquility.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. BLP Limitations &amp; Criticisms</h2>
+<ul>
+  <li><strong>No integrity protection:</strong> BLP only addresses confidentiality. A subject can write <em>up</em> (to a higher level), which could corrupt higher-level data with unreliable lower-level input. This is the exact problem Biba's model addresses.</li>
+  <li><strong>Covert channels:</strong> BLP does not address covert channels — hidden communication paths that bypass formal access controls (timing channels, storage channels).</li>
+  <li><strong>No enforcement of "need to know":</strong> BLP uses clearance levels but doesn't enforce compartmentalized access within the same level.</li>
+  <li><strong>Trusted subjects:</strong> BLP allows "trusted subjects" that can violate the * property when required (e.g., a system administrator declassifying data). This creates a potential bypass.</li>
+  <li><strong>Static model:</strong> Under strong tranquility, BLP cannot adapt to changing business requirements without restarting the system or redefining labels.</li>
+</ul>
+</section>
+
+<section id="s8">
+<h2>8. BLP vs. Other Models</h2>
+<table>
+  <tr><th>Model</th><th>Focus</th><th>Key Rule</th><th>Relationship to BLP</th></tr>
+  <tr><td>Bell-LaPadula</td><td>Confidentiality</td><td>No Read Up, No Write Down</td><td>—</td></tr>
+  <tr><td>Biba</td><td>Integrity</td><td>No Read Down, No Write Up</td><td>Exact inverse of BLP</td></tr>
+  <tr><td>Clark-Wilson</td><td>Integrity</td><td>Well-formed transactions (CDI, TP, IVP)</td><td>Practical complement; commercial focus</td></tr>
+  <tr><td>Brewer-Nash</td><td>Conflict of Interest</td><td>Chinese Wall — dynamic access restrictions</td><td>Addresses a scenario BLP doesn't cover</td></tr>
+  <tr><td>Lipner</td><td>Both</td><td>Combines BLP + Biba</td><td>Addresses BLP's integrity gap</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> BLP and Biba are <strong>exact opposites</strong>. BLP: No Read Up / No Write Down (protects confidentiality). Biba: No Read Down / No Write Up (protects integrity). Memorize this contrast — it's tested constantly.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "BLP = No Read Up, No Write Down":</strong> Think "BLP Locks Papers" — papers (classified docs) are locked so you can't read above your level or leak (write) below it.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 BLP vs. Biba Quick Rule:</strong><br>
+  <strong>BLP</strong> = "Bell Loves Privacy" → Confidentiality → No Read Up, No Write Down<br>
+  <strong>Biba</strong> = "Biba loves Integrity" → Integrity → No Read Down, No Write Up<br>
+  They are mirror images of each other.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Star (*) Property:</strong> Think of the * as a "splash" — information can't "splash down" from a higher classification to a lower one.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 WURD for BLP:</strong> <strong>W</strong>rite <strong>U</strong>p, <strong>R</strong>ead <strong>D</strong>own — what BLP <em>allows</em>. The opposite (Read Up, Write Down) is what BLP <em>blocks</em>.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Model Type</td><td>Formal state machine model (1973, DoD)</td></tr>
+  <tr><td>Focus</td><td>Confidentiality — prevents unauthorized disclosure</td></tr>
+  <tr><td>Simple Security</td><td>No Read Up — subjects can't read above their clearance</td></tr>
+  <tr><td>Star Property</td><td>No Write Down — subjects can't write below their clearance</td></tr>
+  <tr><td>Strong Star</td><td>Read/write only at own level — most restrictive</td></tr>
+  <tr><td>Tranquility</td><td>Strong = labels never change; Weak = labels change only if policy preserved</td></tr>
+  <tr><td>Limitation</td><td>No integrity protection — Biba and Clark-Wilson address this</td></tr>
+  <tr><td>MAC Enforcement</td><td>BLP is implemented through Mandatory Access Control systems</td></tr>
+  <tr><td>Key Relationship</td><td>BLP and Biba are exact inverses; Lipner combines both</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-034-theory.html" class="nav-btn">← Day 34: Security Engineering Principles</a>
+<a href="day-035-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

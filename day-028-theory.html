@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 28 – Data Security Controls</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 28: Data Security Controls</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 28 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 28: Data Security Controls</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">Encryption Controls</a></li>
+    <li><a href="#s4">Access Control Models</a></li>
+    <li><a href="#s5">DRM and IRM</a></li>
+    <li><a href="#s6">Digital Watermarking</a></li>
+    <li><a href="#s7">Database Security Controls</a></li>
+    <li><a href="#s8">Cloud Data Security</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Data security controls are the technical implementation layer of asset security. The exam tests whether candidates can select the appropriate control for a given scenario — right encryption for right data state; right access model for right environment; DRM vs. IRM; CASB vs. DLP.</td></tr>
+    <tr><td>Question Styles</td><td>"Which access control model would be MOST appropriate for a military database?"; "An organisation wants to prevent users from forwarding confidential Word documents via email — what technology?"; "How does a CASB enforce data security in cloud environments?"</td></tr>
+    <tr><td>Cross-Domain</td><td>Domain 3 (cryptographic algorithms); Domain 5 (access control models MAC/DAC/RBAC/ABAC); Domain 6 (database security assessment)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> DRM and IRM are often confused. DRM is the general concept of digital content rights management (used for media protection). IRM is the enterprise-focused version for business documents. Also: watermarking proves ownership and traces leaks — it does NOT prevent copying.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Data security controls are what make classification policy real. Without technical enforcement, a "Confidential" label is just a word on a document. These controls enforce the policies defined by data owners, custodians, and governance frameworks — preventing unauthorised access, exfiltration, and misuse.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Encryption Controls</h2>
+  <h3>Encryption at Rest</h3>
+  <p>Protects data stored on physical or logical media:</p>
+  <ul>
+    <li><strong>AES-256:</strong> The standard algorithm for data at rest; used for file/folder encryption, database encryption, full disk encryption</li>
+    <li><strong>Full Disk Encryption (FDE):</strong> Encrypts the entire storage volume; examples: BitLocker (Windows), FileVault (macOS), VeraCrypt (cross-platform); protects against physical theft of devices</li>
+    <li><strong>Transparent Database Encryption (TDE):</strong> Database-level encryption (SQL Server, Oracle, MySQL) that encrypts data files, log files, and backups transparently — applications interact with decrypted data; encryption/decryption happens at the database engine layer</li>
+    <li><strong>Self-Encrypting Drives (SEDs):</strong> Storage devices with built-in hardware encryption; cryptographic erasure is as simple as destroying/resetting the drive-internal key</li>
+  </ul>
+  <h3>Encryption in Transit</h3>
+  <p>Protects data moving across networks:</p>
+  <ul>
+    <li><strong>TLS 1.2/1.3:</strong> Transport Layer Security — standard for HTTPS, SMTPS, IMAPS, and other application protocols; TLS 1.3 is preferred (TLS 1.0/1.1 are deprecated)</li>
+    <li><strong>IPSec:</strong> Network-layer encryption; Tunnel mode (site-to-site VPNs — encrypts entire packet including headers); Transport mode (host-to-host — encrypts payload only)</li>
+    <li><strong>SSH:</strong> Secure Shell — encrypted remote administration and SFTP file transfer</li>
+    <li><strong>VPN:</strong> Virtual Private Network — extends an encrypted tunnel over public networks; uses IPSec, SSL/TLS, or WireGuard</li>
+  </ul>
+  <h3>Encryption in Use</h3>
+  <p>Protects data while it is being actively processed in memory:</p>
+  <ul>
+    <li><strong>Homomorphic encryption:</strong> Allows computation to be performed on encrypted (ciphertext) data without decrypting it first; results when decrypted match results from operating on unencrypted data; currently computationally expensive but promising for cloud computing privacy</li>
+    <li><strong>Secure enclaves (Intel SGX):</strong> Hardware-isolated memory regions (enclaves) within the CPU; applications run and process data inside the enclave; enclave memory is encrypted and inaccessible even to the OS, hypervisor, or BIOS; Intel SGX is the most prominent example</li>
+    <li><strong>TEE — Trusted Execution Environment:</strong> Broader term for isolated secure processing environments (hardware and software); includes ARM TrustZone; used in mobile payments, DRM, and attestation</li>
+  </ul>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Access Control Models</h2>
+  <table>
+    <tr><th>Model</th><th>Who Controls Access</th><th>Mechanism</th><th>Best For</th></tr>
+    <tr><td><strong>DAC</strong> — Discretionary Access Control</td><td>Data owner (at their discretion)</td><td>ACLs; owner grants/revokes rights to other subjects</td><td>Commercial environments; most OS file systems (NTFS)</td></tr>
+    <tr><td><strong>MAC</strong> — Mandatory Access Control</td><td>System (enforces classification labels)</td><td>Labels (sensitivity + compartments); clearance levels; Bell-LaPadula model (no read-up, no write-down)</td><td>Government/military high-security environments; SELinux</td></tr>
+    <tr><td><strong>RBAC</strong> — Role-Based Access Control</td><td>Administrator (assigns roles)</td><td>Users assigned to roles; roles have permissions; most used in enterprise</td><td>Enterprise environments; reduces admin overhead; supports least privilege</td></tr>
+    <tr><td><strong>ABAC</strong> — Attribute-Based Access Control</td><td>Policy engine evaluating attributes</td><td>Access decisions based on user, resource, and environment attributes (e.g., "Department=Finance AND Classification≤Confidential AND Time=BusinessHours")</td><td>Complex fine-grained access needs; cloud environments; zero-trust architectures</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> MAC is the MOST RESTRICTIVE model — the system enforces policy; even data owners cannot grant access exceeding their own clearance. DAC is the MOST FLEXIBLE but also the MOST EASILY EXPLOITED (a malicious owner or Trojan horse can grant permissions to anyone). For maximum security (government/military), MAC is the answer.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. DRM and IRM</h2>
+  <h3>DRM — Digital Rights Management</h3>
+  <div class="definition">
+    <strong>DRM:</strong> Technologies and policies that control access to and use of digital content (copying, printing, forwarding, screen capture) by enforcing rights embedded in the content itself. Protection travels with the document.
+  </div>
+  <p>DRM use cases: Music and video streaming platforms (Netflix, Spotify); e-books (Kindle); software licencing; government classified documents.</p>
+
+  <h3>IRM — Information Rights Management</h3>
+  <div class="definition">
+    <strong>IRM:</strong> Enterprise-focused DRM for business documents. Applies persistent protection to Office documents, PDFs, and emails. Users can be restricted from copying, printing, forwarding, or editing specific documents. Access can be revoked even after distribution.
+  </div>
+  <p>IRM examples: Microsoft Azure Information Protection (AIP) / Microsoft Purview; Adobe LiveCycle Policy Server. IRM can enforce: "View only – no print – no copy – expires 30 days."</p>
+  <div class="key-concept">
+    <strong>DRM vs. IRM — The Distinction:</strong><br>
+    DRM = General term, often consumer content protection<br>
+    IRM = Enterprise version for business documents<br>
+    Both provide <em>persistent protection that travels with the content</em> regardless of where the file is saved or sent.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Digital Watermarking</h2>
+  <div class="definition">
+    <strong>Digital Watermarking:</strong> Embedding identifying information (ownership, recipient identity) into digital media (images, documents, audio, video) to prove ownership and trace the source of unauthorised copies or leaks.
+  </div>
+  <ul>
+    <li><strong>Overt (visible) watermarks:</strong> Visible to the user — "CONFIDENTIAL" overlay text on a document; a company logo stamped on an image. Deters casual copying but can be cropped or removed.</li>
+    <li><strong>Covert (invisible/steganographic) watermarks:</strong> Hidden within the digital content without visible distortion; detectable only by the watermarking software or algorithm; survives format conversion and printing-and-scanning. Used for forensic investigation — if a document leaks, extracting the watermark reveals the specific copy that was distributed and who received it.</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠️ Important Distinction:</strong> Watermarking does NOT prevent unauthorised copying or distribution. It identifies the source after the fact. For preventing distribution, use DRM/IRM. For proving source after a breach, use watermarking. These are complementary controls used together.
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Database Security Controls</h2>
+  <ul>
+    <li><strong>Database Views:</strong> Virtual tables that present a subset of columns and rows to specific users; achieve least privilege at the data layer without modifying the underlying table structure. Example: finance users see a view that shows all columns; call centre users see a view with SSN masked.</li>
+    <li><strong>Stored Procedures:</strong> Pre-compiled SQL code that applications call by name instead of sending raw SQL; the primary defence against SQL injection at the application layer; parameterised queries are the key technique.</li>
+    <li><strong>Column-level encryption:</strong> Encrypt specific sensitive columns (SSN, credit card, passwords) rather than the entire database; even authenticated users cannot read the column values without the decryption key.</li>
+    <li><strong>Row-level security (RLS):</strong> Restricts which rows a user can access based on their identity or role; e.g., a salesperson sees only their own customers' records, not all customers.</li>
+    <li><strong>Database Activity Monitoring (DAM):</strong> Real-time monitoring and logging of all database queries and actions; alerts on anomalous activity (mass SELECT of sensitive columns, after-hours access, access from unexpected IP); supports forensic investigation.</li>
+    <li><strong>Privilege separation:</strong> Database admin (DBA) role should be separate from Security Admin; DBAs should not have access to the application's data they administer.</li>
+  </ul>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Cloud Data Security</h2>
+  <ul>
+    <li><strong>Data residency / data sovereignty:</strong> Regulations may require data to remain in specific jurisdictions; cloud providers must be contracted to respect data residency requirements</li>
+    <li><strong>CSP Shared Responsibility Model:</strong> In IaaS, the cloud customer is responsible for OS security, application security, and data security; the CSP is responsible for physical infrastructure, virtualisation layer, and network. In SaaS, the CSP handles most security — the customer controls data and access management.</li>
+    <li><strong>CASB — Cloud Access Security Broker:</strong> A security policy enforcement point between cloud service users and cloud service providers. CASB capabilities:
+      <ul>
+        <li>Visibility: Discover what cloud services are being used (including Shadow IT)</li>
+        <li>Data Security: Enforce DLP policies across cloud storage and sharing</li>
+        <li>Threat Protection: Detect anomalous user behaviour and malicious activity in cloud apps</li>
+        <li>Compliance: Enforce compliance policies (e.g., prevent uploading unencrypted PII to cloud storage)</li>
+      </ul>
+    </li>
+    <li><strong>Cloud key management:</strong> Who controls the encryption keys? Customer-managed keys (CMK) provide the highest control — the CSP cannot access data without the customer's key. Bring Your Own Key (BYOK) and Hold Your Own Key (HYOK) are variants.</li>
+  </ul>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Access Control Models — "DAC = Discretionary (owner), MAC = Mandatory (system), RBAC = Role, ABAC = Attributes":</strong><br>
+    D = Discretionary = Data owner decides (most flexible, least restriction)<br>
+    M = Mandatory = Military / government (system enforces labels; most restrictive)<br>
+    R = Role = Enterprise standard (group-based, admin assigns)<br>
+    A = Attributes = Advanced / cloud / zero-trust (policy engine evaluates multiple factors)
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 DRM vs. Watermarking — "Rights vs. Reveals":</strong><br>
+    DRM/IRM = Controls RIGHTS — prevents unauthorised copying, forwarding, printing<br>
+    Watermarking = REVEALS the source — proves who leaked it, after the fact<br>
+    "DRM stops the leak; Watermark names the leaker"
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 CASB = The Cloud Security Sheriff:</strong><br>
+    Visibility (what cloud services are used?)<br>
+    Data security (DLP in the cloud)<br>
+    Threat protection (anomalous behaviour)<br>
+    Compliance enforcement (no unencrypted PII uploads)
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Control</th><th>Purpose</th><th>Key Fact</th></tr>
+    <tr><td>FDE / TDE</td><td>Encryption at rest</td><td>Whole disk (FDE) vs. database engine (TDE)</td></tr>
+    <tr><td>TLS 1.3 / IPSec</td><td>Encryption in transit</td><td>TLS for application layer; IPSec for network layer</td></tr>
+    <tr><td>SGX / Homomorphic encryption</td><td>Encryption in use</td><td>Protect data while being processed in memory/cloud</td></tr>
+    <tr><td>MAC</td><td>Access control</td><td>Most restrictive — system enforces labels (military/govt)</td></tr>
+    <tr><td>RBAC</td><td>Access control</td><td>Enterprise standard — user→role→permissions</td></tr>
+    <tr><td>IRM</td><td>Document protection</td><td>Persistent protection (view-only, no-print) that travels with document</td></tr>
+    <tr><td>Watermarking</td><td>Source tracing</td><td>Does NOT prevent leaks; identifies source after leak occurs</td></tr>
+    <tr><td>Database Views</td><td>Data access restriction</td><td>Column/row level least privilege at the database layer</td></tr>
+    <tr><td>CASB</td><td>Cloud data security</td><td>Enforces DLP, compliance, visibility in cloud app usage</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-027-theory.html" class="nav-btn">← Day 27: Retention &amp; Destruction</a>
+  <a href="day-028-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

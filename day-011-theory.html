@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 11 – Qualitative Risk Analysis</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.risk-matrix{display:grid;grid-template-columns:auto repeat(5,1fr);gap:2px;margin:16px 0;font-size:.85rem;text-align:center;}
+.rm-header{background:var(--primary);color:white;padding:8px;font-weight:600;}
+.rm-label{background:#e8eaf6;padding:8px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.rm-low{background:#c8e6c9;padding:8px;}
+.rm-med{background:#fff9c4;padding:8px;}
+.rm-high{background:#ffccbc;padding:8px;}
+.rm-crit{background:#ef9a9a;padding:8px;font-weight:600;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 11: Qualitative Risk Analysis</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 11 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~35 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 11: Qualitative Risk Analysis</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">What Is Qualitative Risk Analysis?</a></li>
+    <li><a href="#s4">Risk Matrix (Heat Map)</a></li>
+    <li><a href="#s5">Qualitative Techniques</a></li>
+    <li><a href="#s6">Delphi Technique</a></li>
+    <li><a href="#s7">Scenario Analysis</a></li>
+    <li><a href="#s8">Comparing Qualitative vs. Quantitative</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Most real-world risk assessments use qualitative methods because precise quantitative data is rarely available. The CISSP must understand when qualitative is appropriate and how tools like risk matrices and the Delphi technique work.</td></tr>
+    <tr><td>Question Styles</td><td>Identifying the appropriate method for a given scenario; Delphi technique purpose; reading and interpreting a risk matrix; understanding strengths/weaknesses of qualitative analysis</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (quantitative — contrast and comparison), D2 (asset classification drives qualitative ratings), D9 (risk response — qualitative prioritisation feeds response decisions)</td></tr>
+  </table>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Qualitative risk analysis is the workhorse of daily risk management. When an organisation needs to assess 50 risks across multiple business units, it's impossible to perform full quantitative analysis on each. Qualitative methods allow rapid prioritisation so limited resources can be focused where they matter most.</p>
+  <p>Most risk registers in practice are qualitative or semi-quantitative. Many compliance frameworks (ISO 27001, PCI-DSS, HIPAA) require a risk assessment but do not mandate quantitative methods — a well-constructed qualitative assessment satisfies audit requirements.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. What Is Qualitative Risk Analysis?</h2>
+  <div class="definition">
+    <strong>Qualitative Risk Analysis:</strong> Assessment of risk using descriptive scales (High/Medium/Low; 1–5; Critical/Major/Minor) rather than precise dollar values. Based on expert judgment, historical analysis, and structured group techniques.
+  </div>
+  <p>Qualitative analysis typically produces:</p>
+  <ul>
+    <li>Probability ratings (e.g., Very High / High / Medium / Low / Very Low)</li>
+    <li>Impact ratings (same scale)</li>
+    <li>Risk scores (Probability × Impact on a scale matrix)</li>
+    <li>Risk rankings and prioritised lists</li>
+    <li>Risk heat maps (colour-coded matrices)</li>
+  </ul>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Risk Matrix (Heat Map)</h2>
+  <p>The risk matrix plots likelihood (probability) against impact to produce a visual risk ranking.</p>
+
+  <div class="risk-matrix">
+    <div class="rm-header">Likelihood ↓ / Impact →</div>
+    <div class="rm-header">Negligible (1)</div>
+    <div class="rm-header">Minor (2)</div>
+    <div class="rm-header">Moderate (3)</div>
+    <div class="rm-header">Major (4)</div>
+    <div class="rm-header">Catastrophic (5)</div>
+    <div class="rm-label">Almost Certain (5)</div>
+    <div class="rm-med">5</div>
+    <div class="rm-high">10</div>
+    <div class="rm-high">15</div>
+    <div class="rm-crit">20</div>
+    <div class="rm-crit">25</div>
+    <div class="rm-label">Likely (4)</div>
+    <div class="rm-low">4</div>
+    <div class="rm-med">8</div>
+    <div class="rm-high">12</div>
+    <div class="rm-high">16</div>
+    <div class="rm-crit">20</div>
+    <div class="rm-label">Possible (3)</div>
+    <div class="rm-low">3</div>
+    <div class="rm-med">6</div>
+    <div class="rm-med">9</div>
+    <div class="rm-high">12</div>
+    <div class="rm-high">15</div>
+    <div class="rm-label">Unlikely (2)</div>
+    <div class="rm-low">2</div>
+    <div class="rm-low">4</div>
+    <div class="rm-med">6</div>
+    <div class="rm-med">8</div>
+    <div class="rm-high">10</div>
+    <div class="rm-label">Rare (1)</div>
+    <div class="rm-low">1</div>
+    <div class="rm-low">2</div>
+    <div class="rm-low">3</div>
+    <div class="rm-low">4</div>
+    <div class="rm-med">5</div>
+  </div>
+  <p style="font-size:.85rem;color:var(--text-light);">🟢 Low (1–4) → Accept | 🟡 Medium (5–10) → Monitor/Mitigate | 🟠 High (11–16) → Mitigate/Transfer | 🔴 Critical (17–25) → Immediate Action</p>
+
+  <div class="key-concept">
+    <strong>How to Use a Risk Matrix:</strong>
+    <ol>
+      <li>List all identified risks</li>
+      <li>For each risk, estimate the likelihood (1–5) and impact (1–5)</li>
+      <li>Plot on the matrix; calculate risk score = L × I</li>
+      <li>Prioritise risks with highest scores</li>
+      <li>Determine treatment strategy based on risk zone (colour)</li>
+    </ol>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Qualitative Techniques</h2>
+  <table>
+    <tr><th>Technique</th><th>Description</th><th>Best For</th></tr>
+    <tr><td><strong>Brainstorming</strong></td><td>Open group session where participants contribute risk ideas freely without judgment; ideas then evaluated</td><td>Initial risk identification; new domains; uncovering risks not on standard lists</td></tr>
+    <tr><td><strong>Expert Interviews</strong></td><td>One-on-one or small group structured discussions with subject matter experts to elicit risk judgments</td><td>Specialised technical risks; C-suite business risk perspectives</td></tr>
+    <tr><td><strong>Delphi Technique</strong></td><td>Anonymous, structured, iterative expert consensus method (see next section)</td><td>Resolving disagreements; high-stakes decisions; diverse expert groups</td></tr>
+    <tr><td><strong>Tabletop Exercises</strong></td><td>Scenario-based discussions where teams walk through how they would respond to a hypothetical event</td><td>BCP/DR testing; identifying gaps in incident response procedures</td></tr>
+    <tr><td><strong>Scenario Analysis</strong></td><td>Developing and analysing specific threat scenarios to assess probability and consequence</td><td>High-impact/low-probability risks; major incidents</td></tr>
+    <tr><td><strong>Checklists</strong></td><td>Using standardised lists of known risks and controls to identify gaps</td><td>Compliance-focused assessments; baseline security reviews</td></tr>
+    <tr><td><strong>Risk Surveys/Questionnaires</strong></td><td>Structured instruments to collect risk perceptions across the organisation</td><td>Large organisations; distributed assessments; getting business unit input</td></tr>
+  </table>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Delphi Technique</h2>
+  <div class="definition">
+    <strong>Delphi Technique:</strong> A structured, anonymous, multi-round expert consensus process designed to produce reliable group estimates by eliminating the influence of group dynamics, dominant personalities, and conformity bias.
+  </div>
+
+  <h3>How the Delphi Process Works</h3>
+  <ol>
+    <li><strong>Select Experts:</strong> Identify diverse expert panel (technical, business, operational perspectives)</li>
+    <li><strong>Round 1 — Anonymous Input:</strong> Each expert independently provides their assessment (e.g., likelihood rating for each risk). All responses are anonymous.</li>
+    <li><strong>Aggregation:</strong> A facilitator collects, aggregates, and summarises the responses (often showing the statistical distribution)</li>
+    <li><strong>Round 2 — Feedback and Revision:</strong> Each expert receives the aggregated results and can revise their estimates in light of others' anonymous feedback. Those who maintain outlier positions are asked to provide rationale.</li>
+    <li><strong>Iteration:</strong> Repeat until consensus is reached (typically 2–4 rounds)</li>
+    <li><strong>Final Consensus:</strong> The final estimates are considered the group's best assessment</li>
+  </ol>
+
+  <h3>Why Delphi Is Valuable</h3>
+  <ul>
+    <li>Eliminates the "HiPPO effect" (Highest Paid Person's Opinion dominates)</li>
+    <li>Anonymous voting prevents groupthink and peer pressure</li>
+    <li>Iterative refinement improves accuracy over single-round estimates</li>
+    <li>Enables geographically distributed participation</li>
+    <li>Produces documented, traceable expert consensus</li>
+  </ul>
+
+  <div class="exam-tip">
+    <strong>💡 Delphi Exam Points:</strong> The exam often asks what technique is used when you want to eliminate bias from group assessments and achieve consensus without dominant individuals influencing others. The answer is always <strong>Delphi Technique</strong>. Key characteristics to remember: anonymous, iterative, consensus-seeking.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Scenario Analysis</h2>
+  <p>Scenario analysis involves constructing detailed narratives of plausible threat events and analysing their probability and impact:</p>
+
+  <h3>Sample Scenario Structure</h3>
+  <table>
+    <tr><th>Element</th><th>Example Content</th></tr>
+    <tr><td>Scenario Name</td><td>Ransomware Attack via Phishing Email</td></tr>
+    <tr><td>Threat Actor</td><td>Financially motivated cybercriminal group</td></tr>
+    <tr><td>Attack Vector</td><td>Spear-phishing email with malicious attachment targeting finance department</td></tr>
+    <tr><td>Assets at Risk</td><td>File servers, databases, critical applications, backup systems</td></tr>
+    <tr><td>Likelihood</td><td>High (4/5) — frequent attacks against similar organisations</td></tr>
+    <tr><td>Impact</td><td>Major (4/5) — 3–5 days operational disruption; potential ransom payment; compliance violations</td></tr>
+    <tr><td>Risk Score</td><td>16/25 — High</td></tr>
+    <tr><td>Current Controls</td><td>Email filtering, endpoint AV, backup procedures</td></tr>
+    <tr><td>Residual Risk</td><td>Medium — controls reduce but don't eliminate</td></tr>
+    <tr><td>Recommended Treatment</td><td>Add: MFA, offline backups, ransomware-specific training, EDR solution</td></tr>
+  </table>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Comparing Qualitative vs. Quantitative</h2>
+  <table>
+    <tr><th>Attribute</th><th>Qualitative</th><th>Quantitative</th></tr>
+    <tr><td>Output</td><td>High/Medium/Low; colour matrix</td><td>Dollar amounts; percentages</td></tr>
+    <tr><td>Input Required</td><td>Expert judgment; interviews; checklists</td><td>Asset values; historical loss data; frequency data</td></tr>
+    <tr><td>Accuracy</td><td>Lower precision; approximation</td><td>Higher precision (if inputs are good)</td></tr>
+    <tr><td>Cost &amp; Time</td><td>Lower — faster to conduct</td><td>Higher — extensive data collection</td></tr>
+    <tr><td>Subjective vs. Objective</td><td>More subjective</td><td>More objective</td></tr>
+    <tr><td>Communication</td><td>Intuitive for non-financial audiences</td><td>Required for financial/executive audiences</td></tr>
+    <tr><td>Best When</td><td>Limited data; initial assessment; compliance; operational teams</td><td>Major investment decisions; insurance; executive reporting</td></tr>
+    <tr><td>Common Tools</td><td>Risk matrix, Delphi, OCTAVE, brainstorming</td><td>ALE/SLE/ARO formulas, FAIR, actuarial models</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Hybrid (Semi-Quantitative) Approach:</strong> Many organisations use a hybrid where qualitative ratings (1–5) are anchored to financial ranges ($0–50K = 1; $50K–500K = 2; etc.). This preserves the ease of qualitative methods while providing rough financial context. This is a practical compromise widely used in real risk programmes.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Delphi = "Anonymous Iterative Expert Consensus"</strong><br>
+    Key words: <strong>Anonymous</strong> (no one knows who said what) + <strong>Iterative</strong> (multiple rounds) + <strong>Expert</strong> (subject matter experts) + <strong>Consensus</strong> (goal is agreement)<br>
+    Memory hook: <em>"The Oracle at Delphi gave wisdom anonymously through repeated consultation"</em><br>
+    Exam trigger: "consensus without group influence" → always Delphi
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Risk Matrix Zones — "AMHC" (traffic light + one):</strong><br>
+    🟢 <strong>A</strong>ccept → Low scores (1–4)<br>
+    🟡 <strong>M</strong>onitor/Mitigate → Medium scores (5–10)<br>
+    🟠 <strong>H</strong>igh priority mitigate → High scores (11–16)<br>
+    🔴 <strong>C</strong>ritical immediate action → Critical scores (17–25)<br>
+    Memory: <em>"Always Monitor High-risk Critical items"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Qualitative vs. Quantitative Quick Decision:</strong><br>
+    Need <strong>DOLLARS</strong> → Use <strong>Quantitative</strong> (ALE formulas)<br>
+    Need <strong>PRIORITISATION</strong> quickly → Use <strong>Qualitative</strong> (matrix)<br>
+    Need <strong>CONSENSUS</strong> without bias → Use <strong>Delphi</strong><br>
+    Need <strong>INITIAL broad scan</strong> → Use <strong>Brainstorming</strong>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Qualitative Scores Are NOT Dollar Values:</strong><br>
+    A qualitative risk score of "4" does NOT mean $4 or $4 million. It means "high risk" on whatever scale your organisation uses. Organisations must define their scales clearly and consistently for qualitative analysis to be meaningful and comparable across assessments.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Qualitative Analysis</td><td>Descriptive scales (H/M/L); based on expert judgment; faster but less precise than quantitative</td></tr>
+    <tr><td>Risk Matrix / Heat Map</td><td>Plots Likelihood × Impact; produces visual risk ranking; enables prioritisation</td></tr>
+    <tr><td>Brainstorming</td><td>Open group technique for initial risk identification</td></tr>
+    <tr><td>Delphi Technique</td><td>Anonymous, iterative expert consensus; eliminates groupthink and dominant personalities</td></tr>
+    <tr><td>Scenario Analysis</td><td>Structured narrative of a threat event used to assess probability and consequence</td></tr>
+    <tr><td>Hybrid Approach</td><td>Qualitative ratings anchored to financial ranges — practical compromise</td></tr>
+    <tr><td>Qualitative Advantage</td><td>Faster, cheaper, accessible; works with limited data; good for compliance assessments</td></tr>
+    <tr><td>Qualitative Limitation</td><td>Subjective; not directly comparable to costs; harder to justify specific investments</td></tr>
+    <tr><td>Quantitative Advantage</td><td>Dollar-based; comparable directly with control costs; board-level language</td></tr>
+    <tr><td>When to Use Each</td><td>Qualitative: initial assessment, compliance, operational; Quantitative: major financial decisions, executive reporting</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-010-theory.html" class="nav-btn">← Day 10: Quantitative Risk Analysis</a>
+  <a href="day-012-theory.html" class="nav-btn">Day 12: Risk Response Strategies →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

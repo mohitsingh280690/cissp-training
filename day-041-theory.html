@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 41 – CPU Architecture & Memory Protection</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 41 – CPU Architecture &amp; Memory Protection</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 41 of 140</span><span>⏱️ ~50 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-040-theory.html">← Day 40</a> · Domain 3 · Day 41 · <a href="day-041-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. CPU Protection Rings</a></li>
+  <li><a href="#s4">4. Process Isolation</a></li>
+  <li><a href="#s5">5. Memory Protection Mechanisms</a></li>
+  <li><a href="#s6">6. ASLR &amp; DEP/NX</a></li>
+  <li><a href="#s7">7. Virtual Memory &amp; Swapping Security</a></li>
+  <li><a href="#s8">8. Buffer Overflow Prevention</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>High — CPU rings, memory protection, and buffer overflows are heavily tested</td></tr>
+  <tr><td>Why Tested</td><td>Understanding hardware protection mechanisms is essential for assessing system security and understanding how attacks like buffer overflows exploit architectural weaknesses</td></tr>
+  <tr><td>Question Style</td><td>"Which CPU ring does the OS kernel run in?", "What prevents execution of code in data segments?", scenario-based buffer overflow questions</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 8 (buffer overflows in SDLC), Day 40 (TCB, security kernel), Day 42 (OS security), Domain 7 (operations — vulnerability management)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>OS vendors implement ring protection; security teams enable DEP/ASLR; developers write overflow-safe code</td></tr>
+  <tr><td>Implementation</td><td>Modern OS enables ASLR + DEP by default; hypervisors use Ring -1; applications run in Ring 3</td></tr>
+  <tr><td>Failure Modes</td><td>Disabled DEP/ASLR → easier exploitation; buffer overflows → remote code execution; ring violation → privilege escalation</td></tr>
+  <tr><td>Business Impact</td><td>CPU/memory protections are the foundation preventing exploitation; Spectre/Meltdown showed real-world impact of CPU-level flaws</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. CPU Protection Rings</h2>
+<div class="callout definition">
+  <strong>📖 Protection Rings:</strong> A hierarchical privilege model built into CPU architecture (Intel x86) that separates code into different privilege levels. Lower ring number = higher privilege.
+</div>
+
+<pre>
+  ┌──────────────────────────────────────┐
+  │        Ring 3 (User Mode)            │   Applications, user programs
+  │  ┌──────────────────────────────┐    │
+  │  │    Ring 2 (Device Drivers)   │    │   (Rarely used in modern OS)
+  │  │  ┌──────────────────────┐    │    │
+  │  │  │  Ring 1 (OS Services) │   │    │   (Rarely used in modern OS)
+  │  │  │  ┌──────────────┐    │    │    │
+  │  │  │  │ Ring 0       │    │    │    │   OS Kernel (full HW access)
+  │  │  │  │ (Kernel)     │    │    │    │
+  │  │  │  └──────────────┘    │    │    │
+  │  │  └──────────────────────┘    │    │
+  │  └──────────────────────────────┘    │
+  └──────────────────────────────────────┘
+       Ring -1: Hypervisor (VMX root)
+       Ring -2: SMM (System Management Mode)
+       Ring -3: Intel ME / AMD PSP
+</pre>
+
+<table>
+  <tr><th>Ring</th><th>Privilege</th><th>Components</th><th>Access</th></tr>
+  <tr><td>Ring 0</td><td>Highest (kernel mode)</td><td>OS kernel, security kernel</td><td>Full hardware access, all instructions</td></tr>
+  <tr><td>Ring 1</td><td>High</td><td>OS services (rarely used)</td><td>Limited privileged instructions</td></tr>
+  <tr><td>Ring 2</td><td>Medium</td><td>Device drivers (rarely used)</td><td>I/O access</td></tr>
+  <tr><td>Ring 3</td><td>Lowest (user mode)</td><td>Applications, user programs</td><td>Cannot execute privileged instructions</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • Most modern OS use only Ring 0 (kernel) and Ring 3 (user) — "two-ring model"<br>
+  • Ring 0 = kernel mode = supervisor mode = privileged mode<br>
+  • Ring 3 = user mode = unprivileged mode<br>
+  • Hypervisors use Ring -1 (VMX root mode) below the OS kernel<br>
+  • A process in Ring 3 CANNOT directly access Ring 0 resources — must use system calls
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The exam loves asking: "In which ring does the kernel operate?" → Ring 0. "In which ring do applications run?" → Ring 3. Remember: lower number = MORE privilege (counterintuitive).
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Process Isolation</h2>
+<div class="callout definition">
+  <strong>📖 Process Isolation:</strong> The OS mechanism that ensures each process runs in its own separate memory space and cannot read or modify another process's memory without authorization. Implemented through hardware (MMU) and OS virtual memory.
+</div>
+
+<h3>Isolation Mechanisms</h3>
+<table>
+  <tr><th>Mechanism</th><th>How It Works</th></tr>
+  <tr><td>Virtual Address Spaces</td><td>Each process has its own virtual memory space; addresses map to different physical locations</td></tr>
+  <tr><td>Memory Management Unit (MMU)</td><td>Hardware translates virtual → physical addresses; prevents unauthorized access</td></tr>
+  <tr><td>Page Tables</td><td>Per-process mapping of virtual pages to physical frames; kernel manages</td></tr>
+  <tr><td>Hardware Enforcement</td><td>CPU raises exception if process accesses memory outside its pages</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ When Isolation Fails:</strong> Spectre and Meltdown attacks (2018) demonstrated that CPU speculative execution could leak data across isolation boundaries. These are side-channel attacks that bypass logical isolation through hardware-level timing vulnerabilities.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Memory Protection Mechanisms</h2>
+<h3>Segmentation</h3>
+<div class="callout definition">
+  <strong>📖 Segmentation:</strong> Divides memory into variable-sized segments (code, data, stack, heap). Each segment has a base address and length limit. The CPU checks that memory accesses stay within segment bounds.
+</div>
+
+<h3>Paging</h3>
+<div class="callout definition">
+  <strong>📖 Paging:</strong> Divides memory into fixed-size pages (typically 4 KB). The page table maps virtual pages to physical frames. Enables virtual memory and process isolation. Each page has permission bits (read, write, execute).
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Segmentation</th><th>Paging</th></tr>
+  <tr><td>Unit Size</td><td>Variable (logical divisions)</td><td>Fixed (typically 4 KB)</td></tr>
+  <tr><td>Granularity</td><td>Coarse (whole segments)</td><td>Fine (individual pages)</td></tr>
+  <tr><td>Fragmentation</td><td>External fragmentation</td><td>Internal fragmentation (within pages)</td></tr>
+  <tr><td>Modern Usage</td><td>Mostly deprecated in x86-64</td><td>Primary mechanism in all modern OS</td></tr>
+  <tr><td>Permission Control</td><td>Per segment</td><td>Per page (R/W/X bits)</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. ASLR &amp; DEP/NX</h2>
+<h3>ASLR (Address Space Layout Randomization)</h3>
+<div class="callout definition">
+  <strong>📖 ASLR:</strong> A memory protection technique that randomizes the location of key memory areas (stack, heap, libraries, executable) each time a program runs. Makes it difficult for attackers to predict where injected code or return addresses will be in memory.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 ASLR Key Facts:</strong><br>
+  • Randomizes positions of stack, heap, shared libraries, and executable base<br>
+  • Defeats return-to-libc attacks and ROP (Return-Oriented Programming) by making addresses unpredictable<br>
+  • Enabled by default in modern OS (Windows Vista+, Linux, macOS, iOS, Android)<br>
+  • Can be weakened by information disclosure vulnerabilities that leak addresses
+</div>
+
+<h3>DEP/NX (Data Execution Prevention / No-eXecute)</h3>
+<div class="callout definition">
+  <strong>📖 DEP/NX Bit:</strong> A hardware-enforced memory protection that marks certain memory pages as non-executable. Data regions (stack, heap) are marked NX — the CPU refuses to execute code from these regions, preventing most buffer overflow code injection attacks.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 DEP/NX Key Facts:</strong><br>
+  • <strong>NX bit</strong> (AMD) = <strong>XD bit</strong> (Intel) = <strong>DEP</strong> (Microsoft Windows term)<br>
+  • Marks data memory pages as "no execute" — CPU hardware refuses to run code from these pages<br>
+  • Prevents classic stack/heap buffer overflow exploitation (injecting shellcode into data, then executing it)<br>
+  • Attackers bypass DEP using ROP (Return-Oriented Programming) — chaining existing executable code snippets
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> ASLR randomizes WHERE things are in memory. DEP/NX prevents WHAT can execute. Together they form a strong defense: even if an attacker finds a buffer overflow, they can't inject+execute code (DEP) and can't predict addresses (ASLR).
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Virtual Memory &amp; Swapping Security</h2>
+<div class="callout definition">
+  <strong>📖 Virtual Memory:</strong> A technique where the OS uses disk space (swap file/partition) to extend physical RAM. Allows processes to use more memory than physically available by swapping pages between RAM and disk.
+</div>
+
+<h3>Security Concerns</h3>
+<table>
+  <tr><th>Concern</th><th>Risk</th><th>Mitigation</th></tr>
+  <tr><td>Swap file residual data</td><td>Sensitive data (keys, passwords) swapped to disk in cleartext</td><td>Encrypt swap partition; clear swap on shutdown</td></tr>
+  <tr><td>Memory reuse</td><td>New process gets physical memory with previous process's data</td><td>Zero-fill new pages before allocation (object reuse protection)</td></tr>
+  <tr><td>Core dumps</td><td>Crash dumps contain full memory contents including secrets</td><td>Restrict core dump creation; encrypt crash dumps</td></tr>
+  <tr><td>Memory-mapped files</td><td>Attackers could access shared memory regions</td><td>Proper access controls on shared memory</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Object Reuse:</strong> When memory (or any resource) is deallocated from one process and given to another, the new process must NOT be able to read the previous process's data. This is called object reuse protection — implemented by zeroing memory before reallocation. Required at TCSEC C2 and above.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Buffer Overflow Prevention</h2>
+<div class="callout definition">
+  <strong>📖 Buffer Overflow:</strong> A vulnerability where a program writes data beyond the boundary of an allocated buffer, overwriting adjacent memory. Attackers exploit this to inject malicious code or redirect program execution (e.g., overwriting the return address on the stack).
+</div>
+
+<h3>Types of Buffer Overflows</h3>
+<table>
+  <tr><th>Type</th><th>Location</th><th>Mechanism</th></tr>
+  <tr><td>Stack Buffer Overflow</td><td>Stack memory</td><td>Overwrite return address → redirect execution to attacker's code</td></tr>
+  <tr><td>Heap Buffer Overflow</td><td>Heap memory</td><td>Corrupt heap metadata → arbitrary write when free() is called</td></tr>
+  <tr><td>Integer Overflow</td><td>Any</td><td>Arithmetic overflow causes incorrect buffer size calculation</td></tr>
+  <tr><td>Format String Attack</td><td>Stack</td><td>Uncontrolled format specifiers (%s, %x, %n) read/write memory</td></tr>
+</table>
+
+<h3>Prevention Techniques</h3>
+<table>
+  <tr><th>Technique</th><th>Level</th><th>How It Helps</th></tr>
+  <tr><td>ASLR</td><td>OS</td><td>Randomizes memory layout — attacker can't predict target addresses</td></tr>
+  <tr><td>DEP/NX</td><td>Hardware + OS</td><td>Prevents code execution in data regions</td></tr>
+  <tr><td>Stack Canaries</td><td>Compiler</td><td>Places sentinel values before return address; detects overwrite</td></tr>
+  <tr><td>Bounds Checking</td><td>Language/Compiler</td><td>Validates array/buffer access stays within bounds</td></tr>
+  <tr><td>Safe Functions</td><td>Developer</td><td>Use strncpy() instead of strcpy(), snprintf() instead of sprintf()</td></tr>
+  <tr><td>Memory-Safe Languages</td><td>Developer</td><td>Rust, Go, Java, Python — prevent manual memory management errors</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam expects you to know that buffer overflows are the #1 software vulnerability class. Prevention is multi-layered: ASLR + DEP at the OS/HW level, stack canaries at the compiler level, and bounds checking/safe languages at the development level.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Ring 0 = King, Ring 3 = Peasant":</strong> In the medieval kingdom of your CPU, Ring 0 is the king (kernel, full power) and Ring 3 is a peasant (user applications, no privileges). Lower number = more power.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "ASLR = Address Shuffler, DEP = Data Execution Preventer":</strong><br>
+  • ASLR shuffles WHERE things are<br>
+  • DEP prevents WHERE code can run<br>
+  • Together: can't find it (ASLR) AND can't run it there (DEP)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Buffer Overflow = Overfilling a Cup":</strong> A buffer overflow is like pouring water into a cup that's too small — the water overflows into nearby cups (memory), contaminating their contents (overwriting data/return addresses).
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>CPU Rings</td><td>Ring 0 = kernel (highest privilege); Ring 3 = user (lowest); most OS use only these two</td></tr>
+  <tr><td>Process Isolation</td><td>Virtual address spaces + MMU ensure processes can't access each other's memory</td></tr>
+  <tr><td>Segmentation</td><td>Variable-size memory divisions; mostly deprecated in x86-64</td></tr>
+  <tr><td>Paging</td><td>Fixed-size pages (4 KB); primary memory management; supports per-page R/W/X permissions</td></tr>
+  <tr><td>ASLR</td><td>Randomizes memory layout to defeat address prediction attacks</td></tr>
+  <tr><td>DEP/NX</td><td>Hardware bit preventing code execution in data regions (stack, heap)</td></tr>
+  <tr><td>Buffer Overflow</td><td>Writing beyond buffer boundaries; prevented by ASLR + DEP + canaries + safe coding</td></tr>
+  <tr><td>Object Reuse</td><td>Zero memory before reallocation; required from TCSEC C2+</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-040-theory.html" class="nav-btn">← Day 40: System Security Architecture</a>
+<a href="day-041-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

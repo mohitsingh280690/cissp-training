@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 33 – Domain 2 Review: Asset Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}.toc ol{padding-left:20px;}.toc li{margin-bottom:6px;}.toc a{color:var(--accent);text-decoration:none;}.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}ul,ol{padding-left:24px;margin-bottom:14px;}li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}th{background:var(--primary);color:white;font-weight:600;}tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 33: Domain 2 Review – Asset Security</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta"><span>📅 Day 33 of 140</span><span>📚 Domain 2 of 8</span><span>⏱️ ~50 min read</span><span>🎯 Difficulty: Review</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 33: Domain 2 Comprehensive Review</div>
+<div class="toc"><h2>📑 Table of Contents</h2>
+<ol>
+<li><a href="#s1">Where This Fits in CISSP</a></li>
+<li><a href="#s2">Real-World Organizational Relevance</a></li>
+<li><a href="#s3">Classification &amp; Ownership (Days 21–23)</a></li>
+<li><a href="#s4">Data Lifecycle &amp; Handling (Days 24–25)</a></li>
+<li><a href="#s5">Privacy Protection Techniques (Day 26)</a></li>
+<li><a href="#s6">Retention, Destruction &amp; Remanence (Days 27 &amp; 30)</a></li>
+<li><a href="#s7">Data Security Controls &amp; States (Days 28–29)</a></li>
+<li><a href="#s8">DLP &amp; CASB (Day 31)</a></li>
+<li><a href="#s9">GDPR Roles &amp; Cross-Border Transfers (Day 32)</a></li>
+<li><a href="#s10">High-Value Exam Traps</a></li>
+<li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+<li><a href="#s12">Key Takeaways</a></li>
+</ol></div>
+
+<div class="section" id="s1"><h2>1. Where This Fits in CISSP</h2>
+<table><tr><th>Attribute</th><th>Detail</th></tr>
+<tr><td>Domain</td><td>Domain 2 – Asset Security</td></tr>
+<tr><td>Exam Weight</td><td>10% (~15 questions)</td></tr>
+<tr><td>Why This Review Matters</td><td>Asset Security is the foundation for all protective controls. You cannot protect what you haven't classified, and you cannot apply controls without understanding data states, roles, and the lifecycle. Exam questions across D3–D8 frequently require D2 knowledge.</td></tr>
+<tr><td>Cross-Domain Links</td><td>D1 (risk needs asset valuation), D3 (crypto protects data states), D4 (network protects data in transit), D5 (access control enforces classification), D6 (testing verifies data controls), D7 (IR triages by classification), D8 (software handles data per classification)</td></tr></table>
+<div class="exam-tip"><strong>💡 Review Strategy:</strong> D2 questions test: <em>who is responsible</em> (roles), <em>what state data is in</em> (rest/transit/use), and <em>what controls match each state and classification</em>. Focus on role distinctions and lifecycle stage controls.</div>
+</div>
+
+<div class="section" id="s2"><h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p>Asset Security spans multiple functions: <strong>Data Owners</strong> (business unit leaders) classify; <strong>Data Custodians</strong> (IT) implement protections; <strong>Legal/Compliance</strong> governs retention and GDPR; <strong>Privacy Officers</strong> oversee PII/PHI. The CISO orchestrates the security controls framework.</p>
+<h3>Implementation Reality</h3>
+<p>Real organizations implement asset security through: asset inventories and CMDB, classification labelling tools, DLP (network + endpoint + cloud), encryption at all three data states, data retention automation, and GDPR compliance platforms for ROPA and DPA management.</p>
+<h3>Failure Modes</h3>
+<ul>
+<li><strong>Equifax (2017):</strong> 147M records breached — PII stored unencrypted, a failure of data-at-rest protection combined with poor classification and ownership.</li>
+<li><strong>Improper destruction:</strong> Hard drives sold with recoverable data — NIST 800-88 not followed.</li>
+<li><strong>Shadow IT:</strong> Staff storing classified data in personal cloud accounts bypasses all DLP and classification controls.</li>
+</ul>
+<h3>Business Impact</h3>
+<p>Poor asset security causes: regulatory fines (GDPR up to 4% global turnover), breach costs (IBM avg $4.45M in 2023), litigation, and reputational damage. Boards demand evidence via classification reports, DLP dashboards, and retention metrics.</p>
+</div>
+
+<div class="section" id="s3"><h2>3. Classification &amp; Ownership (Days 21–23)</h2>
+<h3>Government vs. Commercial Classification</h3>
+<table><tr><th>Government</th><th>Commercial</th><th>Sensitivity</th></tr>
+<tr><td>Top Secret</td><td>Confidential / Restricted</td><td>Highest</td></tr>
+<tr><td>Secret</td><td>Private</td><td>High</td></tr>
+<tr><td>Confidential</td><td>Sensitive</td><td>Medium</td></tr>
+<tr><td>Sensitive But Unclassified (SBU)</td><td>Internal Use Only</td><td>Low</td></tr>
+<tr><td>Unclassified</td><td>Public</td><td>None</td></tr></table>
+<h3>Data Roles — The Accountability Chain</h3>
+<table><tr><th>Role</th><th>Who</th><th>Key Responsibility</th></tr>
+<tr><td>Data Owner</td><td>Senior management</td><td>Classifies data, determines access, <strong>accountable</strong></td></tr>
+<tr><td>Data Custodian</td><td>IT operations</td><td>Implements controls (encryption, backups, ACLs)</td></tr>
+<tr><td>Data Steward</td><td>Data governance team</td><td>Ensures data accuracy, consistency, metadata quality</td></tr>
+<tr><td>System Owner</td><td>Business unit manager</td><td>Responsible for the system processing the data</td></tr>
+<tr><td>Data Controller (GDPR)</td><td>Organization</td><td>Determines purposes and means — primary GDPR liability</td></tr>
+<tr><td>Data Processor (GDPR)</td><td>Third party</td><td>Processes on behalf of controller — follows instructions only</td></tr></table>
+<div class="warning"><strong>⚠️ Exam Trap:</strong> The <strong>Data Owner</strong> (not the Custodian, not IT) is ultimately responsible for classification. "Who is accountable?" = Data Owner — always a business executive.</div>
+</div>
+
+<div class="section" id="s4"><h2>4. Data Lifecycle &amp; Handling (Days 24–25)</h2>
+<div class="diagram">Create → Store → Use → Share → Archive → Destroy
+  C        S       U      Sh      A         D
+"Can Students Usually Share Archived Documents?"</div>
+<table><tr><th>Stage</th><th>Key Security Controls</th></tr>
+<tr><td>Create/Collect</td><td>Classify at creation; data minimisation; lawful basis (GDPR)</td></tr>
+<tr><td>Store</td><td>Encryption at rest (AES, BitLocker); access controls; RAID; backups</td></tr>
+<tr><td>Use</td><td>Access controls; DRM; monitoring; secure enclaves</td></tr>
+<tr><td>Share/Transmit</td><td>Encryption in transit (TLS, IPSec); DLP; classification labels</td></tr>
+<tr><td>Archive</td><td>Long-term storage with integrity checks; retention schedule compliance</td></tr>
+<tr><td>Destroy</td><td>NIST 800-88 (Clear, Purge, Destroy); certificate of destruction</td></tr></table>
+</div>
+
+<div class="section" id="s5"><h2>5. Privacy Protection Techniques (Day 26)</h2>
+<table><tr><th>Technique</th><th>How It Works</th><th>Reversible?</th><th>GDPR Status</th></tr>
+<tr><td>Anonymization</td><td>Irreversibly removes all identifiers</td><td>No</td><td>Outside GDPR scope</td></tr>
+<tr><td>Pseudonymization</td><td>Replaces identifiers with tokens; key exists</td><td>Yes</td><td>Still personal data</td></tr>
+<tr><td>Data Masking</td><td>Replaces with realistic fictional values</td><td>Depends</td><td>If irreversible: like anonymization</td></tr>
+<tr><td>Tokenization</td><td>Replaces sensitive data with non-sensitive tokens; vault stores mapping</td><td>Yes (vault)</td><td>Still personal data</td></tr>
+<tr><td>Generalization</td><td>Reduces precision (age → age range)</td><td>No</td><td>Used for k-anonymity</td></tr></table>
+<div class="key-concept"><strong>Key Distinction:</strong> Under GDPR, <strong>pseudonymized data is still personal data</strong> (re-identification possible with key). Only truly <strong>anonymized data</strong> is outside GDPR scope. The exam tests this.</div>
+</div>
+
+<div class="section" id="s6"><h2>6. Retention, Destruction &amp; Remanence (Days 27 &amp; 30)</h2>
+<h3>NIST SP 800-88 Sanitization</h3>
+<table><tr><th>Level</th><th>Method</th><th>Result</th><th>Use When</th></tr>
+<tr><td>Clear</td><td>Logical overwrite</td><td>Unrecoverable via standard tools; lab recovery possible</td><td>Internal reuse, same classification</td></tr>
+<tr><td>Purge</td><td>Degaussing, crypto-erasure, firmware-level erase</td><td>Unrecoverable even with lab techniques</td><td>Media leaving org control</td></tr>
+<tr><td>Destroy</td><td>Shredding, incineration, pulverizing</td><td>Media physically unusable</td><td>Highest sensitivity; end-of-life</td></tr></table>
+<div class="warning"><strong>⚠️ Degaussing ≠ SSD:</strong> Degaussing only works on <strong>magnetic media</strong> (HDDs, tapes). For SSDs/flash: use <strong>cryptographic erasure</strong> or <strong>physical destruction</strong>.</div>
+<p><strong>Data remanence</strong> = residual data remaining after deletion attempts. Standard deletion removes pointers, not data. Magnetic media retains ghost images. Flash wear-levelling preserves data in spare cells.</p>
+<p><strong>Litigation hold / legal hold</strong> overrides normal retention schedules — data must be preserved when litigation is reasonably anticipated, even if the retention period has expired.</p>
+</div>
+
+<div class="section" id="s7"><h2>7. Data Security Controls &amp; States (Days 28–29)</h2>
+<table><tr><th>State</th><th>Where</th><th>Primary Encryption</th><th>Other Controls</th></tr>
+<tr><td>At Rest</td><td>Disk, DB, backup</td><td>AES-256, BitLocker, FileVault, TDE</td><td>ACLs, key management, HSM</td></tr>
+<tr><td>In Transit</td><td>Network, VPN</td><td>TLS 1.3, IPSec, SSH, SFTP</td><td>VPNs, cert pinning, network DLP</td></tr>
+<tr><td>In Use</td><td>Memory, CPU</td><td>Homomorphic encryption, Intel SGX, ARM TrustZone</td><td>TEEs, memory encryption, process isolation</td></tr></table>
+<div class="exam-tip"><strong>💡 Exam Tip:</strong> "Data in use" is the <strong>hardest state to protect</strong> and the most likely topic for newer exam concepts. Homomorphic encryption allows computation on encrypted data — FHE is ideal but computationally expensive.</div>
+</div>
+
+<div class="section" id="s8"><h2>8. DLP &amp; CASB (Day 31)</h2>
+<table><tr><th>DLP Type</th><th>Location</th><th>What It Catches</th></tr>
+<tr><td>Network DLP</td><td>Email gateway, web proxy, firewall</td><td>Data leaving via email, web uploads, FTP</td></tr>
+<tr><td>Endpoint DLP</td><td>Workstations, laptops</td><td>USB copies, print-screen, clipboard</td></tr>
+<tr><td>Cloud DLP / CASB</td><td>Cloud services (SaaS, IaaS)</td><td>Sensitive data in cloud storage/sharing</td></tr></table>
+<p><strong>CASB</strong> provides: <strong>V</strong>isibility (shadow IT discovery), <strong>C</strong>ompliance (DLP enforcement), <strong>D</strong>ata security (encryption/tokenization), <strong>T</strong>hreat protection (malware, anomalies). Deployment: forward proxy, reverse proxy, API-based.</p>
+</div>
+
+<div class="section" id="s9"><h2>9. GDPR Roles &amp; Cross-Border Transfers (Day 32)</h2>
+<table><tr><th>Role</th><th>Key Responsibility</th><th>Exam Trigger</th></tr>
+<tr><td>Data Subject</td><td>The individual; 8 rights (access, erasure, portability, etc.)</td><td>"Whose data is it?"</td></tr>
+<tr><td>Data Controller</td><td>Determines purposes &amp; means; primary liability</td><td>"Who decides WHY?"</td></tr>
+<tr><td>Data Processor</td><td>Processes on instruction; becomes controller if exceeds mandate</td><td>"Who follows orders?"</td></tr>
+<tr><td>DPO</td><td>Independent oversight; reports to top management</td><td>"Cannot be CISO"</td></tr>
+<tr><td>Supervisory Authority</td><td>Enforces; fines up to €20M / 4% turnover</td><td>"Who enforces?"</td></tr></table>
+<p><strong>Transfer mechanisms:</strong> Adequacy decisions → SCCs (+TIA post-Schrems II) → BCRs → Derogations. Privacy Shield invalidated (2020); EU-US DPF adopted (2023).</p>
+<p><strong>Breach notification:</strong> 72 hours from controller awareness to SA. Processor notifies controller "without undue delay". Subjects notified if high risk.</p>
+</div>
+
+<div class="section" id="s10"><h2>10. High-Value Exam Traps</h2>
+<div class="warning"><strong>⚠️ Trap 1 — Owner vs. Custodian:</strong> Owner classifies; Custodian implements. Owner is always a business exec. "Who is accountable?" = Owner.</div>
+<div class="warning"><strong>⚠️ Trap 2 — Pseudonymization ≠ Anonymization:</strong> Pseudonymized data is still personal data under GDPR. Only anonymized data is outside GDPR scope.</div>
+<div class="warning"><strong>⚠️ Trap 3 — Degaussing SSDs:</strong> Degaussing only works on magnetic media. SSDs need crypto-erasure or physical destruction.</div>
+<div class="warning"><strong>⚠️ Trap 4 — DPO Conflict:</strong> DPO cannot also be CISO, IT Director, CEO, Head of HR/Marketing — these roles determine processing purposes.</div>
+<div class="warning"><strong>⚠️ Trap 5 — Right to Erasure:</strong> Not absolute — exceptions for legal claims, legal obligations, public health, freedom of expression, archiving.</div>
+<div class="warning"><strong>⚠️ Trap 6 — 72-Hour Clock:</strong> Runs from when the <em>controller</em> learns of the breach, not the processor's discovery.</div>
+</div>
+
+<div class="section" id="s11"><h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic"><strong>🧠 Gov Classification — "TS-S-C-SBU-U":</strong> Top Secret → Secret → Confidential → SBU → Unclassified. <em>"Top Spies Carefully Secure Underground intel"</em></div>
+<div class="mnemonic"><strong>🧠 Data Roles:</strong> <em>"Owner Decides, Custodian Guards, Steward Cleans, User Uses"</em></div>
+<div class="mnemonic"><strong>🧠 Data Lifecycle — "C-SUSAD":</strong> Create, Store, Use, Share, Archive, Destroy. <em>"Can Students Usually Share Archived Documents?"</em></div>
+<div class="mnemonic"><strong>🧠 Data States — "RUT":</strong> at Rest, in Use, in Transit. <em>"Data is always in some RUT"</em></div>
+<div class="mnemonic"><strong>🧠 NIST 800-88 — "CPD":</strong> Clear → Purge → Destroy (increasingly permanent)</div>
+<div class="mnemonic"><strong>🧠 DLP — "NEC":</strong> Network, Endpoint, Cloud/CASB</div>
+<div class="mnemonic"><strong>🧠 GDPR Roles:</strong> <em>"Controller Commands; Processor Processes; Subject Owns; DPO Watches; SA Enforces"</em></div>
+<div class="mnemonic"><strong>🧠 Anon vs. Pseudo:</strong> <em>"Anon = gone forever; Pseudo = pseudonym that can be reversed"</em></div>
+</div>
+
+<div class="section" id="s12"><h2>12. Key Takeaways</h2>
+<table><tr><th>Topic</th><th>Essential Point</th></tr>
+<tr><td>Classification</td><td>Owner (business exec) classifies; classification drives all controls</td></tr>
+<tr><td>Data Lifecycle</td><td>Create → Store → Use → Share → Archive → Destroy; controls at every stage</td></tr>
+<tr><td>Data States</td><td>At Rest (AES), In Transit (TLS), In Use (SGX/TEE); in-use is hardest</td></tr>
+<tr><td>Privacy</td><td>Anonymization (irreversible, outside GDPR) vs. Pseudonymization (reversible, still GDPR)</td></tr>
+<tr><td>Sanitization</td><td>NIST 800-88: Clear → Purge → Destroy; degaussing fails on SSDs</td></tr>
+<tr><td>DLP</td><td>Network + Endpoint + Cloud; CASB for cloud visibility</td></tr>
+<tr><td>GDPR</td><td>Controller decides purpose; Processor follows instructions; 72h breach notification</td></tr>
+<tr><td>Retention</td><td>Keep only as long as needed; litigation hold overrides destruction schedules</td></tr></table>
+</div>
+
+<div class="nav-footer">
+<a href="day-032-theory.html" class="nav-btn">← Day 32: Data Roles Under GDPR</a>
+<a href="day-033-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

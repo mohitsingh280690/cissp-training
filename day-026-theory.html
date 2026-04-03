@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 26 – Privacy Protection</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 26: Privacy Protection</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 26 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 26: Privacy Protection</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">PII, PHI, and SPI</a></li>
+    <li><a href="#s4">Data Anonymisation</a></li>
+    <li><a href="#s5">Pseudonymisation</a></li>
+    <li><a href="#s6">Data Masking</a></li>
+    <li><a href="#s7">Tokenisation</a></li>
+    <li><a href="#s8">Privacy by Design (PbD)</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Privacy protection is increasingly prominent in the CISSP exam reflecting real-world regulatory importance. Candidates must distinguish between anonymisation (GDPR no longer applies) vs. pseudonymisation (still personal data), and between masking and tokenisation.</td></tr>
+    <tr><td>Question Styles</td><td>"A healthcare insurer wants to share patient data with researchers without re-identification risk — which technique provides the strongest protection?"; "After pseudonymisation, does GDPR still apply to the data?"</td></tr>
+    <tr><td>Cross-Domain</td><td>Domain 1 (privacy in governance); Domain 3 (cryptographic techniques underpin tokenisation and pseudonymisation); Domain 5 (access to personal data — authorisation)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ #1 Exam Trap:</strong> Anonymisation vs. Pseudonymisation. After true anonymisation, GDPR does NOT apply. After pseudonymisation, GDPR STILL applies — the data is still considered personal data because re-identification is theoretically possible.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Privacy regulations (GDPR, CCPA, HIPAA) impose significant obligations and penalties. After GDPR went into effect, organisations that couldn't demonstrate proper PII protection faced fines up to 4% of global annual revenue. Privacy engineering — building privacy protections into systems from the ground up — is now a core security competency, not a legal afterthought.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. PII, PHI, and SPI</h2>
+  <h3>PII — Personally Identifiable Information</h3>
+  <div class="definition">
+    <strong>PII:</strong> Any information that can be used to identify, contact, or locate a specific individual — either alone or in combination with other data.
+  </div>
+  <p>PII examples: Full name, home address, email, phone number, date of birth, SSN, passport number, driver's licence number, IP address (in some jurisdictions), biometric data, photographs, geolocation data.</p>
+  <p><strong>Per NIST SP 800-122:</strong> PII is further categorised by sensitivity. Standalone identifiers (SSN, passport) are highly sensitive; contextual PII (name alone may be low risk; name + employer + medical condition is high risk) requires combination risk assessment.</p>
+
+  <h3>PHI — Protected Health Information</h3>
+  <div class="definition">
+    <strong>PHI:</strong> Any health information that is linked to an identifiable individual and is covered under HIPAA. PHI includes the 18 HIPAA identifiers (names, geographic data, dates, phone numbers, SSNs, medical record numbers, health plan numbers, and others).
+  </div>
+  <p>PHI is subject to HIPAA's Privacy Rule and Security Rule. Unauthorised disclosure of PHI carries civil and criminal penalties. De-identified PHI (where all 18 identifiers are removed or statistical expert certification is obtained) is no longer PHI under HIPAA.</p>
+
+  <h3>SPI — Sensitive Personal Information</h3>
+  <div class="definition">
+    <strong>SPI:</strong> A subset of PII that warrants heightened protection due to its potential for significant harm if disclosed. GDPR Category Article 9 special categories include: racial or ethnic origin, political opinions, religious beliefs, trade union membership, genetic data, biometric data (for identification), health data, sex life / sexual orientation.
+  </div>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Know the GDPR "special categories" (Article 9 data). Processing these categories is generally PROHIBITED unless a specific legal basis applies (explicit consent, vital interests, etc.). These get higher protection than standard PII.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Data Anonymisation</h2>
+  <div class="definition">
+    <strong>Anonymisation:</strong> The irreversible process of altering data so that individuals cannot be identified, directly or indirectly, with reasonable effort. After true anonymisation, the data is no longer personal data under GDPR.
+  </div>
+  <h3>Anonymisation Techniques</h3>
+  <ul>
+    <li><strong>Generalisation:</strong> Replace specific values with ranges (age 34 → age range 30-40; postal code 12345 → region: North-East)</li>
+    <li><strong>Suppression:</strong> Remove data fields entirely (delete the Name column from a dataset)</li>
+    <li><strong>Noise addition:</strong> Add random variation to numerical values to prevent identification while preserving statistical properties</li>
+    <li><strong>Data aggregation:</strong> Report only group-level statistics (average salary by department, not individual salaries)</li>
+    <li><strong>k-Anonymity:</strong> A formal model ensuring that each record in the dataset is indistinguishable from at least k-1 other records on quasi-identifier fields — limits re-identification risk</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠️ Re-identification Risk:</strong> What is anonymised today may be re-identifiable tomorrow with new techniques or datasets. The Netflix Prize dataset (anonymised by removing names) was partially re-identified by researchers who combined it with public IMDB reviews. True anonymisation requires ongoing assessment.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Pseudonymisation</h2>
+  <div class="definition">
+    <strong>Pseudonymisation:</strong> Replacing direct identifiers with pseudonyms (artificial identifiers) while maintaining a separate mapping table that can reverse the process. The data can be re-linked to individuals if the pseudonymisation key is available.
+  </div>
+  <h3>Key Characteristics</h3>
+  <ul>
+    <li>Pseudonymised data is STILL considered personal data under GDPR — because identity can be restored with the mapping table</li>
+    <li>GDPR Article 4(5) defines pseudonymisation and Article 25 recommends it as a Privacy by Design technique</li>
+    <li>GDPR provides reduced obligations for pseudonymised data (e.g., breach notification thresholds may be different) but does NOT exempt it from full compliance</li>
+    <li>The pseudonymisation key must be stored separately from the pseudonymised data and protected as if it were the original personal data</li>
+  </ul>
+  <h3>Example</h3>
+  <p>Patient name "John Smith" → replaced with PatientID "P-982341" in the clinical database. A separate secure table maps P-982341 → John Smith. If a researcher accesses the clinical data with PatientIDs only, their risk of re-identification is reduced — but the mapping still exists, so it's still personal data.</p>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Pseudonymisation REDUCES risk; anonymisation ELIMINATES the data's personal data status. They are not interchangeable. GDPR explicitly distinguishes them.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Data Masking</h2>
+  <div class="definition">
+    <strong>Data Masking:</strong> Obscuring specific data values within a dataset to hide the real data while maintaining the format and appearance of the original data. Often used in non-production environments (development, testing, QA) and in user interfaces.
+  </div>
+  <h3>Types of Data Masking</h3>
+  <ul>
+    <li><strong>Static data masking:</strong> A copy of the production database is made and the sensitive values are permanently replaced with fictitious data. Used for test and development environments.</li>
+    <li><strong>Dynamic data masking:</strong> Data is masked in real-time at the query/presentation layer — the underlying stored data is unchanged but some users see masked values based on their role/permissions. Example: call centre agents see "****-****-****-1234" for credit card numbers.</li>
+    <li><strong>On-the-fly masking:</strong> Data is masked as it moves between environments (ETL processes).</li>
+  </ul>
+  <p>Common masking patterns: Credit card number showing only last 4 digits; SSN showing only last 4 digits (XXX-XX-1234); email showing first letter and domain (j***@gmail.com).</p>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Tokenisation</h2>
+  <div class="definition">
+    <strong>Tokenisation:</strong> Replacing sensitive data with a non-sensitive substitute (token) that has no mathematical relationship to the original value. The mapping between token and original value is stored in a secure, isolated token vault.
+  </div>
+  <h3>Key Characteristics</h3>
+  <ul>
+    <li>Tokens are meaningless without access to the token vault — unlike encryption, there is no algorithm to reverse-engineer the original value</li>
+    <li>Widely used in payment processing (PCI-DSS compliance): card numbers are replaced with tokens; merchants store tokens, token vault is held by payment processor</li>
+    <li>Reduces PCI-DSS scope: systems that only see tokens are generally outside PCI scope</li>
+    <li>Format-preserving tokenisation: tokens can mimic the format of the original data (16-digit token for 16-digit card number) to avoid breaking legacy system integrations</li>
+  </ul>
+  <h3>Tokenisation vs. Encryption</h3>
+  <table>
+    <tr><th>Property</th><th>Encryption</th><th>Tokenisation</th></tr>
+    <tr><td>Reversibility</td><td>Mathematical — reversed with the decryption key</td><td>Lookup — reversed via token vault only</td></tr>
+    <tr><td>Mathematical relationship</td><td>Yes — ciphertext is derived from plaintext via algorithm</td><td>No — token is arbitrary</td></tr>
+    <tr><td>Key management</td><td>Critical — key compromise = data compromise</td><td>Vault security — vault compromise = data compromise</td></tr>
+    <tr><td>Use case</td><td>General data protection</td><td>Payment data, high-value identifiers (PCI-DSS)</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Privacy by Design (PbD)</h2>
+  <div class="definition">
+    <strong>Privacy by Design (PbD):</strong> A framework developed by Ann Cavoukian, former Ontario Privacy Commissioner, establishing that privacy should be proactively embedded into systems and processes from the design phase — not bolted on after deployment. GDPR Article 25 codifies this as a legal requirement.
+  </div>
+  <h3>7 Foundational Principles of PbD</h3>
+  <ol>
+    <li><strong>Proactive, not reactive:</strong> Prevent privacy risks before they occur; don't wait for a breach to address privacy</li>
+    <li><strong>Privacy as the default:</strong> Maximum privacy protection is the default — users must actively opt-in to less privacy, not opt-out of it</li>
+    <li><strong>Privacy embedded into design:</strong> Privacy is an integral part of system design, not an add-on feature</li>
+    <li><strong>Full functionality — positive-sum:</strong> Privacy and security are not trade-offs; both can be achieved ("not privacy vs. security, but privacy AND security")</li>
+    <li><strong>End-to-end security:</strong> Privacy protection throughout the entire data lifecycle, from collection to destruction</li>
+    <li><strong>Visibility and transparency:</strong> Operations are open to verification; policies are published; users know how their data is used</li>
+    <li><strong>Respect for user privacy:</strong> Keep systems user-centric; enable data access rights, correction, and deletion for individuals</li>
+  </ol>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Anonymisation vs. Pseudonymisation — The GDPR Test:</strong><br>
+    Anonymisation = NO identity link possible → GDPR does NOT apply<br>
+    Pseudonymisation = Identity COULD be restored → GDPR STILL applies<br>
+    "Anon = Gone. Pseudo = Still there (but hidden)."
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Masking vs. Tokenisation — "Format vs. Vault":</strong><br>
+    Masking = Visual hiding — show only partial data (****-1234) — original data unchanged in storage<br>
+    Tokenisation = Replacement — store random token, original value separated into vault<br>
+    "Masking hides the view; Tokenisation changes the value"
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 PbD Principle 2 — Privacy as Default:</strong><br>
+    "Opt-IN to less privacy, opt-OUT of more privacy is wrong."<br>
+    The default is maximum protection. Users choose to share — not choose not to share.
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Technique</th><th>Reversible?</th><th>GDPR Still Applies?</th><th>Best Use Case</th></tr>
+    <tr><td>Anonymisation</td><td>No</td><td>No (if truly anonymised)</td><td>Research datasets, analytics without individual identification</td></tr>
+    <tr><td>Pseudonymisation</td><td>Yes (with key/mapping)</td><td>Yes</td><td>Clinical trials, analytics needing potential re-linkage; reduces but doesn't eliminate GDPR obligations</td></tr>
+    <tr><td>Data Masking (static)</td><td>No (copy replaced)</td><td>Yes (original still exists)</td><td>Test/dev environments with production data sanitisation</td></tr>
+    <tr><td>Data Masking (dynamic)</td><td>Yes (underlying data unchanged)</td><td>Yes</td><td>UI display — restrict visible data by user role</td></tr>
+    <tr><td>Tokenisation</td><td>Yes (via token vault)</td><td>Yes (tokenised data is still PII)</td><td>Payment card data (PCI-DSS); high-value identifiers</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-025-theory.html" class="nav-btn">← Day 25: Data Handling</a>
+  <a href="day-026-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

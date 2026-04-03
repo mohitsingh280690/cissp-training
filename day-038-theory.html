@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 38 – Security Architecture Frameworks</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 38 – Security Architecture Frameworks</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 38 of 140</span><span>⏱️ ~45 min</span><span>📊 Intermediate</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-037-theory.html">← Day 37</a> · Domain 3 · Day 38 · <a href="day-038-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Zachman Framework</a></li>
+  <li><a href="#s4">4. TOGAF</a></li>
+  <li><a href="#s5">5. SABSA</a></li>
+  <li><a href="#s6">6. ITIL</a></li>
+  <li><a href="#s7">7. NIST Enterprise Architecture</a></li>
+  <li><a href="#s8">8. DoDAF &amp; MODAF</a></li>
+  <li><a href="#s9">9. Framework Comparison</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Medium — know each framework's purpose and distinguishing feature</td></tr>
+  <tr><td>Why Tested</td><td>Security architects must select appropriate frameworks for organizational needs; exam tests whether you can identify the right framework for a given scenario</td></tr>
+  <tr><td>Question Style</td><td>"Which framework uses a 6×6 matrix?", "A military organization needs…", "Which framework is business-driven and risk-focused?"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (governance frameworks — COBIT, NIST CSF), Domain 8 (SDLC architecture), Domain 7 (ITIL in operations)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Enterprise architects select frameworks; CISOs align security architecture; governance boards approve</td></tr>
+  <tr><td>Implementation</td><td>Zachman/TOGAF for enterprise IT; SABSA for security-specific architecture; ITIL for service management; DoDAF/MODAF for defense</td></tr>
+  <tr><td>Failure Modes</td><td>Choosing wrong framework → misaligned security, wasted effort; no framework → ad-hoc architecture, inconsistent controls</td></tr>
+  <tr><td>Business Impact</td><td>Structured architecture reduces costs, improves compliance, enables scalability, and supports strategic alignment</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Zachman Framework</h2>
+<div class="callout definition">
+  <strong>📖 Zachman Framework (1987):</strong> A two-dimensional classification framework (not a methodology) for organizing enterprise architecture artifacts. Created by John Zachman at IBM. Uses a 6×6 matrix of perspectives and interrogatives.
+</div>
+
+<h3>The 6×6 Matrix</h3>
+<table>
+  <tr><th>Perspective (Row)</th><th>What</th><th>How</th><th>Where</th><th>Who</th><th>When</th><th>Why</th></tr>
+  <tr><td>Executive (Scope/Planner)</td><td colspan="6">Business context and scope definitions</td></tr>
+  <tr><td>Business Management (Owner)</td><td colspan="6">Business model and concepts</td></tr>
+  <tr><td>Architect (Designer)</td><td colspan="6">System logical models</td></tr>
+  <tr><td>Engineer (Builder)</td><td colspan="6">Technology/physical models</td></tr>
+  <tr><td>Technician (Implementer)</td><td colspan="6">Detailed implementation specifications</td></tr>
+  <tr><td>Enterprise (Functioning)</td><td colspan="6">Actual running system</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • 6 rows (perspectives) × 6 columns (interrogatives: What, How, Where, Who, When, Why)<br>
+  • It is a <strong>taxonomy</strong>, not a methodology — it classifies but doesn't prescribe steps<br>
+  • Each cell is unique and represents a specific architectural artifact<br>
+  • Does NOT prescribe how to build architecture — only how to organize descriptions of it
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Zachman = "6×6 matrix" = "classification framework" = "not a methodology." If you see any of these keywords, think Zachman.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. TOGAF (The Open Group Architecture Framework)</h2>
+<div class="callout definition">
+  <strong>📖 TOGAF:</strong> A comprehensive enterprise architecture methodology developed by The Open Group. Unlike Zachman (which classifies), TOGAF provides a step-by-step process (ADM) for developing enterprise architecture.
+</div>
+
+<h3>Architecture Development Method (ADM)</h3>
+<p>TOGAF's core is the ADM cycle — an iterative process with phases:</p>
+<ul>
+  <li><strong>Preliminary:</strong> Define architecture principles and framework</li>
+  <li><strong>A:</strong> Architecture Vision</li>
+  <li><strong>B:</strong> Business Architecture</li>
+  <li><strong>C:</strong> Information Systems Architecture (data + application)</li>
+  <li><strong>D:</strong> Technology Architecture</li>
+  <li><strong>E:</strong> Opportunities and Solutions</li>
+  <li><strong>F:</strong> Migration Planning</li>
+  <li><strong>G:</strong> Implementation Governance</li>
+  <li><strong>H:</strong> Architecture Change Management</li>
+  <li><strong>Requirements Management</strong> (center, ongoing)</li>
+</ul>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • IS a methodology (unlike Zachman)<br>
+  • Four architecture domains: Business, Data, Application, Technology (BDAT)<br>
+  • ADM is iterative and adaptable<br>
+  • Maintained by The Open Group; vendor-neutral
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SABSA (Sherwood Applied Business Security Architecture)</h2>
+<div class="callout definition">
+  <strong>📖 SABSA:</strong> A security-specific enterprise architecture framework that is business-driven and risk-focused. Uses a layered model similar to Zachman's perspectives but specifically oriented toward security architecture.
+</div>
+
+<h3>SABSA Layers</h3>
+<table>
+  <tr><th>Layer</th><th>View</th><th>Focus</th></tr>
+  <tr><td>Contextual</td><td>Business View</td><td>Business requirements, risk appetite, security strategy</td></tr>
+  <tr><td>Conceptual</td><td>Architect's View</td><td>Security principles, fundamental concepts</td></tr>
+  <tr><td>Logical</td><td>Designer's View</td><td>Security services, logical architecture</td></tr>
+  <tr><td>Physical</td><td>Builder's View</td><td>Security mechanisms, products, technologies</td></tr>
+  <tr><td>Component</td><td>Tradesman's View</td><td>Detailed specifications, standards, tools</td></tr>
+  <tr><td>Operational</td><td>Facilities Manager's View</td><td>Operations, administration, monitoring</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • Security-specific (not general EA like Zachman/TOGAF)<br>
+  • Business-driven: starts with business requirements, derives security from business needs<br>
+  • Risk-focused: security controls trace back to business risk<br>
+  • Uses same 6 interrogatives as Zachman (What, How, Where, Who, When, Why) per layer
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> SABSA = "Security Architecture" + "Business-Driven" + "Risk-Focused." It's the go-to answer when a question asks for a security-specific architecture framework.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. ITIL (Information Technology Infrastructure Library)</h2>
+<div class="callout definition">
+  <strong>📖 ITIL:</strong> A set of best practices for IT service management (ITSM). Not a security framework per se, but its service management approach is relevant to security operations, incident management, change management, and service continuity.
+</div>
+
+<h3>ITIL v3 Service Lifecycle</h3>
+<table>
+  <tr><th>Component</th><th>Security Relevance</th></tr>
+  <tr><td>Service Strategy</td><td>Aligning security services with business needs</td></tr>
+  <tr><td>Service Design</td><td>Designing security controls into services</td></tr>
+  <tr><td>Service Transition</td><td>Change management, release management (security review of changes)</td></tr>
+  <tr><td>Service Operation</td><td>Incident management, problem management, event monitoring</td></tr>
+  <tr><td>Continual Improvement</td><td>Security metrics, improvement cycles</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • IT Service Management (ITSM) framework, not security-specific<br>
+  • Relevant to CISSP for change management, incident management, and service continuity<br>
+  • Originally UK government; now managed by AXELOS/PeopleCert<br>
+  • Complements security frameworks rather than replacing them
+</div>
+</section>
+
+<section id="s7">
+<h2>7. NIST Enterprise Architecture</h2>
+<div class="callout definition">
+  <strong>📖 NIST Enterprise Architecture:</strong> Originally based on the Federal Enterprise Architecture Framework (FEAF), NIST's EA guidance helps U.S. federal agencies develop enterprise architectures. Five reference models provide standardized approaches.
+</div>
+
+<h3>Five Reference Models</h3>
+<table>
+  <tr><th>Model</th><th>Focus</th></tr>
+  <tr><td>Performance Reference Model (PRM)</td><td>Measuring outcomes and results</td></tr>
+  <tr><td>Business Reference Model (BRM)</td><td>Business operations and services</td></tr>
+  <tr><td>Service Component Reference Model (SRM)</td><td>IT service components and capabilities</td></tr>
+  <tr><td>Data Reference Model (DRM)</td><td>Data standards, sharing, and management</td></tr>
+  <tr><td>Technical Reference Model (TRM)</td><td>Technology standards and specifications</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Key Facts:</strong><br>
+  • U.S. federal government focused<br>
+  • Five reference models providing standardized vocabulary<br>
+  • Supports interoperability between federal agencies<br>
+  • Complements NIST SP 800 series security publications
+</div>
+</section>
+
+<section id="s8">
+<h2>8. DoDAF &amp; MODAF</h2>
+<h3>DoDAF (Department of Defense Architecture Framework)</h3>
+<div class="callout definition">
+  <strong>📖 DoDAF:</strong> The U.S. Department of Defense enterprise architecture framework. Defines a standard set of <strong>viewpoints</strong> and <strong>models</strong> for describing military architectures, ensuring interoperability and capability integration across DoD systems.
+</div>
+
+<h3>DoDAF Viewpoints</h3>
+<table>
+  <tr><th>Viewpoint</th><th>Focus</th></tr>
+  <tr><td>All Viewpoint (AV)</td><td>Overarching aspects, scope, context</td></tr>
+  <tr><td>Capability Viewpoint (CV)</td><td>Capability requirements and delivery timelines</td></tr>
+  <tr><td>Data and Information Viewpoint (DIV)</td><td>Data relationships, structures, flows</td></tr>
+  <tr><td>Operational Viewpoint (OV)</td><td>Operational activities, nodes, information exchanges</td></tr>
+  <tr><td>Project Viewpoint (PV)</td><td>Project relationships to capabilities</td></tr>
+  <tr><td>Services Viewpoint (SvcV)</td><td>Service functions, interfaces, interactions</td></tr>
+  <tr><td>Standards Viewpoint (StdV)</td><td>Technical standards and conventions</td></tr>
+  <tr><td>Systems Viewpoint (SV)</td><td>System functions, interconnections, resources</td></tr>
+</table>
+
+<h3>MODAF (Ministry of Defence Architecture Framework)</h3>
+<div class="callout definition">
+  <strong>📖 MODAF:</strong> The UK Ministry of Defence architecture framework. Based on DoDAF but adapted for UK/NATO military requirements. Uses similar viewpoint concepts with UK-specific terminology and NATO interoperability requirements.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 DoDAF vs. MODAF:</strong><br>
+  • <strong>DoDAF</strong> = U.S. Department of Defense<br>
+  • <strong>MODAF</strong> = UK Ministry of Defence<br>
+  • Both are military-focused enterprise architecture frameworks<br>
+  • Both use viewpoints/views to describe architectures<br>
+  • MODAF includes strategic viewpoints and acquisition perspectives specific to UK/NATO
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Framework Comparison</h2>
+<table>
+  <tr><th>Framework</th><th>Type</th><th>Focus</th><th>Key Feature</th><th>Origin</th></tr>
+  <tr><td>Zachman</td><td>Classification (taxonomy)</td><td>General EA</td><td>6×6 matrix; NOT a methodology</td><td>IBM (1987)</td></tr>
+  <tr><td>TOGAF</td><td>Methodology</td><td>General EA</td><td>ADM cycle; BDAT domains</td><td>The Open Group</td></tr>
+  <tr><td>SABSA</td><td>Framework + Methodology</td><td>Security Architecture</td><td>Business-driven, risk-focused</td><td>SABSA Institute</td></tr>
+  <tr><td>ITIL</td><td>Best Practices</td><td>IT Service Management</td><td>ITSM lifecycle; change/incident mgmt</td><td>UK Gov / AXELOS</td></tr>
+  <tr><td>NIST EA</td><td>Framework</td><td>Federal EA</td><td>5 reference models (PRM, BRM, SRM, DRM, TRM)</td><td>U.S. NIST/OMB</td></tr>
+  <tr><td>DoDAF</td><td>Framework</td><td>Military Architecture</td><td>8 viewpoints; U.S. DoD systems</td><td>U.S. DoD</td></tr>
+  <tr><td>MODAF</td><td>Framework</td><td>Military Architecture</td><td>UK/NATO adaptation of DoDAF</td><td>UK MoD</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "Zachman = Zoo Matrix":</strong> Zachman is a 6×6 grid — a "zoo" of artifacts organized in a matrix. It classifies but doesn't tell you what to do (not a methodology).
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "TOGAF = The Only Good Architecture Framework (with a Process)":</strong> TOGAF is the methodology — it tells you HOW to build architecture step by step via ADM.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "SABSA = Security Architecture By Studying Business Aims":</strong> SABSA is the ONLY security-specific framework. Business-driven and risk-focused.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "ITIL = IT Is for Lifecycle":</strong> ITIL manages IT services through their lifecycle — incident, change, continuity.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "DoDAF = DoD, MODAF = MoD":</strong> U.S. DoD uses DoDAF. UK MoD uses MODAF. Both are military architecture frameworks with viewpoints.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Zachman</td><td>6×6 classification matrix — describes architecture, not a process</td></tr>
+  <tr><td>TOGAF</td><td>EA methodology with ADM; four domains (BDAT)</td></tr>
+  <tr><td>SABSA</td><td>Security-specific, business-driven, risk-focused framework</td></tr>
+  <tr><td>ITIL</td><td>IT service management best practices; supports security operations</td></tr>
+  <tr><td>NIST EA</td><td>5 reference models for U.S. federal agencies</td></tr>
+  <tr><td>DoDAF</td><td>U.S. DoD architecture framework — 8 viewpoints</td></tr>
+  <tr><td>MODAF</td><td>UK MoD adaptation of DoDAF for NATO interoperability</td></tr>
+  <tr><td>Exam Strategy</td><td>Match keyword to framework: 6×6 = Zachman, ADM = TOGAF, business-risk-security = SABSA, military = DoDAF/MODAF</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-037-theory.html" class="nav-btn">← Day 37: Other Security Models</a>
+<a href="day-038-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 7 – Professional Ethics</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+.canon{background:var(--card-bg);border:2px solid var(--primary);border-radius:8px;padding:16px;margin:12px 0;}
+.canon-num{font-size:1.5rem;font-weight:700;color:var(--primary);float:left;margin-right:12px;}
+.canon-title{font-weight:700;color:var(--secondary);font-size:1.05rem;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 7: Professional Ethics</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 7 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~35 min read</span>
+    <span>🎯 Difficulty: Beginner–Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 7: Professional Ethics</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Why Ethics Matters in Security</a></li>
+    <li><a href="#s4">(ISC)² Code of Professional Ethics</a></li>
+    <li><a href="#s5">Computer Ethics Institute – Ten Commandments</a></li>
+    <li><a href="#s6">RFC 1087 – Ethics and the Internet</a></li>
+    <li><a href="#s7">Ethical Frameworks and Theories</a></li>
+    <li><a href="#s8">Ethics in Security Practice</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Ethics questions appear directly on the exam and also underpin every scenario-based question. When in doubt about the "right" answer on the CISSP exam, choose the ethical option. The (ISC)² code especially governs candidate and certification holder behaviour.</td></tr>
+    <tr><td>Question Styles</td><td>Direct recall of the 4 canons and their hierarchy; scenario questions testing whether an action is ethical or unethical; questions about what to do when legal and ethical conflict</td></tr>
+    <tr><td>Cross-Domain Links</td><td>Underlies all domains — ethical failures are root causes of insider threats, poor governance, inadequate disclosure, and compromised investigations</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The four (ISC)² canons are listed in a specific priority order. When canons conflict, the <em>first listed takes precedence</em>. The order is: Society → Client → Profession → Self. This order is tested!
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Ethics Violations in Security — Real Consequences</h3>
+  <ul>
+    <li><strong>Edward Snowden (2013):</strong> NSA contractor who leaked classified surveillance programmes. Whether viewed as whistleblower or criminal, this case illustrates the tension between loyalty to employer/government, public interest obligations, and personal ethics.</li>
+    <li><strong>Aaron Swartz (2012):</strong> Hacker/activist who downloaded millions of JSTOR academic articles; faced decades of federal prison time. Raised questions about proportional legal response and the ethics of information access.</li>
+    <li><strong>Volkswagen Emissions Scandal (2015):</strong> Engineers installed defeat device software to cheat emissions tests. Classic case of professionals following unethical orders — resulted in billions in fines and criminal convictions.</li>
+  </ul>
+
+  <h3>Ethics Programs in Organizations</h3>
+  <p>Organisations establish codes of ethics, ethics hotlines, and ethics officers (Chief Ethics &amp; Compliance Officer) to create a culture where ethical violations are reported and addressed. Security professionals are uniquely positioned — they have privileged access to systems and data, making their ethical behaviour especially critical.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Why Ethics Matters in Security</h2>
+  <p>Security professionals have extraordinary power: root access to production systems, the ability to monitor all network traffic, access to highly confidential data, and knowledge of vulnerabilities. This power creates profound ethical obligations:</p>
+  <ul>
+    <li><strong>Knowledge of vulnerabilities:</strong> Should a researcher who discovers a zero-day exploit immediately disclose it publicly, or notify the vendor first (responsible disclosure)?</li>
+    <li><strong>Monitoring capabilities:</strong> May an administrator read employee emails while investigating a leak? What about after hours?</li>
+    <li><strong>Privacy:</strong> Must a security analyst who discovers personal health information during an investigation report it or discard the knowledge?</li>
+    <li><strong>Loyalty conflicts:</strong> What if an employer asks you to do something that violates the law or harms the public?</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>Why Security Ethics is Different:</strong> Most professionals (doctors, lawyers) have well-established ethical codes with centuries of development. Information security ethics is still maturing. The (ISC)² Code, CEI Ten Commandments, and RFC 1087 are among the foundational references, but the ethical challenges in security evolve faster than formal codes can keep up.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. (ISC)² Code of Professional Ethics</h2>
+  <p>All (ISC)² members and certified professionals must commit to the (ISC)² Code of Ethics. The code has a preamble and four mandatory canons, listed in priority order (first takes precedence when conflicts arise).</p>
+
+  <h3>The Preamble</h3>
+  <p><em>"The safety and welfare of society and the common good, duty to our principals, and to each other, requires that we adhere, and be seen to adhere, to the highest ethical standards of behavior. Therefore, strict adherence to this Code is a condition of certification."</em></p>
+
+  <div class="canon">
+    <div class="canon-num">I</div>
+    <div class="canon-title">Protect Society, the Common Good, Necessary Public Trust and Confidence, and the Infrastructure</div>
+    <p>This is the highest obligation. A CISSP's first duty is to society — not to the employer, client, or self. If an action harms society or public safety, it must be refused or reported, even if it benefits the employer.</p>
+  </div>
+
+  <div class="canon">
+    <div class="canon-num">II</div>
+    <div class="canon-title">Act Honorably, Honestly, Justly, Responsibly, and Legally</div>
+    <p>Tell the truth. Disclose potential conflicts of interest. Provide diligent and competent service. Respect intellectual property rights. Avoid illegal actions. Preserve the value of the profession.</p>
+  </div>
+
+  <div class="canon">
+    <div class="canon-num">III</div>
+    <div class="canon-title">Provide Diligent and Competent Service to Principals</div>
+    <p>A "principal" is anyone you have a security relationship with — employer, client, or both. Provide diligent (thorough, committed) and competent (qualified, skilled) service. Do not misrepresent your qualifications. Maintain and grow your competencies through CPE.</p>
+  </div>
+
+  <div class="canon">
+    <div class="canon-num">IV</div>
+    <div class="canon-title">Advance and Protect the Profession</div>
+    <p>Advance the profession through education, mentoring, and peer support. Do not bring dishonour to the profession — report other members who violate the Code to (ISC)². Support the community of security professionals.</p>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Four Canons Priority Order: "Society, Client, Profession, Self"</strong><br>
+    <strong>S</strong>ociety first → <strong>C</strong>lient second → <strong>P</strong>rofession third → <strong>S</strong>elf last<br>
+    Memory hook: <em>"Some Citizens Prefer Service"</em> (Society / Citizens/Clients / Profession / Self)<br>
+    When in conflict, ALWAYS choose the higher-order canon.
+  </div>
+
+  <h3>Applying the Code — Exam Scenarios</h3>
+  <table>
+    <tr><th>Scenario</th><th>Ethical Response</th><th>Canon</th></tr>
+    <tr><td>Your employer asks you to conceal a known vulnerability from a client whose system it affects</td><td>Disclose the vulnerability to the client; refuse to conceal it</td><td>Canon I (society/public trust) + II (honestly)</td></tr>
+    <tr><td>You discover a colleague CISSP is conducting unauthorised penetration tests</td><td>Report them to (ISC)²; this violates the law and the code</td><td>Canon II (legally) + IV (protect profession)</td></tr>
+    <tr><td>Your employer asks you to do work outside your area of competence without proper supervision</td><td>Disclose your lack of competence; decline or seek appropriate oversight</td><td>Canon III (competent service)</td></tr>
+    <tr><td>You discover during a security review that your employer is committing fraud against customers</td><td>Report internally first; if no action, escalate to appropriate authority; protect public above employer</td><td>Canon I supersedes Canon III</td></tr>
+  </table>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Computer Ethics Institute – Ten Commandments</h2>
+  <p>The Computer Ethics Institute (CEI) developed the "Ten Commandments of Computer Ethics" as a straightforward guide to ethical computer use. Adopted widely in academic and professional settings.</p>
+  <ol>
+    <li>Thou shalt not use a computer to harm other people.</li>
+    <li>Thou shalt not interfere with other people's computer work.</li>
+    <li>Thou shalt not snoop around in other people's computer files.</li>
+    <li>Thou shalt not use a computer to steal.</li>
+    <li>Thou shalt not use a computer to bear false witness.</li>
+    <li>Thou shalt not copy or use proprietary software for which you have not paid.</li>
+    <li>Thou shalt not use other people's computer resources without authorisation or proper compensation.</li>
+    <li>Thou shalt not appropriate other people's intellectual output.</li>
+    <li>Thou shalt think about the social consequences of the program you are writing or the system you are designing.</li>
+    <li>Thou shalt always use a computer in ways that ensure consideration and respect for your fellow humans.</li>
+  </ol>
+
+  <div class="exam-tip">
+    <strong>💡 For the Exam:</strong> You are unlikely to need to recall all 10 commandments verbatim. However, you should know this document exists, what organisation produced it (Computer Ethics Institute), and that commandments 9 and 10 are the most "systems thinking" ones — reflecting the responsibility to consider downstream social consequences of security decisions.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. RFC 1087 – Ethics and the Internet</h2>
+  <div class="definition">
+    <strong>RFC 1087</strong> (January 1989) — "Ethics and the Internet" — issued by the Internet Activities Board (IAB), predecessor to the Internet Architecture Board. While technically old, it remains the foundational statement of internet ethics.
+  </div>
+  <p>RFC 1087 identifies activities considered <em>unethical and unacceptable</em> on the internet:</p>
+  <ul>
+    <li>Any activity that purposely seeks to gain <strong>unauthorised access</strong> to internet resources</li>
+    <li>Disruption of the <strong>intended use</strong> of the internet</li>
+    <li>Wasting resources (people, capacity, computer) through such actions</li>
+    <li>Destroying the <strong>integrity</strong> of computer-based information</li>
+    <li>Compromising the <strong>privacy</strong> of users</li>
+    <li>Negligently breaking the security of any network</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>Historical Context:</strong> RFC 1087 was written when the internet was a research and academic network. Its principles pre-date commercial internet, yet they remain foundational. The CISSP exam may reference it to test awareness of the historical ethical foundations of internet security.
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Ethical Frameworks and Theories</h2>
+  <p>Understanding philosophical frameworks helps reason through novel ethical dilemmas not explicitly covered by any code:</p>
+  <table>
+    <tr><th>Framework</th><th>Core Principle</th><th>Security Application</th></tr>
+    <tr><td><strong>Consequentialism / Utilitarianism</strong></td><td>Choose actions that maximise total welfare/happiness; greatest good for the greatest number</td><td>Disabling a system affecting 100 users to prevent a breach affecting millions of customers</td></tr>
+    <tr><td><strong>Deontological / Duty-Based Ethics</strong></td><td>Certain actions are inherently right or wrong regardless of consequences; follow rules/duties</td><td>Never disclose a client's confidential data even if doing so might prevent a hypothetical future harm</td></tr>
+    <tr><td><strong>Virtue Ethics</strong></td><td>Focus on character — act as a person of good character would act</td><td>"What would an ethical, competent, honest security professional do?"; forms basis of professional conduct standards</td></tr>
+    <tr><td><strong>Social Contract Theory</strong></td><td>Individuals give up some freedom in exchange for social benefits; social norms have moral weight</td><td>Respecting AUPs and network usage policies as social contracts; not abusing privileged access</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>CISSP Exam Mindset is Consequentialist + Rule-Based:</strong> Exam questions generally reward choices that protect the most people, follow established rules/procedures, and prioritise transparency (reporting issues) over personal interest. "What decision best protects the organisation and public?" is usually the right framing.
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Ethics in Security Practice</h2>
+  <h3>Responsible Disclosure (Coordinated Vulnerability Disclosure)</h3>
+  <p>When a security researcher discovers a vulnerability, current ethical consensus (and often legal requirement) is:</p>
+  <ol>
+    <li>Notify the vendor privately with details of the vulnerability</li>
+    <li>Give the vendor reasonable time to develop a patch (commonly 90 days — Google Project Zero's standard)</li>
+    <li>Coordinate public disclosure with the vendor</li>
+    <li>If the vendor fails to act, disclose publicly after the deadline</li>
+  </ol>
+  <p>This differs from <em>full immediate public disclosure</em> (which maximises vendor accountability but may enable exploitation before a patch exists) and <em>non-disclosure</em> (which protects no one).</p>
+
+  <h3>Ethics of Surveillance and Privacy</h3>
+  <ul>
+    <li>Monitoring employee communications is legal in many jurisdictions but is ethically complex; must be disclosed in Acceptable Use Policies and employment agreements</li>
+    <li>Security analysts who access data beyond the scope of their investigation are violating the (ISC)² code even if technically authorised by their role</li>
+    <li>The principle of <em>minimum necessary</em> applies not just legally (HIPAA Privacy Rule) but ethically</li>
+  </ul>
+
+  <h3>Whistleblowing</h3>
+  <p>When an employee discovers that an organisation is committing illegal acts or creating serious harm, the ethical response under the (ISC)² Code prioritises Canon I (protection of society) over Canon III (service to principals). However, the CISSP standard is to:</p>
+  <ol>
+    <li>Report internally through appropriate channels first (ethics hotline, legal, board)</li>
+    <li>Document all attempts to raise the issue internally</li>
+    <li>If internal reporting fails and the harm is serious enough, escalate to appropriate external authorities</li>
+    <li>Never destroy evidence (even if instructed by management)</li>
+  </ol>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 (ISC)² Four Canons — "SCPS" in Priority Order:</strong><br>
+    <strong>S</strong>ociety (Canon I — HIGHEST)<br>
+    <strong>C</strong>lient/Principals (Canon II — Honorably + III — Diligent service)<br>
+    <strong>P</strong>rofession (Canon IV — Advance the profession)<br>
+    <strong>S</strong>elf (implied — last in all cases)<br>
+    Memory hook: <em>"Super Cool Professionals Serve"</em> or <em>"Society Comes Practically Simultaneously"</em><br>
+    When in conflict: Society ALWAYS wins.
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Which Canon Applies?</strong><br>
+    Public safety threatened? → Canon I<br>
+    Need to be honest or legal? → Canon II<br>
+    Need to serve client competently? → Canon III<br>
+    Need to support the profession? → Canon IV<br>
+    Two canons conflict? → Lower number wins (I beats II beats III beats IV)
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Responsible Disclosure — "NVT-P"</strong><br>
+    <strong>N</strong>otify the vendor privately<br>
+    <strong>V</strong>endor gets time to patch (typically 90 days)<br>
+    <strong>T</strong>hen coordinate public disclosure<br>
+    <strong>P</strong>ublish if vendor fails to act<br>
+    Memory hook: <em>"Notify, Wait, Then Publish"</em>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ "Obey your employer" is NOT a CISSP ethic:</strong><br>
+    The exam will present scenarios where following your employer's instruction conflicts with society's interest. Always choose to protect society first. "My boss told me to do it" is not a valid ethical defence.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ CEI vs (ISC)² vs RFC 1087:</strong><br>
+    These are three DIFFERENT ethics documents from three different bodies:<br>
+    • (ISC)² Code = mandatory for CISSP certification holders; 4 canons<br>
+    • Computer Ethics Institute = 10 Commandments; academic/general use<br>
+    • RFC 1087 = IAB internet ethics statement; historical foundation<br>
+    Both CEI and RFC 1087 appear on the exam as knowledge references, but (ISC)² Code is the primary professional obligation.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>(ISC)² Code</td><td>Mandatory for CISSPs; 4 canons in priority order: Society → Honest/Legal → Competent Service → Profession</td></tr>
+    <tr><td>Canon I Priority</td><td>Protect society first — supersedes obligations to employer, client, or personal interest</td></tr>
+    <tr><td>Canon II</td><td>Act honorably, honestly, justly, responsibly, and legally</td></tr>
+    <tr><td>Canon III</td><td>Diligent and competent service to principals; disclose lack of competence</td></tr>
+    <tr><td>Canon IV</td><td>Advance the profession; report ethics violations to (ISC)²</td></tr>
+    <tr><td>CEI Ten Commandments</td><td>General ethical guide for computer use; social consequences in commandments 9–10</td></tr>
+    <tr><td>RFC 1087</td><td>IAB (1989) — unethical internet use defined; unauthorised access, disruption, waste, integrity violation, privacy violation</td></tr>
+    <tr><td>Responsible Disclosure</td><td>Notify vendor → give time to patch → coordinated public disclosure → publish if unresponsive</td></tr>
+    <tr><td>Whistleblowing</td><td>Report internally first; escalate externally if serious and internal channels fail; Canon I drives this</td></tr>
+    <tr><td>Consequentialism</td><td>Greatest good for greatest number — useful for novel dilemmas; how the CISSP exam often reasons</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-006-theory.html" class="nav-btn">← Day 6: Privacy Laws &amp; Regulations</a>
+  <a href="day-008-theory.html" class="nav-btn">Day 8: Security Policies &amp; Frameworks →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

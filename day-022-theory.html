@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 22 – Data Classification Levels</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 22: Data Classification Levels</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 22 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Beginner</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 22: Data Classification Levels</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">Government Classification Levels</a></li>
+    <li><a href="#s4">Commercial/Private Sector Classification</a></li>
+    <li><a href="#s5">Mapping Government to Commercial</a></li>
+    <li><a href="#s6">Marking and Labeling</a></li>
+    <li><a href="#s7">Misclassification Risks</a></li>
+    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s9">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>CISSP candidates must distinguish government from commercial classification schemes, know the levels, and understand the implications of applying wrong classifications.</td></tr>
+    <tr><td>Question Styles</td><td>"Which level applies to data that could cause serious damage to national security?"; "What commercial classification level is equivalent to Top Secret?"; mapping questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>Domain 1 (legal/regulatory context); Domain 5 (access control driven by classification); Domain 3 (security architecture for classified systems)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The CISSP exam mixes government and commercial classification questions within the same domain. You must understand BOTH schemes and be able to identify which context a question is using. Never assume a classification label from one scheme maps exactly to another by name.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Classification levels establish a shared language that allows organisations to communicate the sensitivity of information consistently. When a document is marked "Confidential," every employee should know exactly what handling requirements apply — without needing to read and interpret a policy each time. Standardised classification levels make security repeatable and auditable.</p>
+  <p>Government classification also has legal weight: releasing Top Secret information without authorisation is a criminal offence. Commercial classification supports regulatory compliance and forms the basis for contractual confidentiality obligations.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Government Classification Levels</h2>
+  <p>US government classification is established by Executive Order 13526. Levels from highest to lowest sensitivity:</p>
+  <table>
+    <tr><th>Level</th><th>Definition</th><th>Damage if Disclosed</th></tr>
+    <tr><td><strong>Top Secret (TS)</strong></td><td>Highest classification; compartmented programs (TS/SCI — Sensitive Compartmented Information) are above this</td><td>Exceptionally grave damage to national security — weapons programmes, intelligence sources, military operational plans</td></tr>
+    <tr><td><strong>Secret</strong></td><td>Second tier; access requires clearance and need-to-know</td><td>Serious damage to national security — force deployment details, foreign intelligence operations, weapons technology</td></tr>
+    <tr><td><strong>Confidential</strong></td><td>Third tier; most common government classification</td><td>Damage to national security — military plans, foreign government information, intelligence sources</td></tr>
+    <tr><td><strong>Sensitive But Unclassified (SBU)</strong></td><td>Not formally classified but requires protection — law enforcement, privacy records</td><td>Privacy violation, law enforcement impact, but not formal national security damage</td></tr>
+    <tr><td><strong>Unclassified</strong></td><td>No formal classification; may be freely shared</td><td>No damage from disclosure; includes intentionally public information</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — SCI and SAP:</strong> Above Top Secret sits Sensitive Compartmented Information (SCI) and Special Access Programs (SAP) — information restricted to individuals who have both the clearance AND specific access authorisation for a particular "compartment" or programme. The classic "above Top Secret" handling.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Commercial / Private Sector Classification</h2>
+  <p>Commercial organisations create their own classification schemes. Schemes vary by organisation, but the most widely adopted four-level model is:</p>
+  <table>
+    <tr><th>Level</th><th>Also Called</th><th>Description</th><th>Examples</th></tr>
+    <tr><td><strong>Confidential / Restricted</strong></td><td>Proprietary (some orgs)</td><td>Highest commercial classification; disclosure could cause significant competitive or financial harm</td><td>Trade secrets; M&amp;A plans; unreleased product roadmaps; source code; pricing models</td></tr>
+    <tr><td><strong>Private</strong></td><td>Internal Only / Personal</td><td>Sensitive data intended for internal use; disclosure harmful to individuals or the organisation</td><td>Employee HR records; salary information; personal health data; disciplinary records</td></tr>
+    <tr><td><strong>Sensitive</strong></td><td>Internal / Business Use</td><td>Not highly sensitive but should be limited to appropriate internal parties; some controls required</td><td>Internal financial reports; department budgets; project plans; vendor agreements</td></tr>
+    <tr><td><strong>Public</strong></td><td>Unclassified</td><td>Approved for public release; no security controls required</td><td>Marketing materials; press releases; published annual reports; public website content</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Some organisations use three levels (Confidential / Internal / Public) and some use five. The CISSP exam most commonly references the four-level commercial scheme above. When a question gives you a four-level scheme, assume Confidential = highest, Public = lowest, with Private and Sensitive in between.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Mapping Government to Commercial</h2>
+  <p>When organisations operate in both sectors, they must map classification levels to ensure consistent protection:</p>
+  <table>
+    <tr><th>Government Level</th><th>Approximate Commercial Equivalent</th><th>Notes</th></tr>
+    <tr><td>Top Secret</td><td>Confidential / Restricted</td><td>Highest level in each scheme; both require strict need-to-know and access controls</td></tr>
+    <tr><td>Secret</td><td>Confidential / Private</td><td>Significant restrictions; limited distribution</td></tr>
+    <tr><td>Confidential (Gov)</td><td>Private / Sensitive</td><td>Note: "Confidential" in government ≠ "Confidential" in commercial — government Confidential is mid-tier; commercial Confidential is usually the highest</td></tr>
+    <tr><td>SBU</td><td>Sensitive / Internal</td><td>Unclassified but protected; equivalent to internal-use data</td></tr>
+    <tr><td>Unclassified</td><td>Public</td><td>No restrictions on disclosure</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Critical Trap — "Confidential" Means Different Things:</strong> In government classification, "Confidential" is the THIRD (lowest formal) tier — below Secret and Top Secret. In commercial classification, "Confidential" is typically the HIGHEST tier. The CISSP exam exploits this naming collision. Always determine which classification scheme applies before answering.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Marking and Labeling</h2>
+  <p>Classification is only effective if information is consistently marked so that handlers know what level of protection is required.</p>
+  <h3>Physical Document Marking</h3>
+  <ul>
+    <li>Classification level must appear in the header and footer of every page</li>
+    <li>Documents with mixed levels must be marked at the highest level present in any portion</li>
+    <li>Portion marking (per-paragraph) is used in government contexts to indicate which parts are Top Secret, Secret, etc.</li>
+  </ul>
+  <h3>Digital Data Labeling</h3>
+  <ul>
+    <li>Metadata tags (file properties, database field attributes)</li>
+    <li>Watermarks embedded in documents</li>
+    <li>DLP (Data Loss Prevention) policy tags that enable automated control enforcement</li>
+    <li>Email sensitivity labels (e.g., Microsoft Information Protection labels)</li>
+  </ul>
+  <h3>Physical Equipment Labels</h3>
+  <ul>
+    <li>Servers, storage media, removable media labeled with maximum classification of data they hold</li>
+    <li>Equipment cannot be moved to a lower-security area without proper sanitisation if it held classified data</li>
+  </ul>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Misclassification Risks</h2>
+  <table>
+    <tr><th>Type</th><th>Risk</th><th>Impact</th></tr>
+    <tr><td>Under-classification</td><td>Sensitive data treated as lower-sensitivity than it deserves</td><td>Inadequate controls; data breach; regulatory non-compliance; financial and reputational harm</td></tr>
+    <tr><td>Over-classification</td><td>Routine data treated as highly sensitive</td><td>Excessive cost; friction and inefficiency; legitimate users blocked from needed information; "classification fatigue" — users start ignoring all labels</td></tr>
+    <tr><td>Inconsistent classification</td><td>Same data type classified differently by different owners</td><td>Unpredictable control application; audit failures; supply chain confusion</td></tr>
+    <tr><td>Failure to reclassify</td><td>Data retains old classification after circumstances change</td><td>Either continued over-protection of non-sensitive data, or under-protection of newly sensitive data</td></tr>
+  </table>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Government Levels — "TS-S-C-SBU-U":</strong><br>
+    <strong>T</strong>op Secret → Exceptionally grave damage<br>
+    <strong>S</strong>ecret → Serious damage<br>
+    <strong>C</strong>onfidential → Damage<br>
+    <strong>SBU</strong> → Sensitive But Unclassified (protected but not formally classified)<br>
+    <strong>U</strong>nclassified → Free for public<br>
+    Memory: "The Secret Cipher Saves Unfinished Wars"
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Commercial Levels — "C-P-S-P":</strong><br>
+    <strong>C</strong>onfidential/Restricted → TOP (trade secrets, M&amp;A plans)<br>
+    <strong>P</strong>rivate → HR records, salary, personal health<br>
+    <strong>S</strong>ensitive → Internal reports, budgets<br>
+    <strong>P</strong>ublic → Press releases, marketing<br>
+    Memory: "Can Pretty Sheep Pose?" (Confidential, Private, Sensitive, Public)
+  </div>
+  <div class="warning">
+    <strong>⚠️ Never Forget:</strong> Government "Confidential" = LOW tier (3rd of 3 formal levels). Commercial "Confidential" = HIGH tier (1st of 4 levels). Same word; opposite ends of their respective scales.
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Key Takeaways</h2>
+  <table>
+    <tr><th>Context</th><th>Highest Level</th><th>Lowest Level</th><th>Levels (High → Low)</th></tr>
+    <tr><td>US Government</td><td>Top Secret (TS)</td><td>Unclassified</td><td>TS → Secret → Confidential → SBU → Unclassified</td></tr>
+    <tr><td>Commercial (4-level)</td><td>Confidential / Restricted</td><td>Public</td><td>Confidential → Private → Sensitive → Public</td></tr>
+  </table>
+  <table>
+    <tr><th>Concept</th><th>Key Point</th></tr>
+    <tr><td>Government "Confidential"</td><td>Third (lowest formal) tier in government scheme — not equivalent to commercial "Confidential"</td></tr>
+    <tr><td>Commercial "Confidential"</td><td>Highest tier in commercial scheme — equivalent to government Top Secret in relative position</td></tr>
+    <tr><td>Marking requirement</td><td>Every page/copy must show the classification level; mixed documents marked at highest level present</td></tr>
+    <tr><td>Over-classification risk</td><td>Costs money, creates friction, triggers "classification fatigue" — users start ignoring labels</td></tr>
+    <tr><td>Under-classification risk</td><td>Inadequate controls applied; regulatory violations; data breach exposure</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-021-theory.html" class="nav-btn">← Day 21: Asset Classification</a>
+  <a href="day-022-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 23 – Asset Ownership & Roles</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 23: Asset Ownership &amp; Roles</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 23 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 23: Asset Ownership &amp; Roles</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">Data Owner</a></li>
+    <li><a href="#s4">Data Custodian</a></li>
+    <li><a href="#s5">Data Steward</a></li>
+    <li><a href="#s6">System Owner</a></li>
+    <li><a href="#s7">Data Controller vs. Data Processor (GDPR)</a></li>
+    <li><a href="#s8">User / Data Subject Responsibilities</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Role confusion is one of the most heavily tested topics in Domain 2. CISSP questions exploit the differences between Owner, Custodian, Steward, Controller, and Processor. You will see scenario questions requiring you to identify which role should take a given action.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario: "Who should determine access rights to this database?"; "Who is responsible for implementing encryption on the file server?"; "Under GDPR, is this company a controller or processor?"</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>Domain 1 (governance structures); Domain 5 (access control — owner determines access rights); Domain 6 (assessment of custodian controls)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Most Common Exam Trap:</strong> Candidates confuse the Data Owner and Data Custodian. Remember: <em>Owner Decides; Custodian Does</em>. Classification, access rights, and retention decisions belong to the owner. Implementation of controls belongs to the custodian.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Without clear role assignments, data governance fails: IT implements controls without understanding business requirements; business units classify data without technical feasibility input; nobody takes accountability for data quality or compliance. Role clarity is the foundation of accountable data governance and is required by frameworks like ISO 27001 and regulations like GDPR.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Data Owner</h2>
+  <div class="definition">
+    <strong>Data Owner:</strong> A senior management individual (typically a business function head, VP, or C-suite executive) who has final accountability for a data asset. The owner is a business role, not a technical role.
+  </div>
+  <h3>Data Owner Responsibilities</h3>
+  <ul>
+    <li>Assign and review the data classification level</li>
+    <li>Determine who should have access to the data (access rights decisions)</li>
+    <li>Approve access requests and access exceptions</li>
+    <li>Define data retention periods and destruction requirements</li>
+    <li>Authorise declassification and reclassification</li>
+    <li>Accept residual risk associated with the data</li>
+    <li>Ensure compliance with regulatory requirements applies to their data</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The data owner is NOT an IT role. The owner is the Vice President of Finance for financial records, the Chief Medical Officer for patient records, the Head of HR for employee files. They understand the business value and regulatory context of the data — IT does not make these decisions.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Data Custodian</h2>
+  <div class="definition">
+    <strong>Data Custodian:</strong> An IT professional or team responsible for the day-to-day technical management and protection of data assets according to the policies, classifications, and access decisions made by the data owner.
+  </div>
+  <h3>Data Custodian Responsibilities</h3>
+  <ul>
+    <li>Implement and maintain access controls as directed by the owner</li>
+    <li>Apply encryption at rest and in transit per classification requirements</li>
+    <li>Run data backups and test restoration procedures</li>
+    <li>Apply security patches and vulnerability management to systems holding the data</li>
+    <li>Maintain audit logs of data access</li>
+    <li>Implement data handling procedures (storage standards, secure transmission)</li>
+    <li>Execute data destruction when retention periods expire</li>
+  </ul>
+  <div class="key-concept">
+    <strong>Key Concept — Custodian as Agent of Owner:</strong> The custodian acts on behalf of the owner but does not make policy decisions. If the custodian disagrees with an owner's access decision (e.g., believes too many users have access), they should escalate to the owner — not unilaterally change access permissions.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Data Steward</h2>
+  <div class="definition">
+    <strong>Data Steward:</strong> A business-side role focused on data quality, integrity, and governance. The steward bridges business and technical teams to ensure data is accurate, consistent, complete, and compliant with data governance standards.
+  </div>
+  <p>Data Steward responsibilities:</p>
+  <ul>
+    <li>Define and enforce data quality standards (valid formats, value ranges, completeness requirements)</li>
+    <li>Document data definitions, taxonomies, data dictionaries</li>
+    <li>Monitor data quality metrics and remediate quality issues</li>
+    <li>Govern data usage compliance (are business users using data appropriately?)</li>
+    <li>Support data lineage tracking (where does the data come from? where does it go?)</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The Data Steward is primarily a data governance and quality role. The CISSP exam distinguishes it from the Data Owner (who has accountability) and Custodian (who implements technical controls). When a scenario involves data quality, format standards, or metadata governance — the Steward is the answer. This is an emerging governance role in modern data-centric organisations.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. System Owner</h2>
+  <div class="definition">
+    <strong>System Owner:</strong> A management individual responsible for a specific IT system — not the data stored within it, but the system itself (hardware, software, configuration, operation). The system owner ensures the system is operated securely and that security controls are properly configured and maintained.
+  </div>
+  <p>System Owner responsibilities:</p>
+  <ul>
+    <li>Ensure the system's security controls are documented (System Security Plan)</li>
+    <li>Coordinate with data owners to ensure appropriate data protection controls are in place</li>
+    <li>Accept residual risk for the system and its operation</li>
+    <li>Ensure the system meets regulatory and policy requirements</li>
+    <li>Participate in security assessments and authorisation processes (NIST RMF)</li>
+  </ul>
+  <p>Key distinction: A hospital patient database (the data) has a Data Owner (Chief Medical Officer). The database server and application running it has a System Owner (CIO or IT Director). These can be different people — the system owner knows the technical platform; the data owner knows the data's business value.</p>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Data Controller vs. Data Processor (GDPR)</h2>
+  <p>GDPR (General Data Protection Regulation) introduced two key roles that apply to organisations handling personal data of EU/EEA residents:</p>
+  <table>
+    <tr><th>Role</th><th>Definition (GDPR Art. 4)</th><th>Example</th><th>Primary Obligations</th></tr>
+    <tr><td><strong>Data Controller</strong></td><td>Determines the purposes and means of processing personal data — decides WHY and HOW data is processed</td><td>An online retailer who collects customer names, emails, and purchase history</td><td>Provide privacy notices; establish lawful basis; respond to data subject rights requests; appoint DPO if required; report breaches within 72 hours</td></tr>
+    <tr><td><strong>Data Processor</strong></td><td>Processes personal data on behalf of a controller — is instructed by the controller and may not use the data for their own purposes</td><td>A cloud-based CRM provider processing the retailer's customer data; an email marketing service; a payroll processing company</td><td>Process only as instructed; implement appropriate security measures; assist controller with breach notification; delete/return data on termination; sub-processor contracts</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Critical Point — Joint Controllers:</strong> When two or more organisations jointly determine the purposes and means of processing, they are Joint Controllers and both bear controller obligations. This is a frequent GDPR compliance question for organisations that share personal data for joint marketing or research.
+  </div>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The CISSP exam increasingly tests GDPR concepts. The key test for controller vs. processor: does the organisation <em>decide WHY and HOW</em> the data is processed (controller) or does it <em>process on another's instructions</em> (processor)? A cloud provider storing your customer data is typically a processor. You are the controller.
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. User / Data Subject Responsibilities</h2>
+  <p>End users who access and handle data also have security responsibilities — they are not passive participants:</p>
+  <ul>
+    <li>Access only data they are authorised to access (least privilege, need-to-know)</li>
+    <li>Handle data according to its classification and the organisation's handling policies</li>
+    <li>Report data breaches, suspicious access, or misuse to the appropriate team</li>
+    <li>Comply with clean desk, clear screen, and physical security policies</li>
+    <li>Not share credentials or bypass access controls</li>
+    <li>Complete required security awareness and training programmes</li>
+  </ul>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Owner vs. Custodian — THE Big Distinction:</strong><br>
+    O = Owner = DECIDES: classification, access rights, retention, declassification<br>
+    C = Custodian = DOES IT: encryption, backups, patches, audit logs, destruction<br>
+    Think: O = "Originates policy"; C = "Carries it out"
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 All Roles — "O-C-S-S-U":</strong><br>
+    <strong>O</strong>wner — sets classification and access policy (senior management)<br>
+    <strong>C</strong>ustodian — implements technical controls (IT ops)<br>
+    <strong>S</strong>teward — ensures data quality and governance (business analyst / data governance)<br>
+    <strong>S</strong>ystem owner — owns the system/platform (IT manager)<br>
+    <strong>U</strong>ser — follows policies; accesses only what is authorised
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 GDPR Controller vs. Processor:</strong><br>
+    Controller = Calls the shots (decides WHY and HOW data is processed)<br>
+    Processor = Processes per instructions (does what the controller says)<br>
+    Your cloud provider stores YOUR customer data → They are the Processor; YOU are the Controller
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
+  <table>
+    <tr><th>Role</th><th>Type</th><th>Primary Responsibility</th></tr>
+    <tr><td>Data Owner</td><td>Business / Senior Management</td><td>DECIDES: classification, access, retention, risk acceptance</td></tr>
+    <tr><td>Data Custodian</td><td>IT Operations</td><td>DOES IT: encryption, backup, patching, access controls implementation</td></tr>
+    <tr><td>Data Steward</td><td>Business / Data Governance</td><td>DATA QUALITY: standards, accuracy, definitions, compliance with data policies</td></tr>
+    <tr><td>System Owner</td><td>IT Management</td><td>SYSTEM ACCOUNTABILITY: security plan, risk acceptance for the platform</td></tr>
+    <tr><td>GDPR Controller</td><td>Legal entity</td><td>Determines purpose and means of personal data processing</td></tr>
+    <tr><td>GDPR Processor</td><td>Legal entity</td><td>Processes personal data on controller's behalf, per controller's instructions</td></tr>
+    <tr><td>User</td><td>Any individual</td><td>Follows policies; accesses only authorised data; reports incidents</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-022-theory.html" class="nav-btn">← Day 22: Classification Levels</a>
+  <a href="day-023-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

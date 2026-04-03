@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 47 – Symmetric Encryption</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:auto;font-size:.95rem;margin:16px 0;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 47 – Symmetric Encryption</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 47 of 140</span><span>⏱️ ~55 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-046-theory.html">← Day 46</a> · Domain 3 · Day 47 · <a href="day-047-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DES (Data Encryption Standard)</a></li>
+  <li><a href="#s4">4. Triple DES (3DES)</a></li>
+  <li><a href="#s5">5. AES (Advanced Encryption Standard)</a></li>
+  <li><a href="#s6">6. Other Symmetric Algorithms</a></li>
+  <li><a href="#s7">7. Block Cipher Modes of Operation</a></li>
+  <li><a href="#s8">8. Symmetric Algorithm Comparison</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Very High — expect multiple questions on symmetric algorithms, block sizes, key sizes, and modes of operation</td></tr>
+  <tr><td>Why Tested</td><td>Symmetric encryption is used for bulk data encryption everywhere — TLS data transfer, disk encryption, database encryption, VPNs</td></tr>
+  <tr><td>Question Style</td><td>"What is the key size of DES?", "Which mode should NOT be used?", "What replaced DES?", scenario: selecting appropriate algorithm/mode</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 46 (crypto fundamentals), Day 48 (asymmetric), Day 29 (data at rest encryption), Domain 4 (TLS, IPSec use symmetric), Domain 5 (Kerberos uses AES)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects select algorithms/modes; developers implement via crypto libraries; operations manage keys</td></tr>
+  <tr><td>Implementation</td><td>AES-256 for disk encryption (BitLocker, FileVault); AES-GCM in TLS 1.3; 3DES in legacy payment systems (being phased out)</td></tr>
+  <tr><td>Failure Modes</td><td>Using DES/3DES → breakable; using ECB mode → pattern leakage; poor key management → compromise; hardcoded keys → total failure</td></tr>
+  <tr><td>Business Impact</td><td>Required by PCI DSS (strong crypto for cardholder data), HIPAA (ePHI encryption), GDPR (pseudonymization), government (FIPS 140-2/3)</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. DES (Data Encryption Standard)</h2>
+<div class="callout definition">
+  <strong>📖 DES:</strong> A symmetric block cipher adopted by NIST in 1977 as a federal standard (FIPS 46-3). Based on IBM's Lucifer cipher, modified by the NSA. Uses a Feistel network structure.
+</div>
+
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Block Size</td><td>64 bits</td></tr>
+  <tr><td>Key Size</td><td>64 bits total, but only <strong>56 bits are effective</strong> (8 bits used for parity)</td></tr>
+  <tr><td>Rounds</td><td>16 rounds of Feistel operations</td></tr>
+  <tr><td>Structure</td><td>Feistel network (splits block in half; each round transforms one half using the other)</td></tr>
+  <tr><td>Status</td><td><strong>BROKEN / DEPRECATED</strong> — 56-bit key is too short for brute force</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Feistel Network:</strong> A structure where the data block is split into two halves (L and R). In each round, one half is transformed using a round function and XORed with the other half, then they swap. The beauty: the same structure works for both encryption and decryption (just reverse the key schedule). DES uses 16 rounds of this process.
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ DES Is Broken:</strong> In 1998, the EFF's "Deep Crack" machine brute-forced a DES key in 56 hours. In 1999, a distributed effort broke it in 22 hours. The 56-bit key space (2<sup>56</sup>) is far too small for modern computing. DES should NEVER be selected on the exam as a secure option.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Triple DES (3DES / TDEA)</h2>
+<div class="callout definition">
+  <strong>📖 3DES:</strong> Applies DES three times with two or three different keys to increase security. Officially called Triple Data Encryption Algorithm (TDEA). Was the interim replacement for DES before AES was standardized.
+</div>
+
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Block Size</td><td>64 bits (same as DES)</td></tr>
+  <tr><td>Process</td><td>Encrypt – Decrypt – Encrypt (EDE) with different keys</td></tr>
+  <tr><td>Status</td><td><strong>DEPRECATED</strong> — NIST disallowed after 2023; slow, small block size</td></tr>
+</table>
+
+<h3>3DES Keying Options</h3>
+<table>
+  <tr><th>Option</th><th>Keys</th><th>Effective Strength</th><th>Notes</th></tr>
+  <tr><td>Keying Option 1</td><td>3 independent keys (K1 ≠ K2 ≠ K3)</td><td>168 bits (effective ~112 bits due to meet-in-the-middle attack)</td><td>Strongest; 3 unique keys</td></tr>
+  <tr><td>Keying Option 2</td><td>K1 = K3, K2 different</td><td>112 bits (effective ~80 bits)</td><td>Most commonly used</td></tr>
+  <tr><td>Keying Option 3</td><td>K1 = K2 = K3</td><td>56 bits (equivalent to single DES)</td><td>Only for backward compatibility; provides no extra security</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> 3DES process is always E-D-E (Encrypt-Decrypt-Encrypt). With Keying Option 3 (all keys same), the middle decrypt undoes the first encrypt, leaving just one DES encryption — backward compatible with DES. The effective security of Keying Option 1 is ~112 bits (not the theoretical 168) due to meet-in-the-middle attacks.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. AES (Advanced Encryption Standard)</h2>
+<div class="callout definition">
+  <strong>📖 AES:</strong> Symmetric block cipher selected by NIST in 2001 (FIPS 197) through an open competition. The winning algorithm was Rijndael, designed by Belgian cryptographers Joan Daemen and Vincent Rijmen. AES is the current worldwide standard for symmetric encryption.
+</div>
+
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Block Size</td><td><strong>128 bits</strong> (always — regardless of key size)</td></tr>
+  <tr><td>Key Sizes</td><td>128, 192, or 256 bits</td></tr>
+  <tr><td>Rounds</td><td>10 (128-bit key), 12 (192-bit key), 14 (256-bit key)</td></tr>
+  <tr><td>Structure</td><td>Substitution-Permutation Network (SPN) — NOT Feistel</td></tr>
+  <tr><td>Status</td><td><strong>CURRENT STANDARD</strong> — no practical attacks exist</td></tr>
+</table>
+
+<h3>AES Round Operations</h3>
+<table>
+  <tr><th>Step</th><th>Operation</th><th>Shannon Property</th></tr>
+  <tr><td>SubBytes</td><td>Substitution using S-box lookup table</td><td>Confusion</td></tr>
+  <tr><td>ShiftRows</td><td>Circular shift of rows in the state matrix</td><td>Diffusion</td></tr>
+  <tr><td>MixColumns</td><td>Matrix multiplication on each column</td><td>Diffusion</td></tr>
+  <tr><td>AddRoundKey</td><td>XOR with round key derived from key schedule</td><td>Key mixing</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 AES vs DES — Key Differences:</strong><br>
+  • AES uses SPN (Substitution-Permutation Network); DES uses Feistel network<br>
+  • AES block size = 128 bits; DES block size = 64 bits<br>
+  • AES is much faster than 3DES and more secure<br>
+  • AES-256 is considered quantum-resistant for symmetric crypto (Grover's algorithm halves effective key length, so 256 → 128, still secure)
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> AES block size is ALWAYS 128 bits. The key size varies (128/192/256), but the block size does not. Rijndael (the original algorithm) supported other block sizes, but NIST standardized only 128-bit blocks as AES. This is a common exam question.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Other Symmetric Algorithms</h2>
+<table>
+  <tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Block Size</th><th>Notes</th></tr>
+  <tr><td><strong>Blowfish</strong></td><td>Block</td><td>32–448 bits (variable)</td><td>64 bits</td><td>Bruce Schneier (1993); fast; free; replaced by Twofish; 64-bit block is a limitation</td></tr>
+  <tr><td><strong>Twofish</strong></td><td>Block</td><td>128, 192, 256 bits</td><td>128 bits</td><td>AES finalist; Schneier et al.; Feistel variant; free/unpatented</td></tr>
+  <tr><td><strong>RC4</strong></td><td>Stream</td><td>40–2048 bits (variable)</td><td>N/A (stream)</td><td>Ron Rivest (1987); <strong>BROKEN</strong> — biased output; banned in TLS (RFC 7465)</td></tr>
+  <tr><td><strong>RC5</strong></td><td>Block</td><td>0–2040 bits (variable)</td><td>32, 64, 128 bits</td><td>Rivest (1994); variable block/key/rounds; patented (now expired)</td></tr>
+  <tr><td><strong>RC6</strong></td><td>Block</td><td>128, 192, 256 bits</td><td>128 bits</td><td>AES finalist; based on RC5; patented (now expired)</td></tr>
+  <tr><td><strong>IDEA</strong></td><td>Block</td><td>128 bits</td><td>64 bits</td><td>International Data Encryption Algorithm; used in PGP; patent expired</td></tr>
+  <tr><td><strong>ChaCha20</strong></td><td>Stream</td><td>256 bits</td><td>N/A (stream)</td><td>Bernstein; used in TLS 1.3, WireGuard; modern RC4 replacement</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Know these associations: Blowfish → Bruce Schneier, 64-bit block. RC4 → stream cipher, BROKEN. IDEA → used in PGP. Twofish → AES finalist, 128-bit block. RC6 → AES finalist. ChaCha20 → modern stream cipher, TLS 1.3.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Block Cipher Modes of Operation</h2>
+<div class="callout definition">
+  <strong>📖 Modes of Operation:</strong> Methods that define how a block cipher encrypts data larger than one block. They determine how blocks are chained, whether an IV is used, and what properties (confidentiality, integrity) are provided.
+</div>
+
+<table>
+  <tr><th>Mode</th><th>Full Name</th><th>IV?</th><th>Parallelizable?</th><th>Error Propagation</th><th>Key Properties</th></tr>
+  <tr><td><strong>ECB</strong></td><td>Electronic Codebook</td><td>No</td><td>Yes (encrypt + decrypt)</td><td>Single block only</td><td><strong>INSECURE</strong> — identical plaintext blocks → identical ciphertext blocks; pattern leakage</td></tr>
+  <tr><td><strong>CBC</strong></td><td>Cipher Block Chaining</td><td>Yes</td><td>Decrypt only</td><td>Current + next block</td><td>Each plaintext block XORed with previous ciphertext block before encryption; widely used</td></tr>
+  <tr><td><strong>CFB</strong></td><td>Cipher Feedback</td><td>Yes</td><td>Decrypt only</td><td>Current + next block</td><td>Creates a stream cipher from a block cipher; processes sub-block units</td></tr>
+  <tr><td><strong>OFB</strong></td><td>Output Feedback</td><td>Yes</td><td>Keystream can be precomputed</td><td>Single bit only</td><td>Creates a stream cipher; single bit errors don't propagate; never reuse IV</td></tr>
+  <tr><td><strong>CTR</strong></td><td>Counter</td><td>Nonce (counter)</td><td>Yes (encrypt + decrypt)</td><td>Single bit only</td><td>Encrypts counter values; fully parallelizable; random access to blocks</td></tr>
+  <tr><td><strong>GCM</strong></td><td>Galois/Counter Mode</td><td>Nonce</td><td>Yes (encrypt + decrypt)</td><td>Authentication tag</td><td><strong>AEAD</strong> — provides both encryption AND authentication; used in TLS 1.3</td></tr>
+</table>
+
+<pre>
+  ECB Mode (INSECURE):                CBC Mode (Secure):
+
+  P₁ → [E(K)] → C₁                  IV ⊕ P₁ → [E(K)] → C₁
+  P₂ → [E(K)] → C₂                  C₁ ⊕ P₂ → [E(K)] → C₂
+  P₃ → [E(K)] → C₃                  C₂ ⊕ P₃ → [E(K)] → C₃
+
+  If P₁ = P₃, then C₁ = C₃          Even if P₁ = P₃, C₁ ≠ C₃
+  → Pattern leakage!                 → No pattern leakage
+</pre>
+
+<div class="callout warning">
+  <strong>⚠️ NEVER Use ECB Mode:</strong> ECB encrypts each block independently with the same key. Identical plaintext blocks produce identical ciphertext blocks, leaking patterns. The famous "ECB Penguin" demonstrates this — encrypting a bitmap image in ECB mode reveals the image outline in the ciphertext. Always use CBC, CTR, or GCM instead.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 GCM (Galois/Counter Mode) — The Gold Standard:</strong><br>
+  • Provides Authenticated Encryption with Associated Data (AEAD)<br>
+  • Combines CTR mode encryption with GHASH authentication<br>
+  • Both encrypts AND authenticates data in a single pass<br>
+  • Fully parallelizable → excellent performance<br>
+  • Required by TLS 1.3 (AES-128-GCM and AES-256-GCM)<br>
+  • Produces an authentication tag that detects tampering
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Symmetric Algorithm Comparison</h2>
+<table>
+  <tr><th>Algorithm</th><th>Block Size</th><th>Key Size</th><th>Rounds</th><th>Structure</th><th>Status</th></tr>
+  <tr><td>DES</td><td>64 bits</td><td>56 bits</td><td>16</td><td>Feistel</td><td>Broken</td></tr>
+  <tr><td>3DES</td><td>64 bits</td><td>112/168 bits</td><td>48 (16×3)</td><td>Feistel (3×DES)</td><td>Deprecated</td></tr>
+  <tr><td>AES</td><td>128 bits</td><td>128/192/256</td><td>10/12/14</td><td>SPN</td><td>Current standard</td></tr>
+  <tr><td>Blowfish</td><td>64 bits</td><td>32–448</td><td>16</td><td>Feistel</td><td>Legacy</td></tr>
+  <tr><td>Twofish</td><td>128 bits</td><td>128/192/256</td><td>16</td><td>Feistel variant</td><td>Secure, not standardized</td></tr>
+  <tr><td>IDEA</td><td>64 bits</td><td>128</td><td>8.5</td><td>Lai-Massey</td><td>Legacy (PGP)</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "DES = 56-64-16":</strong> 56-bit effective key, 64-bit block, 16 rounds. "AES = 128 block always, keys 128/192/256, rounds 10/12/14." The block size of AES NEVER changes.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Never ECB":</strong> ECB = "Everyone Can Browse" your patterns. Identical blocks in → identical blocks out. The ECB Penguin proves it. Always choose CBC, CTR, or GCM.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "GCM = Gets Confidentiality + Message auth":</strong> GCM provides both encryption (confidentiality) and authentication (integrity + authenticity) in one operation. It's the gold standard and used in TLS 1.3.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "3DES = EDE = Encrypt-Decrypt-Encrypt":</strong> Three operations, not three encryptions. The middle step is decrypt. With Keying Option 3 (same key), the decrypt undoes the first encrypt, making it backward-compatible with single DES.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>DES</td><td>64-bit block, 56-bit key, 16 rounds, Feistel — BROKEN (brute-forced in hours)</td></tr>
+  <tr><td>3DES</td><td>EDE process; Keying Option 1 = 112-bit effective; DEPRECATED after 2023</td></tr>
+  <tr><td>AES</td><td>128-bit block ALWAYS; 128/192/256-bit keys; 10/12/14 rounds; SPN structure; CURRENT STANDARD</td></tr>
+  <tr><td>Blowfish</td><td>Schneier; 64-bit block; variable key up to 448 bits; free/fast/legacy</td></tr>
+  <tr><td>RC4</td><td>Stream cipher; BROKEN; banned in TLS; replaced by ChaCha20</td></tr>
+  <tr><td>ECB Mode</td><td>NEVER USE — identical plaintext blocks → identical ciphertext blocks; pattern leakage</td></tr>
+  <tr><td>CBC Mode</td><td>XORs each plaintext block with previous ciphertext; requires IV; widely used</td></tr>
+  <tr><td>GCM Mode</td><td>AEAD — encryption + authentication in one pass; parallelizable; used in TLS 1.3</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-046-theory.html" class="nav-btn">← Day 46: Cryptography Fundamentals</a>
+<a href="day-047-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

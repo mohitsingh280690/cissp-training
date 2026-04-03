@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 1 – CISSP Overview &amp; Foundations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+.nav-btn.disabled{background:#ccc;pointer-events:none;}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 1: CISSP Overview &amp; Foundations</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 1 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Beginner</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 1: CISSP Overview &amp; Foundations</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">What is CISSP &amp; (ISC)²?</a></li>
+    <li><a href="#s4">Exam Format – CAT Deep Dive</a></li>
+    <li><a href="#s5">The Eight Domains</a></li>
+    <li><a href="#s6">The CIA Triad</a></li>
+    <li><a href="#s7">The DAD Triad – Attacks on CIA</a></li>
+    <li><a href="#s8">Defense in Depth</a></li>
+    <li><a href="#s9">Security Concepts Glossary</a></li>
+    <li><a href="#s10">Thinking Like a Manager</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management</td></tr>
+    <tr><td>Exam Weight</td><td>15% — the largest single domain</td></tr>
+    <tr><td>Why CISSP Tests This</td><td>CISSP candidates must demonstrate they understand the purpose, scope, and philosophical underpinning of information security before anything else. The CIA Triad is the foundational framework every other concept refers back to.</td></tr>
+    <tr><td>Question Styles</td><td>Definition-based, scenario (which CIA property is violated?), and "best-answer" conceptual questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>CIA Triad appears in every domain — asset classification (D2), cryptographic goals (D3), network controls (D4), access control (D5), audit goals (D6), incident response (D7), and secure coding (D8)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The exam may ask which CIA property is <em>primarily</em> affected by a scenario. Read carefully — a ransomware attack violates <strong>all three</strong> (encrypted = confidentiality; tampered = integrity; locked out = availability), but the <strong>primary</strong> goal of ransomware is to attack <strong>Availability</strong> to extort payment.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 CISSP Mindset:</strong> Day 1 establishes the meta-skill: CISSP does not test what a technician does. It tests what a <em>security manager</em> decides, prioritises, and recommends. Every subsequent topic must be viewed through this lens.
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Organizational Ownership</h3>
+  <p>Security foundations — the CIA Triad, Defense in Depth, governance philosophy — are owned at the <strong>executive level</strong>: the CISO sets the security vision, the CIO aligns it with IT strategy, and the Board oversees risk appetite. These are not IT department documents; they are enterprise documents.</p>
+  <h3>Implementation Reality</h3>
+  <p>In practice, every security program starts with a formal articulation of <em>what</em> the organization is protecting (assets), <em>from what</em> (threats), and <em>to what standard</em> (CIA requirements per asset). A bank will prioritise <strong>Integrity</strong> (correct account balances) above all else. A streaming service will prioritise <strong>Availability</strong>. A law firm will prioritise <strong>Confidentiality</strong>. The CIA model forces this explicit decision.</p>
+  <h3>Failure Modes</h3>
+  <ul>
+    <li><strong>Target (2013):</strong> Availability of point-of-sale systems was not considered a security concern — the breach began through HVAC vendor credentials and ultimately violated all three CIA properties for 40 million payment card records.</li>
+    <li>Organizations that treat security as purely technical (no governance foundations) consistently fail audits and experience repeated breaches because they have no coherent framework to measure against.</li>
+  </ul>
+  <h3>Business Impact</h3>
+  <p>The CIA Triad is the language the <strong>board and auditors</strong> use when they ask "are we secure?" Mapping every control to a CIA property allows the CISO to present security in business terms: <em>"This £2M investment in encryption protects Confidentiality of 5 million customer records, reducing our GDPR fine exposure from £20M to near-zero."</em></p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. What is CISSP &amp; (ISC)²?</h2>
+  <div class="definition">
+    <strong>CISSP:</strong> Certified Information Systems Security Professional — a globally recognised certification issued by (ISC)² (International Information System Security Certification Consortium) that validates a professional's ability to <em>design, implement, and manage</em> a comprehensive cybersecurity program.
+  </div>
+  <p>Founded in 1989, <strong>(ISC)²</strong> is a nonprofit membership organisation headquartered in Clearwater, Florida. It is the world's largest nonprofit association of certified cybersecurity professionals.</p>
+
+  <h3>Why CISSP is Called the "Gold Standard"</h3>
+  <ul>
+    <li>It is vendor-neutral — no product knowledge is tested; principles are.</li>
+    <li>It requires demonstrable work experience, not just exam passing.</li>
+    <li>It mandates ongoing CPE (Continuing Professional Education) credits, ensuring currency.</li>
+    <li>It is consistently the highest-paying cybersecurity certification globally (average salary premium 15–20% over uncertified peers).</li>
+    <li>It is listed in the US DoD Directive 8570/8140 as a requirement for certain government security roles.</li>
+  </ul>
+
+  <h3>Eligibility Requirements</h3>
+  <table>
+    <tr><th>Requirement</th><th>Detail</th></tr>
+    <tr><td>Work Experience</td><td>5 cumulative years, paid, full-time, in ≥2 of the 8 CISSP domains</td></tr>
+    <tr><td>Experience Waiver</td><td>4-year college degree OR an (ISC)²-approved credential waives 1 year → need only 4 years</td></tr>
+    <tr><td>Endorsement</td><td>Must be endorsed by an active (ISC)² member within 9 months of passing</td></tr>
+    <tr><td>Ethics Pledge</td><td>Must agree to the (ISC)² Code of Professional Ethics</td></tr>
+    <tr><td>CPE Maintenance</td><td>40 CPE credits/year; 120 over the 3-year cycle; $125 AMF annually</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Associate of (ISC)²:</strong> If you pass the exam but do not yet have 5 years of experience, you become an <strong>Associate of (ISC)²</strong> and have up to 6 years to accumulate the required experience. This is worth pursuing — your exam pass is preserved.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Exam Format – CAT Deep Dive</h2>
+  <h3>Computerized Adaptive Testing (CAT)</h3>
+  <p>The English-language CISSP uses <strong>CAT</strong>, which adapts in real time to your demonstrated ability level. Unlike a fixed exam, CAT presents harder questions when you answer correctly and easier ones when you don't — always seeking to confirm whether you are above or below the passing threshold.</p>
+
+  <table>
+    <tr><th>Parameter</th><th>Detail</th></tr>
+    <tr><td>Question Range</td><td>125–175 questions (minimum 125, maximum 175)</td></tr>
+    <tr><td>Exam ends when</td><td>System is statistically confident you are above OR below the passing line (95% confidence)</td></tr>
+    <tr><td>Time Limit</td><td>4 hours</td></tr>
+    <tr><td>Passing Score</td><td>700 out of 1,000 points</td></tr>
+    <tr><td>Question Types</td><td>Multiple choice (4 options) + Advanced Innovative Items (drag-and-drop, hotspot, matching)</td></tr>
+    <tr><td>Languages (CAT)</td><td>English only</td></tr>
+    <tr><td>Languages (Linear)</td><td>French, German, Brazilian Portuguese, Spanish, Japanese, Simplified Chinese, Korean (150 questions, 6 hours)</td></tr>
+    <tr><td>Scored vs Unscored</td><td>Some questions are unscored pretest items; you cannot identify them</td></tr>
+    <tr><td>Retake Wait</td><td>30 days after 1st fail; 60 days after 2nd; 90 days after 3rd+</td></tr>
+    <tr><td>Maximum attempts/year</td><td>4</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Key Insight – CAT Psychology:</strong> Because the exam adapts, you will almost certainly see difficult questions throughout. Seeing hard questions is a <em>good sign</em> — it means the system believes you are above the threshold. Do not panic when questions seem extremely difficult.
+  </div>
+
+  <h3>Domain Weighting in the Exam</h3>
+  <table>
+    <tr><th>Domain</th><th>Weight</th><th>~Questions (out of 150)</th></tr>
+    <tr><td>1. Security and Risk Management</td><td>15%</td><td>~22</td></tr>
+    <tr><td>2. Asset Security</td><td>10%</td><td>~15</td></tr>
+    <tr><td>3. Security Architecture and Engineering</td><td>13%</td><td>~20</td></tr>
+    <tr><td>4. Communication and Network Security</td><td>13%</td><td>~20</td></tr>
+    <tr><td>5. Identity and Access Management</td><td>13%</td><td>~20</td></tr>
+    <tr><td>6. Security Assessment and Testing</td><td>12%</td><td>~18</td></tr>
+    <tr><td>7. Security Operations</td><td>13%</td><td>~20</td></tr>
+    <tr><td>8. Software Development Security</td><td>11%</td><td>~17</td></tr>
+  </table>
+
+  <div class="warning">
+    <strong>⚠️ Common Mistake:</strong> Many candidates over-index on Domains 3 (crypto) and 4 (networking) because those are the most technical. Domain 1 — the largest single domain at 15% — is often under-studied. Risk management and governance questions can be the margin between pass and fail.
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. The Eight Domains at a Glance</h2>
+  <p>The CISSP CBK (Common Body of Knowledge) is divided into 8 domains. Each domain represents a major discipline within information security management.</p>
+  <table>
+    <tr><th>#</th><th>Domain Name</th><th>Core Theme</th></tr>
+    <tr><td>1</td><td>Security and Risk Management</td><td>Governance, policy, risk, compliance, ethics — the "why" of security</td></tr>
+    <tr><td>2</td><td>Asset Security</td><td>Classifying, handling, and protecting information assets throughout their lifecycle</td></tr>
+    <tr><td>3</td><td>Security Architecture &amp; Engineering</td><td>Secure system design, cryptography, security models, hardware/software architecture</td></tr>
+    <tr><td>4</td><td>Communication &amp; Network Security</td><td>Protecting data in transit — OSI model, protocols, firewalls, VPNs, wireless</td></tr>
+    <tr><td>5</td><td>Identity &amp; Access Management (IAM)</td><td>Who can access what, and how — authentication, authorisation, identity lifecycle</td></tr>
+    <tr><td>6</td><td>Security Assessment &amp; Testing</td><td>Verifying controls work — audits, vulnerability scanning, penetration testing</td></tr>
+    <tr><td>7</td><td>Security Operations</td><td>Day-to-day defence — incident response, forensics, monitoring, BCP/DRP</td></tr>
+    <tr><td>8</td><td>Software Development Security</td><td>Building security into software — SDLC, secure coding, application testing</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Insight:</strong> The domains are not independent silos. A real security program requires all 8 to work together. Exam scenario questions often span multiple domains — e.g., a question about a breach may involve D7 (incident response), D2 (data classification), and D1 (risk management) simultaneously.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. The CIA Triad</h2>
+  <p>The CIA Triad is the foundational model of information security. Every security control, every policy, every risk assessment ultimately maps back to protecting one or more of these three properties.</p>
+
+  <div class="diagram">
+              ┌─────────────────────────┐
+              │    INFORMATION SECURITY  │
+              └──────────┬──────────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         ▼               ▼               ▼
+  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+  │CONFIDENTIALITY│ │  INTEGRITY  │ │ AVAILABILITY│
+  └─────────────┘ └─────────────┘ └─────────────┘
+  Keep secrets safe  Keep data accurate  Keep systems up</div>
+
+  <h3>Confidentiality</h3>
+  <div class="definition">
+    <strong>Confidentiality:</strong> Ensuring that information is accessible only to those authorised to access it. Data should not be disclosed to unauthorised parties.
+  </div>
+  <p>Confidentiality is about <em>secrecy</em> and <em>privacy</em>. It protects both the information itself and knowledge of the information's existence.</p>
+  <p><strong>Mechanisms that support Confidentiality:</strong></p>
+  <ul>
+    <li><strong>Encryption</strong> — renders data unreadable without the correct key (AES, RSA, TLS)</li>
+    <li><strong>Access Controls</strong> — limits who can view data (ACLs, RBAC, MAC labels)</li>
+    <li><strong>Data Classification</strong> — assigns sensitivity levels so handling rules are clear</li>
+    <li><strong>Steganography</strong> — hides the existence of the data itself</li>
+    <li><strong>Physical Security</strong> — locked rooms, clean desk policies, screen filters</li>
+    <li><strong>NDAs and legal agreements</strong> — contractual confidentiality</li>
+  </ul>
+  <p><strong>Threats to Confidentiality:</strong> Eavesdropping, man-in-the-middle attacks, shoulder surfing, social engineering, data exfiltration, unencrypted storage/transmission, insider threats.</p>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip:</strong> Confidentiality is the primary goal of <em>encryption</em> and <em>access control</em>. When a question asks what control primarily addresses confidentiality, these two are always candidates.
+  </div>
+
+  <h3>Integrity</h3>
+  <div class="definition">
+    <strong>Integrity:</strong> Assuring that information and systems are accurate and complete, and that data has not been modified in an unauthorised manner. Integrity also covers the reliability and correctness of the data.
+  </div>
+  <p>Integrity has two dimensions: <strong>data integrity</strong> (data has not been altered) and <strong>system integrity</strong> (the system functions as intended, without unauthorised modification).</p>
+  <p><strong>Mechanisms that support Integrity:</strong></p>
+  <ul>
+    <li><strong>Hashing</strong> — a hash of data (MD5, SHA-256) changes if even one bit changes, detecting tampering</li>
+    <li><strong>Digital Signatures</strong> — mathematically bind a hash to an identity, proving both integrity and authenticity</li>
+    <li><strong>Message Authentication Codes (HMAC)</strong> — integrity + authentication for messages</li>
+    <li><strong>Version control and change management</strong> — tracks all changes with accountability</li>
+    <li><strong>Input validation</strong> — prevents malformed data from corrupting systems</li>
+    <li><strong>Backups</strong> — allows restoration to a known-good state</li>
+  </ul>
+  <p><strong>Threats to Integrity:</strong> SQL injection, man-in-the-middle tampering, malware/ransomware, unauthorised file modification, bitrot, race conditions.</p>
+  <div class="key-concept">
+    <strong>Key Concept — Non-repudiation:</strong> Often linked to integrity. Non-repudiation means a party cannot deny performing an action. Digital signatures provide non-repudiation because only the signer had access to their private key. Non-repudiation requires both <em>integrity</em> (data wasn't changed) and <em>authentication</em> (we know who signed it).
+  </div>
+
+  <h3>Availability</h3>
+  <div class="definition">
+    <strong>Availability:</strong> Ensuring that authorised users have reliable, timely access to information and systems when needed.
+  </div>
+  <p>Availability is often the most visible property to users and the business — downtime is immediately felt. It requires capacity planning, fault tolerance, and operational resilience.</p>
+  <p><strong>Mechanisms that support Availability:</strong></p>
+  <ul>
+    <li><strong>Redundancy</strong> — duplicate systems, RAID, dual power supplies, multiple ISPs</li>
+    <li><strong>Clustering &amp; Load balancing</strong> — distributes load, routes around failures</li>
+    <li><strong>Backups &amp; Recovery</strong> — restore from last known-good state</li>
+    <li><strong>DDoS mitigation</strong> — traffic scrubbing, CDN-based absorption</li>
+    <li><strong>Patch management</strong> — vulnerabilities left unpatched lead to system failures</li>
+    <li><strong>Business Continuity &amp; Disaster Recovery Plans</strong> — pre-authorised responses to outages</li>
+    <li><strong>SLAs (Service Level Agreements)</strong> — defined uptime commitments from vendors</li>
+  </ul>
+  <p><strong>Threats to Availability:</strong> DoS/DDoS attacks, hardware failures, natural disasters, ransomware, software bugs, insider sabotage, negligence, power outages.</p>
+
+  <h3>Extending the Triad — Additional Security Properties</h3>
+  <p>The CISSP exam also recognises properties beyond pure CIA:</p>
+  <table>
+    <tr><th>Property</th><th>Meaning</th><th>Example Control</th></tr>
+    <tr><td>Authenticity</td><td>Confirming identity — the entity is who it claims to be</td><td>Digital certificates, multi-factor authentication</td></tr>
+    <tr><td>Non-repudiation</td><td>An action cannot be denied after the fact</td><td>Digital signatures, audit logs</td></tr>
+    <tr><td>Accountability</td><td>Actions are traceable to a specific identity</td><td>Audit trails, logging, SIEM</td></tr>
+    <tr><td>Privacy</td><td>Individuals control information about themselves</td><td>GDPR, data minimisation, consent</td></tr>
+  </table>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. The DAD Triad – Attacks on CIA</h2>
+  <p>The <strong>DAD Triad</strong> maps directly onto CIA — each element of DAD is the successful attack against the corresponding CIA property:</p>
+
+  <table>
+    <tr><th>Attack (DAD)</th><th>CIA Property Violated</th><th>Example</th></tr>
+    <tr><td><strong>D</strong>isclosure</td><td>Confidentiality</td><td>Credential theft; exfiltrating a customer database; eavesdropping on TLS traffic via weak cipher</td></tr>
+    <tr><td><strong>A</strong>lteration</td><td>Integrity</td><td>Man-in-the-middle tampers with a wire transfer; SQL injection modifying price fields; malware corrupting logs</td></tr>
+    <tr><td><strong>D</strong>estruction</td><td>Availability</td><td>Ransomware encrypting all files; DDoS taking down a website; physical destruction of a data centre</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 Mnemonic — DAD attacks CIA:</strong><br>
+    <strong>D</strong>isclosure attacks <strong>C</strong>onfidentiality → D→C<br>
+    <strong>A</strong>lteration attacks <strong>I</strong>ntegrity → A→I<br>
+    <strong>D</strong>estruction attacks <strong>A</strong>vailability → D→A<br><br>
+    Memory hook: <em>"DAD destroys CIA's work"</em>
+  </div>
+
+  <div class="key-concept">
+    <strong>Important:</strong> Many real attacks violate all three simultaneously. Ransomware <em>discloses</em> your files to attackers (C), <em>alters</em> them by encrypting (I), and <em>destroys</em> your access to them (A). The exam may ask which property is the <em>primary</em> goal — for ransomware, it is Availability (to extort) or Confidentiality (if data is exfiltrated before encryption).
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Defense in Depth</h2>
+  <div class="definition">
+    <strong>Defense in Depth (DiD):</strong> A layered security strategy in which multiple, independent security controls are placed throughout a system, so that if one layer fails, the others continue to provide protection. Also known as <em>layered defence</em> or the <em>castle approach</em>.
+  </div>
+  <p>The principle originates from medieval military strategy — a castle had a moat, walls, a drawbridge, guards, a keep, and inner chambers. An attacker had to breach every layer. No single layer was considered sufficient.</p>
+
+  <div class="diagram">
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  Layer 7 – Policies, Procedures &amp; Awareness (people)           │
+  │  ┌───────────────────────────────────────────────────────────┐  │
+  │  │  Layer 6 – Physical Security (fences, locks, mantraps)    │  │
+  │  │  ┌─────────────────────────────────────────────────────┐  │  │
+  │  │  │  Layer 5 – Perimeter (firewalls, DMZ, IDS/IPS)      │  │  │
+  │  │  │  ┌───────────────────────────────────────────────┐  │  │  │
+  │  │  │  │  Layer 4 – Network (segmentation, VLANs)       │  │  │  │
+  │  │  │  │  ┌─────────────────────────────────────────┐  │  │  │  │
+  │  │  │  │  │  Layer 3 – Host (OS hardening, AV, EDR)  │  │  │  │  │
+  │  │  │  │  │  ┌───────────────────────────────────┐  │  │  │  │  │
+  │  │  │  │  │  │  Layer 2 – Application (WAF, auth) │  │  │  │  │  │
+  │  │  │  │  │  │  ┌─────────────────────────────┐  │  │  │  │  │  │
+  │  │  │  │  │  │  │  Layer 1 – DATA (encrypt)    │  │  │  │  │  │  │
+  │  │  │  │  │  │  └─────────────────────────────┘  │  │  │  │  │  │
+  │  │  │  │  │  └───────────────────────────────────┘  │  │  │  │  │
+  │  │  │  │  └─────────────────────────────────────────┘  │  │  │  │
+  │  │  │  └───────────────────────────────────────────────┘  │  │  │
+  │  │  └─────────────────────────────────────────────────────┘  │  │
+  │  └───────────────────────────────────────────────────────────┘  │
+  └─────────────────────────────────────────────────────────────────┘</div>
+
+  <h3>Why Defense in Depth Matters</h3>
+  <ul>
+    <li><strong>No single control is perfect.</strong> Every control has vulnerabilities, misconfiguration risks, or bypass techniques.</li>
+    <li><strong>Attackers work through layers.</strong> Each layer they must breach requires more time, skill, and resources — increasing detection probability and cost for the attacker.</li>
+    <li><strong>Failure does not mean catastrophe.</strong> A firewall bypass does not immediately mean data exfiltration if encryption, access controls, and DLP are also in place.</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>Key Concept – Control Diversity:</strong> For DiD to work, adjacent layers should use <em>different</em> technologies and vendors where possible. If all layers use the same AV engine, one zero-day defeats all of them simultaneously. Diversity means different failure modes.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Core Security Concepts Glossary</h2>
+  <p>These foundational terms appear throughout all 8 domains. Learn them precisely — the exam exploits imprecise understanding.</p>
+  <table>
+    <tr><th>Term</th><th>Definition</th></tr>
+    <tr><td><strong>Asset</strong></td><td>Anything of value to the organisation — data, systems, people, reputation, physical property</td></tr>
+    <tr><td><strong>Threat</strong></td><td>Any potential event that could cause harm to an asset — intentional or accidental, natural or man-made</td></tr>
+    <tr><td><strong>Threat Agent</strong></td><td>The entity that carries out the threat — a hacker, insider, hurricane, software bug</td></tr>
+    <tr><td><strong>Vulnerability</strong></td><td>A weakness in a system, process, or control that can be exploited by a threat</td></tr>
+    <tr><td><strong>Exploit</strong></td><td>The technique or tool used to take advantage of a vulnerability</td></tr>
+    <tr><td><strong>Risk</strong></td><td>The probability that a threat will exploit a vulnerability and cause a loss — Risk = Threat × Vulnerability × Impact</td></tr>
+    <tr><td><strong>Exposure</strong></td><td>Being in a position where a threat could cause harm — susceptibility to a threat</td></tr>
+    <tr><td><strong>Control / Safeguard / Countermeasure</strong></td><td>Any mechanism that reduces risk — detective, preventive, corrective, or deterrent</td></tr>
+    <tr><td><strong>Residual Risk</strong></td><td>The risk remaining after controls have been applied — never zero</td></tr>
+    <tr><td><strong>Total Risk</strong></td><td>Risk before any controls are applied</td></tr>
+    <tr><td><strong>Impact</strong></td><td>The magnitude of harm resulting from a successful attack</td></tr>
+    <tr><td><strong>Likelihood</strong></td><td>The probability that a threat will successfully exploit a vulnerability</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Key Distinction — Threat vs. Vulnerability:</strong> A <em>threat</em> is what might happen (fire). A <em>vulnerability</em> is the weakness that lets it happen (no sprinklers). A <em>risk</em> is the combination. You can have a threat with no vulnerability (fire in a fireproof building = low risk), or a vulnerability with no credible threat (equally low risk). Risk requires both.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Thinking Like a Manager – The CISSP Mindset</h2>
+  <p>This is the single most important exam skill. The CISSP does not test what a firewalls engineer would configure, or what a penetration tester would exploit. It tests what a <strong>senior security manager or CISO</strong> would decide.</p>
+
+  <h3>The Manager's Priority Order</h3>
+  <ol>
+    <li><strong>Human safety first</strong> — in any scenario where life is at risk, that comes before data, systems, or business continuity. No exceptions.</li>
+    <li><strong>Legal and regulatory compliance</strong> — you cannot sacrifice legal obligations for convenience or cost.</li>
+    <li><strong>Organisational policy</strong> — internal policy is the next binding constraint.</li>
+    <li><strong>Security best practice</strong> — once the above are met, choose the most secure viable option.</li>
+  </ol>
+
+  <h3>How to Apply the Mindset on Exam Questions</h3>
+  <ul>
+    <li>When two answers both seem correct, ask: <em>which one is more proactive/preventive?</em> Managers prefer prevention over reaction.</li>
+    <li>When an answer involves updating something, ask: <em>should policy or technology be changed first?</em> Policy change typically comes before technology change.</li>
+    <li>When asked about notifying parties of a breach, the answer almost always involves notifying management and legal/counsel <em>before</em> customers or law enforcement.</li>
+    <li>"Complete a risk assessment first" is almost always a strong candidate answer when the question involves deciding what control to implement.</li>
+  </ul>
+
+  <div class="exam-tip">
+    <strong>💡 The Most Powerful Single Principle:</strong> The CISSP exam consistently rewards the answer that:
+    <ol>
+      <li>Protects people first</li>
+      <li>Follows established process/policy</li>
+      <li>Is the most complete and proactive solution</li>
+    </ol>
+    When in doubt, ask yourself: "What would a careful, experienced CISO do here — not a systems administrator?"
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 CIA Triad:</strong><br>
+    <strong>C.I.A.</strong> — same as the intelligence agency: they keep <em>secrets</em> (Confidentiality), ensure <em>accurate intel</em> (Integrity), and must always be <em>reachable</em> (Availability).<br>
+    Or: <em>"Can I Always trust this data?"</em> — Can=Confidentiality, I=Integrity, Always=Availability
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 DAD Triad:</strong><br>
+    <strong>D.A.D.</strong> — Disclosure, Alteration, Destruction<br>
+    <em>"DAD destroys CIA's work"</em> — D→C, A→I, D→A<br>
+    (Disclosure attacks Confidentiality; Alteration attacks Integrity; Destruction attacks Availability)
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Domain Weights (largest to smallest):</strong><br>
+    D1(15%) → D3/D4/D5/D7(13%) → D6(12%) → D8(11%) → D2(10%)<br>
+    Memory hook: <em>"Risk rules the room"</em> — Domain 1 (Risk Management) is always #1 by weight.
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Defense in Depth — "The Castle":</strong><br>
+    Think of a medieval castle: moat → outer wall → drawbridge → inner wall → keep → throne room.<br>
+    Your modern equivalent: perimeter firewall → DMZ → internal segment → host firewall → application controls → data encryption.<br>
+    Each layer is a drawbridge an attacker must lower.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Exam Trap — Residual vs. Total Risk:</strong><br>
+    <strong>Total Risk</strong> = risk before controls. <strong>Residual Risk</strong> = risk after controls. The goal is never to eliminate all risk (impossible) but to reduce residual risk to an acceptable level. The exam will test whether you know that residual risk always exists.
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Non-repudiation memory anchor:</strong><br>
+    Non-repudiation = <em>"you can't deny you did it."</em> Think of a signed cheque — your signature is your private key. The bank (verifier) has your public signature on file. You cannot claim you didn't write it.
+  </div>
+</div>
+
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>CISSP</td><td>Gold-standard, vendor-neutral, management-level security certification by (ISC)²</td></tr>
+    <tr><td>CAT Format</td><td>125–175 questions, 4 hours, 700/1000 passing, adapts to your ability in real time</td></tr>
+    <tr><td>Domain 1 Weight</td><td>15% — the largest domain; do not underestimate it</td></tr>
+    <tr><td>Confidentiality</td><td>Prevent unauthorised disclosure — encryption, access controls, classification</td></tr>
+    <tr><td>Integrity</td><td>Prevent unauthorised modification — hashing, digital signatures, change control</td></tr>
+    <tr><td>Availability</td><td>Ensure authorised access — redundancy, backups, DDoS mitigation, BCP/DRP</td></tr>
+    <tr><td>DAD Triad</td><td>Disclosure (attacks C), Alteration (attacks I), Destruction (attacks A)</td></tr>
+    <tr><td>Defense in Depth</td><td>Multiple independent layers; no single point of failure; diverse controls</td></tr>
+    <tr><td>Manager Mindset</td><td>Life first → compliance → policy → security best practice</td></tr>
+    <tr><td>Residual Risk</td><td>Always exists after controls — the goal is acceptable residual risk, not zero risk</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <span class="nav-btn disabled">← Start of Course</span>
+  <a href="day-002-theory.html" class="nav-btn">Day 2: Security Governance Principles →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

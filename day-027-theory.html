@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 27 – Data Retention &amp; Destruction</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:#4a148c;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:#7b1fa2;text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:#4a148c;border-bottom:3px solid #7b1fa2;padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:#6a1b9a;margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:#4a148c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7b1fa2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4a148c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 27: Data Retention &amp; Destruction</h1>
+  <div class="subtitle">Domain 2 – Asset Security (10% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 27 of 140</span>
+    <span>📚 Domain 2 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 2: Asset Security → Day 27: Data Retention &amp; Destruction</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Relevance</a></li>
+    <li><a href="#s3">Retention Policies and Schedules</a></li>
+    <li><a href="#s4">Key Regulatory Retention Periods</a></li>
+    <li><a href="#s5">Litigation Hold / Legal Hold</a></li>
+    <li><a href="#s6">Data Destruction Methods</a></li>
+    <li><a href="#s7">Certificate of Destruction</a></li>
+    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s9">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 2 – Asset Security (10%)</td></tr>
+    <tr><td>Why Tested</td><td>Retention and destruction are heavily tested because they represent the end of the data lifecycle but are most often where compliance failures occur. Exam tests specific regulatory periods (SOX, HIPAA), the concept of legal hold, and destruction method selection.</td></tr>
+    <tr><td>Question Styles</td><td>"A company is sued — what must happen to its normal data destruction schedule?"; "Which destruction method renders magnetic media unreadable?"; "What document proves secure media disposal occurred?"</td></tr>
+    <tr><td>Cross-Domain</td><td>Domain 1 (compliance and legal — retention as governance); Domain 2 (lifecycle — archive/destroy stages); Domain 7 (physical security — physical destruction methods)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> When litigation is "reasonably anticipated," the legal hold obligation activates — even before formal legal proceedings begin. Destroying data after this point is called spoliation and can result in severe legal sanctions including adverse inference instructions to a jury.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Relevance</h2>
+  <p>Major organisations have paid millions in sanctions for destroying data after a legal hold obligation arose. Simultaneously, organisations that retain data indefinitely "just in case" expose themselves to greater liability in litigation discovery — the more data you retain, the more that can be used against you. Proper retention schedules manage both risks.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Retention Policies and Schedules</h2>
+  <div class="definition">
+    <strong>Retention Policy:</strong> An organisational policy specifying how long each category of data must be retained before it can be destroyed. Based on regulatory requirements, legal obligations, contractual requirements, and operational business needs.
+  </div>
+  <h3>Drivers of Retention Requirements</h3>
+  <ul>
+    <li><strong>Regulatory:</strong> Laws and regulations impose minimum retention periods for specific record types (SOX for financial records, HIPAA for medical records, PCI-DSS for payment data)</li>
+    <li><strong>Legal:</strong> Litigation, investigations, and government inquiries may require records to be preserved beyond normal retention periods</li>
+    <li><strong>Contractual:</strong> Customer or partner contracts may specify retention requirements for data generated under the contract</li>
+    <li><strong>Operational:</strong> Business need to access historical records for reference, trend analysis, or auditing</li>
+  </ul>
+  <h3>Records Lifecycle States</h3>
+  <ul>
+    <li><strong>Active records:</strong> Currently being used in daily operations; stored in operational systems</li>
+    <li><strong>Inactive records:</strong> No longer actively used but must be retained; moved to archive storage</li>
+    <li><strong>Archival records:</strong> Long-term preservation (vital records, historical records); may be retained permanently</li>
+    <li><strong>Vital records programme:</strong> Identifies and protects records essential to continuing organisational operations after a disaster (corporate charter, key contracts, financial statements, regulatory licences)</li>
+  </ul>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Key Regulatory Retention Periods</h2>
+  <table>
+    <tr><th>Regulation</th><th>Record Type</th><th>Retention Period</th></tr>
+    <tr><td>SOX (Sarbanes-Oxley)</td><td>Financial records, audit reports, work papers</td><td>7 years</td></tr>
+    <tr><td>HIPAA</td><td>Medical records and documentation</td><td>6 years from date of creation or last effective date</td></tr>
+    <tr><td>GDPR</td><td>Personal data</td><td>No fixed period — "storage limitation" principle: only as long as necessary for the purpose</td></tr>
+    <tr><td>PCI-DSS</td><td>Audit logs (cardholder data environment)</td><td>1 year (3 months online, remaining 9 months accessible)</td></tr>
+    <tr><td>FLSA (US Labor Law)</td><td>Employee payroll records</td><td>3 years</td></tr>
+    <tr><td>IRS (US Tax)</td><td>Tax-related business records</td><td>Generally 7 years</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>✅ Most-Tested Numbers:</strong> SOX = 7 years | HIPAA = 6 years | PCI-DSS audit logs = 1 year (3 months immediately accessible). These specific numbers appear on the CISSP exam.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Litigation Hold / Legal Hold</h2>
+  <div class="definition">
+    <strong>Litigation Hold (Legal Hold):</strong> A suspension of normal data destruction and retention schedule activities, triggered when an organisation reasonably anticipates litigation, regulatory investigation, or other legal proceedings that will require production of data as evidence.
+  </div>
+  <h3>Key Points</h3>
+  <ul>
+    <li>The obligation arises when litigation is <em>reasonably anticipated</em> — not when it formally begins. A threatening letter from a lawyer can trigger a hold.</li>
+    <li>Once a hold is in place, any data within the hold's scope must be preserved — even if the normal retention schedule says destroy it</li>
+    <li>Hold must cover all relevant data locations: email servers, backup tapes, cloud storage, mobile devices, employee personal devices used for work</li>
+    <li>HR, Legal, IT, and Records Management must all coordinate on hold execution</li>
+  </ul>
+  <h3>Spoliation</h3>
+  <div class="warning">
+    <strong>⚠️ Spoliation:</strong> The intentional or negligent destruction, alteration, or withholding of evidence that is subject to a legal hold. Penalties include: adverse inference jury instructions (jury told to assume destroyed evidence was unfavourable), monetary sanctions, dismissal of claims, default judgement against the spoliating party, and potential criminal obstruction of justice charges.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Data Destruction Methods</h2>
+  <h3>Logical Destruction Methods</h3>
+  <ul>
+    <li><strong>Overwriting (DoD 5220.22-M / Gutmann method):</strong> Writing known patterns (e.g., all zeros, all ones, random data) over existing data multiple times. Suitable for magnetic HDDs and SSDs (though overwriting SSDs is less reliable due to wear leveling — see Day 30). The DoD 5220.22-M 3-pass method and the Gutmann 35-pass method are well-known standards.</li>
+    <li><strong>Cryptographic erasure:</strong> Destroying the encryption keys that protect encrypted data. If the data is encrypted with AES-256 and the key is securely destroyed, the encrypted data is permanently unreadable — effectively destroyed without physically destroying the media. Ideal for cloud storage and SSDs where physical overwriting is impractical.</li>
+    <li><strong>Factory reset:</strong> For mobile devices — uses device's built-in cryptographic erasure (modern Android and iOS encrypt storage; factory reset destroys keys). Less reliable on older devices without full device encryption.</li>
+  </ul>
+  <h3>Physical Destruction Methods</h3>
+  <table>
+    <tr><th>Method</th><th>Applicable Media</th><th>Notes</th></tr>
+    <tr><td>Cross-cut/micro-cut shredding</td><td>Paper documents, optical discs, credit cards, some HDDs</td><td>Micro-cut (confetti) is more secure than strip-cut; NIST recommends micro-cut for TS paper documents</td></tr>
+    <tr><td>Degaussing</td><td>Magnetic media ONLY (HDDs, magnetic tapes)</td><td>Applies strong magnetic field to randomise magnetic domains; renders media permanently unusable; NO EFFECT on SSDs, optical discs, or flash storage</td></tr>
+    <tr><td>Incineration</td><td>Any media type</td><td>Complete physical destruction; certificates of destruction typically required by incinerator facility</td></tr>
+    <tr><td>Disintegration/Pulverising</td><td>Hard drives, SSDs, tapes</td><td>Industrial shredders that reduce media to small particles (< 2mm for high-security applications)</td></tr>
+    <tr><td>Smelting/Melting</td><td>Metal components (HDDs)</td><td>Melts the platter and case; complete destruction</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Degaussing Limitation:</strong> Degaussing ONLY works on magnetic media. It has absolutely no effect on SSDs, USB flash drives, or optical discs (CDs/DVDs). A degaussed SSD may still contain all its data intact. This is a heavily tested CISSP exam point.
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Certificate of Destruction</h2>
+  <div class="definition">
+    <strong>Certificate of Destruction:</strong> A formal written document that provides evidence that a specific asset was destroyed by an authorised method on a specific date. It is the accountability record for the Destroy stage of the data lifecycle.
+  </div>
+  <p>A certificate of destruction should contain:</p>
+  <ul>
+    <li>Asset description (type of media, make/model, serial number)</li>
+    <li>Data classification of the asset</li>
+    <li>Destruction method used (degaussing, shredding, incineration, etc.)</li>
+    <li>Date and location of destruction</li>
+    <li>Name and signature of the authorised person who performed or witnessed destruction</li>
+    <li>Name of the destruction vendor (if third-party)</li>
+  </ul>
+  <p>Organisations must <strong>require certificates of destruction</strong> from third-party media disposal companies. These certificates provide proof of HIPAA, PCI-DSS, and GDPR compliance for data destruction obligations.</p>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Regulatory Retention Numbers:</strong><br>
+    SOX = <strong>7</strong> years ("Seven-OX")<br>
+    HIPAA = <strong>6</strong> years ("HIPAA has 5 letters, +1 = 6")<br>
+    PCI audit logs = <strong>1</strong> year (3 months hot / 9 months warm)<br>
+    Remember: "SOX=7, HIPAA=6, PCI=1"
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Legal Hold Trigger:</strong><br>
+    "Anticipated = Activated" — The hold activates when litigation is <em>reasonably anticipated</em>, not when the lawsuit is filed. Destroying data after the anticipation point = Spoliation.
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Degaussing Limitation:</strong><br>
+    "Degaussing only DEMAGNETISES" — It only affects magnetic media (spinning HDDs, tapes).<br>
+    SSD = flash memory = no magnetism → Degaussing does NOTHING to an SSD.
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Key Takeaways</h2>
+  <table>
+    <tr><th>Topic</th><th>Key Fact</th></tr>
+    <tr><td>SOX retention</td><td>7 years for financial records / audit work papers</td></tr>
+    <tr><td>HIPAA retention</td><td>6 years from creation or last effective date</td></tr>
+    <tr><td>GDPR retention</td><td>No fixed period — storage limitation: retain only as long as necessary</td></tr>
+    <tr><td>Legal hold trigger</td><td>When litigation is REASONABLY ANTICIPATED — not when filed; destroying data after = spoliation</td></tr>
+    <tr><td>Degaussing</td><td>Magnetic media ONLY — has NO effect on SSDs or optical media</td></tr>
+    <tr><td>Cryptographic erasure</td><td>Destroy the encryption key — preferred for SSDs and cloud storage</td></tr>
+    <tr><td>Certificate of destruction</td><td>Required documentation proving secure disposal; includes method, date, asset, signature</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-026-theory.html" class="nav-btn">← Day 26: Privacy Protection</a>
+  <a href="day-027-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

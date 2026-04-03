@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 18 – Personnel Security Policies</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 18: Personnel Security Policies</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 18 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 18: Personnel Security Policies</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Pre-Employment Screening</a></li>
+    <li><a href="#s4">Employment Agreements</a></li>
+    <li><a href="#s5">Onboarding and Offboarding</a></li>
+    <li><a href="#s6">Separation of Duties (SoD)</a></li>
+    <li><a href="#s7">Job Rotation and Mandatory Vacations</a></li>
+    <li><a href="#s8">Least Privilege and Need to Know</a></li>
+    <li><a href="#s9">Insider Threat</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>People are the largest attack surface and the most common root cause of breaches. CISSP requires understanding the policies and controls that manage human risk throughout the employment lifecycle.</td></tr>
+    <tr><td>Question Styles</td><td>Scenario-based (which control addresses embezzlement?); best-practice selection; policy definition questions</td></tr>
+    <tr><td>Cross-Domain Connections</td><td>Domain 5 (IAM — access provisioning/deprovisioning); Domain 7 (insider threat detection); Domain 6 (security assessment of personnel controls)</td></tr>
+    <tr><td>Typical Exam Scenarios</td><td>"Best control to detect collusion"; "What should happen FIRST when an employee is terminated?"; "Which principle prevents a single person from committing fraud undetected?"</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Exam Trap:</strong> The exam frequently asks about the FIRST action when an employee is terminated or suspected of malicious activity. The answer almost always involves revoking access BEFORE any other action (before escorting out, before HR meeting in some models). Know the sequence.
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Approximately 30–40% of data breaches involve insider actions (malicious or negligent). Personnel security policies are the governance layer that either enables or prevents these incidents. Without structured pre-employment screening, organisations hire individuals with undisclosed criminal histories; without offboarding procedures, ex-employees retain access for months or years after departure.</p>
+  <p>High-profile cases: Edward Snowden (insufficient need-to-know controls), numerous banking frauds (absent SoD), countless data thefts by employees exiting to competitors (missing DLP and access revocation). These failures are governance and policy failures, not just technical ones.</p>
+</div>
+
+<div class="section" id="s3">
+  <h2>3. Pre-Employment Screening</h2>
+  <p>Pre-employment screening reduces the risk of hiring individuals who pose threats to the organisation. Organisations have due diligence obligations to know who they employ — especially in sensitive roles.</p>
+  <h3>Background Check Components</h3>
+  <table>
+    <tr><th>Check Type</th><th>What It Verifies</th><th>Notes</th></tr>
+    <tr><td>Criminal history check</td><td>Prior convictions; pending charges</td><td>Must comply with local laws (e.g., "Ban the Box" legislation in some US states); limited to relevant offences</td></tr>
+    <tr><td>Employment history verification</td><td>Prior employers, dates, roles, voluntary vs. involuntary departure</td><td>Some employers provide only dates and job titles to avoid defamation liability</td></tr>
+    <tr><td>Education/credential verification</td><td>Degrees, certifications, professional licences claimed</td><td>Certificate fraud is common; CISSP certification can be verified at ISC² website</td></tr>
+    <tr><td>Credit check</td><td>Financial history, debt levels, bankruptcies</td><td>Relevant for roles with financial authority; regulated in many jurisdictions (FCRA in US)</td></tr>
+    <tr><td>Reference checks</td><td>Character, performance, reliability from known references</td><td>Limited value — candidates select favourable references</td></tr>
+    <tr><td>Drug screening</td><td>Current substance use</td><td>Jurisdiction-dependent; regulated substance (e.g., cannabis) considerations vary</td></tr>
+    <tr><td>Social media screening</td><td>Public online presence and behaviour</td><td>Legal grey area; must be applied consistently to avoid discrimination claims</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — Ongoing Screening:</strong> Background checks at hire are point-in-time snapshots. Personnel security should include periodic re-screening (especially for privileged roles), monitoring for anomalous behaviour, and incident-triggered re-investigation. A clean background at hire doesn't guarantee clean behaviour throughout employment.
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <h2>4. Employment Agreements</h2>
+  <table>
+    <tr><th>Agreement Type</th><th>Purpose</th><th>CISSP Relevance</th></tr>
+    <tr><td><strong>NDA (Non-Disclosure Agreement)</strong></td><td>Prohibits disclosure of confidential information during and after employment</td><td>Protects trade secrets, client data, intellectual property; must be signed before access to sensitive information is granted</td></tr>
+    <tr><td><strong>NCA (Non-Compete Agreement)</strong></td><td>Restricts working for competitors for a defined period after departure</td><td>Protects against knowledge transfer to competitors; enforceability varies by jurisdiction</td></tr>
+    <tr><td><strong>AUP (Acceptable Use Policy)</strong></td><td>Defines permitted and prohibited use of organisational IT resources</td><td>Establishes legal basis for monitoring; sets behavioural expectations; must be signed by all users</td></tr>
+    <tr><td><strong>IP Assignment Agreement</strong></td><td>Assigns ownership of work product created during employment to the organisation</td><td>Prevents disputes over who owns software, designs, or inventions created on company time</td></tr>
+    <tr><td><strong>Code of Conduct</strong></td><td>Behavioural standards, ethical obligations, conflicts of interest disclosure</td><td>Foundation for discipline and termination for ethical violations</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> NDAs survive termination — they continue to bind former employees. NCAs have time-limited and geographic-limited restrictions. AUPs must be signed before any access is granted to establish informed consent for monitoring. These are frequently confused on the exam.
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <h2>5. Onboarding and Offboarding</h2>
+  <h3>Onboarding Security Activities</h3>
+  <ul>
+    <li>Security awareness orientation and training</li>
+    <li>Signing of NDA, AUP, code of conduct</li>
+    <li>Access provisioning based on role and least privilege</li>
+    <li>Assignment of security classification clearance appropriate to role</li>
+    <li>Physical access provisioning (badge, building access)</li>
+  </ul>
+  <h3>Offboarding Security Activities</h3>
+  <div class="warning">
+    <strong>⚠️ Critical Sequence:</strong> When an employee exits (voluntary or involuntary), the FIRST security action is ALWAYS to disable/revoke all access (logical and physical). This must happen before or simultaneously with the HR exit meeting — not after.
+  </div>
+  <ul>
+    <li><strong>Immediate:</strong> Disable all accounts (AD, email, VPN, cloud, SaaS, physical badges)</li>
+    <li><strong>Immediate:</strong> Change passwords for shared accounts the employee knew</li>
+    <li><strong>Before departure:</strong> Retrieve all organisation assets (laptop, badge, mobile devices, tokens)</li>
+    <li><strong>Before departure:</strong> Conduct exit interview (security focused — what data did they access/copy recently?)</li>
+    <li><strong>After departure:</strong> Review DLP logs, data transfers, and access history from the employee's last 30–90 days</li>
+    <li><strong>After departure:</strong> Transfer knowledge — ensure critical processes don't depend on one now-departed employee</li>
+  </ul>
+  <div class="key-concept">
+    <strong>Key Concept — Hostile Terminations:</strong> For involuntary terminations (especially those involving legal disputes), access should be revoked before the employee is notified of termination. Allowing a hostile employee to know they're being terminated before access is revoked creates a window for data exfiltration, sabotage, or system destruction.
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <h2>6. Separation of Duties (SoD)</h2>
+  <div class="definition">
+    <strong>Separation of Duties (SoD):</strong> The security principle that divides critical tasks among multiple individuals so that no single person can complete a sensitive transaction, commit fraud, or make a critical error without involvement of at least one other person. Also known as the "two-person rule" or "four-eyes principle" in high-security contexts.
+  </div>
+  <p>SoD prevents both fraud and unintentional errors. Classic implementations:</p>
+  <ul>
+    <li>No one can both initiate AND approve financial transactions above a threshold</li>
+    <li>No one can both write code AND approve it for production deployment (Dev ≠ Change Approver)</li>
+    <li>No one can both create user accounts AND assign them permissions</li>
+    <li>No one can both process payroll AND create/modify payroll records</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠️ Collusion Risk:</strong> SoD prevents single-person fraud but cannot prevent collusion — where two or more people cooperate to circumvent controls. Audit trails, monitoring, and job rotation help detect collusion over time. No single control eliminates all insider fraud risk.
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <h2>7. Job Rotation and Mandatory Vacations</h2>
+  <div class="definition">
+    <strong>Job Rotation:</strong> Systematically moving employees between roles or responsibilities. Serves both knowledge-sharing and fraud detection purposes — a rotating employee cannot conceal fraud indefinitely because successors will encounter any hidden manipulations.
+  </div>
+  <div class="definition">
+    <strong>Mandatory Vacation (Forced Leave):</strong> Requiring employees to take consecutive leave (typically 1–2 weeks) during which they cannot access systems. Designed to force the exposure of fraud schemes that only succeed if the perpetrator is present to manage them continuously.
+  </div>
+  <p>These controls are used in banking, financial services, and high-security government contexts. The famous "rogue trader" cases (Nick Leeson at Barings Bank) often involved perpetrators who never took extended leave — the absence of mandatory vacation allowed sustained fraud concealment.</p>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Mandatory vacation primarily detects fraud; job rotation both detects fraud AND builds organisational resilience by eliminating single points of knowledge failure. Both are compensating/detective controls. The CISSP exam sometimes offers both as answer options — choose based on whether the scenario emphasises detection (mandatory vacation) or knowledge resilience (job rotation).
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Least Privilege and Need to Know</h2>
+  <div class="definition">
+    <strong>Least Privilege:</strong> Users, processes, and systems should be granted only the minimum access permissions necessary to perform their legitimate functions — no more, no less.
+  </div>
+  <div class="definition">
+    <strong>Need to Know:</strong> Access to specific information is granted only to individuals who require it to perform their specific authorised duties — even if they hold a clearance level that would permit access, they do not receive it without an explicit need.
+  </div>
+  <table>
+    <tr><th>Concept</th><th>Focus</th><th>Example</th></tr>
+    <tr><td>Least Privilege</td><td>Permissions / capabilities</td><td>A clerk gets read-only access to customer records, not write/delete access</td></tr>
+    <tr><td>Need to Know</td><td>Information access control</td><td>An analyst with Top Secret clearance cannot access a TS codeword program unless they have specific need for that program</td></tr>
+  </table>
+  <p>Both principles work together: least privilege limits what people can DO; need to know limits what they can SEE. Together they implement the principle of minimum necessary access, reducing the blast radius of any insider breach.</p>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Insider Threat</h2>
+  <p>Insider threats are attacks or incidents caused by individuals with authorised access — employees, contractors, former employees, or business partners. They are among the most damaging and hardest to detect threat vectors because they already have legitimate access.</p>
+  <h3>Insider Threat Categories</h3>
+  <table>
+    <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+    <tr><td>Malicious insider</td><td>Intentional theft, sabotage, espionage, fraud</td><td>Employee exfiltrating customer data to sell to competitors before resigning</td></tr>
+    <tr><td>Negligent insider</td><td>Unintentional damage through poor security hygiene</td><td>Employee clicking phishing link; leaving sensitive data on public S3 bucket</td></tr>
+    <tr><td>Compromised insider</td><td>Unwitting agent — legitimate user whose credentials have been stolen by an external attacker</td><td>Attacker uses stolen VPN credentials to operate as a legitimate employee</td></tr>
+  </table>
+  <h3>Personnel Controls That Mitigate Insider Threat</h3>
+  <ul>
+    <li>Separation of Duties — limits damage any single insider can cause</li>
+    <li>Least Privilege — minimises the data/systems an insider can access</li>
+    <li>Mandatory Vacation / Job Rotation — surfaces hidden fraud</li>
+    <li>User and Entity Behaviour Analytics (UEBA) — detects anomalous access patterns</li>
+    <li>DLP (Data Loss Prevention) — detects and blocks exfiltration attempts</li>
+    <li>Offboarding procedures — closes access promptly for departing staff</li>
+  </ul>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+  <div class="mnemonic">
+    <strong>🧠 Employment Lifecycle Controls — "HEAPS":</strong><br>
+    <strong>H</strong>ire (background screening before access)<br>
+    <strong>E</strong>mployment agreements (NDA, AUP, NCA)<br>
+    <strong>A</strong>ccess (least privilege, need to know, SoD from day one)<br>
+    <strong>P</strong>ractice (mandatory vacations, job rotation during employment)<br>
+    <strong>S</strong>eparation (revoke access immediately upon departure)
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 SoD vs. Rotation vs. Vacation:</strong><br>
+    SoD = Prevents fraud by requiring TWO people for sensitive actions (simultaneous control)<br>
+    Job Rotation = Detects fraud by REPLACING the person periodically (eventual exposure)<br>
+    Mandatory Vacation = Detects fraud by REMOVING the person temporarily (absence-triggered exposure)<br>
+    All three are complementary — layered fraud detection.
+  </div>
+  <div class="mnemonic">
+    <strong>🧠 Least Privilege vs. Need to Know:</strong><br>
+    Least Privilege = WHAT you can DO (permissions: read, write, execute, delete)<br>
+    Need to Know = WHAT you can SEE (information: this file, this project, this classification)<br>
+    LP = verbs; NtK = nouns
+  </div>
+  <div class="warning">
+    <strong>⚠️ Exam Trap — Offboarding Sequence:</strong> The CISSP exam may ask about the FIRST action when a key employee resigns or is terminated. The correct answer is REVOKE ACCESS (logical and physical) — not "notify the HR department," not "conduct an exit interview," not "retrieve equipment." Access revocation is first, always.
+  </div>
+</div>
+
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Control</th><th>Purpose</th><th>Type</th></tr>
+    <tr><td>Background screening</td><td>Reduce risk of hiring insider threats; verify claimed credentials</td><td>Preventive — Administrative</td></tr>
+    <tr><td>NDA</td><td>Legal prohibition on disclosure; survives termination</td><td>Preventive — Administrative</td></tr>
+    <tr><td>AUP</td><td>Defines acceptable use; legal basis for monitoring; must be signed</td><td>Preventive — Administrative</td></tr>
+    <tr><td>Access revocation (offboarding)</td><td>First action on departure; prevents ex-employee access</td><td>Preventive — Technical</td></tr>
+    <tr><td>Separation of Duties</td><td>Prevents single-person fraud; requires collaboration for sensitive acts</td><td>Preventive — Administrative</td></tr>
+    <tr><td>Job rotation</td><td>Detects fraud; builds knowledge resilience</td><td>Detective — Administrative</td></tr>
+    <tr><td>Mandatory vacation</td><td>Detects fraud requiring continuous perpetrator presence</td><td>Detective — Administrative</td></tr>
+    <tr><td>Least privilege</td><td>Limits blast radius of insider incident</td><td>Preventive — Technical/Administrative</td></tr>
+    <tr><td>Need to know</td><td>Limits information access beyond clearance level</td><td>Preventive — Administrative</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-017-theory.html" class="nav-btn">← Day 17: BCP Strategy</a>
+  <a href="day-018-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>

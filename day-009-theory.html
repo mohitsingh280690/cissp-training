@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 9 – Risk Management Concepts</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 9: Risk Management Concepts</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 9 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 9: Risk Management Concepts</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Core Risk Terminology</a></li>
+    <li><a href="#s4">The Risk Equation</a></li>
+    <li><a href="#s5">Risk Appetite, Tolerance, and Capacity</a></li>
+    <li><a href="#s6">Risk Lifecycle and Process</a></li>
+    <li><a href="#s7">NIST Risk Management Framework (RMF)</a></li>
+    <li><a href="#s8">ISO 31000</a></li>
+    <li><a href="#s9">OCTAVE and FAIR</a></li>
+    <li><a href="#s10">Types of Risk</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Risk management is the backbone of CISSP. Every security decision is fundamentally a risk decision. Questions on Days 9–12 collectively represent a significant portion of Domain 1 and are among the most heavily tested areas of the entire exam.</td></tr>
+    <tr><td>Question Styles</td><td>Terminology definitions; identifying appropriate risk response; applying risk equations (Days 10–11); scenario-based risk prioritisation; choosing correct risk framework</td></tr>
+    <tr><td>Cross-Domain Links</td><td>All domains reference risk management. Key links: D1 (quantitative/qualitative analysis), D2 (asset classification drives risk assessment), D4 (access control reduces risk), D7 (incident response acts on residual risk events)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Most Important Exam Traps:</strong>
+    <ul>
+      <li><strong>Risk cannot be eliminated — only managed.</strong> The exam may offer "eliminate the risk" as an option — it is always wrong. The correct options are mitigate, transfer, accept, or avoid.</li>
+      <li><strong>Residual risk</strong> is the risk remaining AFTER controls are applied. It is always non-zero.</li>
+      <li><strong>Vulnerability is not the same as a threat.</strong> A vulnerability is a weakness; a threat exploits that weakness.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <h3>Why Risk Management Drives Security Strategy</h3>
+  <p>Security teams have finite budgets and infinite potential improvements. Risk management is the structured process that answers: <em>What matters most? What should we fix first? How much should we spend to fix it?</em> Without formal risk management, security becomes a checklist exercise disconnected from actual business priorities.</p>
+
+  <h3>Who Owns Risk in an Organisation?</h3>
+  <ul>
+    <li><strong>Board of Directors:</strong> Sets overall risk appetite</li>
+    <li><strong>CEO/CFO:</strong> Approves major risk decisions</li>
+    <li><strong>CRO (Chief Risk Officer) or CISO:</strong> Manages the risk register, conducts assessments, and reports to the board</li>
+    <li><strong>Business Unit Managers:</strong> Own the risks in their domains; ultimately accountable</li>
+    <li><strong>IT and Security Teams:</strong> Identify, assess, and help mitigate technical risks</li>
+  </ul>
+
+  <h3>Real Consequence of Poor Risk Management</h3>
+  <p><strong>Target Breach (2013):</strong> A risk assessment had flagged the HVAC vendor's access to the network as a risk. The risk was accepted without compensating controls. Attackers exploited this exact vector — 40 million credit cards compromised, $162M+ in costs. The board was held liable for failure of oversight.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Core Risk Terminology</h2>
+  <p>CISSP uses precise definitions. These definitional distinctions appear directly on the exam.</p>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
+    <tr><td><strong>Asset</strong></td><td>Anything of value to the organisation that needs protection</td><td>Customer database, web server, intellectual property, reputation</td></tr>
+    <tr><td><strong>Threat</strong></td><td>Any potential event or action that could cause harm to an asset (the agent of harm)</td><td>Ransomware actor, disgruntled employee, hurricane, software bug</td></tr>
+    <tr><td><strong>Threat Agent</strong></td><td>The entity (person, group, force) that carries out the threat</td><td>Nation-state APT group, cybercriminal, former employee, nature</td></tr>
+    <tr><td><strong>Vulnerability</strong></td><td>A weakness in a system, process, or control that could be exploited by a threat</td><td>Unpatched CVE, weak password policy, unlocked server room</td></tr>
+    <tr><td><strong>Exposure</strong></td><td>The condition of being vulnerable to harm; the asset is "exposed" when a vulnerability exists</td><td>A server with an unpatched vulnerability is exposed to exploitation</td></tr>
+    <tr><td><strong>Risk</strong></td><td>The probability that a threat will exploit a vulnerability to cause harm; potential for loss</td><td>A 40% chance that attackers could exploit the unpatched server and steal customer data</td></tr>
+    <tr><td><strong>Impact</strong></td><td>The magnitude of harm that would result if the risk materialises</td><td>$2M data breach notification costs + regulatory fines + reputational damage</td></tr>
+    <tr><td><strong>Residual Risk</strong></td><td>The risk remaining after controls have been applied</td><td>After patching and adding IDS, the remaining probability/impact of exploitation</td></tr>
+    <tr><td><strong>Control / Safeguard / Countermeasure</strong></td><td>A mechanism that reduces risk (decreases probability or impact)</td><td>Firewall, encryption, access control, training, patch management</td></tr>
+    <tr><td><strong>Total Risk</strong></td><td>Risk if NO controls were implemented</td><td>The raw risk of threats exploiting all vulnerabilities without protection</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 Risk Relationship Chain: "TAV → Risk → Impact"</strong><br>
+    <strong>T</strong>hreat exploits <strong>V</strong>ulnerability in an <strong>A</strong>sset → Creates <strong>Risk</strong> → Risk materialises → <strong>Impact</strong><br>
+    Controls break any link in this chain to reduce risk.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. The Risk Equation</h2>
+  <p>Risk can be conceptually expressed mathematically, though the CISSP exam focuses more on qualitative understanding than formulas (save the formulas for Day 10):</p>
+
+  <div class="definition">
+    <strong>Conceptual Risk Formula:</strong><br>
+    <strong>Risk = Threat × Vulnerability × Impact</strong><br>
+    (Also expressed as: Risk = Probability of occurrence × Magnitude of impact)
+  </div>
+
+  <div class="key-concept">
+    <strong>Interpreting the Formula:</strong>
+    <ul>
+      <li>If <strong>Threat = 0</strong> (no threat exists), Risk = 0 regardless of vulnerability</li>
+      <li>If <strong>Vulnerability = 0</strong> (no weakness to exploit), Risk = 0 regardless of threats</li>
+      <li>If <strong>Impact = 0</strong> (no harm would occur), Risk = 0</li>
+      <li>Controls reduce either probability (patch the vulnerability) or impact (encrypt the data so stolen data is worthless)</li>
+    </ul>
+  </div>
+
+  <h3>Total Risk vs. Residual Risk</h3>
+  <div class="definition">
+    <strong>Total Risk</strong> = Threats × Vulnerabilities × Asset Value (no controls applied)<br>
+    <strong>Residual Risk</strong> = Total Risk × (1 – Control Effectiveness) = what's left after controls<br>
+    <strong>Control Effectiveness</strong> = percentage of risk reduced by the control (e.g., 0.80 = 80% effective)
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Risk Appetite, Tolerance, and Capacity</h2>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Who Determines It</th><th>Example</th></tr>
+    <tr><td><strong>Risk Appetite</strong></td><td>The amount and type of risk an organisation is willing to accept in pursuit of its objectives</td><td>Board of Directors; C-Suite</td><td>"We will accept low-to-medium cybersecurity risk in exchange for faster time-to-market."</td></tr>
+    <tr><td><strong>Risk Tolerance</strong></td><td>The acceptable variation around risk appetite; the boundaries within which risk decisions operate</td><td>Senior Management; Risk Committee</td><td>"We will not tolerate risks that could result in more than $500K in loss or regulatory action."</td></tr>
+    <tr><td><strong>Risk Capacity</strong></td><td>The maximum amount of risk the organisation can absorb without threatening its existence</td><td>CFO/Board based on financial analysis</td><td>"A breach costing more than $5M would threaten the company's financial viability."</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>The Risk Appetite Staircase:</strong><br>
+    Capacity (maximum survivable) &gt; Tolerance (acceptable variation) &gt; Appetite (desired level)<br>
+    If residual risk exceeds appetite, management should decide to further mitigate or explicitly accept it at the appropriate level.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. Risk Lifecycle and Process</h2>
+  <p>Risk management is a continuous cycle, not a one-time event:</p>
+  <ol>
+    <li><strong>Identify Risks:</strong> Discover threats, vulnerabilities, assets, and potential impacts through assessment activities</li>
+    <li><strong>Analyse Risks:</strong> Determine probability and impact — qualitatively (High/Medium/Low) or quantitatively ($$$)</li>
+    <li><strong>Evaluate/Prioritise Risks:</strong> Compare risks against risk appetite; determine which require treatment</li>
+    <li><strong>Treat Risks:</strong> Select and implement response strategies (Mitigate/Transfer/Accept/Avoid)</li>
+    <li><strong>Monitor and Review:</strong> Track residual risks; review effectiveness of controls; update risk register</li>
+    <li><strong>Communicate and Report:</strong> Keep stakeholders informed; report to board on risk posture</li>
+  </ol>
+
+  <h3>Risk Register</h3>
+  <div class="definition">
+    <strong>Risk Register:</strong> A documented record of identified risks, their analysis (probability, impact), current controls, residual risk, response strategy, risk owner, and review dates. The living document that tracks the organisation's risk posture over time.
+  </div>
+  <p>A typical risk register entry includes:</p>
+  <ul>
+    <li>Risk ID and description</li>
+    <li>Asset(s) affected</li>
+    <li>Threat and vulnerability</li>
+    <li>Probability (1–5 or %)</li>
+    <li>Impact (1–5 or $)</li>
+    <li>Risk score (P × I)</li>
+    <li>Current controls</li>
+    <li>Residual risk score</li>
+    <li>Response strategy</li>
+    <li>Risk owner</li>
+    <li>Review/reassessment date</li>
+  </ul>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. NIST Risk Management Framework (RMF)</h2>
+  <p>NIST SP 800-37 defines the RMF — a structured process for integrating security and risk management activities into the system development lifecycle. Mandatory for US federal agencies; widely adopted in private sector.</p>
+
+  <h3>RMF Seven Steps</h3>
+  <table>
+    <tr><th>Step</th><th>Name</th><th>Key Activities</th></tr>
+    <tr><td>1</td><td><strong>Prepare</strong></td><td>Organisation-wide risk management preparation; establish risk management roles; identify key security and privacy activities</td></tr>
+    <tr><td>2</td><td><strong>Categorise</strong></td><td>Categorise the information system based on data sensitivity and impact (FIPS 199 — Low/Moderate/High)</td></tr>
+    <tr><td>3</td><td><strong>Select</strong></td><td>Select baseline security controls from NIST SP 800-53 based on impact category; tailor as needed</td></tr>
+    <tr><td>4</td><td><strong>Implement</strong></td><td>Implement selected security controls; document implementations</td></tr>
+    <tr><td>5</td><td><strong>Assess</strong></td><td>Evaluate the effectiveness of implemented controls through testing and review</td></tr>
+    <tr><td>6</td><td><strong>Authorise</strong></td><td>Authorizing official (AO) makes risk-based decision to operate the system (ATO — Authority to Operate)</td></tr>
+    <tr><td>7</td><td><strong>Monitor</strong></td><td>Continuously monitor controls; respond to security events; reassess periodically</td></tr>
+  </table>
+
+  <div class="mnemonic">
+    <strong>🧠 NIST RMF 7 Steps: "PC-SIAAM"</strong><br>
+    <strong>P</strong>repare → <strong>C</strong>ategorise → <strong>S</strong>elect → <strong>I</strong>mplement → <strong>A</strong>ssess → <strong>A</strong>uthorise → <strong>M</strong>onitor<br>
+    Memory hook: <em>"Please Consider Security Is Always A Must"</em>
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. ISO 31000</h2>
+  <div class="definition">
+    <strong>ISO 31000:</strong> International standard for risk management principles, framework, and process. Not specific to cybersecurity — applies to any type of risk (financial, operational, strategic, reputational, cybersecurity). Provides a universal risk management vocabulary.
+  </div>
+  <p>ISO 31000 Key Principles (eight):</p>
+  <ul>
+    <li>Integrated — embedded in all organisational activities</li>
+    <li>Structured and comprehensive</li>
+    <li>Customised — tailored to context</li>
+    <li>Inclusive — stakeholders engaged</li>
+    <li>Dynamic — anticipates and responds to change</li>
+    <li>Best available information</li>
+    <li>Human and cultural factors acknowledged</li>
+    <li>Continual improvement</li>
+  </ul>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. OCTAVE and FAIR</h2>
+  <h3>OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation)</h3>
+  <p>Developed by CERT/SEI at Carnegie Mellon. Qualitative risk assessment methodology focused on self-directed organisational assessment.</p>
+  <ul>
+    <li><strong>OCTAVE (original):</strong> For large organisations; 3-phase approach</li>
+    <li><strong>OCTAVE-S:</strong> For smaller organisations (fewer than 100 people)</li>
+    <li><strong>OCTAVE Allegro:</strong> Streamlined; focuses on information assets; 8-step process</li>
+  </ul>
+  <p>OCTAVE is asset-driven and strategy-focused — it helps organisations understand their security requirements in terms of critical assets and what could happen to the organisation if those assets were compromised.</p>
+
+  <h3>FAIR (Factor Analysis of Information Risk)</h3>
+  <div class="definition">
+    <strong>FAIR:</strong> A quantitative risk analysis framework that decomposes risk into its component factors (frequency of loss events and magnitude of loss) using a structured taxonomy. Enables financially quantified risk analysis — expressing risk in dollar terms.
+  </div>
+  <p>FAIR Risk Taxonomy Key Components:</p>
+  <ul>
+    <li><strong>LEF (Loss Event Frequency):</strong> How often a loss event is likely to occur (threats × vulnerability)</li>
+    <li><strong>LM (Loss Magnitude):</strong> How much loss would occur if the event happened (primary + secondary)</li>
+    <li><strong>Risk $ = f(LEF × LM)</strong> — expressed as a probability distribution, not a single number</li>
+  </ul>
+  <p>FAIR is gaining significant traction because it translates risk to financial terms that board members and executives understand, enabling more informed risk investment decisions (ROI on security controls).</p>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Types of Risk</h2>
+  <table>
+    <tr><th>Risk Type</th><th>Description</th><th>Example</th></tr>
+    <tr><td><strong>Inherent Risk</strong></td><td>Risk before any controls are applied; the "raw" risk level</td><td>A financial system inherently attractive to attackers before any security is added</td></tr>
+    <tr><td><strong>Residual Risk</strong></td><td>Risk remaining after controls are applied</td><td>Risk remaining after firewalls, patching, and access controls are implemented</td></tr>
+    <tr><td><strong>Secondary Risk</strong></td><td>New risk created as a result of implementing a risk response</td><td>Installing new security software creates a new vendor dependency risk</td></tr>
+    <tr><td><strong>Systemic Risk</strong></td><td>Risk that affects an entire system or interconnected systems, not just one component</td><td>Critical infrastructure failure; cloud provider outage affecting all dependent organisations</td></tr>
+    <tr><td><strong>Reputational Risk</strong></td><td>Risk of damage to the organisation's reputation, brand, or public trust</td><td>Customer data breach reported in media; loss of public trust</td></tr>
+    <tr><td><strong>Compliance Risk</strong></td><td>Risk of failing to meet legal, regulatory, or contractual obligations</td><td>Failing to comply with GDPR; missing a breach notification deadline</td></tr>
+  </table>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Core Risk Terms Chain: "TAV-RIC"</strong><br>
+    <strong>T</strong>hreat exploits → <strong>A</strong>sset's → <strong>V</strong>ulnerability → <strong>R</strong>isk × <strong>I</strong>mpact = Harm → Reduce with <strong>C</strong>ontrols<br>
+    Or: <em>"Threats Attack Vulnerable things, creating Risks with Impacts, Countered by controls"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Risk Cannot Be Eliminated:</strong><br>
+    Zero risk is impossible in any real system. The correct goal is risk management (reduce to acceptable level), not risk elimination. Always choose: Mitigate / Transfer / Accept / Avoid — never "eliminate."
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 NIST RMF Steps: "Please Consider Security Is Always A Must"</strong><br>
+    <strong>P</strong>repare, <strong>C</strong>ategorise, <strong>S</strong>elect, <strong>I</strong>mplement, <strong>A</strong>ssess, <strong>A</strong>uthorise, <strong>M</strong>onitor
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Risk Appetite Hierarchy:</strong><br>
+    <strong>CAPACITY</strong> (maximum the org can survive) > <strong>TOLERANCE</strong> (acceptable variation) > <strong>APPETITE</strong> (desired level)<br>
+    Think of a glass of water: Capacity = size of the glass; Tolerance = how full before it's uncomfortable; Appetite = how full you want it.
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Threat ≠ Vulnerability ≠ Risk:</strong><br>
+    Threat = the aggressor or event that could cause harm<br>
+    Vulnerability = the weakness that could be exploited<br>
+    Risk = the probability that the threat exploits the vulnerability × impact<br>
+    The exam tests this distinction repeatedly. A locked door (control) reduces risk but doesn't eliminate the threat.
+  </div>
+</div>
+
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>Risk Formula</td><td>Risk = Threat × Vulnerability × Impact; controls reduce probability or impact</td></tr>
+    <tr><td>Residual Risk</td><td>Risk remaining after controls — always non-zero; management must accept it</td></tr>
+    <tr><td>Total Risk</td><td>Risk without any controls applied</td></tr>
+    <tr><td>Risk Appetite</td><td>How much risk the organisation is willing to accept; set by the board</td></tr>
+    <tr><td>Risk Tolerance</td><td>Acceptable deviation around risk appetite; operational boundaries</td></tr>
+    <tr><td>Risk Register</td><td>Living document tracking risks, controls, residual risk, owners, and responses</td></tr>
+    <tr><td>NIST RMF</td><td>7 steps: Prepare → Categorise → Select → Implement → Assess → Authorise → Monitor</td></tr>
+    <tr><td>ISO 31000</td><td>Universal risk management principles framework; not cybersecurity-specific</td></tr>
+    <tr><td>OCTAVE</td><td>Carnegie Mellon self-directed qualitative risk assessment; asset-driven</td></tr>
+    <tr><td>FAIR</td><td>Quantitative framework expressing risk in financial terms using LEF × LM</td></tr>
+    <tr><td>Threat vs Vulnerability</td><td>Threat = external or internal danger; Vulnerability = internal weakness enabling exploitation</td></tr>
+    <tr><td>Risk Cannot Be Eliminated</td><td>CISSP mantra — manage risk to acceptable levels; never "eliminate"</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-008-theory.html" class="nav-btn">← Day 8: Security Policies &amp; Frameworks</a>
+  <a href="day-010-theory.html" class="nav-btn">Day 10: Quantitative Risk Analysis →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 14 – Supply Chain Risk Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+.case-study{background:#fff3e0;border:2px solid var(--orange);border-radius:8px;padding:20px;margin:16px 0;}
+.case-study h4{color:var(--orange);margin-bottom:8px;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 14: Supply Chain Risk Management</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 14 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~40 min read</span>
+    <span>🎯 Difficulty: Intermediate–Advanced</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 14: Supply Chain Risk Management</div>
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">Supply Chain Concepts</a></li>
+    <li><a href="#s4">Third-Party Vendor Lifecycle</a></li>
+    <li><a href="#s5">Vendor Due Diligence</a></li>
+    <li><a href="#s6">SLA Components</a></li>
+    <li><a href="#s7">Hardware Supply Chain Threats</a></li>
+    <li><a href="#s8">Software Supply Chain &amp; SBOM</a></li>
+    <li><a href="#s9">NIST SP 800-161 and Four-Party Risk</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%)</td></tr>
+    <tr><td>Why Tested</td><td>Supply chain attacks are among the highest-impact and hardest-to-detect threats. The SolarWinds breach reshaped industry thinking. The CISSP exam covers the entire vendor risk lifecycle from selection through termination, SBOM requirements, and contractual protections.</td></tr>
+    <tr><td>Question Styles</td><td>Choosing the right due diligence mechanism for a given vendor type; identifying what an SLA should contain; recognising software supply chain attack vectors; purpose of SBOM; right-to-audit clause scenarios</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (risk management — vendor risk is a risk type), D2 (governance — third-party oversight), D3 (legal — contracts and liability), D8 (software — SBOM and SDLC vendor integration)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Top Exam Traps:</strong><br>
+    1. Outsourcing security to a vendor does NOT transfer legal liability (same principle as Risk Transfer — Day 12)<br>
+    2. SOC 2 Type I describes controls at a point in time; SOC 2 Type II covers a period (6–12 months) — Type II is far stronger assurance<br>
+    3. Fourth-party risk = your vendor's vendor — most organisations significantly underestimate this exposure
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <div class="case-study">
+    <h4>📰 Case Study: SolarWinds SUNBURST (2020)</h4>
+    <p>Attackers (later attributed to Russian SVR intelligence) compromised the SolarWinds Orion build pipeline, inserting the SUNBURST backdoor into software update packages. Approximately 18,000 organisations — including US Treasury, State Department, DHS, CISA, and major technology companies — installed the malicious update between March–June 2020.</p>
+    <p><strong>Key Lessons:</strong> Trusted software vendors became the attack vector. Build pipeline integrity and code signing are now baseline requirements. Executive Order 14028 mandated SBOM in US government procurement directly as a result.</p>
+  </div>
+  <p>The SolarWinds incident demonstrated that an organisation's security posture is only as strong as its weakest supplier's security posture. Sophisticated attackers now routinely target suppliers as a stepping stone to their true target — a strategy known as an <strong>island-hopping attack</strong> or <strong>supply chain attack</strong>.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. Supply Chain Concepts</h2>
+  <div class="definition">
+    <strong>Supply Chain Risk Management (SCRM):</strong> The process of identifying, assessing, and mitigating risks introduced through the organisation's supply chain — including technology vendors, hardware manufacturers, software providers, cloud services, and managed service providers.
+  </div>
+
+  <h3>Types of Supply Chain Relationships</h3>
+  <table>
+    <tr><th>Type</th><th>Examples</th><th>Primary Risk</th></tr>
+    <tr><td><strong>Technology Vendors</strong></td><td>Software, SaaS, security tools, databases</td><td>Software backdoors, vulnerable components, data exposure</td></tr>
+    <tr><td><strong>Hardware Suppliers</strong></td><td>Servers, networking gear, endpoints, chips</td><td>Counterfeit components, implanted malware, firmware tampering</td></tr>
+    <tr><td><strong>Cloud Service Providers</strong></td><td>IaaS, PaaS, SaaS platforms</td><td>Shared responsibility gaps, cross-tenant attacks, provider breach</td></tr>
+    <tr><td><strong>Managed Service Providers (MSPs)</strong></td><td>IT management, SOC-as-a-service, helpdesk</td><td>Privileged access abuse, compromised MSP used to reach customer</td></tr>
+    <tr><td><strong>Outsourced Development</strong></td><td>Contractors, offshore development teams</td><td>Malicious code injection, IP theft, insecure code practices</td></tr>
+    <tr><td><strong>Professional Services</strong></td><td>Consultants, legal, accountants</td><td>Data exposure, phishing as lateral entry point</td></tr>
+  </table>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. Third-Party Vendor Lifecycle</h2>
+  <p>Vendor risk management is a continuous lifecycle, not a one-time event:</p>
+  <ol>
+    <li><strong>Needs Assessment:</strong> Define the business requirement and determine if outsourcing introduces acceptable risk</li>
+    <li><strong>Vendor Selection &amp; Due Diligence:</strong> Assess security posture before contracting (questionnaires, SOC reports, pen test results)</li>
+    <li><strong>Contracting:</strong> Embed security requirements in contracts (SLAs, right to audit, data handling requirements, breach notification, IP protection)</li>
+    <li><strong>Onboarding:</strong> Apply access controls (minimum privilege), complete shared responsibility mapping, confirm security controls in place</li>
+    <li><strong>Ongoing Monitoring:</strong> Periodic reassessment, continuous monitoring of SLA compliance, vendor security bulletins, threat intelligence for vendor compromises</li>
+    <li><strong>Termination:</strong> Data return/destruction requirements, access revocation, transition plan, continuity of operations without the vendor</li>
+  </ol>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Vendor Due Diligence</h2>
+  <table>
+    <tr><th>Technique</th><th>Description</th><th>Strength</th></tr>
+    <tr><td><strong>Security Questionnaire</strong></td><td>Standardised questionnaire covering security domains (CAIQ, SIG, HECVAT). Vendor self-attests answers.</td><td>Moderate — relies on vendor honesty; can be independently verified</td></tr>
+    <tr><td><strong>SOC 2 Type II Report</strong></td><td>Independent CPA audit covering Trust Service Criteria (Security, Availability, Confidentiality, Privacy, Processing Integrity) over a 6–12 month period</td><td>High — independent verification of controls over time</td></tr>
+    <tr><td><strong>SOC 2 Type I Report</strong></td><td>Point-in-time snapshot of control design adequacy. Does NOT test operational effectiveness over time.</td><td>Moderate — good starting point but weaker than Type II</td></tr>
+    <tr><td><strong>ISO 27001 Certification</strong></td><td>Third-party certified ISMS conformance. Valid for 3 years with annual surveillance audits.</td><td>High — internationally recognised; covers information security management system</td></tr>
+    <tr><td><strong>Right-to-Audit Clause</strong></td><td>Contractual right allowing the customer (or their auditor) to audit the vendor's security controls</td><td>Very High — but expensive to exercise; vendors may resist</td></tr>
+    <tr><td><strong>Penetration Test Results</strong></td><td>Request results of recent third-party penetration tests; verify scope and methodology</td><td>High — but only as current as the test date; remediation status matters</td></tr>
+    <tr><td><strong>References &amp; Reputation</strong></td><td>Speak with existing customers; check breach history; review security disclosures</td><td>Moderate — valuable context but not a substitute for documentation</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 SOC 2 Type I vs. II is a Frequent Exam Topic:</strong><br>
+    Type I = Design — "the control exists and is suitably designed" (snapshot)<br>
+    Type II = Operating Effectiveness — "the control operated effectively over the period" (longitudinal evidence)<br>
+    Always prefer Type II for critical vendor relationships.
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. SLA Components</h2>
+  <div class="definition">
+    <strong>Service Level Agreement (SLA):</strong> A contractual commitment between service provider and customer defining expected service performance, security requirements, and remedies for non-compliance.
+  </div>
+
+  <h3>Security-Relevant SLA Components</h3>
+  <table>
+    <tr><th>SLA Element</th><th>What to Specify</th></tr>
+    <tr><td>Availability / Uptime</td><td>Minimum uptime % (e.g., 99.9% = ~8.7 hrs downtime/year); scheduled maintenance windows; measurement methodology</td></tr>
+    <tr><td>Incident Response Time</td><td>P1 response within 1 hour; P2 within 4 hours; notification timelines for security incidents affecting the customer</td></tr>
+    <tr><td>Security Breach Notification</td><td>Must notify customer within X hours/days of discovered breach — ensure this exceeds regulatory requirements (GDPR 72 hrs; HIPAA 60 days)</td></tr>
+    <tr><td>Data Handling &amp; Retention</td><td>Data classification, encryption at rest/in transit, deletion timelines, data residency requirements (geographic restrictions for regulated data)</td></tr>
+    <tr><td>Audit Rights</td><td>Right-to-audit clause; frequency; scope; may accept third-party SOC 2 in lieu of direct audit</td></tr>
+    <tr><td>Subcontractor Requirements</td><td>Vendor must apply equivalent security requirements to their subcontractors (addressing fourth-party risk)</td></tr>
+    <tr><td>Penalties / Remedies</td><td>Service credits for downtime; termination rights for material breach; indemnification for breach-caused damages</td></tr>
+    <tr><td>Background Checks</td><td>Personnel with access to customer systems/data must pass background checks</td></tr>
+  </table>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. Hardware Supply Chain Threats</h2>
+  <h3>Counterfeit Components</h3>
+  <p>Counterfeit hardware — from networking chips to servers — can be manufactured with altered functionality, reduced reliability, or embedded malicious capabilities. This is particularly concerning for military, critical infrastructure, and high-security environments.</p>
+  <ul>
+    <li>Source hardware from authorised distributors and manufacturers</li>
+    <li>Use hardware with tamper-evident seals and chain-of-custody documentation</li>
+    <li>Implement component authentication (cryptographic validation of hardware identity)</li>
+    <li>Consider NIST SP 800-193 (Platform Firmware Resilience) for firmware security</li>
+  </ul>
+
+  <h3>Implanted Malware / Hardware Backdoors</h3>
+  <p>Hardware can be modified at the manufacturing or transit stage to include malicious capabilities (eavesdropping, remote access). The 2018 Bloomberg "Big Hack" article (Supermicro servers with implanted chips) — while disputed — prompted significant industry scrutiny and hardware integrity programmes.</p>
+
+  <div class="warning">
+    <strong>⚠️ Hardware Tampering Is Extremely Difficult to Detect:</strong> Unlike software, hardware-level implants are not easily removed, cannot be patched, and are not detected by traditional security tools. Mitigation relies on supply chain vetting, trusted hardware roots, and verified boot processes rather than post-deployment detection.
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. Software Supply Chain &amp; SBOM</h2>
+  <h3>Software Supply Chain Attack Vectors</h3>
+  <table>
+    <tr><th>Attack Type</th><th>Description</th><th>Real Example</th></tr>
+    <tr><td><strong>Build Pipeline Compromise</strong></td><td>Attacker injects malicious code into the software build/CI-CD system</td><td>SolarWinds SUNBURST (2020) — Orion build system compromised</td></tr>
+    <tr><td><strong>Dependency Confusion</strong></td><td>Malicious package with same name as internal package published to public registry; build system fetches malicious version</td><td>Dependency confusion attacks (2021) by Alex Birsan targeting Apple, Microsoft, PayPal</td></tr>
+    <tr><td><strong>Typosquatting</strong></td><td>Malicious package with name similar to popular legitimate package tricks developers into downloading it</td><td>event-stream npm package (2018) — malicious code targeted Bitcoin wallet</td></tr>
+    <tr><td><strong>Compromised Open Source Maintainer</strong></td><td>Attacker takes over legitimate open source project account and injects malicious code into a release</td><td>xz Utils backdoor (2024) — two-year social engineering operation against Linux compression library</td></tr>
+    <tr><td><strong>Malicious NPM/PyPI Package</strong></td><td>Attacker publishes malicious packages to package registries that appear legitimate</td><td>Numerous documented incidents on NPM (JavaScript) and PyPI (Python)</td></tr>
+  </table>
+
+  <h3>Software Bill of Materials (SBOM)</h3>
+  <div class="definition">
+    <strong>SBOM (Software Bill of Materials):</strong> A formal, machine-readable inventory of all software components, libraries, dependencies, and their versions in an application — analogous to a food ingredient label for software. Mandated by US Executive Order 14028 (May 2021) for all federal government software procurement.
+  </div>
+
+  <p>SBOM enables organisations to:</p>
+  <ul>
+    <li>Rapidly identify if they use a library affected by a newly disclosed vulnerability (e.g., Log4Shell)</li>
+    <li>Understand the full software supply chain and dependency tree</li>
+    <li>Assess the security posture of software before purchase/deployment</li>
+    <li>Comply with regulations requiring software composition transparency</li>
+  </ul>
+
+  <p><strong>SBOM Formats:</strong></p>
+  <ul>
+    <li><strong>SPDX</strong> (Software Package Data Exchange) — Linux Foundation / ISO standard</li>
+    <li><strong>CycloneDX</strong> — OWASP standard; security-focused; supports VEX (Vulnerability Exploitability eXchange)</li>
+    <li><strong>SWID Tags</strong> (ISO/IEC 19770-2) — used for installed software inventory management</li>
+  </ul>
+
+  <div class="key-concept">
+    <strong>SBOM + VEX:</strong> A Vulnerability Exploitability eXchange (VEX) document accompanies an SBOM to assert whether specific vulnerabilities in components actually affect the product. This prevents false positive vulnerability alerts about components that exist in the SBOM but are compiled out or not reachable in the deployed configuration.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. NIST SP 800-161 and Fourth-Party Risk</h2>
+  <div class="definition">
+    <strong>NIST SP 800-161:</strong> "Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations" — the primary NIST guidance for SCRM. Provides a tiered framework integrating SCRM into the broader risk management programme (based on NIST RMF and CSF).
+  </div>
+
+  <h3>Key NIST SP 800-161 Concepts</h3>
+  <ul>
+    <li><strong>Tiered approach:</strong> Organisation-level → Mission/Business Process level → System level SCRM controls</li>
+    <li><strong>C-SCRM Policy:</strong> Organisations should establish a formal Cyber Supply Chain Risk Management policy</li>
+    <li><strong>Supplier Assessments:</strong> Risk assessments extended to critical suppliers</li>
+    <li><strong>Contractual Controls:</strong> Security requirements embedded in all supplier contracts</li>
+  </ul>
+
+  <h3>Fourth-Party Risk</h3>
+  <div class="definition">
+    <strong>Fourth-Party Risk:</strong> Risk arising from your vendor's vendors (and beyond). An organisation may have strong controls over its direct third-party relationships but has limited visibility over those suppliers' own supply chains.
+  </div>
+  <p>Example: Company A uses Cloud Provider B. Cloud Provider B uses Data Centre Operator C. If Data Centre Operator C is compromised, Company A is indirectly affected — and Company A likely has no contractual relationship with or visibility into Operator C.</p>
+
+  <h3>Concentration Risk</h3>
+  <div class="key-concept">
+    <strong>Concentration Risk:</strong> Over-reliance on a single vendor, technology provider, or geographic location. If that single provider experiences an outage, breach, or business failure, the entire dependent organisation is at risk. Examples: all data in a single cloud region; all applications from a single SaaS vendor; all managed security services from one MSSP.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 Vendor Due Diligence Options — "SPARR":</strong><br>
+    <strong>S</strong>ecurity questionnaire (self-attested)<br>
+    <strong>P</strong>enetration test results<br>
+    <strong>A</strong>udit (right-to-audit clause or third-party audit)<br>
+    <strong>R</strong>eport (SOC 2 Type II — strongest)<br>
+    <strong>R</strong>eputation / references<br>
+    Prioritise in reverse order: References → Reports → Audit → Pen Test → Questionnaire (questionnaire is weakest)
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 SOC 2 Type I vs. II — Simple distinction:</strong><br>
+    Type <strong>I</strong> = <strong>I</strong>nstant snapshot (design only, one point in time)<br>
+    Type <strong>II</strong> = over a period of <strong>TI</strong>me (6–12 months of operational effectiveness)<br>
+    Exam rule: When asked "which provides stronger assurance?" → always Type II
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Vendor Lifecycle — "SAD OMT":</strong><br>
+    <strong>S</strong>election → <strong>A</strong>greement (contract) → <strong>D</strong>ue Diligence → <strong>O</strong>nboarding → <strong>M</strong>onitoring → <strong>T</strong>ermination<br>
+    Memory: <em>"Sadly All Deals Offer Marginal Transparency"</em> (reflects realistic vendor security challenges)
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 SolarWinds Key Facts for Exam Context:</strong><br>
+    Year: 2020 | Vector: Build pipeline compromise<br>
+    Malware: SUNBURST | Impact: ~18,000 organisations<br>
+    Response: EO 14028 → SBOM mandate<br>
+    Lesson: Trusted software update = attacker vector when build system is compromised
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 Third Party vs. Fourth Party:</strong><br>
+    Your vendor = Third party (1 degree away)<br>
+    Your vendor's vendor = Fourth party (2 degrees away)<br>
+    <em>"You can see your neighbour. You can't always see your neighbour's supplier."</em>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>SCRM Purpose</td><td>Manage risk introduced by third-party technology, hardware, software, and services — supply chain is a major attack surface</td></tr>
+    <tr><td>Vendor Lifecycle</td><td>Continuous process: Selection → Contract → Onboard → Monitor → Terminate — not a one-time event</td></tr>
+    <tr><td>SOC 2 Type II</td><td>Strongest third-party assurance mechanism; independent audit over 6–12 months of operating effectiveness</td></tr>
+    <tr><td>Right-to-Audit</td><td>Contractual right to audit vendor's security controls; most powerful but often resisted; SOC 2 accepted in lieu</td></tr>
+    <tr><td>SLA Security Elements</td><td>Uptime, incident response times, breach notification, data handling, audit rights, subcontractor requirements, penalties</td></tr>
+    <tr><td>Hardware Threats</td><td>Counterfeit components and implanted malware; extremely hard to detect; mitigated by trusted supply chains and hardware roots of trust</td></tr>
+    <tr><td>SolarWinds SUNBURST</td><td>Build pipeline compromise → malicious update package → 18,000 org breach → triggered SBOM mandate (EO 14028)</td></tr>
+    <tr><td>SBOM</td><td>Machine-readable software ingredient list; enables rapid response to new CVEs; mandatory for US federal procurement</td></tr>
+    <tr><td>Fourth-Party Risk</td><td>Your vendor's vendor — often uncontracted and invisible; requires contractual flow-down of security requirements</td></tr>
+    <tr><td>Concentration Risk</td><td>Over-reliance on a single supplier or technology — creates systemic risk; requires diversification strategy</td></tr>
+    <tr><td>NIST SP 800-161</td><td>Primary NIST guidance for C-SCRM; integrates with RMF and CSF</td></tr>
+    <tr><td>No Liability Transfer</td><td>Outsourcing/insuring against supply chain risk does not transfer legal or regulatory accountability</td></tr>
+  </table>
+</div>
+
+<div class="nav-footer">
+  <a href="day-013-theory.html" class="nav-btn">← Day 13: Threat Modeling</a>
+  <a href="day-015-theory.html" class="nav-btn">Day 15: Business Continuity Planning →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

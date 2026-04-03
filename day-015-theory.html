@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 15 – Business Continuity Planning Overview</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+.formula{background:#e8eaf6;border:2px solid var(--primary);border-radius:8px;padding:16px 20px;margin:16px 0;font-family:'Courier New',monospace;font-size:1.05rem;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.timeline{position:relative;padding-left:30px;border-left:3px solid var(--accent);margin:16px 0;}
+.timeline-item{position:relative;margin-bottom:20px;padding-left:16px;}
+.timeline-item::before{content:"";width:14px;height:14px;background:var(--accent);border-radius:50%;position:absolute;left:-23px;top:4px;}
+.timeline-item h4{color:var(--primary);margin-bottom:4px;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:var(--primary);}
+.milestone-badge{display:inline-block;background:var(--green);color:white;padding:6px 16px;border-radius:20px;font-weight:600;font-size:.9rem;margin-bottom:12px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Day 15: Business Continuity Planning – Overview</h1>
+  <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
+  <div class="meta">
+    <span>📅 Day 15 of 140</span>
+    <span>📚 Domain 1 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">Domain 1: Security and Risk Management → Day 15: Business Continuity Planning Overview</div>
+
+
+
+<div class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Where This Fits in CISSP</a></li>
+    <li><a href="#s2">Real-World Organizational Relevance</a></li>
+    <li><a href="#s3">BCP vs. DRP – Critical Distinction</a></li>
+    <li><a href="#s4">BCP Lifecycle</a></li>
+    <li><a href="#s5">Business Impact Analysis (BIA)</a></li>
+    <li><a href="#s6">BIA Metrics — MTD, RTO, RPO, WRT</a></li>
+    <li><a href="#s7">BCP Team and Roles</a></li>
+    <li><a href="#s8">BCP Testing Types</a></li>
+    <li><a href="#s9">Standards and Frameworks</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <h2>1. Where This Fits in CISSP</h2>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Domain</td><td>Domain 1 – Security and Risk Management (15%); BCP/DRP concepts recur heavily in Domain 7 – Security Operations</td></tr>
+    <tr><td>Why Tested</td><td>BCP is a Availability-focused risk management activity. The exam heavily tests the BIA metrics (MTD, RTO, RPO, WRT) and their correct relationships, plus BCP testing types in order of increasing disruption risk.</td></tr>
+    <tr><td>Question Styles</td><td>BCP vs. DRP scope; sequence of BCP lifecycle phases; BIA metric definitions and mathematical relationships; which testing type is least/most disruptive; who approves/sponsors BCP; ISO 22301 vs. NIST SP 800-34</td></tr>
+    <tr><td>Cross-Domain Links</td><td>D1 (risk management — BCP is an availability risk response), D2 (governance — senior management commitment), D7 (operations — incident response, DRP execution, recovery strategies)</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Top Exam Traps:</strong><br>
+    1. BCP is NOT just about IT — it covers people, facilities, processes, AND technology<br>
+    2. MTD ≥ RTO + WRT (always — if RTO+WRT exceeds MTD, the business fails before it recovers)<br>
+    3. RPO determines backup frequency — it is NOT the same as RTO<br>
+    4. Full Interruption Testing is the most realistic but also most risky — used rarely and only for mature programmes<br>
+    5. Senior management must be the BCP Project Sponsor — IT cannot own this
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <h2>2. Real-World Organizational Relevance</h2>
+  <p>Every organisation — regardless of size — faces disruption events: hardware failures, ransomware, natural disasters, power outages, pandemics, or key personnel loss. Without a tested BCP, organisations improvise under pressure, leading to extended downtime, permanent data loss, regulatory penalties, and potentially fatal business damage.</p>
+  <p>COVID-19 (2020) exposed thousands of organisations that had BCP documents "on the shelf" but had never tested them or considered pandemic scenarios. Organisations that had tested remote working capabilities recovered within days; others took months to adapt.</p>
+  <p>The BCP connects directly to organisational risk appetite — the frequency of backups (RPO) and speed of recovery (RTO) must be funded at a level that reflects the business's declared tolerance for downtime.</p>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <h2>3. BCP vs. DRP – Critical Distinction</h2>
+  <table>
+    <tr><th>Attribute</th><th>BCP (Business Continuity Plan)</th><th>DRP (Disaster Recovery Plan)</th></tr>
+    <tr><td>Scope</td><td>ENTIRE organisation — people, processes, facilities, technology, communications</td><td>IT systems and data restoration</td></tr>
+    <tr><td>Goal</td><td>Keep business OPERATING during and after a disruption</td><td>RESTORE IT systems after a disaster</td></tr>
+    <tr><td>Timing</td><td>During the disaster (keeping things running)</td><td>After the disaster (restoring from failure)</td></tr>
+    <tr><td>Who Owns It</td><td>Senior business management (Executive Sponsor)</td><td>IT management / CTO</td></tr>
+    <tr><td>Covers</td><td>Workforce, facilities, alternate sites, communications, suppliers, manual workarounds</td><td>Backup systems, alternate data centres, recovery time objectives, data replication</td></tr>
+    <tr><td>Relationship</td><td>BCP is broader; DRP is a subset/component of BCP</td><td>DRP supports BCP by ensuring IT recovery meets business continuity requirements</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Mental Model:</strong><br>
+    BCP = "How do we KEEP THE BUSINESS RUNNING even if our primary facilities and systems are unavailable?"<br>
+    DRP = "How do we GET THE SYSTEMS BACK once the disaster event is over?"<br>
+    BCP is proactive/concurrent; DRP is reactive/sequential.
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <h2>4. BCP Lifecycle</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Phase 1: Project Initiation</h4>
+      <p>Obtain senior management commitment and executive sponsorship. Define scope (which business units, processes, and systems are in scope). Establish the BCP team. Allocate budget. Define project plan.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 2: Business Impact Analysis (BIA)</h4>
+      <p>Identify critical business functions. Determine MTD, RTO, RPO, and WRT for each. Understand financial, operational, legal, and reputational impact of various outage durations. This is the most important phase — everything else derives from the BIA.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 3: Risk Assessment</h4>
+      <p>Identify threats and vulnerabilities that could cause a disruption. Assess likelihood and impact using the qualitative/quantitative methods from Days 9–11. Identify risks not adequately covered by existing controls.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 4: Strategy Development</h4>
+      <p>Develop continuity strategies for each critical function: alternate sites (hot/warm/cold), manual workarounds, data replication, remote work capabilities, alternative supply chain arrangements, communications plans.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 5: Plan Development</h4>
+      <p>Document the BCP in detail: activation criteria, escalation procedures, roles and responsibilities, contact lists, recovery procedures per function, communication scripts, resource lists.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 6: Testing and Exercise</h4>
+      <p>Test the plan using progressively more rigorous testing methods (tabletop → walkthrough → simulation → parallel → full interruption). Identify gaps and update the plan.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Phase 7: Maintenance</h4>
+      <p>BCP is a living document. Review and update after: significant organisational changes, technology changes, after any activation, and at minimum annually. Integrate with change management processes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <h2>5. Business Impact Analysis (BIA)</h2>
+  <div class="definition">
+    <strong>Business Impact Analysis (BIA):</strong> The process of identifying the organisation's critical business functions, the resources required to support them, and the financial/operational/legal/reputational impact of disrupting those functions over time. The BIA is the foundation of all BCP strategy and investment decisions.
+  </div>
+
+  <h3>BIA Process Steps</h3>
+  <ol>
+    <li>Identify all business processes/functions</li>
+    <li>Identify the resources required (IT, people, facilities, suppliers) for each function</li>
+    <li>Determine dependencies between functions</li>
+    <li>Assess the impact of disruption at various time intervals (1 hour, 1 day, 1 week, 1 month)</li>
+    <li>Determine the MTD (Maximum Tolerable Downtime) for each function</li>
+    <li>Define the RTO and RPO targets consistent with business impact findings</li>
+    <li>Prioritise recovery order based on criticality and dependencies</li>
+  </ol>
+
+  <h3>BIA Impact Categories</h3>
+  <table>
+    <tr><th>Impact Type</th><th>Examples</th></tr>
+    <tr><td>Financial</td><td>Lost revenue per hour; contractual penalties; customer refunds; market share loss</td></tr>
+    <tr><td>Operational</td><td>Inability to serve customers; supply chain disruption; capacity loss</td></tr>
+    <tr><td>Legal/Regulatory</td><td>SLA breach penalties; regulatory fines; reporting obligation violations</td></tr>
+    <tr><td>Reputational</td><td>Media coverage; customer confidence loss; brand damage; competitive disadvantage</td></tr>
+  </table>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <h2>6. BIA Metrics — MTD, RTO, RPO, WRT</h2>
+  <p>These four metrics are the most heavily tested BCP concepts on the CISSP exam. Understanding their definitions AND their mathematical relationship is essential.</p>
+
+  <div class="definition">
+    <strong>MTD — Maximum Tolerable Downtime</strong> (also called MTO — Maximum Tolerable Outage): The absolute maximum time a business function can be unavailable before the impact becomes catastrophic and potentially fatal to the organisation. Set by senior business management.
+  </div>
+
+  <div class="definition">
+    <strong>RTO — Recovery Time Objective:</strong> The target time to restore a system or process to operational status after a disruption. Must be less than MTD. Defines how fast IT must restore systems.
+  </div>
+
+  <div class="definition">
+    <strong>RPO — Recovery Point Objective:</strong> The maximum amount of data loss that is acceptable, measured in time. The RPO determines how frequently backups or data replication must occur. Example: RPO = 4 hours means at most 4 hours of data can be lost.
+  </div>
+
+  <div class="definition">
+    <strong>WRT — Work Recovery Time:</strong> The time required to verify recovered systems are functioning correctly and to restore business processes after the systems have been brought back online. Includes data validation, testing, queue clearing, and business process resumption.
+  </div>
+
+  <h3>Critical Relationship</h3>
+  <div class="formula">
+  MTD ≥ RTO + WRT
+
+  Where:
+    RTO = time to restore systems technically
+    WRT = time to verify and resume business operations
+    MTD = total tolerable downtime limit set by business
+
+  If (RTO + WRT) > MTD → BUSINESS IMPACT IS FATAL
+  Recovery must be faster than the business can tolerate being down.
+  </div>
+
+  <div class="key-concept">
+    <strong>Example:</strong><br>
+    Payroll system: MTD = 48 hours<br>
+    RTO target = 24 hours (IT restores system)<br>
+    WRT = 16 hours (verify data integrity, reconcile transactions, validate payroll runs)<br>
+    RTO + WRT = 40 hours &lt; 48 hours MTD ✅ — recovery plan is viable<br><br>
+    If IT sets RTO = 36 hours: 36 + 16 = 52 hours &gt; 48 hours MTD ❌ — plan must be accelerated
+  </div>
+
+  <h3>RPO — Backup Frequency Implication</h3>
+  <table>
+    <tr><th>RPO Value</th><th>Required Backup Frequency</th><th>Technology Solution</th></tr>
+    <tr><td>24 hours</td><td>Daily backup minimum</td><td>Nightly full backup to tape/disk</td></tr>
+    <tr><td>4 hours</td><td>Every 4 hours</td><td>Incremental backups + transaction logs</td></tr>
+    <tr><td>1 hour</td><td>Continuous or hourly</td><td>Database log shipping; incremental snapshots</td></tr>
+    <tr><td>Minutes</td><td>Near-real-time</td><td>Synchronous or asynchronous replication</td></tr>
+    <tr><td>Zero (0)</td><td>Real-time synchronous replication</td><td>Expensive — mirrored writes to both sites simultaneously</td></tr>
+  </table>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <h2>7. BCP Team and Roles</h2>
+  <table>
+    <tr><th>Role</th><th>Responsibilities</th></tr>
+    <tr><td><strong>Executive Sponsor / Senior Management</strong></td><td>Authorise and fund the BCP programme; approve the final plan; communicate organisational commitment; accept residual risk</td></tr>
+    <tr><td><strong>BCP Coordinator / Manager</strong></td><td>Lead the BCP project; coordinate across departments; maintain the plan; schedule tests; report to executive sponsor</td></tr>
+    <tr><td><strong>IT / Technology Team</strong></td><td>Define and implement DRP components; manage backups; operate alternate sites; restore systems per RTO/RPO</td></tr>
+    <tr><td><strong>Business Unit Representatives</strong></td><td>Define critical functions and MTD/RTO/RPO requirements; develop manual workarounds; communicate function-specific recovery needs</td></tr>
+    <tr><td><strong>Legal / Compliance</strong></td><td>Identify regulatory notification requirements; ensure plan compliance; advise on liability during recovery operations</td></tr>
+    <tr><td><strong>Communications / PR</strong></td><td>Manage internal and external communications during a disaster; media statements; customer notifications; stakeholder updates</td></tr>
+    <tr><td><strong>Human Resources</strong></td><td>Personnel accountability; emergency contact procedures; staff welfare; temporary workforce arrangements</td></tr>
+    <tr><td><strong>Physical Security / Facilities</strong></td><td>Alternate site access; building security during recovery; equipment access; visitor management</td></tr>
+  </table>
+  <div class="warning">
+    <strong>⚠️ Senior Management Must Sponsor BCP:</strong> The BCP must have executive sponsorship — it cannot be driven solely by IT. Senior management must: commit resources, demonstrate leadership commitment, and accept residual risk. An IT-only BCP will fail the CISSP exam as the correct answer.
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="section" id="s8">
+  <h2>8. BCP Testing Types</h2>
+  <p>BCP testing runs in order of increasing disruption risk and realism:</p>
+  <table>
+    <tr><th>Test Type</th><th>Description</th><th>Disruption Risk</th><th>Realism</th></tr>
+    <tr><td><strong>Checklist Review</strong></td><td>Team members review the plan individually and identify gaps, outdated contacts, or incorrect procedures</td><td>None</td><td>Very Low</td></tr>
+    <tr><td><strong>Tabletop Exercise / Structured Walkthrough</strong></td><td>Team walks through a hypothetical scenario verbally around a table; discusses responses without any system activation</td><td>None</td><td>Low</td></tr>
+    <tr><td><strong>Simulation Test</strong></td><td>More detailed tabletop that simulates realistic decision-making; may use role-play, injects, and time pressure; no actual system activation</td><td>Minimal</td><td>Moderate</td></tr>
+    <tr><td><strong>Parallel Test</strong></td><td>Alternate recovery systems (e.g., DR site) are brought online and tested while primary systems remain in production — both run simultaneously</td><td>Low — primary still online</td><td>High</td></tr>
+    <tr><td><strong>Full Interruption Test</strong></td><td>Primary systems are intentionally taken offline and the organisation actually operates from the recovery site — most realistic but highest risk</td><td>High — production disruption</td><td>Very High</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Exam Test Sequence — "Worst First for Risk, Best First for Realism":</strong><br>
+    Checklist → Tabletop → Simulation → Parallel → Full Interruption<br>
+    Least disruptive → Most disruptive<br>
+    Least realistic → Most realistic<br>
+    Best practice: Start with tabletop; progress to parallel before attempting full interruption.
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="section" id="s9">
+  <h2>9. Standards and Frameworks</h2>
+  <table>
+    <tr><th>Standard</th><th>Organization</th><th>Focus</th><th>Certifiable?</th></tr>
+    <tr><td><strong>ISO 22301</strong></td><td>ISO</td><td>Business Continuity Management System (BCMS); specifies requirements for planning, establishing, implementing, operating, monitoring, reviewing, maintaining, and continually improving a documented BCMS</td><td>Yes — organisations can be ISO 22301 certified</td></tr>
+    <tr><td><strong>NIST SP 800-34</strong></td><td>NIST</td><td>Contingency Planning Guide for Federal Information Systems; guidance for federal agencies on developing and maintaining BCP and DRP</td><td>No — guidance only</td></tr>
+    <tr><td><strong>ISO 22313</strong></td><td>ISO</td><td>Guidance document providing implementation guidance for ISO 22301</td><td>No — guidance only</td></tr>
+    <tr><td><strong>BCI Good Practice Guidelines</strong></td><td>Business Continuity Institute</td><td>Practitioner-focused BCM lifecycle guidance; widely used in UK and Europe</td><td>No — best practice guide</td></tr>
+  </table>
+
+  <div class="key-concept">
+    <strong>Mutual Aid Agreements:</strong> Agreements between organisations (often in the same industry) to share resources, facilities, or personnel during a disaster. Cost-effective for organisations that cannot afford dedicated hot sites. Risk: the other organisation may also be affected by the same regional disaster. Due diligence on compatibility and capacity is required.
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+
+  <div class="mnemonic">
+    <strong>🧠 BCP vs. DRP — "BCP = Business Keeps Processing; DRP = Data and tech Recovered Properly":</strong><br>
+    BCP = keeps the WHOLE BUSINESS running (people, facilities, processes)<br>
+    DRP = restores IT SYSTEMS after the event<br>
+    DRP is a SUBSET of BCP — never the other way around
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 MTD vs. RTO vs. RPO — "The Three Clocks":</strong><br>
+    <strong>MTD</strong> = the DEADLINE clock — how long before the business dies (set by management)<br>
+    <strong>RTO</strong> = the RECOVERY clock — how fast IT must bring systems back (must beat MTD)<br>
+    <strong>RPO</strong> = the DATA LOSS clock — how far back in time can we roll (determines backup frequency)<br>
+    <strong>WRT</strong> = the VALIDATION clock — time to confirm systems work after restore<br>
+    Critical formula: <strong>MTD ≥ RTO + WRT</strong> — if violated, recovery plan is inadequate
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 BCP Lifecycle — "PI BRSD TM":</strong><br>
+    <strong>P</strong>roject initiation → <strong>I</strong>mpact analysis (BIA) → <strong>B</strong>usiness risk assessment → <strong>S</strong>trategy development → <strong>D</strong>evelopment of plans → <strong>T</strong>esting → <strong>M</strong>aintenance<br>
+    Simpler: <em>"Please Investigate Before Strategy — Document, Test, Maintain"</em>
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 BCP Test Types — In order: "Clean Tables Simulate Perfect Fires":</strong><br>
+    <strong>C</strong>hecklist → <strong>T</strong>abletop → <strong>S</strong>imulation → <strong>P</strong>arallel → <strong>F</strong>ull Interruption<br>
+    Each step is more disruptive AND more realistic than the last.<br>
+    Only run Full Interruption when you are confident in the plan — it intentionally takes production offline.
+  </div>
+
+  <div class="mnemonic">
+    <strong>🧠 RPO Drives Backup Frequency — easy anchor:</strong><br>
+    RPO = 24 hours → backup daily<br>
+    RPO = 4 hours → backup every 4 hours<br>
+    RPO = 0 → real-time synchronous replication (most expensive)<br>
+    <em>"RPO tells you how old your oldest acceptable data can be when disaster strikes"</em>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
+  <table>
+    <tr><th>Concept</th><th>One-Line Summary</th></tr>
+    <tr><td>BCP vs. DRP</td><td>BCP = keep entire business running; DRP = restore IT systems; DRP is a subset of BCP</td></tr>
+    <tr><td>BCP Lifecycle</td><td>7 phases: Initiation → BIA → Risk Assessment → Strategy → Plan Development → Testing → Maintenance</td></tr>
+    <tr><td>BIA Purpose</td><td>Identify critical functions, establish MTD/RTO/RPO/WRT, determine impact of downtime — foundation of all BCP decisions</td></tr>
+    <tr><td>MTD</td><td>Maximum Tolerable Downtime — absolute limit before catastrophic business impact; set by management</td></tr>
+    <tr><td>RTO</td><td>Recovery Time Objective — how fast systems must be restored; must satisfy MTD ≥ RTO + WRT</td></tr>
+    <tr><td>RPO</td><td>Recovery Point Objective — acceptable data loss measured in time; drives backup/replication frequency</td></tr>
+    <tr><td>WRT</td><td>Work Recovery Time — time to validate restored systems and resume business operations</td></tr>
+    <tr><td>Critical Formula</td><td>MTD ≥ RTO + WRT — if violated, recovery plan is inadequate and business will fail before it recovers</td></tr>
+    <tr><td>Senior Management</td><td>Must sponsor and approve BCP — cannot be delegated to IT; management sets risk appetite, approves strategy, commits resources</td></tr>
+    <tr><td>Testing Order</td><td>Checklist → Tabletop → Simulation → Parallel → Full Interruption (increasing disruption and realism)</td></tr>
+    <tr><td>ISO 22301</td><td>Certifiable BCMS standard; organisations can be ISO 22301 certified</td></tr>
+    <tr><td>NIST SP 800-34</td><td>US government contingency planning guidance for federal systems; not certifiable</td></tr>
+  </table>
+
+
+</div>
+
+<div class="nav-footer">
+  <a href="day-014-theory.html" class="nav-btn">← Day 14: Supply Chain Risk Management</a>
+  <a href="day-016-theory.html" class="nav-btn">Day 16: Business Impact Analysis →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

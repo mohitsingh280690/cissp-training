@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 49 – Hashing &amp; Digital Signatures</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 49 – Hashing &amp; Digital Signatures</h1>
+  <div class="subtitle">Domain 3 – Security Architecture and Engineering</div>
+  <div class="meta"><span>📅 Day 49 of 140</span><span>⏱️ ~55 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-048-theory.html">← Day 48</a> · Domain 3 · Day 49 · <a href="day-049-mcq.html">Take Quiz →</a></div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Hash Functions Fundamentals</a></li>
+  <li><a href="#s4">4. Hash Algorithms Comparison</a></li>
+  <li><a href="#s5">5. HMAC (Hash-Based Message Authentication Code)</a></li>
+  <li><a href="#s6">6. Attacks on Hash Functions</a></li>
+  <li><a href="#s7">7. Digital Signatures</a></li>
+  <li><a href="#s8">8. Digital Signature Algorithms</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>3 – Security Architecture and Engineering (13%)</td></tr>
+  <tr><td>Weight</td><td>Very High — hashing and digital signatures are tested in nearly every CISSP exam form</td></tr>
+  <tr><td>Why Tested</td><td>Hash functions ensure integrity; digital signatures provide non-repudiation + integrity + authentication — the three together are heavily tested</td></tr>
+  <tr><td>Question Style</td><td>"Which provides non-repudiation?", "What property means two different inputs produce the same hash?", scenario-based integrity verification</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 4 (TLS uses hashing in MAC), Domain 5 (password hashing), Domain 8 (code signing uses digital signatures)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td>Ownership</td><td>Security architects select hash algorithms; development teams implement; PKI teams manage signature infrastructure</td></tr>
+  <tr><td>Implementation</td><td>Password storage (bcrypt/scrypt), file integrity monitoring (Tripwire, OSSEC), digital signatures on code/documents/emails, blockchain</td></tr>
+  <tr><td>Failure Modes</td><td>Using broken algorithms (MD5/SHA-1), not salting password hashes, weak random number generation in DSA, signature verification bypass</td></tr>
+  <tr><td>Business Impact</td><td>Ensures data integrity, enables legally binding digital contracts, protects software supply chain via code signing</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Hash Functions Fundamentals</h2>
+<div class="callout definition">
+  <strong>📖 Cryptographic Hash Function:</strong> A one-way mathematical function that takes an input of any size and produces a <strong>fixed-size output</strong> (the hash, digest, or fingerprint). It is computationally infeasible to reverse the hash to find the original input, or to find two different inputs that produce the same hash.
+</div>
+
+<h3>Five Essential Properties</h3>
+<table>
+  <tr><th>Property</th><th>Definition</th><th>Why It Matters</th></tr>
+  <tr><td><strong>Deterministic</strong></td><td>Same input always produces the same hash</td><td>Enables verification — hash the file again and compare</td></tr>
+  <tr><td><strong>Fixed Output</strong></td><td>Output is always the same length regardless of input size</td><td>SHA-256 always produces 256 bits whether input is 1 byte or 1 TB</td></tr>
+  <tr><td><strong>Preimage Resistance</strong></td><td>Given a hash h, infeasible to find any input m such that hash(m) = h</td><td>Cannot reverse the hash to find the original data (one-way)</td></tr>
+  <tr><td><strong>Second Preimage Resistance</strong></td><td>Given input m1, infeasible to find a different m2 where hash(m1) = hash(m2)</td><td>Cannot forge a different document with the same hash</td></tr>
+  <tr><td><strong>Collision Resistance</strong></td><td>Infeasible to find ANY two different inputs m1, m2 where hash(m1) = hash(m2)</td><td>Strongest property — no two arbitrary inputs should ever collide</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Collision vs. Preimage:</strong> Collision resistance means you cannot find <em>any</em> two inputs that hash the same. Preimage resistance means given a <em>specific</em> hash, you cannot find an input that produces it. Collision resistance is a <strong>stronger</strong> requirement (birthday attack makes collisions easier to find).
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 What Hashing Provides:</strong><br>
+  ✅ <strong>Integrity</strong> — any change to the input changes the hash<br>
+  ❌ <strong>Not Confidentiality</strong> — hashing is not encryption; the original data is not hidden<br>
+  ❌ <strong>Not Authentication</strong> — anyone can compute a hash (unless combined with a key → HMAC)<br>
+  ❌ <strong>Not Non-repudiation</strong> — requires asymmetric keys (digital signature)
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Hash Algorithms Comparison</h2>
+<table>
+  <tr><th>Algorithm</th><th>Output Size</th><th>Block Size</th><th>Status</th><th>Notes</th></tr>
+  <tr><td><strong>MD5</strong></td><td>128 bits</td><td>512 bits</td><td>❌ BROKEN</td><td>Collisions found (2004, Wang et al.); never use for security purposes</td></tr>
+  <tr><td><strong>SHA-1</strong></td><td>160 bits</td><td>512 bits</td><td>❌ BROKEN</td><td>Collision demonstrated (2017, SHAttered by Google); deprecated by NIST, browsers, and CAs</td></tr>
+  <tr><td><strong>SHA-224</strong></td><td>224 bits</td><td>512 bits</td><td>✅ Acceptable</td><td>Truncated SHA-256; rarely used in practice</td></tr>
+  <tr><td><strong>SHA-256</strong></td><td>256 bits</td><td>512 bits</td><td>✅ Current standard</td><td>Most widely used; TLS certificates, Bitcoin, file integrity</td></tr>
+  <tr><td><strong>SHA-384</strong></td><td>384 bits</td><td>1024 bits</td><td>✅ Current standard</td><td>Truncated SHA-512; used in government/high-security</td></tr>
+  <tr><td><strong>SHA-512</strong></td><td>512 bits</td><td>1024 bits</td><td>✅ Current standard</td><td>Fastest SHA-2 variant on 64-bit processors</td></tr>
+  <tr><td><strong>SHA-3 (Keccak)</strong></td><td>224/256/384/512</td><td>Variable (sponge)</td><td>✅ Current standard</td><td>Different internal structure (sponge construction, not Merkle-Damgård); NIST standard since 2015; backup if SHA-2 is broken</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> SHA-2 and SHA-3 are both current NIST standards. SHA-3 uses <strong>sponge construction</strong> (Keccak), not the Merkle-Damgård structure used by MD5, SHA-1, and SHA-2. This is the key architectural difference — if SHA-2's internal structure is ever compromised, SHA-3's completely different design ensures it remains safe.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 SHA-2 Family:</strong> SHA-2 is a <strong>family</strong> of algorithms (SHA-224, SHA-256, SHA-384, SHA-512), not a single algorithm. SHA-256 and SHA-512 are the primary members; SHA-224 and SHA-384 are truncated versions. All use the same Merkle-Damgård construction with different internal constants and output sizes.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. HMAC (Hash-Based Message Authentication Code)</h2>
+<div class="callout definition">
+  <strong>📖 HMAC:</strong> A construction that combines a cryptographic hash function with a <strong>secret key</strong> to provide both <strong>integrity</strong> and <strong>authentication</strong>. Format: HMAC-SHA256(key, message). Defined in RFC 2104.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Plain Hash</th><th>HMAC</th></tr>
+  <tr><td>Integrity</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+  <tr><td>Authentication</td><td>❌ No</td><td>✅ Yes (only key holders can generate/verify)</td></tr>
+  <tr><td>Non-repudiation</td><td>❌ No</td><td>❌ No (shared key — both parties can generate)</td></tr>
+  <tr><td>Key Required</td><td>No</td><td>Yes — symmetric secret key</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ HMAC ≠ Non-repudiation:</strong> HMAC uses a <strong>shared symmetric key</strong>, so both parties can produce the same HMAC. This means it proves the message came from someone who has the key, but not <em>which</em> key holder sent it. For non-repudiation, you need <strong>digital signatures</strong> (asymmetric private key).
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Attacks on Hash Functions</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td><strong>Birthday Attack</strong></td><td>Exploits the birthday paradox: finding any two inputs with the same hash is easier than finding a specific preimage. For an n-bit hash, a collision can be found in approximately 2^(n/2) operations instead of 2^n.</td><td>Use hash algorithms with at least 256-bit output (SHA-256+)</td></tr>
+  <tr><td><strong>Rainbow Table</strong></td><td>Precomputed table of hashes for common passwords. Attacker compares stolen password hashes against the table for instant lookup.</td><td>Salt every hash with a unique random value before hashing</td></tr>
+  <tr><td><strong>Brute Force / Dictionary</strong></td><td>Try all possible inputs (brute force) or common passwords (dictionary) until a matching hash is found.</td><td>Use slow hash functions (bcrypt, scrypt, Argon2) for passwords; increase hash output size for other uses</td></tr>
+  <tr><td><strong>Collision Attack</strong></td><td>Find two different inputs that produce the same hash output. MD5 and SHA-1 are both vulnerable.</td><td>Use SHA-256 or SHA-3; avoid MD5 and SHA-1 entirely</td></tr>
+  <tr><td><strong>Length Extension</strong></td><td>Exploit Merkle-Damgård construction to append data to a message and compute a valid hash without knowing the secret. Affects hash(secret ‖ message).</td><td>Use HMAC (double-hashing with key) instead of hash(key ‖ message); SHA-3 is immune</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The birthday attack reduces collision-finding from 2^n to 2^(n/2). For SHA-256 (256-bit), collision resistance is 2^128 — still computationally infeasible. For MD5 (128-bit), collision resistance is only 2^64 — feasible with modern hardware. This is why the output size matters.
+</div>
+
+<h3>Password Hashing Best Practices</h3>
+<table>
+  <tr><th>Practice</th><th>Purpose</th></tr>
+  <tr><td><strong>Salting</strong></td><td>Add a unique random value to each password before hashing. Defeats rainbow tables and ensures identical passwords produce different hashes.</td></tr>
+  <tr><td><strong>Key Stretching</strong></td><td>Deliberately slow the hash computation (bcrypt, scrypt, Argon2, PBKDF2) to make brute force impractical.</td></tr>
+  <tr><td><strong>Peppering</strong></td><td>Add a system-wide secret (stored separately from the database) to further protect against database compromise.</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Digital Signatures</h2>
+<div class="callout definition">
+  <strong>📖 Digital Signature:</strong> A cryptographic technique that uses the signer's <strong>private key</strong> to create a unique signature of a message or document. Anyone with the signer's <strong>public key</strong> can verify the signature. Provides <strong>integrity + authentication + non-repudiation</strong>.
+</div>
+
+<h3>How Digital Signatures Work</h3>
+<div class="diagram">
+    DIGITAL SIGNATURE PROCESS
+╔══════════════════════════════════════════════════╗
+║                                                  ║
+║  SIGNING (Sender — Alice):                       ║
+║  1. Hash the message → produces digest           ║
+║  2. Encrypt the digest with Alice's PRIVATE key  ║
+║  3. Attach signature to message → send both      ║
+║                                                  ║
+║  VERIFICATION (Receiver — Bob):                  ║
+║  1. Hash the received message → digest₁          ║
+║  2. Decrypt the signature with Alice's PUBLIC    ║
+║     key → digest₂                                ║
+║  3. Compare digest₁ and digest₂                  ║
+║     Match = valid (integrity + authenticity)      ║
+║     Mismatch = tampered or wrong signer          ║
+║                                                  ║
+╚══════════════════════════════════════════════════╝
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Three Guarantees of Digital Signatures:</strong><br>
+  ✅ <strong>Integrity</strong> — the hash proves the message hasn't been altered<br>
+  ✅ <strong>Authentication</strong> — the private key proves the identity of the signer<br>
+  ✅ <strong>Non-repudiation</strong> — the signer cannot deny signing (only they have the private key)
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ Digital Signatures Do NOT Provide Confidentiality:</strong> The message itself is sent in cleartext. The signature only proves integrity and origin. For confidentiality, the message must also be encrypted (e.g., S/MIME encrypts then signs, or signs then encrypts).
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Digital Signature Algorithms</h2>
+<table>
+  <tr><th>Algorithm</th><th>Based On</th><th>Capabilities</th><th>Notes</th></tr>
+  <tr><td><strong>RSA Signatures</strong></td><td>Integer factorization</td><td>Encryption + Signatures</td><td>Most widely used; ≥2048-bit keys; used in TLS certificates</td></tr>
+  <tr><td><strong>DSA (Digital Signature Algorithm)</strong></td><td>Discrete logarithm</td><td>Signatures ONLY</td><td>FIPS 186 standard; cannot encrypt; key sizes 1024–3072; being phased out</td></tr>
+  <tr><td><strong>ECDSA</strong></td><td>Elliptic curve discrete logarithm</td><td>Signatures ONLY</td><td>ECC variant of DSA; shorter signatures; used in Bitcoin, TLS</td></tr>
+  <tr><td><strong>EdDSA (Ed25519)</strong></td><td>Twisted Edwards curves</td><td>Signatures ONLY</td><td>Deterministic (no random nonce needed); faster; used in SSH, Signal</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> DSA can ONLY sign — it cannot encrypt. RSA can do both encryption and signatures. This is a common exam question. Also know: DSA requires a random nonce (k) per signature. If the same nonce is reused, the private key can be recovered (this is how Sony's PS3 ECDSA key was extracted in 2010).
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 "CIA-N of Digital Signatures":</strong> Digital signatures give you <strong>I</strong>ntegrity + <strong>A</strong>uthentication + <strong>N</strong>on-repudiation. NOT <strong>C</strong>onfidentiality. Remember: "Signatures don't hide — they prove."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Hash Algorithm Status:</strong> "MD5 and SHA-1 are <strong>DEAD</strong>. SHA-2 is <strong>STANDARD</strong>. SHA-3 is the <strong>SPARE</strong>." (SHA-3 exists as a backup with a different internal design.)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Birthday Attack Formula:</strong> For n-bit hash → collision in 2^(n/2). "Half the bits, half the security." MD5 (128-bit) → 2^64 collisions. SHA-256 → 2^128 collisions.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 "Salt, Pepper, Stretch":</strong> Password hashing recipe — <strong>Salt</strong> (unique per password, stored with hash), <strong>Pepper</strong> (system-wide secret, stored separately), <strong>Stretch</strong> (slow functions: bcrypt, scrypt, Argon2).
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Hash Function</td><td>One-way, fixed-size output; provides integrity only (not confidentiality)</td></tr>
+  <tr><td>MD5 / SHA-1</td><td>Both BROKEN — collisions demonstrated; never use for security</td></tr>
+  <tr><td>SHA-256</td><td>Current standard; 256-bit output; Merkle-Damgård construction</td></tr>
+  <tr><td>SHA-3 (Keccak)</td><td>Alternative standard; sponge construction; backup if SHA-2 is compromised</td></tr>
+  <tr><td>HMAC</td><td>Hash + secret key = integrity + authentication; NO non-repudiation (shared key)</td></tr>
+  <tr><td>Birthday Attack</td><td>Collision finding in 2^(n/2); requires larger hash outputs</td></tr>
+  <tr><td>Salting</td><td>Unique random value per password; defeats rainbow tables</td></tr>
+  <tr><td>Digital Signatures</td><td>Hash then encrypt digest with private key → integrity + authentication + non-repudiation</td></tr>
+  <tr><td>DSA vs. RSA</td><td>DSA = signatures ONLY; RSA = encryption + signatures</td></tr>
+  <tr><td>No Confidentiality</td><td>Neither hashing nor digital signatures provide confidentiality</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+<a href="day-048-theory.html" class="nav-btn">← Day 48: Asymmetric Encryption</a>
+<a href="day-049-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+</div>
+</div>
+</body>
+</html>
