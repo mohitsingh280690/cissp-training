@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 127 – APIs &amp; Microservices Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 127 – APIs &amp; Microservices Security</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 127 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-126-theory.html">← Day 126: Software Security Testing</a> · Domain 8 · Day 127</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. API Fundamentals</a></li>
+  <li><a href="#s4">4. REST API Security</a></li>
+  <li><a href="#s5">5. SOAP API Security</a></li>
+  <li><a href="#s6">6. API Authentication &amp; Authorization</a></li>
+  <li><a href="#s7">7. API Gateway &amp; Rate Limiting</a></li>
+  <li><a href="#s8">8. Microservices Architecture Security</a></li>
+  <li><a href="#s9">9. Service Mesh</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>APIs are the connective tissue of modern applications. Understanding REST vs SOAP, OAuth 2.0, API gateways, and microservices security patterns is increasingly tested as organizations adopt cloud-native architectures</td></tr>
+  <tr><td>Question Style</td><td>"Which protocol uses XML and WS-Security for message-level security?" (SOAP). "OAuth 2.0 provides…?" (Authorization, NOT authentication). "A service mesh provides…?" (mTLS, observability, traffic management between microservices)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 120 (DevSecOps/containers); Day 65-66 (IAM/OAuth/SAML); Domain 4 (network segmentation)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>APIs are the dominant communication mechanism in cloud, mobile, IoT, and SaaS architectures. API breaches regularly make headlines (Facebook, Twitter/X, Optus) — often due to broken authentication, excessive data exposure, or missing rate limiting. The OWASP API Security Top 10 was published specifically to address API-specific risks. Microservices architectures multiply the number of API endpoints and inter-service communications, creating a much larger attack surface than monolithic applications.</p>
+</section>
+
+<section id="s3">
+<h2>3. API Fundamentals</h2>
+<div class="definition callout">
+  <strong>API (Application Programming Interface):</strong> A defined interface that allows software components to communicate with each other. APIs specify the methods, data formats, and protocols for requesting and exchanging data between systems.
+</div>
+
+<table>
+  <tr><th>API Type</th><th>Protocol</th><th>Data Format</th><th>Key Characteristics</th></tr>
+  <tr><td><strong>REST</strong></td><td>HTTP/HTTPS</td><td>JSON (primarily)</td><td>Stateless; resource-based (URLs); CRUD via HTTP methods (GET/POST/PUT/DELETE); lightweight; most common</td></tr>
+  <tr><td><strong>SOAP</strong></td><td>HTTP, SMTP, etc.</td><td>XML only</td><td>Protocol-based; WS-* standards; built-in security (WS-Security); heavier; enterprise/legacy</td></tr>
+  <tr><td><strong>GraphQL</strong></td><td>HTTP/HTTPS</td><td>JSON</td><td>Query language for APIs; client specifies exactly what data it needs; single endpoint; risk of over-fetching control issues</td></tr>
+  <tr><td><strong>gRPC</strong></td><td>HTTP/2</td><td>Protocol Buffers (binary)</td><td>High performance; bi-directional streaming; used in microservices; Google-originated</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. REST API Security</h2>
+<table>
+  <tr><th>Security Concern</th><th>Best Practice</th></tr>
+  <tr><td><strong>Transport security</strong></td><td>HTTPS (TLS 1.2+) for ALL API traffic — no exceptions; HSTS header</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>OAuth 2.0 Bearer tokens; API keys (limited); JWT; never basic auth over HTTP</td></tr>
+  <tr><td><strong>Authorization</strong></td><td>Check permissions on EVERY request; enforce least privilege; don't rely on client filtering</td></tr>
+  <tr><td><strong>Input validation</strong></td><td>Validate all parameters, headers, body; whitelist approach; reject unexpected fields</td></tr>
+  <tr><td><strong>Rate limiting</strong></td><td>Prevent abuse/DoS; per-user or per-IP limits; return HTTP 429 (Too Many Requests)</td></tr>
+  <tr><td><strong>Data exposure</strong></td><td>Return ONLY the data the client needs; don't expose internal IDs/metadata; filter sensitive fields</td></tr>
+  <tr><td><strong>Versioning</strong></td><td>Version APIs (v1, v2) to manage deprecation without breaking clients</td></tr>
+  <tr><td><strong>CORS</strong></td><td>Configure Cross-Origin Resource Sharing headers to restrict which domains can call the API</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>REST is STATELESS:</strong> Each request must include all necessary authentication/authorization information (typically a Bearer token in the Authorization header). The server does NOT maintain session state between requests. This is a fundamental REST principle and an exam-relevant distinction from SOAP.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SOAP API Security</h2>
+<table>
+  <tr><th>Feature</th><th>Description</th></tr>
+  <tr><td><strong>WS-Security</strong></td><td>Message-level security standard; provides authentication, integrity, and confidentiality at the XML message level (not just transport)</td></tr>
+  <tr><td><strong>XML Encryption</strong></td><td>Encrypts portions of the SOAP message; data confidentiality within the message itself</td></tr>
+  <tr><td><strong>XML Signature</strong></td><td>Digital signatures on XML elements; provides integrity and non-repudiation</td></tr>
+  <tr><td><strong>WSDL</strong></td><td>Web Services Description Language — describes the API interface; should not be publicly exposed (information disclosure)</td></tr>
+  <tr><td><strong>WS-Policy</strong></td><td>Specifies security requirements for web service communication</td></tr>
+</table>
+
+<h3>REST vs SOAP Security</h3>
+<table>
+  <tr><th>Aspect</th><th>REST</th><th>SOAP</th></tr>
+  <tr><td>Security layer</td><td>Transport-level (HTTPS/TLS)</td><td>Message-level (WS-Security) + transport</td></tr>
+  <tr><td>Encryption scope</td><td>Entire connection (TLS)</td><td>Specific message parts (XML Encryption)</td></tr>
+  <tr><td>Standard</td><td>No built-in standard; rely on OAuth, JWT</td><td>Built-in WS-* standards</td></tr>
+  <tr><td>Message format</td><td>JSON (lightweight)</td><td>XML (verbose, heavier)</td></tr>
+  <tr><td>Use case</td><td>Modern web/mobile/cloud</td><td>Enterprise, financial, government (legacy)</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>SOAP advantage:</strong> Message-level security means the message stays protected even if it passes through intermediaries (proxy servers, message queues). TLS only protects point-to-point. SOAP is preferred when end-to-end message security is required across multiple hops.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. API Authentication &amp; Authorization</h2>
+<table>
+  <tr><th>Method</th><th>Mechanism</th><th>Use Case</th></tr>
+  <tr><td><strong>API Keys</strong></td><td>Static secret string passed in header/query; identifies the calling application</td><td>Simple identification; NOT true authentication; often combined with other methods</td></tr>
+  <tr><td><strong>OAuth 2.0</strong></td><td>Authorization framework; issues access tokens via authorization server; four grant types</td><td>Delegated authorization — user grants app limited access to their resources</td></tr>
+  <tr><td><strong>OpenID Connect (OIDC)</strong></td><td>Authentication layer on top of OAuth 2.0; adds ID token (JWT) for user identity</td><td>Authentication + authorization; "Login with Google/Microsoft"</td></tr>
+  <tr><td><strong>JWT</strong></td><td>JSON Web Token — self-contained token with claims, signed (JWS) or encrypted (JWE)</td><td>Stateless authentication; contains user info in token payload</td></tr>
+  <tr><td><strong>mTLS</strong></td><td>Mutual TLS — both client and server present certificates</td><td>Service-to-service authentication; high-security API access</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>OAuth 2.0 is AUTHORIZATION, not authentication.</strong> It answers "What can this app access?" not "Who is the user?" OIDC (built on OAuth 2.0) adds authentication. This distinction is a CISSP exam favorite.
+</div>
+
+<h3>OAuth 2.0 Grant Types</h3>
+<table>
+  <tr><th>Grant Type</th><th>Use Case</th><th>Security Note</th></tr>
+  <tr><td><strong>Authorization Code</strong></td><td>Server-side web apps (most secure for web)</td><td>Code exchanged for token via back-channel; best for confidential clients</td></tr>
+  <tr><td><strong>Authorization Code + PKCE</strong></td><td>Mobile/SPA apps (public clients)</td><td>Adds code verifier/challenge; prevents authorization code interception</td></tr>
+  <tr><td><strong>Client Credentials</strong></td><td>Service-to-service (no user involved)</td><td>Machine-to-machine; app authenticates with its own credentials</td></tr>
+  <tr><td><strong>Implicit (deprecated)</strong></td><td>Was used for SPAs; token in URL fragment</td><td>Insecure — token exposed in browser; replaced by Auth Code + PKCE</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. API Gateway &amp; Rate Limiting</h2>
+<div class="definition callout">
+  <strong>API Gateway:</strong> A reverse proxy that acts as the single entry point for all API requests. Handles cross-cutting concerns: authentication, rate limiting, logging, routing, protocol translation, and SSL termination. Examples: AWS API Gateway, Kong, Apigee.
+</div>
+
+<table>
+  <tr><th>Gateway Function</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Authentication/Authorization</strong></td><td>Centralizes auth; validates tokens before requests reach backend services</td></tr>
+  <tr><td><strong>Rate limiting/throttling</strong></td><td>Prevents DoS; limits requests per user/IP; returns 429 Too Many Requests</td></tr>
+  <tr><td><strong>Input validation</strong></td><td>Validates request format against API schema before forwarding</td></tr>
+  <tr><td><strong>Logging &amp; monitoring</strong></td><td>Centralized API activity logging; anomaly detection; audit trail</td></tr>
+  <tr><td><strong>SSL termination</strong></td><td>Handles TLS at the gateway; simplifies certificate management</td></tr>
+  <tr><td><strong>IP whitelisting/blacklisting</strong></td><td>Controls which IPs/networks can access the API</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Microservices Architecture Security</h2>
+<div class="definition callout">
+  <strong>Microservices:</strong> Architectural pattern where an application is composed of small, independent, loosely coupled services. Each service handles one business function, has its own database, and communicates via APIs (typically REST or gRPC). Contrast with monolithic architecture where everything is one deployable unit.
+</div>
+
+<h3>Microservices Security Challenges</h3>
+<table>
+  <tr><th>Challenge</th><th>Description</th><th>Solution</th></tr>
+  <tr><td><strong>Large attack surface</strong></td><td>Many services = many API endpoints = many potential entry points</td><td>API gateway; network policies; zero trust model</td></tr>
+  <tr><td><strong>Service-to-service auth</strong></td><td>Each service must authenticate and authorize requests from other services</td><td>mTLS; service mesh; JWT propagation; API keys (internal)</td></tr>
+  <tr><td><strong>Data isolation</strong></td><td>Each service owns its data; cross-service data access must be controlled</td><td>Database-per-service pattern; API-only data access; no shared databases</td></tr>
+  <tr><td><strong>Network security</strong></td><td>East-west traffic (service-to-service) inside the network perimeter</td><td>Network policies (Kubernetes); micro-segmentation; encrypt internal traffic</td></tr>
+  <tr><td><strong>Secrets management</strong></td><td>Each service needs credentials for databases, other services, external APIs</td><td>Centralized secrets manager (Vault); inject at runtime; rotate automatically</td></tr>
+  <tr><td><strong>Observability</strong></td><td>Tracing requests across many services; identifying failures</td><td>Distributed tracing (Jaeger, Zipkin); centralized logging; service mesh telemetry</td></tr>
+</table>
+
+<h3>Container Security (Microservices Context)</h3>
+<table>
+  <tr><th>Practice</th><th>Purpose</th></tr>
+  <tr><td>Scan images for vulnerabilities</td><td>Identify known CVEs in base images and dependencies before deployment</td></tr>
+  <tr><td>Use minimal base images</td><td>Alpine/distroless; smaller image = smaller attack surface</td></tr>
+  <tr><td>Sign container images</td><td>Verify image integrity and origin; prevent tampered images</td></tr>
+  <tr><td>Don't run as root</td><td>Non-root user in container; limits damage from container escape</td></tr>
+  <tr><td>Read-only filesystem</td><td>Prevent runtime modification of container contents</td></tr>
+  <tr><td>Network policies</td><td>Control which containers can communicate with each other</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Containers share the host OS kernel</strong> — they are NOT full VMs. A kernel vulnerability can affect all containers on the host. This is the fundamental security difference between containers and VMs. VMs provide stronger isolation through separate kernels (hypervisor isolation).
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Service Mesh</h2>
+<div class="definition callout">
+  <strong>Service Mesh:</strong> A dedicated infrastructure layer for managing service-to-service communication in microservices. Implemented as sidecar proxies (e.g., Envoy) deployed alongside each service. Provides mTLS, load balancing, observability, and traffic management WITHOUT modifying application code. Examples: Istio, Linkerd, Consul Connect.
+</div>
+
+<table>
+  <tr><th>Capability</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Automatic mTLS</strong></td><td>Encrypts ALL service-to-service traffic; mutual authentication; zero-trust networking</td></tr>
+  <tr><td><strong>Authorization policies</strong></td><td>Fine-grained rules: Service A can call Service B on specific endpoints</td></tr>
+  <tr><td><strong>Traffic control</strong></td><td>Canary deployments, circuit breakers, retry policies; controlled rollouts</td></tr>
+  <tr><td><strong>Observability</strong></td><td>Distributed tracing, metrics, access logs for all service communication</td></tr>
+  <tr><td><strong>Rate limiting</strong></td><td>Per-service rate limits; prevent cascading failures</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 REST vs SOAP Security</strong><br>
+  <strong>REST</strong> = <strong>T</strong>ransport-level security (TLS wraps whole connection)<br>
+  <strong>SOAP</strong> = <strong>M</strong>essage-level security (WS-Security protects message parts)<br>
+  "REST Transports, SOAP Messages"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 OAuth vs OIDC</strong><br>
+  <strong>OAuth</strong> = <strong>A</strong>uthorization ("What can you access?")<br>
+  <strong>OIDC</strong> = <strong>A</strong>uthentication + Authorization ("Who are you?" + "What can you access?")<br>
+  "OIDC = OAuth + IDentity"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 API Gateway — "ARILS" (A Really Important Layer of Security)</strong><br>
+  <strong>A</strong>uthentication<br>
+  <strong>R</strong>ate limiting<br>
+  <strong>I</strong>nput validation<br>
+  <strong>L</strong>ogging<br>
+  <strong>S</strong>SL termination
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>REST</td><td>Stateless, HTTP-based, JSON; transport-level security (TLS); most common API style</td></tr>
+  <tr><td>SOAP</td><td>XML-based; WS-Security for message-level security; enterprise/legacy</td></tr>
+  <tr><td>OAuth 2.0</td><td>AUTHORIZATION framework — NOT authentication; issues access tokens</td></tr>
+  <tr><td>OIDC</td><td>Authentication layer on OAuth 2.0; adds ID token (JWT)</td></tr>
+  <tr><td>API Gateway</td><td>Single entry point; centralizes auth, rate limiting, logging, input validation</td></tr>
+  <tr><td>Microservices</td><td>Independent services communicating via APIs; larger attack surface; require service-to-service auth</td></tr>
+  <tr><td>Containers vs VMs</td><td>Containers share host kernel (weaker isolation); VMs have separate kernels (stronger isolation)</td></tr>
+  <tr><td>Service mesh</td><td>Infrastructure layer for service-to-service security; automatic mTLS; no code changes needed</td></tr>
+  <tr><td>mTLS</td><td>Mutual TLS — both sides authenticate; standard for service-to-service communication</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-126-theory.html" class="nav-btn">← Day 126: Software Security Testing</a>
+  <a href="day-128-theory.html" class="nav-btn">Day 128: AI/ML Security →</a>
+</div>
+</div>
+</body>
+</html>

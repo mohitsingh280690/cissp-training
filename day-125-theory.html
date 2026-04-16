@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 125 – Secure Coding Practices</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 125 – Secure Coding Practices</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 125 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-124-theory.html">← Day 124: Web App Security – Part 2</a> · Domain 8 · Day 125</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Input Validation</a></li>
+  <li><a href="#s4">4. Output Encoding</a></li>
+  <li><a href="#s5">5. Error Handling &amp; Logging</a></li>
+  <li><a href="#s6">6. Cryptographic Best Practices</a></li>
+  <li><a href="#s7">7. Secure Memory &amp; Resource Management</a></li>
+  <li><a href="#s8">8. Defensive Coding Principles</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>Secure coding is the foundation of building secure software. CISSP tests understanding of defensive coding principles: input validation, output encoding, error handling, cryptographic use — the "how to prevent" for every web/app vulnerability</td></tr>
+  <tr><td>Question Style</td><td>"The BEST practice for handling user input is…?" (Whitelist validation). "What should an application do when an unexpected error occurs?" (Fail secure/closed — deny access). "Hardcoded credentials in source code are an example of…?" (Insecure coding practice)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Days 122-124 (database &amp; web attacks these practices defend against); Day 120 (DevSecOps); Day 126 (testing these practices)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>The vast majority of vulnerabilities stem from coding errors: missing input validation, improper error handling, hardcoded secrets, weak cryptographic choices. Fixing a vulnerability in production costs 30-100x more than fixing it during development. Secure coding standards (OWASP Secure Coding Practices, CERT Coding Standards, CWE Top 25) provide concrete guardrails that reduce vulnerability density per thousand lines of code.</p>
+</section>
+
+<section id="s3">
+<h2>3. Input Validation</h2>
+<div class="definition callout">
+  <strong>Input Validation:</strong> Verifying that all external data (user input, API calls, file uploads, environment variables) conforms to expected format, type, length, and range BEFORE processing. The #1 root cause of vulnerabilities is trusting untrusted input.
+</div>
+
+<h3>Validation Approaches</h3>
+<table>
+  <tr><th>Approach</th><th>Description</th><th>Recommendation</th></tr>
+  <tr><td><strong>Whitelist (allowlist)</strong></td><td>Define what IS allowed; reject everything else</td><td>✅ BEST practice — always preferred on CISSP</td></tr>
+  <tr><td><strong>Blacklist (denylist)</strong></td><td>Define what is NOT allowed; accept everything else</td><td>⚠️ Weak — attackers find new bypass patterns; always incomplete</td></tr>
+  <tr><td><strong>Sanitization</strong></td><td>Clean/transform input to remove dangerous characters</td><td>Good as secondary defense; can be error-prone</td></tr>
+  <tr><td><strong>Canonicalization</strong></td><td>Convert input to simplest/standard form before validation (decode, normalize)</td><td>Essential — prevents encoding attacks that bypass validation</td></tr>
+</table>
+
+<h3>Validation Rules</h3>
+<table>
+  <tr><th>Check</th><th>Example</th></tr>
+  <tr><td><strong>Type</strong></td><td>Is it a number, string, date, email?</td></tr>
+  <tr><td><strong>Length</strong></td><td>Min/max character length; prevents buffer overflows</td></tr>
+  <tr><td><strong>Range</strong></td><td>Is the number within acceptable bounds (age: 0-150)?</td></tr>
+  <tr><td><strong>Format</strong></td><td>Does it match expected pattern (regex for phone number)?</td></tr>
+  <tr><td><strong>Consistency</strong></td><td>Do related fields make sense together (city matches zip code)?</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Always validate on the SERVER side.</strong> Client-side validation (JavaScript) improves UX but provides ZERO security — it can be bypassed by any attacker. Server-side validation is mandatory; client-side is optional enhancement.
+</div>
+
+<div class="warning callout">
+  <strong>Canonicalization Attack:</strong> Attackers encode malicious input (URL encoding, Unicode, double encoding) to bypass validation filters. Example: <code>%3Cscript%3E</code> bypasses a filter looking for <code>&lt;script&gt;</code>. Defense: canonicalize (decode) input FIRST, then validate.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Output Encoding</h2>
+<div class="definition callout">
+  <strong>Output Encoding:</strong> Converting special characters in data to their safe equivalent representation before rendering in a specific context (HTML, JavaScript, URL, CSS, SQL). This prevents injected code from being executed.
+</div>
+
+<table>
+  <tr><th>Context</th><th>Encoding</th><th>Example</th></tr>
+  <tr><td>HTML body</td><td>HTML entity encoding</td><td><code>&lt;</code> → <code>&amp;lt;</code>, <code>&gt;</code> → <code>&amp;gt;</code></td></tr>
+  <tr><td>HTML attributes</td><td>Attribute encoding</td><td>Encode all non-alphanumeric characters</td></tr>
+  <tr><td>JavaScript</td><td>JavaScript encoding</td><td>Escape quotes, backslashes, special chars</td></tr>
+  <tr><td>URL parameters</td><td>URL/percent encoding</td><td>Spaces → <code>%20</code>, special chars → <code>%XX</code></td></tr>
+  <tr><td>CSS</td><td>CSS encoding</td><td>Backslash-escape non-alphanumeric in CSS values</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Context Matters:</strong> The correct encoding depends on WHERE the data appears. HTML encoding in a JavaScript context doesn't prevent XSS. Always use context-appropriate encoding libraries rather than writing your own.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Error Handling &amp; Logging</h2>
+<h3>Secure Error Handling</h3>
+<table>
+  <tr><th>Principle</th><th>Description</th></tr>
+  <tr><td><strong>Fail secure (fail closed)</strong></td><td>On error → DENY access. If a firewall crashes, it blocks all traffic. If authentication fails unexpectedly, deny access</td></tr>
+  <tr><td><strong>Fail open</strong></td><td>On error → ALLOW access. Used when availability is prioritized over security (e.g., fire exit locks). Generally insecure</td></tr>
+  <tr><td><strong>Generic user messages</strong></td><td>Show users friendly, non-revealing error messages: "An error occurred. Please contact support."</td></tr>
+  <tr><td><strong>Detailed server-side logging</strong></td><td>Log full error details (stack trace, context) server-side for debugging — NEVER expose to users</td></tr>
+  <tr><td><strong>No sensitive data in errors</strong></td><td>Never include credentials, PII, database queries, file paths, or version info in error messages</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Fail Secure vs Fail Open — Exam Favorite:</strong><br>
+  • Fail <strong>SECURE</strong> (closed) = DEFAULT for security systems. Door lock loses power → door stays LOCKED. Firewall crashes → blocks all traffic.<br>
+  • Fail <strong>OPEN</strong> = Exception for SAFETY systems. Fire exit → door opens on power loss (human safety > security).<br>
+  • CISSP default answer: Fail secure, UNLESS human safety is at risk.
+</div>
+
+<h3>Secure Logging Practices</h3>
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Log authentication attempts (success + failure)</td><td>Log passwords (even failed ones)</td></tr>
+  <tr><td>Log authorization failures</td><td>Log credit card numbers/full SSNs</td></tr>
+  <tr><td>Log input validation failures</td><td>Log encryption keys or secrets</td></tr>
+  <tr><td>Include timestamp, source IP, user ID, action</td><td>Log session tokens or auth tokens</td></tr>
+  <tr><td>Protect log integrity (write-once, SIEM)</td><td>Allow users to modify or delete logs</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Cryptographic Best Practices</h2>
+<table>
+  <tr><th>Practice</th><th>Guidance</th></tr>
+  <tr><td><strong>Use established algorithms</strong></td><td>AES-256 for symmetric; RSA-2048+/ECC for asymmetric; SHA-256+ for hashing. NEVER invent your own crypto</td></tr>
+  <tr><td><strong>Use vetted libraries</strong></td><td>OpenSSL, libsodium, Bouncy Castle — don't implement crypto from scratch</td></tr>
+  <tr><td><strong>Proper key management</strong></td><td>Generate keys with CSPRNG; store in HSM or key vault; rotate regularly; never hardcode</td></tr>
+  <tr><td><strong>Salt passwords</strong></td><td>Unique random salt per password; use bcrypt/Argon2/PBKDF2; never plain hash</td></tr>
+  <tr><td><strong>TLS for transport</strong></td><td>TLS 1.2+ minimum; TLS 1.3 preferred; disable SSL 2.0/3.0 and TLS 1.0/1.1</td></tr>
+  <tr><td><strong>Encrypt at rest</strong></td><td>AES-256 for stored data; TDE for databases; FDE for endpoints</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Hardcoded Secrets:</strong> NEVER embed passwords, API keys, encryption keys, or connection strings in source code. Use environment variables, secrets managers (HashiCorp Vault, AWS Secrets Manager), or configuration management. Code repositories are frequently exposed.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Secure Memory &amp; Resource Management</h2>
+<table>
+  <tr><th>Practice</th><th>Purpose</th></tr>
+  <tr><td><strong>Clear sensitive data from memory</strong></td><td>Zero out passwords, keys, PII after use; prevents memory dump attacks</td></tr>
+  <tr><td><strong>Use memory-safe languages</strong></td><td>Rust, Go, Java, C# prevent many buffer overflow classes; prefer over C/C++ where possible</td></tr>
+  <tr><td><strong>Bounds checking</strong></td><td>Validate array/buffer indices before access; prevents buffer overflows</td></tr>
+  <tr><td><strong>Resource cleanup</strong></td><td>Close files, connections, handles in finally blocks; prevent resource exhaustion/leaks</td></tr>
+  <tr><td><strong>Limit resource allocation</strong></td><td>Set maximum sizes for uploads, queries, collections; prevents DoS</td></tr>
+  <tr><td><strong>Avoid global variables</strong></td><td>Minimize shared mutable state; reduces race conditions and unintended access</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Defensive Coding Principles</h2>
+<table>
+  <tr><th>Principle</th><th>Description</th></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Code runs with minimum necessary permissions; database accounts have only required grants</td></tr>
+  <tr><td><strong>Defense in depth</strong></td><td>Multiple layers of protection — input validation + parameterized queries + WAF + least privilege</td></tr>
+  <tr><td><strong>Separation of duties</strong></td><td>Different roles for development, review, deployment; no single person controls entire pipeline</td></tr>
+  <tr><td><strong>Complete mediation</strong></td><td>Check authorization on EVERY request, not just the first; avoid caching authorization decisions</td></tr>
+  <tr><td><strong>Economy of mechanism</strong></td><td>Keep security mechanisms simple — simpler code has fewer bugs</td></tr>
+  <tr><td><strong>Open design</strong></td><td>Security shouldn't depend on secrecy of implementation (Kerckhoffs' principle)</td></tr>
+  <tr><td><strong>Fail secure</strong></td><td>Default to deny on errors/exceptions; never grant access due to error</td></tr>
+  <tr><td><strong>Don't trust client</strong></td><td>All client-side data is attacker-controlled; validate server-side</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Secure by Default:</strong> Applications should ship in the most secure configuration. Users/admins should have to explicitly ENABLE less-secure features, not disable insecure defaults. Example: cookies should have Secure and HttpOnly set by default; debug mode should be OFF by default.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Input Validation — "TLRFC" (The Lion Runs From Cats)</strong><br>
+  <strong>T</strong>ype – correct data type<br>
+  <strong>L</strong>ength – min/max bounds<br>
+  <strong>R</strong>ange – acceptable values<br>
+  <strong>F</strong>ormat – expected pattern<br>
+  <strong>C</strong>onsistency – fields make sense together
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 "Whitelist > Blacklist, Server > Client"</strong><br>
+  Two golden rules of input validation that apply to every CISSP question about input handling.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Fail Modes</strong><br>
+  Fail <strong>SECURE</strong> = <strong>S</strong>ecurity priority → door <strong>S</strong>tays locked<br>
+  Fail <strong>OPEN</strong> = <strong>O</strong>nly for safety → door <strong>O</strong>pens for escape<br>
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 "Never Roll Your Own Crypto"</strong><br>
+  Use established algorithms (AES, RSA, SHA-256) and vetted libraries. Custom crypto = guaranteed failure.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Whitelist validation</td><td>ALWAYS preferred over blacklist; define what IS allowed</td></tr>
+  <tr><td>Server-side validation</td><td>Mandatory; client-side is optional UX enhancement with zero security value</td></tr>
+  <tr><td>Canonicalization</td><td>Decode/normalize before validating; prevents encoding bypass attacks</td></tr>
+  <tr><td>Output encoding</td><td>Context-specific encoding prevents XSS; best defense for output</td></tr>
+  <tr><td>Fail secure</td><td>Default deny on errors; fail open ONLY for safety (fire exits)</td></tr>
+  <tr><td>Error messages</td><td>Generic to users; detailed server-side only; never expose sensitive data</td></tr>
+  <tr><td>Hardcoded secrets</td><td>NEVER in code; use secrets managers/vaults</td></tr>
+  <tr><td>Cryptography</td><td>Use proven algorithms + vetted libraries; never invent your own</td></tr>
+  <tr><td>Least privilege</td><td>Code runs with minimum permissions; DB accounts get only needed grants</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-124-theory.html" class="nav-btn">← Day 124: Web App Security – Part 2</a>
+  <a href="day-126-theory.html" class="nav-btn">Day 126: Software Security Testing →</a>
+</div>
+</div>
+</body>
+</html>

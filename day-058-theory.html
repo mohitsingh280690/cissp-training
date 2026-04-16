@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 58 – Switching &amp; VLANs</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 58 – Switching &amp; VLANs</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 58 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-057-theory.html">← Day 57: Network Services</a> · Domain 4 · Day 58</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Layer 2 Switching Fundamentals</a></li>
+  <li><a href="#s4">4. Spanning Tree Protocol (STP)</a></li>
+  <li><a href="#s5">5. VLANs – Virtual Local Area Networks</a></li>
+  <li><a href="#s6">6. 802.1Q Trunking</a></li>
+  <li><a href="#s7">7. VLAN Hopping Attacks</a></li>
+  <li><a href="#s8">8. Port Security &amp; Switch Hardening</a></li>
+  <li><a href="#s9">9. Private VLANs (PVLANs)</a></li>
+  <li><a href="#s10">10. Layer 2 Attack Summary</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>VLANs are the primary Layer 2 network segmentation control. CISSP tests whether you understand how VLANs provide isolation, how VLAN hopping attacks break that isolation, and what controls prevent it. STP is tested for its own DoS vulnerabilities. Port security controls MAC spoofing and physical access abuse.</td></tr>
+  <tr><td><strong>Question Style</strong></td><td>"A company separated PCI systems into a VLAN — is this sufficient isolation?"; "What attack allows traffic to cross VLAN boundaries?"; "Which switch feature limits the number of MAC addresses per port?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 3 (network architecture — VLANs as a segmentation primitive); Domain 7 (physical security — port/switch access control); Days 57 (DHCP snooping/DAI depend on correct VLAN config); Day 60 (inter-VLAN traffic flows through firewalls)</td></tr>
+  <tr><td><strong>Exam Traps</strong></td><td>Believing VLANs alone are sufficient for security isolation (they're not — they must be combined with firewall controls for full segmentation); confusing access ports vs. trunk ports; thinking STP only causes loops with no security implications</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Ownership</strong></td><td>Network engineers design and configure VLANs; security architects define segmentation requirements (PCI-DSS cardholder data environment, DMZ, guest networks); security operations monitors VLAN boundary violations</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Typical VLAN segments: user VLAN, server VLAN, management VLAN, PCI VLAN, guest WiFi VLAN, VoIP VLAN, IoT VLAN, DMZ VLAN; each separated by firewall ACLs for inter-VLAN routing</td></tr>
+  <tr><td><strong>Failure Modes</strong></td><td>VLAN misconfiguration allows unintended inter-VLAN access; missing trunk port hardening enables VLAN hopping; default VLAN (VLAN 1) being used for management is a common security failure; STP anomalies can cause network outages or MITM</td></tr>
+  <tr><td><strong>Business Impact</strong></td><td>VLANs are the mechanism organizations use to achieve PCI-DSS network segmentation requirements. Without proper VLANs, the entire network is in-scope for PCI compliance, dramatically increasing audit costs and risk exposure.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3">
+<h2>3. Layer 2 Switching Fundamentals</h2>
+<div class="callout definition">
+  <strong>📖 Layer 2 Switch:</strong> A network device that operates at the Data Link layer, forwarding Ethernet frames based on destination MAC addresses. Switches build a <strong>MAC address table</strong> (also called CAM table — Content Addressable Memory) by learning source MAC addresses from incoming frames.
+</div>
+
+<h3>How a Switch Forwards Frames</h3>
+<div class="diagram">
+Switch MAC Address Table (CAM Table):
+
+┌────────────────┬──────────┬───────────┐
+│  MAC Address   │  Port    │  VLAN     │
+├────────────────┼──────────┼───────────┤
+│ AA:BB:CC:11:22:33 │ Fa0/1  │ VLAN 10  │
+│ AA:BB:CC:44:55:66 │ Fa0/2  │ VLAN 10  │
+│ AA:BB:CC:77:88:99 │ Fa0/3  │ VLAN 20  │
+└────────────────┴──────────┴───────────┘
+
+Frame Handling Logic:
+1. KNOWN UNICAST   → Forward only to the specific port (MAC in table)
+2. UNKNOWN UNICAST → FLOOD to all ports in the VLAN (learning phase)
+3. BROADCAST       → FLOOD to all ports in the VLAN
+4. MULTICAST       → Flood to all ports unless IGMP snooping is configured
+
+Switches LEARN source MAC of every incoming frame.
+If destination MAC not in table → flood and learn.
+</div>
+
+<h3>CAM Table Overflow (MAC Flooding) Attack</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Mechanism</strong></td><td>Attacker floods the switch with frames using thousands of different spoofed source MAC addresses. The CAM table fills up (it has a fixed size, typically 8,000–16,000 entries). Once full, the switch cannot learn new entries and begins to <strong>flood all frames to all ports</strong> — behaving like a hub.</td></tr>
+  <tr><td><strong>Impact</strong></td><td>All unicast traffic is flooded — attacker in same VLAN can capture all traffic via a sniffer. Effectively turns a secure switch into a promiscuous hub.</td></tr>
+  <tr><td><strong>Tool</strong></td><td>Macof (part of dsniff suite) — can send ~155,000 MAC entries per minute</td></tr>
+  <tr><td><strong>Defence</strong></td><td><strong>Port Security</strong> — limits the number of MAC addresses allowed per port (e.g., max 2). Excess MACs trigger: shutdown (default), restrict (drop + log), or protect (drop silently).</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> CAM table overflow (MAC flooding) causes a switch to behave like a hub and flood all traffic. The primary defence is <strong>port security</strong> with a maximum MAC address limit. This is distinct from MAC spoofing (where attacker uses a legitimate MAC) — port security with sticky MAC addresses addresses both.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4">
+<h2>4. Spanning Tree Protocol (STP)</h2>
+<div class="callout definition">
+  <strong>📖 STP (Spanning Tree Protocol — IEEE 802.1D):</strong> A Layer 2 protocol that prevents network loops in Ethernet networks with redundant paths. Loops at Layer 2 cause broadcast storms that consume all network bandwidth and crash bridged networks. STP logically blocks redundant links, creating a loop-free tree topology.
+</div>
+
+<div class="diagram">
+STP Port States:
+Blocking → Listening → Learning → Forwarding → Disabled
+
+┌─────────┬────────────────────────────────────────────────────┐
+│ State   │ Behaviour                                           │
+├─────────┼────────────────────────────────────────────────────┤
+│Blocking │ Receives STP BPDUs; does NOT forward user frames    │
+│Listening│ Receives + sends BPDUs; does NOT forward or learn   │
+│Learning │ Learns MAC addresses; does NOT forward user frames   │
+│Forwarding│ Fully operational — forwards frames + learns MACs  │
+│Disabled │ Administratively down                               │
+└─────────┴────────────────────────────────────────────────────┘
+
+STP Convergence Time: 30–50 seconds (old STP/802.1D)
+RSTP (Rapid STP, 802.1w): Convergence in ~1–3 seconds
+MSTP (Multiple STP, 802.1s): One STP instance per VLAN group
+</div>
+
+<h3>STP Security Concerns</h3>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Impact</th><th>Defence</th></tr>
+  <tr><td><strong>Root Bridge Attack (STP Hijacking)</strong></td><td>Attacker connects a device and sends superior BPDU (lower Bridge ID / Priority = 0). Switch accepts it as new Root Bridge; traffic is re-routed through attacker's device.</td><td>MITM — all traffic now passes through attacker; network disruption during STP re-convergence</td><td><strong>BPDU Guard</strong> — shuts down any port that receives a BPDU (access ports should never receive BPDUs); <strong>Root Guard</strong> — prevents a port from becoming a root port (protects specific ports from receiving superior BPDUs)</td></tr>
+  <tr><td><strong>STP DoS</strong></td><td>Continuously sending topology change BPDUs forces constant STP re-convergence, causing network instability</td><td>Network disruption; loop briefly during convergence</td><td>BPDU Guard on all access ports; BPDU Rate Limiting</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 BPDU Guard vs. Root Guard:</strong>
+  <br><strong>BPDU Guard</strong> = "err-disable the port if it receives ANY BPDU." Configured on access (end-device) ports where BPDUs should NEVER arrive. Prevents rogue switches/hubs from connecting.
+  <br><strong>Root Guard</strong> = "this port is NOT allowed to become a root port." Configured on ports that connect to distribution switches. The switch can still participate in STP, but cannot become the root bridge via designated ports protected with Root Guard.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5 ═══ -->
+<section id="s5">
+<h2>5. VLANs – Virtual Local Area Networks</h2>
+<div class="callout definition">
+  <strong>📖 VLAN (Virtual LAN):</strong> A logical grouping of network devices into separate broadcast domains, regardless of physical location. VLANs provide Layer 2 segmentation — devices in different VLANs cannot communicate directly; they must go through a router or Layer 3 switch (inter-VLAN routing). Defined in IEEE 802.1Q.
+</div>
+
+<h3>Why VLANs Are a Security Control</h3>
+<table>
+  <tr><th>Security Benefit</th><th>Explanation</th></tr>
+  <tr><td><strong>Broadcast Domain Isolation</strong></td><td>Broadcast traffic stays within a VLAN; attackers in one VLAN cannot use broadcasts to discover or attack devices in another VLAN</td></tr>
+  <tr><td><strong>Traffic Segmentation</strong></td><td>Sensitive systems (finance, HR, servers) are in their own VLAN; a compromise in the user VLAN does not automatically grant access to server VLAN</td></tr>
+  <tr><td><strong>Regulatory Segmentation</strong></td><td>PCI-DSS requires cardholder data environment (CDE) to be segmented from non-CDE; VLANs are the standard mechanism</td></tr>
+  <tr><td><strong>Reduced Attack Surface</strong></td><td>Layer 2 attacks (ARP poisoning, CAM flooding) are confined to a single VLAN</td></tr>
+  <tr><td><strong>Simplified Firewall Rules</strong></td><td>Firewalls control inter-VLAN traffic; VLAN IDs become the source/destination in rules instead of individual IPs</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ VLANs Are NOT a Complete Security Boundary:</strong> VLANs provide Layer 2 isolation, but inter-VLAN routing (Layer 3) must also be controlled by a firewall or ACL. Without firewall rules, a router will happily forward traffic between any two VLANs. VLANs define the segments; firewalls control the flows. Both are required.
+</div>
+
+<h3>VLAN Types</h3>
+<table>
+  <tr><th>VLAN Type</th><th>Description</th><th>Security Use</th></tr>
+  <tr><td><strong>Data VLAN</strong></td><td>Carries end-user traffic; most VLANs are data VLANs</td><td>Separate by department, function, or sensitivity</td></tr>
+  <tr><td><strong>Native VLAN</strong></td><td>Untagged VLAN on trunk ports (default is VLAN 1); frames without an 802.1Q tag belong to the native VLAN</td><td>Change native VLAN from VLAN 1; always tag native VLAN; primary VLAN hopping attack vector</td></tr>
+  <tr><td><strong>Management VLAN</strong></td><td>Used for out-of-band management (SSH to switch/router)</td><td>Separate from user VLANs; restrict access to management VLAN tightly; not VLAN 1</td></tr>
+  <tr><td><strong>Voice VLAN</strong></td><td>Carries VoIP traffic; needs QoS prioritization</td><td>Separate VoIP from data; VoIP has different encryption/authentication needs</td></tr>
+  <tr><td><strong>Default VLAN (VLAN 1)</strong></td><td>All ports belong to VLAN 1 by default; carries STP/CDP/VTP management traffic</td><td>Never use VLAN 1 for user data; assign all used ports to other VLANs</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6 ═══ -->
+<section id="s6">
+<h2>6. 802.1Q Trunking</h2>
+<div class="callout definition">
+  <strong>📖 802.1Q Trunk:</strong> A trunk link carries traffic for multiple VLANs between switches (or between a switch and a router/firewall). Each frame is tagged with a 4-byte 802.1Q header that includes the <strong>VLAN ID (VID)</strong> (12 bits → 4,094 usable VLANs). The receiving device reads the tag and forwards the frame to the correct VLAN.
+</div>
+
+<div class="diagram">
+802.1Q Frame Tag (inserted after source MAC):
+
+┌──────────┬──────────┬──────────┬──────────┬────────────────┐
+│Dest MAC  │ Src MAC  │  0x8100  │ Tag Ctrl │  Original Data │
+│(6 bytes) │(6 bytes) │(EtherType│ (2 bytes)│                │
+│          │          │ = 802.1Q)│          │                │
+└──────────┴──────────┴──────────┴──────────┴────────────────┘
+                                   │
+                       ┌───────────┴───────────┐
+                       │  3 bits PCP (Priority) │
+                       │  1 bit DEI (Drop Elg.) │
+                       │  12 bits VLAN ID (VID) │
+                       └───────────────────────┘
+VID 0 = no VLAN (untagged / priority only)
+VID 1 = default VLAN (avoid using)
+VID 4095 = reserved
+Usable: VIDs 2–4094 (4,093 VLANs)
+</div>
+
+<h3>Access Ports vs. Trunk Ports</h3>
+<table>
+  <tr><th>Port Type</th><th>Description</th><th>Security Configuration</th></tr>
+  <tr><td><strong>Access Port</strong></td><td>Connects to an end device (PC, server, printer). Belongs to exactly one VLAN. Frames are <em>untagged</em> on the wire — the switch adds/removes VLAN tag internally.</td><td>Assign to correct VLAN; enable port security; enable BPDU Guard; disable DTP (auto-negotiation)</td></tr>
+  <tr><td><strong>Trunk Port</strong></td><td>Connects to another switch, router, or firewall. Carries multiple VLANs simultaneously. Frames are <em>tagged</em> with 802.1Q headers.</td><td>Explicitly allow only required VLANs; change native VLAN; disable DTP; restrict to authorized uplinks only</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 DTP (Dynamic Trunking Protocol):</strong> Cisco proprietary protocol that automatically negotiates trunk links. An attacker can send DTP negotiation frames from an access port to convince the switch to form a trunk — gaining access to all VLANs. <strong>Always disable DTP on access ports</strong> with <code>switchport nonegotiate</code>. Trunk links should be statically configured, not auto-negotiated.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7 ═══ -->
+<section id="s7">
+<h2>7. VLAN Hopping Attacks</h2>
+<div class="callout definition">
+  <strong>📖 VLAN Hopping:</strong> An attack that allows traffic from one VLAN to bypass Layer 2 isolation and reach another VLAN without passing through a router/firewall. There are two primary techniques: switch spoofing and double tagging.
+</div>
+
+<h3>Attack Technique 1: Switch Spoofing</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Mechanism</strong></td><td>Attacker's device sends DTP frames to negotiate a trunk link with the switch. If DTP is enabled (default on Cisco), the switch's access port converts to a trunk port. Attacker now receives traffic from all VLANs on that trunk.</td></tr>
+  <tr><td><strong>Prerequisite</strong></td><td>DTP must be active on the access port (which is the default on many Cisco switches)</td></tr>
+  <tr><td><strong>Defence</strong></td><td>Disable DTP on all access ports (<code>switchport mode access</code> + <code>switchport nonegotiate</code>); explicitly configure access or trunk — never leave in default/auto mode</td></tr>
+</table>
+
+<h3>Attack Technique 2: Double Tagging (802.1Q Double Encapsulation)</h3>
+<div class="diagram">
+Double Tagging Attack:
+
+Attacker frame has TWO 802.1Q tags:
+  [Outer Tag: VLAN 1 (native)] [Inner Tag: VLAN 10 (target)]
+
+Step 1: Attacker (on VLAN 1 = native) sends double-tagged frame to Switch A
+Step 2: Switch A strips OUTER tag (VLAN 1 = native = untagged) and forwards the
+        INNER-tagged frame (still tagged as VLAN 10) out the trunk to Switch B
+Step 3: Switch B sees a VLAN 10 frame → delivers it to VLAN 10 hosts
+
+Result: Attacker sent a frame INTO VLAN 10 across a VLAN boundary!
+
+KEY: Return traffic CANNOT traverse back (one-directional attack)
+This is a one-way attack — useful for DoS or sending unsolicited frames, not for interactive sessions.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Requirement</strong></td><td>Attacker must be in the NATIVE VLAN (or a VLAN that matches the native VLAN); double tagging exploits the native VLAN's untagged behaviour</td></tr>
+  <tr><td><strong>Limitation</strong></td><td>One-way attack — return traffic cannot directly reach the attacker via the same path; useful for sending malformed frames, not establishing sessions</td></tr>
+  <tr><td><strong>Defence</strong></td><td>Change the native VLAN to an unused VLAN ID (e.g., VLAN 999) on all trunk ports; <strong>do not assign any user ports to the native VLAN</strong>; explicitly tag the native VLAN (<code>vlan dot1q tag native</code>)</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Double tagging works <em>only</em> when the attacker is on the same VLAN as the native VLAN of the trunk. The #1 VLAN hopping defence the CISSP exam expects: <strong>"Change the native VLAN on all trunk links to an unused VLAN ID that is not assigned to any access ports."</strong> This eliminates double tagging entirely.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8 ═══ -->
+<section id="s8">
+<h2>8. Port Security &amp; Switch Hardening</h2>
+<h3>Port Security</h3>
+<div class="callout definition">
+  <strong>📖 Port Security:</strong> A switch feature that restricts access to a port based on MAC address. You can configure a maximum number of allowed MAC addresses per port, and specify what happens when a violation is detected (shutdown, restrict, or protect).
+</div>
+
+<table>
+  <tr><th>Configuration</th><th>Description</th></tr>
+  <tr><td><strong>Maximum MAC Addresses</strong></td><td>Limit the number of source MACs allowed; default 1; typically set to 1–3 for workstations; higher for IP phones or hubs</td></tr>
+  <tr><td><strong>Static MAC</strong></td><td>Manually specify which MAC addresses are allowed on the port; most secure but high admin overhead</td></tr>
+  <tr><td><strong>Sticky (Dynamic) MAC</strong></td><td>Switch learns and locks the first N MACs dynamically; saves to running config; good balance of automation and security</td></tr>
+  <tr><td><strong>Violation: Shutdown</strong></td><td>Port is err-disabled (goes completely down); requires manual intervention to re-enable; most secure default</td></tr>
+  <tr><td><strong>Violation: Restrict</strong></td><td>Drops excess frames; logs SNMP trap and syslog; port stays up; useful for monitoring without disruption</td></tr>
+  <tr><td><strong>Violation: Protect</strong></td><td>Drops excess frames; NO logging/alerting; port stays up; least visible — the worst option for security awareness</td></tr>
+</table>
+
+<h3>Switch Hardening Checklist</h3>
+<table>
+  <tr><th>Hardening Step</th><th>Why It Matters</th></tr>
+  <tr><td>Disable unused ports and assign to an unused "parking" VLAN</td><td>Open unused ports allow unauthorized device connection</td></tr>
+  <tr><td>Disable DTP (auto negotiation) on all access ports</td><td>Prevents switch spoofing VLAN hopping attack</td></tr>
+  <tr><td>Change native VLAN from VLAN 1 to an unused VLAN</td><td>Prevents double tagging VLAN hopping; eliminates VLAN 1 as attack surface</td></tr>
+  <tr><td>Enable BPDU Guard on all access ports</td><td>Prevents STP hijacking by rogue switches</td></tr>
+  <tr><td>Enable DHCP snooping to build binding table</td><td>Prevents rogue DHCP servers; feeds DAI</td></tr>
+  <tr><td>Enable Dynamic ARP Inspection (DAI)</td><td>Prevents ARP poisoning / MITM</td></tr>
+  <tr><td>Enable IP Source Guard (IPSG)</td><td>Filters traffic by IP/MAC from DHCP snooping binding table — prevents IP spoofing</td></tr>
+  <tr><td>Restrict SNMP to read-only; upgrade to SNMPv3</td><td>Prevents management plane compromise</td></tr>
+  <tr><td>Enable management VLAN separate from VLAN 1</td><td>Management traffic segmented from user traffic</td></tr>
+  <tr><td>Use SSH, not Telnet, for management</td><td>Encrypted management sessions</td></tr>
+  <tr><td>Enable 802.1X port authentication</td><td>Requires devices to authenticate (EAP/RADIUS) before gaining network access</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 802.1X Port-Based Network Access Control (PNAC):</strong> 802.1X is the IEEE standard for port-based authentication. A device connects to a switch port but traffic is blocked until the device authenticates via EAP (Extensible Authentication Protocol) to a RADIUS server. Used to enforce network access control (NAC) — only authenticated devices get VLAN assignments. This is the gold-standard for preventing unauthorized physical connections.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 9 ═══ -->
+<section id="s9">
+<h2>9. Private VLANs (PVLANs)</h2>
+<div class="callout definition">
+  <strong>📖 Private VLAN (PVLAN — RFC 5517):</strong> Subdivides a VLAN into sub-VLANs with restricted communication. Used when devices need to access a common service (e.g., a shared gateway) but should not be able to talk to each other — typical in hosting environments, DMZs, and hotel/guest networks.
+</div>
+
+<table>
+  <tr><th>PVLAN Port Type</th><th>Can Talk To</th><th>Use Case</th></tr>
+  <tr><td><strong>Promiscuous Port</strong></td><td>All ports in the PVLAN</td><td>Router, firewall, shared server — the "gateway" port</td></tr>
+  <tr><td><strong>Isolated Port</strong></td><td>Only the promiscuous port; NOT to other isolated ports</td><td>DMZ servers, hotel room ports, guest WiFi — complete isolation between tenants</td></tr>
+  <tr><td><strong>Community Port</strong></td><td>Other ports in the same community AND the promiscuous port</td><td>Groups of servers that need to talk to each other (e.g., web cluster) but not to other groups</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The key PVLAN exam scenario: "A hosting provider wants servers on the same subnet to not communicate with each other, only with the upstream router." Answer = <strong>Private VLAN with isolated ports + promiscuous uplink</strong>. This is also useful in the DMZ for servers that don't need east-west communication.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
+<section id="s10">
+<h2>10. Layer 2 Attack Summary</h2>
+<table>
+  <tr><th>Attack</th><th>Layer</th><th>Mechanism</th><th>Primary Defence</th></tr>
+  <tr><td><strong>CAM Flooding</strong></td><td>L2</td><td>Overflow MAC table → switch floods all traffic like a hub</td><td>Port security (max MAC)</td></tr>
+  <tr><td><strong>ARP Poisoning</strong></td><td>L2/L3</td><td>Gratuitous ARP overwrites ARP cache → MITM</td><td>DAI + DHCP snooping</td></tr>
+  <tr><td><strong>VLAN Hopping – Double Tag</strong></td><td>L2</td><td>Double 802.1Q tag exploits native VLAN stripping</td><td>Change native VLAN; tag native</td></tr>
+  <tr><td><strong>VLAN Hopping – Switch Spoof</strong></td><td>L2</td><td>DTP negotiation converts access port to trunk</td><td>Disable DTP (<code>nonegotiate</code>)</td></tr>
+  <tr><td><strong>STP Root Hijack</strong></td><td>L2</td><td>Superior BPDU makes attacker's device the root bridge</td><td>BPDU Guard / Root Guard</td></tr>
+  <tr><td><strong>Rogue DHCP Server</strong></td><td>L2/L3</td><td>Unauthorized DHCP server assigns malicious gateway/DNS</td><td>DHCP snooping (trusted ports)</td></tr>
+  <tr><td><strong>802.1X Bypass</strong></td><td>L2</td><td>MAC spoofing to impersonate authenticated devices (MAB bypass)</td><td>Limit MAB use; certificate-based EAP (EAP-TLS)</td></tr>
+  <tr><td><strong>DHCP Starvation</strong></td><td>L2/L3</td><td>Flood DISCOVER with fake MACs → exhaust IP pool</td><td>DHCP snooping rate limiting; port security</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 VLAN Hopping Defences — "Native is Nasty; DTP is Dangerous":</strong><br>
+  <strong>Double Tagging</strong> exploits the NATIVE VLAN → Change native VLAN to unused ID, tag native<br>
+  <strong>Switch Spoofing</strong> exploits DTP → Disable DTP on all access ports (<code>nonegotiate</code>)<br>
+  Remember: "Both attacks target the trunk. Harden the trunk and the access port."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 STP Defence Pair — "Guard the Bridge, Guard the BPDU":</strong><br>
+  <strong>BPDU Guard</strong> = protects the <em>access port</em> from receiving BPDUs (shuts down if it does)<br>
+  <strong>Root Guard</strong> = protects a <em>trunk/uplink port</em> from accepting a new Root Bridge<br>
+  BPDU Guard = end-device ports; Root Guard = uplink/distribution ports.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Port Security Violation Actions — "SRP":</strong><br>
+  <strong>S</strong>hutdown = err-disable (most secure; raises alarm by going down)<br>
+  <strong>R</strong>estrict = drops + logs (security + no disruption)<br>
+  <strong>P</strong>rotect = drops silently (worst choice — no visibility)<br>
+  Default is Shutdown in most implementations.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Layer 2 Security Tech Stack — "PS DAI DHCP BPDU 802":</strong><br>
+  <strong>P</strong>ort Security → prevents CAM overflow / unauthorized MACs<br>
+  <strong>D</strong>AI → prevents ARP poisoning<br>
+  <strong>DHCP</strong> Snooping → prevents rogue DHCP; feeds DAI<br>
+  <strong>BPDU</strong> Guard → prevents STP hijack<br>
+  <strong>802.1X</strong> → authenticates devices before network access<br>
+  Deploy all five for a hardened Layer 2 environment.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 PVLAN Ports — "PICs are Private":</strong><br>
+  <strong>P</strong>romiscuous = talks to all<br>
+  <strong>I</strong>solated = talks only to promiscuous<br>
+  <strong>C</strong>ommunity = talks to community + promiscuous<br>
+  Use PVLAN when tenants share a subnet but must not communicate laterally.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>L2 Switch</td><td>Forwards by MAC; builds CAM table; flooding = CAM full OR unknown unicast/broadcast</td></tr>
+  <tr><td>CAM Flooding</td><td>Overflows MAC table → switch behaves like hub; defend with port security (max MAC count)</td></tr>
+  <tr><td>STP</td><td>Prevents L2 loops; BPDU Guard on access ports; Root Guard on uplinks; prefer RSTP (fast convergence)</td></tr>
+  <tr><td>VLANs</td><td>Layer 2 broadcast domain isolation; NOT a complete security boundary without inter-VLAN firewall control</td></tr>
+  <tr><td>802.1Q</td><td>Tags frames with VLAN ID (12 bits); native VLAN = untagged; change native VLAN away from VLAN 1</td></tr>
+  <tr><td>VLAN Hopping</td><td>Double tagging (native VLAN exploit) + switch spoofing (DTP exploit); defences: change native VLAN + disable DTP</td></tr>
+  <tr><td>Switch Hardening</td><td>Port security + DAI + DHCP snooping + BPDU Guard + 802.1X + SSH management + disable unused ports</td></tr>
+  <tr><td>Private VLANs</td><td>Isolate ports within a VLAN; promiscuous (talks all), isolated (talks only to promiscuous), community (group + promiscuous)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-057-theory.html" class="nav-btn">← Day 57: Network Services</a>
+  <a href="day-059-theory.html" class="nav-btn">Day 59: Routing Concepts →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

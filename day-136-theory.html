@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 136 – Advanced Review &amp; Scenario Strategy</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 136 – Advanced Review &amp; Scenario Strategy</h1>
+  <div class="subtitle">Deep Dive into Scenario-Based Question Strategy</div>
+  <div class="meta">
+    <span>📅 Day 136 of 137</span>
+    <span>📖 Review Day</span>
+    <span>⏱️ ~60 min study</span>
+    <span>🎯 Master the Manager Mindset</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-135-theory.html">← Day 135</a> · Review · Day 136</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Review Methodology</a></li>
+  <li><a href="#s2">2. Domain Score Comparison (Exam 1 vs Exam 2)</a></li>
+  <li><a href="#s3">3. Scenario Deconstruction Technique</a></li>
+  <li><a href="#s4">4. Domain 1 &amp; 2 — Advanced Concepts</a></li>
+  <li><a href="#s5">5. Domain 3 &amp; 4 — Advanced Concepts</a></li>
+  <li><a href="#s6">6. Domain 5 &amp; 6 — Advanced Concepts</a></li>
+  <li><a href="#s7">7. Domain 7 &amp; 8 — Advanced Concepts</a></li>
+  <li><a href="#s8">8. Cross-Domain Integration Patterns</a></li>
+  <li><a href="#s9">9. Exam Traps: Distractors That Sound Correct</a></li>
+  <li><a href="#s10">10. Action Plan for Final Days</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Review Methodology</h2>
+<p>Mock Exam 2 was intentionally harder than Exam 1 — more scenarios, more "best answer" nuance, and more cross-domain integration. Use this review to:</p>
+<ol>
+  <li><strong>Compare scores:</strong> Did you improve from Exam 1 to Exam 2? Stagnation in a domain signals a fundamental gap</li>
+  <li><strong>Analyze wrong answers:</strong> For each wrong answer, determine WHY you chose incorrectly — was it a knowledge gap, a reading error, or a trap?</li>
+  <li><strong>Focus on the "why":</strong> Exam 2 rewards understanding principles, not memorizing facts</li>
+  <li><strong>Practice elimination:</strong> Even if you got the right answer, could you explain why each wrong answer is wrong?</li>
+</ol>
+
+<div class="exam-tip callout">
+  <strong>💡 Exam Strategy:</strong> On the actual CISSP CAT exam, your goal is NOT to get every question right. It's to demonstrate consistent competence above the passing standard. Missing hard questions is expected — missing easy ones is what fails candidates.
+</div>
+</section>
+
+<section id="s2">
+<h2>2. Domain Score Comparison</h2>
+<p>Fill in your scores from both mock exams to track progress:</p>
+<table>
+  <tr><th>Domain</th><th>Exam 1 Questions</th><th>Exam 1 Score</th><th>Exam 2 Questions</th><th>Exam 2 Score</th><th>Trend</th></tr>
+  <tr><td>D1: Security &amp; Risk Management</td><td>Q1-5, Q41</td><td>__/6</td><td>Q1-3, Q6, Q8</td><td>__/5</td><td></td></tr>
+  <tr><td>D2: Asset Security</td><td>Q6-10</td><td>__/5</td><td>Q4-5, Q7, Q9-10</td><td>__/5</td><td></td></tr>
+  <tr><td>D3: Security Architecture</td><td>Q11-15, Q46</td><td>__/6</td><td>Q11-14, Q17, Q19</td><td>__/6</td><td></td></tr>
+  <tr><td>D4: Communication &amp; Network</td><td>Q16-20</td><td>__/5</td><td>Q15-16, Q18, Q20</td><td>__/4</td><td></td></tr>
+  <tr><td>D5: IAM</td><td>Q21-25</td><td>__/5</td><td>Q21-24, Q27, Q29</td><td>__/6</td><td></td></tr>
+  <tr><td>D6: Security Assessment</td><td>Q26-30</td><td>__/5</td><td>Q25-26, Q28, Q30</td><td>__/4</td><td></td></tr>
+  <tr><td>D7: Security Operations</td><td>Q31-40</td><td>__/10</td><td>Q31-34, Q38, Q40</td><td>__/6</td><td></td></tr>
+  <tr><td>D8: Software Security</td><td>Q41-50</td><td>__/10</td><td>Q35-37, Q39</td><td>__/4</td><td></td></tr>
+  <tr><td>Cross-Domain (Exam 2)</td><td>—</td><td>—</td><td>Q41-50</td><td>__/10</td><td></td></tr>
+  <tr><th>TOTAL</th><th colspan="2">__/50</th><th colspan="2">__/50</th><th></th></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>🔑 Interpretation:</strong> If your total score improved but specific domains declined, you may be over-studying strengths and neglecting weaknesses. Focus your remaining study time on domains that are STILL below 70%.
+</div>
+</section>
+
+<section id="s3">
+<h2>3. Scenario Deconstruction Technique</h2>
+<p>Exam 2's scenario-heavy format mirrors the actual CISSP CAT. Use this technique for every scenario question:</p>
+
+<h3>The STAR Method for CISSP Scenarios</h3>
+<table>
+  <tr><th>Step</th><th>Action</th><th>Example (Q31: Ransomware)</th></tr>
+  <tr><td><strong>S</strong>ituation</td><td>Identify the context and constraints</td><td>Ransomware incident, CISO must decide</td></tr>
+  <tr><td><strong>T</strong>ask</td><td>What specific question is being asked?</td><td>"PRIMARY consideration" for paying ransom</td></tr>
+  <tr><td><strong>A</strong>nalyze</td><td>Evaluate each option against the task</td><td>Which option addresses the primary decision factor?</td></tr>
+  <tr><td><strong>R</strong>ole</td><td>Answer as a SENIOR MANAGER, not a technician</td><td>A manager considers recovery capability first</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>💡 Critical Rule:</strong> When a question asks for "FIRST," "PRIMARY," or "MOST important" — it's testing your ability to prioritize. ALL answers may be partially correct, but only ONE is the BEST first/primary action.
+</div>
+
+<h3>Priority Ladder (Always Apply This Order)</h3>
+<ol>
+  <li><strong>Life safety</strong> — always first, always</li>
+  <li><strong>Contain/stop the bleeding</strong> — prevent further damage</li>
+  <li><strong>Assess/understand</strong> — risk assessment, scope determination</li>
+  <li><strong>Remediate/fix</strong> — address root cause</li>
+  <li><strong>Recover/restore</strong> — return to normal operations</li>
+  <li><strong>Learn/improve</strong> — lessons learned, process improvement</li>
+</ol>
+</section>
+
+<section id="s4">
+<h2>4. Domain 1 &amp; 2 — Advanced Concepts</h2>
+
+<h3>Governance vs. Management (D1)</h3>
+<div class="definition callout">
+  <strong>Governance</strong> = WHAT and WHY (board/senior management) — sets direction, ensures alignment, oversight<br>
+  <strong>Management</strong> = HOW and WHEN (CISO/security team) — implements, operates, monitors
+</div>
+
+<h3>Key Risk Concepts Often Confused</h3>
+<table>
+  <tr><th>Concept</th><th>Definition</th><th>Exam Trap</th></tr>
+  <tr><td>Risk Appetite</td><td>Amount of risk the org is WILLING to accept (strategic)</td><td>Set by BOARD, not CISO</td></tr>
+  <tr><td>Risk Tolerance</td><td>Acceptable variation from appetite (tactical)</td><td>Narrower than appetite</td></tr>
+  <tr><td>Residual Risk</td><td>Risk remaining AFTER controls applied</td><td>Must be ≤ risk appetite</td></tr>
+  <tr><td>Inherent Risk</td><td>Risk BEFORE any controls</td><td>Theoretical baseline</td></tr>
+</table>
+
+<h3>Data Roles Hierarchy (D2)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 Remember: O-C-P-U</strong><br>
+  <strong>Owner</strong> → classifies, accountable (senior management)<br>
+  <strong>Custodian</strong> → implements protections (IT/operations)<br>
+  <strong>Processor</strong> → processes data on behalf of controller (GDPR term)<br>
+  <strong>User</strong> → accesses data per policy (everyone)
+</div>
+
+<h3>Litigation Hold — Critical Concept</h3>
+<p>Q10 tested litigation hold — this appears frequently on the real exam:</p>
+<ul>
+  <li>Legal hold ALWAYS overrides retention policies</li>
+  <li>Triggered when litigation is <strong>reasonably anticipated</strong> (not just when filed)</li>
+  <li>Destroying data after hold = <strong>spoliation</strong> → severe legal sanctions</li>
+  <li>Must preserve ALL potentially relevant data including backups, emails, metadata</li>
+</ul>
+</section>
+
+<section id="s5">
+<h2>5. Domain 3 &amp; 4 — Advanced Concepts</h2>
+
+<h3>Zero Trust Architecture — Core Principles (D3)</h3>
+<ul>
+  <li><strong>Never trust, always verify</strong> — regardless of network location</li>
+  <li><strong>Least privilege access</strong> — minimum necessary access</li>
+  <li><strong>Assume breach</strong> — design as if already compromised</li>
+  <li><strong>Micro-segmentation</strong> — granular network boundaries</li>
+  <li><strong>Continuous verification</strong> — not one-time authentication</li>
+</ul>
+
+<h3>IPsec Mode Comparison (D3)</h3>
+<table>
+  <tr><th>Feature</th><th>Transport Mode</th><th>Tunnel Mode</th></tr>
+  <tr><td>Protects</td><td>Payload only</td><td>Entire original packet</td></tr>
+  <tr><td>IP Header</td><td>Original visible</td><td>Original encrypted, new header added</td></tr>
+  <tr><td>Use Case</td><td>Host-to-host</td><td>Site-to-site VPN / gateway-to-gateway</td></tr>
+  <tr><td>Traffic Flow Confidentiality</td><td>No</td><td>Yes</td></tr>
+</table>
+
+<h3>Cryptographic Attack Types (D3)</h3>
+<table>
+  <tr><th>Attack</th><th>Attacker Has</th><th>Attacker Wants</th></tr>
+  <tr><td>Ciphertext-only</td><td>Ciphertext</td><td>Plaintext or key</td></tr>
+  <tr><td>Known-plaintext</td><td>Plaintext + ciphertext pairs</td><td>Key</td></tr>
+  <tr><td>Chosen-plaintext</td><td>Ability to encrypt chosen text</td><td>Key</td></tr>
+  <tr><td>Chosen-ciphertext</td><td>Ability to decrypt chosen text</td><td>Key</td></tr>
+  <tr><td>Side-channel</td><td>Physical observations (timing, power)</td><td>Key</td></tr>
+</table>
+
+<h3>DNSSEC vs DoH vs DoT</h3>
+<div class="definition callout">
+  <strong>DNSSEC:</strong> Authenticates DNS responses (integrity), does NOT encrypt<br>
+  <strong>DoH (DNS over HTTPS):</strong> Encrypts DNS queries over HTTPS (port 443) — provides confidentiality<br>
+  <strong>DoT (DNS over TLS):</strong> Encrypts DNS queries over TLS (port 853) — provides confidentiality
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Domain 5 &amp; 6 — Advanced Concepts</h2>
+
+<h3>Separation of Duties vs. Dual Control (D5)</h3>
+<div class="warning callout">
+  <strong>⚠️ Frequently Confused on Exams!</strong><br>
+  <strong>Separation of Duties:</strong> Different people handle different STEPS of a process (initiate → approve → execute)<br>
+  <strong>Dual Control:</strong> Two or more people must act TOGETHER for the SAME step (both keys needed to open safe)<br>
+  Q24 specifically tested this distinction — "two approvals for one action" = dual control
+</div>
+
+<h3>Access Control Models Quick Reference (D5)</h3>
+<table>
+  <tr><th>Model</th><th>Control Basis</th><th>Who Decides</th><th>Example</th></tr>
+  <tr><td>DAC</td><td>Owner's discretion</td><td>Data owner</td><td>File permissions (chmod)</td></tr>
+  <tr><td>MAC</td><td>Labels/classifications</td><td>System/policy</td><td>Military clearances</td></tr>
+  <tr><td>RBAC</td><td>Job role</td><td>Admin</td><td>AD groups</td></tr>
+  <tr><td>ABAC</td><td>Attributes (user, resource, environment)</td><td>Policy engine</td><td>Cloud IAM policies</td></tr>
+  <tr><td>Rule-based</td><td>Predefined rules</td><td>Rules engine</td><td>Firewall ACLs</td></tr>
+</table>
+
+<h3>Kerberos Key Facts (D5)</h3>
+<ul>
+  <li>Uses symmetric encryption</li>
+  <li>Relies on trusted third party: <strong>KDC</strong> (Key Distribution Center)</li>
+  <li>TGT (Ticket Granting Ticket) has a finite lifetime (typically 8-10 hours)</li>
+  <li>Requires synchronized clocks (±5 minutes tolerance)</li>
+  <li>Vulnerable to pass-the-ticket, golden ticket, and silver ticket attacks</li>
+</ul>
+
+<h3>Testing Types (D6)</h3>
+<table>
+  <tr><th>Type</th><th>Knowledge Level</th><th>Simulates</th></tr>
+  <tr><td>Black-box</td><td>Zero knowledge</td><td>External attacker</td></tr>
+  <tr><td>Gray-box</td><td>Partial knowledge</td><td>Insider or partner</td></tr>
+  <tr><td>White-box</td><td>Full knowledge</td><td>Code review / internal audit</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Domain 7 &amp; 8 — Advanced Concepts</h2>
+
+<h3>Order of Volatility (D7)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 Most Volatile → Least Volatile:</strong><br>
+  1. CPU registers/cache → 2. RAM → 3. Network state → 4. Running processes → 5. Disk → 6. Remote logging → 7. Physical media/archival
+</div>
+
+<h3>Backup Strategies Trade-offs (D7)</h3>
+<table>
+  <tr><th>Strategy</th><th>Backup Speed</th><th>Restore Speed</th><th>Storage Needed</th></tr>
+  <tr><td>Full</td><td>Slowest</td><td>Fastest (1 set)</td><td>Most</td></tr>
+  <tr><td>Differential</td><td>Medium</td><td>Medium (2 sets)</td><td>Medium</td></tr>
+  <tr><td>Incremental</td><td>Fastest</td><td>Slowest (many sets)</td><td>Least</td></tr>
+</table>
+
+<h3>DR Test Types (D7)</h3>
+<table>
+  <tr><th>Test Type</th><th>Risk Level</th><th>Realism</th><th>Description</th></tr>
+  <tr><td>Checklist</td><td>None</td><td>Lowest</td><td>Review documents</td></tr>
+  <tr><td>Tabletop / Walkthrough</td><td>None</td><td>Low</td><td>Discussion-based</td></tr>
+  <tr><td>Simulation</td><td>Low</td><td>Medium</td><td>Practice scenario</td></tr>
+  <tr><td>Parallel</td><td>Medium</td><td>High</td><td>Activate backup; primary stays up</td></tr>
+  <tr><td>Full Interruption</td><td>High</td><td>Highest</td><td>Shut down primary</td></tr>
+</table>
+
+<h3>SDLC Security Integration (D8)</h3>
+<ul>
+  <li><strong>Requirements:</strong> Define security requirements, threat modeling</li>
+  <li><strong>Design:</strong> Security architecture, attack surface analysis</li>
+  <li><strong>Implementation:</strong> Secure coding, SAST, code review</li>
+  <li><strong>Testing:</strong> DAST, penetration testing, fuzz testing</li>
+  <li><strong>Deployment:</strong> Configuration review, hardening</li>
+  <li><strong>Maintenance:</strong> Patch management, vulnerability scanning, monitoring</li>
+</ul>
+
+<h3>Virtual Patching — Key Concept</h3>
+<p>Q50 tested this: When a patch exists but needs testing, virtual patching (WAF/IPS rules) provides immediate protection as a <strong>compensating control</strong> while the real patch is validated. This is the standard approach for critical vulnerabilities with CVSS ≥ 9.0.</p>
+</section>
+
+<section id="s8">
+<h2>8. Cross-Domain Integration Patterns</h2>
+<p>Exam 2 Questions 41-50 tested cross-domain thinking. The real CISSP exam heavily tests your ability to connect concepts across domains:</p>
+
+<h3>Common Cross-Domain Patterns</h3>
+<table>
+  <tr><th>Pattern</th><th>Domains</th><th>Concept</th></tr>
+  <tr><td>Risk → Control → Assessment</td><td>D1 → D3/D4 → D6</td><td>Identify risk, implement control, verify effectiveness</td></tr>
+  <tr><td>Policy → Implementation → Monitoring</td><td>D1 → D5 → D7</td><td>Governance drives operations</td></tr>
+  <tr><td>Data Classification → Protection → Disposal</td><td>D2 → D3/D4 → D2</td><td>Full data lifecycle</td></tr>
+  <tr><td>Development → Deployment → Operations</td><td>D8 → D3 → D7</td><td>Software through production</td></tr>
+  <tr><td>Incident → Forensics → Legal</td><td>D7 → D7 → D1</td><td>Incident through legal proceedings</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>💡 CAT Exam Insight:</strong> As the CISSP CAT adapts to your level, higher-difficulty questions increasingly cross domain boundaries. If you're scoring well, expect more cross-domain scenarios. The ability to integrate knowledge across all 8 domains separates passing from failing.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Exam Traps: Distractors That Sound Correct</h2>
+
+<h3>Trap 1: The Technical Answer vs. The Management Answer</h3>
+<div class="warning callout">
+  <strong>Scenario:</strong> "After a data breach, the CISO should FIRST..."<br>
+  ❌ <strong>Trap:</strong> "Block the attacker's IP address" (technical/tactical)<br>
+  ✅ <strong>Correct:</strong> "Activate the incident response plan" (management/process)
+</div>
+
+<h3>Trap 2: "Immediately" Distractors</h3>
+<div class="warning callout">
+  <strong>Rule:</strong> If an answer says "immediately" do something drastic, it's usually wrong.<br>
+  ❌ "Immediately fire the employee"<br>
+  ❌ "Immediately deploy the patch to production"<br>
+  ❌ "Immediately disconnect all systems"<br>
+  ✅ Exception: "Immediately evacuate" (life safety) is always correct
+</div>
+
+<h3>Trap 3: "Best" vs. "Only Correct"</h3>
+<div class="definition callout">
+  <strong>CISSP tests BEST answers, not only-correct answers.</strong> Multiple options may be correct, but one is MOST correct because it:<br>
+  • Addresses root cause (not symptoms)<br>
+  • Is preventive (not reactive)<br>
+  • Is strategic (not tactical)<br>
+  • Considers the broadest scope<br>
+  • Aligns with the question's specific qualifier (FIRST, PRIMARY, MOST)
+</div>
+
+<h3>Trap 4: Regulatory Compliance Conflicts</h3>
+<p>Q44 tested this directly: when multiple regulations conflict, <strong>implement the MORE restrictive requirement</strong>. This satisfies all applicable regulations. Never pick one regulation over another.</p>
+</section>
+
+<section id="s10">
+<h2>10. Action Plan for Final Days</h2>
+<table>
+  <tr><th>Day</th><th>Activity</th><th>Focus</th></tr>
+  
+  <tr><td>Day 137</td><td>Final Prep &amp; Exam Strategy</td><td>Exam day logistics, CAT format, confidence building</td></tr>
+  <tr><td>Exam Day</td><td>CISSP CAT Exam</td><td>Apply everything you've learned</td></tr>
+</table>
+
+<h3>Final Study Priorities Based on Exam Weight</h3>
+<table>
+  <tr><th>Domain</th><th>CISSP Exam Weight</th><th>Focus Level</th></tr>
+  <tr><td>D1: Security &amp; Risk Management</td><td>16%</td><td>🔴 High</td></tr>
+  <tr><td>D2: Asset Security</td><td>10%</td><td>🟡 Medium</td></tr>
+  <tr><td>D3: Security Architecture</td><td>13%</td><td>🔴 High</td></tr>
+  <tr><td>D4: Communication &amp; Network</td><td>13%</td><td>🔴 High</td></tr>
+  <tr><td>D5: IAM</td><td>13%</td><td>🔴 High</td></tr>
+  <tr><td>D6: Security Assessment</td><td>12%</td><td>🟡 Medium</td></tr>
+  <tr><td>D7: Security Operations</td><td>13%</td><td>🔴 High</td></tr>
+  <tr><td>D8: Software Security</td><td>10%</td><td>🟡 Medium</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>💡 Final Advice:</strong> Don't cram new material. Your remaining days should reinforce what you already know, fill specific gaps identified by mock exams, and build confidence. Trust your preparation.
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-135-theory.html" class="nav-btn">← Day 135: Exam Review & Weak-Area Analysis</a>
+  <a href="day-137-theory.html" class="nav-btn">Day 137: Final Exam Preparation & Strategy →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 65 – Email Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 65 – Email Security</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 65 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-064-theory.html">← Day 64: Network Attacks</a> · Domain 4 · Day 65</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Email Protocols: SMTP, POP3, IMAP</a></li>
+  <li><a href="#s4">4. S/MIME – Certificate-Based Email Security</a></li>
+  <li><a href="#s5">5. PGP and GPG – Web of Trust</a></li>
+  <li><a href="#s6">6. SPF – Sender Policy Framework</a></li>
+  <li><a href="#s7">7. DKIM – DomainKeys Identified Mail</a></li>
+  <li><a href="#s8">8. DMARC – Domain-Based Message Authentication</a></li>
+  <li><a href="#s9">9. SPF + DKIM + DMARC Working Together</a></li>
+  <li><a href="#s10">10. Email Gateway Security</a></li>
+  <li><a href="#s11">11. Phishing &amp; Spear Phishing Defence</a></li>
+  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s13">13. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═════════════════ SECTION 1 ═════════════════ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Email remains the primary attack vector (phishing, BEC, malware delivery). CISSP expects candidates to know both the foundational protocols and the layered authentication framework (SPF → DKIM → DMARC) used to combat email spoofing. Encryption standards (S/MIME, PGP) align with Domain 3 cryptography principles applied in a messaging context.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which email authentication mechanism checks DNS for authorized sending IPs?"; "S/MIME uses what type of certificates?"; "What prevents email spoofing at the recipient's gateway?"; "Which protocol provides non-repudiation for email?"; "DMARC enforcement policy 'reject' does what?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 29–32 (PKI and certificates — required for S/MIME); Day 35 (symmetric and asymmetric encryption); Domain 1 (BEC is a social engineering / governance issue); Domain 7 (email forensics and incident response)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>SPF checks the <em>envelope sender</em> (MAIL FROM), not the From: header visible to users. DKIM provides integrity and non-repudiation but does not prevent display-name spoofing alone. DMARC requires SPF and/or DKIM alignment with the From: domain — it's the policy layer that makes the other two meaningful. S/MIME signs/encrypts at the message level (end-to-end); TLS only protects the transport hop (transit encryption, not end-to-end).</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 2 ═════════════════ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Organizational Context</th></tr>
+  <tr><td><strong>Phishing dominates</strong></td><td>Over 90% of cyberattacks start with a phishing email. Business Email Compromise (BEC) fraud has cost organizations $50+ billion globally (FBI IC3 data). Email security is the highest-ROI security investment after MFA.</td></tr>
+  <tr><td><strong>Email spoofing ease</strong></td><td>Without SPF/DKIM/DMARC, anyone can send email "From: ceo@yourcompany.com" to your employees. Organizations without DMARC enforcement are easy phishing targets for supplier fraud and BEC.</td></tr>
+  <tr><td><strong>Compliance</strong></td><td>HIPAA requires encryption of ePHI in email (S/MIME or TLS in transit). Finance sector requires audit trails. GDPR may require encryption of personal data in email. Many frameworks mandate anti-phishing controls.</td></tr>
+  <tr><td><strong>CISO priority</strong></td><td>Deploying DMARC "p=reject" is a foundational control. Microsoft 365 Defender, Google Workspace, and all major SEGs (Secure Email Gateways) support SPF/DKIM/DMARC enforcement. Deploying them is non-negotiable for any mature security programme.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 3 ═════════════════ -->
+<section id="s3">
+<h2>3. Email Protocols: SMTP, POP3, IMAP</h2>
+<table>
+  <tr><th>Protocol</th><th>Purpose</th><th>Plaintext Port</th><th>Secure Port</th><th>Security Note</th></tr>
+  <tr><td><strong>SMTP</strong></td><td>Send email (MUA→MTA, MTA→MTA)</td><td>25 (MTA relay)</td><td>587 (Submission with STARTTLS), 465 (SMTPS)</td><td>Port 25 should be blocked for outbound from end users (ISP level). Use 587 (submission) with STARTTLS. Without TLS, all message content is plaintext in transit.</td></tr>
+  <tr><td><strong>POP3</strong></td><td>Retrieve email from server (downloads and typically deletes from server)</td><td>110</td><td>995 (POP3S / TLS)</td><td>POP3 downloads mail to local device; no server-side sync. Suitable for offline use. Single device access model.</td></tr>
+  <tr><td><strong>IMAP</strong></td><td>Retrieve email from server (manages messages on server; synced across multiple devices)</td><td>143</td><td>993 (IMAPS / TLS)</td><td>IMAP keeps messages on server; supports folders, flags, multi-device sync. Now dominant for enterprise and mobile access. All modern email clients use IMAP.</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 SMTP Protocol Details for CISSP:</strong><br>
+  The email <strong>envelope</strong> (SMTP protocol fields: MAIL FROM, RCPT TO) is separate from the email <strong>header/body</strong> (the RFC 5322 message: From:, To:, Subject:, Date:). This distinction is fundamental to understanding SPF, DKIM, and DMARC. SPF and DKIM check the envelope or header — DMARC aligns them both to the From: header domain.
+</div>
+
+<table>
+  <tr><th>SMTP Transaction Field</th><th>Used By</th><th>Notes</th></tr>
+  <tr><td><strong>MAIL FROM (envelope sender / RFC5321.MailFrom)</strong></td><td>SPF checks this</td><td>Can be empty (bounce messages); not visible to users in their email client</td></tr>
+  <tr><td><strong>RCPT TO</strong></td><td>Routing</td><td>Recipient address; may differ from To: header (BCC)</td></tr>
+  <tr><td><strong>From: header (RFC5322.From)</strong></td><td>DMARC alignment (both SPF and DKIM must align here)</td><td>The address the user sees. Attackers spoof this. DMARC must match this to MAIL FROM (SPF) or DKIM d= domain.</td></tr>
+  <tr><td><strong>Reply-To: header</strong></td><td>Not checked by SPF/DKIM/DMARC</td><td>Common phishing trick: legitimate-looking From: but reply goes to attacker's address</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 4 ═════════════════ -->
+<section id="s4">
+<h2>4. S/MIME – Certificate-Based Email Security</h2>
+<div class="callout definition">
+  <strong>📖 S/MIME (Secure/Multipurpose Internet Mail Extensions):</strong> An IETF standard for end-to-end email encryption and digital signing using X.509 certificates and Public Key Infrastructure (PKI). Provides confidentiality, integrity, authentication, and non-repudiation at the message level — the message content is protected regardless of how many mail servers relay it.
+</div>
+
+<table>
+  <tr><th>S/MIME Capability</th><th>How It Works</th><th>CIA Mapping</th></tr>
+  <tr><td><strong>Digital Signature</strong></td><td>Sender signs the message with their <em>private key</em>. Recipient verifies with sender's <em>public key</em> (from sender's certificate). Proves identity and detects any modification after signing.</td><td>Integrity + Authentication + Non-repudiation</td></tr>
+  <tr><td><strong>Encryption</strong></td><td>Sender encrypts a random symmetric session key with the <em>recipient's public key</em>. Message body encrypted with the symmetric key. Recipient decrypts session key with <em>their private key</em> and then decrypts message.</td><td>Confidentiality</td></tr>
+  <tr><td><strong>Combined</strong></td><td>Most secure use: sign first, then encrypt. The signature is protected inside the encryption layer. On receipt: decrypt then verify signature.</td><td>CIA + Non-repudiation</td></tr>
+</table>
+
+<h3>S/MIME Certificate Requirements</h3>
+<table>
+  <tr><th>Requirement</th><th>Detail</th></tr>
+  <tr><td>Certificate type</td><td>X.509 email certificate (S/MIME certificate) issued by a trusted CA. Contains the user's name, email address, and public key.</td></tr>
+  <tr><td>Trust anchor</td><td>Both sender and recipient must trust the issuing CA (root/intermediate CA in their trust store). Enterprise deployments typically use an internal CA for S/MIME certificates.</td></tr>
+  <tr><td>Certificate exchange</td><td>To send an encrypted email to Bob, Alice needs Bob's public key certificate. Bob must first send Alice a signed email (which contains his public key) — or Alice fetches it from a directory (LDAP, public key server).</td></tr>
+  <tr><td>Non-repudiation</td><td>Because the private key is known only to the signer, a digitally signed S/MIME message cannot be repudiated — the signer cannot later deny having sent it, provided key management is sound.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — S/MIME vs. TLS:</strong> TLS protects email <em>in transit</em> between mail servers (hop-by-hop). S/MIME provides end-to-end protection — the message is encrypted/signed before leaving the sender's client and remains protected until decrypted/verified by the recipient's client. If non-repudiation is asked about in an email context, the answer is S/MIME digital signing, not TLS.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 5 ═════════════════ -->
+<section id="s5">
+<h2>5. PGP and GPG – Web of Trust</h2>
+<div class="callout definition">
+  <strong>📖 PGP (Pretty Good Privacy) / GPG (GNU Privacy Guard):</strong> A standard for email encryption and signing that uses public-key cryptography but does NOT rely on a central Certificate Authority. Instead uses a "Web of Trust" model where individuals vouch for each other's public keys. OpenPGP is the IETF standard (RFC 4880); GPG is the free open-source implementation.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>PGP/GPG</th><th>S/MIME</th></tr>
+  <tr><td><strong>Trust model</strong></td><td>Web of Trust — individuals sign each other's public keys; trust is transitive through signers you trust</td><td>Hierarchical PKI — trust flows from root CA → intermediate CA → end-entity certificate</td></tr>
+  <tr><td><strong>Certificate format</strong></td><td>OpenPGP key format (.asc, .gpg files)</td><td>X.509 certificates (.pem, .p12 files)</td></tr>
+  <tr><td><strong>CA requirement</strong></td><td>None — no central authority required</td><td>Requires trusted CA infrastructure</td></tr>
+  <tr><td><strong>Enterprise use</strong></td><td>Less common in corporate environments; dominant in open-source communities, journalists, activists</td><td>More common in enterprise (integrates with Active Directory CA)</td></tr>
+  <tr><td><strong>Key distribution</strong></td><td>Public keyservers (keys.openpgp.org), key signing parties, direct exchange</td><td>LDAP directories, O365/Exchange GAL, trusted CA certificate transparency</td></tr>
+  <tr><td><strong>Operations</strong></td><td>Same as S/MIME: sign (private key), verify (sender's public key), encrypt (recipient's public key), decrypt (own private key)</td><td>Same operations</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Web of Trust Concept:</strong> Alice trusts Charlie. Charlie has signed Bob's key (vouching for Bob's identity). Therefore Alice can transitively trust Bob's key. However if Alice trusts no one who has signed Bob's key, she cannot verify Bob's identity — there is no central authority to fall back on. This is the core difference from PKI.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 6 ═════════════════ -->
+<section id="s6">
+<h2>6. SPF – Sender Policy Framework</h2>
+<div class="callout definition">
+  <strong>📖 SPF (Sender Policy Framework) — RFC 7208:</strong> A DNS-based mechanism that lets a domain owner specify which IP addresses and mail servers are authorized to send email on behalf of their domain. The receiving mail server checks the SPF record to verify whether the sending server is authorized for the domain in the SMTP MAIL FROM field.
+</div>
+
+<div class="diagram">
+SPF Check Flow:
+
+Inbound email arrives at recipient MTA
+  SMTP envelope: MAIL FROM: &lt;accounting@example.com&gt;
+  Sending server IP: 203.0.113.10
+
+Recipient MTA queries DNS:
+  DNS query: TXT record for example.com → "v=spf1 ip4:203.0.113.0/24 include:sendgrid.net -all"
+
+SPF Evaluation:
+  203.0.113.10 matches ip4:203.0.113.0/24 → PASS (authorized sender)
+  If IP was 198.51.100.5 → FAIL (not in SPF record; -all = hard fail → reject/mark spam)
+</div>
+
+<table>
+  <tr><th>SPF Qualifier</th><th>Meaning</th><th>Action on Match</th></tr>
+  <tr><td><code>+</code> (default)</td><td>Pass — authorized</td><td>Accept message</td></tr>
+  <tr><td><code>~</code></td><td>Soft Fail — probably unauthorized</td><td>Accept but mark as probable spam</td></tr>
+  <tr><td><code>-</code></td><td>Hard Fail — unauthorized</td><td>Reject message</td></tr>
+  <tr><td><code>?</code></td><td>Neutral — no policy statement</td><td>Accept (no penalty)</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ SPF Limitation — The Header From: Gap:</strong> SPF only validates the SMTP envelope sender (MAIL FROM), <em>not</em> the From: header that users see in their email client. An attacker can set a legitimate MAIL FROM that passes SPF while putting a spoofed address in the user-visible From: header. This is why DMARC is required — it mandates alignment between the SPF/DKIM domain and the From: header.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 7 ═════════════════ -->
+<section id="s7">
+<h2>7. DKIM – DomainKeys Identified Mail</h2>
+<div class="callout definition">
+  <strong>📖 DKIM (DomainKeys Identified Mail) — RFC 6376:</strong> Allows the sending mail server to cryptographically sign outbound emails using a private key. The corresponding public key is published in the sending domain's DNS. Receiving servers verify the signature, proving message integrity and that it originated from the legitimate domain's mail infrastructure.
+</div>
+
+<div class="diagram">
+DKIM Signing and Verification:
+
+Sending Server (example.com):
+  1. Compute hash of specified email headers + body
+  2. Sign hash with DKIM private key
+  3. Add DKIM-Signature: header to the email
+     DKIM-Signature: v=1; a=rsa-sha256; d=example.com; s=selector1;
+                     h=From:To:Subject:Date; bh=&lt;body-hash&gt;; b=&lt;signature&gt;
+
+Receiving Server:
+  1. Read DKIM-Signature header; extract domain (d=) and selector (s=)
+  2. DNS query: selector1._domainkey.example.com → TXT record (public key)
+  3. Verify signature using public key
+  PASS: message not tampered with; originated from authorized signing server
+  FAIL: signature invalid → tampered in transit, or forged domain
+</div>
+
+<table>
+  <tr><th>DKIM Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>What it protects</strong></td><td>Integrity of specified headers and message body. Proves message was sent by a server controlling the private key for the claimed domain.</td></tr>
+  <tr><td><strong>What it does NOT protect</strong></td><td>Does not check IP address (unlike SPF). Does not prevent replay of a signed message to different recipients (unless cc/bcc headers included in signed set). A DKIM-signed message from evil.com cannot impersonate example.com's DKIM.</td></tr>
+  <tr><td><strong>Key rotation</strong></td><td>Selectors (e.g., "selector1", "selector2") allow multiple keys and key rotation without disrupting existing signatures. Old keys can be deactivated by removing or changing the DNS TXT record.</td></tr>
+  <tr><td><strong>Survives forwarding?</strong></td><td>DKIM signature survives email forwarding (body/header unchanged). SPF typically breaks on forwarding (forwarding server's IP not in original domain's SPF). This is why DMARC can pass on DKIM alignment even when SPF fails after forwarding.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 8 ═════════════════ -->
+<section id="s8">
+<h2>8. DMARC – Domain-Based Message Authentication</h2>
+<div class="callout definition">
+  <strong>📖 DMARC (Domain-based Message Authentication, Reporting and Conformance) — RFC 7489:</strong> A policy published in DNS by the domain owner that instructs receiving mail servers what to do if an email fails SPF and DKIM alignment checks. DMARC ensures that the domain in the user-visible From: header aligns with the domain verified by SPF (envelope sender) or DKIM (signature domain). It also provides aggregate and forensic reporting back to the domain owner about authentication results.
+</div>
+
+<h3>DMARC alignment requirement</h3>
+<div class="callout key-concept">
+  <strong>🔑 Alignment:</strong> DMARC requires that at least one of these aligns with the RFC5322.From domain (the header users see):<br>
+  1. <strong>SPF alignment</strong>: MAIL FROM domain matches From: domain (exact or relaxed)<br>
+  2. <strong>DKIM alignment</strong>: DKIM d= domain matches From: domain (exact or relaxed)<br><br>
+  If neither aligns → DMARC failure → policy applied (none / quarantine / reject)
+</div>
+
+<table>
+  <tr><th>DMARC Policy (p=)</th><th>Action on Failure</th></tr>
+  <tr><td><strong>p=none</strong></td><td>Monitor only — no enforcement action. Emails are delivered even if DMARC fails. Aggregated reports still sent to rua= address. Used during initial rollout to assess impact before enforcement.</td></tr>
+  <tr><td><strong>p=quarantine</strong></td><td>Messages failing DMARC are quarantined — typically delivered to junk/spam folder. Partial enforcement.</td></tr>
+  <tr><td><strong>p=reject</strong></td><td>Messages failing DMARC are rejected at the receiving MTA — never delivered. Full enforcement. The target state for any mature email security posture.</td></tr>
+</table>
+
+<table>
+  <tr><th>DMARC Reporting</th><th>Description</th></tr>
+  <tr><td><strong>rua= (aggregate reports)</strong></td><td>Daily XML reports from receiving servers listing all messages claiming to be from your domain, with SPF/DKIM pass/fail counts and authentication results. Crucial for monitoring unauthorized use of your domain.</td></tr>
+  <tr><td><strong>ruf= (forensic reports)</strong></td><td>Per-message failure reports (contain full or partial message headers). Reveals exact attempts to spoof your domain.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 9 ═════════════════ -->
+<section id="s9">
+<h2>9. SPF + DKIM + DMARC Working Together</h2>
+
+<div class="diagram">
+Layered Email Authentication – How the Three Work Together:
+
+Legitimate email from ceo@example.com:
+  SPF:  MAIL FROM: ceo@example.com → sending IP in example.com's SPF record → PASS
+  DKIM: DKIM-Signature d=example.com → public key verified → PASS
+  DMARC: From: example.com aligns with both SPF (example.com) and DKIM (example.com) → PASS
+         Policy: p=reject → message accepted and delivered ✓
+
+Spoofed/phishing email claiming to be from ceo@example.com:
+  Sent from attacker's server (not in example.com SPF):
+  SPF:  MAIL FROM: ceo@example.com → attacker IP not in SPF → FAIL
+  DKIM: No DKIM-Signature, or signed by attacker.com (not example.com) → FAIL/No Alignment
+  DMARC: From: example.com but neither SPF nor DKIM aligns → FAIL
+         Policy: p=reject → message REJECTED ✗
+
+Forwarded email (legitimate, sent through forwarder):
+  SPF:  MAIL FROM: → forwarder's IP (not in original SPF) → FAIL (SPF breaks)
+  DKIM: Signature from original sender intact → PASS (DKIM survives forwarding)
+  DMARC: DKIM alignment passes (d= matches From:) → DMARC PASS ✓
+         Message delivered (DKIM alignment saved it despite SPF failure)
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Complementary Functions:</strong> SPF, DKIM, and DMARC are complementary; none is sufficient alone: SPF alone doesn't protect the visible From: header. DKIM alone provides integrity but no policy enforcement. DMARC without SPF or DKIM to align would always fail. Together they provide a complete email authentication framework. DMARC is the enforcement policy engine that makes the others actionable.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 10 ═════════════════ -->
+<section id="s10">
+<h2>10. Email Gateway Security</h2>
+<div class="callout definition">
+  <strong>📖 Secure Email Gateway (SEG):</strong> A dedicated appliance or cloud service that sits in the email delivery path (via MX record pointing to the SEG) and applies a layered set of security controls to inbound and outbound email before delivery to the mail server. Examples: Proofpoint, Mimecast, Microsoft Defender for Office 365.
+</div>
+
+<table>
+  <tr><th>SEG Capability</th><th>Description</th></tr>
+  <tr><td><strong>Anti-spam</strong></td><td>Content analysis, header analysis, keyword filters, reputation-based blocking (IP reputation, domain reputation). Reduces spam volume before it reaches users' inboxes.</td></tr>
+  <tr><td><strong>Anti-malware</strong></td><td>Signature-based and heuristic scanning of attachments (PDF, Office documents, executables). Strips or quarantines malicious attachments.</td></tr>
+  <tr><td><strong>Sandboxing</strong></td><td>Execute suspicious attachments in an isolated virtual environment before delivery. Detonates the attachment and observes behavior (file writes, network connections, registry changes). Detects zero-day and polymorphic malware that evades signature scanning.</td></tr>
+  <tr><td><strong>URL rewriting</strong></td><td>Replaces URLs in emails with proxied versions that are scanned at click-time (time-of-click analysis). Catches URLs that become malicious after delivery (retroactive protection).</td></tr>
+  <tr><td><strong>SPF/DKIM/DMARC enforcement</strong></td><td>SEG validates SPF, DKIM, and DMARC on all inbound email and applies configured policies. Often provides more configurable enforcement than native mail server capabilities.</td></tr>
+  <tr><td><strong>DLP (Data Loss Prevention)</strong></td><td>Scan outbound email for sensitive data patterns (PII, credit card numbers, medical data). Block or encrypt based on policy. Prevents accidental or malicious data exfiltration via email.</td></tr>
+  <tr><td><strong>TLS enforcement</strong></td><td>Enforce opportunistic or mandatory TLS for specific partner domains. Provides in-transit encryption (hop-by-hop, not end-to-end).</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 11 ═════════════════ -->
+<section id="s11">
+<h2>11. Phishing &amp; Spear Phishing Defence</h2>
+<table>
+  <tr><th>Attack Type</th><th>Description</th><th>Defence</th></tr>
+  <tr><td><strong>Phishing</strong></td><td>Mass-sent emails impersonating trusted brands (banks, Microsoft, PayPal) to steal credentials or deliver malware. Generic targeting — sent to millions of recipients.</td><td>User awareness training; SEG spam/phishing filtering; DMARC enforcement; URL scanning; MFA (credential theft useless without second factor)</td></tr>
+  <tr><td><strong>Spear Phishing</strong></td><td>Targeted phishing using personalized information about the victim (name, employer, role, colleagues). Much higher success rate. Often used as initial access in APT campaigns. Sources: LinkedIn, company website, data breaches.</td><td>Same as phishing + enhanced anti-spoofing; regular simulated phishing exercises; zero-trust email access; privileged account email hygiene</td></tr>
+  <tr><td><strong>Business Email Compromise (BEC)</strong></td><td>Impersonate executives (CEO, CFO) or trusted suppliers to authorize fraudulent wire transfers or HR changes. May use lookalike domains, display-name spoofing, or compromised mailboxes. No malware required — social engineering only.</td><td>Financial process controls (multi-person authorization for wire transfers); out-of-band verification for wire requests; DMARC enforcement; mailbox anomaly detection; privileged account MFA</td></tr>
+  <tr><td><strong>Whaling</strong></td><td>Spear phishing specifically targeting high-value targets: C-suite executives (CEO, CFO) to manipulate financial or strategic decisions.</td><td>Executive-targeted training; enhanced account security; dedicated threat intelligence monitoring for executive impersonation</td></tr>
+  <tr><td><strong>Vishing / Smishing</strong></td><td>Phone (vishing) or SMS (smishing) variants of phishing — not email-based but related social engineering tactics.</td><td>Awareness training; callback verification procedures; out-of-band verification</td></tr>
+</table>
+
+<h3>Email Phishing Defence Layering</h3>
+<table>
+  <tr><th>Layer</th><th>Control</th><th>What It Stops</th></tr>
+  <tr><td>1 – Domain</td><td>DMARC p=reject on all owned domains; register lookalike domains and block them</td><td>Direct domain spoofing</td></tr>
+  <tr><td>2 – Gateway</td><td>SEG with anti-phishing, sandboxing, URL rewriting, header analysis</td><td>Mass phishing, malware delivery</td></tr>
+  <tr><td>3 – Client</td><td>MFA on all accounts; Conditional Access; modern authentication only</td><td>Stolen credentials useless without second factor</td></tr>
+  <tr><td>4 – Process</td><td>Multi-person approval for financial transactions; out-of-band verification</td><td>BEC wire fraud (even if phish succeeds)</td></tr>
+  <tr><td>5 – Human</td><td>Security awareness training; simulated phishing exercises; reporting culture</td><td>Social engineering that bypasses technical controls</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 SPF, DKIM, DMARC — "Sends, Digitally signs, Defines policy":</strong><br>
+  <strong>SPF</strong> = who is authorized to <em>Send</em> email for a domain (IP allowlist in DNS)<br>
+  <strong>DKIM</strong> = <em>Digitally signs</em> the message (private key signs; public key in DNS verifies)<br>
+  <strong>DMARC</strong> = <em>Defines the policy</em> if SPF/DKIM don't align with From: header (none/quarantine/reject)<br>
+  All three are DNS TXT records. DMARC is the policy enforcer that ties SPF and DKIM together.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 S/MIME Encryption Direction — "Lock with their key, open with yours":</strong><br>
+  Encrypt to send: use <em>recipient's public key</em> to lock → only recipient's private key can open.<br>
+  Sign to prove identity: use your <em>private key</em> to sign → anyone with your public key can verify.<br>
+  PGP/GPG: same cryptographic operations, different trust model (Web of Trust vs. PKI hierarchy).
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Email Protocol Ports — "25 relay, 587 submit, 993 IMAP secure, 995 POP secure":</strong><br>
+  25 = MTA-to-MTA relay (block at ISP for end users)<br>
+  587 = authenticated client submission (STARTTLS)<br>
+  143 = IMAP plain | 993 = IMAP SSL/TLS<br>
+  110 = POP3 plain | 995 = POP3 SSL/TLS
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DMARC Policy Progression — "None, Quarantine, Reject" = "Monitor, Warn, Block":</strong><br>
+  Start with <strong>p=none</strong> (monitor only; read rua= reports; find all legitimate senders)<br>
+  Move to <strong>p=quarantine</strong> (failures go to spam; limited impact while tuning)<br>
+  End goal: <strong>p=reject</strong> (spoofed emails blocked completely at receiving MTA)
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 13 ═════════════════ -->
+<section id="s13">
+<h2>13. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>SMTP ports</td><td>Port 25 = MTA relay; Port 587 = authenticated submission (client); TLS via STARTTLS or port 465/587</td></tr>
+  <tr><td>POP3 vs. IMAP</td><td>POP3 = download and delete (single device); IMAP = server-side sync across multiple devices; secure ports 995 and 993 respectively</td></tr>
+  <tr><td>S/MIME</td><td>End-to-end encryption and signing using X.509 certificates; signing uses private key; encrypting uses recipient's public key; non-repudiation requires signing</td></tr>
+  <tr><td>PGP/GPG</td><td>Same operations as S/MIME but Web of Trust (no central CA); OpenPGP standard; GPG is the free implementation</td></tr>
+  <tr><td>SPF</td><td>DNS TXT record listing authorized sending IPs; checks SMTP envelope MAIL FROM; -all = hard fail; does NOT protect the user-visible From: header</td></tr>
+  <tr><td>DKIM</td><td>Cryptographic signature added to outgoing mail; public key in DNS (selector._domainkey.domain); verifies integrity and signing domain; survives forwarding</td></tr>
+  <tr><td>DMARC</td><td>Policy (none/quarantine/reject) applied when SPF or DKIM alignment fails for the From: header domain; provides aggregate (rua=) and forensic (ruf=) reporting</td></tr>
+  <tr><td>DMARC alignment</td><td>At least one of SPF alignment or DKIM alignment with the From: domain must pass for DMARC to pass; DMARC is the enforcement layer</td></tr>
+  <tr><td>Email gateway (SEG)</td><td>Inbound/outbound filtering: anti-spam, anti-malware, sandboxing, URL rewriting, DLP, TLS enforcement — sits in mail path via MX record</td></tr>
+  <tr><td>BEC defence</td><td>DMARC p=reject + process controls (multi-person wire approval + out-of-band verification) + MFA; technical controls alone insufficient for social engineering</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-064-theory.html" class="nav-btn">← Day 64: Network Attacks</a>
+  <a href="day-066-theory.html" class="nav-btn">Day 66: Secure Communications →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

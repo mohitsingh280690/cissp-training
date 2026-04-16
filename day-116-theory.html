@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 116 – Personnel Safety &amp; Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 116 – Personnel Safety &amp; Security</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 116 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-115-theory.html">← Day 115: Physical Security Operations</a> · Domain 7 · Day 116</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Safety of People — The #1 Priority</a></li>
+  <li><a href="#s4">4. Emergency Management</a></li>
+  <li><a href="#s5">5. Evacuation Planning</a></li>
+  <li><a href="#s6">6. Duress &amp; Coercion Controls</a></li>
+  <li><a href="#s7">7. Travel Security</a></li>
+  <li><a href="#s8">8. Workplace Violence Prevention</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>CISSP consistently emphasizes that HUMAN SAFETY is always the top priority — above data, systems, or business operations. Expect scenario questions where you must choose between protecting people and protecting assets</td></tr>
+  <tr><td>Question Style</td><td>"During a fire in the data center, what is the FIRST priority?" (Evacuate personnel — always). "A duress alarm at the front desk should…?" (Silently alert security). "Before any DR action, the organization should first ensure…?" (Personnel safety)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (personnel security policies); Day 115 (physical security); Day 111 (DRP — personnel safety first in any disaster)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Workplace safety incidents (fires, natural disasters, active threats) test an organization's preparedness. Legal liability for employee safety is significant — OSHA requirements, duty of care obligations, and workers' compensation all mandate workplace safety programs. International operations face additional challenges: political instability, travel risks, kidnapping threats, and varying safety standards across jurisdictions.</p>
+</section>
+
+<section id="s3">
+<h2>3. Safety of People — The #1 Priority</h2>
+<div class="key-concept callout">
+  <strong>The CISSP Golden Rule:</strong> In ANY scenario — fire, disaster, security breach, or emergency — the SAFETY OF HUMAN LIFE is ALWAYS the first and highest priority. No data, system, or business operation is worth a human life.<br><br>
+  Priority order: <strong>People → Assets → Business Operations → Data</strong>
+</div>
+
+<div class="exam-tip callout">
+  <strong>Exam Application:</strong> Whenever an exam question asks "What is the FIRST thing to do?" during any emergency scenario, look for the answer that prioritizes people. Examples:<br>
+  • Fire in the data center → evacuate people (not save servers or activate suppression first)<br>
+  • Building flooding → ensure personnel safety (not protect equipment)<br>
+  • Active shooter → protect lives (not lock down data)<br>
+  • Toxic chemical spill → evacuate (not contain the spill)
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Emergency Management</h2>
+<table>
+  <tr><th>Phase</th><th>Activities</th></tr>
+  <tr><td><strong>Prevention / Mitigation</strong></td><td>Risk assessment; building codes compliance; fire suppression systems; environmental controls; training; drills</td></tr>
+  <tr><td><strong>Preparedness</strong></td><td>Emergency plans; evacuation routes; assembly points; emergency supplies; communication systems; first aid kits; AED locations</td></tr>
+  <tr><td><strong>Response</strong></td><td>Activate emergency plan; evacuate; notify emergency services; account for all personnel; provide first aid; activate incident command</td></tr>
+  <tr><td><strong>Recovery</strong></td><td>Damage assessment; facility restoration; return to normal operations; counseling/support for affected personnel; lessons learned</td></tr>
+</table>
+
+<h3>Emergency Response Team (ERT)</h3>
+<ul>
+  <li><strong>Floor wardens / fire marshals:</strong> Assigned per floor; responsible for ensuring complete evacuation of their area</li>
+  <li><strong>First aid responders:</strong> Trained employees who provide immediate medical assistance</li>
+  <li><strong>Incident commander:</strong> On-scene decision authority; coordinates with emergency services</li>
+  <li><strong>Communications coordinator:</strong> Manages internal/external communications during emergency</li>
+</ul>
+</section>
+
+<section id="s5">
+<h2>5. Evacuation Planning</h2>
+<table>
+  <tr><th>Element</th><th>Requirement</th></tr>
+  <tr><td><strong>Evacuation routes</strong></td><td>Multiple routes from every area; posted on every floor; illuminated exit signs; emergency lighting (battery-backed)</td></tr>
+  <tr><td><strong>Assembly points</strong></td><td>Designated gathering locations outside building; far enough from building (falling debris, fire); known to all employees</td></tr>
+  <tr><td><strong>Accountability</strong></td><td>Head count or check-in system at assembly points; EVERY person must be accounted for</td></tr>
+  <tr><td><strong>Special needs</strong></td><td>Plans for people with disabilities; designated assistance; refuge areas in stairwells</td></tr>
+  <tr><td><strong>Drills</strong></td><td>Regular evacuation drills (at least annually; some regulations require quarterly); timed and evaluated</td></tr>
+  <tr><td><strong>Don't return</strong></td><td>No one re-enters building until "all clear" from incident commander or fire department</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Duress &amp; Coercion Controls</h2>
+<div class="definition callout">
+  <strong>Duress:</strong> A situation where a person is forced to act against their will under threat (e.g., armed robbery, hostage situation, coercion to open a vault). Duress controls are safeguards that allow a person under coercion to secretly signal for help.
+</div>
+
+<table>
+  <tr><th>Control</th><th>How It Works</th></tr>
+  <tr><td><strong>Duress alarm / panic button</strong></td><td>Hidden button at reception/guard desk that silently alerts security or law enforcement without the intruder knowing</td></tr>
+  <tr><td><strong>Duress code / safe word</strong></td><td>A special code or word that, when used in communication, signals coercion. Example: "code blue" during a phone call means "I am under duress"</td></tr>
+  <tr><td><strong>Duress PIN</strong></td><td>A special PIN that opens the door/safe but simultaneously triggers a silent alarm. Appears to comply with attacker's demands while alerting security</td></tr>
+  <tr><td><strong>Two-person integrity (TPI)</strong></td><td>Requires two authorized people to complete a sensitive action; one person under duress cannot act alone</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Duress Alarms Are SILENT:</strong> The entire point is that the attacker doesn't know the alarm has been triggered. A loud alarm during a robbery endangers the hostage/victim. Silent alarms notify security for a covert response.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Travel Security</h2>
+<table>
+  <tr><th>Risk</th><th>Mitigation</th></tr>
+  <tr><td><strong>Device theft / loss</strong></td><td>Full disk encryption; remote wipe capability; minimal data on travel devices; VPN for connectivity; don't leave devices unattended</td></tr>
+  <tr><td><strong>Eavesdropping / surveillance</strong></td><td>Privacy screens; avoid sensitive discussions in public; assume hotel Wi-Fi is compromised; use cellular or VPN</td></tr>
+  <tr><td><strong>Border / customs searches</strong></td><td>Devices may be searched at borders (legal in many jurisdictions); carry clean devices with access to cloud data only; know local laws</td></tr>
+  <tr><td><strong>Physical safety</strong></td><td>Travel advisories; check-in protocols; pre-travel threat briefings for high-risk destinations; emergency contacts</td></tr>
+  <tr><td><strong>Social engineering</strong></td><td>Heightened risk at conferences/trade shows; shoulder surfing; bogus Wi-Fi networks; social-engineering pretexts</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Clean Travel Devices:</strong> For travel to high-risk countries, provide employees with clean/loaner devices that contain NO sensitive data. Access corporate resources via VPN/cloud. Upon return, devices are reimaged before reconnecting to the corporate network. This eliminates the risk of persistent malware installed during border inspections or hotel intrusions.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Workplace Violence Prevention</h2>
+<ul>
+  <li><strong>Zero-tolerance policy:</strong> Clear organizational policy against workplace violence; communicated to all employees</li>
+  <li><strong>Threat assessment team:</strong> Cross-functional team (HR, security, legal, management) to evaluate reported threats</li>
+  <li><strong>Behavioral indicators:</strong> Train managers to recognize warning signs — sudden behavior changes, verbal threats, obsessive behavior, substance abuse</li>
+  <li><strong>Reporting mechanisms:</strong> Anonymous tip lines; clear escalation path; protection against retaliation for reporters</li>
+  <li><strong>Active shooter response:</strong> Run / Hide / Fight training (in that order); practiced through drills</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Emergency Priority — "PEOPLE First, Always"</strong><br>
+  <strong>P</strong>eople (human life)<br>
+  <strong>E</strong>quipment/assets<br>
+  <strong>O</strong>perations (business)<br>
+  <strong>P</strong>roprietary data<br>
+  <strong>L</strong>egal/compliance obligations<br>
+  <strong>E</strong>verything else<br>
+  "If the exam asks 'what's first?' and human safety is an option — it's ALWAYS the answer"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Duress Controls — "SILENT saves lives"</strong><br>
+  <strong>S</strong>ilent alarm (not audible)<br>
+  <strong>I</strong>nvisible to attacker<br>
+  <strong>L</strong>aw enforcement notified covertly<br>
+  <strong>E</strong>mployee appears to comply<br>
+  <strong>N</strong>o confrontation<br>
+  <strong>T</strong>wo-person integrity as backup
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Emergency Phases — "P-P-R-R"</strong><br>
+  <strong>P</strong>revention/Mitigation<br>
+  <strong>P</strong>reparedness<br>
+  <strong>R</strong>esponse<br>
+  <strong>R</strong>ecovery
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>#1 Priority</td><td>Human safety is ALWAYS the first priority — above data, systems, or operations</td></tr>
+  <tr><td>Emergency phases</td><td>Prevention → Preparedness → Response → Recovery (PPRR)</td></tr>
+  <tr><td>Evacuation</td><td>Multiple routes, assembly points, accountability (head count), regular drills, no re-entry until all-clear</td></tr>
+  <tr><td>Duress controls</td><td>SILENT alarms, duress PINs, safe words — alert security covertly without endangering the victim</td></tr>
+  <tr><td>Travel security</td><td>Clean devices, full disk encryption, VPN, border search awareness, check-in protocols</td></tr>
+  <tr><td>Floor wardens</td><td>Assigned per floor to ensure complete evacuation</td></tr>
+  <tr><td>Two-person integrity</td><td>Prevents single person under duress from completing sensitive actions</td></tr>
+  <tr><td>Active shooter</td><td>Run → Hide → Fight (in that priority order)</td></tr>
+  <tr><td>Workplace violence</td><td>Zero-tolerance policy, threat assessment team, anonymous reporting, behavioral indicators training</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-115-theory.html" class="nav-btn">← Day 115: Physical Security Operations</a>
+  <a href="day-117-theory.html" class="nav-btn">Day 117: Domain 7 Review →</a>
+</div>
+</div>
+</body>
+</html>

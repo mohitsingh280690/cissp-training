@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 99 – Domain 6 Comprehensive Review</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 99 – Domain 6 Comprehensive Review</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing (12%)</div>
+  <div class="meta">
+    <span>📅 Day 99 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Domain Review</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-098-theory.html">← Day 98: Test Coverage &amp; Reporting</a> · Domain 6 · Day 99</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 6 Overview &amp; Exam Weight</a></li>
+  <li><a href="#s2">2. Topic-by-Topic Quick Reference (Days 86-98)</a></li>
+  <li><a href="#s3">3. Assessment Types Comparison</a></li>
+  <li><a href="#s4">4. Testing Analysis Tools Comparison (SAST/DAST/IAST)</a></li>
+  <li><a href="#s5">5. SOC Reports Master Table</a></li>
+  <li><a href="#s6">6. BCDR Test Types Comparison</a></li>
+  <li><a href="#s7">7. Top Exam Traps &amp; Distractors</a></li>
+  <li><a href="#s8">8. All Mnemonics Collected</a></li>
+  <li><a href="#s9">9. Self-Assessment Checklist</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 6 Overview &amp; Exam Weight</h2>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Exam Weight</td><td>12% (~18 of 150 questions)</td></tr>
+  <tr><td>Days Covered</td><td>Days 86-99 (14 study days)</td></tr>
+  <tr><td>Core Focus</td><td>Design and validate assessment, test, and audit strategies; analyze test output; collect security process data</td></tr>
+  <tr><td>Key Skill</td><td>Knowing WHICH assessment type to use WHEN — vulnerability assessment vs pen test vs audit; SAST vs DAST; SOC 1 vs SOC 2; Type I vs Type II</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Domain 6 in One Sentence:</strong> "How do we verify that our security controls actually work?" — through assessments, testing, audits, and metrics.
+</div>
+</section>
+
+<section id="s2">
+<h2>2. Topic-by-Topic Quick Reference (Days 86-98)</h2>
+<table>
+  <tr><th>Day</th><th>Topic</th><th>Key Exam Concepts</th></tr>
+  <tr><td>86</td><td>Vulnerability Assessment</td><td>Credentialed vs non-credentialed scans; false positives/negatives; Nessus, Qualys, Rapid7; vulnerability management lifecycle</td></tr>
+  <tr><td>87</td><td>Penetration Testing</td><td>Black/white/gray box; Rules of engagement; PTES phases; pivot/lateral movement; get-out-of-jail-free letter</td></tr>
+  <tr><td>88</td><td>Security Assessment Strategies</td><td>Assessment vs audit vs pen test; internal vs external; announced vs unannounced; red/blue/purple teams</td></tr>
+  <tr><td>89</td><td>Log Collection &amp; SIEM</td><td>Syslog, Windows Event Log, CEF; SIEM correlation; SOAR automation; log retention policies</td></tr>
+  <tr><td>90</td><td>Log Management</td><td>Log integrity (tamper protection); centralized logging; NTP synchronization; chain of custody; audit trail requirements</td></tr>
+  <tr><td>91</td><td>Code Review &amp; Analysis</td><td>SAST (white-box, source code), DAST (black-box, running app), IAST (gray-box, agent); Fagan Inspection; CWE Top 25</td></tr>
+  <tr><td>92</td><td>Software Testing Methods</td><td>Unit/integration/system/UAT; V-Model; regression testing; smoke vs sanity; performance testing (load/stress/volume); TDD</td></tr>
+  <tr><td>93</td><td>Specialized Testing</td><td>Misuse/abuse cases; fuzzing (mutation/generation/coverage-guided); fault injection; chaos engineering; BVA; equivalence partitioning; attack surface analysis</td></tr>
+  <tr><td>94</td><td>Security Audits</td><td>Internal/external/third-party/regulatory; 1st/2nd/3rd party; auditor independence; evidence types; re-performance = highest reliability; material weakness vs significant deficiency</td></tr>
+  <tr><td>95</td><td>SOC Reports</td><td>SOC 1 (financial), SOC 2 (security/TSC), SOC 3 (public); Type I (design) vs Type II (operating effectiveness); SSAE 18; CUECs</td></tr>
+  <tr><td>96</td><td>Security Metrics</td><td>KPIs vs KRIs; MTTD, MTTR, dwell time; NIST SP 800-55; SMART metrics; vanity metrics; dashboard design by audience</td></tr>
+  <tr><td>97</td><td>BCDR Testing</td><td>Checklist → Tabletop → Simulation → Parallel → Full Interruption; after-action reports; parallel = most common "real" test</td></tr>
+  <tr><td>98</td><td>Test Coverage &amp; Reporting</td><td>Statement/branch/condition/path coverage; RTM; pen test report structure; CVSS ratings; remediation tracking; verified ≠ fixed</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Assessment Types Comparison</h2>
+<table>
+  <tr><th>Attribute</th><th>Vulnerability Assessment</th><th>Penetration Test</th><th>Security Audit</th><th>Risk Assessment</th></tr>
+  <tr><td><strong>Purpose</strong></td><td>Identify known vulnerabilities</td><td>Exploit vulnerabilities to prove impact</td><td>Verify control effectiveness against standards</td><td>Identify and evaluate risks to the organization</td></tr>
+  <tr><td><strong>Approach</strong></td><td>Automated scanning</td><td>Manual + automated exploitation</td><td>Document review + interviews + testing</td><td>Analysis of threats, vulnerabilities, impacts</td></tr>
+  <tr><td><strong>Performed By</strong></td><td>Security team / automated tools</td><td>Ethical hackers (internal or contracted)</td><td>Auditors (internal or external)</td><td>Risk management team</td></tr>
+  <tr><td><strong>Output</strong></td><td>Vulnerability list with CVSS scores</td><td>Attack narratives with proof of exploitation</td><td>Audit findings with severity ratings</td><td>Risk register with likelihood/impact ratings</td></tr>
+  <tr><td><strong>Frequency</strong></td><td>Continuous or monthly</td><td>Annual or after major changes</td><td>Annual or per regulatory schedule</td><td>Annual or when significant changes occur</td></tr>
+  <tr><td><strong>Disruption</strong></td><td>Low (scanning)</td><td>Medium-High (exploitation may cause instability)</td><td>Low (primarily review-based)</td><td>None (analytical)</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>The Key Distinction:</strong> Vulnerability assessments IDENTIFY weaknesses; penetration tests EXPLOIT them to prove real-world impact. Audits verify COMPLIANCE; risk assessments evaluate BUSINESS IMPACT.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Testing Analysis Tools Comparison (SAST/DAST/IAST)</h2>
+<table>
+  <tr><th>Attribute</th><th>SAST</th><th>DAST</th><th>IAST</th></tr>
+  <tr><td>Testing Type</td><td>White-box (source code)</td><td>Black-box (running app)</td><td>Gray-box (instrumented agent)</td></tr>
+  <tr><td>When in SDLC</td><td>Development (shift-left)</td><td>Testing / Staging / Production</td><td>Testing / Staging</td></tr>
+  <tr><td>Source Code Needed</td><td>Yes</td><td>No</td><td>No (but agent required)</td></tr>
+  <tr><td>False Positives</td><td>High</td><td>Medium</td><td>Lowest</td></tr>
+  <tr><td>Finds Runtime Issues</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Coverage</td><td>All code paths (even untriggered)</td><td>Only reachable endpoints</td><td>Exercised code paths</td></tr>
+  <tr><td>Speed</td><td>Fast (no execution needed)</td><td>Slower (must run app)</td><td>Real-time during testing</td></tr>
+  <tr><td>Example Tools</td><td>Checkmarx, Fortify, SonarQube</td><td>OWASP ZAP, Burp Suite</td><td>Contrast, Seeker</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. SOC Reports Master Table</h2>
+<table>
+  <tr><th>Report</th><th>Focus</th><th>Audience</th><th>Type I Available</th><th>Type II Available</th></tr>
+  <tr><td>SOC 1</td><td>Financial controls (ICFR)</td><td>Restricted</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>SOC 2</td><td>Security + optional (APIC-P) Trust Services</td><td>Restricted (NDA)</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>SOC 3</td><td>Same as SOC 2 (summary)</td><td>General public</td><td>—</td><td>—</td></tr>
+  <tr><td>SOC for Cybersecurity</td><td>Enterprise cybersecurity program</td><td>General use</td><td>—</td><td>—</td></tr>
+  <tr><td>SOC for Supply Chain</td><td>Production &amp; distribution</td><td>Restricted/General</td><td>Yes</td><td>Yes</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Quick Recall:</strong> SOC 1 = $ (financial) | SOC 2 = 🔒 (security, restricted) | SOC 3 = 🌐 (public summary) | Type I = snapshot | Type II = sustained (higher assurance)
+</div>
+</section>
+
+<section id="s6">
+<h2>6. BCDR Test Types Comparison</h2>
+<table>
+  <tr><th>Test Type</th><th>Disruption</th><th>Assurance</th><th>Key Characteristic</th></tr>
+  <tr><td>Checklist (Desk Check)</td><td>None</td><td>Lowest</td><td>Paper review only; verifies plan completeness</td></tr>
+  <tr><td>Tabletop</td><td>None</td><td>Low-Medium</td><td>Discussion-based; verbal walkthrough of scenario</td></tr>
+  <tr><td>Simulation</td><td>Low</td><td>Medium</td><td>Execute procedures; stop short of actual failover</td></tr>
+  <tr><td>Parallel</td><td>Medium</td><td>High</td><td>DR activated; production continues (safety net)</td></tr>
+  <tr><td>Full Interruption</td><td>Highest</td><td>Highest</td><td>Production shut down; full failover (no safety net)</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Top Exam Traps &amp; Distractors</h2>
+<table>
+  <tr><th>#</th><th>Trap</th><th>Correct Answer</th></tr>
+  <tr><td>1</td><td>"SOC 1 covers security controls"</td><td>Wrong — SOC 1 covers FINANCIAL reporting controls only; SOC 2 covers security</td></tr>
+  <tr><td>2</td><td>"Type I proves controls work over time"</td><td>Wrong — Type I is a point-in-time snapshot of DESIGN only; Type II proves operating effectiveness</td></tr>
+  <tr><td>3</td><td>"DAST requires source code"</td><td>Wrong — DAST tests the running application from outside; SAST requires source code</td></tr>
+  <tr><td>4</td><td>"Inquiry alone is sufficient audit evidence"</td><td>Wrong — Inquiry is the weakest evidence type; must be corroborated with other evidence</td></tr>
+  <tr><td>5</td><td>"Vulnerability assessment = Penetration test"</td><td>Wrong — VA identifies vulnerabilities; pen testing EXPLOITS them to prove impact</td></tr>
+  <tr><td>6</td><td>"100% statement coverage means the code is bug-free"</td><td>Wrong — Statement coverage doesn't test decision logic; branch/path coverage is stronger</td></tr>
+  <tr><td>7</td><td>"Internal audit reports to the CIO/CISO"</td><td>Wrong — Internal audit reports to the audit committee/board for independence</td></tr>
+  <tr><td>8</td><td>"Parallel test = Full interruption test"</td><td>Wrong — Parallel keeps production running; full interruption shuts it down</td></tr>
+  <tr><td>9</td><td>"KRIs are backward-looking"</td><td>Wrong — KRIs are forward-looking (leading indicators); KPIs are backward-looking (lagging)</td></tr>
+  <tr><td>10</td><td>"SOC 3 reports contain detailed control descriptions"</td><td>Wrong — SOC 3 is summary only; SOC 2 contains the details</td></tr>
+  <tr><td>11</td><td>"Fuzzing finds logic flaws"</td><td>Wrong — Fuzzing finds crashes, memory corruption, and input-handling bugs; NOT business logic errors</td></tr>
+  <tr><td>12</td><td>"Regression testing finds new bugs"</td><td>Wrong — Regression testing verifies existing functionality still works after changes</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. All Mnemonics Collected</h2>
+<table>
+  <tr><th>Mnemonic</th><th>What It Helps Remember</th></tr>
+  <tr><td>"Can't Test Systems Properly? Fail!" (C-T-S-P-F)</td><td>BCDR test order: Checklist → Tabletop → Simulation → Parallel → Full</td></tr>
+  <tr><td>SOC: 1=$, 2=🔒, 3=🌐</td><td>SOC 1 = financial, SOC 2 = security (restricted), SOC 3 = public</td></tr>
+  <tr><td>SAPCP — "Security Always Protects Confidential People"</td><td>Trust Services Criteria: Security, Availability, Processing Integrity, Confidentiality, Privacy</td></tr>
+  <tr><td>Type I = Instant, Type II = over tIIme</td><td>Type I = point-in-time; Type II = period-of-time (higher assurance)</td></tr>
+  <tr><td>1st-2nd-3rd party audits</td><td>1st = yourself, 2nd = your customer, 3rd = independent (highest assurance)</td></tr>
+  <tr><td>PFRF — "Plan First, Report Findings"</td><td>Audit lifecycle: Plan → Fieldwork → Report → Follow-up</td></tr>
+  <tr><td>Evidence: R-P-D-O-A-I</td><td>Re-performance (highest) → Physical → Documentation → Observation → Analytical → Inquiry (lowest)</td></tr>
+  <tr><td>KPI = Performance, KRI = Risk</td><td>KPIs measure how we performed; KRIs warn of emerging risk</td></tr>
+  <tr><td>MTTx — D, C, R (all go DOWN)</td><td>Detect → Contain → Respond/Remediate; lower = better</td></tr>
+  <tr><td>S-B-C-P coverage hierarchy</td><td>Statement → Branch → Condition → Path (weakest to strongest)</td></tr>
+  <tr><td>"Fixed ≠ Verified"</td><td>Remediation requires re-testing to confirm the fix actually works</td></tr>
+  <tr><td>"You can't grade your own homework"</td><td>Auditor independence — can't audit what you built</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Self-Assessment Checklist</h2>
+<p>Before moving to Domain 7, verify you can answer these questions without looking:</p>
+<table>
+  <tr><th>#</th><th>Question</th><th>Topic</th></tr>
+  <tr><td>1</td><td>What's the difference between a vulnerability assessment and a penetration test?</td><td>Day 86-88</td></tr>
+  <tr><td>2</td><td>What are the three pen test approaches (black/white/gray box)?</td><td>Day 87</td></tr>
+  <tr><td>3</td><td>What does SAST analyze that DAST cannot? Why does DAST have fewer false positives?</td><td>Day 91</td></tr>
+  <tr><td>4</td><td>Name the five BCDR test types in order of increasing disruption</td><td>Day 97</td></tr>
+  <tr><td>5</td><td>What's the difference between SOC 1 and SOC 2? Between Type I and Type II?</td><td>Day 95</td></tr>
+  <tr><td>6</td><td>Name all five Trust Services Criteria. Which one is mandatory?</td><td>Day 95</td></tr>
+  <tr><td>7</td><td>What's the most reliable type of audit evidence? The least reliable?</td><td>Day 94</td></tr>
+  <tr><td>8</td><td>What is MTTD? MTTR? Which direction should they trend?</td><td>Day 96</td></tr>
+  <tr><td>9</td><td>What's the difference between KPIs and KRIs?</td><td>Day 96</td></tr>
+  <tr><td>10</td><td>What does branch coverage test that statement coverage doesn't?</td><td>Day 98</td></tr>
+  <tr><td>11</td><td>What is a Requirements Traceability Matrix and why does it matter?</td><td>Day 98</td></tr>
+  <tr><td>12</td><td>What three types of fuzzing exist? What can't fuzzing find?</td><td>Day 93</td></tr>
+  <tr><td>13</td><td>Why must internal audit report to the board/audit committee, not the CIO?</td><td>Day 94</td></tr>
+  <tr><td>14</td><td>What is dwell time and why is it the most critical detection metric?</td><td>Day 96</td></tr>
+  <tr><td>15</td><td>Why is a parallel test considered the best balance of assurance and safety?</td><td>Day 97</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-098-theory.html" class="nav-btn">← Day 98: Test Coverage &amp; Reporting</a>
+  <a href="day-099-mcq.html" class="nav-btn">📝 Take Domain 6 Review Quiz →</a>
+  <a href="day-100-theory.html" class="nav-btn">Day 100: Security Operations (Domain 7) →</a>
+</div>
+</div>
+</body>
+</html>

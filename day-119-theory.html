@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 119 – Development Methodologies</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 119 – Development Methodologies</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 119 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-118-theory.html">← Day 118: SDLC &amp; Security Integration</a> · Domain 8 · Day 119</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Agile Deep Dive</a></li>
+  <li><a href="#s4">4. Scrum Framework</a></li>
+  <li><a href="#s5">5. Kanban</a></li>
+  <li><a href="#s6">6. Extreme Programming (XP)</a></li>
+  <li><a href="#s7">7. Capability Maturity Model Integration (CMMI)</a></li>
+  <li><a href="#s8">8. IDEAL Model</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security (10%)</td></tr>
+  <tr><td>Why Tested</td><td>Candidates must understand Agile methodologies, maturity models (CMMI), and how security integrates into each. Questions focus on Scrum roles, CMMI levels, and comparing methodologies for security integration</td></tr>
+  <tr><td>Question Style</td><td>"In Scrum, who is responsible for prioritizing the backlog?" (Product Owner). "What CMMI level has 'Defined' processes?" (Level 3). "Which Agile practice provides continuous security feedback?" (Pair programming / continuous integration)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 118 (SDLC models comparison); Day 120 (DevSecOps); Day 126 (software testing)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Most organizations have adopted Agile or hybrid methodologies. The challenge for security teams is integrating security activities into rapid sprint cycles without slowing delivery. Understanding Scrum ceremonies and how to embed security stories, threat modeling, and automated testing into sprints is essential for modern security practitioners.</p>
+</section>
+
+<section id="s3">
+<h2>3. Agile Deep Dive</h2>
+
+<h3>Agile Manifesto — Four Values</h3>
+<table>
+  <tr><th>We Value</th><th>Over</th></tr>
+  <tr><td><strong>Individuals and interactions</strong></td><td>Processes and tools</td></tr>
+  <tr><td><strong>Working software</strong></td><td>Comprehensive documentation</td></tr>
+  <tr><td><strong>Customer collaboration</strong></td><td>Contract negotiation</td></tr>
+  <tr><td><strong>Responding to change</strong></td><td>Following a plan</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Agile Does NOT Mean No Documentation:</strong> The manifesto says we value working software MORE than documentation — not that documentation is eliminated. Security documentation (threat models, security requirements, test results) remains essential even in Agile. The items on the right still have value.
+</div>
+
+<h3>Security in Agile — Integration Points</h3>
+<table>
+  <tr><th>Agile Activity</th><th>Security Integration</th></tr>
+  <tr><td>Sprint planning</td><td>Include security stories and tasks; assign security acceptance criteria</td></tr>
+  <tr><td>Daily standup</td><td>Security team participates; surface security blockers</td></tr>
+  <tr><td>Sprint review / demo</td><td>Demonstrate security features; review security test results</td></tr>
+  <tr><td>Retrospective</td><td>Discuss security lessons learned; improve security practices</td></tr>
+  <tr><td>Backlog grooming</td><td>Add security requirements as user stories (e.g., "As a user, I want my password stored securely")</td></tr>
+  <tr><td>Definition of Done (DoD)</td><td>Include security criteria: SAST passed, no critical vulnerabilities, security review completed</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Scrum Framework</h2>
+
+<h3>Scrum Roles</h3>
+<table>
+  <tr><th>Role</th><th>Responsibilities</th></tr>
+  <tr><td><strong>Product Owner</strong></td><td>Defines and prioritizes the product backlog; represents stakeholders and business needs; decides what to build and in what order; single point of authority for requirements</td></tr>
+  <tr><td><strong>Scrum Master</strong></td><td>Facilitates Scrum process; removes impediments; coaches the team on Agile practices; servant-leader; does NOT manage the team</td></tr>
+  <tr><td><strong>Development Team</strong></td><td>Self-organizing; cross-functional (3-9 members); delivers potentially shippable increments each sprint; collectively responsible for quality</td></tr>
+</table>
+
+<h3>Scrum Events (Ceremonies)</h3>
+<table>
+  <tr><th>Event</th><th>Purpose</th><th>Duration (2-week sprint)</th></tr>
+  <tr><td><strong>Sprint</strong></td><td>Time-boxed iteration; typically 2-4 weeks; produces shippable increment</td><td>2-4 weeks</td></tr>
+  <tr><td><strong>Sprint Planning</strong></td><td>Select backlog items for sprint; define sprint goal; plan work</td><td>~4 hours</td></tr>
+  <tr><td><strong>Daily Scrum (Standup)</strong></td><td>Team sync; what I did, what I'll do, blockers</td><td>15 minutes max</td></tr>
+  <tr><td><strong>Sprint Review</strong></td><td>Demo completed work to stakeholders; get feedback</td><td>~2 hours</td></tr>
+  <tr><td><strong>Sprint Retrospective</strong></td><td>Team reflects on process; identifies improvements</td><td>~1.5 hours</td></tr>
+</table>
+
+<h3>Scrum Artifacts</h3>
+<table>
+  <tr><th>Artifact</th><th>Description</th></tr>
+  <tr><td><strong>Product Backlog</strong></td><td>Ordered list of ALL desired features, fixes, and improvements; owned by Product Owner; constantly refined</td></tr>
+  <tr><td><strong>Sprint Backlog</strong></td><td>Subset of product backlog selected for current sprint + plan for delivering it</td></tr>
+  <tr><td><strong>Increment</strong></td><td>Sum of all product backlog items completed in a sprint + all previous sprints; must be in usable condition</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Kanban</h2>
+<div class="definition callout">
+  <strong>Kanban</strong> = "Visual signal" (Japanese). A workflow management method that visualizes work on a board, limits work-in-progress (WIP), and focuses on continuous flow rather than time-boxed iterations.
+</div>
+<table>
+  <tr><th>Kanban Principle</th><th>Description</th></tr>
+  <tr><td><strong>Visualize workflow</strong></td><td>Board with columns (To Do → In Progress → Review → Done); each work item is a card</td></tr>
+  <tr><td><strong>Limit WIP</strong></td><td>Maximum items allowed in each column; prevents overloading; surfaces bottlenecks</td></tr>
+  <tr><td><strong>Manage flow</strong></td><td>Optimize the flow of work through the system; reduce cycle time</td></tr>
+  <tr><td><strong>Continuous improvement</strong></td><td>Regularly analyze and improve the process</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Kanban vs Scrum:</strong> Kanban = continuous flow, no sprints, WIP limits, flexible. Scrum = time-boxed sprints, defined roles, ceremonies. Both are Agile. Many teams use "Scrumban" (hybrid).
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Extreme Programming (XP)</h2>
+<table>
+  <tr><th>XP Practice</th><th>Description</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Pair programming</strong></td><td>Two developers at one workstation; one codes, one reviews in real-time</td><td>Continuous code review; catches security flaws immediately</td></tr>
+  <tr><td><strong>Test-driven development (TDD)</strong></td><td>Write test first → write code to pass → refactor</td><td>Security tests written before code; ensures testability</td></tr>
+  <tr><td><strong>Continuous integration</strong></td><td>Code integrated and tested multiple times per day</td><td>Security tests run with every integration; fast feedback</td></tr>
+  <tr><td><strong>Refactoring</strong></td><td>Regularly improve code structure without changing behavior</td><td>Eliminate security debt; simplify attack surface</td></tr>
+  <tr><td><strong>Simple design</strong></td><td>Build only what's needed now; avoid unnecessary complexity</td><td>Reduced attack surface; easier to secure</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Capability Maturity Model Integration (CMMI)</h2>
+<div class="definition callout">
+  <strong>CMMI</strong> (originally from Carnegie Mellon / SEI) measures organizational process maturity on a 5-level scale. Higher levels indicate more mature, predictable, and improvable processes.
+</div>
+
+<table>
+  <tr><th>Level</th><th>Name</th><th>Characteristics</th></tr>
+  <tr><td><strong>1</strong></td><td><strong>Initial</strong></td><td>Ad hoc, chaotic; success depends on heroic individuals; unpredictable processes; no formal procedures</td></tr>
+  <tr><td><strong>2</strong></td><td><strong>Managed (Repeatable)</strong></td><td>Basic project management; processes documented for specific projects; can repeat previous successes</td></tr>
+  <tr><td><strong>3</strong></td><td><strong>Defined</strong></td><td>Organization-wide standardized processes; documented and followed consistently; proactive</td></tr>
+  <tr><td><strong>4</strong></td><td><strong>Quantitatively Managed</strong></td><td>Processes measured with metrics; data-driven decisions; statistical process control</td></tr>
+  <tr><td><strong>5</strong></td><td><strong>Optimizing</strong></td><td>Continuous process improvement; innovative practices; defect prevention focus</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>CMMI Levels — Exam Must-Know:</strong><br>
+  Level 1 = chaos (no formal process)<br>
+  Level 2 = repeatable (project-level process)<br>
+  Level 3 = defined (org-wide process) — first level where organization-wide standards exist<br>
+  Level 4 = quantitative (measured with metrics)<br>
+  Level 5 = optimizing (continuous improvement)<br>
+  <strong>Key distinction:</strong> Level 2 = project-level processes; Level 3 = organization-wide processes
+</div>
+</section>
+
+<section id="s8">
+<h2>8. IDEAL Model</h2>
+<div class="definition callout">
+  <strong>IDEAL</strong> is a process improvement model (also from SEI/Carnegie Mellon) that describes the steps for implementing process improvement programs.
+</div>
+<table>
+  <tr><th>Phase</th><th>Activities</th></tr>
+  <tr><td><strong>I</strong>nitiating</td><td>Business case; sponsorship; infrastructure setup</td></tr>
+  <tr><td><strong>D</strong>iagnosing</td><td>Assess current state; identify gaps between current and desired maturity</td></tr>
+  <tr><td><strong>E</strong>stablishing</td><td>Set priorities; develop approach; plan actions</td></tr>
+  <tr><td><strong>A</strong>cting</td><td>Implement improvements; pilot changes; deploy solutions</td></tr>
+  <tr><td><strong>L</strong>earning</td><td>Analyze results; document lessons learned; propose future actions</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 CMMI Levels — "I Must Define Quantitative Optimization"</strong><br>
+  1 = <strong>I</strong>nitial<br>
+  2 = <strong>M</strong>anaged (repeatable)<br>
+  3 = <strong>D</strong>efined<br>
+  4 = <strong>Q</strong>uantitatively managed<br>
+  5 = <strong>O</strong>ptimizing
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Scrum Roles — "PO, SM, DT"</strong><br>
+  <strong>P</strong>roduct <strong>O</strong>wner = WHAT to build (prioritizes backlog)<br>
+  <strong>S</strong>crum <strong>M</strong>aster = HOW to work (facilitates process)<br>
+  <strong>D</strong>evelopment <strong>T</strong>eam = BUILD it (self-organizing)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 IDEAL = "I Diagnose, Establish, Act, Learn"</strong><br>
+  Process improvement in 5 steps — assess where you are, plan where to go, act, then learn from results.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Agile Manifesto — "People, Software, Collaboration, Adaptation"</strong><br>
+  Value the left (people/software/collaboration/adaptation) MORE THAN the right (process/docs/contracts/plans) — but the right still matters.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Agile Manifesto</td><td>Four values: individuals, working software, collaboration, responding to change — over processes, docs, contracts, plans</td></tr>
+  <tr><td>Scrum roles</td><td>Product Owner (what), Scrum Master (process), Development Team (build)</td></tr>
+  <tr><td>Sprint</td><td>Time-boxed iteration (2-4 weeks); produces potentially shippable increment</td></tr>
+  <tr><td>Kanban</td><td>Visual board; WIP limits; continuous flow (no sprints); flexible</td></tr>
+  <tr><td>XP</td><td>Pair programming, TDD, continuous integration, refactoring — all support security</td></tr>
+  <tr><td>CMMI Level 1</td><td>Initial — ad hoc, chaotic; no formal process</td></tr>
+  <tr><td>CMMI Level 3</td><td>Defined — first level with organization-wide standardized processes</td></tr>
+  <tr><td>CMMI Level 5</td><td>Optimizing — continuous improvement; highest maturity</td></tr>
+  <tr><td>IDEAL</td><td>Initiating, Diagnosing, Establishing, Acting, Learning — process improvement model</td></tr>
+  <tr><td>Security in Agile</td><td>Security stories in backlog; security criteria in DoD; automated security testing in CI</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-118-theory.html" class="nav-btn">← Day 118: SDLC &amp; Security Integration</a>
+  <a href="day-120-theory.html" class="nav-btn">Day 120: DevSecOps &amp; CI/CD Security →</a>
+</div>
+</div>
+</body>
+</html>

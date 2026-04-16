@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 57 – Network Services: DNS, DHCP, NTP &amp; SNMP</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 57 – Network Services: DNS, DHCP, NTP &amp; SNMP</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 57 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-056-theory.html">← Day 56: Core Protocols</a> · Domain 4 · Day 57</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DNS – Domain Name System</a></li>
+  <li><a href="#s4">4. DNS Record Types</a></li>
+  <li><a href="#s5">5. DNS Resolution Process</a></li>
+  <li><a href="#s6">6. DNS Attacks</a></li>
+  <li><a href="#s7">7. DHCP – Dynamic Host Configuration Protocol</a></li>
+  <li><a href="#s8">8. DHCP Attacks &amp; Defences</a></li>
+  <li><a href="#s9">9. NTP – Network Time Protocol</a></li>
+  <li><a href="#s10">10. SNMP – Simple Network Management Protocol</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>DNS sits at the foundation of nearly every network attack and defence. DNS attacks (poisoning, hijacking) are among the most impactful. DHCP starvation and rogue servers are classic exam scenarios. NTP security matters for log integrity and certificate validation. SNMP has well-known version vulnerabilities.</td></tr>
+  <tr><td><strong>Question Style</strong></td><td>Scenario: "An attacker redirected users to a fake banking site by poisoning the DNS cache — what attack is this?"; comparison: "Which SNMP version provides encryption?"; definition: "What does the DORA process describe?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 7 (incident response — poisoning events are incidents); Domain 3 (DNSSEC uses cryptographic signing); Domain 5 (LDAP/AD depend on DNS); Domain 6 (SNMP data for network monitoring/auditing)</td></tr>
+  <tr><td><strong>Exam Traps</strong></td><td>Confusing DNS cache poisoning with DNS hijacking; thinking SNMP v2c is secure (community strings are cleartext); forgetting that NTP is critical for authentication protocols (Kerberos fails if clocks are out of sync by more than 5 minutes)</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Ownership</strong></td><td>Network operations manages internal DNS/DHCP/NTP infrastructure; security teams monitor DNS for exfiltration and C2; NOC teams manage SNMP polling; system admins configure NTP hierarchy</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Split-horizon DNS (different views for internal vs. external); DHCP snooping on switches; NTP hierarchy (stratum 1–3); SNMPv3 with authentication and privacy; DNS RPZ (Response Policy Zones) for threat intelligence integration</td></tr>
+  <tr><td><strong>Failure Modes</strong></td><td>DNS poisoning redirects users to attacker sites; DHCP starvation denies IP addresses (denial of service); NTP drift breaks Kerberos authentication and log timestamps; SNMPv1/v2c community strings leaked = full network topology exposed</td></tr>
+  <tr><td><strong>Business Impact</strong></td><td>DNS is the internet's phone book — compromise it and you own the user's browsing experience. DHCP failure can bring down an entire network segment. Log timestamp integrity (NTP) is critical for forensics, compliance, and incident timelines.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3">
+<h2>3. DNS – Domain Name System</h2>
+<div class="callout definition">
+  <strong>📖 DNS (Domain Name System):</strong> A distributed, hierarchical naming system that translates human-readable domain names (e.g., www.example.com) into IP addresses (e.g., 93.184.216.34). Often called "the phone book of the internet." Operates primarily over UDP port 53 (small queries) and TCP port 53 (large responses, zone transfers).
+</div>
+
+<h3>DNS Hierarchy</h3>
+<div class="diagram">
+                        . (Root)
+                        │
+        ┌───────────────┼───────────────┐
+       .com            .org           .net          ← Top-Level Domains (TLDs)
+        │               │
+    example.com     wikipedia.org                  ← Second-Level Domains
+        │
+   www.example.com  mail.example.com               ← Subdomains / FQDNs
+
+DNS Server Types:
+┌──────────────────┬────────────────────────────────────────────────────────┐
+│ Root Name Server │ 13 root server clusters (A–M); knows TLD locations     │
+│ TLD Name Server  │ Controls .com, .org, .net etc.; knows authoritative NS  │
+│ Authoritative NS │ Holds actual DNS records for a domain                   │
+│ Recursive Resolver│ Client-facing; queries hierarchy on client's behalf    │
+│ Caching Resolver │ Stores recent answers to reduce query volume            │
+└──────────────────┴────────────────────────────────────────────────────────┘
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Authoritative vs. Recursive:</strong> An <strong>authoritative DNS server</strong> holds the actual zone records for a domain and answers definitively. A <strong>recursive resolver</strong> (like your ISP's DNS or 8.8.8.8) goes through the hierarchy on your behalf and caches results. Most attacks target recursive resolvers, not authoritative servers, because poisoning a recursive resolver affects all clients that use it.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4">
+<h2>4. DNS Record Types</h2>
+<table>
+  <tr><th>Record Type</th><th>Full Name</th><th>Purpose</th><th>Security Context</th></tr>
+  <tr><td><strong>A</strong></td><td>Address</td><td>Maps hostname → IPv4 address</td><td>Most common; target of poisoning to redirect users</td></tr>
+  <tr><td><strong>AAAA</strong></td><td>IPv6 Address</td><td>Maps hostname → IPv6 address</td><td>Often overlooked in security policy — same poisoning risks as A records</td></tr>
+  <tr><td><strong>CNAME</strong></td><td>Canonical Name</td><td>Alias — maps one hostname to another hostname</td><td>CNAME chains can be abused in subdomain takeover attacks</td></tr>
+  <tr><td><strong>MX</strong></td><td>Mail Exchanger</td><td>Identifies mail servers for a domain; has a priority value</td><td>Incorrect MX records redirect email — exploited in email fraud</td></tr>
+  <tr><td><strong>NS</strong></td><td>Name Server</td><td>Identifies the authoritative name servers for the domain</td><td>NS record hijacking transfers domain control to attacker</td></tr>
+  <tr><td><strong>PTR</strong></td><td>Pointer</td><td>Reverse lookup — maps IP address → hostname (in-addr.arpa zone)</td><td>Used in email spam filtering (reverse DNS checks); SPF validation</td></tr>
+  <tr><td><strong>SOA</strong></td><td>Start of Authority</td><td>Contains administrative info about the zone (primary NS, admin email, serial, refresh, retry, expire, TTL)</td><td>Serial number in SOA is critical for zone transfer replication integrity</td></tr>
+  <tr><td><strong>TXT</strong></td><td>Text</td><td>Arbitrary text records; used for SPF, DKIM, DMARC, domain verification</td><td>SPF and DMARC are TXT records — essential for email security</td></tr>
+  <tr><td><strong>SRV</strong></td><td>Service</td><td>Specifies the location of services (host + port); used by SIP, XMPP, LDAP</td><td>Misconfigured SRV records expose service locations</td></tr>
+  <tr><td><strong>AXFR</strong></td><td>Zone Transfer</td><td>Full zone transfer — not a record itself, but a query type that dumps all DNS records</td><td>Unrestricted AXFR exposes complete internal network map; restrict to trusted secondary NS only</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Zone Transfer Risk (AXFR):</strong> If a DNS server responds to AXFR requests from any IP address, an attacker can obtain a complete list of all hostnames, IPs, and service records in your domain — essentially a roadmap for reconnaissance. Always restrict AXFR (TCP/53) to authorized secondary nameservers by IP address.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5 ═══ -->
+<section id="s5">
+<h2>5. DNS Resolution Process</h2>
+<div class="diagram">
+DNS Query Resolution (Iterative from Recursive Resolver):
+
+Client                 Recursive Resolver         Root NS     TLD NS (.com)  Authoritative NS
+  │                          │                       │              │               │
+  │─ "Where is example.com?" ▶│                       │              │               │
+  │                          │─ "Where is .com?" ────▶│              │               │
+  │                          │◀─ "Ask .com TLD NS" ───│              │               │
+  │                          │─ "Where is example.com?" ────────────▶│               │
+  │                          │◀─ "Ask example.com's NS" ─────────────│               │
+  │                          │─ "What is www.example.com?" ──────────────────────────▶│
+  │                          │◀─ "93.184.216.34 (TTL=3600)" ─────────────────────────│
+  │◀─ "93.184.216.34" ────────│
+  │  [Client caches answer]  │  [Resolver caches answer for TTL duration]
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 TTL (Time To Live) in DNS:</strong> Each DNS record has a TTL value (in seconds) that tells resolvers how long to cache the answer. Short TTLs (60–300 seconds) allow rapid changes but increase query load. Long TTLs (86400 = 1 day) reduce load but mean changes take longer to propagate. In a DNS poisoning attack response, organizations should lower TTLs to flush cached malicious records faster.
+</div>
+
+<h3>DNSSEC – DNS Security Extensions</h3>
+<div class="callout definition">
+  <strong>📖 DNSSEC:</strong> A suite of extensions to DNS (RFC 4033–4035) that adds cryptographic signatures to DNS records. Responses are signed with a private key; clients verify with the corresponding public key. DNSSEC provides <strong>data origin authentication</strong> and <strong>data integrity</strong> — but NOT confidentiality (records are not encrypted).
+</div>
+
+<table>
+  <tr><th>DNSSEC Component</th><th>Purpose</th></tr>
+  <tr><td><strong>RRSIG</strong></td><td>Resource Record Signature — cryptographic signature covering a set of DNS records</td></tr>
+  <tr><td><strong>DNSKEY</strong></td><td>Contains the public key used to verify signatures; stored in the zone</td></tr>
+  <tr><td><strong>DS</strong></td><td>Delegation Signer — hash of the child zone's DNSKEY, stored in the parent zone to build the chain of trust</td></tr>
+  <tr><td><strong>NSEC/NSEC3</strong></td><td>Next Secure Record — proves that a domain does NOT exist (authenticated denial of existence)</td></tr>
+  <tr><td><strong>Chain of Trust</strong></td><td>Root zone → TLD zone → Authoritative zone, each signed and verifiable up to the trusted root anchors</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> DNSSEC prevents <strong>DNS cache poisoning</strong> by cryptographically authenticating responses. However, DNSSEC does not encrypt DNS traffic (DNS over HTTPS/DoH or DNS over TLS/DoT provides confidentiality). DNSSEC = integrity/authenticity; DoH/DoT = confidentiality. Know the distinction.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6 ═══ -->
+<section id="s6">
+<h2>6. DNS Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Impact</th><th>Defence</th></tr>
+  <tr><td><strong>DNS Cache Poisoning</strong></td><td>Attacker sends forged DNS responses to a recursive resolver before the legitimate response arrives. If accepted, the resolver caches the fake mapping (e.g., bank.com → attacker's IP).</td><td>All users of that resolver are redirected to malicious sites (pharming)</td><td>DNSSEC; randomize source port + query ID (Kaminsky defence); use 0x20 bit randomization</td></tr>
+  <tr><td><strong>DNS Hijacking</strong></td><td>Attacker compromises the authoritative DNS server or the domain registrar account and changes actual DNS records</td><td>Permanent redirection until detected; email interception via MX record change</td><td>Strong registrar authentication (MFA); registry lock; DNSSEC; monitoring for unauthorized record changes</td></tr>
+  <tr><td><strong>DNS Amplification DDoS</strong></td><td>Attacker sends small DNS queries with victim's spoofed IP to many open resolvers; large DNS responses (especially ANY queries) flood the victim (amplification factor 50–100x)</td><td>Volumetric DDoS; can saturate victim's internet link</td><td>BCP38 ingress filtering; disable recursive resolution on authoritative servers; response rate limiting (RRL); block DNS ANY queries</td></tr>
+  <tr><td><strong>DNS Tunneling</strong></td><td>Data or C2 traffic is encoded in DNS query/response packets (e.g., data.attacker-domain.com as subdomains). DNS traverses most firewalls, making it a common exfiltration channel.</td><td>Data exfiltration, C2 channel, firewall bypass</td><td>DNS query length monitoring; anomaly detection (high query rates, unusual subdomain lengths); DNS RPZ blocking known tunneling domains; UEBA</td></tr>
+  <tr><td><strong>NXDOMAIN Attack</strong></td><td>Flood a DNS server with queries for non-existent domains, exhausting resolver resources</td><td>DNS server DoS</td><td>Rate limiting; query filtering; dedicated DNS appliances</td></tr>
+  <tr><td><strong>Subdomain Takeover</strong></td><td>A CNAME points to a cloud resource (e.g., AWS S3 bucket) that has been deleted. Attacker claims the orphaned resource and serves malicious content on the subdomain.</td><td>Phishing, malware distribution under trusted domain</td><td>Regular audit of CNAME records; remove DNS records when cloud resources are deleted; use dangling DNS detection tools</td></tr>
+  <tr><td><strong>DNS Rebinding</strong></td><td>Attacker's DNS returns short TTL; after the browser loads the page, DNS resolves to an internal IP, allowing the malicious page to make requests to internal services via the browser</td><td>Bypass same-origin policy; attack internal network services via browser</td><td>DNS rebinding protection in resolvers; browser-side protections; private IP filtering in DNS responses</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7 ═══ -->
+<section id="s7">
+<h2>7. DHCP – Dynamic Host Configuration Protocol</h2>
+<div class="callout definition">
+  <strong>📖 DHCP (Dynamic Host Configuration Protocol):</strong> Automatically assigns IP addresses and network configuration (subnet mask, default gateway, DNS server, lease time) to hosts on a network. Defined in RFC 2131. Uses UDP port 67 (server) and UDP port 68 (client). The assignment process is known as DORA.
+</div>
+
+<h3>The DORA Process</h3>
+<div class="diagram">
+DHCP DORA Process:
+
+Client                                              DHCP Server
+  │                                                      │
+  │──── DISCOVER (Broadcast) ──────────────────────────▶│ "Anyone have an IP for me?"
+  │     src: 0.0.0.0:68, dst: 255.255.255.255:67         │
+  │                                                      │
+  │◀─── OFFER (Unicast or Broadcast) ───────────────────│ "I offer 192.168.1.50, lease=8h"
+  │                                                      │
+  │──── REQUEST (Broadcast) ───────────────────────────▶│ "I'll take 192.168.1.50 please"
+  │     (Broadcast so other servers know the offer taken) │
+  │                                                      │
+  │◀─── ACK (Unicast or Broadcast) ─────────────────────│ "Confirmed — it's yours for 8h"
+  │                                                      │
+  │  [Client configures IP, subnet, gateway, DNS]        │
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 DHCP Options (Security-Relevant):</strong> DHCP does more than assign an IP. Option 3 = Default Gateway; Option 6 = DNS Servers; Option 15 = Domain Name; Option 43 = Vendor-specific info; Option 82 = DHCP Relay Agent Information (used with DHCP snooping). An attacker controlling DHCP can set malicious DNS servers and a rogue gateway — redirecting all traffic immediately.
+</div>
+
+<h3>DHCP Lease Management</h3>
+<table>
+  <tr><th>Event</th><th>Timing</th><th>Description</th></tr>
+  <tr><td><strong>Renewal</strong></td><td>At 50% of lease time (T1)</td><td>Client unicasts REQUEST to the original server to extend its lease</td></tr>
+  <tr><td><strong>Rebind</strong></td><td>At 87.5% of lease time (T2)</td><td>Client broadcasts REQUEST if renewal failed — accepts any DHCP server</td></tr>
+  <tr><td><strong>Expiry</strong></td><td>At 100% of lease time</td><td>Client must release IP and restart DORA process</td></tr>
+  <tr><td><strong>Release</strong></td><td>Client-initiated</td><td>Client sends DHCPRELEASE when done using the address (e.g., on shutdown)</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8 ═══ -->
+<section id="s8">
+<h2>8. DHCP Attacks &amp; Defences</h2>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Impact</th><th>Defence</th></tr>
+  <tr><td><strong>DHCP Starvation</strong></td><td>Attacker floods network with DHCP DISCOVER packets using thousands of spoofed MAC addresses, exhausting the server's IP address pool</td><td>Legitimate clients cannot obtain IP addresses — network DoS; often precedes rogue DHCP server attack</td><td>DHCP snooping with rate limiting per port; 802.1X port authentication; port security (limit MACs per port)</td></tr>
+  <tr><td><strong>Rogue DHCP Server</strong></td><td>Attacker connects unauthorized DHCP server to network. When clients send DISCOVER, rogue server replies faster than the legitimate server, assigning malicious gateway/DNS</td><td>MITM via gateway manipulation; DNS hijacking for entire network segment</td><td>DHCP snooping — designates trusted ports (uplinks to authorized DHCP servers) vs. untrusted ports (client-facing); blocks DHCP OFFERs from untrusted ports</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 DHCP Snooping (The Key Defence):</strong> DHCP snooping is a Layer 2 switch feature that intercepts DHCP messages. It builds a <strong>binding table</strong> mapping MAC address → IP address → switch port → VLAN. Trusted ports (connected to real DHCP servers) can send any DHCP message. Untrusted ports (client ports) are blocked from sending DHCP OFFERs and ACKs. This table also feeds Dynamic ARP Inspection (DAI) — making DHCP snooping the foundation of Layer 2 security.
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam expects you to know that DHCP snooping is the primary defence against both DHCP starvation and rogue DHCP servers. It creates a binding table that also supports DAI (for ARP poisoning defence). The technologies are linked: <em>DHCP Snooping → binding table → DAI → ARP Inspection</em>.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 9 ═══ -->
+<section id="s9">
+<h2>9. NTP – Network Time Protocol</h2>
+<div class="callout definition">
+  <strong>📖 NTP (Network Time Protocol):</strong> Synchronizes clocks of networked systems to within a few milliseconds of Coordinated Universal Time (UTC). Defined in RFC 5905. Operates over UDP port 123. Uses a hierarchical system of <strong>stratum levels</strong> (0–15). Stratum 0 = atomic clocks / GPS; Stratum 1 = servers directly connected to stratum 0; each level adds one stratum.
+</div>
+
+<h3>Why NTP is a Security Control</h3>
+<table>
+  <tr><th>Dependency</th><th>Why Clock Accuracy Matters</th></tr>
+  <tr><td><strong>Kerberos Authentication</strong></td><td>Kerberos tickets have timestamps and will be rejected if the clock skew between client and KDC exceeds 5 minutes (default). NTP required for AD environments.</td></tr>
+  <tr><td><strong>Digital Certificates / TLS</strong></td><td>Certificates have validity periods (notBefore / notAfter). A clock that is wrong may cause certificates to be rejected as expired or not-yet-valid.</td></tr>
+  <tr><td><strong>Log Correlation / Forensics</strong></td><td>Incident investigation depends on accurate timestamps across all systems. A 10-minute drift between systems makes event correlation unreliable or impossible.</td></tr>
+  <tr><td><strong>Audit Trails</strong></td><td>Regulations (PCI-DSS Requirement 10.4, SOX) explicitly require synchronized time stamps for log integrity.</td></tr>
+  <tr><td><strong>Two-Factor Authentication (TOTP)</strong></td><td>Time-based One-Time Passwords (TOTP, RFC 6238) expire within 30 seconds. Without NTP, TOTP codes will be invalid.</td></tr>
+</table>
+
+<h3>NTP Security Threats</h3>
+<table>
+  <tr><th>Threat</th><th>Mechanism</th><th>Impact</th><th>Defence</th></tr>
+  <tr><td><strong>NTP Amplification DDoS</strong></td><td>NTP's "monlist" command (Mode 6/7) returns a list of the last 600 clients. Attacker spoofs victim IP in small request; enormous response floods victim (amplification ~200x)</td><td>Volumetric DDoS — historically one of the largest DDoS amplifiers</td><td>Upgrade to NTPd v4.2.7+; disable monlist (noquery directive); BCP38 ingress filtering</td></tr>
+  <tr><td><strong>NTP Spoofing</strong></td><td>Attacker sends forged NTP responses to shift a target's clock forward or backward (time shift attack)</td><td>Kerberos auth failure; certificate validation bypass; log timestamp manipulation</td></tr>
+  <tr><td><strong>NTP MITM</strong></td><td>Intercept NTP traffic and provide false time</td><td>Same as spoofing — time manipulation</td><td>NTP authentication using symmetric keys or autokey; use NTPsec or Chrony with authentication</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ NTP vs. SNTP:</strong> SNTP (Simple NTP) is a simplified version that provides less accuracy and no loopback stability. Many IoT devices and embedded systems use SNTP. It is less secure and less accurate than full NTP. For security-sensitive environments, use NTPv4 with authentication.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
+<section id="s10">
+<h2>10. SNMP – Simple Network Management Protocol</h2>
+<div class="callout definition">
+  <strong>📖 SNMP (Simple Network Management Protocol):</strong> A protocol for monitoring and managing network devices (routers, switches, servers, printers). An SNMP manager polls SNMP agents on managed devices. Agents expose data through a Management Information Base (MIB). Uses UDP port 161 (queries to agent) and UDP port 162 (traps from agent to manager).
+</div>
+
+<h3>SNMP Architecture</h3>
+<div class="diagram">
+         ┌──────────────┐                     ┌─────────────────┐
+         │  NMS Manager │                     │  Network Device │
+         │  (Polling +  │ ──── GET/SET ──────▶│  (SNMP Agent)   │
+         │  Receiving   │◀─── RESPONSE ───────│                 │
+         │   Traps)     │◀─── TRAP/INFORM ────│   [MIB Data]    │
+         └──────────────┘                     └─────────────────┘
+         UDP port 162                         UDP port 161
+
+MIB (Management Information Base) = hierarchical database of managed object values
+OID (Object Identifier) = unique identifier for each MIB object
+e.g., OID 1.3.6.1.2.1.1.1 = sysDescr (system description)
+</div>
+
+<h3>SNMP Versions Comparison</h3>
+<table>
+  <tr><th>Version</th><th>Authentication</th><th>Privacy (Encryption)</th><th>Security Assessment</th></tr>
+  <tr><td><strong>SNMPv1</strong></td><td>Community string (cleartext)</td><td>None</td><td>❌ Critically insecure — community string sent in plaintext; passive sniffing gives full access</td></tr>
+  <tr><td><strong>SNMPv2c</strong></td><td>Community string (cleartext)</td><td>None</td><td>❌ Same as v1 for security; added bulk operations and improved error handling, not security</td></tr>
+  <tr><td><strong>SNMPv3</strong></td><td>USM (User-based Security Model) — HMAC-MD5 or HMAC-SHA</td><td>DES (deprecated) or AES-128/192/256</td><td>✅ Secure — authentication + encryption available; mandatory for sensitive environments</td></tr>
+</table>
+
+<h3>SNMPv3 Security Models</h3>
+<table>
+  <tr><th>Security Level</th><th>Authentication</th><th>Privacy</th><th>Use When</th></tr>
+  <tr><td><strong>noAuthNoPriv</strong></td><td>None</td><td>None</td><td>Never — equivalent to SNMPv1/v2c in security</td></tr>
+  <tr><td><strong>authNoPriv</strong></td><td>HMAC-SHA/MD5</td><td>None</td><td>When authentication integrity is needed but confidentiality is not critical</td></tr>
+  <tr><td><strong>authPriv</strong></td><td>HMAC-SHA/MD5</td><td>AES/DES</td><td>Always preferred — full authentication + encryption</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Community Strings (SNMPv1/v2c):</strong> Default community strings are "public" (read-only) and "private" (read-write). These are the most commonly unchanged defaults in network environments. If an attacker can read SNMP data using "public", they get full network topology (routing tables, interface details, system descriptions). Write access with "private" can allow reconfiguration of network devices.
+</div>
+
+<h3>SNMP Security Best Practices</h3>
+<table>
+  <tr><th>Practice</th><th>Detail</th></tr>
+  <tr><td>Upgrade to SNMPv3 authPriv</td><td>Only version with authentication AND encryption</td></tr>
+  <tr><td>Change default community strings</td><td>Never use "public"/"private" in production</td></tr>
+  <tr><td>Use access control / ACLs</td><td>Restrict SNMP access to authorized NMS IP addresses only</td></tr>
+  <tr><td>Block UDP 161/162 at perimeter</td><td>SNMP should never be accessible from the internet</td></tr>
+  <tr><td>Use read-only community (if v1/v2c unavoidable)</td><td>Disable write community strings to limit damage; still read ONLY when v3 is not possible</td></tr>
+  <tr><td>Monitor SNMP trap traffic</td><td>Unexpected traps may indicate device failures or attacks</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam consistently tests: "Which version of SNMP provides both authentication and encryption?" → <strong>SNMPv3 with authPriv security level</strong>. SNMPv2c added useful features but no security improvements over v1. Know that SNMP uses UDP 161 (queries) and UDP 162 (traps from agent to manager).
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 DHCP DORA:</strong><br>
+  <strong>D</strong>iscover → <strong>O</strong>ffer → <strong>R</strong>equest → <strong>A</strong>cknowledge<br>
+  Memory phrase: <em>"Dogs Often Run Away"</em> — always in this exact order, no exceptions.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DNS Record Types — "AAAA MX NS PTR SOA TXT":</strong><br>
+  Memory phrase: <em>"All Amazing Mail Never Prevents Stalking Online Targets Thoroughly"</em><br>
+  Focus pairs: A = IP address | MX = mail | NS = name server | PTR = reverse | SOA = zone admin | TXT = SPF/DKIM/DMARC
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DNSSEC vs. DoH/DoT:</strong><br>
+  <strong>DNSSEC</strong> = signs records → <strong>integrity + authenticity</strong> (no encryption of traffic)<br>
+  <strong>DoH/DoT</strong> = encrypts the query/response → <strong>confidentiality</strong> (no signing of records)<br>
+  <em>"DNSSEC signs; DoH/DoT hides. You need both for full DNS protection."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SNMP Version Security — "1 and 2c = Clear; 3 = Care":</strong><br>
+  v1 and v2c = community strings in cleartext = NO security<br>
+  v3 = authentication (HMAC) + privacy (AES) = YES security<br>
+  Always choose v3 authPriv for managed environments.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 NTP Kerberos 5-Minute Rule:</strong><br>
+  <em>"Kerberos dies at 5 minutes of clock drift."</em><br>
+  If your clock is off by more than 5 minutes from the KDC, all Kerberos authentication fails. NTP is not optional in Active Directory environments.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DNS Cache Poisoning Defence Chain:</strong><br>
+  <em>"DNSSEC + Source Port Randomization + Query ID Randomization = Kaminsky defences"</em><br>
+  The Kaminsky bug (2008) needed all three to be properly mitigated. DNSSEC is the definitive long-term solution.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DHCP Snooping Feeds DAI:</strong><br>
+  <em>"Snooping builds the table; DAI uses the table."</em><br>
+  DHCP Snooping → binding table (MAC/IP/port/VLAN) → Dynamic ARP Inspection validates ARP against it.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>DNS</td><td>Translated names → IPs; UDP 53 (queries), TCP 53 (zone transfers); restrict AXFR to authorized NSes only</td></tr>
+  <tr><td>DNS Attacks</td><td>Cache poisoning (mitigated by DNSSEC), amplification (BCP38), tunneling (DPI), hijacking (registrar MFA + registry lock)</td></tr>
+  <tr><td>DNSSEC</td><td>Provides integrity/authenticity via cryptographic signatures; does NOT encrypt traffic</td></tr>
+  <tr><td>DHCP DORA</td><td>Discover → Offer → Request → Acknowledge; UDP 67/68; automates IP assignment and network config</td></tr>
+  <tr><td>DHCP Security</td><td>Starvation + rogue server attacks; primary defence = DHCP Snooping (builds binding table for DAI)</td></tr>
+  <tr><td>NTP</td><td>UDP 123; clock sync critical for Kerberos (5-min limit), certificates, TOTP, log forensics; use NTPv4 with authentication</td></tr>
+  <tr><td>SNMP Versions</td><td>v1/v2c = community strings cleartext (insecure); v3 authPriv = HMAC + AES (secure); block UDP 161/162 at perimeter</td></tr>
+  <tr><td>Zone Transfer</td><td>AXFR on TCP 53 must be restricted to authorized secondary name servers — unrestricted AXFR = full recon gift</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-056-theory.html" class="nav-btn">← Day 56: Core Protocols</a>
+  <a href="day-058-theory.html" class="nav-btn">Day 58: Switching &amp; VLANs →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 111 – Disaster Recovery Planning</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 111 – Disaster Recovery Planning</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 111 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-110-theory.html">← Day 110: Vulnerability &amp; Patch Management</a> · Domain 7 · Day 111</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DRP vs BCP — The Key Distinction</a></li>
+  <li><a href="#s4">4. Types of Disasters</a></li>
+  <li><a href="#s5">5. DRP Components</a></li>
+  <li><a href="#s6">6. Recovery Objectives — RTO, RPO, MTD, WRT</a></li>
+  <li><a href="#s7">7. DR Team Roles &amp; Responsibilities</a></li>
+  <li><a href="#s8">8. Communication Plans During Disaster</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Disaster recovery is a core Domain 7 topic heavily tested on CISSP. Candidates must understand recovery objectives (RTO/RPO), distinguish DRP from BCP, and know DR planning components, team structures, and communication requirements</td></tr>
+  <tr><td>Question Style</td><td>"The MAXIMUM amount of data an organization can afford to lose is defined by?" (RPO). "Which comes FIRST — BCP or DRP?" (BCP drives DRP — BIA determines what to recover). "What is the relationship between RTO and MTD?" (RTO must be less than MTD)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (BCP/BIA — Day 13-14); Day 112 (recovery sites); Day 113 (backup strategies); Day 114 (DR testing)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Organizations without tested DR plans face existential risk. After the 2011 Tohoku earthquake and tsunami, organizations with offshore DR sites recovered in hours; those without lost months of operations. Cloud adoption has changed DR economics — cloud-based DR is more accessible but introduces new dependencies (cloud provider outages, region-specific disasters, shared responsibility model).</p>
+</section>
+
+<section id="s3">
+<h2>3. DRP vs BCP — The Key Distinction</h2>
+<table>
+  <tr><th>Aspect</th><th>BCP (Business Continuity Planning)</th><th>DRP (Disaster Recovery Planning)</th></tr>
+  <tr><td>Scope</td><td>Entire organization — people, processes, technology, facilities</td><td>IT systems and infrastructure recovery specifically</td></tr>
+  <tr><td>Focus</td><td>Maintaining critical business FUNCTIONS during and after disruption</td><td>Restoring IT SYSTEMS and DATA after a disaster</td></tr>
+  <tr><td>Key deliverable</td><td>Business Continuity Plan — how the business keeps running</td><td>Disaster Recovery Plan — how IT recovers</td></tr>
+  <tr><td>Driven by</td><td>Business Impact Analysis (BIA)</td><td>BCP requirements (BIA determines what IT must recover and how fast)</td></tr>
+  <tr><td>Owner</td><td>Business leadership / executive management</td><td>IT / CISO / infrastructure team</td></tr>
+  <tr><td>Timeline</td><td>During disruption — maintain operations</td><td>After disruption — restore normalcy</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Relationship:</strong> DRP is a SUBSET of BCP. BCP is the umbrella; DRP handles the technical IT recovery component. The BIA (from BCP) determines WHICH systems must be recovered and HOW FAST (RTO/RPO) — DRP then builds the plan to meet those requirements.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Types of Disasters</h2>
+<table>
+  <tr><th>Category</th><th>Examples</th><th>Planning Considerations</th></tr>
+  <tr><td><strong>Natural</strong></td><td>Earthquake, flood, hurricane, tornado, wildfire, pandemic, volcanic eruption</td><td>Geographic risk assessment; distance between primary and DR sites; seasonal patterns; multi-region planning</td></tr>
+  <tr><td><strong>Human-caused — Accidental</strong></td><td>Power outage, fire (electrical), construction accident, operator error, chemical spill</td><td>Redundant infrastructure; automated safeguards; training; safety systems</td></tr>
+  <tr><td><strong>Human-caused — Deliberate</strong></td><td>Terrorism, arson, sabotage, ransomware attack, insider threat, civil unrest</td><td>Physical security; cybersecurity; access controls; threat assessment</td></tr>
+  <tr><td><strong>Technical</strong></td><td>Hardware failure, software bug, network outage, data corruption, cloud provider failure</td><td>Redundancy; failover; monitoring; SLAs with providers</td></tr>
+  <tr><td><strong>Environmental</strong></td><td>HVAC failure, water damage (burst pipe), prolonged power grid failure</td><td>Environmental monitoring; UPS/generator; water detection; temperature alerts</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. DRP Components</h2>
+<table>
+  <tr><th>Component</th><th>Description</th></tr>
+  <tr><td><strong>Purpose &amp; scope</strong></td><td>What the plan covers; which systems and facilities; when to activate the plan</td></tr>
+  <tr><td><strong>Activation criteria</strong></td><td>Specific conditions that trigger plan activation (e.g., primary data center inaccessible &gt; 4 hours)</td></tr>
+  <tr><td><strong>Recovery objectives</strong></td><td>RTO, RPO, MTD for each critical system (derived from BIA)</td></tr>
+  <tr><td><strong>Recovery strategies</strong></td><td>How each system will be recovered: alternate site, cloud failover, replication, backup restoration</td></tr>
+  <tr><td><strong>Roles &amp; responsibilities</strong></td><td>DR team structure; named individuals with contact info; alternates for each role</td></tr>
+  <tr><td><strong>Communication plan</strong></td><td>Internal and external notification procedures; call trees; out-of-band communication methods</td></tr>
+  <tr><td><strong>Step-by-step procedures</strong></td><td>Detailed recovery procedures for each system; ordered by priority from BIA</td></tr>
+  <tr><td><strong>Resource requirements</strong></td><td>Hardware, software, network, personnel, vendor contacts, licenses needed for recovery</td></tr>
+  <tr><td><strong>Testing schedule</strong></td><td>When and how the DR plan will be tested (Day 114)</td></tr>
+  <tr><td><strong>Maintenance procedures</strong></td><td>How the plan is kept current; review triggers; version control</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Recovery Objectives — RTO, RPO, MTD, WRT</h2>
+<table>
+  <tr><th>Metric</th><th>Full Name</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>MTD</strong></td><td>Maximum Tolerable Downtime</td><td>The absolute MAXIMUM time a business function can be unavailable before the organization suffers unacceptable damage (financial, legal, reputational)</td><td>Email system: MTD = 48 hours; Payment processing: MTD = 4 hours</td></tr>
+  <tr><td><strong>RTO</strong></td><td>Recovery Time Objective</td><td>The TARGET time to restore a system/function after a disruption. Must be LESS than MTD</td><td>Email: RTO = 24 hours; Payment: RTO = 1 hour</td></tr>
+  <tr><td><strong>WRT</strong></td><td>Work Recovery Time</td><td>Time needed to verify systems work correctly, restore data integrity, and resume normal operations AFTER systems are technically restored</td><td>After email server is running (RTO met), WRT = 4 hours to verify all mailboxes, test send/receive, restore pending queues</td></tr>
+  <tr><td><strong>RPO</strong></td><td>Recovery Point Objective</td><td>The MAXIMUM acceptable amount of DATA LOSS measured in time. How far back can we go?</td><td>RPO = 1 hour means we can afford to lose up to 1 hour of data (backups must be at least hourly)</td></tr>
+</table>
+
+<div class="diagram">
+RECOVERY TIMELINE
+
+  ← RPO ──────────── Disaster ──────── RTO ──── WRT ──── MTD →
+                         │
+  Last good backup    Event     System      Verified    Maximum
+  (data loss point)   occurs    restored    &amp; normal    tolerable
+                                (tech)      (business)  downtime
+
+  KEY RELATIONSHIP:  RTO + WRT ≤ MTD
+</div>
+
+<div class="key-concept callout">
+  <strong>Critical Relationship:</strong> RTO + WRT must be ≤ MTD. The system recovery time (RTO) plus the time to verify and resume normal operations (WRT) cannot exceed the maximum tolerable downtime (MTD). If RTO + WRT &gt; MTD, the recovery strategy is inadequate and must be improved.
+</div>
+
+<div class="exam-tip callout">
+  <strong>RPO Drives Backup Frequency:</strong> RPO = 4 hours means backups must occur at least every 4 hours. RPO = 0 (zero data loss) requires synchronous replication — the most expensive option. RPO is about DATA; RTO is about TIME to restore SYSTEMS.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. DR Team Roles &amp; Responsibilities</h2>
+<table>
+  <tr><th>Role</th><th>Responsibilities</th></tr>
+  <tr><td><strong>DR Coordinator / Manager</strong></td><td>Overall DR plan ownership; activation authority; coordinates all recovery activities; keeps management informed</td></tr>
+  <tr><td><strong>IT Recovery Team</strong></td><td>Execute technical recovery procedures; restore servers, databases, applications, networks</td></tr>
+  <tr><td><strong>Damage Assessment Team</strong></td><td>Evaluate impact of disaster on primary site; determine when primary site can be reoccupied</td></tr>
+  <tr><td><strong>Communications Team</strong></td><td>Internal and external communications; media relations; customer notifications; regulatory notifications</td></tr>
+  <tr><td><strong>Logistics / Operations Team</strong></td><td>Transportation; alternate work locations; equipment procurement; vendor coordination</td></tr>
+  <tr><td><strong>Salvage Team</strong></td><td>Recover and preserve assets from the damaged primary site; coordinate with insurance</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Named Alternates Required:</strong> Every role must have a designated alternate. During an actual disaster, primary personnel may be unavailable (injured, unreachable, personally affected). The plan must function with alternate personnel.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Communication Plans During Disaster</h2>
+<h3>Communication Requirements</h3>
+<ul>
+  <li><strong>Call tree / notification cascade:</strong> Who calls whom; automated notification systems preferred (mass notification tools)</li>
+  <li><strong>Out-of-band communication:</strong> Primary phone/email systems may be down — use personal cell phones, satellite phones, offline meeting points</li>
+  <li><strong>Stakeholder-specific messaging:</strong> Different messages for employees, customers, regulators, media, investors</li>
+  <li><strong>Single spokesperson:</strong> All external communications through designated spokesperson to ensure consistent messaging</li>
+  <li><strong>Regular status updates:</strong> Scheduled intervals for status reporting (even if "no change")</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Recovery Metrics — "RPO = data PAST, RTO = time to RESTORE"</strong><br>
+  <strong>RPO</strong> looks BACKWARD — how much data can we LOSE?<br>
+  <strong>RTO</strong> looks FORWARD — how fast must we RECOVER?<br>
+  <strong>WRT</strong> = "after RTO, verify it WORKS"<br>
+  <strong>MTD</strong> = "the absolute MAX, cannot exceed"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 The Critical Formula</strong><br>
+  <strong>RTO + WRT ≤ MTD</strong><br>
+  "Recovery Time + Work Recovery must fit inside Maximum Tolerable Downtime"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 BCP vs DRP</strong><br>
+  <strong>BCP</strong> = "Keep the <strong>B</strong>usiness running" (umbrella — people, process, technology)<br>
+  <strong>DRP</strong> = "Recover the <strong>D</strong>ata center" (subset — IT infrastructure specifically)<br>
+  "BCP is the parent; DRP is the child"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 RPO Drives Backups</strong><br>
+  "RPO = 1 hour → backup every hour. RPO = 0 → synchronous replication (real-time). The smaller the RPO, the bigger the cost."
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>DRP vs BCP</td><td>DRP is a subset of BCP; BCP = business-wide continuity; DRP = IT system recovery specifically</td></tr>
+  <tr><td>BIA drives DRP</td><td>BIA identifies critical systems and sets RTO/RPO requirements; DRP builds the plan to meet them</td></tr>
+  <tr><td>MTD</td><td>Maximum tolerable downtime — the absolute hard deadline; RTO + WRT must not exceed it</td></tr>
+  <tr><td>RTO</td><td>Target time to restore systems; must be &lt; MTD</td></tr>
+  <tr><td>RPO</td><td>Maximum acceptable data loss; drives backup frequency; RPO=0 requires synchronous replication</td></tr>
+  <tr><td>WRT</td><td>Time after technical recovery to verify and resume normal operations</td></tr>
+  <tr><td>Disaster types</td><td>Natural, human (accidental/deliberate), technical, environmental</td></tr>
+  <tr><td>DRP components</td><td>Scope, activation criteria, objectives, strategies, roles, communication, procedures, testing, maintenance</td></tr>
+  <tr><td>Alternates</td><td>Every DR role needs a named alternate — primary personnel may be unavailable during actual disaster</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-110-theory.html" class="nav-btn">← Day 110: Vulnerability &amp; Patch Mgmt</a>
+  <a href="day-112-theory.html" class="nav-btn">Day 112: Recovery Strategies &amp; Sites →</a>
+</div>
+</div>
+</body>
+</html>

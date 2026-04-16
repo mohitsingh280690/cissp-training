@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 102 – Digital Forensics: Evidence</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 102 – Digital Forensics: Evidence</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 102 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-101-theory.html">← Day 101: Investigations</a> · Domain 7 · Day 102</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Types of Evidence</a></li>
+  <li><a href="#s4">4. Evidence Admissibility Rules</a></li>
+  <li><a href="#s5">5. Chain of Custody</a></li>
+  <li><a href="#s6">6. Evidence Handling: Collect, Examine, Analyze, Report</a></li>
+  <li><a href="#s7">7. Digital Evidence Challenges</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Evidence is the foundation of all investigations. If evidence is improperly collected, handled, or presented, it is inadmissible and the investigation fails. CISSP candidates must know evidence types, admissibility requirements, and chain of custody</td></tr>
+  <tr><td>Question Style</td><td>"Which type of evidence is generally considered the STRONGEST in court?" (real/physical). "What makes digital evidence admissible?" (relevant, reliable, not hearsay, legally obtained, authentic). "What is the PRIMARY purpose of chain of custody?" (prove evidence integrity and unbroken possession)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (legal concepts — admissibility rules); Domain 7 (investigations and incident response — evidence collection follows incidents); Domain 6 (audit evidence — similar but less stringent standards)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Implementation Reality</h3>
+<p>Most organizations will encounter evidence handling during: data breach investigations, employee misconduct cases, litigation discovery (e-discovery), regulatory audits requiring preserved records, and insurance claims. The IT/security team is frequently the first to handle digital evidence — often before forensic specialists arrive.</p>
+
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>Spoliation:</strong> Failure to preserve evidence (overwriting logs, reimaging systems, routine backup rotations destroying relevant data) — courts can impose severe sanctions including adverse inference (jury assumes destroyed evidence was unfavorable)</li>
+  <li><strong>Broken chain of custody:</strong> If any link in the custody chain is undocumented, opposing counsel will argue the evidence could have been tampered with</li>
+  <li><strong>Analysis on original:</strong> Running searches or tools on the original drive modifies file access times, potentially rendering the evidence inadmissible</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Types of Evidence</h2>
+<table>
+  <tr><th>Evidence Type</th><th>Description</th><th>Digital Examples</th><th>Weight in Court</th></tr>
+  <tr><td><strong>Real (Physical) Evidence</strong></td><td>Tangible objects that can be brought to court and examined directly</td><td>Hard drive containing malware; server with unauthorized access; USB drive used for data theft; printed logs</td><td>Strongest — physical objects speak for themselves</td></tr>
+  <tr><td><strong>Documentary Evidence</strong></td><td>Documents or records used to prove a fact; includes written and electronic records</td><td>Log files; email records; database entries; contracts; policies; audit trails</td><td>Strong if authenticated; subject to best evidence rule</td></tr>
+  <tr><td><strong>Testimonial Evidence</strong></td><td>Oral or written statements made under oath by a witness</td><td>Expert witness explaining forensic findings; system administrator describing system configurations</td><td>Medium — depends on witness credibility; subject to cross-examination</td></tr>
+  <tr><td><strong>Demonstrative Evidence</strong></td><td>Aids used to illustrate or explain other evidence (not evidence itself)</td><td>Network diagrams showing attack path; timeline charts; forensic tool output screenshots</td><td>Supportive only — helps explain, not prove</td></tr>
+</table>
+
+<h3>Secondary Evidence Classifications</h3>
+<table>
+  <tr><th>Category</th><th>Description</th></tr>
+  <tr><td><strong>Direct Evidence</strong></td><td>Proves a fact without inference (eyewitness testimony: "I saw him delete the files")</td></tr>
+  <tr><td><strong>Circumstantial (Indirect) Evidence</strong></td><td>Requires inference to connect to the conclusion (login logs showing the suspect's account accessed the file at the time it was deleted)</td></tr>
+  <tr><td><strong>Corroborative Evidence</strong></td><td>Supports or strengthens other evidence but cannot stand alone (badge access logs showing the suspect was in the building)</td></tr>
+  <tr><td><strong>Hearsay</strong></td><td>Second-hand evidence — a witness testifying about what someone else said or wrote. Generally INADMISSIBLE with exceptions (business records exception is critical for digital evidence)</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Hearsay and Digital Evidence:</strong> Computer-generated logs are technically hearsay (the computer "said" something, not a person). However, they are typically admissible under the <strong>business records exception</strong> (Federal Rules of Evidence 803(6)) — IF the records were: created in the normal course of business, at or near the time of the event, by a person with knowledge, and kept as a regular practice. This is why proper logging configuration and retention policies matter for admissibility.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Evidence Admissibility Rules</h2>
+<h3>Five Requirements for Admissibility</h3>
+<table>
+  <tr><th>Requirement</th><th>Description</th><th>Digital Evidence Application</th></tr>
+  <tr><td><strong>Relevant</strong></td><td>Evidence must relate to the matter being decided; must tend to prove or disprove a fact at issue</td><td>Logs from the compromised system are relevant; logs from an unrelated server are not</td></tr>
+  <tr><td><strong>Reliable</strong></td><td>Evidence must be trustworthy, accurate, and consistent; the method of collection must be sound</td><td>Forensic image verified with hash values; tools are industry-accepted; examiner is qualified</td></tr>
+  <tr><td><strong>Sufficient</strong></td><td>Evidence must be adequate to convince a reasonable person; cannot be too thin or speculative</td><td>Multiple corroborating artifacts (logs + network capture + disk evidence) rather than a single item</td></tr>
+  <tr><td><strong>Legally Obtained</strong></td><td>Evidence must be obtained without violating laws or constitutional protections (Fourth Amendment in US)</td><td>Corporate monitoring disclosed in AUP; proper authorization for searches; no illegal wiretapping (Title III/ECPA compliance)</td></tr>
+  <tr><td><strong>Authentic</strong></td><td>Evidence must be provably what it claims to be; chain of custody establishes authenticity</td><td>Hash values match original and copy; chain of custody is unbroken; forensic examiner can testify to the process</td></tr>
+</table>
+
+<h3>The Best Evidence Rule</h3>
+<div class="definition callout">
+  <strong>Best Evidence Rule:</strong> The original document (or a reliable duplicate) must be presented in court rather than a description or copy, when the content of the document is at issue. For digital evidence, an exact bit-for-bit forensic copy (verified with hash matching) is generally accepted as equivalent to the original.
+</div>
+
+<div class="key-concept callout">
+  <strong>Why Hash Values Matter:</strong> A forensic image with a matching MD5/SHA-256 hash is considered legally equivalent to the original drive. The hash proves that the copy is an exact, unaltered representation. If the hash of the copy doesn't match the original, the evidence may be challenged as potentially modified.
+</div>
+
+<h3>Exclusionary Rule (Fourth Amendment — US)</h3>
+<p>Evidence obtained through unconstitutional search and seizure is inadmissible — the "fruit of the poisonous tree" doctrine. This applies to government action, not private entities. However, if a private entity acts as an <strong>agent of the government</strong> (at law enforcement's direction), the Fourth Amendment applies to them too.</p>
+
+<div class="exam-tip callout">
+  <strong>Exam Trap — Private vs Government Search:</strong> A company CAN search its own systems, networks, and employee devices (if disclosed in AUP). The Fourth Amendment restricts GOVERNMENT searches, not private ones. BUT if the company is searching AT LAW ENFORCEMENT'S REQUEST, it may be acting as a government agent and Fourth Amendment protections apply.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Chain of Custody</h2>
+<div class="definition callout">
+  <strong>Chain of Custody:</strong> A documented, chronological record of every person who had possession of evidence, what they did with it, when they had it, and where it was stored. Establishes that evidence has not been tampered with from collection to presentation in court.
+</div>
+
+<h3>Chain of Custody Record Elements</h3>
+<table>
+  <tr><th>Element</th><th>Description</th></tr>
+  <tr><td>Description of evidence</td><td>What was collected (serial numbers, make/model, evidence tag number)</td></tr>
+  <tr><td>Date/time of collection</td><td>When evidence was collected or transferred</td></tr>
+  <tr><td>Location of collection</td><td>Where evidence was obtained (room, rack, workstation ID)</td></tr>
+  <tr><td>Name &amp; title of collector</td><td>Who collected or received the evidence</td></tr>
+  <tr><td>Transfer records</td><td>Every handoff: from whom, to whom, date/time, reason</td></tr>
+  <tr><td>Hash values</td><td>Cryptographic hashes taken at collection and verified at each transfer</td></tr>
+  <tr><td>Storage location</td><td>Where evidence is stored (locked cabinet, evidence room, safe)</td></tr>
+  <tr><td>Actions taken</td><td>What was done with the evidence at each step (imaging, analysis, etc.)</td></tr>
+</table>
+
+<div class="diagram">
+CHAIN OF CUSTODY FLOW
+
+  Collection           Transfer           Analysis           Court
+  ──────────          ──────────          ──────────        ──────────
+  Who: Analyst A      Who: Analyst A →    Who: Forensic     Who: Attorney
+  When: 2026-04-10    Forensic Lab B      Examiner B        presents
+  Where: Server Rm    When: 2026-04-10    When: 04-11       When: 04-30
+  Hash: SHA256=abc    Signed: Both        Hash: verified    Hash: verified
+  Photo: taken        Transport: sealed   Analysis on copy  Testimony
+                      bag, labeled        ONLY
+
+  ←── Every transfer documented with signatures, dates, hashes ───→
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Chain of Custody Break = Evidence Challenge:</strong> Any gap in the chain — even a brief period where evidence was left unattended or a missing signature — gives opposing counsel grounds to argue the evidence could have been altered. While this doesn't automatically make evidence inadmissible, it significantly weakens its credibility.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Evidence Handling: Collect, Examine, Analyze, Report</h2>
+<h3>Collection Best Practices</h3>
+<ul>
+  <li><strong>Use write-blockers</strong> when imaging storage devices — prevents ANY write operation to the original</li>
+  <li><strong>Hash before and after:</strong> Calculate hash of original BEFORE imaging; verify copy's hash matches</li>
+  <li><strong>Photograph everything:</strong> Document the physical state of equipment, screen contents, cable connections</li>
+  <li><strong>Minimize handling:</strong> Fewer people touching evidence = stronger chain of custody</li>
+  <li><strong>Use forensic tools:</strong> EnCase, FTK (Forensic Toolkit), Autopsy, dd (Linux) — industry-accepted tools that can withstand legal scrutiny</li>
+  <li><strong>Work on copies:</strong> NEVER examine or analyze the original evidence — always work on a forensic duplicate</li>
+</ul>
+
+<h3>Common Forensic Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Purpose</th><th>Type</th></tr>
+  <tr><td>EnCase</td><td>Full-featured forensic analysis suite; widely accepted in courts</td><td>Commercial</td></tr>
+  <tr><td>FTK (Forensic Toolkit)</td><td>Forensic analysis; email analysis; disk imaging</td><td>Commercial</td></tr>
+  <tr><td>Autopsy / The Sleuth Kit</td><td>Open-source forensic platform; disk analysis; file recovery</td><td>Open Source</td></tr>
+  <tr><td>dd / dcfldd</td><td>Bit-for-bit disk imaging (Linux command-line)</td><td>Open Source</td></tr>
+  <tr><td>Volatility</td><td>Memory forensics; analyze RAM dumps for malware, processes, network connections</td><td>Open Source</td></tr>
+  <tr><td>Wireshark</td><td>Network packet capture and analysis</td><td>Open Source</td></tr>
+  <tr><td>FTK Imager</td><td>Free disk imaging tool; creates forensic images; calculates hashes</td><td>Free</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Digital Evidence Challenges</h2>
+<table>
+  <tr><th>Challenge</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td>Volatility</td><td>Digital evidence can be easily modified or destroyed — RAM is lost on power-off</td><td>Follow order of volatility (Day 103); capture volatile data first</td></tr>
+  <tr><td>Volume</td><td>Modern systems generate terabytes of potential evidence; finding relevant data is challenging</td><td>Use targeted collection; keyword searches; filtering; prioritization</td></tr>
+  <tr><td>Encryption</td><td>Encrypted drives/files may be unreadable without keys</td><td>Capture RAM BEFORE shutdown (may contain keys); legal compulsion for keys varies by jurisdiction</td></tr>
+  <tr><td>Cloud &amp; Distributed</td><td>Evidence may span multiple jurisdictions, providers, and countries</td><td>Legal process (subpoenas, MLATs); provider cooperation; SLA provisions for forensic access</td></tr>
+  <tr><td>Anti-forensics</td><td>Suspects may use wiping tools, steganography, encryption, timestomping to hide evidence</td><td>Multiple evidence sources; timeline analysis from multiple artifacts; metadata analysis</td></tr>
+  <tr><td>Authentication</td><td>Proving that digital evidence is what it claims to be (not fabricated or modified)</td><td>Hash values at every step; chain of custody; expert testimony; corroborating evidence</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Four Evidence Types — "RDTD"</strong><br>
+  <strong>R</strong>eal (physical — strongest; the thing itself)<br>
+  <strong>D</strong>ocumentary (written/electronic records — subject to best evidence rule)<br>
+  <strong>T</strong>estimonial (oral statements under oath — subject to hearsay rules)<br>
+  <strong>D</strong>emonstrative (illustrations that explain — NOT evidence itself)<br>
+  "Real Documents Tell the Demonstration"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Admissibility Requirements — "RRSLA"</strong><br>
+  <strong>R</strong>elevant (relates to the case)<br>
+  <strong>R</strong>eliable (accurate, trustworthy method)<br>
+  <strong>S</strong>ufficient (adequate to be convincing)<br>
+  <strong>L</strong>egally obtained (no constitutional violations)<br>
+  <strong>A</strong>uthentic (provably what it claims to be)<br>
+  "Really Reliable Stuff Legally Authenticated"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Best Evidence Rule</strong><br>
+  "Bring the original — or a perfect copy." In digital forensics, a hash-verified forensic image IS a perfect copy and satisfies the best evidence rule.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Chain of Custody — "WWW-HAT"</strong><br>
+  <strong>W</strong>ho had it? <strong>W</strong>hen? <strong>W</strong>here?<br>
+  <strong>H</strong>ash verified? <strong>A</strong>ctions taken? <strong>T</strong>ransfer signed?<br>
+  "WWW-HAT covers your evidence head"
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Real evidence</td><td>Strongest; tangible objects brought to court (hard drive, USB, printed logs)</td></tr>
+  <tr><td>Documentary evidence</td><td>Written/electronic records; subject to best evidence rule; logs admissible under business records exception</td></tr>
+  <tr><td>Testimonial evidence</td><td>Oral statements under oath; expert witnesses explain technical findings</td></tr>
+  <tr><td>Hearsay</td><td>Second-hand; generally inadmissible; computer logs admitted via business records exception (FRE 803(6))</td></tr>
+  <tr><td>Best evidence rule</td><td>Present the original or a hash-verified forensic duplicate</td></tr>
+  <tr><td>Admissibility</td><td>Evidence must be relevant, reliable, sufficient, legally obtained, and authentic</td></tr>
+  <tr><td>Chain of custody</td><td>Unbroken documented record of who had evidence, when, where, and what they did with it</td></tr>
+  <tr><td>Write-blockers</td><td>MUST use when imaging drives to prevent any modification to the original</td></tr>
+  <tr><td>Hash values</td><td>SHA-256/MD5 hash proves forensic copy is identical to original; must match at every transfer</td></tr>
+  <tr><td>Fourth Amendment</td><td>Restricts government searches; private entities can search own systems; exception: acting as government agent</td></tr>
+  <tr><td>Work on copies</td><td>NEVER analyze original evidence; always work on the forensic duplicate</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-101-theory.html" class="nav-btn">← Day 101: Investigations</a>
+  <a href="day-103-theory.html" class="nav-btn">Day 103: Digital Forensics – Procedures →</a>
+</div>
+</div>
+</body>
+</html>

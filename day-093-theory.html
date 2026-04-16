@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 93 – Specialized Testing Techniques</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 93 – Specialized Testing Techniques</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 93 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-092-theory.html">← Day 92: Software Testing Methods</a> · Domain 6 · Day 93</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Misuse Case &amp; Abuse Case Testing</a></li>
+  <li><a href="#s4">4. Fuzzing (Fuzz Testing)</a></li>
+  <li><a href="#s5">5. Fault Injection</a></li>
+  <li><a href="#s6">6. Boundary Value Analysis &amp; Equivalence Partitioning</a></li>
+  <li><a href="#s7">7. Attack Surface Analysis</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>These specialized techniques go beyond standard functional testing to specifically target security weaknesses. Fuzzing discovers unknown vulnerabilities; misuse/abuse cases model attacker behavior; boundary analysis catches off-by-one errors that lead to buffer overflows</td></tr>
+  <tr><td>Question Style</td><td>"Which testing technique sends random/malformed data to inputs to discover crashes and vulnerabilities?" (fuzzing). "A security architect wants to model how an attacker might exploit the system — which methodology?" (misuse/abuse case)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 8 (secure design — misuse cases in requirements phase); Domain 6 (pen testing uses fuzzing techniques); Domain 3 (attack surface relates to architectural design decisions)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Google's OSS-Fuzz project has found over 10,000 vulnerabilities in open-source projects using continuous fuzzing. Microsoft requires fuzzing of all network-facing code (SDL — Security Development Lifecycle). Abuse case modeling is required by financial regulators for fraud detection systems. NATO CCDCOE uses attack surface analysis as a prerequisite for cyberdefense planning.</p>
+<p><strong>Failure modes:</strong> Testing only "happy paths" (normal usage) — fails to discover what happens when attackers send unexpected input; ignoring boundary conditions — a field accepting values 1-100 crashes when given 0, -1, or 101.</p>
+</section>
+
+<section id="s3">
+<h2>3. Misuse Case &amp; Abuse Case Testing</h2>
+<div class="definition callout">
+  <strong>Misuse Case:</strong> A use case written from the attacker's perspective — describes how a malicious actor (the "misactor") would try to damage, compromise, or abuse the system. Where use cases describe what the system SHOULD do, misuse cases describe what the system should PREVENT.
+</div>
+<div class="definition callout">
+  <strong>Abuse Case:</strong> Similar to misuse cases but focuses specifically on how legitimate features can be ABUSED beyond their intended purpose. Often used interchangeably with misuse cases, but technically an abuse case targets feature misuse by authorized users.
+</div>
+
+<h3>Use Case vs. Misuse Case</h3>
+<table>
+  <tr><th>Attribute</th><th>Use Case</th><th>Misuse Case</th></tr>
+  <tr><td>Perspective</td><td>Legitimate user</td><td>Attacker / malicious actor</td></tr>
+  <tr><td>Describes</td><td>What the system SHOULD do</td><td>What the system should PREVENT</td></tr>
+  <tr><td>Goal</td><td>Define functional requirements</td><td>Define security requirements</td></tr>
+  <tr><td>Example</td><td>"User logs in with valid credentials"</td><td>"Attacker attempts brute force login"; "Attacker injects SQL via login form"</td></tr>
+  <tr><td>When created</td><td>Requirements phase</td><td>Requirements/design phase (alongside use cases)</td></tr>
+</table>
+<div class="diagram">
+Misuse Case Diagram (Simplified)
+
+  ┌─────────┐         ┌──────────────┐         ┌──────────┐
+  │  User   │────────►│  Login       │◄────────│ Attacker │
+  │ (Actor) │         │  System      │         │(Misactor)│
+  └─────────┘         └──────────────┘         └──────────┘
+       │                     ▲                       │
+  Uses: Login          Prevents:               Misuses:
+  with valid           Brute force,            SQL injection,
+  credentials          Credential              Password spray,
+                       stuffing                Session hijack
+</div>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Misuse cases are created during the REQUIREMENTS/DESIGN phase — they identify security requirements early. They are NOT a testing technique used after development — they drive the creation of security tests and security controls during design. The exam tests this timing distinction.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Fuzzing (Fuzz Testing)</h2>
+<div class="definition callout">
+  <strong>Fuzzing:</strong> An automated testing technique that sends random, unexpected, malformed, or semi-valid data to program inputs to cause crashes, hangs, memory corruption, or unexpected behavior. Fuzzing is exceptionally effective at finding vulnerabilities that developers never anticipated — buffer overflows, format string bugs, injection flaws, assertion failures.
+</div>
+
+<h3>Fuzzing Types</h3>
+<table>
+  <tr><th>Type</th><th>How It Works</th><th>Best For</th></tr>
+  <tr><td><strong>Mutation-Based (Dumb Fuzzing)</strong></td><td>Takes valid input samples and randomly modifies them (bit flips, byte insertions, field truncation, character replacement)</td><td>Quick setup; effective against binary parsers, file format parsers (PDF, JPEG, XML)</td></tr>
+  <tr><td><strong>Generation-Based (Smart/Intelligent Fuzzing)</strong></td><td>Creates inputs from scratch based on knowledge of the input format (protocol specification, file format grammar). Understands structure and generates semi-valid but edge-case data</td><td>Protocol testing (HTTP, DNS, TLS); complex file formats; higher code coverage</td></tr>
+  <tr><td><strong>Coverage-Guided Fuzzing</strong></td><td>Instruments the target binary and uses code coverage feedback to guide input generation toward unexplored code paths (AFL, libFuzzer)</td><td>Maximum code coverage; finding deep bugs in complex codebases; state-of-the-art approach</td></tr>
+</table>
+
+<h3>Popular Fuzzing Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Notable Uses</th></tr>
+  <tr><td>AFL (American Fuzzy Lop)</td><td>Coverage-guided</td><td>Found thousands of bugs in open-source projects; gold standard for binary fuzzing</td></tr>
+  <tr><td>libFuzzer</td><td>Coverage-guided (in-process)</td><td>Part of LLVM project; used by Google OSS-Fuzz for continuous fuzzing</td></tr>
+  <tr><td>Peach Fuzzer</td><td>Generation-based</td><td>Protocol fuzzing; smart fuzzing with data models</td></tr>
+  <tr><td>Boofuzz</td><td>Generation-based (network)</td><td>Successor to Sulley; network protocol fuzzing</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>What Fuzzing Finds:</strong> Buffer overflows, integer overflows, format string vulnerabilities, null pointer dereferences, use-after-free, assertion failures, infinite loops, memory leaks, denial of service conditions. Fuzzing is particularly effective at finding memory corruption bugs in C/C++ code.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Fuzzing Limitation:</strong> Fuzzing finds CRASH-level bugs — it does NOT find logic flaws, authorization bypasses, or business rule violations. A system that doesn't crash but returns wrong data won't be caught by fuzzing alone.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Fault Injection</h2>
+<div class="definition callout">
+  <strong>Fault Injection:</strong> Deliberately introducing faults (errors, failures, unexpected conditions) into a system to test how it handles them. The goal is to verify that the system fails gracefully — securely — rather than catastrophically. Tests error handling, failover, and resilience.
+</div>
+
+<h3>Types of Fault Injection</h3>
+<table>
+  <tr><th>Type</th><th>Method</th><th>What It Tests</th></tr>
+  <tr><td><strong>Hardware Fault Injection</strong></td><td>Disconnecting storage, introducing power fluctuations, causing memory errors</td><td>Hardware resilience; RAID failover; UPS switching; redundancy validation</td></tr>
+  <tr><td><strong>Software Fault Injection</strong></td><td>Modifying code to introduce errors; corrupting data in memory; forcing API failures; injecting exceptions</td><td>Error handling; exception handling; graceful degradation</td></tr>
+  <tr><td><strong>Network Fault Injection</strong></td><td>Introducing latency, packet loss, connection drops, bandwidth throttling</td><td>Network resilience; timeout handling; retry logic; distributed system behavior</td></tr>
+</table>
+
+<h3>Chaos Engineering</h3>
+<div class="definition callout">
+  <strong>Chaos Engineering:</strong> The practice of deliberately injecting failures into production systems to build confidence in system resilience. Pioneered by Netflix (Chaos Monkey — randomly terminates production instances). Extends fault injection to production environments in a controlled manner.
+</div>
+<ul>
+  <li><strong>Netflix Chaos Monkey:</strong> Randomly kills production compute instances to verify auto-recovery</li>
+  <li><strong>AWS Fault Injection Simulator:</strong> Managed service for running chaos experiments on AWS infrastructure</li>
+  <li><strong>Gremlin:</strong> Commercial chaos engineering platform</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Key Security Insight:</strong> Fault injection validates that the system fails SECURELY — meaning that when errors occur, the system does not: expose sensitive data in error messages, bypass authentication, leave resources in an insecure state, or crash in a way that allows exploitation.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Boundary Value Analysis &amp; Equivalence Partitioning</h2>
+
+<h3>Boundary Value Analysis (BVA)</h3>
+<div class="definition callout">
+  <strong>Boundary Value Analysis:</strong> A testing technique that focuses test cases on the EDGES (boundaries) of input domains — the minimum, maximum, and values just inside/outside the boundaries. Based on the principle that bugs cluster at boundaries: off-by-one errors, buffer overflow at exact buffer size, integer overflow at max int.
+</div>
+<p>For an input field accepting values 1-100:</p>
+<table>
+  <tr><th>Test Value</th><th>Category</th><th>Expected</th></tr>
+  <tr><td>0</td><td>Just below minimum</td><td>Rejected</td></tr>
+  <tr><td>1</td><td>Minimum boundary</td><td>Accepted</td></tr>
+  <tr><td>2</td><td>Just above minimum</td><td>Accepted</td></tr>
+  <tr><td>50</td><td>Nominal (middle)</td><td>Accepted</td></tr>
+  <tr><td>99</td><td>Just below maximum</td><td>Accepted</td></tr>
+  <tr><td>100</td><td>Maximum boundary</td><td>Accepted</td></tr>
+  <tr><td>101</td><td>Just above maximum</td><td>Rejected</td></tr>
+</table>
+
+<h3>Equivalence Partitioning (EP)</h3>
+<div class="definition callout">
+  <strong>Equivalence Partitioning:</strong> Divides input data into CLASSES (partitions) where all values in a partition are expected to be handled the same way. Test one representative value from each partition instead of testing every possible input. Reduces test count while maintaining coverage.
+</div>
+<p>For the same 1-100 input field:</p>
+<table>
+  <tr><th>Partition</th><th>Range</th><th>Representative Test Value</th><th>Expected Behavior</th></tr>
+  <tr><td>Invalid (low)</td><td>&lt; 1</td><td>-5</td><td>Rejected with error message</td></tr>
+  <tr><td>Valid</td><td>1–100</td><td>50</td><td>Accepted and processed</td></tr>
+  <tr><td>Invalid (high)</td><td>&gt; 100</td><td>200</td><td>Rejected with error message</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>BVA + EP Together:</strong> Best practice is to combine both — use equivalence partitioning to identify the input classes, then use boundary value analysis to focus on the edges of each class. Together they provide maximum coverage with minimum test cases.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Attack Surface Analysis</h2>
+<div class="definition callout">
+  <strong>Attack Surface:</strong> The total number of points (attack vectors) where an unauthorized user can attempt to enter data or extract data from a system. The attack surface includes all entry points (APIs, web forms, network ports, physical interfaces) and all data flows. A smaller attack surface = lower risk.
+</div>
+
+<h3>Attack Surface Components</h3>
+<table>
+  <tr><th>Surface Type</th><th>Examples</th></tr>
+  <tr><td>Network Attack Surface</td><td>Open ports, listening services, network protocols, VPN endpoints, load balancers</td></tr>
+  <tr><td>Software Attack Surface</td><td>Web forms, API endpoints, file upload functions, authentication interfaces, admin panels</td></tr>
+  <tr><td>Physical Attack Surface</td><td>USB ports, console access, badge readers, removable media drives, network jacks</td></tr>
+  <tr><td>Human Attack Surface</td><td>Employees susceptible to phishing, help desk social engineering, executive fraud targets</td></tr>
+</table>
+
+<h3>Attack Surface Reduction Strategies</h3>
+<ul>
+  <li><strong>Reduce entry points:</strong> Close unnecessary ports; disable unused services; remove unused software</li>
+  <li><strong>Reduce access:</strong> Implement least privilege; restrict API access; require authentication everywhere</li>
+  <li><strong>Reduce code exposure:</strong> Remove debug endpoints; disable directory listing; remove default accounts</li>
+  <li><strong>Network segmentation:</strong> Isolate sensitive systems; micro-segmentation (Day 84 — Zero Trust)</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Attack surface analysis should be performed during the DESIGN phase and repeated after each significant change. The attack surface can only be reduced, not eliminated — the goal is to minimize it to the smallest possible footprint needed to deliver required functionality.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Fuzzing Types — "MGC"</strong><br>
+  <strong>M</strong>utation = Mutate existing valid inputs (dumb, easy setup)<br>
+  <strong>G</strong>eneration = Generate from format knowledge (smart, better coverage)<br>
+  <strong>C</strong>overage-guided = Code coverage feedback (state-of-the-art, AFL/libFuzzer)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 BVA Boundaries — "Just Inside, Just Outside"</strong><br>
+  For range 1-100: test 0 (just outside), 1 (boundary), 100 (boundary), 101 (just outside)<br>
+  Bugs live at the EDGES — off-by-one errors, overflow at max, underflow at min
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Use Case vs. Misuse Case</strong><br>
+  <strong>Use case</strong> = "What SHOULD happen" (user story)<br>
+  <strong>Misuse case</strong> = "What should NOT happen" (attacker story)<br>
+  Both created in requirements phase — misuse cases drive security requirements
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Attack Surface = "Doors + Windows + Chimneys"</strong><br>
+  Every entry point is a potential attack vector — the fewer openings, the harder to break in
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Misuse case</td><td>Use case from attacker's perspective; identifies security requirements; created during requirements/design phase</td></tr>
+  <tr><td>Abuse case</td><td>How legitimate features can be misused; focuses on authorized-user abuse</td></tr>
+  <tr><td>Fuzzing</td><td>Sends random/malformed data to find crashes and memory corruption; excellent for buffer overflows; does NOT find logic flaws</td></tr>
+  <tr><td>Mutation fuzzing</td><td>Modifies valid inputs randomly; quick setup; "dumb" but effective</td></tr>
+  <tr><td>Generation fuzzing</td><td>Creates inputs from format knowledge; "smart" and better coverage</td></tr>
+  <tr><td>Coverage-guided</td><td>Uses code coverage feedback to maximize path exploration; AFL, libFuzzer</td></tr>
+  <tr><td>Fault injection</td><td>Deliberately introduces failures to test graceful/secure failure handling</td></tr>
+  <tr><td>Chaos engineering</td><td>Fault injection in production; Netflix Chaos Monkey; builds resilience confidence</td></tr>
+  <tr><td>BVA</td><td>Tests at input boundaries (min, max, just inside/outside); bugs cluster at edges</td></tr>
+  <tr><td>Equivalence partitioning</td><td>Groups inputs into classes; test one from each class; reduces test count</td></tr>
+  <tr><td>Attack surface</td><td>Total entry points for unauthorized access; minimize by closing unnecessary interfaces</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-092-theory.html" class="nav-btn">← Day 92: Software Testing</a>
+  <a href="day-094-theory.html" class="nav-btn">Day 94: Security Audits →</a>
+</div>
+</div>
+</body>
+</html>

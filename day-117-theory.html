@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 117 – Domain 7 Review: Security Operations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 117 – Domain 7 Review: Security Operations</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 117 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Comprehensive Review</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-116-theory.html">← Day 116: Personnel Safety &amp; Security</a> · Domain 7 · Day 117</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 7 Overview &amp; Coverage Map</a></li>
+  <li><a href="#s2">2. Investigations &amp; Digital Forensics (Days 101-103)</a></li>
+  <li><a href="#s3">3. Incident Response (Days 104-106)</a></li>
+  <li><a href="#s4">4. Threat Intelligence &amp; Prevention (Days 107-108)</a></li>
+  <li><a href="#s5">5. Operations Management (Days 109-110)</a></li>
+  <li><a href="#s6">6. Disaster Recovery (Days 111-114)</a></li>
+  <li><a href="#s7">7. Physical &amp; Personnel Security (Days 115-116)</a></li>
+  <li><a href="#s8">8. Commonly Confused Concepts</a></li>
+  <li><a href="#s9">9. High-Frequency Exam Topics</a></li>
+  <li><a href="#s10">10. Domain 7 Master Mnemonic Map</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 7 Overview &amp; Coverage Map</h2>
+<p>Domain 7 (Security Operations) represents 13% of the CISSP exam. It covers operational security from investigations and incident response through disaster recovery and physical security.</p>
+<table>
+  <tr><th>Days</th><th>Topic Area</th><th>Key OSG Chapters</th></tr>
+  <tr><td>100</td><td>Domain 7 Introduction &amp; Foundations</td><td>Ch. 16-17</td></tr>
+  <tr><td>101-103</td><td>Investigations &amp; Digital Forensics</td><td>Ch. 19</td></tr>
+  <tr><td>104-106</td><td>Incident Response &amp; Monitoring</td><td>Ch. 17</td></tr>
+  <tr><td>107-108</td><td>Threat Intelligence &amp; Preventive Measures</td><td>Ch. 17</td></tr>
+  <tr><td>109-110</td><td>Change/Config Mgmt &amp; Vulnerability Mgmt</td><td>Ch. 16</td></tr>
+  <tr><td>111-114</td><td>Disaster Recovery</td><td>Ch. 18</td></tr>
+  <tr><td>115-116</td><td>Physical &amp; Personnel Security</td><td>Ch. 10</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Investigations &amp; Digital Forensics (Days 101-103)</h2>
+
+<h3>Investigation Types Quick Reference</h3>
+<table>
+  <tr><th>Type</th><th>Burden of Proof</th><th>Standard</th><th>Outcome</th></tr>
+  <tr><td>Criminal</td><td>Prosecution</td><td>Beyond a reasonable doubt (highest)</td><td>Imprisonment, fines</td></tr>
+  <tr><td>Civil</td><td>Plaintiff</td><td>Preponderance of evidence (more likely than not)</td><td>Monetary damages</td></tr>
+  <tr><td>Administrative (internal)</td><td>Organization</td><td>Substantial evidence / policy violation</td><td>Termination, sanctions</td></tr>
+  <tr><td>Regulatory</td><td>Regulator</td><td>Varies by jurisdiction</td><td>Fines, license revocation</td></tr>
+</table>
+
+<h3>Evidence Admissibility — RRSLA</h3>
+<div class="mnemonic callout">
+  <strong>🧠 RRSLA:</strong> <strong>R</strong>elevant, <strong>R</strong>eliable, <strong>S</strong>ufficient, <strong>L</strong>egally obtained, <strong>A</strong>uthentic
+</div>
+
+<h3>Forensic Process — NIST SP 800-86 (CEAR)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 CEAR:</strong> <strong>C</strong>ollection → <strong>E</strong>xamination → <strong>A</strong>nalysis → <strong>R</strong>eporting
+</div>
+
+<h3>Key Evidence Concepts</h3>
+<ul>
+  <li><strong>Best evidence rule:</strong> Original documents preferred over copies</li>
+  <li><strong>Chain of custody:</strong> Documented handling from collection to court (WWW-HAT: Who, What, When, How, Action, Transfer)</li>
+  <li><strong>Order of volatility:</strong> Collect most volatile first: registers → cache → RAM → disk → removable → logs → archives</li>
+  <li><strong>Write blockers:</strong> Required to prevent modification during forensic imaging</li>
+  <li><strong>Dual hashing:</strong> MD5 + SHA-256 for integrity verification</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Incident Response (Days 104-106)</h2>
+
+<h3>NIST SP 800-61 IR Lifecycle</h3>
+<table>
+  <tr><th>Phase</th><th>Key Activities</th><th>Exam Focus</th></tr>
+  <tr><td><strong>Preparation</strong></td><td>IR plan, team formation, tools (jump bag), training</td><td>Most important PROACTIVE phase</td></tr>
+  <tr><td><strong>Detection &amp; Analysis</strong></td><td>IoC identification, triage, severity assessment, notification</td><td>IoC vs IoA; correlation; SIEM</td></tr>
+  <tr><td><strong>Containment</strong></td><td>Short-term (isolate), long-term (patch), evidence preservation</td><td>Contain BEFORE eradicate; preserve evidence</td></tr>
+  <tr><td><strong>Eradication</strong></td><td>Remove cause (reimage preferred over clean)</td><td>Reimage is more reliable than trying to "clean"</td></tr>
+  <tr><td><strong>Recovery</strong></td><td>Restore from backup, monitor for recurrence</td><td>Monitoring after recovery is critical</td></tr>
+  <tr><td><strong>Lessons Learned</strong></td><td>Post-incident review; update procedures</td><td>"Most important phase" — drives continuous improvement</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Lessons learned</strong> is consistently cited as the most important phase because it drives improvement of all other phases. Without it, the same mistakes repeat.
+</div>
+
+<h3>SIEM, SOAR, UEBA</h3>
+<table>
+  <tr><th>Technology</th><th>Purpose</th></tr>
+  <tr><td><strong>SIEM</strong></td><td>Log aggregation, correlation, alerting — detective control</td></tr>
+  <tr><td><strong>SOAR</strong></td><td>Security Orchestration, Automation, and Response — automates IR playbooks</td></tr>
+  <tr><td><strong>UEBA</strong></td><td>User/Entity Behavior Analytics — baselines behavior, detects anomalies (insider threats)</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Threat Intelligence &amp; Prevention (Days 107-108)</h2>
+<table>
+  <tr><th>Concept</th><th>Key Points</th></tr>
+  <tr><td><strong>Intelligence levels (STOT)</strong></td><td>Strategic (executives) → Tactical (defenders) → Operational (IR teams) → Technical (IoCs, signatures)</td></tr>
+  <tr><td><strong>Pyramid of Pain</strong></td><td>Hash values (trivial) → IP addresses → Domains → Network/Host Artifacts → Tools → TTPs (most painful to change)</td></tr>
+  <tr><td><strong>MITRE ATT&amp;CK</strong></td><td>TTP knowledge base; maps adversary behaviors across tactics and techniques</td></tr>
+  <tr><td><strong>STIX/TAXII</strong></td><td>STIX = Structured Threat Information eXpression; TAXII = transport/sharing protocol</td></tr>
+  <tr><td><strong>Hardening progression</strong></td><td>AV → NGAV → EDR → XDR (expanding scope and capability)</td></tr>
+  <tr><td><strong>Application allowlisting</strong></td><td>Best defense against zero-day malware — only approved programs execute</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Operations Management (Days 109-110)</h2>
+
+<h3>Change Management</h3>
+<table>
+  <tr><th>Element</th><th>Key Point</th></tr>
+  <tr><td><strong>RFC process</strong></td><td>Request → Evaluate → Approve → Implement → Review → Close (REAIRC)</td></tr>
+  <tr><td><strong>CAB</strong></td><td>Change Advisory Board — reviews/approves changes; includes representatives from affected areas</td></tr>
+  <tr><td><strong>ECAB</strong></td><td>Emergency CAB — smaller group for urgent changes; faster approval but still documented</td></tr>
+  <tr><td><strong>Change types</strong></td><td>Standard (pre-approved), Normal (CAB review), Emergency (expedited)</td></tr>
+</table>
+
+<h3>Configuration Management (ICSV)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 ICSV:</strong> <strong>I</strong>dentify → <strong>C</strong>ontrol → <strong>S</strong>tatus accounting → <strong>V</strong>erify/audit<br>
+  CMDB = Configuration Management Database (single source of truth)
+</div>
+
+<h3>Vulnerability Management (DPRVI)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 DPRVI:</strong> <strong>D</strong>iscover → <strong>P</strong>rioritize → <strong>R</strong>emediate → <strong>V</strong>erify → <strong>I</strong>mprove
+</div>
+
+<h3>CVSS Metric Groups</h3>
+<table>
+  <tr><th>Group</th><th>What It Measures</th></tr>
+  <tr><td><strong>Base</strong></td><td>Inherent severity (attack vector, complexity, privileges, impact)</td></tr>
+  <tr><td><strong>Temporal</strong></td><td>Changes over time (exploit maturity, patch availability)</td></tr>
+  <tr><td><strong>Environmental</strong></td><td>Organization-specific context (asset importance, existing controls)</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Disaster Recovery (Days 111-114)</h2>
+
+<h3>Recovery Metrics</h3>
+<table>
+  <tr><th>Metric</th><th>Definition</th><th>Key Relationship</th></tr>
+  <tr><td><strong>MTD</strong></td><td>Maximum Tolerable Downtime — hard deadline</td><td>RTO + WRT ≤ MTD</td></tr>
+  <tr><td><strong>RTO</strong></td><td>Target time to restore systems</td><td>Drives site selection (hot/warm/cold)</td></tr>
+  <tr><td><strong>RPO</strong></td><td>Maximum acceptable data loss (time)</td><td>Drives backup frequency</td></tr>
+  <tr><td><strong>WRT</strong></td><td>Time after restore to verify &amp; resume normal ops</td><td>Often forgotten — included in MTD budget</td></tr>
+</table>
+
+<h3>Alternate Sites</h3>
+<table>
+  <tr><th>Site</th><th>Ready In</th><th>Cost</th><th>Key Feature</th></tr>
+  <tr><td>Mirrored</td><td>Zero</td><td>$$$$$</td><td>Real-time mirror; zero downtime</td></tr>
+  <tr><td>Hot</td><td>Minutes-hours</td><td>$$$$</td><td>Fully equipped + replicated data</td></tr>
+  <tr><td>Warm</td><td>Hours-days</td><td>$$</td><td>Partial equipment; needs data restore</td></tr>
+  <tr><td>Cold</td><td>Days-weeks</td><td>$</td><td>Empty shell — power/HVAC only</td></tr>
+  <tr><td>Reciprocal</td><td>Varies</td><td>$</td><td>Least reliable — partner agreement</td></tr>
+</table>
+
+<h3>DR Test Types (Least → Most Disruptive)</h3>
+<div class="mnemonic callout">
+  <strong>🧠 "Can The Students Pass Finals?"</strong><br>
+  <strong>C</strong>hecklist → <strong>T</strong>abletop → <strong>S</strong>imulation → <strong>P</strong>arallel → <strong>F</strong>ull Interruption
+</div>
+
+<h3>Backup Types</h3>
+<table>
+  <tr><th>Type</th><th>Backs Up</th><th>Archive Bit</th><th>Restore Needs</th></tr>
+  <tr><td>Full</td><td>Everything</td><td>Clears</td><td>Full only (1 tape)</td></tr>
+  <tr><td>Incremental</td><td>Since last ANY backup</td><td>Clears</td><td>Full + ALL incrementals</td></tr>
+  <tr><td>Differential</td><td>Since last FULL</td><td>Does NOT clear</td><td>Full + latest diff (2 tapes)</td></tr>
+</table>
+
+<h3>RAID Quick Card</h3>
+<table>
+  <tr><th>RAID</th><th>Type</th><th>Min Disks</th><th>Fault Tolerance</th></tr>
+  <tr><td>0</td><td>Striping</td><td>2</td><td>None</td></tr>
+  <tr><td>1</td><td>Mirroring</td><td>2</td><td>1 disk</td></tr>
+  <tr><td>5</td><td>Stripe + parity</td><td>3</td><td>1 disk</td></tr>
+  <tr><td>6</td><td>Stripe + double parity</td><td>4</td><td>2 disks</td></tr>
+  <tr><td>10</td><td>Mirror + stripe</td><td>4</td><td>1 per mirror</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Physical &amp; Personnel Security (Days 115-116)</h2>
+<table>
+  <tr><th>Topic</th><th>Key Facts</th></tr>
+  <tr><td><strong>Fence heights</strong></td><td>3-4 ft casual; 6-7 ft climb deterrent; 8+ ft with wire for determined</td></tr>
+  <tr><td><strong>Mantrap</strong></td><td>Prevents tailgating; one person at a time; two-door system</td></tr>
+  <tr><td><strong>Fire suppression</strong></td><td>FM-200/Novec 1230 = safe for electronics + humans; CO₂ = lethal; Pre-action = best sprinkler for DC</td></tr>
+  <tr><td><strong>Halon</strong></td><td>Banned (Montreal Protocol, ozone); replaced by FM-200/Novec 1230</td></tr>
+  <tr><td><strong>Humidity</strong></td><td>40-60% RH; too low = ESD; too high = condensation</td></tr>
+  <tr><td><strong>Priority #1</strong></td><td>Human safety — ALWAYS first in any emergency</td></tr>
+  <tr><td><strong>Duress controls</strong></td><td>Silent alarms, duress PINs, safe words — covert alert to security</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Commonly Confused Concepts</h2>
+<table>
+  <tr><th>Concept A</th><th>Concept B</th><th>The Difference</th></tr>
+  <tr><td>BCP</td><td>DRP</td><td>BCP = business-wide continuity (umbrella); DRP = IT recovery specifically (subset)</td></tr>
+  <tr><td>RTO</td><td>RPO</td><td>RTO = time to restore systems (forward looking); RPO = max data loss (backward looking)</td></tr>
+  <tr><td>IDS</td><td>IPS</td><td>IDS = detective (alerts only); IPS = preventive (blocks traffic)</td></tr>
+  <tr><td>IoC</td><td>IoA</td><td>IoC = evidence attack happened (reactive); IoA = behavior suggesting attack in progress (proactive)</td></tr>
+  <tr><td>Incremental</td><td>Differential</td><td>Incremental clears archive bit (since last backup); Differential doesn't (since last full)</td></tr>
+  <tr><td>Parallel test</td><td>Full interruption</td><td>Parallel = primary stays running; Full = primary shut down</td></tr>
+  <tr><td>SIEM</td><td>SOAR</td><td>SIEM = correlate/alert (detective); SOAR = automate response (responsive)</td></tr>
+  <tr><td>Enticement</td><td>Entrapment</td><td>Enticement = legal (opportunity for willing offender); Entrapment = illegal (inducing someone who wouldn't otherwise commit)</td></tr>
+  <tr><td>Sync replication</td><td>Async replication</td><td>Sync = RPO 0, distance-limited; Async = RPO>0, unlimited distance</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. High-Frequency Exam Topics</h2>
+<div class="warning callout">
+  <strong>Top 10 Most-Tested Domain 7 Concepts:</strong>
+  <ol>
+    <li><strong>DR test types</strong> — order from least to most disruptive</li>
+    <li><strong>RTO vs RPO vs MTD</strong> — definitions and relationships</li>
+    <li><strong>Hot/Warm/Cold sites</strong> — features, cost, activation time</li>
+    <li><strong>Backup types</strong> — full/incremental/differential and archive bit behavior</li>
+    <li><strong>RAID levels</strong> — 0, 1, 5, 10 particularly</li>
+    <li><strong>Fire suppression</strong> — FM-200, Halon, CO₂, pre-action sprinklers</li>
+    <li><strong>Chain of custody</strong> — evidence handling requirements</li>
+    <li><strong>IR lifecycle phases</strong> — NIST 800-61 order and key activities</li>
+    <li><strong>Evidence admissibility</strong> — types and standards</li>
+    <li><strong>Human safety priority</strong> — always #1 in any scenario</li>
+  </ol>
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Domain 7 Master Mnemonic Map</h2>
+<table>
+  <tr><th>Topic</th><th>Mnemonic</th></tr>
+  <tr><td>Forensic process</td><td><strong>CEAR</strong> — Collect, Examine, Analyze, Report</td></tr>
+  <tr><td>Evidence admissibility</td><td><strong>RRSLA</strong> — Relevant, Reliable, Sufficient, Legal, Authentic</td></tr>
+  <tr><td>Chain of custody</td><td><strong>WWW-HAT</strong> — Who, What, When, How, Action, Transfer</td></tr>
+  <tr><td>IR lifecycle</td><td><strong>P-D-C-E-R-L</strong> — Prepare, Detect, Contain, Eradicate, Recover, Lessons</td></tr>
+  <tr><td>Threat intel levels</td><td><strong>STOT</strong> — Strategic, Tactical, Operational, Technical</td></tr>
+  <tr><td>Change mgmt process</td><td><strong>REAIRC</strong> — Request, Evaluate, Approve, Implement, Review, Close</td></tr>
+  <tr><td>Config mgmt</td><td><strong>ICSV</strong> — Identify, Control, Status, Verify</td></tr>
+  <tr><td>Vuln mgmt</td><td><strong>DPRVI</strong> — Discover, Prioritize, Remediate, Verify, Improve</td></tr>
+  <tr><td>DR test types</td><td><strong>CTSPF</strong> — "Can The Students Pass Finals?"</td></tr>
+  <tr><td>Backup archive bit</td><td><strong>"I Clean, D Doesn't"</strong></td></tr>
+  <tr><td>Recovery formula</td><td><strong>RTO + WRT ≤ MTD</strong></td></tr>
+  <tr><td>Emergency phases</td><td><strong>PPRR</strong> — Prevent, Prepare, Respond, Recover</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-116-theory.html" class="nav-btn">← Day 116: Personnel Safety &amp; Security</a>
+  <a href="day-118-theory.html" class="nav-btn">Day 118: SDLC &amp; Security Integration →</a>
+</div>
+</div>
+</body>
+</html>

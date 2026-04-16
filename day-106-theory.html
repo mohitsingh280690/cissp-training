@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 106 – SIEM &amp; Security Monitoring</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 106 – SIEM &amp; Security Monitoring</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 106 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-105-theory.html">← Day 105: Incident Response Lifecycle</a> · Domain 7 · Day 106</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. SIEM Architecture &amp; Components</a></li>
+  <li><a href="#s4">4. Log Management &amp; Correlation</a></li>
+  <li><a href="#s5">5. SIEM Use Cases &amp; Rules</a></li>
+  <li><a href="#s6">6. SOAR – Security Orchestration, Automation &amp; Response</a></li>
+  <li><a href="#s7">7. UEBA – User &amp; Entity Behavior Analytics</a></li>
+  <li><a href="#s8">8. Threat Hunting</a></li>
+  <li><a href="#s9">9. Network Traffic Analysis</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>SIEM is the central nervous system of security operations. CISSP tests understanding of how monitoring, detection, correlation, and response work together. SOAR, UEBA, and threat hunting represent the evolution of security monitoring</td></tr>
+  <tr><td>Question Style</td><td>"What is the PRIMARY benefit of SIEM?" (correlation of events from multiple sources). "How does SOAR differ from SIEM?" (SOAR automates response; SIEM provides detection and analysis). "What distinguishes threat hunting from monitoring?" (hunting is proactive and hypothesis-driven)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 104-105 (incident management/response — SIEM is the primary detection tool); Day 107 (threat intelligence — feeds into SIEM); Domain 6 (audit trail analysis)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>SIEM is critical infrastructure for any organization with regulatory compliance requirements. PCI DSS Requirement 10 mandates log monitoring. HIPAA requires audit controls. SOX demands computer-generated audit trails. Without SIEM, these requirements are nearly impossible to meet at scale.</p>
+<p>However, SIEM is also one of the most commonly underutilized security investments. Organizations deploy SIEM but fail to tune correlation rules, address alert fatigue, or staff the SOC adequately — resulting in a false sense of security.</p>
+</section>
+
+<section id="s3">
+<h2>3. SIEM Architecture &amp; Components</h2>
+<div class="definition callout">
+  <strong>SIEM (Security Information and Event Management):</strong> A platform that combines Security Information Management (SIM) — long-term log storage and compliance reporting — with Security Event Management (SEM) — real-time monitoring, correlation, and alerting. SIEM provides a single pane of glass for security visibility.
+</div>
+
+<div class="diagram">
+SIEM ARCHITECTURE
+
+  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+  │  Firewalls   │  │  IDS/IPS    │  │  Servers    │  │ Applications│
+  │  Routers     │  │  EDR/AV     │  │  Endpoints  │  │  Cloud SaaS │
+  └──────┬───────┘  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘
+         │                 │                 │                 │
+         └────────────┬────┴────────┬────────┘                │
+                      │             │                          │
+               ┌──────▼──────┐  ┌──▼──────────┐              │
+               │ Log Agents  │  │ Syslog/API  │──────────────┘
+               │ (Forwarders)│  │ Collectors  │
+               └──────┬──────┘  └──────┬──────┘
+                      │                │
+                ┌─────▼────────────────▼─────┐
+                │     NORMALIZATION           │  Parse, timestamp, enrich
+                │     &amp; ENRICHMENT            │  (add geo, threat intel)
+                └──────────────┬──────────────┘
+                               │
+                ┌──────────────▼──────────────┐
+                │     CORRELATION ENGINE      │  Rules, signatures,
+                │     &amp; ANALYTICS            │  behavioral models
+                └──────────────┬──────────────┘
+                               │
+              ┌────────────────▼────────────────┐
+              │        DASHBOARDS / ALERTS       │
+              │   Search │ Reports │ Compliance  │
+              └──────────────────────────────────┘
+</div>
+
+<h3>Key SIEM Components</h3>
+<table>
+  <tr><th>Component</th><th>Function</th></tr>
+  <tr><td>Log collection &amp; aggregation</td><td>Gather logs from diverse sources (syslog, Windows Event Log, API, agents, NetFlow)</td></tr>
+  <tr><td>Normalization</td><td>Convert logs from different formats into a common schema (field mapping, timestamp standardization)</td></tr>
+  <tr><td>Enrichment</td><td>Add context: geo-IP lookup, threat intelligence, asset criticality, user identity</td></tr>
+  <tr><td>Correlation engine</td><td>Apply rules to detect patterns across multiple log sources (the core SIEM value)</td></tr>
+  <tr><td>Alerting</td><td>Generate alerts when correlation rules match; prioritize by severity</td></tr>
+  <tr><td>Dashboards &amp; visualization</td><td>Real-time operational views; trend analysis; executive summaries</td></tr>
+  <tr><td>Storage &amp; retention</td><td>Long-term log storage for compliance, forensics, and trend analysis</td></tr>
+  <tr><td>Search &amp; investigation</td><td>Full-text search across all collected logs; ad-hoc queries for investigation</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Log Management &amp; Correlation</h2>
+<h3>Log Sources — What to Collect</h3>
+<table>
+  <tr><th>Source Category</th><th>Examples</th><th>Security Value</th></tr>
+  <tr><td>Network security</td><td>Firewalls, IDS/IPS, VPN, proxy, DNS</td><td>Perimeter activity; communication patterns; blocked attacks</td></tr>
+  <tr><td>Endpoint</td><td>OS logs (Windows Security/System, Linux auth/syslog), EDR, antivirus</td><td>Login activity; process execution; file changes; malware detection</td></tr>
+  <tr><td>Application</td><td>Web server, database, custom apps, email gateway</td><td>Application-layer attacks; user activity; errors indicating compromise</td></tr>
+  <tr><td>Identity</td><td>Active Directory, LDAP, IAM, MFA, SSO</td><td>Authentication events; authorization changes; privilege usage</td></tr>
+  <tr><td>Cloud</td><td>AWS CloudTrail, Azure Activity Log, GCP Audit Log, SaaS logs</td><td>Cloud resource access; configuration changes; API calls</td></tr>
+</table>
+
+<h3>Correlation — The SIEM Differentiator</h3>
+<div class="key-concept callout">
+  <strong>Event Correlation:</strong> The process of analyzing events from multiple sources to identify patterns that indicate a security incident. Individual events may appear benign; correlated events reveal attacks. Example: a failed VPN login (VPN log) + successful login from unusual country (IAM log) + large file download (proxy log) + after-hours activity (time correlation) = potential compromised account and data exfiltration.
+</div>
+
+<h3>Time Synchronization (NTP)</h3>
+<div class="warning callout">
+  ⚠️ <strong>NTP is Critical for SIEM:</strong> All systems must synchronize to the same time source. Without consistent timestamps, correlation fails — events from different systems cannot be accurately sequenced. Use NTP (Network Time Protocol) pointed at authoritative time sources. For forensic purposes, document the time zone and synchronization status of all evidence sources.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SIEM Use Cases &amp; Rules</h2>
+<table>
+  <tr><th>Use Case Category</th><th>Example Rules</th></tr>
+  <tr><td>Brute force detection</td><td>Alert: more than 10 failed logins to same account within 5 minutes</td></tr>
+  <tr><td>Account compromise</td><td>Alert: successful login from two geographically distant locations within impossible travel time</td></tr>
+  <tr><td>Privilege escalation</td><td>Alert: user added to admin group; new service account created; sudo/runas from unexpected account</td></tr>
+  <tr><td>Data exfiltration</td><td>Alert: large outbound data transfer to unknown destination; DNS tunneling patterns; unusual cloud storage uploads</td></tr>
+  <tr><td>Lateral movement</td><td>Alert: service account used interactively; RDP from server-to-server; SMB connections to multiple endpoints in short time</td></tr>
+  <tr><td>Malware activity</td><td>Alert: known C2 IP communication; beaconing patterns (regular-interval outbound connections); process injection</td></tr>
+  <tr><td>Policy compliance</td><td>Alert: access to regulated data outside business hours; unencrypted sensitive data transfer; unauthorized cloud service usage</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. SOAR – Security Orchestration, Automation &amp; Response</h2>
+<div class="definition callout">
+  <strong>SOAR:</strong> A platform that integrates with SIEM and other security tools to automate repetitive response tasks, orchestrate workflows across tools, and manage the incident response lifecycle. SOAR takes the alerts SIEM generates and automates the response.
+</div>
+
+<h3>SIEM vs SOAR</h3>
+<table>
+  <tr><th>Capability</th><th>SIEM</th><th>SOAR</th></tr>
+  <tr><td>Primary function</td><td>Detection — collect, correlate, alert</td><td>Response — automate, orchestrate, manage</td></tr>
+  <tr><td>Log management</td><td>Core capability</td><td>Not a primary function</td></tr>
+  <tr><td>Correlation rules</td><td>Core capability</td><td>Consumes SIEM alerts as triggers</td></tr>
+  <tr><td>Automated response</td><td>Limited (alert + basic actions)</td><td>Core capability — complex multi-step playbooks</td></tr>
+  <tr><td>Case management</td><td>Basic</td><td>Full incident lifecycle tracking</td></tr>
+  <tr><td>Tool integration</td><td>Ingests logs from tools</td><td>Bidirectional — reads from AND writes to tools (firewall, EDR, ticketing, email)</td></tr>
+</table>
+
+<h3>SOAR Automation Examples</h3>
+<ul>
+  <li><strong>Phishing response:</strong> Receive phishing report → extract URLs/attachments → check threat intel → quarantine email from all mailboxes → block sender → notify reporter — all automated</li>
+  <li><strong>Malware containment:</strong> EDR detects malware → SOAR isolates endpoint → captures forensic data → creates incident ticket → notifies analyst</li>
+  <li><strong>Threat intel enrichment:</strong> SIEM generates alert with IP → SOAR queries VirusTotal, WHOIS, threat intel feeds → enriches incident with context → presents analyst with full picture</li>
+</ul>
+</section>
+
+<section id="s7">
+<h2>7. UEBA – User &amp; Entity Behavior Analytics</h2>
+<div class="definition callout">
+  <strong>UEBA:</strong> Uses machine learning and statistical models to establish behavioral baselines for users and entities (devices, applications, servers) and detect anomalies that deviate from normal patterns. UEBA excels at detecting insider threats and compromised accounts that signature-based detection misses.
+</div>
+
+<h3>UEBA vs Traditional SIEM Rules</h3>
+<table>
+  <tr><th>Feature</th><th>SIEM Rules</th><th>UEBA</th></tr>
+  <tr><td>Detection method</td><td>Predefined rules/signatures</td><td>Behavioral baselines + anomaly detection</td></tr>
+  <tr><td>Known attacks</td><td>Effective (write a rule for known pattern)</td><td>Not primary purpose</td></tr>
+  <tr><td>Unknown/novel attacks</td><td>Cannot detect what isn't defined</td><td>Detects deviations from normal behavior regardless of attack type</td></tr>
+  <tr><td>Insider threats</td><td>Difficult — insiders use legitimate access</td><td>Excels — detects unusual behavior even with legitimate credentials</td></tr>
+  <tr><td>Tuning</td><td>Manual rule writing and maintenance</td><td>Self-learning with supervised/unsupervised ML</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Context — UEBA for Insider Threats:</strong> When the exam asks about detecting insider threats or compromised accounts that are using legitimate credentials, UEBA is typically the best answer. Traditional rules fail because the access is technically authorized — only the BEHAVIOR is abnormal.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Threat Hunting</h2>
+<div class="definition callout">
+  <strong>Threat Hunting:</strong> The proactive, iterative search for threats that have evaded existing detection mechanisms. Unlike monitoring (reactive — wait for alerts), hunting is hypothesis-driven: the hunter formulates a hypothesis about potential attacker activity and searches for evidence to confirm or deny it.
+</div>
+
+<h3>Threat Hunting vs Monitoring</h3>
+<table>
+  <tr><th>Characteristic</th><th>Security Monitoring</th><th>Threat Hunting</th></tr>
+  <tr><td>Approach</td><td>Reactive — wait for alerts</td><td>Proactive — search for hidden threats</td></tr>
+  <tr><td>Trigger</td><td>Automated alert fires</td><td>Hypothesis, intelligence, or intuition</td></tr>
+  <tr><td>Skill level</td><td>SOC Tier 1-2 analysts</td><td>Senior analysts with deep expertise</td></tr>
+  <tr><td>Output</td><td>Incident tickets</td><td>New detection rules, IoCs, process improvements, found threats</td></tr>
+  <tr><td>Assumes</td><td>Detection rules will catch threats</td><td>Assumes threats are ALREADY in the environment, undetected</td></tr>
+</table>
+
+<h3>Hunting Methodologies</h3>
+<ul>
+  <li><strong>Intelligence-driven:</strong> Use threat intelligence (new IoCs, TTPs from reports) to search the environment for matching activity</li>
+  <li><strong>Hypothesis-driven:</strong> "If an attacker compromised our VPN, they would likely perform lateral movement via RDP to our file servers" → search for RDP connections from VPN subnet to file servers</li>
+  <li><strong>Analytics-driven:</strong> Use UEBA or statistical analysis to identify outliers that warrant investigation</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2>9. Network Traffic Analysis</h2>
+<h3>Key Network Monitoring Techniques</h3>
+<table>
+  <tr><th>Technique</th><th>Description</th><th>Tools</th></tr>
+  <tr><td>Deep Packet Inspection (DPI)</td><td>Examines packet CONTENT (payload) — can detect application-layer threats, malware signatures, policy violations</td><td>Next-gen firewalls, IPS, DLP</td></tr>
+  <tr><td>NetFlow / IPFIX analysis</td><td>Analyzes traffic METADATA (source, dest, port, volume, duration) — no payload; detect anomalous patterns</td><td>NetFlow collectors, SIEM</td></tr>
+  <tr><td>Full packet capture (PCAP)</td><td>Captures entire packets for forensic analysis; gold standard but massive storage</td><td>Wireshark, tcpdump, NetworkMiner</td></tr>
+  <tr><td>DNS monitoring</td><td>Monitors DNS queries for C2 communication, tunneling, DGA activity, data exfiltration via DNS</td><td>DNS logging, passive DNS, SIEM</td></tr>
+  <tr><td>SSL/TLS inspection</td><td>Decrypt and inspect encrypted traffic (requires deploying trusted CA cert to endpoints); privacy implications</td><td>Next-gen firewalls, web proxies</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 SIEM = SIM + SEM</strong><br>
+  <strong>SIM</strong> = Store logs, compliance reports (Information Management — historical)<br>
+  <strong>SEM</strong> = Real-time monitoring, alerts, correlation (Event Management — operational)<br>
+  "SIM stores; SEM sees"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SIEM Pipeline — "CNECA"</strong><br>
+  <strong>C</strong>ollect → <strong>N</strong>ormalize → <strong>E</strong>nrich → <strong>C</strong>orrelate → <strong>A</strong>lert<br>
+  "Can Never Evade Correlation Alerts"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SIEM Detects, SOAR Responds</strong><br>
+  SIEM = "What happened?" (visibility)<br>
+  SOAR = "What do we do about it?" (action)<br>
+  "SIEM is your eyes; SOAR is your hands"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Threat Hunting Assumption</strong><br>
+  "They're already in." Threat hunting assumes compromise has already occurred and seeks to find what automated tools missed.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>SIEM</td><td>Combines log aggregation (SIM) with real-time correlation (SEM); central nervous system of security operations</td></tr>
+  <tr><td>Correlation</td><td>Primary SIEM value — relates events across sources to detect attacks invisible in individual logs</td></tr>
+  <tr><td>NTP</td><td>Time synchronization is CRITICAL for correlation; without it, log timestamps are unreliable</td></tr>
+  <tr><td>SOAR</td><td>Automates response; orchestrates multi-tool workflows; manages incident lifecycle. SIEM detects, SOAR responds</td></tr>
+  <tr><td>UEBA</td><td>ML-based behavioral analysis; excels at insider threats and compromised accounts</td></tr>
+  <tr><td>Threat hunting</td><td>Proactive, hypothesis-driven search; assumes compromise; senior skill level; complements monitoring</td></tr>
+  <tr><td>NetFlow vs PCAP</td><td>NetFlow = metadata only (who talked to whom); PCAP = full content (what they said)</td></tr>
+  <tr><td>DNS monitoring</td><td>Critical for detecting C2, tunneling, DGA — often overlooked attack vector</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-105-theory.html" class="nav-btn">← Day 105: IR Lifecycle</a>
+  <a href="day-107-theory.html" class="nav-btn">Day 107: Threat Intelligence →</a>
+</div>
+</div>
+</body>
+</html>

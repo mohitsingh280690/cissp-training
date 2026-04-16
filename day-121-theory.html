@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 121 – Programming Concepts &amp; Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 121 – Programming Concepts &amp; Security</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 121 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-120-theory.html">← Day 120: DevSecOps &amp; CI/CD Security</a> · Domain 8 · Day 121</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Programming Language Types &amp; Security</a></li>
+  <li><a href="#s4">4. Object-Oriented Programming (OOP) Security</a></li>
+  <li><a href="#s5">5. Memory Management &amp; Buffer Overflows</a></li>
+  <li><a href="#s6">6. Common Software Vulnerabilities</a></li>
+  <li><a href="#s7">7. Code Quality &amp; Security Concepts</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security (10%)</td></tr>
+  <tr><td>Why Tested</td><td>Understanding programming concepts helps security professionals communicate with developers and identify common vulnerabilities. Buffer overflows, OOP security concepts, and language types appear frequently</td></tr>
+  <tr><td>Question Style</td><td>"Which OOP concept HIDES internal implementation?" (Encapsulation). "A buffer overflow exploits a failure in…?" (Bounds checking). "Which language generation uses natural language?" (5GL)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 118 (secure SDLC); Day 123-124 (web app vulnerabilities); Day 125 (secure coding)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Buffer overflows remain one of the most exploited vulnerability classes (CWE-120, CWE-787). Memory-unsafe languages (C/C++) power critical infrastructure — operating systems, embedded systems, network devices. Understanding why these vulnerabilities exist and how language choice affects security is essential for security architects making technology decisions.</p>
+</section>
+
+<section id="s3">
+<h2>3. Programming Language Types &amp; Security</h2>
+
+<h3>Language Generations</h3>
+<table>
+  <tr><th>Generation</th><th>Type</th><th>Example</th><th>Security Notes</th></tr>
+  <tr><td><strong>1GL</strong></td><td>Machine language (binary)</td><td>01101001…</td><td>Direct hardware control; no abstraction; extremely error-prone</td></tr>
+  <tr><td><strong>2GL</strong></td><td>Assembly language</td><td>MOV, ADD, JMP</td><td>Direct memory access; buffer overflows; no type safety</td></tr>
+  <tr><td><strong>3GL</strong></td><td>High-level procedural/OOP</td><td>C, C++, Java, Python</td><td>Most common; security varies by language features (memory management)</td></tr>
+  <tr><td><strong>4GL</strong></td><td>Domain-specific / DB</td><td>SQL, MATLAB, R</td><td>SQL injection if used improperly; less general-purpose</td></tr>
+  <tr><td><strong>5GL</strong></td><td>Natural language / AI</td><td>Prolog, constraint-based</td><td>Focused on problem-solving; less common in enterprise</td></tr>
+</table>
+
+<h3>Compiled vs Interpreted</h3>
+<table>
+  <tr><th>Aspect</th><th>Compiled</th><th>Interpreted</th></tr>
+  <tr><td>Process</td><td>Source code → compiler → machine code (executable)</td><td>Source code → interpreter reads and executes line by line at runtime</td></tr>
+  <tr><td>Examples</td><td>C, C++, Rust, Go</td><td>Python, JavaScript, Ruby, PHP</td></tr>
+  <tr><td>Performance</td><td>Faster execution (pre-compiled)</td><td>Slower (runtime interpretation)</td></tr>
+  <tr><td>Security concern</td><td>Buffer overflows (C/C++); reverse engineering harder</td><td>Source code exposure; injection attacks; easier to reverse-engineer</td></tr>
+  <tr><td>Hybrid</td><td colspan="2">Java and C# compile to bytecode → executed by virtual machine (JVM/.NET CLR)</td></tr>
+</table>
+
+<h3>Memory-Safe vs Memory-Unsafe Languages</h3>
+<table>
+  <tr><th>Memory-Unsafe</th><th>Memory-Safe</th></tr>
+  <tr><td>C, C++ — programmer manages memory manually (malloc/free)</td><td>Java, C#, Python, Rust, Go — automatic memory management (garbage collection or ownership model)</td></tr>
+  <tr><td>Buffer overflows, use-after-free, dangling pointers possible</td><td>Runtime checks prevent most memory corruption vulnerabilities</td></tr>
+  <tr><td>Higher performance; used for OS, drivers, embedded</td><td>Safer but with some performance overhead</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Object-Oriented Programming (OOP) Security</h2>
+<table>
+  <tr><th>OOP Concept</th><th>Definition</th><th>Security Relevance</th></tr>
+  <tr><td><strong>Encapsulation</strong></td><td>Bundling data and methods together; hiding internal state; access only through defined interfaces</td><td>Information hiding — internal implementation details not exposed; reduces attack surface; enforces access boundaries</td></tr>
+  <tr><td><strong>Abstraction</strong></td><td>Showing only essential features; hiding complexity</td><td>Users interact with simplified interface; internal complexity hidden from potential attackers</td></tr>
+  <tr><td><strong>Inheritance</strong></td><td>Child class inherits properties/methods from parent class</td><td>Security concern: child may inherit vulnerabilities or overly permissive methods from parent; must review inherited behaviors</td></tr>
+  <tr><td><strong>Polymorphism</strong></td><td>Objects of different classes can be treated as objects of a common parent; same method name, different behavior</td><td>Security concern: polymorphic malware changes form to evade detection; in code, unexpected method behavior if not properly controlled</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Encapsulation = Information Hiding:</strong> This is the most security-relevant OOP concept for the CISSP. Encapsulation enforces that objects can only be interacted with through their public interface — internal state is protected. Think: "Encapsulation = access control for code."
+</div>
+
+<h3>Other OOP Terms</h3>
+<table>
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr><td><strong>Object</strong></td><td>Instance of a class; has state (data) and behavior (methods)</td></tr>
+  <tr><td><strong>Class</strong></td><td>Blueprint/template for objects; defines properties and methods</td></tr>
+  <tr><td><strong>Method</strong></td><td>Function/behavior of an object</td></tr>
+  <tr><td><strong>Message passing</strong></td><td>Objects communicate by sending messages (calling methods on other objects)</td></tr>
+  <tr><td><strong>Coupling</strong></td><td>Degree of interdependence between modules; LOOSE coupling is preferred (modules can change independently)</td></tr>
+  <tr><td><strong>Cohesion</strong></td><td>Degree to which elements within a module belong together; HIGH cohesion is preferred (module does one thing well)</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Design Principle:</strong> <strong>Loose coupling + High cohesion</strong> = better security. Loosely coupled modules limit blast radius of vulnerabilities. Highly cohesive modules are simpler and easier to review and test.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Memory Management &amp; Buffer Overflows</h2>
+
+<h3>Buffer Overflow</h3>
+<div class="definition callout">
+  A <strong>buffer overflow</strong> occurs when a program writes data beyond the boundary of allocated memory (buffer). This can overwrite adjacent memory, including return addresses on the stack, allowing an attacker to redirect program execution to malicious code.
+</div>
+
+<table>
+  <tr><th>Type</th><th>Description</th></tr>
+  <tr><td><strong>Stack overflow</strong></td><td>Overflow in stack memory (local variables, return addresses); most common type; can redirect execution flow</td></tr>
+  <tr><td><strong>Heap overflow</strong></td><td>Overflow in heap memory (dynamically allocated); can corrupt data structures; harder to exploit but possible</td></tr>
+  <tr><td><strong>Integer overflow</strong></td><td>Arithmetic result exceeds variable's maximum value; wraps around; can lead to buffer overflow if result used for memory allocation size</td></tr>
+</table>
+
+<h3>Buffer Overflow Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>How It Works</th></tr>
+  <tr><td><strong>Bounds checking</strong></td><td>Validate that data fits within buffer before writing; use safe functions (strncpy vs strcpy)</td></tr>
+  <tr><td><strong>ASLR</strong></td><td>Address Space Layout Randomization — randomizes memory addresses; attacker can't predict where code is loaded</td></tr>
+  <tr><td><strong>DEP / NX bit</strong></td><td>Data Execution Prevention / No-Execute — marks memory regions as non-executable; prevents executing injected code in data areas</td></tr>
+  <tr><td><strong>Stack canaries</strong></td><td>Random value placed before return address; if overwritten (by overflow), program detects and terminates</td></tr>
+  <tr><td><strong>Memory-safe languages</strong></td><td>Use Java, C#, Rust, Python — built-in bounds checking eliminates most buffer overflows</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Buffer Overflow = Failure of Input Validation / Bounds Checking:</strong> The root cause is always that the program didn't check whether the input fits in the allocated buffer. The fix is always input validation (bounds checking) at the code level, supported by OS-level protections (ASLR, DEP, canaries).
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Common Software Vulnerabilities</h2>
+<table>
+  <tr><th>Vulnerability</th><th>Description</th><th>Prevention</th></tr>
+  <tr><td><strong>Race condition (TOCTOU)</strong></td><td>Time-of-Check to Time-of-Use: condition changes between when it's checked and when it's used; attacker exploits the gap</td><td>Atomic operations; locks/mutexes; minimize time between check and use</td></tr>
+  <tr><td><strong>Covert channel</strong></td><td>Unauthorized communication path using shared resources; Timing (observing time differences) or Storage (using shared storage)</td><td>Audit resource access; reduce shared resources; noise injection</td></tr>
+  <tr><td><strong>Back door / trap door</strong></td><td>Hidden access mechanism bypassing normal authentication; may be intentional (developer) or malicious</td><td>Code review; integrity monitoring; remove before production</td></tr>
+  <tr><td><strong>Privilege escalation</strong></td><td>Gaining higher permissions than authorized; vertical (user→admin) or horizontal (user→another user)</td><td>Least privilege; input validation; access control enforcement</td></tr>
+  <tr><td><strong>Memory leak</strong></td><td>Program allocates memory but never frees it; eventually exhausts available memory (DoS)</td><td>Proper resource management; garbage collection; code review</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>TOCTOU (Race Condition):</strong> The exam loves TOCTOU scenarios. Example: "A program checks if a user has permission to access a file, then opens the file. Between the check and the open, a symlink is swapped in pointing to /etc/passwd." The fix: atomic operations that check AND use in a single uninterruptible step.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Code Quality &amp; Security Concepts</h2>
+<table>
+  <tr><th>Concept</th><th>Description</th></tr>
+  <tr><td><strong>Input validation</strong></td><td>Verify ALL input before processing; whitelist (allow known-good) preferred over blacklist (block known-bad)</td></tr>
+  <tr><td><strong>Error handling</strong></td><td>Fail securely; don't reveal internal details in error messages; log errors internally; show generic messages to users</td></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Code runs with minimum permissions needed; don't run services as root/admin</td></tr>
+  <tr><td><strong>Defense in depth</strong></td><td>Multiple layers of validation and security controls; don't rely on a single check</td></tr>
+  <tr><td><strong>Fail-safe / fail-secure</strong></td><td>On failure, system defaults to secure state (deny access); opposite of fail-open</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 OOP Security — "EAIP"</strong><br>
+  <strong>E</strong>ncapsulation = information Hiding (most security-relevant)<br>
+  <strong>A</strong>bstraction = hide complexity<br>
+  <strong>I</strong>nheritance = inherits parent features (and vulnerabilities!)<br>
+  <strong>P</strong>olymorphism = many forms (polymorphic malware changes shape)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Buffer Overflow Defenses — "BANDS"</strong><br>
+  <strong>B</strong>ounds checking<br>
+  <strong>A</strong>SLR (address randomization)<br>
+  <strong>N</strong>X / DEP (no-execute)<br>
+  <strong>D</strong>ata type validation<br>
+  <strong>S</strong>tack canaries
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 TOCTOU — "Check-Gap-Use = Exploit"</strong><br>
+  Check (permission verified) → Gap (attacker swaps resource) → Use (wrong resource accessed)<br>
+  Fix: make check-and-use ATOMIC (no gap)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Coupling &amp; Cohesion — "Low C, High C"</strong><br>
+  <strong>Low C</strong>oupling = good (independent modules)<br>
+  <strong>High C</strong>ohesion = good (focused modules)<br>
+  "L comes before H — Low coupling, High cohesion"
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Language generations</td><td>1GL=machine, 2GL=assembly, 3GL=high-level (C/Java), 4GL=domain (SQL), 5GL=AI/natural</td></tr>
+  <tr><td>Memory-unsafe languages</td><td>C/C++ — manual memory management; buffer overflows possible</td></tr>
+  <tr><td>Encapsulation</td><td>Most security-relevant OOP concept; hides internal state; enforces interface boundaries</td></tr>
+  <tr><td>Buffer overflow</td><td>Writing beyond buffer boundary; root cause = missing bounds checking; defenses: ASLR, DEP, canaries</td></tr>
+  <tr><td>TOCTOU</td><td>Race condition between check and use; fix with atomic operations</td></tr>
+  <tr><td>Covert channels</td><td>Timing (time-based) and Storage (shared resource); unauthorized communication</td></tr>
+  <tr><td>Input validation</td><td>Whitelist (allow known-good) preferred over blacklist (block known-bad)</td></tr>
+  <tr><td>Coupling/Cohesion</td><td>Loose coupling + high cohesion = good design + better security</td></tr>
+  <tr><td>Fail-secure</td><td>On failure, default to deny/secure state</td></tr>
+  <tr><td>Error handling</td><td>Don't expose internal details; log internally; show generic messages externally</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-120-theory.html" class="nav-btn">← Day 120: DevSecOps &amp; CI/CD Security</a>
+  <a href="day-122-theory.html" class="nav-btn">Day 122: Database Security →</a>
+</div>
+</div>
+</body>
+</html>

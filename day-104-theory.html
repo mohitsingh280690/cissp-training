@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 104 – Incident Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 104 – Incident Management</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 104 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-103-theory.html">← Day 103: Digital Forensics – Procedures</a> · Domain 7 · Day 104</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Event vs Incident — The Critical Distinction</a></li>
+  <li><a href="#s4">4. NIST SP 800-61 Framework</a></li>
+  <li><a href="#s5">5. Incident Response Teams</a></li>
+  <li><a href="#s6">6. Incident Categories &amp; Severity Classification</a></li>
+  <li><a href="#s7">7. Incident Response Policy &amp; Plan</a></li>
+  <li><a href="#s8">8. Communication Plans &amp; Stakeholder Management</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Incident management is a core CISSP topic — the exam tests understanding of the full incident management framework, team structures, classification schemes, and communications. This is separate from the technical response lifecycle (Day 105)</td></tr>
+  <tr><td>Question Style</td><td>"What is the MOST important component of an incident response plan?" (management commitment/support). "Which team is responsible for coordinating incident response across the organization?" (CSIRT/CERT). "What differentiates an event from an incident?" (an incident is an event that violates policy or threatens security)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (governance — incident management is a governance function); Domain 7 (Day 101 investigations, Day 105 IR lifecycle); Domain 5 (IAM — access control violations often trigger incidents)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Why Incident Management Matters</h3>
+<p>Without a structured incident management framework, organizations discover that during a crisis: nobody knows who is in charge, communications are ad-hoc and conflicting, evidence is accidentally destroyed, regulatory notification deadlines are missed, and recovery takes far longer than necessary. Incident management is the organizational scaffolding that makes technical incident response possible.</p>
+
+<h3>Regulatory Drivers</h3>
+<ul>
+  <li><strong>GDPR Art. 33:</strong> 72-hour notification to supervisory authority after discovery of personal data breach</li>
+  <li><strong>HIPAA Breach Notification Rule:</strong> 60-day notification requirement for breaches affecting 500+ individuals</li>
+  <li><strong>SEC Cybersecurity Rules (2023):</strong> Material cybersecurity incidents must be disclosed in 8-K filing within 4 business days</li>
+  <li><strong>PCI DSS Req. 12.10:</strong> Establish, document, and distribute a security incident response plan</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Event vs Incident — The Critical Distinction</h2>
+<table>
+  <tr><th>Term</th><th>Definition</th><th>Examples</th></tr>
+  <tr><td><strong>Event</strong></td><td>Any observable occurrence in a system or network. Events are neutral — they may or may not indicate a problem</td><td>User login; file access; firewall allow/deny log entry; scheduled backup completion; port scan detected</td></tr>
+  <tr><td><strong>Alert</strong></td><td>An event that has been flagged by a monitoring system as potentially significant</td><td>IDS alert for suspicious traffic; failed login threshold exceeded; antimalware detection</td></tr>
+  <tr><td><strong>Incident</strong></td><td>An event (or series of events) that actually or potentially violates the organization's security policy or threatens the CIA triad</td><td>Confirmed malware infection; unauthorized data access; ransomware attack; data exfiltration; DDoS attack</td></tr>
+</table>
+
+<div class="diagram">
+EVENT TRIAGE FUNNEL
+
+Millions of Events (logs, network traffic, system activity)
+         │
+         ▼
+    ┌─────────┐
+    │ FILTERS │  Automated: SIEM rules, correlation, thresholds
+    └────┬────┘
+         │
+         ▼
+  Thousands of Alerts (flagged events)
+         │
+         ▼
+    ┌─────────┐
+    │ TRIAGE  │  Analyst review: true positive? false positive?
+    └────┬────┘
+         │
+         ▼
+  Scored TRUE POSITIVES → Declared INCIDENTS
+         │
+         ▼
+    ┌─────────┐
+    │CLASSIFY │  Severity, category, priority
+    └────┬────┘
+         │
+         ▼
+  INCIDENT RESPONSE LIFECYCLE (Day 105)
+</div>
+
+<div class="exam-tip callout">
+  <strong>Key CISSP Distinction:</strong> Every incident is an event, but NOT every event is an incident. The determination of whether an event constitutes an incident requires human judgment (or well-tuned automated rules) measured against the organization's security policy.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. NIST SP 800-61 Framework</h2>
+<div class="definition callout">
+  <strong>NIST SP 800-61 Rev. 2:</strong> "Computer Security Incident Handling Guide" — the primary reference for CISSP incident response. Provides guidelines for establishing incident response capabilities and handling incidents efficiently and effectively.
+</div>
+
+<h3>Four Lifecycle Phases</h3>
+<table>
+  <tr><th>Phase</th><th>Purpose</th><th>Key Activities</th></tr>
+  <tr><td><strong>1. Preparation</strong></td><td>Establish incident response capability BEFORE incidents occur</td><td>Build IRT; write policies/procedures; deploy tools; conduct training; establish communication channels</td></tr>
+  <tr><td><strong>2. Detection &amp; Analysis</strong></td><td>Identify potential incidents and determine their scope/impact</td><td>Monitoring/alerting; triage; incident classification; documentation; notification</td></tr>
+  <tr><td><strong>3. Containment, Eradication &amp; Recovery</strong></td><td>Stop the incident, remove the cause, and restore operations</td><td>Short/long-term containment; evidence preservation; root cause removal; system restoration; verification</td></tr>
+  <tr><td><strong>4. Post-Incident Activity</strong></td><td>Learn from the incident to improve future response</td><td>Lessons learned meeting; report writing; process improvements; evidence retention</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Preparation is Key:</strong> The exam frequently emphasizes that preparation is the MOST IMPORTANT phase. Without preparation, the other three phases cannot function effectively. The single most critical preparation element is <strong>management commitment and support</strong>.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Incident Response Teams</h2>
+<table>
+  <tr><th>Team Type</th><th>Full Name</th><th>Scope</th><th>Key Characteristics</th></tr>
+  <tr><td><strong>IRT</strong></td><td>Incident Response Team</td><td>Internal — handles incidents within the organization</td><td>Technical staff who perform hands-on response; may be dedicated or ad-hoc</td></tr>
+  <tr><td><strong>CSIRT</strong></td><td>Computer Security Incident Response Team</td><td>Organization-wide coordination</td><td>Broader coordination role; may include legal, PR, HR, management representatives alongside technical staff</td></tr>
+  <tr><td><strong>CERT</strong></td><td>Computer Emergency Response Team</td><td>Often sector-wide or national (CERT/CC at Carnegie Mellon)</td><td>Advisory role; vulnerability coordination; threat intelligence sharing; CERT is a registered trademark of CMU</td></tr>
+  <tr><td><strong>SOC</strong></td><td>Security Operations Center</td><td>Continuous monitoring and detection</td><td>24/7 monitoring; first-line detection and triage; escalates to IRT/CSIRT for confirmed incidents</td></tr>
+</table>
+
+<h3>Team Structure Models (NIST SP 800-61)</h3>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Pros</th><th>Cons</th></tr>
+  <tr><td><strong>Central</strong></td><td>One team handles all incidents for the entire organization</td><td>Consistent approach; economy of scale; easier to manage</td><td>May not scale for large/distributed orgs; single point of failure</td></tr>
+  <tr><td><strong>Distributed</strong></td><td>Multiple teams — each responsible for a business unit or location</td><td>Faster local response; domain expertise</td><td>Inconsistent procedures; harder to coordinate; resource duplication</td></tr>
+  <tr><td><strong>Coordinating</strong></td><td>Central team provides guidance and coordination; distributed teams perform actual response</td><td>Best of both: local expertise + consistent guidance</td><td>Complex communication; requires strong governance</td></tr>
+</table>
+
+<h3>Staffing Models</h3>
+<table>
+  <tr><th>Model</th><th>Description</th><th>When Appropriate</th></tr>
+  <tr><td><strong>Employees</strong></td><td>Full-time internal staff</td><td>Large organizations with frequent incidents; need for institutional knowledge</td></tr>
+  <tr><td><strong>Partially outsourced</strong></td><td>Mix of internal staff and external MSSP/contractors</td><td>Most common; internal team for coordination, outsource 24/7 monitoring or specialized skills</td></tr>
+  <tr><td><strong>Fully outsourced</strong></td><td>External provider handles all IR</td><td>Small organizations lacking internal expertise; requires strong SLAs and oversight</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Incident Categories &amp; Severity Classification</h2>
+<h3>Common Incident Categories</h3>
+<table>
+  <tr><th>Category</th><th>Description</th><th>Examples</th></tr>
+  <tr><td>Unauthorized access</td><td>Gaining access to systems, networks, or data without permission</td><td>Brute force; stolen credentials; privilege escalation</td></tr>
+  <tr><td>Malicious code</td><td>Malware infection of systems</td><td>Ransomware; trojans; worms; rootkits; crypto-miners</td></tr>
+  <tr><td>Denial of service</td><td>Disruption of service availability</td><td>DDoS; resource exhaustion; application-layer attacks</td></tr>
+  <tr><td>Improper usage</td><td>Violation of acceptable use policy</td><td>Policy violations; unauthorized software; prohibited activity</td></tr>
+  <tr><td>Data breach</td><td>Unauthorized disclosure or exfiltration of data</td><td>PII/PHI exposure; trade secret theft; database dumps</td></tr>
+  <tr><td>Social engineering</td><td>Manipulation of individuals to gain access or information</td><td>Phishing; pretexting; business email compromise (BEC)</td></tr>
+</table>
+
+<h3>Severity/Priority Matrix</h3>
+<table>
+  <tr><th>Severity</th><th>Impact</th><th>Response Requirement</th></tr>
+  <tr><td><strong>Critical (P1)</strong></td><td>Multi-system outage; active data exfiltration; ransomware spreading</td><td>Immediate response; all available resources; executive notification; potential regulatory notification</td></tr>
+  <tr><td><strong>High (P2)</strong></td><td>Single critical system compromised; confirmed targeted attack</td><td>Rapid response within hours; IRT activation; management notification</td></tr>
+  <tr><td><strong>Medium (P3)</strong></td><td>Malware on non-critical system; policy violation with limited impact</td><td>Respond within business day; standard IRT procedures</td></tr>
+  <tr><td><strong>Low (P4)</strong></td><td>Port scan; failed attack attempt; minor policy deviation</td><td>Monitor, log, and address in normal operational cycle</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Priority = Impact × Urgency:</strong> When the exam asks about prioritizing incidents, consider BOTH the current/potential impact to the business AND how quickly the situation is evolving. A slow-moving compromise of a critical system may be higher priority than an active but contained attack on a non-critical system.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Incident Response Policy &amp; Plan</h2>
+<h3>Hierarchy of IR Documentation</h3>
+<table>
+  <tr><th>Level</th><th>Document</th><th>Content</th><th>Audience</th></tr>
+  <tr><td>1</td><td><strong>IR Policy</strong></td><td>Management commitment; authority; scope; incident definition; roles; reporting requirements; compliance obligations</td><td>All employees; management; auditors</td></tr>
+  <tr><td>2</td><td><strong>IR Plan</strong></td><td>Team structure; communication procedures; escalation paths; severity definitions; tool inventory; external contacts (law enforcement, legal, PR)</td><td>IR team; management; stakeholders</td></tr>
+  <tr><td>3</td><td><strong>IR Procedures</strong></td><td>Step-by-step technical procedures for specific incident types (malware, DDoS, data breach, insider threat)</td><td>IR technical staff</td></tr>
+  <tr><td>4</td><td><strong>Playbooks / Runbooks</strong></td><td>Highly detailed, scenario-specific response flows with decision trees; may be automated via SOAR</td><td>SOC analysts; SOAR platforms</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Policy vs Plan vs Procedure:</strong> Policy provides the authority and mandate ("we WILL respond to incidents"). Plan provides the framework ("HERE IS HOW we organize our response"). Procedures provide the technical details ("these are the EXACT STEPS for handling a ransomware incident"). Playbooks are the most granular — specific scenario-by-scenario guides.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Communication Plans &amp; Stakeholder Management</h2>
+<h3>Communication During Incidents</h3>
+<table>
+  <tr><th>Stakeholder</th><th>What to Communicate</th><th>When</th><th>By Whom</th></tr>
+  <tr><td>Executive management</td><td>Business impact; response status; resource needs; decisions required</td><td>As defined by severity; Critical = immediate</td><td>CSIRT lead / CISO</td></tr>
+  <tr><td>Legal counsel</td><td>Regulatory obligations; liability exposure; evidence preservation; privilege considerations</td><td>Early — before public statements or notifications</td><td>CSIRT lead</td></tr>
+  <tr><td>Public relations / Communications</td><td>Holding statements; media responses; customer communications</td><td>Before any public disclosure; coordinate all external messaging</td><td>PR team (reviewed by legal)</td></tr>
+  <tr><td>Law enforcement</td><td>Criminal evidence; attack details (at their request)</td><td>Per organizational policy; may be mandatory for some incident types</td><td>Legal counsel or designated liaison</td></tr>
+  <tr><td>Regulators</td><td>Breach notifications per regulatory requirements</td><td>Within legally mandated timeframes (GDPR: 72 hrs; HIPAA: 60 days)</td><td>Compliance/legal</td></tr>
+  <tr><td>Affected individuals</td><td>What happened; what data was affected; what they should do</td><td>After investigation; within legally mandated timeframes</td><td>Communications team</td></tr>
+  <tr><td>Internal employees</td><td>Need-to-know status; required actions (password changes, etc.)</td><td>As appropriate for containment</td><td>CSIRT via management chain</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Attorney-Client Privilege:</strong> Having legal counsel direct the incident response investigation can establish attorney-client privilege over investigation findings. This means the investigation report may NOT be discoverable in subsequent litigation. Many organizations engage external counsel to lead investigations for this reason. However, privilege does NOT apply to regulatory notification obligations.
+</div>
+
+<h3>Secure Communications</h3>
+<p>During an active incident, assume the attacker may have access to internal email, messaging, and phone systems. Use <strong>out-of-band communication channels</strong>: personal phones, encrypted messaging apps, separate communication systems not connected to the compromised network.</p>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 NIST SP 800-61 Phases — "PDCE-R"</strong><br>
+  <strong>P</strong>reparation → <strong>D</strong>etection &amp; Analysis → <strong>C</strong>ontainment, <strong>E</strong>radication &amp; <strong>R</strong>ecovery → Post-Incident<br>
+  "Prepare, Detect, Contain-Eradicate-Recover, Post-mortem"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Event → Alert → Incident Funnel</strong><br>
+  Think of a funnel: billions of <strong>E</strong>vents → thousands of <strong>A</strong>lerts → handfuls of <strong>I</strong>ncidents.<br>
+  "EAI — Events Are Investigated (down to incidents)"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 IR Team Acronyms — size order</strong><br>
+  <strong>SOC</strong> detects → <strong>IRT</strong> responds → <strong>CSIRT</strong> coordinates → <strong>CERT</strong> advises (sector-wide)<br>
+  "SOC feeds IRT; CSIRT coordinates; CERT is national"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 IR Documentation Hierarchy — "PPPP"</strong><br>
+  <strong>P</strong>olicy (authority) → <strong>P</strong>lan (framework) → <strong>P</strong>rocedure (steps) → <strong>P</strong>laybook (scenario)<br>
+  "From broadest authority to narrowest detail"
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Event vs incident</td><td>Event = observable occurrence; incident = event that violates policy or threatens CIA; every incident is an event, not every event is an incident</td></tr>
+  <tr><td>NIST SP 800-61</td><td>Four phases: Preparation → Detection &amp; Analysis → Containment/Eradication/Recovery → Post-Incident Activity</td></tr>
+  <tr><td>Preparation</td><td>MOST important phase; requires management commitment (the #1 critical element)</td></tr>
+  <tr><td>IR teams</td><td>SOC (monitoring) → IRT (response) → CSIRT (coordination) → CERT (sector/national advisory)</td></tr>
+  <tr><td>Team models</td><td>Central (one team), Distributed (per business unit), Coordinating (central guidance + local response)</td></tr>
+  <tr><td>Priority</td><td>Impact × Urgency; Critical incidents = immediate response + executive notification</td></tr>
+  <tr><td>IR documentation</td><td>Policy → Plan → Procedures → Playbooks (broad to specific)</td></tr>
+  <tr><td>Legal privilege</td><td>Attorney-client privilege may protect investigation findings; engage legal counsel early</td></tr>
+  <tr><td>Out-of-band comms</td><td>During incidents, use separate channels — assume attacker may have access to normal communication systems</td></tr>
+  <tr><td>Regulatory notification</td><td>Know the timelines: GDPR 72 hrs; HIPAA 60 days; SEC 4 business days; PCI DSS required</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-103-theory.html" class="nav-btn">← Day 103: Forensic Procedures</a>
+  <a href="day-105-theory.html" class="nav-btn">Day 105: Incident Response Lifecycle →</a>
+</div>
+</div>
+</body>
+</html>

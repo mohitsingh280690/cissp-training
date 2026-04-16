@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 79 – Privileged Access Management (PAM)</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 79 – Privileged Access Management (PAM)</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 79 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~70 min read</span><span>🎯 Difficulty: Advanced</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-078-theory.html">← Day 78: Identity Management Lifecycle</a> · Domain 5 · Day 79</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. PAM Concepts &amp; Core Principles</a></li>
+  <li><a href="#s4">4. Privileged Account Types</a></li>
+  <li><a href="#s5">5. Just-in-Time (JIT) Access</a></li>
+  <li><a href="#s6">6. Privilege Bracketing</a></li>
+  <li><a href="#s7">7. Bastion Hosts &amp; Jump Servers</a></li>
+  <li><a href="#s8">8. Session Recording &amp; Monitoring</a></li>
+  <li><a href="#s9">9. Credential Vaulting</a></li>
+  <li><a href="#s10">10. Emergency Break-Glass Procedures</a></li>
+  <li><a href="#s11">11. PAM Architecture Summary</a></li>
+  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s13">13. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — managing the most dangerous accounts: those with elevated, administrative, or root-level privileges</td></tr>
+  <tr><td><strong>Why It's Advanced</strong></td><td>PAM requires combining multiple controls: credential vaulting, session proxying, JIT access, MFA, session recording, behavioral analytics — all working together. Compromise of a single privileged account typically leads to full domain compromise. PAM is the last line of defense before complete lateral movement.</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Most APTs and ransomware attacks ultimately rely on privileged credential theft/abuse. CISSP expects candidates to understand PAM terminology, the architecture of modern PAM solutions, and specific controls like JIT, privilege bracketing, and break-glass procedures.</td></tr>
+  <tr><td><strong>Key Frameworks</strong></td><td>NIST SP 800-53 AC-6 (Least Privilege), AC-17 (Remote Access), AU-9 (Audit Protection); PCI-DSS 7+8 (access control + authentication for cardholder data systems); CIS Controls v8 Control 5 (Account Management); NSA/CISA guidance on securing privileged access</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>Just-in-time access ≠ always-on privilege. Break-glass IS emergency access — should be detected, logged, and reviewed. Session recording is detective control, not preventive. Bastion host is an access gateway — not a firewall.</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Threat Scenario</th><th>PAM Control That Mitigates It</th></tr>
+  <tr><td>SolarWinds/SUNBURST attack: attackers moved laterally using privileged service account credentials found in memory</td><td>Credential vaulting + rotation; least-privilege service accounts; JIT access reduces standing privilege</td></tr>
+  <tr><td>Ransomware operator escalates to domain admin via password spray on admin accounts with weak/reused passwords</td><td>PAM with MFA on all privileged access; unique, vault-managed credentials per account; no standing domain admin rights</td></tr>
+  <tr><td>Insider threat: sysadmin creates backdoor accounts before departing; revokes others' access to hide activity</td><td>Session recording of all admin sessions; real-time alerting on privileged command execution; dual-control requirements for critical operations</td></tr>
+  <tr><td>Vendor/third-party admin given permanent VPN + domain admin access for "ongoing support" — becomes a persistent attack vector</td><td>JIT access for third-party vendors (time-limited tickets); session recording; bastion host intermediation; automatic expiry</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. PAM Concepts &amp; Core Principles</h2>
+<div class="callout definition">
+  <strong>📖 PAM (Privileged Access Management):</strong> A comprehensive security discipline and set of technologies for managing, controlling, monitoring, and auditing the access and activities of accounts with elevated rights — including system administrators, network engineers, DBA roles, cloud account root users, and service accounts with elevated permissions.
+</div>
+<table>
+  <tr><th>PAM Principle</th><th>Description</th></tr>
+  <tr><td><strong>Least privilege for privileged accounts</strong></td><td>Even privileged users only get the minimum elevated access needed for a specific task. A Windows sysadmin does not need Domain Admin rights for basic file-server management tasks. Privilege scope is scoped to the task, not the person.</td></tr>
+  <tr><td><strong>No standing privilege</strong></td><td>Ideal PAM state: no accounts have permanently elevated privileges. Access is elevated only when needed (JIT) and automatically revoked when the task is complete. Eliminates the standing target for attackers.</td></tr>
+  <tr><td><strong>Separation of privileged &amp; standard accounts</strong></td><td>Admins have two accounts: a standard account for email, web browsing, general tasks; and a separate privileged account for admin work. Privileged account is not used for daily browsing (reduces phishing exposure of admin credentials).</td></tr>
+  <tr><td><strong>Strong authentication for all privileged access</strong></td><td>Privileged accounts require MFA at every login, even from trusted networks. Phishing-resistant MFA (FIDO2, hardware key) preferred for highest-privilege accounts.</td></tr>
+  <tr><td><strong>Full session audit trail</strong></td><td>All privileged sessions are recorded (keystrokes, screen, commands). Any admin action is attributable, reviewable, and usable as evidence. Admins know they are being monitored — deterrence value as well as forensic value.</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Privileged Account Types</h2>
+<table>
+  <tr><th>Account Type</th><th>Description</th><th>Risk Level</th><th>PAM Control</th></tr>
+  <tr><td><strong>Domain admin / Enterprise admin</strong></td><td>Windows AD accounts with Forest/Domain-wide administrative rights. Compromise allows full control of all domain-joined systems.</td><td>Critical</td><td>Vault-managed credentials; JIT activation only; MFA required; session recording; no interactive email/web browsing</td></tr>
+  <tr><td><strong>Local administrator</strong></td><td>Built-in local admin on each workstation/server. Usually shared password across many machines (LAPS solves this).</td><td>High</td><td>LAPS (Local Administrator Password Solution) — unique randomized password per machine, stored in AD, rotated automatically; vault access only</td></tr>
+  <tr><td><strong>Root accounts (Linux/Unix)</strong></td><td>Full OS-level privilege on Unix/Linux systems. Direct root login should be disabled (use sudo).</td><td>Critical</td><td>Disable direct root login; all admin via sudo with full command logging; PAM session proxy; MFA for sudo elevation</td></tr>
+  <tr><td><strong>Cloud root / account owner</strong></td><td>AWS root account, GCP super admin, Azure Global Admin. Highest level of cloud platform control. Almost never needed for day-to-day operations.</td><td>Critical</td><td>Hardware MFA required; long random vault-managed credential; used ONLY for break-glass scenarios; no standing API keys; alert on every use</td></tr>
+  <tr><td><strong>Service accounts (privileged)</strong></td><td>Application/service accounts with elevated DB, API, or system rights. Key PAM target because they often have high privilege and poor lifecycle management (see Day 78).</td><td>High</td><td>Credential vaulting with automated rotation; no interactive login; least privilege scoped; unique per application</td></tr>
+  <tr><td><strong>Emergency / break-glass accounts</strong></td><td>Accounts used ONLY when normal admin channels are unavailable. Sealed credentials, opened only in emergencies. See Section 10.</td><td>Critical if misused</td><td>Physical sealed envelope or dual-custody vault; automatic alerting on any use; mandatory post-use review</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Just-in-Time (JIT) Access</h2>
+<div class="callout definition">
+  <strong>📖 Just-in-Time (JIT) Access:</strong> Privileged access is granted dynamically on demand for a limited time window (e.g., 2 hours, 1 day) to complete a specific task. After the window expires, the elevated access is automatically and completely revoked. No standing privileged access exists between task windows.
+</div>
+<div class="diagram">JIT Access Flow:
+────────────────────────────────────────────────────────────────────
+ Admin needs to patch server PROD-SQL-01
+             │
+             ▼
+ [1] Admin submits JIT request:
+     • Target: PROD-SQL-01
+     • Access level: Local Admin
+     • Duration: 4 hours
+     • Justification: "Monthly patch window KB5027231"
+             │
+             ▼
+ [2] Approval workflow:
+     • Auto-approved for standard patch tasks (pre-authorized)
+     • Requires manager approval for production Domain Admin
+     (Large orgs use automated approval for low-risk, human approval for high-risk)
+             │
+             ▼
+ [3] PAM system provisions:
+     • Adds admin account to "Administrators" group on PROD-SQL-01
+     • Issues temporary vault credential / sets up session proxy
+     • Timer starts: T+0
+             │
+             ▼
+ [4] Admin works on PROD-SQL-01 via bastion host (session recorded)
+             │
+             ▼
+ [5] T+4 hours: PAM automatically removes admin from "Administrators" group
+     • Credential rotated
+     • Session recording archived
+     • Task log submitted for review
+────────────────────────────────────────────────────────────────────
+Result: Admin had privilege ONLY WHEN NEEDED. Standing privilege = zero.</div>
+<table>
+  <tr><th>JIT Benefit</th><th>Detail</th></tr>
+  <tr><td><strong>Reduces attack surface</strong></td><td>Attacker who compromises admin credential during off-hours finds no elevated group memberships — nothing to leverage. Privilege only exists during approved task window.</td></tr>
+  <tr><td><strong>Enforces least privilege</strong></td><td>JIT is the operational implementation of least privilege over time — not just "minimum scope" but "minimum duration."</td></tr>
+  <tr><td><strong>Creates audit trail</strong></td><td>Every JIT request has justification, approval, and time bounds — complete accountability for all privilege use.</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Privilege Bracketing</h2>
+<div class="callout definition">
+  <strong>📖 Privilege Bracketing:</strong> A programming and operational technique where elevated privileges are acquired immediately before the specific operation that requires them and immediately released/dropped as soon as that operation completes. Privileges are held only for the minimum duration required — "bracketed" around the exact operation.
+</div>
+<div class="diagram">Without Privilege Bracketing (Dangerous):
+──────────────────────────────────────────────
+ Process starts with root/admin privileges
+ [Reads config file] ← privileged (ok)
+ [Parses user input] ← privileged (dangerous — if parsing is exploited, attacker has root)
+ [Writes log file]   ← privileged (dangerous — unnecessary privilege)
+ [Opens network conn]← privileged (dangerous — any exploit has full root access)
+ Process exits with root
+
+With Privilege Bracketing (Secure):
+──────────────────────────────────────────────
+ Process starts as low-privilege user
+ [Parses user input]         ← low privilege (exploit = low damage)
+ acquire admin →             ← elevate ONLY for the operation that needs it
+ [Reads /etc/shadow]         ← privileged (needed)
+ drop admin →                ← IMMEDIATELY drop elevated privilege
+ [Continues as low privilege]← parsing, networking back as low-privilege
+ acquire admin →
+ [Writes to protected log]   ← privileged (needed)
+ drop admin →
+ Process exits as low privilege</div>
+<div class="callout exam-tip">
+  <strong>💡 Privilege Bracketing in Context:</strong> Privilege bracketing appears both as an operational PAM concept (JIT access windows are a macro-level form of bracketing) and as a software security principle (programs acquiring/releasing OS privileges tightly around operations). CISSP may test either context.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Bastion Hosts &amp; Jump Servers</h2>
+<div class="callout definition">
+  <strong>📖 Bastion Host / Jump Server:</strong> A hardened, highly monitored gateway server that is the ONLY allowed path from a less-trusted network zone to privileged administrative access in a more-trusted zone (e.g., production environment, OT network). All admin sessions are proxied through the bastion — direct admin access from end-user workstations is blocked.
+</div>
+<div class="diagram">Network Architecture with Bastion Host:
+──────────────────────────────────────────────────────────────────────────────────────
+  [Admin Workstation]                                    [Production Servers]
+  Corporate Network                                       Isolated VLAN / DMZ
+        │                                                        │
+        │  SSH/RDP to bastion (with MFA, vault credential)      │
+        ▼                                                        │
+  ┌─────────────────────────────────────────────────────────────┤
+  │         BASTION HOST / JUMP SERVER                           │
+  │  • Hardened OS (minimal attack surface)                      │
+  │  • All sessions recorded (keystrokes, screen, commands)      │
+  │  • Session proxy: admin never gets direct credential          │
+  │  • Integrates with PAM vault for credential injection         │
+  │  • No internet access; no email; no general purpose apps     │
+  │  • MFA required at bastion login                             │
+  └─────────────────────────────────────────────────────────────┤
+        │                                                        │
+        │  Port-forwarded session to target server               │
+        ▼                                                        ▼
+  [Admin access to PROD-SQL-01, PROD-WEB-02, Network Switches]
+
+  Firewall rule: DENY all direct SSH/RDP to production EXCEPT from bastion host IP.
+  Admin workstations cannot directly reach production systems.
+──────────────────────────────────────────────────────────────────────────────────────</div>
+<table>
+  <tr><th>Bastion Host Feature</th><th>Security Value</th></tr>
+  <tr><td><strong>Single point of entry for admin access</strong></td><td>Concentrates all privileged access activity at one monitored gateway. Instead of monitoring thousands of direct SSH connections across the environment, monitor one bastion. Reduces attack surface dramatically.</td></tr>
+  <tr><td><strong>Credential injection (never revealed)</strong></td><td>PAM vault provides credentials directly to the bastion session proxy. The admin never sees the actual password of the target system — cannot exfiltrate it, cannot reuse it outside the PAM system.</td></tr>
+  <tr><td><strong>Network segmentation enforcement</strong></td><td>Firewall rules enforce that production systems are UNREACHABLE from user workstations except via bastion. Even if admin credentials are compromised, attacker must also compromise the bastion to use them.</td></tr>
+  <tr><td><strong>Hardened attack surface</strong></td><td>Bastion runs only the PAM/jump software. No email, no browser, no office apps. Minimal OS with all unnecessary services disabled. Regularly patched. Limited blast radius if compromised.</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Session Recording &amp; Monitoring</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>What is recorded</strong></td><td>ALL privileged sessions end-to-end: keystrokes (all commands typed), screen video (full visual stream), session metadata (who, when, what target, duration), file transfers, clipboard content. Modern PAM solutions record at protocol level (SSH protocol parsing, RDP video stream).</td></tr>
+  <tr><td><strong>Immutable audit trail</strong></td><td>Session recordings stored in tamper-evident format, ideally in write-once/append-only storage (WORM) separate from the systems being administered. Even a compromised domain admin should not be able to delete their own session recording.</td></tr>
+  <tr><td><strong>Real-time monitoring &amp; alerting</strong></td><td>PAM platforms analyze session activity in real-time: alert on high-risk commands (rm -rf, DROP TABLE, net user /add, powershell encoded commands), unusual transfer volumes, access outside approved JIT window, connections to unexpected systems.</td></tr>
+  <tr><td><strong>User behavior analytics (UBA)</strong></td><td>ML-based analysis of privileged session activity patterns. Baseline normal behavior per admin — alert on deviations (unusual working hours, commands never seen before, lateral movement patterns, access to systems outside admin's scope).</td></tr>
+  <tr><td><strong>Deterrence value</strong></td><td>Known monitoring of sessions changes insider threat behavior — the "observer effect" in security. Employees and contractors who know their sessions are fully recorded are deterred from policy violations and malicious actions.</td></tr>
+  <tr><td><strong>Detective, not preventive</strong></td><td>Session recording is a detective control — it records what happened for forensic analysis and compliance demonstration. It does NOT prevent a privileged admin from doing something malicious. Must be combined with preventive controls (JIT, least privilege, approval workflows).</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Credential Vaulting</h2>
+<div class="callout definition">
+  <strong>📖 Credential Vaulting:</strong> Storing privileged account credentials (passwords, SSH keys, API tokens, certificates) in a centralized, encrypted, access-controlled repository (the vault). Users access credentials via the vault with MFA and full audit logging — the vault provisions credentials to sessions without the user ever seeing them directly.
+</div>
+<table>
+  <tr><th>Vaulting Feature</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Centralized encrypted storage</strong></td><td>Credentials are not stored in spreadsheets, sticky notes, config files, or emails. Encrypted at rest with hardware-backed keys (HSM integration in enterprise deployments). Single authoritative source of truth for all privileged credentials.</td></tr>
+  <tr><td><strong>Automated credential rotation</strong></td><td>Vault automatically changes privileged account passwords on a schedule (e.g., every 24 hours, after each use, or after JIT session expiry). Stolen credentials have a short validity window. Service account passwords changed without human knowing the new password.</td></tr>
+  <tr><td><strong>Zero-knowledge credential injection</strong></td><td>For session-proxied access: vault provides credential directly to the session connection — admin connects via vault, vault authenticates to target on their behalf. The admin never sees the actual password. Prevents password exfiltration, shoulder surfing, clipboard theft.</td></tr>
+  <tr><td><strong>Access logging</strong></td><td>Every credential retrieval is logged: who accessed, which credential, when, from where. Enables complete audit trail of privileged account usage. Alerts on unusual access patterns (credential retrieved outside business hours, credentials retrieved for systems outside admin's normal scope).</td></tr>
+  <tr><td><strong>MFA required for vault access</strong></td><td>Accessing the vault itself requires strong authentication. Attacker who steals admin's domain password cannot access vault credentials without also compromising the MFA factor.</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Emergency Break-Glass Procedures</h2>
+<div class="callout definition">
+  <strong>📖 Break-Glass (Emergency Access):</strong> A predefined process for accessing emergency privileged credentials when normal authentication systems are unavailable (e.g., PAM vault down, MFA infrastructure failure, identity provider outage). Named after the "break glass in emergency" concept — the seals on the emergency access are broken only in genuine emergencies.
+</div>
+<table>
+  <tr><th>Break-Glass Element</th><th>Detail</th></tr>
+  <tr><td><strong>The problem it solves</strong></td><td>If the PAM vault is down in a disaster scenario, how do admins access systems to fix the disaster? If Azure AD is the IDP and it is experiencing an outage, how do admins access cloud resources? Break-glass accounts provide a bypass path for genuine emergencies.</td></tr>
+  <tr><td><strong>Credential storage</strong></td><td>Break-glass credentials stored in a PHYSICAL sealed envelope (literal break-glass in a physical safe) or in a separate offline vault that is not dependent on the primary PAM system or IDP that may be failing. For cloud: separate local administrator account with credentials stored offline.</td></tr>
+  <tr><td><strong>Dual-custody (two-person integrity)</strong></td><td>Two separate people must cooperate to access break-glass credentials. CISO holds half; IT Director holds half. Neither can access alone — prevents single insider from using break-glass inappropriately. Physical seal provides evidence of whether access occurred.</td></tr>
+  <tr><td><strong>Automatic alerting on ANY use</strong></td><td>Any use of break-glass credentials must immediately and automatically alert senior security leadership (CISO, CTO, Security Operations). No use should go undetected or unreported. Alert must be sent to a channel that does NOT depend on the system being recovered.</td></tr>
+  <tr><td><strong>Mandatory post-use review</strong></td><td>Every break-glass event requires a formal review: verify usage was justified, document what was done, rotate credentials immediately after use. If unauthorized use detected, treat as a security incident. No break-glass use is "routine."</td></tr>
+  <tr><td><strong>Testing</strong></td><td>Break-glass procedures should be tested periodically (e.g., annually) to confirm they work — without actually using real production credentials. Tabletop exercise minimum; full drill if possible.</td></tr>
+</table>
+<div class="callout warning">
+  <strong>⚠️ Break-Glass Misuse Risk:</strong> Break-glass accounts are prime insider-threat attack vectors. If credentials are not properly sealed, rotated, and monitored, a malicious insider can use break-glass accounts to gain unlimited access while appearing to operate within a sanctioned emergency procedure. Every control must apply: dual-custody + alerting + review + rotation after use.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. PAM Architecture Summary</h2>
+<div class="diagram">Complete PAM Architecture:
+──────────────────────────────────────────────────────────────────────────────────────
+  PREVENTIVE CONTROLS:
+  ┌─────────────────────────────────────────────────────────────────────────────┐
+  │  JIT Access Workflow ──→ Time-limited elevated membership                   │
+  │  Privilege Bracketing ──→ Minimal privilege duration                        │
+  │  Credential Vaulting ──→ No static/known passwords for privileged accounts  │
+  │  Least Privilege ──────→ Admin roles scoped to minimum needed               │
+  │  Separate Admin Accounts → Admin account NOT used for daily browsing/email  │
+  └─────────────────────────────────────────────────────────────────────────────┘
+
+  ACCESS GATEWAY:
+  ┌─────────────────────────────────────────────────────────────────────────────┐
+  │  Bastion Host / Jump Server                                                  │
+  │  • MFA at login                                                              │
+  │  • Credential injection (admin never sees target password)                   │
+  │  • Only path to production/privileged systems                                │
+  └─────────────────────────────────────────────────────────────────────────────┘
+
+  DETECTIVE CONTROLS:
+  ┌─────────────────────────────────────────────────────────────────────────────┐
+  │  Session Recording ──→ Full keystroke + screen video + metadata archive     │
+  │  Real-time Monitoring → Command-level alerting on high-risk activity        │
+  │  UBA/Analytics ──────→ Behavioral baseline deviation alerting               │
+  │  Credential Audit Log → Every vault access logged and alerted               │
+  └─────────────────────────────────────────────────────────────────────────────┘
+
+  EMERGENCY:
+  ┌─────────────────────────────────────────────────────────────────────────────┐
+  │  Break-Glass Accounts                                                        │
+  │  • Dual-custody (two-person integrity)                                       │
+  │  • Physical sealed credential + offline vault                                │
+  │  • Alert on any use → mandatory post-use review + rotation                  │
+  └─────────────────────────────────────────────────────────────────────────────┘</div>
+</section>
+
+<section id="s12">
+<h2>12. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 PAM Core — "No Standing Privilege":</strong><br>
+  The goal of PAM = ELIMINATE standing privileged accounts<br>
+  Zero standing privilege → attackers find nothing to steal when they compromise credentials<br>
+  JIT = implement this operationally; Credential Rotation = implement this for service accounts
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 JIT = "Ticket to the Show":</strong><br>
+  Think of JIT access like a ticket: it grants specific access for a specific show (task), at a specific time; after the show (task is done), the ticket expires.<br>
+  Without PAM: permanent VIP backstage pass = always elevated risk.<br>
+  With JIT: day-pass for 4 hours only.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Bastion = "The Only Door":</strong><br>
+  The bastion host is the ONLY door into the privileged zone. All admin traffic must go through this door. The door has a guard (MFA), a camera (session recording), and an inspector (PAM vault injection).<br>
+  Firewall blocks all OTHER doors to production — only the bastion door is open.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Break-Glass — 3 Rules:</strong><br>
+  1. <strong>Two people</strong> to open it (dual custody)<br>
+  2. <strong>Alert immediately</strong> on any use (automatic)<br>
+  3. <strong>Rotate credentials</strong> immediately after use<br>
+  Break-glass that is not monitored = secret master key with no audit trail = worst possible privileged account design.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Session Recording = Detective, NOT Preventive:</strong><br>
+  Recording what admin did DOESN'T stop a malicious admin. It creates evidence and deters.<br>
+  Pair with JIT (preventive) + vault injection (preventive) + bastion gateway (preventive) for defense-in-depth.
+</div>
+</section>
+
+<section id="s13">
+<h2>13. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>PAM goal</td><td>Eliminate standing privilege; ensure every privileged action is authorized, time-limited, audited, and attributable</td></tr>
+  <tr><td>Privileged account types</td><td>Domain admin, local admin, root, cloud root, privileged service accounts, break-glass — each requires PAM controls tailored to risk level</td></tr>
+  <tr><td>JIT access</td><td>Privilege granted for a specific task window, automatically revoked when window expires; eliminates standing privilege; full request/approval/audit trail</td></tr>
+  <tr><td>Privilege bracketing</td><td>Acquire elevated privileges immediately before the operation; drop immediately after; applies both as PAM operational concept and software security practice</td></tr>
+  <tr><td>Bastion host / jump server</td><td>Only authorized path for admin access to privileged systems; hardened; session-proxied; MFA + credential injection; all sessions recorded; firewall enforces routing</td></tr>
+  <tr><td>Session recording</td><td>Detective control; records keystrokes, screen, commands for all privileged sessions; WORM immutable storage; deterrence + forensic + compliance value</td></tr>
+  <tr><td>Credential vaulting</td><td>Centralized encrypted credential storage; automated rotation; zero-knowledge credential injection; MFA for vault access; audit log of every retrieval</td></tr>
+  <tr><td>Break-glass</td><td>Emergency bypass only; dual-custody physical seal; automatic alert on any use; mandatory post-use review + credential rotation; tested periodically</td></tr>
+  <tr><td>LAPS</td><td>Local Administrator Password Solution — unique randomized local admin password per machine stored in AD, automatically rotated; eliminates shared local admin passwords</td></tr>
+  <tr><td>Defense-in-depth for PAM</td><td>No single control is sufficient: JIT + vault + bastion + MFA + session recording + least privilege + break-glass procedures = layered defense against privileged account abuse</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-078-theory.html" class="nav-btn">← Day 78: Identity Management Lifecycle</a>
+  <a href="day-080-theory.html" class="nav-btn">Day 80: Directory Services →</a>
+</div>
+</div>
+</body>
+</html>

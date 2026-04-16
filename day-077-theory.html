@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 77 – Access Control Implementation</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 77 – Access Control Implementation</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 77 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-076-theory.html">← Day 76: Authorization: RBAC &amp; ABAC</a> · Domain 5 · Day 77</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Access Control Lists (ACLs)</a></li>
+  <li><a href="#s4">4. Capability Tables</a></li>
+  <li><a href="#s5">5. Access Control Matrix</a></li>
+  <li><a href="#s6">6. Content-Dependent Access Control</a></li>
+  <li><a href="#s7">7. Context-Dependent Access Control</a></li>
+  <li><a href="#s8">8. Restricted Interfaces</a></li>
+  <li><a href="#s9">9. Database Views</a></li>
+  <li><a href="#s10">10. Implementation Mechanisms Comparison</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — concrete mechanisms used to implement access control policies at the OS, network, and database levels</td></tr>
+  <tr><td><strong>Conceptual vs. Implemented</strong></td><td>Days 75–76 covered the MODELS (DAC/MAC/RBAC/ABAC). Day 77 covers how those models are IMPLEMENTED at the technical level using specific data structures and enforcement mechanisms.</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>CISSP candidates must understand how access control decisions are stored and enforced — not just the conceptual model. ACLs, capability tables, and access control matrices are frequently tested vocabulary. Database views and restricted interfaces test cross-domain knowledge (Apps/Software + IAM).</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>ACL is an object-centric view (what subjects can access this object). Capability table is a subject-centric view (what objects can this subject access). Both can represent the same matrix — just different perspectives on rows vs. columns.</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Topic</th><th>Real-World Context</th></tr>
+  <tr><td><strong>ACLs everywhere</strong></td><td>Network ACLs (router/switch permit/deny rules), filesystem ACLs (Windows NTFS, Linux setfacl), cloud bucket policies (S3 bucket ACL), database object-level permissions — all are ACL implementations.</td></tr>
+  <tr><td><strong>Capability tables in OS kernels</strong></td><td>Unix process file descriptors are a capability implementation — the descriptor IS the capability token granting access rights to a file without the process needing to know the full path. Some OS security systems (seL4) build entirely on capabilities.</td></tr>
+  <tr><td><strong>Database views as data firewall</strong></td><td>Exposing only specific rows/columns of a table to an application or user via a view is a commonplace data access control technique. Applications use views instead of direct table access to enforce column-level security and row-level security without application-layer filtering.</td></tr>
+  <tr><td><strong>Restricted interfaces in web apps</strong></td><td>Hiding menu items, disabling buttons, and restricting API endpoints based on user role — all restricted interface enforcement. Requires defense-in-depth: the back-end must ALSO enforce the restriction, not rely solely on UI hiding.</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Access Control Lists (ACLs)</h2>
+<div class="callout definition">
+  <strong>📖 ACL (Access Control List):</strong> An object-centric list of access rights. Each protected object (file, network resource, database table) maintains a list of subjects and their permitted operations. The ACL answers: "Who is allowed to do what to THIS object?"
+</div>
+<div class="diagram">ACL for File: /hr/payroll/2024_salaries.xlsx
+───────────────────────────────────────────
+Subject (User/Group)     Permissions
+────────────────────     ─────────────────
+HR-Manager-Group         Read, Write
+Payroll-Processor        Read, Write, Execute
+CEO                      Read
+Auditor-Group            Read
+SYSTEM/root              Full Control
+[Implicit Deny All]      ← everyone else denied
+
+ACL for Network Interface (Firewall):
+───────────────────────────────────────────
+Rule  Source IP       Dest Port  Action
+────  ─────────────   ─────────  ──────
+10    10.0.0.0/8      443        PERMIT
+20    10.1.5.0/24     22         PERMIT
+30    ANY             ANY        DENY</div>
+<table>
+  <tr><th>ACL Property</th><th>Detail</th></tr>
+  <tr><td><strong>Object-centric</strong></td><td>Stored with the object. To determine what a user can access, you must check every object's ACL. Good for answering "who can access this object?" quickly. Poor for auditing "what can this user access?" (must scan all ACLs)</td></tr>
+  <tr><td><strong>DAC implementation</strong></td><td>ACLs are the primary implementation mechanism for Discretionary Access Control (DAC). OS owners set ACL entries for their files/objects.</td></tr>
+  <tr><td><strong>Implicit deny</strong></td><td>Best practice: anything NOT explicitly permitted in the ACL is denied. First-match vs. best-match evaluation rules vary by implementation (network ACLs typically first-match).</td></tr>
+  <tr><td><strong>Discretionary element</strong></td><td>In DAC systems, the object owner can modify the ACL — grant others access. This owner-delegated modification capability is the defining feature of DAC via ACLs.</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Capability Tables</h2>
+<div class="callout definition">
+  <strong>📖 Capability Table:</strong> A subject-centric list of access rights. Each subject (user, process) holds a list of objects it is permitted to access and with what rights. The capability table answers: "What objects can THIS subject access, and how?"
+</div>
+<div class="diagram">Capability Table for Subject: Alice (HR-Manager)
+────────────────────────────────────────────────────────────────────
+Object (Resource)                    Permitted Operations
+───────────────────────────────      ─────────────────────────────
+/hr/payroll/2024_salaries.xlsx       Read, Write
+/hr/performance-reviews/             Read, Write
+/hr/org-chart.pdf                    Read
+HR Intranet Portal                   Read, Write  (admin section)
+Employee Database (HR tables only)   SELECT, UPDATE, INSERT
+────────────────────────────────────────────────────────────────────
+
+Capability Table for Subject: Bob (Finance-Analyst)
+────────────────────────────────────────────────────────────────────
+Object (Resource)                    Permitted Operations
+───────────────────────────────      ─────────────────────────────
+/finance/budget/                     Read, Write
+/finance/reports/                    Read
+Accounting System                    View, Generate Reports
+────────────────────────────────────────────────────────────────────</div>
+<table>
+  <tr><th>Capability Table Property</th><th>Detail</th></tr>
+  <tr><td><strong>Subject-centric</strong></td><td>Stored with the subject. Easy to answer "what can Alice access?" — just read her capability table. Poor for answering "who can access this file?" (must scan all capability tables).</td></tr>
+  <tr><td><strong>Capability as token</strong></td><td>Some systems implement capabilities as unforgeable cryptographic tokens. Possessing the token grants the right — no separate ACL lookup needed (capability-based security systems).</td></tr>
+  <tr><td><strong>Unix file descriptors</strong></td><td>A file descriptor is a capability granted to a process upon open(). Even if the file's permissions change later, the open descriptor continues to allow access — the capability was granted when the descriptor was issued.</td></tr>
+  <tr><td><strong>Revocation difficulty</strong></td><td>Revoking a capability is harder than revoking an ACL entry — you must find and invalidate all copies of the token. ACLs centralize the permission with the object, making revocation straightforward.</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Access Control Matrix</h2>
+<div class="callout definition">
+  <strong>📖 Access Control Matrix:</strong> The conceptual, two-dimensional representation of all access rights in a system. Rows = subjects; Columns = objects; Cells = permitted operations. Theoretical model — too large to implement directly for enterprise systems; implemented as ACLs (extract columns) or capability tables (extract rows).
+</div>
+<div class="diagram">Access Control Matrix
+             │ File A      │ File B       │ Database     │ Printer
+─────────────┼─────────────┼──────────────┼──────────────┼──────────
+Alice        │ read, write │ read         │ select       │ print
+─────────────┼─────────────┼──────────────┼──────────────┼──────────
+Bob          │ read        │ read, write  │ select,update│ print
+─────────────┼─────────────┼──────────────┼──────────────┼──────────
+Carol (Admin)│ read, write,│ read,write,  │ all          │ print
+             │ execute,    │ execute,     │              │
+             │ change ACL  │ change ACL   │              │
+
+ACL for File A  = extract FILE A COLUMN  → {Alice:r/w, Bob:r, Carol:r/w/x/chacl}
+Capability for Alice = extract ALICE ROW → {File A:r/w, File B:r, DB:select, Printer:print}</div>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Matrix, ACL, Capability:</strong><br>
+  Access Control Matrix = theoretical complete picture<br>
+  ACL = one COLUMN of the matrix (per-object, who can do what)<br>
+  Capability table = one ROW of the matrix (per-subject, what can they do)<br>
+  All three represent the same information in different organizational forms.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Content-Dependent Access Control</h2>
+<div class="callout definition">
+  <strong>📖 Content-Dependent Access Control:</strong> Access decisions are based on the CONTENT of the data being accessed, not just the object's identity. The same object may be accessible to different subjects based on what data it contains at the time of access.
+</div>
+<table>
+  <tr><th>Example</th><th>Mechanism</th></tr>
+  <tr><td><strong>Database row-level security</strong></td><td>Alice (HR-Analyst for EMEA) can SELECT from the employee table but sees only rows WHERE region = 'EMEA'. Bob (HR-Analyst for APAC) sees only WHERE region = 'APAC'. Same table, same permission label — different visible content based on identity.</td></tr>
+  <tr><td><strong>Document DRM by classification</strong></td><td>A SharePoint library containing both Confidential and Public documents. A user classified at "Public" clearance can read the same folder but is blocked from downloading documents with a "Confidential" metadata tag — access decision depends on document content/metadata, not just folder identity.</td></tr>
+  <tr><td><strong>Email content filtering</strong></td><td>Email gateway blocks messages containing credit card numbers, SSNs, or malware signatures — this is content-dependent control at the network layer. The control depends on what's IN the data.</td></tr>
+  <tr><td><strong>MAC label on data</strong></td><td>MAC classification labels attached to objects (from Day 75) are effectively content-dependent — the label reflects the sensitivity of the content, and access is controlled by label comparison.</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Context-Dependent Access Control</h2>
+<div class="callout definition">
+  <strong>📖 Context-Dependent Access Control:</strong> Access decisions are based on the CONTEXT in which the access occurs — not just who you are or what data is involved, but when, where, how, and in what sequence the access happens. Guards against valid sequential steps performed in an invalid order.
+</div>
+<table>
+  <tr><th>Example</th><th>Mechanism</th></tr>
+  <tr><td><strong>Transaction sequence enforcement</strong></td><td>In a purchase-order workflow, "Approve PO" is only accessible AFTER "Create PO" and "Review PO" steps are complete. A user with Approver role cannot jump directly to approval without the prior context steps — context validates the process state.</td></tr>
+  <tr><td><strong>E-commerce checkout flow</strong></td><td>Cannot submit payment without having confirmed shipping address first. Accessing /checkout/confirm before /checkout/address returns 403. The access depends on context (session state / prior steps).</td></tr>
+  <tr><td><strong>Clinical data access after consent</strong></td><td>Healthcare system: physician can only access patient records in context of an active patient encounter. Access outside an encounter context is blocked — even with the physician role — because context (ongoing care relationship) is required.</td></tr>
+  <tr><td><strong>Time-of-day restriction</strong></td><td>From Day 76 — temporal access restrictions are a specific form of context-dependent control where the environmental context (time) gates access.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Content vs. Context:</strong><br>
+  Content-dependent = based on WHAT the data says (the data's values, labels, content).<br>
+  Context-dependent = based on WHEN/HOW/WHERE/IN-WHAT-SEQUENCE the access occurs (environmental + procedural state).
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Restricted Interfaces</h2>
+<div class="callout definition">
+  <strong>📖 Restricted Interface:</strong> Constraining what users can see, access, and manipulate within a system by presenting only the subset of functionality or data appropriate for their role. A form of access control enforcement within the application's user interface or API layer.
+</div>
+<table>
+  <tr><th>Restricted Interface Type</th><th>Description</th><th>Example</th></tr>
+  <tr><td><strong>Menu/feature restriction</strong></td><td>UI elements (menu items, buttons, navigation links) are hidden or disabled for users who lack the required role/permission. User sees only what they are allowed to access.</td><td>Standard user sees "View Reports" only; Admin user sees "View Reports + User Management + System Config". Manager's menu omits payroll tables accessible to Finance role.</td></tr>
+  <tr><td><strong>API endpoint restriction</strong></td><td>RESTful API returns 403 Forbidden or omits certain endpoints from API documentation/schema based on the caller's identity. Admin operations at /admin/* are restricted to the Admin role.</td><td>GET /api/users/{id} returns full user record for Admin; returns redacted record for self-service user; returns 403 for others.</td></tr>
+  <tr><td><strong>Shell restriction / constrained shell</strong></td><td>Limited command-line environment (restricted shell − rbash in Linux; or telecom switch CLI) that only exposes a small set of commands. User cannot access forbidden commands.</td><td>Call-center agent given restricted shell that only allows: show account_balance, show transaction_history — cannot reach underlying OS commands.</td></tr>
+  <tr><td><strong>Physical kiosk mode</strong></td><td>Public-facing terminals locked to a single application (kiosk mode). Cannot access OS, file system, or other apps.</td><td>Airport check-in terminal, ATM, hotel check-in kiosk.</td></tr>
+</table>
+<div class="callout warning">
+  <strong>⚠️ Security Principle:</strong> Restricted interfaces enforce least privilege at the UI/API layer — but they are NOT a substitute for back-end enforcement. If a user bypasses the UI and directly calls the API (e.g., manipulates HTTP requests), the server must still enforce access control. UI restriction is defense-in-depth, not the primary control.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Database Views</h2>
+<div class="callout definition">
+  <strong>📖 Database View:</strong> A virtual table defined by a SQL SELECT query. Users are granted SELECT permission on the view rather than on the underlying base tables. The view acts as a logical filter — exposing only specific rows (row-level security) or columns (column-level security) while keeping the underlying table structure hidden.
+</div>
+<div class="diagram">Base Table: employees
+─────────────────────────────────────────────────────────────────────────────────────
+emp_id | name         | salary  | ssn         | department | performance_rating | region
+1001   | Alice Brown  | 95000   | 555-12-3456 | HR         | 4.2               | EMEA
+1002   | Bob Chen     | 110000  | 555-23-4567 | Finance    | 3.9               | AMER
+1003   | Carol Davis  | 78000   | 666-34-5678 | IT         | 4.5               | APAC
+
+View: hr_analyst_view (for HR Analysts – EMEA only, no salary or SSN)
+─────────────────────────────────────────────────────────────────────────────────────
+CREATE VIEW hr_analyst_view AS
+  SELECT emp_id, name, department, region      ← columns filtered (NO salary, SSN)
+  FROM employees
+  WHERE region = 'EMEA';                        ← rows filtered (EMEA only)
+
+HR Analyst sees:
+emp_id | name        | department | region
+1001   | Alice Brown | HR         | EMEA
+(only EMEA rows, no salary/SSN columns — salary and SSN are fully invisible)</div>
+<table>
+  <tr><th>Database View Security Feature</th><th>Detail</th></tr>
+  <tr><td><strong>Column-level access control</strong></td><td>Grant access to only specific columns (e.g., hide salary, SSN, medical info from general HR staff while allowing access to other employee fields)</td></tr>
+  <tr><td><strong>Row-level access control</strong></td><td>Restrict which rows are visible based on user context (WHERE clause in view definition). User never sees other regions', departments', or sensitivity-level rows.</td></tr>
+  <tr><td><strong>Hides schema complexity</strong></td><td>Application queries a clean view interface without knowing the full underlying table structure. Reduces attack surface by limiting SQL injection blast radius — attacker can only enumerate what the view exposes.</td></tr>
+  <tr><td><strong>Aggregation-only views</strong></td><td>Statistical/reporting views that show only aggregates (SUM, AVG, COUNT) never expose individual records — statistical disclosure protection.</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Implementation Mechanisms Comparison</h2>
+<table>
+  <tr><th>Mechanism</th><th>Perspective</th><th>Stores</th><th>Best Answers</th><th>Example</th></tr>
+  <tr><td><strong>ACL</strong></td><td>Object-centric</td><td>With the object</td><td>"Who can access THIS file/object?"</td><td>NTFS file permissions, network firewall rules, S3 bucket policies</td></tr>
+  <tr><td><strong>Capability Table</strong></td><td>Subject-centric</td><td>With the subject</td><td>"What can THIS user/process access?"</td><td>Unix file descriptors, seL4 capability tokens, Windows handle table</td></tr>
+  <tr><td><strong>Access Control Matrix</strong></td><td>Both</td><td>Conceptual model</td><td>Show all rights in system</td><td>Theoretical; implemented via ACLs or capabilities in practice</td></tr>
+  <tr><td><strong>Content-dependent</strong></td><td>Data-centric</td><td>Evaluated at query/access time</td><td>"Can subject access data with THESE values?"</td><td>Database row-level security, DLP, MAC labels</td></tr>
+  <tr><td><strong>Context-dependent</strong></td><td>State-centric</td><td>Session/process state</td><td>"Is the current context correct for this operation?"</td><td>Workflow gates, time restrictions, Conditional Access</td></tr>
+  <tr><td><strong>Restricted interface</strong></td><td>UI-centric</td><td>Application layer</td><td>"Show user only what they need"</td><td>Menus, API endpoint restrictions, constrained shells</td></tr>
+  <tr><td><strong>Database views</strong></td><td>Data-filter</td><td>Database layer</td><td>"Expose only appropriate rows/columns"</td><td>SQL views for column/row-level security</td></tr>
+</table>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 ACL vs. Capability — "Object vs. Subject":</strong><br>
+  <strong>A</strong>CL = <strong>A</strong>ttached to the <strong>A</strong>sset (object) — "Who can touch this ASSET?"<br>
+  <strong>C</strong>apability = <strong>C</strong>arried by the <strong>C</strong>lient (subject) — "What can this CLIENT do?"<br>
+  ACL = think "guest list at the door" (door = object holds the list)<br>
+  Capability = think "concert ticket" (ticket = token the subject carries)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Content vs. Context:</strong><br>
+  <strong>Content</strong>-dependent = controls based on the data's CONTENTs (values, labels, classification)<br>
+  <strong>Context</strong>-dependent = controls based on the access CONTExt (when, where, what sequence, how)<br>
+  A doctor sees patient records based on encounter CONTEXT. DLP blocks emails based on SSN CONTENT.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Restricted Interface ≠ Security by Obscurity:</strong><br>
+  Restricting what the UI SHOWS reduces the attack surface and enforces least privilege in the interface layer.<br>
+  But the BACK-END must also enforce access control. UI restriction alone = security theater.<br>
+  "Never trust the client."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Database View = "Window on Data":</strong><br>
+  A view is a WINDOW into the table — you see only what the window frame shows (filtered rows AND columns).<br>
+  Column filtering = vertical blinds (hides certain columns). Row filtering = horizontal blinds (hides certain rows).
+</div>
+</section>
+
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Mechanism</th><th>Essential Point</th></tr>
+  <tr><td>ACL</td><td>Object-centric; lists who can do what to that object; implements DAC; stored with the object; easy revocation</td></tr>
+  <tr><td>Capability table</td><td>Subject-centric; lists what a subject can access; stored with the subject; like an unforgeable ticket/token</td></tr>
+  <tr><td>Access control matrix</td><td>Theoretical 2D model (subjects × objects); ACL = matrix column; capability = matrix row; too large for direct implementation</td></tr>
+  <tr><td>Content-dependent</td><td>Access based on DATA VALUES (classification labels, field contents, embedded regex patterns); implements content-aware policy</td></tr>
+  <tr><td>Context-dependent</td><td>Access based on ACCESS CONTEXT (time, location, sequence, session state); protects against out-of-order or unauthorized context access</td></tr>
+  <tr><td>Restricted interface</td><td>Expose only what user is allowed to see; reduces attack surface; must be backed by server-side enforcement</td></tr>
+  <tr><td>Database views</td><td>SQL virtual table for row-level and column-level security; hides schema; data access control at the database layer</td></tr>
+  <tr><td>Implementation principle</td><td>Multiple mechanisms are used together (defense-in-depth): view hides columns + ACL restricts table access + context-dependent gate checks time + restricted interface hides buttons</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-076-theory.html" class="nav-btn">← Day 76: Authorization: RBAC &amp; ABAC</a>
+  <a href="day-078-theory.html" class="nav-btn">Day 78: Identity Management Lifecycle →</a>
+</div>
+</div>
+</body>
+</html>

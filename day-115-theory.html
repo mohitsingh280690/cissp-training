@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 115 – Physical Security Operations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 115 – Physical Security Operations</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 115 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-114-theory.html">← Day 114: DR Testing &amp; Maintenance</a> · Domain 7 · Day 115</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Physical Security Layered Model — Defense in Depth</a></li>
+  <li><a href="#s4">4. Perimeter Security</a></li>
+  <li><a href="#s5">5. Building &amp; Facility Security</a></li>
+  <li><a href="#s6">6. Interior Security — Restricted Areas</a></li>
+  <li><a href="#s7">7. Surveillance &amp; Monitoring</a></li>
+  <li><a href="#s8">8. Environmental Controls</a></li>
+  <li><a href="#s9">9. Fire Prevention &amp; Suppression</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Physical security controls are tested across Domains 3 and 7. Candidates must know fence heights, lock types, fire suppression agents, and environmental controls for data centers. Fire suppression is particularly high-frequency</td></tr>
+  <tr><td>Question Style</td><td>"What height fence deters a determined intruder?" (8 ft with barbed wire). "Which fire suppression agent replaced Halon?" (FM-200/Novec 1230). "What is the PRIMARY purpose of a mantrap?" (Prevent piggybacking/tailgating)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 3 (physical access controls); Day 116 (personnel safety); Day 10 (defense in depth concept)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Physical security is the foundation — all logical controls fail if an attacker can physically access systems. Social engineering attacks often exploit physical security gaps: tailgating into buildings, impersonating vendors, accessing unlocked server rooms. Data center physical security is audited for compliance (SOC 2 Type II, ISO 27001, PCI DSS). A single physical breach can compromise an entire network.</p>
+</section>
+
+<section id="s3">
+<h2>3. Physical Security Layered Model — Defense in Depth</h2>
+<div class="key-concept callout">
+  <strong>Physical security uses concentric layers (outside → inside):</strong><br>
+  <strong>Layer 1:</strong> Site perimeter — fences, gates, bollards, lighting, signage<br>
+  <strong>Layer 2:</strong> Building exterior — walls, doors, windows, locks, guards<br>
+  <strong>Layer 3:</strong> Building interior — reception, access controls, CCTV, alarms<br>
+  <strong>Layer 4:</strong> Restricted areas — server rooms, vaults, mantraps, biometrics<br>
+  <strong>Layer 5:</strong> Asset-level — locked cabinets, cable locks, port blockers
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Perimeter Security</h2>
+
+<h3>Fencing</h3>
+<table>
+  <tr><th>Fence Height</th><th>Deterrence Level</th></tr>
+  <tr><td>3-4 feet (1-1.2 m)</td><td>Deters casual trespassers only — psychological boundary</td></tr>
+  <tr><td>6-7 feet (1.8-2.1 m)</td><td>Too tall to easily climb; deters most intruders</td></tr>
+  <tr><td>8+ feet (2.4+ m) with barbed wire/razor wire</td><td>Deters determined intruders; signals high-security facility</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Fence Heights — Exam Favorite:</strong> 3-4 ft = casual deterrent; 6-7 ft = too tall to climb easily; 8 ft + barbed/razor wire = deters determined intruders. CPTED (Crime Prevention Through Environmental Design) uses fencing as a territorial reinforcement strategy.
+</div>
+
+<h3>Gates &amp; Barriers</h3>
+<ul>
+  <li><strong>Bollards:</strong> Short vertical posts that prevent vehicle approach; protects against vehicle-borne attacks (rams)</li>
+  <li><strong>Vehicle barriers:</strong> Active (pop-up bollards, drop-arm gates) and passive (concrete planters, berms)</li>
+  <li><strong>Sally port:</strong> A controlled double-gate system — only one gate opens at a time (vehicle equivalent of a mantrap)</li>
+</ul>
+
+<h3>Lighting</h3>
+<ul>
+  <li><strong>Purpose:</strong> Deter intruders; enable CCTV effectiveness; allow guard observation</li>
+  <li><strong>Standard:</strong> Critical areas illuminated to at least 2 foot-candles (fc) at 8 feet height</li>
+  <li><strong>Types:</strong> Continuous/standby/movable/emergency; LED preferred for efficiency and instant-on</li>
+  <li><strong>Placement:</strong> No dark spots or shadows; uniform lighting prevents concealment</li>
+</ul>
+</section>
+
+<section id="s5">
+<h2>5. Building &amp; Facility Security</h2>
+
+<h3>Doors &amp; Locks</h3>
+<table>
+  <tr><th>Lock Type</th><th>Description</th><th>Security Level</th></tr>
+  <tr><td><strong>Warded lock</strong></td><td>Oldest type; uses internal wards (obstructions); skeleton key bypasses</td><td>Lowest — easily defeated</td></tr>
+  <tr><td><strong>Tumbler lock</strong></td><td>Uses pins/tumblers at different heights; requires matching key</td><td>Moderate; pin tumbler most common (residential/commercial)</td></tr>
+  <tr><td><strong>Combination lock</strong></td><td>Dial or digital combination; no physical key to copy</td><td>Moderate</td></tr>
+  <tr><td><strong>Cipher lock (keypad)</strong></td><td>Electronic keypad; programmable codes; can track entries; supports multiple codes</td><td>Higher — codes changeable; audit trail possible</td></tr>
+  <tr><td><strong>Smart lock / electronic</strong></td><td>Card reader, biometric, or mobile credential; integrates with access control system</td><td>Highest — centrally managed; audit trail; can disable remotely</td></tr>
+</table>
+
+<h3>Guards</h3>
+<table>
+  <tr><th>Advantage</th><th>Disadvantage</th></tr>
+  <tr><td>Can make judgment calls and respond to novel situations</td><td>Expensive (24/7 coverage requires 4-5 FTEs per post)</td></tr>
+  <tr><td>Deter through human presence</td><td>Subject to social engineering attacks</td></tr>
+  <tr><td>Can verify identity visually</td><td>Human error: fatigue, inattention, collusion</td></tr>
+  <tr><td>Can respond immediately to incidents</td><td>Require training, supervision, vetting</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Dogs — Exam Note:</strong> Guard dogs are effective physical deterrents but raise liability/legal concerns (injury lawsuits). Dogs are classified as a preventive/deterrent control. They are most effective in outdoor/perimeter applications and require handler support.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Interior Security — Restricted Areas</h2>
+
+<h3>Mantraps (Access Control Vestibules)</h3>
+<div class="definition callout">
+  A <strong>mantrap</strong> (modern term: <strong>access control vestibule</strong>) is a small room with two doors where only one door can be open at a time. A person enters door 1, which closes and locks, then must authenticate to open door 2. <strong>Primary purpose: prevent piggybacking/tailgating</strong> — only one person can pass through at a time.
+</div>
+
+<h3>Sensitive Compartmented Information Facility (SCIF)</h3>
+<p>A SCIF is an enclosed area within a building used to process classified information. Requirements include: RF shielding (prevents eavesdropping), soundproofing, intrusion detection, continuous monitoring, strict access controls, and TEMPEST compliance. Used by government and military.</p>
+
+<h3>Faraday Cage</h3>
+<p>An enclosure made of conductive material that blocks electromagnetic fields. Prevents electronic signals from entering or leaving. Used for: TEMPEST protection, protecting sensitive equipment from EMP, preventing wireless eavesdropping, and RF shielding for SCIFs.</p>
+</section>
+
+<section id="s7">
+<h2>7. Surveillance &amp; Monitoring</h2>
+<table>
+  <tr><th>System</th><th>Description</th><th>Key Considerations</th></tr>
+  <tr><td><strong>CCTV</strong></td><td>Closed-circuit television cameras — fixed, PTZ (pan-tilt-zoom), or dome</td><td>Deterrent + detective control; requires adequate lighting; record retention per policy; privacy concerns</td></tr>
+  <tr><td><strong>IDS (Physical)</strong></td><td>Intrusion detection — motion sensors, glass break, door contacts, vibration sensors</td><td>Passive infrared (PIR) most common; ultrasonic/microwave for specialized areas</td></tr>
+  <tr><td><strong>Access logs</strong></td><td>Electronic records of who entered/exited and when</td><td>Provides audit trail; enables investigation; must be protected from tampering</td></tr>
+  <tr><td><strong>Visitor management</strong></td><td>Sign-in/out logs, escort requirements, visitor badges</td><td>Visitors must be escorted in restricted areas; badges should be visually distinctive</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Environmental Controls</h2>
+<table>
+  <tr><th>Control</th><th>Data Center Standard</th></tr>
+  <tr><td><strong>Temperature</strong></td><td>64-81°F (18-27°C) per ASHRAE; optimal ~68-72°F; hot aisle/cold aisle layout</td></tr>
+  <tr><td><strong>Humidity</strong></td><td>40-60% RH. Too low → electrostatic discharge (ESD); Too high → condensation/corrosion</td></tr>
+  <tr><td><strong>Power</strong></td><td>UPS (battery backup for minutes); Generator (long-term, 10-30 sec start); dual utility feeds; PDUs</td></tr>
+  <tr><td><strong>Water detection</strong></td><td>Sensors under raised floors and near pipes; water is the #2 cause of data center damage after fire</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Humidity — Two Extremes:</strong><br>
+  • <strong>Too LOW humidity</strong> → Electrostatic Discharge (ESD) — damages components<br>
+  • <strong>Too HIGH humidity</strong> → Condensation and corrosion — damages equipment<br>
+  Target: 40-60% relative humidity
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Fire Prevention &amp; Suppression</h2>
+
+<h3>Fire Classes</h3>
+<table>
+  <tr><th>Class</th><th>Fuel Type</th><th>Suppression Agent</th><th>Data Center Relevance</th></tr>
+  <tr><td><strong>A</strong></td><td>Common combustibles (wood, paper, cloth)</td><td>Water, dry chemical</td><td>Office areas</td></tr>
+  <tr><td><strong>B</strong></td><td>Flammable liquids (gasoline, oil, grease)</td><td>CO₂, dry chemical, foam</td><td>Generator rooms</td></tr>
+  <tr><td><strong>C</strong></td><td>Electrical equipment (energized)</td><td>CO₂, clean agent (FM-200, Novec 1230)</td><td>Server rooms, network closets — MOST RELEVANT</td></tr>
+  <tr><td><strong>D</strong></td><td>Combustible metals (magnesium, titanium)</td><td>Special dry powder</td><td>Rare in data centers</td></tr>
+  <tr><td><strong>K</strong></td><td>Cooking oils and fats</td><td>Wet chemical</td><td>Cafeteria areas only</td></tr>
+</table>
+
+<h3>Fire Suppression Systems</h3>
+<table>
+  <tr><th>System</th><th>How It Works</th><th>Pros</th><th>Cons</th></tr>
+  <tr><td><strong>Wet pipe sprinkler</strong></td><td>Pipes always filled with water; sprinkler heads activate individually at ~165°F</td><td>Simplest; most reliable; auto-activates</td><td>Water damages electronics; freeze risk; accidental discharge</td></tr>
+  <tr><td><strong>Dry pipe sprinkler</strong></td><td>Pipes filled with compressed air; water released only when head activates</td><td>No freeze risk; slight delay allows false alarm check</td><td>Still uses water; slower activation; more complex</td></tr>
+  <tr><td><strong>Pre-action sprinkler</strong></td><td>Dry pipe + requires TWO triggers: (1) heat detection AND (2) sprinkler head activation</td><td>Two-step reduces accidental discharge; protects water-sensitive areas</td><td>Complex; higher cost; slower response</td></tr>
+  <tr><td><strong>Deluge</strong></td><td>All heads open simultaneously when triggered; massive water flow</td><td>Fast coverage of large areas</td><td>Extreme water damage; used for high-hazard areas, NOT data centers</td></tr>
+  <tr><td><strong>FM-200 (HFC-227ea)</strong></td><td>Clean agent gas — suppresses fire by chemical reaction; safe for humans at design concentration</td><td>No water damage; safe for electronics; safe for occupied spaces; Halon replacement</td><td>Expensive; enclosed space required; limited supply per discharge</td></tr>
+  <tr><td><strong>Novec 1230</strong></td><td>Clean agent liquid-to-gas; zero ozone depletion; very low global warming potential</td><td>Environmentally superior to FM-200; safe for equipment and personnel; fast-acting</td><td>Expensive; enclosed space required</td></tr>
+  <tr><td><strong>CO₂</strong></td><td>Displaces oxygen to suppress fire</td><td>Very effective; no residue</td><td><strong>LETHAL to humans</strong> — displaces breathable air; NOT for occupied spaces</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>CO₂ Is Deadly:</strong> CO₂ fire suppression works by removing oxygen. This WILL kill people in the room. CO₂ is only appropriate for unoccupied areas (e.g., unmanned computer rooms with warning alarms and time delay for evacuation). For occupied data centers, use FM-200 or Novec 1230.
+</div>
+
+<div class="exam-tip callout">
+  <strong>Halon Replacement:</strong> Halon 1301 was the gold standard for data center fire suppression but depletes the ozone layer. Its production was banned by the Montreal Protocol (1987). Replacements: <strong>FM-200</strong> (most common replacement) and <strong>Novec 1230</strong> (newest, most environmentally friendly). Both are safe for humans and electronics.
+</div>
+
+<div class="key-concept callout">
+  <strong>Pre-action = Best Sprinkler for Data Centers:</strong> Pre-action requires two separate triggers (detection system + sprinkler head), which dramatically reduces accidental water discharge. This is the preferred water-based system for data centers and areas with water-sensitive equipment.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Fence Heights — "3-6-8"</strong><br>
+  <strong>3</strong>-4 ft = casual deterrent (neighborhood fence)<br>
+  <strong>6</strong>-7 ft = most people can't climb (commercial)<br>
+  <strong>8</strong>+ ft with wire = determined intruder deterrent (high security)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Fire Suppression for Data Centers — "FM = For Machines"</strong><br>
+  <strong>FM-200</strong> = For Machines (safe for electronics AND humans)<br>
+  <strong>CO₂</strong> = Chokes Oxygen (kills people — unoccupied only!)<br>
+  <strong>Pre-action</strong> = Preferred sprinkler for data centers (two triggers)<br>
+  <strong>Wet pipe</strong> = Worst for electronics (water always ready to flow)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Humidity — "Low = zap, High = drip"</strong><br>
+  Low humidity → electro<strong>S</strong>tatic discharge (ESD) — "Static = Shocking"<br>
+  High humidity → condensation and corrosion — "Humid = H₂O problems"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Mantrap Purpose</strong><br>
+  "Mantrap <strong>Traps</strong> one person = prevents <strong>T</strong>ailgating"
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Defense in depth</td><td>5 layers: perimeter → building exterior → interior → restricted areas → asset</td></tr>
+  <tr><td>Fence heights</td><td>3-4 ft casual; 6-7 ft climb deterrent; 8+ ft with wire for determined intruders</td></tr>
+  <tr><td>Bollards</td><td>Prevent vehicle-borne attacks; protect building entrances</td></tr>
+  <tr><td>Mantrap</td><td>Prevents tailgating/piggybacking; only one person at a time; two-door system</td></tr>
+  <tr><td>Pre-action sprinkler</td><td>Best water-based system for data centers; requires two triggers (reduces accidental discharge)</td></tr>
+  <tr><td>FM-200 / Novec 1230</td><td>Clean agent fire suppression; safe for electronics AND humans; replaced Halon</td></tr>
+  <tr><td>CO₂</td><td>Lethal — displaces oxygen; unoccupied areas only</td></tr>
+  <tr><td>Temperature</td><td>Data center: 64-81°F (ASHRAE); hot/cold aisle design</td></tr>
+  <tr><td>Humidity</td><td>40-60% RH; too low = ESD, too high = condensation</td></tr>
+  <tr><td>Halon</td><td>Banned (Montreal Protocol, ozone depletion); replaced by FM-200 and Novec 1230</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-114-theory.html" class="nav-btn">← Day 114: DR Testing &amp; Maintenance</a>
+  <a href="day-116-theory.html" class="nav-btn">Day 116: Personnel Safety &amp; Security →</a>
+</div>
+</div>
+</body>
+</html>

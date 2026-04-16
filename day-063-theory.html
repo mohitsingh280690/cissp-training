@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 63 – Wireless Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 63 – Wireless Security</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 63 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-062-theory.html">← Day 62: VPN Technologies</a> · Domain 4 · Day 63</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. IEEE 802.11 Standards</a></li>
+  <li><a href="#s4">4. WEP – Wired Equivalent Privacy (Broken)</a></li>
+  <li><a href="#s5">5. WPA – Wi-Fi Protected Access</a></li>
+  <li><a href="#s6">6. WPA2 – The Long-Running Standard</a></li>
+  <li><a href="#s7">7. WPA3 – Current Standard</a></li>
+  <li><a href="#s8">8. Wireless Attacks</a></li>
+  <li><a href="#s9">9. Wireless Security Controls</a></li>
+  <li><a href="#s10">10. Enterprise Wireless: RADIUS &amp; 802.1X</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═════════════════ SECTION 1 ═════════════════ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Wireless is pervasive in organizations — and is the #1 vector where cryptographic weakness directly enabled mass eavesdropping (WEP, WPA-TKIP). CISSP tests the evolution from WEP → WPA → WPA2 → WPA3, specific cryptographic weaknesses in each, and the full landscape of wireless attacks. You must know WPA3's SAE advantage over WPA2's PSK.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which wireless security protocol is considered broken and should never be used?"; "What does SAE in WPA3 prevent compared to WPA2?"; "An attacker captures wireless frames and performs an offline dictionary attack — which protocol is vulnerable?"; "Which attack exploits a rogue AP with the same SSID?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 46/47 (RC4, AES, ChaCha20 algorithms used in wireless protocols); Day 62 (VPN over wireless for additional security); Day 61 (wireless IDS/WIDS); Day 50 (certificates for 802.1X EAP-TLS)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>WPA2 Personal (PSK) is vulnerable to offline dictionary attacks on the 4-way handshake capture; WPA3 SAE eliminates this. WEP uses RC4 with weak IVs (24-bit). Hiding SSID is NOT a security control — it's security through obscurity. MAC filtering is easily bypassed by spoofing. 802.1X is the enterprise authentication framework, not an encryption protocol.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 2 ═════════════════ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Who manages it</strong></td><td>Network team deploys APs; security team defines authentication policy (WPA2/3 Enterprise + RADIUS); facilities manages physical AP placement and coverage; SOC monitors WIDS alerts</td></tr>
+  <tr><td><strong>Guest vs. corporate</strong></td><td>Organizations run separate SSIDs: corporate SSID (WPA2/3 Enterprise, 802.1X) isolated from guest SSID (WPA2 Personal or captive portal). Guest SSID must be on a separate VLAN with no access to internal resources.</td></tr>
+  <tr><td><strong>Attack surface</strong></td><td>Wireless LAN extends outside physical building perimeters — signal bleeds into car parks, adjacent buildings. An attacker with a high-gain antenna can connect from hundreds of metres away without physical access. This fundamentally changes the physical access assumption that wired networks provide.</td></tr>
+  <tr><td><strong>BYOD</strong></td><td>Personal devices on corporate WiFi require network access control (NAC): certificate-based EAP-TLS or 802.1X PEAP to ensure only managed devices join. MDM/UEM integration recommended.</td></tr>
+  <tr><td><strong>Compliance</strong></td><td>PCI-DSS Requirement 11.1 mandates quarterly wireless AP scans and rogue AP detection if wireless is used in or near cardholder data environments. Even organizations not using wireless must scan for unauthorized APs.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 3 ═════════════════ -->
+<section id="s3">
+<h2>3. IEEE 802.11 Standards</h2>
+<table>
+  <tr><th>Standard</th><th>Year</th><th>Band</th><th>Max Speed</th><th>Name</th><th>Security Context</th></tr>
+  <tr><td><strong>802.11b</strong></td><td>1999</td><td>2.4 GHz</td><td>11 Mbps</td><td>Wi-Fi 1</td><td>Era of WEP — original insecure wireless</td></tr>
+  <tr><td><strong>802.11a</strong></td><td>1999</td><td>5 GHz</td><td>54 Mbps</td><td>Wi-Fi 2</td><td>Less used; same WEP era</td></tr>
+  <tr><td><strong>802.11g</strong></td><td>2003</td><td>2.4 GHz</td><td>54 Mbps</td><td>Wi-Fi 3</td><td>WEP deprecated; WPA introduced during this era</td></tr>
+  <tr><td><strong>802.11n</strong></td><td>2009</td><td>2.4/5 GHz</td><td>600 Mbps</td><td>Wi-Fi 4</td><td>WPA2 (802.11i) becomes standard; MIMO introduced</td></tr>
+  <tr><td><strong>802.11ac</strong></td><td>2013</td><td>5 GHz</td><td>~3.5 Gbps</td><td>Wi-Fi 5</td><td>WPA2 mandatory; MU-MIMO; common enterprise standard</td></tr>
+  <tr><td><strong>802.11ax</strong></td><td>2019</td><td>2.4/5/6 GHz</td><td>~9.6 Gbps</td><td>Wi-Fi 6/6E</td><td>WPA3 recommended; OFDMA; improved dense environments</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Security-Relevant 802.11 Amendments:</strong><br>
+  <strong>802.11i</strong> (2004) — the amendment that defined WPA2 (AES-CCMP). This is the security standard, distinct from the physical layer amendments above.<br>
+  <strong>802.11w</strong> (2009) — Management Frame Protection (MFP). Protects management frames (deauthentication, disassociation) against spoofing. Without 802.11w, attackers can forge de-auth frames to disconnect clients. Mandatory in WPA3.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 4 ═════════════════ -->
+<section id="s4">
+<h2>4. WEP – Wired Equivalent Privacy (Broken)</h2>
+<div class="callout definition">
+  <strong>📖 WEP:</strong> The original wireless security protocol from 1999. <strong>Completely broken</strong> — do not use. Passive eavesdropping can recover the WEP key in minutes from captured traffic using freely available tools (Aircrack-ng, AirSnort).
+</div>
+
+<h3>WEP Cryptographic Weaknesses</h3>
+<table>
+  <tr><th>Weakness</th><th>Technical Detail</th><th>Impact</th></tr>
+  <tr><td><strong>RC4 with weak IV</strong></td><td>Uses RC4 stream cipher with a 24-bit Initialization Vector (IV). With only 2^24 (16.7 million) possible IVs, IV collision is inevitable on a busy network (birthday problem).</td><td>When same IV+key is reused, XOR of two ciphertexts reveals plaintext. Statistical analysis of IV reuse (PTW attack, FMS attack) recovers the WEP key.</td></tr>
+  <tr><td><strong>Short key lengths</strong></td><td>40-bit or 104-bit RC4 key (the "64-bit" and "128-bit" WEP options included the 24-bit IV)</td><td>Even the longer key is broken via statistical attacks — key length is irrelevant when the IV mechanism is fundamentally flawed</td></tr>
+  <tr><td><strong>CRC-32 integrity check</strong></td><td>Uses CRC-32 for integrity checking — CRC is not a cryptographic MAC; it is linear and can be modified predictably</td><td>Bit-flipping attacks: attacker can modify encrypted frames without knowing the key and produce a valid CRC</td></tr>
+  <tr><td><strong>Static keys</strong></td><td>One shared key for all users on the network; no per-session key derivation</td><td>Any user who knows the key can decrypt all other users' traffic; compromised key affects everyone</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ WEP is Irreparably Broken:</strong> The IEEE deprecated WEP in 2004. Any system still using WEP has zero effective encryption. On the CISSP exam, WEP is always the "wrong" security choice. WPA3 is the current best practice; WPA2 is the acceptable minimum.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 5 ═════════════════ -->
+<section id="s5">
+<h2>5. WPA – Wi-Fi Protected Access</h2>
+<div class="callout definition">
+  <strong>📖 WPA (Wi-Fi Protected Access):</strong> Introduced in 2003 as an emergency interim fix for WEP while WPA2 (802.11i) was being finalized. Uses TKIP (Temporal Key Integrity Protocol) as an encryption improvement designed to run on existing WEP hardware.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>WPA/TKIP Detail</th></tr>
+  <tr><td><strong>Encryption</strong></td><td>TKIP (Temporal Key Integrity Protocol) — uses RC4 but with per-packet key mixing and a 128-bit temporal key, extended IV (48-bit), and sequence counter to prevent replay attacks</td></tr>
+  <tr><td><strong>Integrity</strong></td><td>MIC (Message Integrity Code) — Michael algorithm — replaced CRC-32 to prevent bit-flipping attacks</td></tr>
+  <tr><td><strong>Key management</strong></td><td>Per-session key derivation (4-way handshake) — eliminates static shared key weakness of WEP</td></tr>
+  <tr><td><strong>Status</strong></td><td><strong>Deprecated.</strong> TKIP has known vulnerabilities (TKIP MIC attacks, Beck-Tews attack on short packets). IEEE deprecated TKIP in 2012. Must not be used for new deployments.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — WPA TKIP:</strong> The critical fact: WPA used TKIP (RC4-based). WPA2 replaced TKIP with AES-CCMP. On the exam if asked "which uses TKIP?" → WPA. "Which uses AES-CCMP?" → WPA2. TKIP is explicitly associated with backward compatibility and legacy hardware — it is the weaker option and should not be selected.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 6 ═════════════════ -->
+<section id="s6">
+<h2>6. WPA2 – The Long-Running Standard</h2>
+<div class="callout definition">
+  <strong>📖 WPA2 (802.11i):</strong> Ratified in 2004, WPA2 replaced TKIP with AES-CCMP — a true cryptographically strong encryption standard. WPA2 has been the mandatory Wi-Fi Alliance certification standard since 2006 and remains widely deployed. Comes in two modes: Personal (PSK) and Enterprise (802.1X/RADIUS).
+</div>
+
+<table>
+  <tr><th>Feature</th><th>WPA2 Personal (PSK)</th><th>WPA2 Enterprise (802.1X)</th></tr>
+  <tr><td><strong>Encryption</strong></td><td>AES-CCMP (Counter Mode with CBC-MAC)</td><td>AES-CCMP (same)</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>Pre-Shared Key: all users share one password; 4-way handshake derives session keys from PSK + SSID + random nonces</td><td>RADIUS + EAP (EAP-TLS, PEAP, EAP-TTLS); individual credentials per user; PKI certificates</td></tr>
+  <tr><td><strong>Key vulnerability</strong></td><td>4-way handshake can be captured passively; offline dictionary attack against PSK (Hashcat, Wireshark + wordlist). PMKID attack allows capture without client association.</td><td>No shared secret to attack; per-user credentials with mutual authentication. MitM attack surface greatly reduced.</td></tr>
+  <tr><td><strong>Use case</strong></td><td>Home, small offices, guest networks</td><td>Enterprise — any environment with individual user accountability</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 KRACK Attack (2017):</strong> Key Reinstallation Attack — a vulnerability in the WPA2 4-way handshake. By replaying handshake messages, an attacker can force nonce reuse in AES-CCMP, breaking encryption. Patched in updated clients and APs. Illustrates that implementation flaws can undermine strong cryptography. KRACK is patched in all modern devices. WPA3's SAE prevents this class of attack by design.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 7 ═════════════════ -->
+<section id="s7">
+<h2>7. WPA3 – Current Standard</h2>
+<div class="callout definition">
+  <strong>📖 WPA3:</strong> Released in 2018, WPA3 addresses WPA2's PSK offline dictionary attack vulnerability by replacing PSK with SAE (Simultaneous Authentication of Equals), also known as the Dragonfly handshake. WPA3 also mandates PMF (Protected Management Frames) per 802.11w.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>WPA3 Personal</th><th>WPA3 Enterprise</th></tr>
+  <tr><td><strong>Authentication</strong></td><td>SAE (Simultaneous Authentication of Equals) — Dragonfly handshake. Forward secrecy: even if password is later compromised, past sessions cannot be decrypted.</td><td>192-bit security mode (GCMP-256, BIP-GMAC-256) for high-security environments. Still uses 802.1X/RADIUS.</td></tr>
+  <tr><td><strong>Offline attacks</strong></td><td>SAE prevents offline dictionary attacks. An attacker must interact with the AP for each password guess — online guessing only, which can be rate-limited.</td><td>N/A (enterprise uses per-user certificates)</td></tr>
+  <tr><td><strong>Management frames</strong></td><td>PMF (Protected Management Frames) mandatory — deauth/disassoc frames cannot be forged</td><td>Same — PMF mandatory</td></tr>
+  <tr><td><strong>Forward secrecy</strong></td><td>Yes — unique session keys per connection; past sessions safe even if password compromised later</td><td>Yes (inherent in 802.1X with EAP-TLS ephemeral key exchange)</td></tr>
+  <tr><td><strong>Open networks</strong></td><td colspan="2">WPA3 Enhanced Open / OWE (Opportunistic Wireless Encryption): encrypts open network traffic with unique per-client keys, preventing passive eavesdropping even without authentication. Café and airport Wi-Fi use case.</td></tr>
+</table>
+
+<h3>WEP → WPA → WPA2 → WPA3 Comparison</h3>
+<table>
+  <tr><th>Protocol</th><th>Encryption</th><th>Auth (Personal)</th><th>Key IV</th><th>Status</th></tr>
+  <tr><td><strong>WEP</strong></td><td>RC4 + CRC-32</td><td>Shared key (WEP key)</td><td>24-bit (weak)</td><td>Broken — do not use</td></tr>
+  <tr><td><strong>WPA</strong></td><td>TKIP (RC4)</td><td>PSK (4-way handshake)</td><td>48-bit</td><td>Deprecated 2012</td></tr>
+  <tr><td><strong>WPA2</strong></td><td>AES-CCMP</td><td>PSK (offline attack risk)</td><td>N/A (AES counter)</td><td>Acceptable minimum</td></tr>
+  <tr><td><strong>WPA3</strong></td><td>AES-CCMP / GCMP-256</td><td>SAE (forward secrecy)</td><td>N/A</td><td>Current best practice</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 8 ═════════════════ -->
+<section id="s8">
+<h2>8. Wireless Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defence</th></tr>
+  <tr><td><strong>Evil Twin / Rogue AP</strong></td><td>Attacker sets up a malicious AP broadcasting the same SSID as the legitimate network. Clients auto-connect, believing it's the real network. Attacker performs MitM — intercepts all traffic, captures credentials, injects malware.</td><td>802.1X (mutual auth prevents MitM); WIDS (wireless IDS detects duplicate SSID); VPN over wireless</td></tr>
+  <tr><td><strong>Wardriving</strong></td><td>Driving through areas with a laptop and wireless adapter scanning for open or poorly secured Wi-Fi networks. Wardialing is the telephone equivalent. Intent: identify targets for later attack.</td><td>WPA2/3 Enterprise; monitor for unauthorized SSIDs; restrict signal strength</td></tr>
+  <tr><td><strong>Deauthentication Attack</strong></td><td>Attacker sends spoofed 802.11 Management Deauthentication frames (forged as AP) to force client disconnection. Used to: (a) capture WPA2 4-way handshake when client reconnects; (b) simple DoS attack. Unprotected management frames (pre-802.11w) cannot be authenticated.</td><td>802.11w (PMF) — makes management frames unauthenticated = rejected. WPA3 mandates PMF.</td></tr>
+  <tr><td><strong>WPA2 PSK Offline Dictionary Attack</strong></td><td>Capture WPA2 4-way handshake (or use PMKID attack without client) then run offline dictionary/brute-force against the PSK hash. Tools: Hashcat, hcxdumptool + hcxtools.</td><td>WPA3 SAE (prevents offline attack); use long complex PSK (20+ characters); WPA2 Enterprise (no shared secret)</td></tr>
+  <tr><td><strong>WEP Cracking</strong></td><td>Passive IV collection (Airodump-ng); active IV injection to accelerate collection (Aireplay-ng); key recovery (Aircrack-ng). WEP key recoverable in minutes with sufficient IV capture (~40,000 unique IVs).</td><td>Never use WEP. Migrate to WPA2/3 immediately.</td></tr>
+  <tr><td><strong>Wireless Eavesdropping</strong></td><td>Passive sniffing of wireless frames in range. On open (unencrypted) networks — trivial. On WEP/WPA-TKIP — feasible. On WPA2 PSK — attacker who knows the PSK can decrypt all traffic (no forward secrecy).</td><td>WPA3 (forward secrecy via SAE); VPN overlay; OWE for open networks</td></tr>
+  <tr><td><strong>Jamming / RF Interference</strong></td><td>Flood 2.4 GHz or 5 GHz spectrum with noise to deny wireless service. Physical DoS. Can be targeted or broad (affects whole building).</td><td>WIDS detects RF jamming; 802.11ax (Wi-Fi 6) better handles interference; move to 6 GHz (Wi-Fi 6E) band</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 9 ═════════════════ -->
+<section id="s9">
+<h2>9. Wireless Security Controls</h2>
+<table>
+  <tr><th>Control</th><th>Effectiveness</th><th>Notes</th></tr>
+  <tr><td><strong>WPA3 Enterprise (AES-CCMP + RADIUS)</strong></td><td>High</td><td>Best practice; individual user authentication; mutual auth prevents rogue AP; forward secrecy</td></tr>
+  <tr><td><strong>802.1X EAP-TLS</strong></td><td>High</td><td>Certificate-based mutual authentication; requires PKI; strongest EAP method; completely prevents PSK attacks</td></tr>
+  <tr><td><strong>Wireless IDS (WIDS)</strong></td><td>High</td><td>Detects rogue APs, evil twins, deauth attacks, anomalous clients; commercial products: Cisco WLC WIDS, Rogue AP containment</td></tr>
+  <tr><td><strong>VPN over wireless</strong></td><td>High</td><td>Even if wireless layer is compromised, VPN provides encryption overlay — defence in depth</td></tr>
+  <tr><td><strong>Network segmentation (guest VLAN)</strong></td><td>High</td><td>Isolate guest wireless from corporate LAN at L2/L3; prevent guest-to-corporate lateral movement</td></tr>
+  <tr><td><strong>MAC address filtering</strong></td><td>Very Low</td><td>Security theatre — trivially bypassed by sniffing a legitimate MAC and spoofing it. Not a CISSP-recognized security control.</td></tr>
+  <tr><td><strong>SSID hiding</strong></td><td>None</td><td>Security through obscurity. SSID is visible in probe frames. Any passive scanner reveals hidden SSIDs. Not a security control.</td></tr>
+  <tr><td><strong>Power level management</strong></td><td>Low-Medium</td><td>Reduce AP transmit power to minimize signal coverage outside building. Reduces attack surface but sophisticated attackers use high-gain antennas.</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ MAC Filtering and SSID Hiding are NOT Security Controls:</strong> These are the two most common "security theatre" wireless measures. MAC addresses are transmitted unencrypted in 802.11 frames — any attacker can observe a valid MAC and spoof it within seconds. Hidden SSIDs are revealed in probe request/response frames visible to any passive scanner. The CISSP exam will present these as distractors. The correct answer will always be WPA2/3 Enterprise + 802.1X.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 10 ═════════════════ -->
+<section id="s10">
+<h2>10. Enterprise Wireless: RADIUS &amp; 802.1X</h2>
+<div class="callout definition">
+  <strong>📖 802.1X (Port-Based Network Access Control):</strong> An IEEE standard for authentication before network access is granted. Originally designed for wired Ethernet port access; adopted by Wi-Fi for enterprise authentication. 802.1X requires three components: Supplicant (client device), Authenticator (AP or switch), and Authentication Server (RADIUS server).
+</div>
+
+<div class="diagram">
+802.1X / EAP Authentication Flow:
+
+  [Client/Supplicant] ── 802.1X EAP ──▶ [AP/Authenticator] ── RADIUS ──▶ [RADIUS Server]
+                                                │                                    │
+                       ◀── EAP-Request ─────────│                                    │
+                       ─── EAP-Response ─────────▶── RADIUS Access-Request ──────────▶
+                                                │                                    │
+                                                │◀─── RADIUS Access-Challenge ────────│
+                       ◀── EAP-Request(challenge)│                                    │
+                       ─── EAP-Response(cred) ───▶── RADIUS Access-Request ──────────▶
+                                                │                                    │
+                                                │◀─── RADIUS Access-Accept ───────────│
+                       ◀── EAP-Success ──────────│                                    │
+                       (Wireless access granted)
+
+Until EAP-Success: port is UNCONTROLLED (only EAP traffic allowed)
+After EAP-Success: port CONTROLLED (network access granted)
+Per-user session key (PMK) derived from successful EAP auth → WPA2/3 4-way handshake uses this key
+</div>
+
+<h3>EAP Methods for Wireless</h3>
+<table>
+  <tr><th>EAP Method</th><th>Client Auth</th><th>Server Auth</th><th>Security Level</th><th>Notes</th></tr>
+  <tr><td><strong>EAP-TLS</strong></td><td>Client certificate</td><td>Server certificate</td><td>Highest</td><td>Mutual certificate authentication; strongest; requires PKI on clients (complex to deploy)</td></tr>
+  <tr><td><strong>PEAP (Protected EAP)</strong></td><td>Username + password inside TLS tunnel</td><td>Server certificate</td><td>High</td><td>Server-side cert only (no client cert); credentials protected inside TLS tunnel; most common enterprise method</td></tr>
+  <tr><td><strong>EAP-TTLS</strong></td><td>Username + password or certificate</td><td>Server certificate</td><td>High</td><td>Similar to PEAP; wider inner authentication method support; requires client EAP-TTLS support</td></tr>
+  <tr><td><strong>EAP-MD5</strong></td><td>Password (MD5 hash)</td><td>None — no server validation</td><td>Low</td><td>Vulnerable to MitM (rogue AP — no server auth); offline dictionary attack; deprecated</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 11 ═════════════════ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 WEP → WPA → WPA2 → WPA3 — "WEP Breaks, WPA Transitions, WPA2 Advances, WPA3 Secures":</strong><br>
+  <strong>WEP</strong> = RC4 + 24-bit IV = BROKEN (aircrack recovers key in minutes)<br>
+  <strong>WPA</strong> = TKIP (RC4 improved) = DEPRECATED 2012<br>
+  <strong>WPA2</strong> = AES-CCMP = strong encryption; PSK vuln. to offline dict attack (KRACK 2017)<br>
+  <strong>WPA3</strong> = AES-CCMP + SAE = forward secrecy; offline attack eliminated; PMF mandatory
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SAE Advantage — "SAE = Online Only":</strong><br>
+  WPA2 PSK: attacker captures handshake → runs offline dictionary for days/months → no interaction with AP needed.<br>
+  WPA3 SAE: each guess requires a live interaction with the AP → rate-limiting defeats dictionary attacks.<br>
+  <em>"SAE puts the AP as the bouncer — you have to prove yourself in person, not with a forged ID."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 MAC Filtering + SSID Hiding = Security Theatre:</strong><br>
+  <em>"A thief who can see your house number despite your blind isn't stopped by the blind."</em><br>
+  Both are visible in wireless frames. Neither prevents a motivated attacker. Don't even mention these as controls on the CISSP exam — choose 802.1X/RADIUS instead.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Evil Twin vs. Rogue AP:</strong><br>
+  <strong>Evil Twin</strong> = same SSID as legitimate network; specifically intended to intercept traffic (active MitM).<br>
+  <strong>Rogue AP</strong> = unauthorized AP on the corporate network (plugged in by employee); may or may not be malicious.<br>
+  Both detected by WIDS. Both blocked by 802.1X (mutual auth refuses connections to unauthorized APs).
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>WEP</td><td>RC4 + 24-bit IV = completely broken; recoverable in minutes; never use</td></tr>
+  <tr><td>WPA/TKIP</td><td>RC4 with improvements; deprecated 2012; better than WEP, still not acceptable today</td></tr>
+  <tr><td>WPA2</td><td>AES-CCMP; strong encryption; PSK mode vulnerable to offline dictionary attack on captured 4-way handshake</td></tr>
+  <tr><td>WPA3/SAE</td><td>Replaces PSK with SAE (Dragonfly); eliminates offline dictionary attacks; forward secrecy; PMF mandatory; current best practice</td></tr>
+  <tr><td>802.11w / PMF</td><td>Protects management frames from spoofing; prevents deauth attacks; mandatory in WPA3</td></tr>
+  <tr><td>Evil Twin</td><td>Rogue AP with matching SSID; MitM attack; defeated by 802.1X mutual authentication</td></tr>
+  <tr><td>Deauth attack</td><td>Forged management frames disconnect clients; used to capture WPA2 handshake; defeated by 802.11w PMF</td></tr>
+  <tr><td>802.1X</td><td>Port-based NAC; supplicant + authenticator (AP) + RADIUS server; enterprise wireless foundation</td></tr>
+  <tr><td>EAP-TLS</td><td>Strongest EAP method; mutual certificate authentication; requires client PKI</td></tr>
+  <tr><td>PEAP</td><td>Password in TLS tunnel; server cert only; most common enterprise deployment</td></tr>
+  <tr><td>MAC filtering / SSID hiding</td><td>Security theatre; provides no real protection; not accepted CISSP security controls</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-062-theory.html" class="nav-btn">← Day 62: VPN Technologies</a>
+  <a href="day-064-theory.html" class="nav-btn">Day 64: Network Attacks →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

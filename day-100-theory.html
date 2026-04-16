@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 100 – Security Operations Concepts</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 100 – Security Operations Concepts</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 100 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-099-theory.html">← Day 99: Domain 6 Review</a> · Domain 7 · Day 100</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Welcome to Domain 7 — Security Operations</a></li>
+  <li><a href="#s2">2. Real-World Relevance</a></li>
+  <li><a href="#s3">3. Need-to-Know &amp; Least Privilege</a></li>
+  <li><a href="#s4">4. Separation of Duties (SoD)</a></li>
+  <li><a href="#s5">5. Job Rotation &amp; Mandatory Vacations</a></li>
+  <li><a href="#s6">6. Privileged Account Management (PAM)</a></li>
+  <li><a href="#s7">7. Service Level Agreements (SLAs)</a></li>
+  <li><a href="#s8">8. SOC Structure &amp; Tiers</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Welcome to Domain 7 — Security Operations</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13% — tied for second-largest domain by exam weight)</td></tr>
+  <tr><td>Why Important</td><td>Domain 7 covers the day-to-day operational security — incident management, investigations, disaster recovery, physical security, and personnel security. It is the most practical domain and carries one of the highest exam weights</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based questions on operational decisions: "An administrator needs access to production servers during an emergency. What control should be in place?" (privileged access management with break-glass procedures)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (governance — policies that operations enforces); Domain 3 (architecture — operations maintains what architecture designs); Domain 5 (IAM — access controls); Domain 6 (testing — operations responds to findings)</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Domain 7 at 13%:</strong> This is one of the highest-weighted domains on the CISSP exam (tied with Domains 3, 4, and 5; Domain 1 leads at 16%). Expect approximately 19-20 questions. Domain 7 topics are highly practical and scenario-driven — expect questions about WHAT to do in specific operational situations.
+</div>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Relevance</h2>
+<p>Security operations is where policy meets practice. You can have the best security architecture and the most comprehensive policies, but without effective day-to-day operations — monitoring, incident response, access management, and physical security — security is just paper.</p>
+<h3>Key Operational Challenges</h3>
+<ul>
+  <li><strong>Insider threats:</strong> Employees with excessive privileges cause more damage than external attackers in many breaches</li>
+  <li><strong>Privilege creep:</strong> Access accumulates over time as employees change roles without losing old permissions</li>
+  <li><strong>Alert fatigue:</strong> SOC analysts overwhelmed by false positives miss real attacks</li>
+  <li><strong>Operational continuity:</strong> Balancing security controls with business availability</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Need-to-Know &amp; Least Privilege</h2>
+<div class="definition callout">
+  <strong>Need-to-Know:</strong> A user should only be granted access to information that is necessary for performing their specific job duties. Even if a user has the appropriate security clearance, they should NOT access information unless they have a demonstrated need for that specific information.
+</div>
+<div class="definition callout">
+  <strong>Least Privilege:</strong> A user, program, or process should be granted only the minimum privileges (permissions, rights, access) necessary to perform their authorized tasks — nothing more. This applies to ALL accounts: user accounts, service accounts, administrator accounts.
+</div>
+
+<h3>Need-to-Know vs Least Privilege</h3>
+<table>
+  <tr><th>Attribute</th><th>Need-to-Know</th><th>Least Privilege</th></tr>
+  <tr><td><strong>Focus</strong></td><td>Information access (WHAT data can you see?)</td><td>System permissions (WHAT can you do?)</td></tr>
+  <tr><td><strong>Origin</strong></td><td>Military/intelligence (clearance ≠ access)</td><td>Computer science / access control</td></tr>
+  <tr><td><strong>Example</strong></td><td>An HR manager with Top Secret clearance cannot access military operations data — no need to know</td><td>A developer should not have admin access to production servers — only needs read access to logs</td></tr>
+  <tr><td><strong>Enforcement</strong></td><td>Classification systems; compartmentalization; data labeling</td><td>RBAC; permission assignment; access reviews; PAM tools</td></tr>
+</table>
+
+<h3>Implementing Least Privilege</h3>
+<ul>
+  <li><strong>Default deny:</strong> Start with zero access; add permissions as needed (whitelist approach)</li>
+  <li><strong>Privilege creep prevention:</strong> When employees change roles, revoke old permissions before granting new ones</li>
+  <li><strong>Regular access reviews:</strong> Quarterly or semi-annual review of all access rights (Day 96 — access review completion rate metric)</li>
+  <li><strong>Time-limited access:</strong> Temporary elevated privileges that expire automatically (just-in-time access)</li>
+  <li><strong>Separate accounts:</strong> Administrators should have separate admin accounts (not use their daily accounts for admin tasks)</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Exam Trap:</strong> Need-to-know and least privilege are related but NOT identical. Need-to-know is about INFORMATION access (data classification). Least privilege is about SYSTEM permissions (what operations can you perform). A user can have clearance (authorization level) without need-to-know (specific data access).
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Separation of Duties (SoD)</h2>
+<div class="definition callout">
+  <strong>Separation of Duties (SoD):</strong> No single individual should have sufficient authority to complete a critical task alone. Critical functions are divided among multiple people so that no one person can commit fraud, cause harm, or make unauthorized changes without detection.
+</div>
+
+<h3>SoD Examples</h3>
+<table>
+  <tr><th>Critical Function</th><th>Separation Applied</th></tr>
+  <tr><td>Financial transactions</td><td>Person who initiates payment ≠ person who approves payment ≠ person who reconciles accounts</td></tr>
+  <tr><td>Code deployment</td><td>Developers write code; separate team reviews code; different team deploys to production</td></tr>
+  <tr><td>Access provisioning</td><td>Manager requests access; separate approval authority grants it; security team audits</td></tr>
+  <tr><td>Backup &amp; restore</td><td>Person who performs backups ≠ person who can restore data (prevents unauthorized data recovery)</td></tr>
+  <tr><td>Security monitoring</td><td>System administrators ≠ security auditors (admins shouldn't review their own logs)</td></tr>
+</table>
+
+<h3>Two-Person Control (Dual Control)</h3>
+<p><strong>Two-person control</strong> (also called dual control or two-man rule) is a stricter form of SoD where two individuals must act together simultaneously to complete a critical action. Neither person alone can complete the task.</p>
+<ul>
+  <li>Nuclear launch codes require two officers turning keys simultaneously</li>
+  <li>Bank vault access requires two key holders present</li>
+  <li>Encryption key ceremonies require multiple key custodians</li>
+  <li>M-of-N key splitting: M out of N custodians must combine their key fragments to reconstruct the master key</li>
+</ul>
+
+<div class="diagram">
+SEPARATION OF DUTIES vs TWO-PERSON CONTROL
+
+  Separation of Duties:
+  Person A: Initiates  →  Person B: Approves  →  Person C: Executes
+  (Sequential — different people at different steps)
+
+  Two-Person Control (Dual Control):
+  Person A + Person B: Both act SIMULTANEOUSLY
+  (Concurrent — both must be present at the same time)
+
+  Split Knowledge:
+  Person A knows Part 1 of the password
+  Person B knows Part 2 of the password
+  Neither knows the full password alone
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Collusion:</strong> SoD controls can be defeated by collusion — when two or more individuals conspire together. SoD doesn't prevent collusion; it makes fraud DETECTABLE (audit trails) and HARDER (requires conspiracy of multiple people). Combine SoD with monitoring, logging, and periodic audits.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Job Rotation &amp; Mandatory Vacations</h2>
+<h3>Job Rotation</h3>
+<div class="definition callout">
+  <strong>Job Rotation:</strong> Periodically moving employees between different roles or responsibilities. Serves as both a security control (detecting fraud) and a business continuity control (cross-training ensures no single point of failure).
+</div>
+<table>
+  <tr><th>Benefit</th><th>Security Purpose</th><th>Business Purpose</th></tr>
+  <tr><td>Fraud detection</td><td>New person in the role may discover irregularities the previous person was hiding</td><td>—</td></tr>
+  <tr><td>Reduces single point of failure</td><td>—</td><td>Multiple people can perform each critical role; continuity during absences</td></tr>
+  <tr><td>Prevents collusion buildup</td><td>Periodic rotation disrupts long-term collusive relationships</td><td>—</td></tr>
+  <tr><td>Cross-training</td><td>—</td><td>Employees develop broader skills and organizational understanding</td></tr>
+</table>
+
+<h3>Mandatory Vacations</h3>
+<div class="definition callout">
+  <strong>Mandatory Vacations:</strong> Requiring employees (especially those in sensitive positions like finance, IT admin) to take a minimum consecutive period of vacation (typically 1-2 weeks). During their absence, another employee performs their duties and may discover fraud or irregularities.
+</div>
+<div class="key-concept callout">
+  <strong>Why Consecutive Days Matter:</strong> Many financial fraud schemes require daily attention to maintain (e.g., manually adjusting ledgers, intercepting audit reports). If the perpetrator is away for an extended continuous period, the scheme may unravel. Weekend-only absences are insufficient — the employee must be away long enough for the replacement to discover anomalies.
+</div>
+<div class="exam-tip callout">
+  <strong>Exam Fact:</strong> Mandatory vacations are a DETECTIVE control — they help DETECT fraud, not prevent it. Job rotation is both detective (discovers hidden fraud) and preventive (makes it harder to establish long-term schemes).
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Privileged Account Management (PAM)</h2>
+<div class="definition callout">
+  <strong>Privileged Accounts:</strong> Accounts with elevated access rights beyond normal users — root/administrator accounts, service accounts, emergency accounts, application accounts with database admin access. These accounts are the #1 target for attackers because they provide the widest access to systems and data.
+</div>
+
+<h3>Types of Privileged Accounts</h3>
+<table>
+  <tr><th>Account Type</th><th>Description</th><th>Risk Level</th></tr>
+  <tr><td>Local Administrator</td><td>Built-in admin account on individual systems (local root, Administrator)</td><td>High — one compromised system</td></tr>
+  <tr><td>Domain Administrator</td><td>Active Directory domain admin; full control of all domain-joined systems</td><td>Critical — all systems in the domain</td></tr>
+  <tr><td>Service Accounts</td><td>Accounts used by applications/services to access resources (often run with elevated privileges)</td><td>High — frequently have non-expiring passwords; often overlooked in access reviews</td></tr>
+  <tr><td>Emergency/Break-Glass Accounts</td><td>Accounts for emergency access when normal authentication fails</td><td>Critical — must be heavily monitored; usage triggers alerts</td></tr>
+  <tr><td>Application Accounts</td><td>Database admin accounts, API keys with administrative scope</td><td>High — may have direct access to sensitive data</td></tr>
+</table>
+
+<h3>PAM Controls</h3>
+<table>
+  <tr><th>Control</th><th>Description</th></tr>
+  <tr><td>Password Vaulting</td><td>Store privileged credentials in an encrypted vault; check out for use; automatically rotated after each use</td></tr>
+  <tr><td>Just-in-Time (JIT) Access</td><td>Grant elevated privileges only when needed; automatically expire after a defined period (e.g., 4 hours)</td></tr>
+  <tr><td>Session Recording</td><td>Record all privileged sessions (keystroke logging, screen recording) for forensic review</td></tr>
+  <tr><td>Privilege Escalation Approval</td><td>Require manager or security team approval before granting temporary admin access</td></tr>
+  <tr><td>Credential Rotation</td><td>Automatically change passwords after each use or on a regular schedule (daily/weekly)</td></tr>
+  <tr><td>Break-Glass Procedures</td><td>Emergency access process: sealed credentials; usage triggers immediate alert; reviewed within 24 hours</td></tr>
+</table>
+
+<h3>PAM Tools</h3>
+<p>CyberArk, BeyondTrust, Thycotic (now Delinea), HashiCorp Vault, AWS IAM + STS for cloud.</p>
+
+<div class="warning callout">
+  ⚠️ <strong>Service Account Risk:</strong> Service accounts are among the most dangerous privileged accounts because they often have: non-expiring passwords, no MFA, broad permissions, and no human watching their activity. They are frequently compromised in breaches (SolarWinds, Kaseya). Treat service accounts with the same rigor as admin accounts.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Service Level Agreements (SLAs)</h2>
+<div class="definition callout">
+  <strong>Service Level Agreement (SLA):</strong> A formal agreement between a service provider and customer that defines measurable service expectations — uptime guarantees, response times, performance targets, and remedies for non-compliance. SLAs should include security requirements alongside performance requirements.
+</div>
+
+<h3>SLA Components</h3>
+<table>
+  <tr><th>Component</th><th>Description</th><th>Example</th></tr>
+  <tr><td>Availability/Uptime</td><td>Guaranteed system availability percentage</td><td>99.99% uptime (52.6 min downtime/year)</td></tr>
+  <tr><td>Response Time</td><td>Maximum time to acknowledge an incident</td><td>Critical: 15 min; High: 1 hour; Medium: 4 hours</td></tr>
+  <tr><td>Resolution Time</td><td>Maximum time to resolve an incident</td><td>Critical: 4 hours; High: 8 hours; Medium: 24 hours</td></tr>
+  <tr><td>Security Requirements</td><td>Encryption, patching, vulnerability management, incident notification</td><td>Notify customer of security breach within 72 hours</td></tr>
+  <tr><td>Penalties/Remedies</td><td>Consequences for failing to meet SLA targets</td><td>Service credits: 10% credit per hour of unplanned downtime</td></tr>
+  <tr><td>Reporting</td><td>Regular performance reports</td><td>Monthly uptime report; quarterly security posture review</td></tr>
+</table>
+
+<h3>The "Nines" of Availability</h3>
+<table>
+  <tr><th>Availability %</th><th>Annual Downtime</th><th>Monthly Downtime</th></tr>
+  <tr><td>99% (two nines)</td><td>3.65 days</td><td>7.31 hours</td></tr>
+  <tr><td>99.9% (three nines)</td><td>8.77 hours</td><td>43.83 minutes</td></tr>
+  <tr><td>99.99% (four nines)</td><td>52.60 minutes</td><td>4.38 minutes</td></tr>
+  <tr><td>99.999% (five nines)</td><td>5.26 minutes</td><td>26.3 seconds</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> SLAs define WHAT is expected. OLAs (Operational Level Agreements) define HOW internal teams will support the SLA internally. An SLA with a customer may promise 99.99% uptime; the OLA between the network team and server team defines each team's responsibilities to achieve that.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. SOC Structure &amp; Tiers</h2>
+<div class="definition callout">
+  <strong>Security Operations Center (SOC):</strong> A centralized team (and often a physical facility) responsible for monitoring, detecting, analyzing, and responding to security incidents in real-time. The SOC is the operational nerve center of an organization's security program.
+</div>
+
+<h3>SOC Tier Structure</h3>
+<table>
+  <tr><th>Tier</th><th>Role</th><th>Responsibilities</th><th>Skills Required</th></tr>
+  <tr><td><strong>Tier 1</strong> — Alert Triage Analyst</td><td>First responder</td><td>Monitor SIEM alerts; perform initial triage; classify and prioritize; escalate or close false positives</td><td>SIEM tool proficiency; basic networking; incident classification procedures</td></tr>
+  <tr><td><strong>Tier 2</strong> — Incident Responder</td><td>Deep investigator</td><td>Investigate escalated incidents; perform deeper analysis; correlate data across sources; contain threats</td><td>Forensics; malware analysis basics; advanced networking; threat intelligence</td></tr>
+  <tr><td><strong>Tier 3</strong> — Threat Hunter / Expert Analyst</td><td>Proactive hunter</td><td>Proactive threat hunting; malware reverse engineering; develop detection rules; handle advanced persistent threats (APTs)</td><td>Reverse engineering; advanced forensics; scripting/automation; threat modeling</td></tr>
+  <tr><td><strong>SOC Manager</strong></td><td>Operations leader</td><td>Staff management; process improvement; metrics reporting; liaison with CISO and business units</td><td>Leadership; budgeting; metrics; communication; cross-functional coordination</td></tr>
+</table>
+
+<div class="diagram">
+SOC OPERATIONAL FLOW
+
+  SIEM Alerts  ──→  Tier 1: Triage    ──→  False Positive → Close
+       │                  │
+       │            Confirmed Incident
+       │                  │
+       │                  ▼
+       │             Tier 2: Investigate  ──→  Contained &amp; Resolved → Close
+       │                  │
+       │            Complex / APT
+       │                  │
+       │                  ▼
+       │             Tier 3: Hunt &amp; Analyze  ──→  Advanced Response
+       │                  │                         → New Detection Rules
+       │                  │                         → Threat Intel Update
+       │                  ▼
+       └────────     SOC Manager: Metrics, Reporting, Escalation to CISO
+</div>
+
+<h3>SOC Models</h3>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Best For</th></tr>
+  <tr><td>In-house SOC</td><td>Fully staffed and managed internally; dedicated facility</td><td>Large enterprises with mature security programs and budget</td></tr>
+  <tr><td>Virtual SOC</td><td>No dedicated facility; team members monitor remotely</td><td>Distributed organizations; smaller teams</td></tr>
+  <tr><td>Managed SOC (MSSP)</td><td>Outsourced to a Managed Security Service Provider</td><td>Organizations lacking internal expertise or 24/7 capability</td></tr>
+  <tr><td>Hybrid SOC</td><td>Internal core team supplemented by MSSP for off-hours or specialized capabilities</td><td>Mid-size organizations; most common model</td></tr>
+  <tr><td>SOC-as-a-Service</td><td>Cloud-based SOC managed entirely by a provider</td><td>Small/mid organizations wanting rapid deployment</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Need-to-Know vs Least Privilege</strong><br>
+  Need-to-Know = "What DATA can I see?" (information access)<br>
+  Least Privilege = "What can I DO?" (system permissions)<br>
+  Both say "only what's necessary" — but one is about seeing, the other about doing
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SoD Purpose — "No Lone Wolf"</strong><br>
+  No single person should be able to complete a critical task alone. If one person can initiate, approve, AND execute — there's no SoD.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Mandatory Vacations — "Vacation = Verification"</strong><br>
+  The vacation isn't for the employee's benefit (though it helps) — it's for the ORGANIZATION to verify what happens when someone else does the job. Consecutive days required.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 PAM Controls — "VJSPC"</strong><br>
+  <strong>V</strong>ault (password vaulting)<br>
+  <strong>J</strong>IT (just-in-time access)<br>
+  <strong>S</strong>ession recording<br>
+  <strong>P</strong>rivilege escalation approval<br>
+  <strong>C</strong>redential rotation<br>
+  "Very Justified Security Protects Credentials"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SOC Tiers — "T-I-H-M"</strong><br>
+  Tier 1: <strong>T</strong>riage (sort alerts)<br>
+  Tier 2: <strong>I</strong>nvestigate (dig deeper)<br>
+  Tier 3: <strong>H</strong>unt (proactive threat hunting)<br>
+  <strong>M</strong>anager: Metrics &amp; management
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 The Nines</strong><br>
+  Each additional "9" reduces downtime by 10×:<br>
+  99% = ~3.65 days/year<br>
+  99.9% = ~8.77 hours/year<br>
+  99.99% = ~52.6 min/year<br>
+  99.999% = ~5.26 min/year
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Domain 7 weight</td><td>13% — highest weight on CISSP exam (~19-20 questions); heavily scenario-based</td></tr>
+  <tr><td>Need-to-Know</td><td>Data access based on job necessity; clearance alone is NOT enough</td></tr>
+  <tr><td>Least Privilege</td><td>Minimum permissions needed; applies to all accounts (users, service, admin)</td></tr>
+  <tr><td>Separation of Duties</td><td>No single person completes critical tasks alone; prevents fraud; defeated by collusion</td></tr>
+  <tr><td>Two-Person Control</td><td>Stricter than SoD — both people must act simultaneously (not sequentially)</td></tr>
+  <tr><td>Job Rotation</td><td>Detective + preventive; cross-training; disrupts collusion; discovers hidden fraud</td></tr>
+  <tr><td>Mandatory Vacations</td><td>Detective control; consecutive days required; replacement may uncover fraud</td></tr>
+  <tr><td>PAM</td><td>Password vaulting, JIT access, session recording, credential rotation; biggest target for attackers</td></tr>
+  <tr><td>Service Accounts</td><td>High-risk privileged accounts — often have non-expiring passwords, no MFA, and broad access</td></tr>
+  <tr><td>SLAs</td><td>Define measurable expectations; include security requirements; must have penalties for non-compliance</td></tr>
+  <tr><td>SOC Tiers</td><td>Tier 1 (triage) → Tier 2 (investigate) → Tier 3 (hunt/expert); manager oversees all</td></tr>
+  <tr><td>Hybrid SOC</td><td>Most common model — internal core team + MSSP for extended coverage</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-099-theory.html" class="nav-btn">← Day 99: Domain 6 Review</a>
+  <a href="day-101-theory.html" class="nav-btn">Day 101: Investigations →</a>
+</div>
+</div>
+</body>
+</html>

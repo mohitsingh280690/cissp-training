@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 98 – Test Coverage &amp; Reporting</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 98 – Test Coverage &amp; Reporting</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 98 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~45 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-097-theory.html">← Day 97: BCDR Testing</a> · Domain 6 · Day 98</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Relevance</a></li>
+  <li><a href="#s3">3. Code Coverage Analysis</a></li>
+  <li><a href="#s4">4. Requirements Traceability Matrix (RTM)</a></li>
+  <li><a href="#s5">5. Security Assessment Reports</a></li>
+  <li><a href="#s6">6. Risk Ratings &amp; Prioritization</a></li>
+  <li><a href="#s7">7. Remediation Tracking</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Testing without measuring coverage creates a false sense of security. CISSP candidates must understand code coverage types (statement, branch, path), how to trace security requirements to tests, and how to produce actionable security assessment reports</td></tr>
+  <tr><td>Question Style</td><td>"Which coverage metric ensures every decision point has been tested for both TRUE and FALSE?" (branch coverage). "What document maps security requirements to their corresponding test cases?" (requirements traceability matrix)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 8 (SDLC — testing in development); Domain 6 (audits — reports as audit evidence); Domain 1 (governance — risk ratings inform risk register)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Relevance</h2>
+<p>A penetration test report that lists 500 findings with no prioritization is useless. A vulnerability assessment that covers 60% of assets gives false confidence about the 40% unscanned. Test coverage analysis and structured reporting transform raw test data into actionable intelligence that drives security decisions.</p>
+</section>
+
+<section id="s3">
+<h2>3. Code Coverage Analysis</h2>
+<div class="definition callout">
+  <strong>Code Coverage:</strong> A metric that measures how much of the source code is executed during testing. Higher coverage means more code has been tested, reducing the likelihood of undetected bugs. Coverage is measured by instrumented tools that track which lines/branches/paths are executed.
+</div>
+
+<h3>Coverage Types (Increasing Thoroughness)</h3>
+<table>
+  <tr><th>Coverage Type</th><th>What It Measures</th><th>Thoroughness</th><th>Example</th></tr>
+  <tr><td><strong>Statement Coverage</strong></td><td>Has each line of code been executed at least once?</td><td>Lowest</td><td>Every line in the function runs during testing</td></tr>
+  <tr><td><strong>Branch Coverage</strong> (Decision Coverage)</td><td>Has each decision point (if/else, switch) been evaluated for BOTH true and false outcomes?</td><td>Medium</td><td>Both the if-branch AND the else-branch have been tested</td></tr>
+  <tr><td><strong>Condition Coverage</strong></td><td>Has each individual Boolean sub-expression been evaluated to both true and false?</td><td>Medium-High</td><td>In <code>if (A &amp;&amp; B)</code>, A and B are each tested as true and false independently</td></tr>
+  <tr><td><strong>Path Coverage</strong></td><td>Has every possible execution path through the code been tested?</td><td>Highest</td><td>All combinations of all branches have been executed</td></tr>
+</table>
+
+<div class="diagram">
+CODE COVERAGE EXAMPLE
+
+  function checkAccess(role, mfa) {
+    if (role === "admin") {        ← Branch 1
+      if (mfa === true) {          ← Branch 2
+        return "FULL ACCESS";      ← Path 1: admin + mfa
+      } else {
+        return "LIMITED ACCESS";   ← Path 2: admin + no mfa
+      }
+    } else {
+      return "DENIED";             ← Path 3: not admin
+    }
+  }
+
+  Statement Coverage: Execute all 3 return statements
+  Branch Coverage:    Test both TRUE and FALSE for each if
+  Path Coverage:      Test all 3 possible paths through code
+  
+  Path coverage ⊇ Branch coverage ⊇ Statement coverage
+</div>
+
+<div class="key-concept callout">
+  <strong>100% Statement Coverage ≠ Bug-Free:</strong> A function can have 100% statement coverage but still harbor bugs in untested combinations of conditions. That's why branch and path coverage provide stronger assurance. However, 100% path coverage is often impractical for complex code due to combinatorial explosion.
+</div>
+
+<h3>Coverage Targets</h3>
+<table>
+  <tr><th>Application Type</th><th>Typical Statement Coverage Target</th><th>Notes</th></tr>
+  <tr><td>Safety-Critical (DO-178C Level A, IEC 61508 SIL 4)</td><td>100% MC/DC (Modified Condition/Decision Coverage)</td><td>Aviation, medical devices, nuclear systems</td></tr>
+  <tr><td>Financial / Payment Processing</td><td>80-90% statement; high branch coverage</td><td>PCI DSS requires testing but doesn't mandate specific coverage %</td></tr>
+  <tr><td>General Enterprise</td><td>70-80% statement coverage</td><td>Industry best practice; diminishing returns above ~80%</td></tr>
+  <tr><td>Prototypes / Internal Tools</td><td>No formal target</td><td>Risk-based; critical paths should still be tested</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Hierarchy:</strong> Statement (weakest) → Branch → Condition → Path (strongest). Branch coverage answers: "Have I tested both TRUE and FALSE for every if/else?" Path coverage answers: "Have I tested every possible route through the code?"
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Requirements Traceability Matrix (RTM)</h2>
+<div class="definition callout">
+  <strong>Requirements Traceability Matrix:</strong> A document that maps each requirement (security or functional) to its corresponding design element, implementation, test case, and test result. It ensures nothing is missed — every requirement has a test, and every test links back to a requirement.
+</div>
+
+<h3>RTM Structure</h3>
+<table>
+  <tr><th>Req ID</th><th>Requirement Description</th><th>Design Element</th><th>Test Case ID</th><th>Test Result</th><th>Status</th></tr>
+  <tr><td>SEC-001</td><td>All user passwords must be hashed with bcrypt</td><td>AuthModule.hashPassword()</td><td>TC-SEC-001</td><td>PASS</td><td>Verified</td></tr>
+  <tr><td>SEC-002</td><td>Session timeout after 15 minutes of inactivity</td><td>SessionManager.checkTimeout()</td><td>TC-SEC-002</td><td>PASS</td><td>Verified</td></tr>
+  <tr><td>SEC-003</td><td>All API endpoints require authentication token</td><td>APIGateway.validateToken()</td><td>TC-SEC-003</td><td>FAIL</td><td>Remediation in progress</td></tr>
+  <tr><td>SEC-004</td><td>Sensitive data encrypted at rest (AES-256)</td><td>DataLayer.encrypt()</td><td>TC-SEC-004</td><td>PASS</td><td>Verified</td></tr>
+</table>
+
+<h3>RTM Benefits</h3>
+<ul>
+  <li><strong>Completeness:</strong> Identifies requirements with no corresponding test (gaps)</li>
+  <li><strong>Traceability:</strong> Links every defect back to the requirement it violates</li>
+  <li><strong>Coverage verification:</strong> Proves to auditors that all security requirements have been tested</li>
+  <li><strong>Change impact:</strong> When a requirement changes, the RTM shows which tests must be updated</li>
+  <li><strong>Audit evidence:</strong> Provides formal documentation that security requirements were verified</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Exam Context:</strong> If a question asks how to verify that ALL security requirements have been tested — the answer is the Requirements Traceability Matrix. If a question asks about code-level testing completeness — the answer is code coverage metrics.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Security Assessment Reports</h2>
+<h3>Report Types</h3>
+<table>
+  <tr><th>Report Type</th><th>Source</th><th>Content</th><th>Audience</th></tr>
+  <tr><td>Vulnerability Assessment Report</td><td>Automated scanners (Nessus, Qualys, Rapid7)</td><td>List of vulnerabilities by severity; affected systems; remediation guidance</td><td>IT operations; patch management team</td></tr>
+  <tr><td>Penetration Test Report</td><td>Ethical hackers / pen test team</td><td>Attack narratives; exploited vulnerabilities; proof of concept; business impact</td><td>CISO; security team; executive summary for leadership</td></tr>
+  <tr><td>Security Audit Report</td><td>Internal/external auditors</td><td>Control effectiveness; findings; management response; remediation timeline</td><td>Board; audit committee; regulators</td></tr>
+  <tr><td>Risk Assessment Report</td><td>Risk management team</td><td>Identified risks; likelihood/impact ratings; recommended treatments; residual risk</td><td>Executive leadership; risk committee</td></tr>
+</table>
+
+<h3>Penetration Test Report Structure</h3>
+<table>
+  <tr><th>Section</th><th>Content</th><th>Audience</th></tr>
+  <tr><td>Executive Summary</td><td>High-level overview; overall risk posture; critical findings count; business impact statement</td><td>C-suite; board</td></tr>
+  <tr><td>Methodology</td><td>Scope, rules of engagement, tools used, testing standard followed (PTES, OWASP)</td><td>Security team; auditors</td></tr>
+  <tr><td>Findings Summary</td><td>All findings by severity with affected systems; risk ratings</td><td>Security management</td></tr>
+  <tr><td>Detailed Findings</td><td>Per-finding: description, proof of concept, affected systems, CVSS score, remediation recommendation</td><td>Technical teams</td></tr>
+  <tr><td>Remediation Roadmap</td><td>Prioritized fix plan; quick wins vs long-term improvements; estimated effort</td><td>IT operations; project managers</td></tr>
+  <tr><td>Appendices</td><td>Raw scan output; tool configurations; evidence screenshots</td><td>Technical reference</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Report Sensitivity:</strong> Penetration test reports are highly sensitive documents — they contain detailed exploitation instructions and proof-of-concept code. They must be classified as Confidential, encrypted in transit and at rest, and distributed only on a need-to-know basis.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Risk Ratings &amp; Prioritization</h2>
+<h3>CVSS (Common Vulnerability Scoring System)</h3>
+<table>
+  <tr><th>CVSS Score</th><th>Severity</th><th>Typical SLA</th></tr>
+  <tr><td>9.0 – 10.0</td><td>Critical</td><td>Remediate within 24-48 hours</td></tr>
+  <tr><td>7.0 – 8.9</td><td>High</td><td>Remediate within 30 days</td></tr>
+  <tr><td>4.0 – 6.9</td><td>Medium</td><td>Remediate within 90 days</td></tr>
+  <tr><td>0.1 – 3.9</td><td>Low</td><td>Remediate within 180 days or accept risk</td></tr>
+</table>
+
+<h3>Risk Rating Beyond CVSS</h3>
+<p>CVSS provides a technical severity score, but organizations must also consider:</p>
+<ul>
+  <li><strong>Asset criticality:</strong> A medium CVSS on a payment processing server is higher priority than a critical CVSS on a test server</li>
+  <li><strong>Exploit availability:</strong> Known exploits in the wild escalate priority regardless of CVSS score</li>
+  <li><strong>Exposure:</strong> Internet-facing systems are higher priority than internal-only systems</li>
+  <li><strong>Compensating controls:</strong> Network segmentation, WAF, or IPS may reduce effective risk</li>
+  <li><strong>Business context:</strong> Systems under regulatory scope (PCI, HIPAA) may require faster remediation</li>
+</ul>
+<div class="key-concept callout">
+  <strong>Risk-Based Prioritization:</strong> Effective organizations don't just sort by CVSS score — they use a risk-based approach: <strong>Risk = Vulnerability Severity × Asset Value × Threat Likelihood − Compensating Controls</strong>. This focuses effort where it matters most.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Remediation Tracking</h2>
+<h3>Remediation Lifecycle</h3>
+<div class="diagram">
+REMEDIATION TRACKING WORKFLOW
+
+  Finding      →  Assigned    →  In Progress  →  Remediated  →  Verified
+  Identified      to Owner        Fix being        Fix applied    Re-tested
+                                  developed                       and confirmed
+       │                                               │
+       └── Risk Accepted ─────────────────────────────→│ (documented &amp;
+           (with justification &amp; approval)              │  approved)
+</div>
+
+<h3>Tracking Elements</h3>
+<table>
+  <tr><th>Field</th><th>Purpose</th></tr>
+  <tr><td>Finding ID</td><td>Unique identifier linking to the original assessment finding</td></tr>
+  <tr><td>Severity / Risk Rating</td><td>Determines remediation priority and SLA</td></tr>
+  <tr><td>Assigned Owner</td><td>Individual responsible for remediation (not a group — a person)</td></tr>
+  <tr><td>Due Date</td><td>Based on severity SLA; tracked for overdue alerting</td></tr>
+  <tr><td>Status</td><td>Open → In Progress → Remediated → Verified → Closed</td></tr>
+  <tr><td>Verification Method</td><td>How the fix will be confirmed (re-scan, re-test, code review)</td></tr>
+  <tr><td>Exception / Risk Acceptance</td><td>If not remediated: formal risk acceptance with justification, approver, and review date</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Remediation is not complete until VERIFIED. Marking a finding as "fixed" without verification creates a false sense of security. Re-scanning or re-testing must confirm the fix actually works.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Coverage Hierarchy — "S-B-C-P" (Simple → Complete)</strong><br>
+  <strong>S</strong>tatement (weakest — just "did this line run?")<br>
+  <strong>B</strong>ranch (both sides of every if/else)<br>
+  <strong>C</strong>ondition (each Boolean sub-expression)<br>
+  <strong>P</strong>ath (every possible route — strongest but hardest)<br>
+  "Statement → Branch → Condition → Path" = weakest to strongest
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 RTM Purpose</strong><br>
+  "Every Requirement gets a Test; Every Test traces to a Requirement" — bidirectional traceability ensures nothing falls through the cracks
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CVSS Severity Thresholds</strong><br>
+  <strong>9</strong> = Critical (emergency)<br>
+  <strong>7</strong> = High (urgent)<br>
+  <strong>4</strong> = Medium (scheduled)<br>
+  <strong>0</strong> = Low (when convenient)<br>
+  "9-7-4-0" — just remember the cutoff points
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Remediation Rule</strong><br>
+  "Fixed ≠ Verified" — always re-test to close the loop
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Statement coverage</td><td>Weakest metric — every line executed at least once; doesn't test decision logic</td></tr>
+  <tr><td>Branch coverage</td><td>Tests both TRUE and FALSE for every decision point; stronger than statement</td></tr>
+  <tr><td>Path coverage</td><td>Strongest — every possible execution path; often impractical for complex code</td></tr>
+  <tr><td>RTM</td><td>Maps requirements ↔ tests bidirectionally; ensures completeness; key audit evidence</td></tr>
+  <tr><td>Pen test reports</td><td>Executive summary + methodology + findings + remediation roadmap; classified Confidential</td></tr>
+  <tr><td>CVSS</td><td>Technical severity scoring: Critical (9+), High (7+), Medium (4+), Low (&lt;4)</td></tr>
+  <tr><td>Risk-based prioritization</td><td>CVSS alone is insufficient; factor in asset value, exposure, exploit availability, compensating controls</td></tr>
+  <tr><td>Remediation tracking</td><td>Assigned owner, due date, status tracking; findings must be VERIFIED after fix</td></tr>
+  <tr><td>Risk acceptance</td><td>Valid alternative to remediation — must be formally documented and approved at appropriate level</td></tr>
+  <tr><td>Report sensitivity</td><td>Pen test reports contain exploitation details; encrypt and restrict distribution</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-097-theory.html" class="nav-btn">← Day 97: BCDR Testing</a>
+  <a href="day-099-theory.html" class="nav-btn">Day 99: Domain 6 Review →</a>
+</div>
+</div>
+</body>
+</html>

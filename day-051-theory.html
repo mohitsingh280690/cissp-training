@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -35,7 +35,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <div class="meta"><span>📅 Day 51 of 140</span><span>⏱️ ~55 min</span><span>📊 Advanced</span><span>🔧 Domain 3</span></div>
 </div>
 <div class="container">
-<div class="breadcrumb"><a href="day-050-theory.html">← Day 50</a> · Domain 3 · Day 51 · <a href="day-051-mcq.html">Take Quiz →</a></div>
+<div class="breadcrumb"><a href="day-050-theory.html">← Day 50</a> · Domain 3 · Day 51</div>
 
 <div class="toc">
 <h3>📑 Table of Contents</h3>
@@ -70,7 +70,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><th>Aspect</th><th>Organizational Impact</th></tr>
   <tr><td>Ownership</td><td>Security architects select algorithms; operations teams manage key lifecycle; compliance ensures key rotation and destruction</td></tr>
   <tr><td>Implementation</td><td>HSMs for critical key storage, key management systems (KMS — AWS KMS, Azure Key Vault), automated rotation policies</td></tr>
-  <tr><td>Failure Modes</td><td>Heartbleed (side-channel leaked server private keys), Sony PS3 ECDSA nonce reuse (private key recovered), hard-coded keys in source code</td></tr>
+  <tr><td>Failure Modes</td><td>Heartbleed (buffer over-read leaked server private keys from memory), Sony PS3 ECDSA nonce reuse (private key recovered), hard-coded keys in source code</td></tr>
   <tr><td>Business Impact</td><td>Compromised keys force emergency certificate replacement across all systems; poor key management undermines even the strongest algorithms</td></tr>
 </table>
 </section>
@@ -169,7 +169,7 @@ tr:nth-child(even){background:#f9f9f9;}
 <table>
   <tr><th>Algorithm</th><th>Mechanism</th><th>Notes</th></tr>
   <tr><td><strong>PBKDF2</strong></td><td>Applies HMAC-SHA1/SHA256 repeatedly (configurable iterations, e.g., 600,000+)</td><td>NIST recommended (SP 800-132); used in WPA2 (4,096 iterations); CPU-intensive only</td></tr>
-  <tr><td><strong>bcrypt</strong></td><td>Based on Blowfish cipher; configurable cost factor that doubles computation per increment</td><td>Memory-hard by design; widely used for password hashing; includes built-in salt</td></tr>
+  <tr><td><strong>bcrypt</strong></td><td>Based on Blowfish cipher; configurable cost factor that doubles computation per increment</td><td>CPU-hard (not memory-hard); widely used for password hashing; includes built-in salt</td></tr>
   <tr><td><strong>scrypt</strong></td><td>Requires large amounts of memory in addition to CPU time; configurable CPU and memory cost</td><td>Designed to resist GPU/ASIC attacks by being memory-intensive; used in cryptocurrency</td></tr>
   <tr><td><strong>Argon2</strong></td><td>Winner of the Password Hashing Competition (2015); configurable time, memory, and parallelism</td><td>Current best practice for new designs; three variants: Argon2d (GPU resistant), Argon2i (side-channel resistant), Argon2id (hybrid)</td></tr>
 </table>
@@ -217,7 +217,7 @@ tr:nth-child(even){background:#f9f9f9;}
 
 <div class="nav-footer">
 <a href="day-050-theory.html" class="nav-btn">← Day 50: PKI</a>
-<a href="day-051-mcq.html" class="nav-btn">📝 Take Today's Quiz →</a>
+<a href="day-052-theory.html" class="nav-btn">Day 52: Domain 3 Review →</a>
 </div>
 </div>
 </body>

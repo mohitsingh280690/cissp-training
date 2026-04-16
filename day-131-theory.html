@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 131 – Cross-Domain Review: Domains 1 &amp; 2</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 131 – Cross-Domain Review: Domains 1 &amp; 2</h1>
+  <div class="subtitle">Security &amp; Risk Management + Asset Security</div>
+  <div class="meta">
+    <span>📅 Day 131 of 140</span>
+    <span>📚 Cross-Domain Review</span>
+    <span>⏱️ ~60 min review</span>
+    <span>🎯 Integration &amp; Exam Prep</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-130-theory.html">← Day 130: Domain 8 Review</a> · Cross-Domain · Day 131</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 1 – Security &amp; Risk Management (16%)</a></li>
+  <li><a href="#s2">2. Domain 2 – Asset Security (10%)</a></li>
+  <li><a href="#s3">3. Cross-Domain Connections: D1 ↔ D2</a></li>
+  <li><a href="#s4">4. Master Comparison Tables</a></li>
+  <li><a href="#s5">5. High-Yield Exam Concepts</a></li>
+  <li><a href="#s6">6. D1 + D2 Mnemonic Summary</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 1 – Security &amp; Risk Management (16%)</h2>
+<p><em>The LARGEST domain by exam weight. Covers foundational security principles, governance, risk, compliance, legal/regulatory, ethics, and BCP.</em></p>
+
+<h3>Core Security Concepts — CIA + Beyond</h3>
+<table>
+  <tr><th>Principle</th><th>Definition</th><th>Threat</th></tr>
+  <tr><td><strong>Confidentiality</strong></td><td>Prevent unauthorized disclosure</td><td>Snooping, eavesdropping, social engineering</td></tr>
+  <tr><td><strong>Integrity</strong></td><td>Prevent unauthorized modification</td><td>Tampering, malware, bit rot</td></tr>
+  <tr><td><strong>Availability</strong></td><td>Ensure timely reliable access</td><td>DoS, ransomware, disasters</td></tr>
+  <tr><td>Authenticity</td><td>Verify identity/origin</td><td>Spoofing, impersonation</td></tr>
+  <tr><td>Non-repudiation</td><td>Cannot deny action</td><td>Repudiation of transactions</td></tr>
+</table>
+
+<h3>Security Governance</h3>
+<table>
+  <tr><th>Document</th><th>Level</th><th>Description</th></tr>
+  <tr><td><strong>Policy</strong></td><td>Strategic (senior mgmt)</td><td>Mandatory; high-level; "what" and "why"</td></tr>
+  <tr><td><strong>Standard</strong></td><td>Tactical</td><td>Mandatory; specific requirements (e.g., AES-256)</td></tr>
+  <tr><td><strong>Procedure</strong></td><td>Operational</td><td>Mandatory; step-by-step instructions</td></tr>
+  <tr><td><strong>Guideline</strong></td><td>Advisory</td><td>Recommended but NOT mandatory</td></tr>
+  <tr><td><strong>Baseline</strong></td><td>Technical</td><td>Minimum mandatory configuration standard</td></tr>
+</table>
+
+<h3>Risk Management</h3>
+<table>
+  <tr><th>Concept</th><th>Key Formula/Definition</th></tr>
+  <tr><td>Risk</td><td>Threat × Vulnerability × Impact (or Asset Value)</td></tr>
+  <tr><td>SLE</td><td>Single Loss Expectancy = Asset Value × Exposure Factor</td></tr>
+  <tr><td>ALE</td><td>Annual Loss Expectancy = SLE × ARO</td></tr>
+  <tr><td>Risk responses</td><td>Mitigate, Transfer, Accept, Avoid (MTAA)</td></tr>
+  <tr><td>Residual risk</td><td>Risk remaining AFTER controls; must be formally accepted by management</td></tr>
+  <tr><td>Risk appetite</td><td>Amount of risk org is WILLING to accept</td></tr>
+  <tr><td>Risk tolerance</td><td>Acceptable variation from risk appetite</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Quantitative vs Qualitative Risk Analysis:</strong><br>
+  • Quantitative = numbers, money (SLE, ALE, ARO) — more objective<br>
+  • Qualitative = categories (High/Medium/Low) — faster, more subjective<br>
+  • Most organizations use BOTH; start with qualitative, then quantitative for high-priority risks
+</div>
+
+<h3>Legal and Regulatory</h3>
+<table>
+  <tr><th>Law/Regulation</th><th>Focus</th></tr>
+  <tr><td>GDPR</td><td>EU data privacy; consent, right to erasure, data portability, 72-hr breach notification</td></tr>
+  <tr><td>HIPAA</td><td>US healthcare data; PHI protection; Privacy Rule, Security Rule, Breach Notification</td></tr>
+  <tr><td>SOX</td><td>US financial reporting integrity; internal controls; CEO/CFO certification</td></tr>
+  <tr><td>PCI DSS</td><td>Payment card data; 12 requirements; applies to all who process card data</td></tr>
+  <tr><td>GLBA</td><td>US financial institutions; customer financial data privacy</td></tr>
+  <tr><td>FERPA</td><td>US student education records privacy</td></tr>
+  <tr><td>Computer Fraud &amp; Abuse Act</td><td>US federal computer crime; unauthorized access</td></tr>
+</table>
+
+<h3>BCP/BIA</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>BIA</td><td>Identifies critical business functions and impact of disruption; FIRST step in BCP</td></tr>
+  <tr><td>MTD/MAD</td><td>Maximum Tolerable Downtime — longest a function can be down before catastrophic damage</td></tr>
+  <tr><td>RTO</td><td>Recovery Time Objective — target time to restore function; RTO ≤ MTD</td></tr>
+  <tr><td>RPO</td><td>Recovery Point Objective — max acceptable data loss; drives backup frequency</td></tr>
+  <tr><td>WRT</td><td>Work Recovery Time — time to verify/catch up after restoration; RTO + WRT ≤ MTD</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Domain 2 – Asset Security (10%)</h2>
+<p><em>Covers data classification, ownership, handling, privacy, data lifecycle, and data security controls.</em></p>
+
+<h3>Data Classification</h3>
+<table>
+  <tr><th>Government</th><th>Commercial</th></tr>
+  <tr><td>Top Secret</td><td>Confidential / Restricted</td></tr>
+  <tr><td>Secret</td><td>Private</td></tr>
+  <tr><td>Confidential</td><td>Sensitive</td></tr>
+  <tr><td>Unclassified</td><td>Public</td></tr>
+</table>
+
+<h3>Data Roles</h3>
+<table>
+  <tr><th>Role</th><th>Responsibility</th></tr>
+  <tr><td><strong>Data Owner</strong></td><td>Senior management; classifies data; defines access policy; accountable for data protection</td></tr>
+  <tr><td><strong>Data Custodian</strong></td><td>IT operations; implements controls defined by owner; manages backups, encryption, storage</td></tr>
+  <tr><td><strong>Data Steward</strong></td><td>Ensures data quality, metadata management, compliance with data governance policies</td></tr>
+  <tr><td><strong>Data Processor</strong></td><td>Third party that processes data on behalf of the data controller (GDPR term)</td></tr>
+  <tr><td><strong>Data Controller</strong></td><td>Determines purposes and means of processing personal data (GDPR term)</td></tr>
+  <tr><td><strong>Data Subject</strong></td><td>Individual whose personal data is being processed</td></tr>
+</table>
+
+<h3>Data Lifecycle</h3>
+<table>
+  <tr><th>Phase</th><th>Security Consideration</th></tr>
+  <tr><td>Create/Collect</td><td>Classify at creation; minimize collection; consent</td></tr>
+  <tr><td>Store</td><td>Encrypt at rest; access controls; backups</td></tr>
+  <tr><td>Use</td><td>Least privilege; DLP; monitoring</td></tr>
+  <tr><td>Share/Transfer</td><td>Encrypt in transit; DLP; data agreements</td></tr>
+  <tr><td>Archive</td><td>Long-term storage; retention policies; crypto agility</td></tr>
+  <tr><td>Destroy</td><td>Crypto-shredding; degaussing; physical destruction; verify sanitization</td></tr>
+</table>
+
+<h3>Data Destruction Methods</h3>
+<table>
+  <tr><th>Method</th><th>Media</th><th>Description</th></tr>
+  <tr><td><strong>Overwriting</strong></td><td>HDD/SSD</td><td>Write patterns over data; multiple passes for HDD; may not reach all SSD blocks</td></tr>
+  <tr><td><strong>Degaussing</strong></td><td>Magnetic media only (HDD, tape)</td><td>Powerful magnetic field destroys data; does NOT work on SSD/flash</td></tr>
+  <tr><td><strong>Crypto-shredding</strong></td><td>Encrypted media</td><td>Destroy encryption key → data unrecoverable; fast; works on any encrypted media</td></tr>
+  <tr><td><strong>Physical destruction</strong></td><td>All types</td><td>Shredding, incineration, pulverizing; most definitive</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Degaussing does NOT work on SSDs/flash drives.</strong> SSDs store data electronically, not magnetically. For SSD destruction: crypto-shredding or physical destruction. This is a frequently tested exam point.
+</div>
+
+<h3>Privacy Principles</h3>
+<table>
+  <tr><th>Principle</th><th>Description</th></tr>
+  <tr><td>Data minimization</td><td>Collect only what's needed for the stated purpose</td></tr>
+  <tr><td>Purpose limitation</td><td>Use data only for the purpose it was collected for</td></tr>
+  <tr><td>Consent</td><td>Obtain explicit or informed consent before collection/processing</td></tr>
+  <tr><td>Right to access</td><td>Individuals can request access to their personal data</td></tr>
+  <tr><td>Right to erasure</td><td>Individuals can request deletion of their data (GDPR "right to be forgotten")</td></tr>
+  <tr><td>Data protection by design</td><td>Privacy built into system design, not added later (GDPR Article 25)</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cross-Domain Connections: D1 ↔ D2</h2>
+<table>
+  <tr><th>Connection</th><th>D1 Concept</th><th>D2 Concept</th></tr>
+  <tr><td>Risk drives data protection</td><td>Risk analysis identifies threats to data</td><td>Classification determines what level of protection data needs</td></tr>
+  <tr><td>Legal/regulatory compliance</td><td>GDPR, HIPAA create legal obligations</td><td>Data handling, retention, and destruction must comply with laws</td></tr>
+  <tr><td>BCP &amp; data</td><td>RTO/RPO define recovery requirements</td><td>Backup strategies and data replication implement those requirements</td></tr>
+  <tr><td>Ownership &amp; accountability</td><td>Governance requires defined roles</td><td>Data owner vs custodian vs steward responsibilities</td></tr>
+  <tr><td>Third-party risk</td><td>Vendor risk management</td><td>Data processor agreements; data in transit/at rest controls</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Master Comparison Tables</h2>
+<h3>Risk Responses</h3>
+<table>
+  <tr><th>Response</th><th>Action</th><th>Example</th></tr>
+  <tr><td>Mitigate/Reduce</td><td>Implement controls to reduce likelihood or impact</td><td>Install firewall, encrypt data</td></tr>
+  <tr><td>Transfer/Share</td><td>Shift risk to third party</td><td>Insurance, outsourcing, SLA</td></tr>
+  <tr><td>Accept</td><td>Acknowledge risk and bear it (cost of control &gt; loss)</td><td>Document acceptance; management signs off</td></tr>
+  <tr><td>Avoid</td><td>Eliminate the risk by eliminating the activity</td><td>Don't collect SSNs; don't enter that market</td></tr>
+</table>
+
+<h3>Control Types</h3>
+<table>
+  <tr><th>Category</th><th>Function</th></tr>
+  <tr><td>Preventive</td><td>Stop incident before it occurs (firewall, access control, training)</td></tr>
+  <tr><td>Detective</td><td>Identify incident during/after (IDS, audit logs, SIEM)</td></tr>
+  <tr><td>Corrective</td><td>Fix/restore after incident (patching, BCP activation, IPS blocking)</td></tr>
+  <tr><td>Deterrent</td><td>Discourage attempt (warning banners, cameras, guards)</td></tr>
+  <tr><td>Compensating</td><td>Alternative when primary control not feasible</td></tr>
+  <tr><td>Recovery</td><td>Restore to normal operations (backups, DR site)</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. High-Yield Exam Concepts</h2>
+<table>
+  <tr><th>#</th><th>Concept</th><th>Exam Point</th></tr>
+  <tr><td>1</td><td>Due care vs due diligence</td><td>Due care = DO the right thing; Due diligence = VERIFY/RESEARCH it's the right thing</td></tr>
+  <tr><td>2</td><td>ALE calculation</td><td>ALE = SLE × ARO; SLE = AV × EF; if control costs less than ALE reduction, implement it</td></tr>
+  <tr><td>3</td><td>Data owner vs custodian</td><td>Owner = senior mgmt, classifies, sets policy; Custodian = IT, implements controls</td></tr>
+  <tr><td>4</td><td>Residual risk acceptance</td><td>Management MUST formally accept residual risk</td></tr>
+  <tr><td>5</td><td>GDPR 72-hour breach notification</td><td>Report to supervisory authority within 72 hours; data subjects "without undue delay"</td></tr>
+  <tr><td>6</td><td>Degaussing vs SSD</td><td>Degaussing doesn't work on SSD — use crypto-shredding or physical destruction</td></tr>
+  <tr><td>7</td><td>RPO drives backup frequency</td><td>RPO = 4 hours means backup at least every 4 hours</td></tr>
+  <tr><td>8</td><td>Policy = mandatory; Guideline = optional</td><td>Only guidelines are NOT mandatory</td></tr>
+  <tr><td>9</td><td>ISC2 Code of Ethics</td><td>Protect society → Act honorably → Provide service → Advance the profession</td></tr>
+  <tr><td>10</td><td>Data remanence</td><td>Data remaining after deletion; sanitization required for media reuse</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. D1 + D2 Mnemonic Summary</h2>
+<table>
+  <tr><th>Mnemonic</th><th>Topic</th><th>Stands For</th></tr>
+  <tr><td>CIA</td><td>Core triad</td><td>Confidentiality, Integrity, Availability</td></tr>
+  <tr><td>MTAA</td><td>Risk responses</td><td>Mitigate, Transfer, Accept, Avoid</td></tr>
+  <tr><td>ALE = SLE × ARO</td><td>Quantitative risk</td><td>Annual = Single × Rate</td></tr>
+  <tr><td>"Protect → Act → Provide → Advance"</td><td>ISC2 Ethics</td><td>Four canons in priority order</td></tr>
+  <tr><td>"Owner decides, Custodian does"</td><td>Data roles</td><td>Owner = policy; Custodian = implementation</td></tr>
+  <tr><td>RTO + WRT ≤ MTD</td><td>Recovery objectives</td><td>Recovery + verification cannot exceed maximum downtime</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-130-theory.html" class="nav-btn">← Day 130: Domain 8 Review</a>
+  <a href="day-132-theory.html" class="nav-btn">Day 132: Cross-Domain D3+D4 →</a>
+</div>
+</div>
+</body>
+</html>

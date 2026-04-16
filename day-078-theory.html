@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 78 – Identity Management Lifecycle</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 78 – Identity Management Lifecycle</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 78 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-077-theory.html">← Day 77: Access Control Implementation</a> · Domain 5 · Day 78</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Account Provisioning</a></li>
+  <li><a href="#s4">4. Account Review &amp; Recertification</a></li>
+  <li><a href="#s5">5. Account Modification</a></li>
+  <li><a href="#s6">6. Account Suspension &amp; Deletion</a></li>
+  <li><a href="#s7">7. Orphan Accounts</a></li>
+  <li><a href="#s8">8. Dormant Accounts</a></li>
+  <li><a href="#s9">9. Service Account Management</a></li>
+  <li><a href="#s10">10. Identity Lifecycle Automation – SCIM &amp; IGA</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — full account lifecycle management from provisioning through termination</td></tr>
+  <tr><td><strong>Relationship to Day 70</strong></td><td>Day 70 introduced the IAAA model and high-level identity lifecycle concept. Day 78 goes deep on each lifecycle phase, problematic account states (orphan, dormant), and the governance processes (access reviews, recertification, SCIM automation) required by compliance frameworks.</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Account lifecycle governance failures are a top source of audit findings and security incidents — ex-employees retaining access, orphan accounts exploited, over-privileged accounts accumulating rights over time. CISSP expects candidates to know each phase, its risks, and controls.</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>Suspend ≠ Delete. Dormant ≠ Orphan. Recertification is a periodic review (e.g., annual). Re-provisioning after suspension requires re-approval. Service accounts often bypass joiner/leaver processes — a specific risk category.</td></tr>
+  <tr><td><strong>Compliance Links</strong></td><td>SOX (access recertification for financial systems); PCI-DSS 7 (need-to-know, regular access review); HIPAA (minimum-necessary, workforce clearance); NIST SP 800-53 AC-2 (Account Management); ISO 27001 A.9.2 (User access management)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Real-World Impact</th></tr>
+  <tr><td><strong>Joiners – delayed provisioning</strong></td><td>New employee starts Day 1 without necessary access — lost productivity, frustration. Provisioning SLA (e.g., accounts active within 1 business day of start) requires automated joiner workflows connected to HR system.</td></tr>
+  <tr><td><strong>Movers – access accumulation</strong></td><td>Employee moves from Finance to HR — gains new HR access but old Finance access never removed. By Year 3 of lateral moves, the employee has accumulated access across 6 different departments, violating least privilege.</td></tr>
+  <tr><td><strong>Leavers – delayed de-provisioning</strong></td><td>Terminated employee account not disabled within hours — a common breach vector for insider threats and disgruntled employee retaliation. High-profile breach cases often involve accounts active for weeks post-termination.</td></tr>
+  <tr><td><strong>Orphan account exploitation</strong></td><td>A shared test account created during a project and never deleted — attackers find it via enumeration, no current owner to notice unusual login activity, default/weak credentials. Easy lateral movement entry point.</td></tr>
+  <tr><td><strong>Service account sprawl</strong></td><td>Application accounts with excessive privileges, shared credentials, no expiry, not tied to any owner — when the responsible developer leaves, no one knows the password and the account can't be changed without breaking integrations.</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Account Provisioning</h2>
+<div class="callout definition">
+  <strong>📖 Account Provisioning:</strong> The process of creating, configuring, and granting access rights to a new user account in response to an authorized identity request (typically triggered by HR onboarding). Encompasses creating credentials, assigning roles/groups, configuring entitlements, and notifying the user.
+</div>
+<table>
+  <tr><th>Provisioning Phase</th><th>Actions</th><th>Security Control</th></tr>
+  <tr><td><strong>Identity establishment</strong></td><td>Confirm requestor's identity (new hire documentation, contractor agreement); establish authoritative source of identity record in IAM/HR system</td><td>Identity proofing — ensure the person is who they claim to be; prevent duplicate or ghost identities</td></tr>
+  <tr><td><strong>Access request &amp; approval</strong></td><td>Manager submits provisioning request specifying required access; request routed for approval (manager + resource owner + security team for privileged access)</td><td>Formal approval chain prevents unauthorized access grants; least-privilege principle guides which roles are requested</td></tr>
+  <tr><td><strong>Account creation</strong></td><td>Create unique account ID in directory (AD, LDAP, IAM); set initial credentials per password policy; assign to role/group(s)</td><td>No shared accounts; unique ID for accountability; initial credential delivered securely (OTP, email link)</td></tr>
+  <tr><td><strong>Entitlement assignment</strong></td><td>Assign minimum required access based on role profile for job function; do NOT over-grant speculatively</td><td>Principle of least privilege — grant only what is required for the approved job function, nothing more</td></tr>
+  <tr><td><strong>Documentation &amp; logging</strong></td><td>Record all provisioning actions in audit log: who requested, who approved, what was granted, when</td><td>Audit trail for SOX/PCI/HIPAA compliance; supports forensic investigation if access is later misused</td></tr>
+</table>
+
+<h3>Provisioning Triggers in Practice</h3>
+<div class="diagram">HR System (Source of Truth)
+        │
+        │  "New Employee Record Created"
+        │  (name, start date, department, job title, manager)
+        ▼
+IGA / Provisioning Engine (e.g., SailPoint, Saviynt, Azure AD Lifecycle workflows)
+        │
+        │  Maps: "HR Analyst in Finance Dept" → "Finance-Analyst RBAC role"
+        │  Creates: AD account, Azure AD account, email, VPN profile
+        │  Assigns: Finance-Analyst group, Finance-Intranet access, JIRA access
+        │  Notifies: user with initial login link (secure OTP), manager with summary
+        ▼
+All Systems Provisioned Automatically — Consistent, Audited, Least-Privilege</div>
+</section>
+
+<section id="s4">
+<h2>4. Account Review &amp; Recertification</h2>
+<div class="callout definition">
+  <strong>📖 Access Recertification (Re-validation):</strong> A periodic process where account owners, managers, or resource administrators formally review and confirm (or revoke) all access entitlements for users in their purview. Designed to catch privilege creep — access that was legitimately granted but is no longer needed.
+</div>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Frequency</strong></td><td>Quarterly, semi-annual, or annual depending on sensitivity. Privileged/admin access: quarterly. Regular business access: annual. Compliance frameworks may mandate specific periods (e.g., SOX quarterly for key financial controls).</td></tr>
+  <tr><td><strong>Who certifies</strong></td><td>Business manager (reviews direct reports' access); resource/application owner (reviews who has access to their system); data owner (reviews who has access to their data classification).</td></tr>
+  <tr><td><strong>Review workflow</strong></td><td>IGA system generates certification campaign → emails access owners/managers → reviewer approves (keep) or revokes (remove) each entitlement → automated revocation of denied access → report generated for compliance.</td></tr>
+  <tr><td><strong>Privilege creep</strong></td><td>Occurs when users accumulate permissions over time through job changes, project assignments, temp access never revoked. Recertification's primary purpose is detecting and correcting privilege creep.</td></tr>
+  <tr><td><strong>Certification actions</strong></td><td>Certify (keep access as-is); Revoke (remove access immediately); Modify (adjust scope/level); Escalate (refer to security team for review).</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Account Modification</h2>
+<table>
+  <tr><th>Modification Type</th><th>Trigger</th><th>Required Action</th><th>Risk if Missed</th></tr>
+  <tr><td><strong>Role/job change (Mover)</strong></td><td>Employee transfers to new department, receives promotion, or changes job function</td><td>Remove all access from old role; grant access for new role only. Do NOT simply add new access on top of old — creates privilege accumulation.</td><td>Mover retains both old and new access — violates least privilege, creates SoD conflicts across departments</td></tr>
+  <tr><td><strong>Temporary access grant</strong></td><td>Project work, delegated authority during colleague's absence, emergency access</td><td>Grant with defined expiry date/time. Automate expiry and revocation. Temporary access should never become permanent by default.</td><td>Temporary access persists beyond project; accumulates over time; becomes permanent without ownership</td></tr>
+  <tr><td><strong>Access expansion</strong></td><td>Legitimate new business need for additional access beyond base role</td><td>New formal access request; manager/resource owner approval; documented business justification; tracked in IGA system</td><td>Ad-hoc granting without approval violates access control governance; creates ungoverned entitlements</td></tr>
+  <tr><td><strong>Account credential reset</strong></td><td>Forgotten password, suspected compromise, periodic credential rotation</td><td>Identity verification before reset; secure delivery of new credential; suspicious resets should trigger notification to manager + security team</td><td>Insecure reset process enables social engineering attacks (attacker claims to be employee, resets credentials)</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Account Suspension &amp; Deletion</h2>
+<table>
+  <tr><th>Action</th><th>Definition</th><th>When Used</th><th>Best Practice</th></tr>
+  <tr><td><strong>Suspension (Disable)</strong></td><td>Account is preserved in the directory but authentication is blocked. The account, its group memberships, and history are retained but login is prevented.</td><td>Employee on extended leave (FMLA, parental leave, sabbatical); temporary lock pending investigation; immediate response to suspected compromise; beginning of offboarding.</td><td>Immediate action on notice of termination — disable within hours, not days. Preserve account for forensic purposes or reactivation. Easier to re-enable than to reprovisioning.</td></tr>
+  <tr><td><strong>Deletion (Removal)</strong></td><td>Account is permanently removed from the directory along with its group memberships and entitlements. Historical audit logs should be retained even after account deletion.</td><td>Confirmed permanent separation (resigned, terminated, contractor engagement ended); after retention period following suspension; when reprovisioned identity is confirmed not needed.</td><td>Do not delete immediately on termination — suspend first, delete after retention period (e.g., 90 days). Audit logs must outlive the account itself for compliance.</td></tr>
+  <tr><td><strong>Offboarding sequence</strong></td><td>1. Receive termination notification from HR (ideally automated). 2. Immediately suspend account + revoke active sessions + revoke tokens. 3. Transfer data/items to manager. 4. Retrieve physical assets. 5. After retention period → delete account.</td><td>All permanent separations</td><td>Leavers are the HIGHEST-RISK IAM event. Speed of account suspension is a key security metric — target: within 1 hour of termination for privileged users; same-day for all users.</td></tr>
+</table>
+<div class="callout warning">
+  <strong>⚠️ Insider Threat Risk:</strong> Studies show many insider-threat incidents occur during the notice period or within days of departure. Accounts should be suspended AT THE TIME of termination notification, not when IT processes the request. HR-to-IT automated offboarding workflow is critical.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Orphan Accounts</h2>
+<div class="callout definition">
+  <strong>📖 Orphan Account:</strong> An account that exists in a system but no longer has an associated active user or owner. Created when a user leaves and their account is not properly deprovisioned, or when system/service accounts outlive the team or application that created them. An orphan account has no responsible owner aware of it.
+</div>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>How orphans occur</strong></td><td>Employee terminates but account only deleted in AD, not in downstream applications (HR app, ERP, CRM, cloud apps). Each system provisioned independently without lifecycle sync. Result: user is gone but has active accounts in 5 of 8 systems.</td></tr>
+  <tr><td><strong>Security risks</strong></td><td>No current owner monitoring for anomalous activity. Credentials may be stale/known. Attackers specifically seek orphan accounts for lateral movement — low detection risk, no active owner to raise alert. May retain elevated permissions from the former user's highest-privilege role.</td></tr>
+  <tr><td><strong>Detection</strong></td><td>Periodic orphan account review: compare accounts in each system against authoritative HR roster. Accounts not matching any active HR record are candidates for review + suspension. Automated reconciliation via IGA tools.</td></tr>
+  <tr><td><strong>Prevention</strong></td><td>Automated deprovisioning triggered by HR offboarding event across ALL connected systems simultaneously via IGA/SCIM integration. No manual process that relies on IT receiving notification months later.</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Dormant Accounts</h2>
+<div class="callout definition">
+  <strong>📖 Dormant Account:</strong> An account that belongs to a real, currently active user but has not been used within a defined period (e.g., 90 days). The user exists but has not logged in — account is idle/inactive. Distinct from orphan accounts (which have no owner at all).
+</div>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Examples</strong></td><td>Contractor account created for project that ended but contractor is still employed; system admin account for a production server only accessed during incidents; guest/vendor accounts; training environment accounts; old API service accounts no longer called.</td></tr>
+  <tr><td><strong>Security risks</strong></td><td>Dormant accounts may have stale credentials (never changed because user doesn't log in). If credentials are compromised (leaked via third-party breach), attack may occur months later when no one is watching the account's first login. Low-activity baseline means anomaly detection doesn't trigger.</td></tr>
+  <tr><td><strong>Policy standard</strong></td><td>Define a dormancy threshold (e.g., no login in 90 days). At threshold: notify account owner + manager. If no response within 7 days: automatically suspend. Requires periodic automated scanning against last-login timestamps in directory.</td></tr>
+  <tr><td><strong>Dormant vs. Orphan distinction</strong></td><td>Dormant: has an active owner who just hasn't used it recently. Orphan: has NO active owner. A dormant account can be reactivated by the existing owner. An orphan account needs a new ownership assignment or deletion.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Orphan vs. Dormant:</strong><br>
+  Orphan account = no active owner. User left, account left behind. No one knows it's there.<br>
+  Dormant account = active owner, but account not used recently. Owner still employed; just hasn't logged in.<br>
+  Both represent risk. Both require detection and action. Different remediation: orphan → delete/disable; dormant → notify owner → disable if no response.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Service Account Management</h2>
+<div class="callout definition">
+  <strong>📖 Service Account:</strong> A non-human account (also called a machine identity, system account, or application account) used by an application, script, service, or automated process to authenticate and access resources. Not associated with a specific human user but requires its own identity lifecycle governance.
+</div>
+<table>
+  <tr><th>Risk Area</th><th>Problem</th><th>Control</th></tr>
+  <tr><td><strong>Excessive privilege</strong></td><td>Service accounts often provisioned with broad "Domain Admin" or "DBA" privileges because it was easier at the time. Never scoped to minimum necessary.</td><td>Apply least-privilege principle: service account should only have exactly the permissions needed for its specific function. Separate accounts per application/service — never shared.</td></tr>
+  <tr><td><strong>No expiry / non-rotating credentials</strong></td><td>Service account passwords never expire because rotation breaks applications. Credentials may be decades old. Historical credential dumps (e.g., from a breach years ago) may still be valid.</td><td>Implement PAM solution with automated credential vaulting and rotation (see Day 79). Modern systems use short-lived credentials (AWS IAM Roles, Azure Managed Identities) that eliminate long-lived static passwords.</td></tr>
+  <tr><td><strong>Ownership/accountability gap</strong></td><td>Created by a developer who left — no current owner knows what the account does, how to rotate its password, or what breaks if it's disabled. Account is invisible to IAM governance.</td><td>Every service account must have a designated human owner (typically the application owner or team lead). Owner attested annually. Documented in CMDB/service catalog alongside the application it serves.</td></tr>
+  <tr><td><strong>Interactive login enabled</strong></td><td>Service accounts with ability to interactively log into systems (desktop, SSH). An attacker who compromises the credential can use it for lateral movement, not just service calls.</td><td>Disable interactive login on service accounts. Restrict to specific service/process invocation only. Log any interactive login attempts as an alert.</td></tr>
+  <tr><td><strong>Shared service accounts</strong></td><td>Multiple applications or developers using the same service account — loss of accountability, credential changes affect all consumers, impossible to audit which app caused an action.</td><td>Unique service account per application per environment (dev/test/prod). Never share credentials between applications.</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Identity Lifecycle Automation – SCIM &amp; IGA</h2>
+<table>
+  <tr><th>Technology</th><th>Purpose</th><th>Key Features</th></tr>
+  <tr><td><strong>SCIM</strong> (System for Cross-domain Identity Management)</td><td>Open standard (RFC 7644) for automating user provisioning and deprovisioning between identity provider (IDP) and applications. REST API-based protocol for creating, reading, updating, and deleting (CRUD) identity records across systems.</td><td>HR fires "create user" → SCIM propagates to connected SaaS apps (Salesforce, Slack, Box, ServiceNow) simultaneously. Termination triggers delete/suspend SCIM call cascaded to all apps. Eliminates manual provisioning and orphan accounts from missed deprovisioning.</td></tr>
+  <tr><td><strong>IGA</strong> (Identity Governance and Administration)</td><td>Platform (e.g., SailPoint IdentityNow, Saviynt, Microsoft Entra Identity Governance) for holistic identity lifecycle management: provisioning, recertification campaigns, SoD policy enforcement, role management, audit reporting.</td><td>Connects to HR, Active Directory, LDAP, hundreds of SaaS apps. Automates joiner/mover/leaver workflows. Runs automated access reviews. Generates compliance-ready reports for SOX/PCI/HIPAA. Detects SoD violations automatically.</td></tr>
+  <tr><td><strong>Joiner-Mover-Leaver (JML) Workflow</strong></td><td>Structured automated process triggered by HR events. Joiner: new employee start → provision required roles. Mover: transfer/promotion → remove old role + add new role. Leaver: termination → suspend + revoke + offboard within hours.</td><td>HR system is the trigger. IGA is the orchestrator. AD/LDAP and downstream apps are the targets. The entire lifecycle is governed by policy without manual IT tickets.</td></tr>
+</table>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Identity Lifecycle — JML Model:</strong><br>
+  <strong>J</strong>oiner → Provision (new hire, grant minimum access)<br>
+  <strong>M</strong>over → Modify (change job/dept: REMOVE old + GRANT new, don't just add)<br>
+  <strong>L</strong>eaver → Deprovision (terminate: SUSPEND immediately, DELETE after retention)<br>
+  The CISCO security model: Join → Manage → Leave. Every account passes through these phases.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Orphan vs. Dormant:</strong><br>
+  <strong>O</strong>rphan = <strong>O</strong>wnerless (user is gone, account was left behind)<br>
+  <strong>D</strong>ormant = <strong>D</strong>isused (user still exists, just hasn't logged in recently)<br>
+  Orphan: like an abandoned house — no one lives there anymore; break-in goes unnoticed.<br>
+  Dormant: like a vacation home — owner is real but away; still needs periodic security checks.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Privilege Creep = Access Accumulation Over Time:</strong><br>
+  Movers gain new access but old access is never removed.<br>
+  Annual recertification is the prevention mechanism — certify or revoke all entitlements.<br>
+  "Use it or lose it": access not used within recertification window should be flagged for revocation.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Service Account Risk Keywords:</strong><br>
+  No expiry + Excessive privilege + Shared + No owner + Interactive login = HIGH RISK<br>
+  Solution: PAM (Day 79) + Least privilege + Unique accounts + Human owner + No interactive login enforced
+</div>
+</section>
+
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Account provisioning</td><td>Based on formal request + approval chain; grant minimum required access; automated via IGA/SCIM from HR trigger</td></tr>
+  <tr><td>Access recertification</td><td>Periodic (quarterly/annual) review of entitlements; catches privilege creep; manager/resource owner certifies or revokes; required by SOX, PCI, HIPAA</td></tr>
+  <tr><td>Privilege creep</td><td>Access accumulation from Mover events where old access not removed; solved by recertification + automated Mover workflows that replace (not add) roles</td></tr>
+  <tr><td>Account modification (Mover)</td><td>Transfer/promotion requires: remove old role AND grant new role; never just add new access; prevents cross-department privilege accumulation</td></tr>
+  <tr><td>Suspension vs. deletion</td><td>Suspend first (preserve for forensics, easy to re-enable); delete after retention period; leavers must be suspended within hours of termination</td></tr>
+  <tr><td>Orphan accounts</td><td>No active owner; created by incomplete deprovisioning; high breach risk; detected via reconciliation vs. HR roster; prevented by automated SCIM deprovisioning</td></tr>
+  <tr><td>Dormant accounts</td><td>Active owner, not logged in recently; threshold policy (90 days) → notify → suspend if no response; riskier than it appears (stale credentials, low monitoring)</td></tr>
+  <tr><td>Service accounts</td><td>Non-human identities; require human owner + least privilege + unique per app + PAM credential vaulting + no interactive login; highest risk if unmanaged</td></tr>
+  <tr><td>SCIM</td><td>Open standard REST API for automated cross-system provisioning/deprovisioning; eliminates orphan accounts; connects HR to all SaaS apps</td></tr>
+  <tr><td>IGA</td><td>Platform for full governance: JML workflows, recertification campaigns, SoD enforcement, audit reporting; HR is the source of truth trigger</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-077-theory.html" class="nav-btn">← Day 77: Access Control Implementation</a>
+  <a href="day-079-theory.html" class="nav-btn">Day 79: Privileged Access Management →</a>
+</div>
+</div>
+</body>
+</html>

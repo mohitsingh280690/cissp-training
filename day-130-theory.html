@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 130 – Domain 8 Review: Software Development Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 130 – Domain 8 Review: Software Development Security</h1>
+  <div class="subtitle">Domain 8 – Comprehensive Review (Days 118-129)</div>
+  <div class="meta">
+    <span>📅 Day 130 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~60 min review</span>
+    <span>🎯 Final Domain Review</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-129-theory.html">← Day 129: Third-Party Software Security</a> · Domain 8 · Day 130</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 8 Coverage Map</a></li>
+  <li><a href="#s2">2. SDLC &amp; Methodologies Quick Reference</a></li>
+  <li><a href="#s3">3. Web Application Attacks – Master Comparison</a></li>
+  <li><a href="#s4">4. Testing Methods – Complete Comparison</a></li>
+  <li><a href="#s5">5. Database Security Essentials</a></li>
+  <li><a href="#s6">6. APIs, Microservices &amp; Modern Architecture</a></li>
+  <li><a href="#s7">7. AI/ML &amp; Supply Chain Quick Reference</a></li>
+  <li><a href="#s8">8. Commonly Confused Concepts</a></li>
+  <li><a href="#s9">9. Top 15 Most-Tested Domain 8 Concepts</a></li>
+  <li><a href="#s10">10. Master Mnemonic Map</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 8 Coverage Map</h2>
+<table>
+  <tr><th>Day</th><th>Topic</th><th>Key Focus Areas</th></tr>
+  <tr><td>118</td><td>SDLC &amp; Security Integration</td><td>SDLC phases + security activities; shift-left; threat models (STRIDE, DREAD, PASTA); secure SDLC frameworks</td></tr>
+  <tr><td>119</td><td>Development Methodologies</td><td>Agile manifesto; Scrum roles/events/artifacts; Kanban; XP; CMMI 5 levels; IDEAL model</td></tr>
+  <tr><td>120</td><td>DevSecOps &amp; CI/CD</td><td>DevSecOps culture; CI/CD pipeline gates; SAST/DAST/IAST/RASP; IaC; container security; secrets mgmt</td></tr>
+  <tr><td>121</td><td>Programming Concepts</td><td>Language generations; OOP (EAIP); buffer overflows (BANDS); TOCTOU; covert channels; coupling/cohesion</td></tr>
+  <tr><td>122</td><td>Database Security</td><td>ACID; normalization; views; polyinstantiation; aggregation vs inference; SQL injection</td></tr>
+  <tr><td>123</td><td>Web App Security – Part 1</td><td>OWASP Top 10; SQL injection; XSS types; CSRF; IDOR; misconfigurations</td></tr>
+  <tr><td>124</td><td>Web App Security – Part 2</td><td>Session management; cookie attributes; SSRF; clickjacking; security headers; WAF</td></tr>
+  <tr><td>125</td><td>Secure Coding Practices</td><td>Input validation; output encoding; fail secure/open; error handling; crypto best practices</td></tr>
+  <tr><td>126</td><td>Software Security Testing</td><td>SAST/DAST/IAST/RASP comparison; fuzz testing; pen testing phases; Fagan inspection; SCA</td></tr>
+  <tr><td>127</td><td>APIs &amp; Microservices</td><td>REST vs SOAP; OAuth vs OIDC; API gateways; microservice challenges; service mesh; mTLS</td></tr>
+  <tr><td>128</td><td>AI/ML Security</td><td>Adversarial ML (poisoning/evasion/extraction); governance (NIST AI RMF, EU AI Act); AI in security</td></tr>
+  <tr><td>129</td><td>Third-Party Software</td><td>Supply chain attacks; SBOM; open source risks; SCA; vendor assessment; SOC reports</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. SDLC &amp; Methodologies Quick Reference</h2>
+<h3>SDLC Models at a Glance</h3>
+<table>
+  <tr><th>Model</th><th>Approach</th><th>Key Characteristic</th></tr>
+  <tr><td>Waterfall</td><td>Sequential, linear phases</td><td>No going back; documentation-heavy; rigid</td></tr>
+  <tr><td>V-Model</td><td>Waterfall + parallel testing phases</td><td>Each dev phase has matching test phase</td></tr>
+  <tr><td>Spiral</td><td>Iterative with risk analysis each cycle</td><td>UNIQUELY risk-driven (exam favorite)</td></tr>
+  <tr><td>Agile</td><td>Iterative, incremental, adaptive</td><td>Fast delivery; sprints; customer collaboration</td></tr>
+  <tr><td>DevSecOps</td><td>Continuous integration of security</td><td>Everyone responsible for security; automation</td></tr>
+</table>
+
+<h3>CMMI Levels</h3>
+<table>
+  <tr><th>Level</th><th>Name</th><th>Key</th></tr>
+  <tr><td>1</td><td>Initial</td><td>Ad hoc, unpredictable</td></tr>
+  <tr><td>2</td><td>Managed</td><td>Project-level processes</td></tr>
+  <tr><td>3</td><td>Defined</td><td>Organization-wide standards (first org-wide level)</td></tr>
+  <tr><td>4</td><td>Quantitatively Managed</td><td>Metrics-driven</td></tr>
+  <tr><td>5</td><td>Optimizing</td><td>Continuous improvement</td></tr>
+</table>
+<div class="mnemonic callout">
+  <strong>🧠 "I Must Define Quantitative Optimization"</strong>
+</div>
+
+<h3>Threat Models</h3>
+<table>
+  <tr><th>Model</th><th>Purpose</th></tr>
+  <tr><td><strong>STRIDE</strong></td><td>6 threat categories: Spoofing, Tampering, Repudiation, Info disclosure, DoS, Elevation of privilege</td></tr>
+  <tr><td><strong>DREAD</strong></td><td>Risk ranking: Damage, Reproducibility, Exploitability, Affected users, Discoverability</td></tr>
+  <tr><td><strong>PASTA</strong></td><td>7-stage risk-centric threat model; Process for Attack Simulation and Threat Analysis</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Web Application Attacks – Master Comparison</h2>
+<table>
+  <tr><th>Attack</th><th>Target</th><th>Exploits Trust Of</th><th>Best Defense</th></tr>
+  <tr><td><strong>SQL Injection</strong></td><td>Server/database</td><td>App trusts user input</td><td>Parameterized queries</td></tr>
+  <tr><td><strong>XSS (Reflected)</strong></td><td>User's browser</td><td>User trusts website</td><td>Output encoding</td></tr>
+  <tr><td><strong>XSS (Stored)</strong></td><td>User's browser (all visitors)</td><td>User trusts website</td><td>Output encoding + CSP</td></tr>
+  <tr><td><strong>CSRF</strong></td><td>Web application</td><td>Site trusts user's browser</td><td>Anti-CSRF tokens</td></tr>
+  <tr><td><strong>SSRF</strong></td><td>Internal services</td><td>Server trusts itself</td><td>URL whitelisting; network segmentation</td></tr>
+  <tr><td><strong>Clickjacking</strong></td><td>User clicks on hidden layer</td><td>User trusts visible page</td><td>X-Frame-Options / CSP frame-ancestors</td></tr>
+  <tr><td><strong>IDOR</strong></td><td>Unauthorized data</td><td>App trusts object references</td><td>Server-side authorization checks</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Defense Quick Reference — "POT":</strong><br>
+  • SQL injection → <strong>P</strong>arameterized queries<br>
+  • XSS → <strong>O</strong>utput encoding<br>
+  • CSRF → <strong>T</strong>okens (anti-CSRF)
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Testing Methods – Complete Comparison</h2>
+<table>
+  <tr><th>Method</th><th>Type</th><th>When</th><th>Finds</th><th>Key Trait</th></tr>
+  <tr><td><strong>SAST</strong></td><td>Static / White box</td><td>Development</td><td>Code-level bugs</td><td>High false positives; exact line</td></tr>
+  <tr><td><strong>DAST</strong></td><td>Dynamic / Black box</td><td>Testing/staging</td><td>Runtime vulns</td><td>Low false positives; no code needed</td></tr>
+  <tr><td><strong>IAST</strong></td><td>Hybrid (agent-based)</td><td>QA</td><td>Confirmed vulns + code location</td><td>Best of SAST + DAST</td></tr>
+  <tr><td><strong>RASP</strong></td><td>Runtime protection</td><td>Production</td><td>Active attacks</td><td>Can BLOCK attacks; defense-in-depth</td></tr>
+  <tr><td><strong>Fuzzing</strong></td><td>Random input testing</td><td>Development/QA</td><td>Crashes, overflows</td><td>Cannot find logic flaws</td></tr>
+  <tr><td><strong>SCA</strong></td><td>Dependency analysis</td><td>Development/CI</td><td>Known CVEs, licenses</td><td>Third-party code focus</td></tr>
+  <tr><td><strong>Pen testing</strong></td><td>Simulated attack</td><td>Post-deployment</td><td>Exploitable vulns</td><td>Requires authorization; manual</td></tr>
+  <tr><td><strong>Fagan inspection</strong></td><td>Formal code review</td><td>Development</td><td>All defect types</td><td>Most thorough review method</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Database Security Essentials</h2>
+<h3>ACID Properties</h3>
+<table>
+  <tr><th>Property</th><th>Meaning</th></tr>
+  <tr><td><strong>A</strong>tomicity</td><td>All or nothing</td></tr>
+  <tr><td><strong>C</strong>onsistency</td><td>Valid state to valid state</td></tr>
+  <tr><td><strong>I</strong>solation</td><td>Transactions don't interfere</td></tr>
+  <tr><td><strong>D</strong>urability</td><td>Committed = permanent</td></tr>
+</table>
+
+<h3>Database Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defense</th></tr>
+  <tr><td>Aggregation</td><td>Combining non-sensitive data to derive sensitive information</td><td>Restrict aggregate queries; classify combined data higher</td></tr>
+  <tr><td>Inference</td><td>Deducing classified info from clues</td><td>Polyinstantiation; noise; cell suppression</td></tr>
+  <tr><td>SQL injection</td><td>Malicious SQL through input fields</td><td>Parameterized queries (ALWAYS the best answer)</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Polyinstantiation:</strong> Multiple records with same key at different classification levels. Prevents inference by showing "cover" data instead of "access denied" to lower-cleared users.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. APIs, Microservices &amp; Modern Architecture</h2>
+<table>
+  <tr><th>Concept</th><th>Key Exam Point</th></tr>
+  <tr><td>REST vs SOAP</td><td>REST = transport-level security (TLS); SOAP = message-level security (WS-Security)</td></tr>
+  <tr><td>OAuth 2.0</td><td>AUTHORIZATION, not authentication; issues access tokens</td></tr>
+  <tr><td>OIDC</td><td>Authentication layer ON TOP of OAuth 2.0; adds ID token</td></tr>
+  <tr><td>API Gateway</td><td>Single entry point; centralizes auth, rate limiting, logging</td></tr>
+  <tr><td>mTLS</td><td>Mutual TLS; both sides authenticate; standard for service-to-service</td></tr>
+  <tr><td>Service mesh</td><td>Infrastructure layer for automatic mTLS, policies, observability (Istio, Linkerd)</td></tr>
+  <tr><td>Containers vs VMs</td><td>Containers share host kernel (weaker isolation); VMs have separate kernels</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. AI/ML &amp; Supply Chain Quick Reference</h2>
+<h3>Adversarial ML Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Phase</th><th>What's Compromised</th></tr>
+  <tr><td>Data poisoning</td><td>Training</td><td>Model integrity (learns wrong things)</td></tr>
+  <tr><td>Evasion</td><td>Inference</td><td>Model accuracy (fooled by crafted inputs)</td></tr>
+  <tr><td>Model extraction</td><td>Inference</td><td>Intellectual property (model stolen)</td></tr>
+  <tr><td>Model inversion</td><td>Inference</td><td>Training data privacy</td></tr>
+  <tr><td>Prompt injection</td><td>Inference</td><td>LLM behavior (instructions overridden)</td></tr>
+</table>
+
+<h3>Supply Chain Essentials</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>SBOM</td><td>Software ingredient list; mandated by EO 14028; SPDX and CycloneDX formats</td></tr>
+  <tr><td>SCA</td><td>Scans dependencies for CVEs and license issues; runs in CI/CD</td></tr>
+  <tr><td>SOC 2 Type II</td><td>Controls over time period; more valuable than Type I (point-in-time)</td></tr>
+  <tr><td>Code escrow</td><td>Source code with third party; protection if vendor fails</td></tr>
+  <tr><td>Copyleft (GPL)</td><td>May force open-sourcing your code; legal review required</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Commonly Confused Concepts</h2>
+<table>
+  <tr><th>Concept A</th><th>Concept B</th><th>Key Difference</th></tr>
+  <tr><td>XSS</td><td>CSRF</td><td>XSS exploits user's trust in site; CSRF exploits site's trust in user's browser</td></tr>
+  <tr><td>Aggregation</td><td>Inference</td><td>Aggregation = combining data; Inference = deducing from clues</td></tr>
+  <tr><td>SAST</td><td>DAST</td><td>SAST = code analysis (white box, early); DAST = running app testing (black box, late)</td></tr>
+  <tr><td>OAuth</td><td>OIDC</td><td>OAuth = authorization only; OIDC = authentication + authorization (adds ID token)</td></tr>
+  <tr><td>Session fixation</td><td>Session hijacking</td><td>Fixation = set ID BEFORE login; Hijacking = steal ID AFTER login</td></tr>
+  <tr><td>Fail secure</td><td>Fail open</td><td>Secure = deny on error (default); Open = allow on error (safety only)</td></tr>
+  <tr><td>Pen test</td><td>Vulnerability assessment</td><td>Pen test = exploit vulnerabilities; VA = identify vulnerabilities</td></tr>
+  <tr><td>Whitelist</td><td>Blacklist</td><td>Whitelist = define what's allowed (best); Blacklist = define what's blocked (weak)</td></tr>
+  <tr><td>Data poisoning</td><td>Evasion attack</td><td>Poisoning = attack training phase; Evasion = attack inference phase</td></tr>
+  <tr><td>Containers</td><td>VMs</td><td>Containers share kernel (less isolation); VMs separate kernels (more isolation)</td></tr>
+  <tr><td>IAST</td><td>RASP</td><td>IAST = QA testing tool (finds); RASP = production protection (blocks)</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Top 15 Most-Tested Domain 8 Concepts</h2>
+<table>
+  <tr><th>#</th><th>Concept</th><th>Why It Appears</th></tr>
+  <tr><td>1</td><td>SQL injection defense (parameterized queries)</td><td>Perennial favorite — ALWAYS the best answer</td></tr>
+  <tr><td>2</td><td>OWASP Top 10 (2021 changes)</td><td>Broken Access Control = #1; Insecure Design and SSRF are new</td></tr>
+  <tr><td>3</td><td>XSS types (Reflected/Stored/DOM)</td><td>Stored = most dangerous; output encoding = best defense</td></tr>
+  <tr><td>4</td><td>CSRF vs XSS distinction</td><td>Trust direction — user trusts site (XSS) vs site trusts user (CSRF)</td></tr>
+  <tr><td>5</td><td>SAST vs DAST</td><td>Static vs dynamic; white vs black box; when in pipeline</td></tr>
+  <tr><td>6</td><td>ACID properties</td><td>Atomicity, Consistency, Isolation, Durability — database fundamentals</td></tr>
+  <tr><td>7</td><td>Polyinstantiation</td><td>MLS database defense against inference attacks</td></tr>
+  <tr><td>8</td><td>Aggregation vs Inference</td><td>Database threats that bypass access controls</td></tr>
+  <tr><td>9</td><td>Spiral model</td><td>Uniquely risk-driven SDLC model</td></tr>
+  <tr><td>10</td><td>CMMI levels</td><td>Level 3 = first org-wide; Level 5 = optimizing</td></tr>
+  <tr><td>11</td><td>OAuth 2.0 vs OIDC</td><td>OAuth = authorization; OIDC adds authentication</td></tr>
+  <tr><td>12</td><td>Fail secure vs fail open</td><td>Default: fail secure; fail open ONLY for human safety</td></tr>
+  <tr><td>13</td><td>Fagan inspection</td><td>Most formal, most effective code review method</td></tr>
+  <tr><td>14</td><td>SBOM</td><td>Software inventory; mandated by EO 14028; enables rapid vulnerability response</td></tr>
+  <tr><td>15</td><td>Buffer overflow defenses (BANDS)</td><td>Bounds checking, ASLR, NX/DEP, Data validation, Stack canaries</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Master Mnemonic Map</h2>
+<table>
+  <tr><th>Mnemonic</th><th>Topic</th><th>Meaning</th></tr>
+  <tr><td><strong>STRIDE</strong></td><td>Threat modeling</td><td>Spoofing, Tampering, Repudiation, Info disclosure, DoS, Elevation</td></tr>
+  <tr><td><strong>DREAD</strong></td><td>Risk ranking</td><td>Damage, Reproducibility, Exploitability, Affected users, Discoverability</td></tr>
+  <tr><td><strong>EAIP</strong></td><td>OOP concepts</td><td>Encapsulation, Abstraction, Inheritance, Polymorphism</td></tr>
+  <tr><td><strong>BANDS</strong></td><td>Buffer overflow defenses</td><td>Bounds, ASLR, NX/DEP, Data validation, Stack canaries</td></tr>
+  <tr><td><strong>ACID</strong></td><td>Database properties</td><td>Atomicity, Consistency, Isolation, Durability</td></tr>
+  <tr><td><strong>POT</strong></td><td>Web attack defenses</td><td>Parameterized queries (SQLi), Output encoding (XSS), Tokens (CSRF)</td></tr>
+  <tr><td><strong>RSD</strong></td><td>XSS types</td><td>Reflected, Stored, DOM-based</td></tr>
+  <tr><td><strong>SHSD</strong></td><td>Cookie attributes</td><td>Secure, HttpOnly, SameSite, Domain/Path</td></tr>
+  <tr><td><strong>SDIR</strong></td><td>Testing pipeline</td><td>SAST → DAST → IAST → RASP</td></tr>
+  <tr><td><strong>I Must Define Quantitative Optimization</strong></td><td>CMMI levels</td><td>Initial, Managed, Defined, Quantitatively Managed, Optimizing</td></tr>
+  <tr><td><strong>PEMM-P</strong></td><td>Adversarial ML</td><td>Poisoning, Evasion, Model extraction, Model inversion, Prompt injection</td></tr>
+  <tr><td><strong>UHLM</strong></td><td>EU AI Act tiers</td><td>Unacceptable, High, Limited, Minimal</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-129-theory.html" class="nav-btn">← Day 129: Third-Party Software</a>
+  <a href="day-131-theory.html" class="nav-btn">Day 131: Cross-Domain Review D1+D2 →</a>
+</div>
+</div>
+</body>
+</html>

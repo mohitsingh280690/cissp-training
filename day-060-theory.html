@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 60 – Firewalls</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 60 – Firewalls</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 60 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-059-theory.html">← Day 59: Routing Concepts</a> · Domain 4 · Day 60</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Firewall Types by Inspection Method</a></li>
+  <li><a href="#s4">4. Packet Filtering (Stateless)</a></li>
+  <li><a href="#s5">5. Stateful Inspection Firewalls</a></li>
+  <li><a href="#s6">6. Proxy / Application-Level Gateways</a></li>
+  <li><a href="#s7">7. Circuit-Level Gateways</a></li>
+  <li><a href="#s8">8. Next-Generation Firewalls (NGFW)</a></li>
+  <li><a href="#s9">9. Web Application Firewalls (WAF)</a></li>
+  <li><a href="#s10">10. Firewall Architectures</a></li>
+  <li><a href="#s11">11. Firewall Rule Design &amp; Policy</a></li>
+  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s13">13. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Firewalls are the primary network security control. The CISSP exam tests every type (packet filter, stateful, proxy, NGFW, WAF) and demands you know which type is appropriate for each scenario. Firewall architectures (bastion host, screened subnet/DMZ, dual-homed) are classic exam topics. Understanding what a firewall CANNOT do is equally tested.</td></tr>
+  <tr><td><strong>Question Style</strong></td><td>Scenario: "A company needs to inspect HTTP payloads for SQL injection — which firewall?"; comparison: "Which firewall type maintains a state table?"; architecture: "Design a DMZ for an organization's public web server"; limitations: "Which attack can bypass a stateful firewall operating at Layer 4 only?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 3 (security architecture — firewall placement); Domain 7 (incident response — firewall log analysis); Domain 6 (firewall rules as security controls that are assessed); Day 58 (inter-VLAN routing through firewalls); Day 61 (IDS/IPS complements firewall)</td></tr>
+  <tr><td><strong>Exam Traps</strong></td><td>Stating that firewalls prevent all attacks (they don't — insider threats, encrypted attacks bypass L3/L4 firewalls); confusing proxy firewall vs. circuit-level gateway; thinking NGFW replaces all security controls; misidentifying WAF as a network firewall</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Ownership</strong></td><td>Network security team owns perimeter firewalls; application teams own WAFs for their applications; cloud security manages cloud-native firewalls; security architects design the policy; ops teams manage rule changes (change control)</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Perimeter NGFW between internet and internal network; internal segmentation firewalls between zones (IT, finance, PCI); WAF in front of web applications; cloud security groups/NACLs as firewall equivalents; microsegmentation in data centres</td></tr>
+  <tr><td><strong>Failure Modes</strong></td><td>Overly permissive rules ("allow all outbound") enable data exfiltration and C2 channels; firewall without application inspection misses OWASP attacks; no logging means no forensics; rule sprawl (thousands of rules) makes security analysis impossible; single firewall = single point of failure</td></tr>
+  <tr><td><strong>Business Impact</strong></td><td>Firewalls are the entry in every security architecture diagram, every compliance checklist, and every insurance questionnaire. PCI-DSS Requirement 1 explicitly mandates firewalls for cardholder data environment. A single misconfigured firewall rule has resulted in numerous major data breaches (e.g., exposed management ports, overly broad ACLs).</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3">
+<h2>3. Firewall Types by Inspection Method</h2>
+<table>
+  <tr><th>Firewall Type</th><th>OSI Layer</th><th>Inspects</th><th>State Awareness</th><th>Performance</th></tr>
+  <tr><td><strong>Packet Filter (Stateless)</strong></td><td>L3–L4</td><td>IP headers, protocol, port</td><td>None — evaluates each packet independently</td><td>Very fast (minimal processing)</td></tr>
+  <tr><td><strong>Stateful Inspection</strong></td><td>L3–L4</td><td>IP headers, port, connection state</td><td>Full — maintains state table of active connections</td><td>Fast (hardware-accelerated on modern devices)</td></tr>
+  <tr><td><strong>Circuit-Level Gateway</strong></td><td>L5 (Session)</td><td>TCP/UDP session validity; handshake</td><td>Session-level</td><td>Fast after session established</td></tr>
+  <tr><td><strong>Application-Level Gateway (Proxy)</strong></td><td>L7 (Application)</td><td>Full application payload — content, commands, data</td><td>Full session + application state</td><td>Slowest — deep inspection overhead</td></tr>
+  <tr><td><strong>NGFW</strong></td><td>L2–L7</td><td>All layers + application identity + user identity + IPS signatures + TLS inspection</td><td>Full + deep</td><td>Moderate–High (specialized hardware)</td></tr>
+  <tr><td><strong>WAF</strong></td><td>L7 (HTTP/S)</td><td>HTTP/S requests and responses only</td><td>Full application session</td><td>Moderate (inline HTTP processing)</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4">
+<h2>4. Packet Filtering (Stateless)</h2>
+<div class="callout definition">
+  <strong>📖 Packet Filtering Firewall:</strong> The simplest, oldest firewall type. Examines each packet in isolation and makes allow/deny decisions based on header fields only: source IP, destination IP, protocol (TCP/UDP/ICMP), source port, destination port. Also called <strong>stateless firewall</strong> or Access Control List (ACL) on a router.
+</div>
+
+<h3>How it Works</h3>
+<div class="diagram">
+Packet Filtering Rule Set (ACL Example):
+
+Rule  | Source IP     | Src Port | Dest IP       | Dest Port | Proto | Action
+────────────────────────────────────────────────────────────────────────────
+1     | Any           | Any      | 10.0.0.10     | 80        | TCP   | PERMIT   ← Allow HTTP to web server
+2     | Any           | Any      | 10.0.0.10     | 443       | TCP   | PERMIT   ← Allow HTTPS to web server
+3     | 192.168.1.0/24│ Any      | Any           | 22        | TCP   | PERMIT   ← Allow SSH from admin subnet
+4     | Any           | Any      | Any           | Any       | Any   | DENY     ← Implicit deny all (default)
+
+Rules are evaluated TOP-TO-BOTTOM; first match wins.
+Each packet is evaluated independently — no memory of previous packets.
+</div>
+
+<h3>Strengths and Weaknesses</h3>
+<table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>Very fast — hardware-level performance; line rate processing</td><td>Cannot distinguish if TCP port 80 traffic is legitimate HTTP or an attack hiding on port 80</td></tr>
+  <tr><td>Simple to configure for basic access control</td><td>Vulnerable to IP spoofing — no verification that source IP is genuine</td></tr>
+  <tr><td>No context — scales to any volume of traffic</td><td>Does not track connection state — cannot detect TCP-based attacks (e.g., ACK flood, Christmas tree scan)</td></tr>
+  <tr><td>Supports protocol-level filtering (TCP vs. UDP vs. ICMP)</td><td>Cannot inspect payload content — SQL injection on port 443 passes right through</td></tr>
+  <tr><td>Commonly deployed on routers as edge ACLs</td><td>Rules can become complex to manage at scale (rule order matters; mistakes are common)</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Stateless Firewall and Established Connections:</strong> A stateless firewall enforcing "allow inbound TCP responses" must typically allow all inbound TCP with ACK set (because return traffic from established connections carries ACK). This also allows TCP ACK scanning and can allow TCP RST/FIN packets that weren't part of a real session. Stateful firewalls solve this by tracking which connections are legitimate.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5 ═══ -->
+<section id="s5">
+<h2>5. Stateful Inspection Firewalls</h2>
+<div class="callout definition">
+  <strong>📖 Stateful Inspection Firewall:</strong> Introduced by Check Point in the early 1990s (patented as "Stateful Inspection"). Tracks the state of all network connections passing through it using a <strong>state table</strong> (connection tracking table). Packets are evaluated in the <strong>context of their connection</strong>, not just their headers.
+</div>
+
+<h3>How State Tables Work</h3>
+<div class="diagram">
+State Table (Connection Tracking Table):
+
+Src IP        │ Src Port │ Dst IP        │ Dst Port │ Proto │ State        │ Timeout
+──────────────┼──────────┼───────────────┼──────────┼───────┼──────────────┼────────
+192.168.1.10  │ 54201    │ 93.184.216.34 │ 443      │ TCP   │ ESTABLISHED  │ 3600s
+192.168.1.10  │ 54202    │ 8.8.8.8       │ 53       │ UDP   │ ESTABLISHED  │ 30s
+192.168.1.20  │ 54300    │ 10.0.0.5      │ 22       │ TCP   │ SYN_SENT     │ 120s
+
+When a packet arrives → check if it belongs to an existing state entry
+→ YES: permit (it's return traffic from a known connection)
+→ NO: match against policy rules; if allowed → create new entry
+→ No match in policy → DENY
+
+Return traffic is automatically permitted without a separate inbound rule.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Why Stateful is Better than Stateless:</strong> With stateful inspection, you don't need to allow all inbound ACK packets. Instead, the firewall only allows <em>return traffic for connections that were initiated from a trusted side</em>. An incoming packet that doesn't match any state table entry is dropped — even if it has ACK set. This eliminates the entire class of attacks (ACK floods, session spoofing) that bypass stateless firewalls.
+</div>
+
+<h3>Stateful Firewall Limitations</h3>
+<table>
+  <tr><th>Limitation</th><th>Why It Matters</th></tr>
+  <tr><td>Cannot inspect application payload</td><td>Malware, SQL injection, XSS in HTTP/S passes through. Stateful only sees "TCP/443 — established connection".</td></tr>
+  <tr><td>State table exhaustion (State DoS)</td><td>Attacker sends many half-open connections (like SYN flood) to fill state table. Solutions: SYN cookie offload, connection timeout tuning, rate limiting.</td></tr>
+  <tr><td>Encrypted traffic is opaque</td><td>TLS-encrypted sessions are tracked as state but content is invisible. TLS inspection (SSL/TLS proxy) needed to see inside.</td></tr>
+  <tr><td>DNS/ICMP state is complex</td><td>UDP has no handshake, so "state" for UDP is a synthetic concept (based on timing). ICMP state is similarly indirect.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6 ═══ -->
+<section id="s6">
+<h2>6. Proxy / Application-Level Gateways</h2>
+<div class="callout definition">
+  <strong>📖 Application-Level Gateway (Proxy Firewall):</strong> Operates at Layer 7. Acts as an intermediary (proxy) between client and server — the client connects to the proxy, the proxy makes a separate connection to the server, and relays content between them. The proxy can fully inspect and filter the application payload.
+</div>
+
+<div class="diagram">
+Proxy Firewall (Application-Level Gateway):
+
+  Client ───────────────────────────────── Server
+   │                                          │
+   │── Request ──▶ [PROXY FIREWALL] ──────────│
+   │               │                          │
+   │               ├ Terminate client TLS      │
+   │               ├ Inspect HTTP payload      │
+   │               ├ Apply content policy      │
+   │               ├ Re-encrypt to server      │
+   │               └────────────────────────▶ │ (New connection to server)
+   │                                          │
+   │◀── Response ── [PROXY FIREWALL]  ◀───────│
+                    (Inspects response too)
+
+Key: Two separate TCP connections — client↔proxy + proxy↔server
+     The server never directly communicates with the client.
+     The proxy's IP appears as the client's source IP to the server.
+</div>
+
+<h3>Proxy Firewall Characteristics</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Full Content Inspection</strong></td><td>Can block specific HTTP verbs, MIME types, malicious payloads, URL patterns, file types, keyword filtering</td></tr>
+  <tr><td><strong>Application Protocol Enforcement</strong></td><td>Enforces valid protocol usage — a DNS proxy that only accepts valid DNS queries blocks DNS tunneling that would pass a port 53 rule on a stateless firewall</td></tr>
+  <tr><td><strong>Anonymization</strong></td><td>Server sees the proxy's IP as the client; true client IP is hidden — useful for both privacy and security</td></tr>
+  <tr><td><strong>Performance Impact</strong></td><td>Significant overhead — must terminate every connection, inspect content, and re-establish. Not suitable for high-throughput, latency-sensitive traffic.</td></tr>
+  <tr><td><strong>Protocol-Specific</strong></td><td>A separate proxy is needed per protocol (HTTP proxy, FTP proxy, SMTP proxy, etc.) — not a generalist solution like packet filtering</td></tr>
+  <tr><td><strong>TLS Inspection</strong></td><td>To inspect HTTPS, the proxy performs a TLS man-in-the-middle (with authorized certificate). Clients must trust the proxy's CA certificate.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> When a CISSP question asks "which firewall understands HTTP commands and can detect SQL injection in the URL?", the answer relates to application-level gateway / proxy / WAF — not stateful or packet-filtering. An application-level gateway protects against attacks that are valid at L4 but malicious at L7. This is the key distinction between firewall generations.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7 ═══ -->
+<section id="s7">
+<h2>7. Circuit-Level Gateways</h2>
+<div class="callout definition">
+  <strong>📖 Circuit-Level Gateway:</strong> Operates at Layer 5 (Session). Validates the TCP handshake — ensures the three-way handshake completes before proxying the session. Once the session is established and validated, all subsequent packets are forwarded without further inspection. SOCKS proxy is the classic example.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Layer</strong></td><td>5 – Session; validates connection establishment only</td></tr>
+  <tr><td><strong>Inspection</strong></td><td>Verifies TCP handshake; does NOT inspect application payload after the session is established</td></tr>
+  <tr><td><strong>Classic Example</strong></td><td>SOCKS4/SOCKS5 proxy — routes TCP/UDP connections without understanding the application protocol</td></tr>
+  <tr><td><strong>vs. Application Gateway</strong></td><td>Circuit-level: validates the handshake then forwards blindly. Application-level: validates AND inspects every byte of payload throughout the session.</td></tr>
+  <tr><td><strong>Security Limitation</strong></td><td>Once a session passes the handshake validation, malicious payload can flow freely — no content filtering</td></tr>
+  <tr><td><strong>Advantage</strong></td><td>Protocol-agnostic (works with any TCP/UDP application) and faster than application-level proxies</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam consistently tests the circuit-level vs. application-level distinction. Remember: circuit-level = validates the <em>handshake/session establishment</em> (L5); application-level = validates the <em>payload and commands</em> (L7). SOCKS is circuit-level. HTTP proxy is application-level. This is a favourite CISSP trap question.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8 ═══ -->
+<section id="s8">
+<h2>8. Next-Generation Firewalls (NGFW)</h2>
+<div class="callout definition">
+  <strong>📖 NGFW (Next-Generation Firewall):</strong> A third-generation firewall that combines traditional stateful inspection with application awareness, user identity, IPS/IDS functionality, TLS/SSL inspection, and threat intelligence. Introduced by Palo Alto Networks in 2007 and now the industry standard for enterprise perimeter firewalls.
+</div>
+
+<h3>NGFW Capabilities vs. Traditional Firewall</h3>
+<table>
+  <tr><th>Capability</th><th>Traditional Stateful</th><th>NGFW</th></tr>
+  <tr><td><strong>Application Identification</strong></td><td>Port/protocol only (port 80 = "HTTP")</td><td>Deep packet inspection identifies actual application regardless of port (Facebook on 443, Tor, BitTorrent)</td></tr>
+  <tr><td><strong>User Identity</strong></td><td>IP address only</td><td>Maps traffic to user accounts via AD/LDAP integration — policy per user/group</td></tr>
+  <tr><td><strong>Intrusion Prevention</strong></td><td>No inline IPS</td><td>Built-in IPS engine with signature + anomaly detection</td></tr>
+  <tr><td><strong>TLS Inspection</strong></td><td>No — treats TLS as opaque</td><td>SSL/TLS decrypt-inspect-re-encrypt for visibility into encrypted traffic</td></tr>
+  <tr><td><strong>URL Filtering</strong></td><td>No</td><td>Category-based web filtering; real-time URL reputation</td></tr>
+  <tr><td><strong>Malware Detection</strong></td><td>No</td><td>File sandboxing; antivirus; threat intelligence</td></tr>
+  <tr><td><strong>Policy Granularity</strong></td><td>"Allow TCP/443 from any to web server"</td><td>"Allow YouTube video streaming for marketing team only, deny file upload"</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 NGFW TLS Inspection (SSL Bumping):</strong> To inspect HTTPS traffic, the NGFW acts as a TLS MITM — it decrypts the client's TLS session, inspects the plaintext, re-encrypts to the server using a certificate it generates on-the-fly, signed by a corporate CA. Clients must be configured to trust this CA. Privacy implications must be addressed in policy. Selective decryption should be applied (e.g., exempt banking sites, healthcare).
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ NGFW Does Not Replace All Security Controls:</strong> NGFW is powerful but is not the only security layer needed. It does not eliminate the need for endpoint security, patch management, application security (WAF), network segmentation, IAM, or monitoring/SIEM. Defence in depth still applies — assume any single control can be bypassed.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 9 ═══ -->
+<section id="s9">
+<h2>9. Web Application Firewalls (WAF)</h2>
+<div class="callout definition">
+  <strong>📖 WAF (Web Application Firewall):</strong> A specialized application-layer firewall designed specifically to protect HTTP/S-based web applications. Inspects HTTP request/response headers and bodies for attacks including OWASP Top 10 vulnerabilities. Can be deployed inline (reverse proxy), out-of-band, or as a SaaS cloud service.
+</div>
+
+<h3>WAF vs. NGFW</h3>
+<table>
+  <tr><th>Aspect</th><th>WAF</th><th>NGFW</th></tr>
+  <tr><td><strong>Protected Protocols</strong></td><td>HTTP/HTTPS only</td><td>All IP protocols</td></tr>
+  <tr><td><strong>Protects From</strong></td><td>OWASP Top 10, SQLi, XSS, CSRF, SSRF, broken authentication in web apps</td><td>Network-level attacks, malware, botnets, IPS signatures, unauthorized applications</td></tr>
+  <tr><td><strong>Layer</strong></td><td>L7 – specifically HTTP/S application semantics</td><td>L2–L7 generalist</td></tr>
+  <tr><td><strong>Placement</strong></td><td>In front of web servers (reverse proxy); CDN edge</td><td>Perimeter; between network zones</td></tr>
+  <tr><td><strong>Rule Types</strong></td><td>HTTP method restrictions; request rate limiting; injection pattern signatures; response filtering</td><td>IP/port ACLs; application control; IPS signatures; URL categories</td></tr>
+  <tr><td><strong>Virtual Patching</strong></td><td>Yes — WAF rules can block exploitation of vulnerabilities before the application is patched</td><td>Partial via IPS signatures, but less HTTP-specific</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Virtual Patching:</strong> A WAF rule that blocks exploitation of a known vulnerability (e.g., a specific SQL injection pattern targeting an unpatched CMS) without modifying the application code. This is critical when vendor patches are delayed or when a patch cannot be deployed immediately due to change management timelines. Virtual patching is a key compensating control under PCI-DSS and other standards.
+</div>
+
+<h3>WAF Deployment Modes</h3>
+<table>
+  <tr><th>Mode</th><th>How It Works</th><th>Pros/Cons</th></tr>
+  <tr><td><strong>Inline Reverse Proxy</strong></td><td>WAF sits between client and web server; all traffic passes through it; can block attacks in real time</td><td>+ Full inspection and blocking; − Single point of failure; adds latency</td></tr>
+  <tr><td><strong>Transparent Bridge</strong></td><td>WAF inserted at network level; transparent to clients and servers; no IP changes needed</td><td>+ Easier deployment; − Complex bypass risk if misconfigured</td></tr>
+  <tr><td><strong>Out-of-Band / Passive</strong></td><td>WAF monitors a copy of traffic (via port mirroring/TAP); does not block inline</td><td>+ No performance impact; − Detection only, cannot block attacks in real time</td></tr>
+  <tr><td><strong>Cloud/SaaS WAF</strong></td><td>DNS points traffic to CDN/cloud WAF service (e.g., Cloudflare, AWS WAF, Akamai); traffic is scrubbed before reaching origin</td><td>+ DDoS protection included; scalable; − Cloud provider sees all traffic; DNS dependency</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
+<section id="s10">
+<h2>10. Firewall Architectures</h2>
+<h3>Bastion Host</h3>
+<div class="callout definition">
+  <strong>📖 Bastion Host:</strong> A hardened host exposed to the internet (or untrusted network) that is the primary point of contact. Typically a single, purpose-built system that undergoes extensive hardening — all unnecessary services removed, all network exposure minimized. Examples: a hardened jump server, an exposed SMTP relay, a screened-subnet web server.
+</div>
+
+<h3>Screened Subnet (DMZ)</h3>
+<div class="callout definition">
+  <strong>📖 Screened Subnet (DMZ — Demilitarized Zone):</strong> A network zone positioned between the internet and the internal network, protected by TWO firewalls (or two firewall interfaces). Servers that must be reachable from the internet (web, mail, DNS) are placed in the DMZ. Even if compromised, an attacker in the DMZ faces a second firewall to reach the internal network.
+</div>
+
+<div class="diagram">
+Classic Screened Subnet (Two-Firewall DMZ):
+
+  Internet ──── [Outer FW] ──── DMZ ──── [Inner FW] ──── Internal Network
+                                 │
+                         ┌───────┴────────┐
+                         │  Web Server    │
+                         │  Mail Relay    │
+                         │  DNS (External)│
+                         └────────────────┘
+
+Traffic Policies:
+  Internet → DMZ: Permitted  (e.g., TCP 80/443 to web server)
+  DMZ → Internet: Permitted  (e.g., outbound SMTP from mail relay)
+  Internet → Internal: DENIED (no direct path)
+  Internal → DMZ: Permitted  (e.g., admin SSH to DMZ servers from management zone)
+  DMZ → Internal: CONTROLLED (only specific traffic, e.g., DB queries from web server to internal DB)
+  Internal → Internet: Via proxy or permitted (policy-dependent)
+
+The inner firewall is the critical chokepoint — if DMZ server is compromised,
+the attacker must defeat the second firewall to reach internal resources.
+</div>
+
+<h3>Dual-Homed Host</h3>
+<div class="callout definition">
+  <strong>📖 Dual-Homed Host:</strong> A single host with <strong>two network interfaces</strong> — one connected to the untrusted network and one to the trusted network. IP forwarding is disabled — the host does not route packets between interfaces. Applications on the host proxy traffic between the two networks. A software-only firewall approach, less common in modern architectures.
+</div>
+
+<h3>Firewall Architecture Comparison</h3>
+<table>
+  <tr><th>Architecture</th><th>Configuration</th><th>Security Level</th><th>CISSP Scenario</th></tr>
+  <tr><td><strong>Packet Filtering Router</strong></td><td>Single router with ACLs; no dedicated firewall</td><td>Lowest — no state, no content inspection</td><td>Small org, limited budget; adds basic perimeter but insufficient for sensitive data</td></tr>
+  <tr><td><strong>Screened Host (Single Firewall)</strong></td><td>One firewall; bastion host optionally in internal network facing internet</td><td>Medium — single point of failure; single firewall breach = full access</td><td>Small-medium org; adequate for non-critical internet exposure</td></tr>
+  <tr><td><strong>Screened Subnet (Dual Firewall)</strong></td><td>Two firewalls with DMZ between them; public servers in DMZ</td><td>High — attacker must breach two firewalls; lateral movement contained to DMZ</td><td>Standard enterprise architecture; required for PCI-DSS compliance with cardholder data on internal servers</td></tr>
+  <tr><td><strong>Dual-Homed Host</strong></td><td>One multi-NIC host acting as proxy; IP forwarding disabled</td><td>Medium — entire security on one host; host compromise = network compromise</td><td>Legacy / small deployment; not recommended for modern organizations</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — "Best Architecture" Questions:</strong> CISSP scenarios placing a web server accessible from the internet → answer is <strong>screened subnet (DMZ) with the web server in the DMZ and the database server in the internal network</strong>. The exam frequently asks about the placement of servers relative to firewall zones. Public servers go in DMZ; backend databases and internal services stay behind the inner firewall.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
+<section id="s11">
+<h2>11. Firewall Rule Design &amp; Policy</h2>
+<h3>Core Firewall Policy Principles</h3>
+<table>
+  <tr><th>Principle</th><th>Description</th></tr>
+  <tr><td><strong>Default Deny (Implicit Deny All)</strong></td><td>Every rule set should end with "deny all" — only explicitly permitted traffic is allowed. This is the foundational security posture.</td></tr>
+  <tr><td><strong>Least Privilege</strong></td><td>Rules should permit the minimum traffic necessary for business function — not ranges like "allow TCP any any"</td></tr>
+  <tr><td><strong>Rule Ordering</strong></td><td>More specific rules before general rules; permit/deny logic first; most-matched rules should be near the top (performance)</td></tr>
+  <tr><td><strong>Egress Filtering</strong></td><td>Filter outbound traffic as carefully as inbound — data exfiltration, C2 beaconing, and botnet participation all require outbound connectivity</td></tr>
+  <tr><td><strong>Ingress Filtering (BCP38)</strong></td><td>Drop inbound packets with source IPs from RFC 1918 ranges (impossible on internet) and the organization's own address space (spoofed)</td></tr>
+  <tr><td><strong>Logging Everything</strong></td><td>All permit and deny actions (especially denies) must be logged with timestamp, source/dest IP, port, protocol, and action for forensics and compliance</td></tr>
+  <tr><td><strong>Regular Rule Review</strong></td><td>Rules accumulate over years; orphaned rules for decommissioned systems or expired projects expand attack surface; quarterly review minimum</td></tr>
+</table>
+
+<h3>What Firewalls Cannot Do</h3>
+<table>
+  <tr><th>Limitation</th><th>Why</th><th>Compensating Control</th></tr>
+  <tr><td>Stop insider threats</td><td>Authorized users with valid credentials pass firewall rules legitimately</td><td>DLP, UEBA, privileged access management, separation of duties</td></tr>
+  <tr><td>Inspect encrypted traffic (without SSL inspection)</td><td>TLS content is opaque at L3/L4</td><td>TLS inspection on NGFW; endpoint EDR</td></tr>
+  <tr><td>Prevent social engineering / phishing</td><td>Phishing uses legitimate ports (HTTPS/443) and protocols</td><td>Email gateway, security awareness training, URL filtering</td></tr>
+  <tr><td>Protect against zero-days in allowed services</td><td>Permitted traffic (e.g., HTTPS to web server) may carry zero-day exploits</td><td>WAF, IPS, sandboxing, application patching</td></tr>
+  <tr><td>Prevent data exfiltration via allowed channels</td><td>Outbound HTTPS to cloud services is typically permitted</td><td>DLP, CASB, egress filtering, application control</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
+<section id="s12">
+<h2>12. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Firewall Generation Order — "Packets, State, Circuit, App, Next":</strong><br>
+  <strong>1.</strong> Packet Filtering (stateless, L3/L4, headers only)<br>
+  <strong>2.</strong> Stateful Inspection (state table, connection tracking, L3/L4)<br>
+  <strong>3.</strong> Circuit-Level Gateway (L5 session validation — SOCKS)<br>
+  <strong>4.</strong> Application-Level Gateway / Proxy (L7, full payload, protocol-specific)<br>
+  <strong>5.</strong> NGFW (all of the above + app ID + user + IPS + TLS)<br>
+  WAF = specialized L7 for HTTP/S only (sits alongside, not in the progression)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Circuit vs. Application Gateway — "Handshake vs. Payload":</strong><br>
+  <strong>Circuit-Level</strong> = validates the HANDSHAKE (TCP 3-way); then passes all traffic blindly; SOCKS proxy<br>
+  <strong>Application-Level</strong> = validates the PAYLOAD throughout; blocks commands / content; HTTP/SMTP/FTP proxy<br>
+  Memory: <em>"Circuit: card gets swiped at the door. App: security checks your bag AND your ID throughout the journey."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 DMZ Placement — "Public in DMZ; Private Behind Inner Firewall":</strong><br>
+  Web servers, mail relays, external DNS → DMZ (between two firewalls)<br>
+  Databases, HR systems, internal applications → Internal (behind inner firewall)<br>
+  Management systems → separate management VLAN/zone<br>
+  <em>"If the internet sees it, it lives in the DMZ."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Firewall Default Posture — "Default Deny, Explicitly Permit":</strong><br>
+  A firewall without a "deny all" at the end effectively permits everything not explicitly denied.<br>
+  <em>"If it's not on the guest list, it doesn't get in."</em><br>
+  The implicit deny rule is the most important firewall rule — and it's invisible.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 WAF vs. NGFW — "WAF = Web App; NGFW = Everything":</strong><br>
+  WAF: HTTP/HTTPS only; OWASP attacks; virtual patching; reverse proxy in front of web app<br>
+  NGFW: All protocols; user + app + IPS + URL + threat intel; at the perimeter<br>
+  Both needed in full security stack — they protect different layers.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 13 ═══ -->
+<section id="s13">
+<h2>13. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Packet Filter</td><td>Stateless; fastest; headers only (IP/port/protocol); vulnerable to spoofing and cannot detect application attacks</td></tr>
+  <tr><td>Stateful Inspection</td><td>Tracks connection state; return traffic auto-permitted; eliminates ACK flood vulnerability; cannot inspect payload</td></tr>
+  <tr><td>Circuit-Level Gateway</td><td>L5 — validates TCP handshake only (SOCKS); protocol-agnostic; no payload inspection after session established</td></tr>
+  <tr><td>Application Proxy</td><td>L7 — full payload inspection; proxies all sessions; highest security, highest latency; protocol-specific (HTTP, SMTP, etc.)</td></tr>
+  <tr><td>NGFW</td><td>All of the above + app ID + user identity + IPS + TLS inspection + threat intel; modern enterprise standard</td></tr>
+  <tr><td>WAF</td><td>HTTP/HTTPS only; OWASP Top 10 protection; virtual patching; reverse proxy placement; complements NGFW</td></tr>
+  <tr><td>DMZ Architecture</td><td>Two-firewall screened subnet; public servers in DMZ; databases in internal zone; preferred architecture for public-facing services</td></tr>
+  <tr><td>Default Deny</td><td>All rule sets end with implicit or explicit deny all; explicitly permit only what is needed; log all drops</td></tr>
+  <tr><td>Firewall Limitations</td><td>Cannot stop insiders, zero-days in permitted traffic, or social engineering; must be part of defence-in-depth</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-059-theory.html" class="nav-btn">← Day 59: Routing Concepts</a>
+  <a href="day-061-theory.html" class="nav-btn">Day 61: IDS/IPS →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

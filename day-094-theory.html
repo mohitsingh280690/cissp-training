@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 94 – Security Audits</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 94 – Security Audits</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 94 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-093-theory.html">← Day 93: Specialized Testing Techniques</a> · Domain 6 · Day 94</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Audit Types (Internal, External, Third-Party, Regulatory)</a></li>
+  <li><a href="#s4">4. Auditor Independence &amp; Ethics</a></li>
+  <li><a href="#s5">5. Audit Planning &amp; Scoping</a></li>
+  <li><a href="#s6">6. Evidence Collection &amp; Audit Trails</a></li>
+  <li><a href="#s7">7. Audit Findings &amp; Remediation</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Security audits provide independent assurance that controls are implemented and effective. The CISSP must understand audit types, auditor independence, evidence requirements, and how to manage findings and remediation</td></tr>
+  <tr><td>Question Style</td><td>"Which audit type provides the HIGHEST level of assurance about an organization's security controls?" (external audit by independent third party). "What is the MOST important characteristic of an auditor?" (independence/objectivity)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (compliance, governance — audits verify compliance); Domain 6 (SOC reports use audit methodology); Domain 7 (operational security — audit trails enable investigations)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p><strong>Internal audit department</strong> reports to the audit committee/board (NOT to IT or the CISO — independence is critical). <strong>External auditors</strong> are hired by the board/audit committee. <strong>IT/security teams</strong> are the auditees — they are examined, not the examiners. <strong>Regulatory auditors</strong> (FDIC, OCR, PCI QSA) operate under legal authority.</p>
+<h3>Business Impact</h3>
+<p>Audit failures can result in: regulatory fines (GDPR: up to 4% of global revenue), loss of certifications (ISO 27001 decertification), loss of business (customers require SOC 2; failed audit = lost contract), legal liability (SOX non-compliance: criminal penalties for executives), and public reporting requirements (SEC material weakness disclosures).</p>
+</section>
+
+<section id="s3">
+<h2>3. Audit Types (Internal, External, Third-Party, Regulatory)</h2>
+<table>
+  <tr><th>Audit Type</th><th>Performed By</th><th>Purpose</th><th>Independence Level</th><th>Examples</th></tr>
+  <tr><td><strong>Internal Audit</strong></td><td>Organization's own internal audit team</td><td>Evaluate control effectiveness; identify improvement areas; prepare for external audits</td><td>Moderate — organizationally independent from IT but employed by the company</td><td>Annual IT general controls review; internal security control assessment</td></tr>
+  <tr><td><strong>External Audit</strong></td><td>Independent external audit firm</td><td>Provide independent assurance to stakeholders (board, investors, regulators, customers)</td><td>High — no employment/financial relationship with auditee beyond audit fees</td><td>SOC 2 Type II audit; ISO 27001 certification audit; financial statement audit</td></tr>
+  <tr><td><strong>Third-Party Audit</strong></td><td>Independent party on behalf of a customer or partner</td><td>Verify vendor/supplier security controls meet customer requirements</td><td>High — represents customer's interests, not vendor's</td><td>Customer auditing a cloud provider; supply chain security assessment</td></tr>
+  <tr><td><strong>Regulatory Audit</strong></td><td>Government agency or authorized body</td><td>Verify compliance with legal/regulatory requirements; may result in fines or sanctions</td><td>Highest — legal authority; mandatory participation</td><td>FDIC bank examination; HHS/OCR HIPAA audit; PCI QSA assessment</td></tr>
+</table>
+
+<h3>First-Party, Second-Party, Third-Party (ISO Terminology)</h3>
+<table>
+  <tr><th>Term</th><th>Who Audits</th><th>Relationship</th></tr>
+  <tr><td>First-Party Audit</td><td>Organization audits itself</td><td>Internal audit</td></tr>
+  <tr><td>Second-Party Audit</td><td>Customer audits its supplier/vendor</td><td>Contract/business relationship audit</td></tr>
+  <tr><td>Third-Party Audit</td><td>Independent body audits organization</td><td>Certification audit (ISO 27001); SOC audit</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Third-party/external audits provide the HIGHEST level of assurance because the auditor has no financial interest in the outcome (beyond audit fees) and no employment relationship with the auditee. Internal audits provide USEFUL information but lower assurance due to organizational pressure.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Auditor Independence &amp; Ethics</h2>
+<div class="definition callout">
+  <strong>Auditor Independence:</strong> The auditor must be free from bias, conflicts of interest, and undue influence that could affect their judgment. Independence has two components: <strong>independence in fact</strong> (actual objectivity) and <strong>independence in appearance</strong> (perceived objectivity by stakeholders).
+</div>
+<h3>Independence Requirements</h3>
+<ul>
+  <li><strong>No financial interest:</strong> Auditor must not hold stock in or have financial ties to the auditee</li>
+  <li><strong>No management role:</strong> Auditor must not have made management decisions for the auditee (cannot audit what you built)</li>
+  <li><strong>Rotation:</strong> Lead audit partners must rotate off engagements periodically (SOX requires every 5 years for public company auditors)</li>
+  <li><strong>Reporting line:</strong> Internal audit must report to the audit committee or board — NOT to the CIO or CISO</li>
+  <li><strong>Scope authority:</strong> Auditors must have unrestricted access to all systems, records, and personnel within scope</li>
+</ul>
+<div class="warning callout">
+  ⚠️ <strong>Independence Violation Example:</strong> If the same firm that implemented your security controls also audits them — that is NOT independent. The firm is auditing its own work. This is why consulting and audit functions must be separated (Enron/Arthur Andersen lesson → SOX was enacted).
+</div>
+
+<h3>Professional Standards</h3>
+<table>
+  <tr><th>Standard</th><th>Issuing Body</th><th>Scope</th></tr>
+  <tr><td>ISACA IS Auditing Standards</td><td>ISACA</td><td>IT audit standards; used by CISA-certified auditors</td></tr>
+  <tr><td>IIA Standards (IPPF)</td><td>Institute of Internal Auditors</td><td>Internal audit professional practice framework</td></tr>
+  <tr><td>AICPA Auditing Standards (SAS)</td><td>AICPA</td><td>Financial and SOC audit standards; SSAE 18 for SOC reports</td></tr>
+  <tr><td>ISO 19011</td><td>ISO</td><td>Guidelines for auditing management systems (ISO 27001, ISO 9001)</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Audit Planning &amp; Scoping</h2>
+<div class="diagram">
+AUDIT LIFECYCLE
+
+  Planning     →    Fieldwork     →    Reporting     →    Follow-up
+  ────────          ──────────          ──────────          ──────────
+  Define scope      Collect evidence    Draft findings      Track
+  Set objectives    Interview staff     Rate severity       remediation
+  Identify risks    Review documents    Recommend fixes     Verify
+  Assign team       Test controls       Present report      closure
+  Create schedule   Analyze data        Obtain mgmt         Re-assess
+                                        response
+</div>
+
+<h3>Planning Phase Components</h3>
+<table>
+  <tr><th>Component</th><th>Description</th></tr>
+  <tr><td>Audit Charter</td><td>Formal document authorizing the audit; defines authority, responsibility, scope, and reporting line</td></tr>
+  <tr><td>Scope Definition</td><td>Which systems, processes, controls, and time period are included; what is explicitly out of scope</td></tr>
+  <tr><td>Risk Assessment</td><td>Prioritize audit focus on highest-risk areas; risk-based auditing allocates more time to higher-risk controls</td></tr>
+  <tr><td>Audit Program</td><td>Detailed work plan: control objectives to test, testing procedures, sampling methodology, evidence requirements</td></tr>
+  <tr><td>Resource Allocation</td><td>Team composition (auditors with appropriate expertise); timeline; budget</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Risk-Based Auditing:</strong> Modern auditing is risk-based — audit effort is concentrated on the areas of HIGHEST risk to the organization. A critical payment processing system gets more audit attention than an internal wiki. This is more efficient than auditing everything equally.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Evidence Collection &amp; Audit Trails</h2>
+<h3>Types of Audit Evidence</h3>
+<table>
+  <tr><th>Evidence Type</th><th>Description</th><th>Reliability</th></tr>
+  <tr><td><strong>Physical examination</strong></td><td>Auditor directly observes physical controls (server room locks, badge readers, fire suppression)</td><td>High — direct observation</td></tr>
+  <tr><td><strong>Documentation review</strong></td><td>Reviewing policies, procedures, configurations, logs, contracts, certifications</td><td>Medium-High — depends on document integrity</td></tr>
+  <tr><td><strong>Re-performance</strong></td><td>Auditor independently performs the same procedure to verify results (testing a backup restore, running a vulnerability scan)</td><td>Highest — auditor independently confirms</td></tr>
+  <tr><td><strong>Inquiry</strong></td><td>Interviews with staff, management, system owners</td><td>Lowest when alone — must be corroborated with other evidence types</td></tr>
+  <tr><td><strong>Observation</strong></td><td>Watching processes being performed (watching an operator perform a backup)</td><td>Medium — confirms at point in time; may change when auditor is not watching</td></tr>
+  <tr><td><strong>Analytical procedures</strong></td><td>Analyzing data trends, ratios, patterns (log volume patterns, access frequency analysis)</td><td>Medium — identifies anomalies for further investigation</td></tr>
+</table>
+
+<h3>Audit Trails</h3>
+<div class="definition callout">
+  <strong>Audit Trail:</strong> A chronological record of system activities — each activity is recorded with who performed it, what was done, when it occurred, and where it happened. Audit trails enable reconstruction of events and are essential for both security investigations and audit evidence.
+</div>
+<ul>
+  <li>Audit trails must be <strong>tamper-protected</strong> (write-once media, separate log server — Day 90)</li>
+  <li>Must have <strong>sufficient detail</strong>: user ID, timestamp, action performed, source IP, success/failure</li>
+  <li>Must be <strong>retained</strong> for the period required by regulation and organizational policy</li>
+  <li>Must be <strong>reviewed regularly</strong> — an unreviewed audit trail provides zero security value</li>
+</ul>
+
+<h3>Sampling in Auditing</h3>
+<table>
+  <tr><th>Method</th><th>Description</th><th>When Used</th></tr>
+  <tr><td>Statistical Sampling</td><td>Randomly selecting samples; results can be extrapolated to the full population with measured confidence level</td><td>Large populations; formal audits requiring quantifiable confidence</td></tr>
+  <tr><td>Judgmental (Non-Statistical) Sampling</td><td>Auditor selects samples based on professional judgment, risk assessment, or known problem areas</td><td>Small populations; risk-focused audits; targeted investigation</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Evidence Reliability Ranking:</strong> Re-performance (highest) → Physical examination → Documentation review → Observation → Analytical procedures → Inquiry (lowest). Inquiry alone is NEVER sufficient — it must be corroborated.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Audit Findings &amp; Remediation</h2>
+<h3>Finding Classification</h3>
+<table>
+  <tr><th>Severity</th><th>Description</th><th>Expected Response</th></tr>
+  <tr><td><strong>Critical / Material Weakness</strong></td><td>Control failure that could result in material misstatement or significant security breach; reasonable possibility of exploitation</td><td>Immediate remediation; board notification; may require public disclosure (SOX)</td></tr>
+  <tr><td><strong>Significant Deficiency</strong></td><td>Control weakness less severe than material but important enough to merit attention by those charged with governance</td><td>Remediation within defined timeframe; management action plan required</td></tr>
+  <tr><td><strong>Observation</strong></td><td>Minor issue or area for improvement; does not represent a control failure</td><td>Documented for future improvement; lower priority</td></tr>
+</table>
+
+<h3>Management Response</h3>
+<p>For each finding, management must provide a formal response:</p>
+<ul>
+  <li><strong>Agreement or disagreement</strong> with the finding (if disagreement, must explain why)</li>
+  <li><strong>Remediation plan:</strong> Specific actions to address the finding</li>
+  <li><strong>Responsible party:</strong> Named individual accountable for remediation</li>
+  <li><strong>Target date:</strong> When remediation will be completed</li>
+  <li><strong>Risk acceptance:</strong> If management accepts the risk, must be formally documented and approved at the appropriate level</li>
+</ul>
+<div class="key-concept callout">
+  <strong>Audit Follow-Up:</strong> The audit is not complete when the report is issued — follow-up verification confirms that management has actually implemented the agreed remediation. Without follow-up, findings may be acknowledged but never fixed.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Audit Types — "1-2-3"</strong><br>
+  <strong>1st party</strong> = audit yourSELF (internal)<br>
+  <strong>2nd party</strong> = your CUSTOMER audits you (or you audit your vendor)<br>
+  <strong>3rd party</strong> = INDEPENDENT party audits (highest assurance)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Audit Lifecycle — "PFRF"</strong><br>
+  <strong>P</strong>lan → <strong>F</strong>ieldwork → <strong>R</strong>eport → <strong>F</strong>ollow-up<br>
+  "Plan First, Report Findings"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Evidence Reliability (Highest to Lowest)</strong><br>
+  <strong>R</strong>e-performance → <strong>P</strong>hysical exam → <strong>D</strong>ocumentation → <strong>O</strong>bservation → <strong>A</strong>nalytical → <strong>I</strong>nquiry<br>
+  "Real Proof Delivers Outstanding Analysis, Inquiries don't" — Inquiry is NEVER enough alone
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Auditor Independence Rule</strong><br>
+  "You can't grade your own homework" — the firm that builds the controls cannot be the firm that audits them
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>External/third-party audit</td><td>Provides highest assurance due to auditor independence</td></tr>
+  <tr><td>Internal audit</td><td>Reports to audit committee/board — NOT to IT management</td></tr>
+  <tr><td>Auditor independence</td><td>No financial interest, no management role in auditee; independence in fact AND appearance</td></tr>
+  <tr><td>SOX rotation</td><td>Lead audit partner must rotate every 5 years for public companies</td></tr>
+  <tr><td>Risk-based auditing</td><td>Focus audit effort on highest-risk areas; more efficient than auditing everything equally</td></tr>
+  <tr><td>Re-performance</td><td>Highest reliability evidence — auditor independently performs the procedure</td></tr>
+  <tr><td>Inquiry</td><td>Lowest reliability — must be corroborated with other evidence types; never sufficient alone</td></tr>
+  <tr><td>Material weakness</td><td>Most severe finding; may require public disclosure; immediate remediation needed</td></tr>
+  <tr><td>Management response</td><td>Required for every finding: agree/disagree, action plan, responsible party, target date</td></tr>
+  <tr><td>Audit follow-up</td><td>Verification that remediation was actually implemented; audit is not done until follow-up confirms fixes</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-093-theory.html" class="nav-btn">← Day 93: Specialized Testing</a>
+  <a href="day-095-theory.html" class="nav-btn">Day 95: SOC Reports →</a>
+</div>
+</div>
+</body>
+</html>

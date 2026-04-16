@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 84 – Zero Trust Architecture</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00897b;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 84 – Zero Trust Architecture</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (IAM)</div>
+  <div class="meta">
+    <span>📅 Day 84 of 140</span>
+    <span>📚 Domain 5 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-083-theory.html">← Day 83: Identity as a Service</a> · Domain 5 · Day 84</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Zero Trust Principles</a></li>
+  <li><a href="#s4">4. NIST SP 800-207 ZTA Framework</a></li>
+  <li><a href="#s5">5. ZTA Core Components</a></li>
+  <li><a href="#s6">6. Micro-Segmentation &amp; Software-Defined Perimeter</a></li>
+  <li><a href="#s7">7. Google BeyondCorp Model</a></li>
+  <li><a href="#s8">8. ZTA vs. Traditional Perimeter Security</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>5 – Identity and Access Management (13%); also referenced in Domain 4 (network segmentation) and Domain 7 (security operations)</td></tr>
+  <tr><td>Why Tested</td><td>Zero Trust is explicitly referenced in CISSP content since 2021; represents the evolution of IAM from perimeter-based to identity-centric security. NIST SP 800-207 is the authoritative reference the exam draws from</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "A company has remote users, cloud apps, and BYOD devices. Which architecture best secures access without a traditional VPN?" — expected answer: Zero Trust / ZTNA. Also definition-based: "What is the role of the Policy Decision Point in ZTA?"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 4 (ZTNA, micro-segmentation from Day 68); Domain 5 (IAM, conditional access, MFA, PAM — all ZTA components); Domain 7 (continuous monitoring required by ZTA); Domain 3 (SDP — Software-Defined Perimeter)</td></tr>
+  <tr><td>Exam Traps</td><td>ZTA is NOT a product — it's an architecture/philosophy; "Zero Trust" doesn't mean zero verification — it means no implicit trust; confusing ZTA with micro-segmentation alone (microseg is one component, not the whole architecture)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Why Zero Trust Now</h3>
+<p>Traditional perimeter security ("castle-and-moat") assumed everything inside the network was trustworthy. Modern reality invalidates this: <strong>users work remotely</strong>, <strong>applications are in the cloud</strong>, <strong>BYOD devices are common</strong>, and <strong>attackers operate inside the perimeter</strong> (via phishing, insider threats, compromised VPNs). Zero Trust addresses this by treating every access request as potentially hostile regardless of network location.</p>
+<h3>Government Mandate</h3>
+<p>US Executive Order 14028 (May 2021, "Improving the Nation's Cybersecurity") mandated Zero Trust adoption across federal agencies. OMB Memorandum M-22-09 published specific federal ZTA requirements in 2022. CISA published a Zero Trust Maturity Model (2023). ZTA is now a regulatory expectation for U.S. government contractors and is rapidly becoming an industry standard.</p>
+<h3>Real-World Drivers</h3>
+<p>The Colonial Pipeline ransomware attack (2021) — attackers entered through a legacy VPN without MFA. Zero Trust with continuous verification and enforced MFA would have blocked initial access or contained lateral movement. SolarWinds (2020) demonstrated that trusted internal networks enabled devastating lateral movement — ZTA's micro-segmentation and least-privilege access would have constrained blast radius.</p>
+</section>
+
+<section id="s3">
+<h2>3. Zero Trust Principles</h2>
+<div class="definition callout">
+  <strong>Zero Trust:</strong> A security paradigm that eliminates implicit trust in any component (user, device, network, application) regardless of location. Every access request must be explicitly authenticated, authorized, and continuously validated before access is granted — and must be limited to the minimum required.
+</div>
+
+<h3>NIST's Seven ZTA Tenets (SP 800-207)</h3>
+<ol>
+  <li><strong>All data sources and computing services are considered resources.</strong> (Networks, endpoints, SaaS apps, IoT devices)</li>
+  <li><strong>All communication is secured regardless of network location.</strong> (Internal traffic is not inherently trusted)</li>
+  <li><strong>Access to individual enterprise resources is granted on a per-session basis.</strong> (No standing persistent access)</li>
+  <li><strong>Access to resources is determined by dynamic policy.</strong> (Identity, device health, other behavioral signals)</li>
+  <li><strong>Enterprise monitors and measures the integrity and security posture of all owned and associated assets.</strong></li>
+  <li><strong>All resource authentication and authorization are dynamic and strictly enforced before access is allowed.</strong></li>
+  <li><strong>Enterprise collects as much information as possible and uses it to improve security posture.</strong></li>
+</ol>
+
+<h3>Three Core Principles Summarized</h3>
+<table>
+  <tr><th>Principle</th><th>Description</th><th>Contrast with Traditional</th></tr>
+  <tr><td>Never Trust, Always Verify</td><td>Authenticate and authorize every request on every access — no implicit trust from network location</td><td>Traditional: inside the firewall = trusted</td></tr>
+  <tr><td>Assume Breach</td><td>Design as if attackers are already inside — minimize blast radius, log everything, verify all lateral movement</td><td>Traditional: build a wall, trust what's inside</td></tr>
+  <tr><td>Least Privilege Access</td><td>Grant minimum necessary access, for shortest necessary time, to the specific resource needed</td><td>Traditional: broad network access once VPN connected</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. NIST SP 800-207 ZTA Framework</h2>
+<div class="definition callout">
+  <strong>NIST SP 800-207:</strong> "Zero Trust Architecture" — Published August 2020. The authoritative federal reference for ZTA. Defines the conceptual model, components (PE/PA/PEP), deployment scenarios, and interaction with existing security frameworks (NIST CSF, NIST RMF).
+</div>
+
+<h3>ZTA Logical Components</h3>
+<div class="diagram">
+             ┌─────────────────────────────────────────┐
+             │         Zero Trust Control Plane          │
+             │                                           │
+             │  ┌──────────────┐   ┌──────────────────┐ │
+             │  │  Policy       │   │  Policy           │ │
+             │  │  Engine (PE)  │◄──│  Administrator    │ │
+             │  │               │   │  (PA)             │ │
+             │  └──────┬───────┘   └──────────────────┘ │
+             │         │ Trust decision                   │
+             └─────────┼───────────────────────────────┘
+                       │
+             ┌─────────▼───────────────────────────────┐
+             │         Policy Enforcement Point (PEP)   │
+             │  (Gateway, proxy, or agent)               │
+             └───────────────────┬─────────────────────┘
+                                 │
+             Subject ────────────►  Enterprise Resource
+             (User + Device)         (App, Data, Service)
+</div>
+
+<h3>Component Roles</h3>
+<table>
+  <tr><th>Component</th><th>Abbreviation</th><th>Role</th></tr>
+  <tr><td>Policy Engine</td><td>PE</td><td>The decision-maker. Evaluates access requests against policies and signals (identity, device health, location, threat intelligence) and grants/denies access. The "brain" of ZTA.</td></tr>
+  <tr><td>Policy Administrator</td><td>PA</td><td>Communicates decisions from PE to PEP. Sets up or tears down communication paths. Executes the PE's decision operationally.</td></tr>
+  <tr><td>Policy Enforcement Point</td><td>PEP</td><td>The gate — enforces access decisions from the PA. Sits between the subject (user/device) and the resource. Can be a gateway, reverse proxy, or agent.</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>PE + PA = Policy Decision Point (PDP)</strong><br>
+  The NIST model separates the decision logic (PE) from the execution of the decision (PA). Together they form the control plane's Policy Decision Point. The PEP is the enforcement (data plane).
+</div>
+<div class="exam-tip callout">
+  <strong>Exam Tip — PE vs. PA vs. PEP:</strong><br>
+  <strong>PE</strong> = decides (the judge)<br>
+  <strong>PA</strong> = instructs enforcement (the bailiff)<br>
+  <strong>PEP</strong> = blocks or allows (the guard at the door)
+</div>
+</section>
+
+<section id="s5">
+<h2>5. ZTA Core Components</h2>
+<h3>Signal Sources for Trust Decisions</h3>
+<p>The Policy Engine evaluates multiple signals before making a trust decision:</p>
+<ul>
+  <li><strong>Identity:</strong> MFA authentication, user account risk level, account behavior anomalies</li>
+  <li><strong>Device health:</strong> Is the device managed? Current on patches? Has it passed compliance checks (MDM/EDR)?</li>
+  <li><strong>Network:</strong> Is the request from a known IP? A Tor exit node? A foreign country?</li>
+  <li><strong>Application:</strong> Which resource is being accessed? What sensitivity?</li>
+  <li><strong>Threat intelligence:</strong> Is the IP/user/device associated with known threats?</li>
+  <li><strong>Data sensitivity:</strong> Is the data being accessed highly classified? Additional factors may be required</li>
+  <li><strong>Time and behavior:</strong> Is this a normal access pattern? Unusual time of day?</li>
+</ul>
+
+<h3>ZTA Implementation Approaches</h3>
+<table>
+  <tr><th>Approach</th><th>Primary Focus</th><th>Technology Example</th></tr>
+  <tr><td>Identity-Centric (Identity Pillar)</td><td>Strong authentication and authorization as the primary control; adaptive MFA; identity posture drives all access decisions</td><td>IDaaS + Conditional Access (Entra, Okta)</td></tr>
+  <tr><td>Network-Centric (Micro-segmentation Pillar)</td><td>Divide network into micro-segments; deny lateral movement; workload-to-workload authentication</td><td>VMware NSX, Illumio, Cisco ACI</td></tr>
+  <tr><td>Data-Centric (Data Pillar)</td><td>Classify and protect data regardless of where it resides; enforce access based on data labels; DLP integration</td><td>Microsoft Purview, Varonis, Data Governance platforms</td></tr>
+  <tr><td>Application-Centric (App Pillar)</td><td>ZTNA replaces VPN; applications not exposed to internet; access only via identity-aware proxy after verification</td><td>Zscaler ZPA, Cloudflare Access, Google IAP</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Micro-Segmentation &amp; Software-Defined Perimeter</h2>
+
+<h3>Micro-Segmentation</h3>
+<div class="definition callout">
+  <strong>Micro-Segmentation:</strong> Dividing the network (or compute infrastructure) into small, isolated zones where each workload or application segment controls its own inbound/outbound traffic policy. Prevents lateral movement — compromise of one segment does not grant access to adjacent segments.
+</div>
+<p>Implemented via software-defined networking (SDN), hypervisor-based firewalls (NSX), or host-based firewall agents (Illumio ASP). Traditional network segmentation uses VLANs (Layer 2); micro-segmentation operates at Layers 3–7, often with application-identity awareness.</p>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Micro-segmentation addresses east-west (lateral) traffic — the communication between workloads within the data center. Traditional perimeter firewalls only address north-south (ingress/egress) traffic. ZTA requires both.
+</div>
+
+<h3>Software-Defined Perimeter (SDP)</h3>
+<div class="definition callout">
+  <strong>Software-Defined Perimeter (SDP):</strong> An access control approach in which the network infrastructure (controllers and gateways) is invisible to unauthorized entities. Services are not accessible until the user is authenticated and authorized by the SDP Controller, then connected to an Application Connector — the service is "dark" to the internet until needed.
+</div>
+<p>SDP originated from the Cloud Security Alliance (CSA) and is the foundation for modern <strong>Zero Trust Network Access (ZTNA)</strong> products. ZTNA (Day 68) replaces VPN by brokering per-application access rather than network-level access.</p>
+<p><strong>SDP Components:</strong> Initiating Host (client) → SDP Controller (verifies identity + device) → Accepting Host (application gateway) — all connections established only after controller authorization.</p>
+</section>
+
+<section id="s7">
+<h2>7. Google BeyondCorp Model</h2>
+<div class="definition callout">
+  <strong>BeyondCorp:</strong> Google's internal Zero Trust initiative, begun in 2011 after Operation Aurora (the 2009 Google China breach). Published in a series of peer-reviewed papers (2014–2018). Eliminated the trusted corporate network — all applications accessible only via an identity-aware proxy; device inventory and posture enforced.
+</div>
+<h3>BeyondCorp Key Elements</h3>
+<ul>
+  <li><strong>Device Inventory Database:</strong> Every device is enrolled and its security posture continuously assessed</li>
+  <li><strong>User/Group Database:</strong> Authoritative identity directory</li>
+  <li><strong>Device Certificate:</strong> X.509 certificate issued to every managed device — proves device identity</li>
+  <li><strong>Access Proxy / Identity-Aware Proxy (IAP):</strong> All traffic to internal apps routes through the proxy; enforces authentication and authorization</li>
+  <li><strong>Trust Tier:</strong> Devices rated into trust tiers based on posture; application access granted based on minimum trust tier requirement</li>
+</ul>
+<p>BeyondCorp Enterprise is now a Google Cloud product. The model inspired most modern ZTNA products and heavily influenced NIST SP 800-207.</p>
+<div class="key-concept callout">
+  <strong>BeyondCorp's Core Insight:</strong> Access should depend on WHO you are (identity) and WHAT device you're using (device posture) — not WHERE you are (network location). This breaks the fundamental assumption of perimeter security.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. ZTA vs. Traditional Perimeter Security</h2>
+<table>
+  <tr><th>Attribute</th><th>Traditional (Castle-and-Moat)</th><th>Zero Trust</th></tr>
+  <tr><td>Trust model</td><td>Implicit trust once inside network perimeter</td><td>No implicit trust anywhere; continuous verification</td></tr>
+  <tr><td>Network boundary</td><td>Firewalled perimeter; VPN for remote access</td><td>No internal/external distinction; identity is the boundary</td></tr>
+  <tr><td>Lateral movement</td><td>Possible once inside; flat network</td><td>Constrained by micro-segmentation</td></tr>
+  <tr><td>Remote access</td><td>VPN tunnels providing broad network access</td><td>ZTNA provides per-application access</td></tr>
+  <tr><td>Device posture</td><td>Trust by network address (IP)</td><td>Trust by verified device certificate + health posture</td></tr>
+  <tr><td>Authentication</td><td>Once at perimeter (VPN login)</td><td>Continuous; risk-adaptive; per-resource</td></tr>
+  <tr><td>Primary attack scenario mitigated</td><td>External threats</td><td>Insider threats + lateral movement + credential compromise</td></tr>
+</table>
+<div class="warning callout">
+  ⚠️ <strong>ZTA Misconceptions:</strong>
+  <ul>
+    <li>ZTA does NOT eliminate the need for firewalls or network security — it supplements and refines them</li>
+    <li>ZTA is NOT a single product — it's an architectural philosophy requiring multiple coordinated technologies</li>
+    <li>ZTA does NOT mean zero security — it means zero implicit trust (explicit, verified trust on every request)</li>
+    <li>ZTA does NOT prevent all breaches — it minimizes blast radius and increases attacker difficulty</li>
+  </ul>
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Zero Trust Three Core Tenets — "NAL"</strong><br>
+  <strong>N</strong>ever trust, always verify (no implicit trust)<br>
+  <strong>A</strong>ssume breach (design for compromise)<br>
+  <strong>L</strong>east privilege (minimum access, minimum time)<br>
+  NAL — like a "nail" hammered into the perimeter model
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 NIST ZTA Components — "PE-PA-PEP"</strong><br>
+  <strong>PE</strong> = Policy Engine (decides)<br>
+  <strong>PA</strong> = Policy Administrator (instructs)<br>
+  <strong>PEP</strong> = Policy Enforcement Point (enforces)<br>
+  PE decides → PA tells PEP → PEP blocks or allows<br>
+  PE+PA = PDP (Policy Decision Point) together
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 ZTA Signal Sources — "IDNAT-D"</strong><br>
+  <strong>I</strong>dentity (who are you?)<br>
+  <strong>D</strong>evice health (is your device safe?)<br>
+  <strong>N</strong>etwork (where are you connecting from?)<br>
+  <strong>A</strong>pplication sensitivity (what are you accessing?)<br>
+  <strong>T</strong>hreat intelligence (known bad actor?)<br>
+  <strong>D</strong>ata classification (how sensitive is the data?)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 BeyondCorp = "Who + What, Not Where"</strong><br>
+  Access = verified identity (WHO) + device posture (WHAT device)<br>
+  NOT based on network location (WHERE) — no trusted corporate network
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Zero Trust definition</td><td>No implicit trust; every request explicitly authenticated, authorized, continuously validated</td></tr>
+  <tr><td>NIST reference</td><td>NIST SP 800-207 — "Zero Trust Architecture" (August 2020)</td></tr>
+  <tr><td>Three ZTA principles</td><td>Never Trust Always Verify; Assume Breach; Least Privilege</td></tr>
+  <tr><td>Policy Engine (PE)</td><td>Decision-maker; evaluates all signals and policies; grants/denies access</td></tr>
+  <tr><td>Policy Administrator (PA)</td><td>Executes PE decisions; communicates to PEP to set up or tear down sessions</td></tr>
+  <tr><td>Policy Enforcement Point (PEP)</td><td>The actual gate; blocks or permits traffic per PA instructions</td></tr>
+  <tr><td>PDP = PE + PA</td><td>Policy Decision Point is the PE and PA combined (the control plane)</td></tr>
+  <tr><td>Micro-segmentation</td><td>Prevents lateral movement; controls east-west traffic between workloads</td></tr>
+  <tr><td>SDP / ZTNA</td><td>Services invisible until authentication verified; per-application access; replaces VPN</td></tr>
+  <tr><td>BeyondCorp</td><td>Google's ZTA model; access based on identity + device posture, not network location; published 2014+</td></tr>
+  <tr><td>Key US mandate</td><td>Executive Order 14028 + OMB M-22-09 mandate ZTA for federal agencies</td></tr>
+  <tr><td>ZTA is NOT</td><td>A single product; nor "zero security"; it's an architecture eliminating implicit trust</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>NIST SP 800-207 is the authoritative ZTA reference — know PE/PA/PEP roles</li>
+    <li>ZTA's "assume breach" tenet drives micro-segmentation, continuous monitoring, and least privilege — all simultaneously</li>
+    <li>ZTNA replaces VPN in ZTA models — it provides per-app access, not network-wide access</li>
+    <li>BeyondCorp eliminated the trusted corporate network; access decided by identity + device posture only</li>
+    <li>ZTA does NOT mean zero security — it means zero implicit/assumed trust; explicit verification at every access</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-083-theory.html" class="nav-btn">← Day 83: Identity as a Service</a>
+  <a href="day-085-theory.html" class="nav-btn">Day 85: Domain 5 Review →</a>
+</div>
+</div>
+</body>
+</html>

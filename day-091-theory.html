@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 91 – Code Review &amp; Analysis</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 91 – Code Review &amp; Analysis</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 91 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-090-theory.html">← Day 90: Log Management &amp; Monitoring</a> · Domain 6 · Day 91</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Static Application Security Testing (SAST)</a></li>
+  <li><a href="#s4">4. Dynamic Application Security Testing (DAST)</a></li>
+  <li><a href="#s5">5. Interactive Application Security Testing (IAST)</a></li>
+  <li><a href="#s6">6. SAST vs. DAST vs. IAST Comparison</a></li>
+  <li><a href="#s7">7. Manual Code Review &amp; Peer Review</a></li>
+  <li><a href="#s8">8. CWE Top 25 – Most Dangerous Software Weaknesses</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Code review is how organizations find vulnerabilities BEFORE deployment. The CISSP must understand when to use static vs. dynamic analysis, what each technique can and cannot find, and how code review integrates into the SDLC</td></tr>
+  <tr><td>Question Style</td><td>"Which testing method analyzes source code WITHOUT executing it?" (SAST). "A security team wants to find runtime vulnerabilities in a deployed web application without access to source code — which method?" (DAST)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 8 (SDLC — code review is a development-phase control); Domain 6 (vulnerability assessment — SAST/DAST are specialized forms); Domain 3 (secure design principles evaluated during code review)</td></tr>
+  <tr><td>Key Exam Traps</td><td>SAST does NOT execute code; DAST does NOT need source code; IAST combines both but requires instrumentation; manual code review catches logic flaws that automated tools miss</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p><strong>Application security (AppSec) teams</strong> own the code review program. <strong>Developers</strong> perform peer reviews and fix findings. <strong>DevSecOps pipelines</strong> integrate SAST/DAST into CI/CD (Jenkins, GitLab CI, GitHub Actions). <strong>Security architects</strong> define coding standards and review checklists.</p>
+<h3>Implementation Reality</h3>
+<p>Mature organizations run SAST scans on every code commit (shift-left security). DAST runs against staging environments before production deployment. Enterprise SAST tools (Checkmarx, Fortify, SonarQube, Snyk Code) scan millions of lines of code daily. The cost of fixing a vulnerability found in development is 6× cheaper than fixing it in production (NIST).</p>
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>SAST overload:</strong> Tool generates thousands of findings; developers ignore all of them due to alert fatigue</li>
+  <li><strong>DAST-only approach:</strong> Finds runtime issues but misses code-level design flaws that SAST catches</li>
+  <li><strong>No manual review:</strong> Automated tools miss business logic flaws (e.g., "user can approve their own expense report") — only human reviewers catch these</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Static Application Security Testing (SAST)</h2>
+<div class="definition callout">
+  <strong>SAST (Static Application Security Testing):</strong> Analysis of application source code, bytecode, or binary code WITHOUT executing the program. SAST tools examine code structure, data flow paths, and control flow to identify security vulnerabilities. Also called "white-box testing" because it requires access to the code internals.
+</div>
+<h3>How SAST Works</h3>
+<ul>
+  <li><strong>Input:</strong> Source code (Java, C#, Python, etc.), compiled bytecode, or binary</li>
+  <li><strong>Analysis types:</strong> Data flow analysis (tracks tainted input through the code), control flow analysis (examines execution paths), pattern matching (known vulnerable code patterns)</li>
+  <li><strong>Execution:</strong> Does NOT run the application — analyzes the code as text/structure</li>
+  <li><strong>Output:</strong> List of potential vulnerabilities with exact code location (file, line number), CWE classification, severity rating</li>
+</ul>
+<h3>What SAST Finds Well</h3>
+<ul>
+  <li>SQL injection (unsanitized user input flowing to database queries)</li>
+  <li>Cross-site scripting (XSS) — unsanitized output in HTML responses</li>
+  <li>Buffer overflows — array bounds not checked (C/C++)</li>
+  <li>Hard-coded credentials (passwords, API keys in code)</li>
+  <li>Insecure use of cryptographic APIs (weak algorithms, short keys)</li>
+  <li>Null pointer dereferences, resource leaks, race conditions</li>
+</ul>
+<h3>What SAST Cannot Find</h3>
+<ul>
+  <li>Runtime/environment-specific vulnerabilities (misconfigured servers, exposed ports)</li>
+  <li>Authentication and session management flaws (requires running application)</li>
+  <li>Business logic flaws (requires human understanding of intent)</li>
+  <li>Issues in third-party components if only binary is available (no source code)</li>
+</ul>
+<h3>Popular SAST Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Languages</th></tr>
+  <tr><td>Checkmarx</td><td>Commercial</td><td>30+ languages; enterprise-grade</td></tr>
+  <tr><td>Fortify (Micro Focus / OpenText)</td><td>Commercial</td><td>25+ languages; strong for Java/.NET</td></tr>
+  <tr><td>SonarQube</td><td>Open source + commercial</td><td>30+ languages; code quality + security</td></tr>
+  <tr><td>Snyk Code</td><td>Commercial (developer-friendly)</td><td>AI-powered; IDE integration</td></tr>
+  <tr><td>Semgrep</td><td>Open source</td><td>Rule-based; customizable patterns</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> SAST = Source code analysis = does NOT execute = finds code-level flaws = white-box approach (needs code access). When the exam says "static analysis" or "source code review tool" → SAST.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Dynamic Application Security Testing (DAST)</h2>
+<div class="definition callout">
+  <strong>DAST (Dynamic Application Security Testing):</strong> Testing of a running application from the outside — sending crafted inputs and analyzing responses to find vulnerabilities. DAST does NOT need source code access; it interacts with the application exactly as an attacker would (via HTTP requests, form submissions, API calls). Also called "black-box testing."
+</div>
+<h3>How DAST Works</h3>
+<ul>
+  <li><strong>Input:</strong> URL/endpoint of a running application (web app, API, service)</li>
+  <li><strong>Method:</strong> Automated crawling of the application; sends attack payloads (SQL injection strings, XSS payloads, path traversal sequences) to every input field</li>
+  <li><strong>Execution:</strong> Application MUST be running — DAST interacts with the live application</li>
+  <li><strong>Output:</strong> Identified vulnerabilities with the HTTP request that triggered them, response evidence, severity rating</li>
+</ul>
+<h3>What DAST Finds Well</h3>
+<ul>
+  <li>Server/configuration vulnerabilities (exposed admin panels, default credentials, missing headers)</li>
+  <li>Authentication issues (broken authentication, session fixation)</li>
+  <li>Runtime SQL injection, XSS, CSRF</li>
+  <li>SSL/TLS misconfigurations</li>
+  <li>Error handling issues (verbose error messages leaking info)</li>
+</ul>
+<h3>What DAST Cannot Find</h3>
+<ul>
+  <li>Code-level vulnerabilities not reachable through the interface</li>
+  <li>Dead code paths that the crawler doesn't trigger</li>
+  <li>Exact code location of the vulnerability (no source code access)</li>
+  <li>Complex business logic flaws requiring multi-step sequences</li>
+</ul>
+<h3>Popular DAST Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Focus</th></tr>
+  <tr><td>OWASP ZAP</td><td>Open source</td><td>Web application scanning; most popular free DAST</td></tr>
+  <tr><td>Burp Suite Pro</td><td>Commercial</td><td>Web app testing; proxy + scanner + extensions</td></tr>
+  <tr><td>Invicti (formerly Netsparker)</td><td>Commercial</td><td>Proof-based scanning — auto-confirms findings</td></tr>
+  <tr><td>Acunetix</td><td>Commercial</td><td>Web + API scanning; strong crawler</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Interactive Application Security Testing (IAST)</h2>
+<div class="definition callout">
+  <strong>IAST (Interactive Application Security Testing):</strong> A hybrid approach that combines elements of both SAST and DAST. An agent/sensor is installed INSIDE the running application (instrumentation) that monitors code execution in real time while the application processes requests. IAST sees both the internal code flow AND the external behavior simultaneously.
+</div>
+<h3>How IAST Works</h3>
+<ul>
+  <li><strong>Agent-based:</strong> A library/agent is deployed alongside the application (e.g., Java agent, .NET module)</li>
+  <li><strong>Monitors from inside:</strong> Tracks data flow through the application in real time as requests are processed</li>
+  <li><strong>Confirms vulnerabilities:</strong> Can pinpoint the exact code line AND the exact HTTP request that triggers it</li>
+  <li><strong>Low false positives:</strong> Because it sees both code and runtime, it produces fewer false positives than SAST or DAST alone</li>
+</ul>
+<h3>Advantages of IAST</h3>
+<ul>
+  <li>Combines SAST's code-level detail with DAST's runtime context</li>
+  <li>Lowest false positive rate of the three approaches</li>
+  <li>Works during QA testing (no separate scanning phase needed)</li>
+  <li>Provides exact code location + exact request that triggers the flaw</li>
+</ul>
+<h3>Limitations of IAST</h3>
+<ul>
+  <li>Requires instrumentation — agent must be installed in the app (not always possible)</li>
+  <li>Language/framework specific — doesn't cover all platforms</li>
+  <li>Only finds vulnerabilities in code paths actually exercised during testing (coverage depends on test completeness)</li>
+  <li>Can introduce performance overhead in the instrumented application</li>
+</ul>
+<h3>Popular IAST Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Vendor</th></tr>
+  <tr><td>Contrast Assess</td><td>Contrast Security</td></tr>
+  <tr><td>Seeker</td><td>Synopsys</td></tr>
+  <tr><td>Hdiv Detection (IAST)</td><td>Hdiv Security</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. SAST vs. DAST vs. IAST Comparison</h2>
+<table>
+  <tr><th>Attribute</th><th>SAST</th><th>DAST</th><th>IAST</th></tr>
+  <tr><td>What it analyzes</td><td>Source code / bytecode / binary</td><td>Running application (HTTP interface)</td><td>Running application + internal code flow</td></tr>
+  <tr><td>Application must be running?</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Source code required?</td><td>Yes (or bytecode)</td><td>No</td><td>No (but agent needs app internals)</td></tr>
+  <tr><td>Testing approach</td><td>White box (inside-out)</td><td>Black box (outside-in)</td><td>Gray box (inside + outside)</td></tr>
+  <tr><td>When in SDLC</td><td>Development (code commit)</td><td>Testing / staging / production</td><td>Testing (QA phase)</td></tr>
+  <tr><td>False positive rate</td><td>High</td><td>Medium</td><td>Low</td></tr>
+  <tr><td>Finds code location?</td><td>Yes (exact line)</td><td>No</td><td>Yes (exact line + request)</td></tr>
+  <tr><td>Coverage</td><td>All code paths (including dead code)</td><td>Only reachable paths via interface</td><td>Only exercised code paths</td></tr>
+  <tr><td>Business logic flaws?</td><td>No</td><td>Limited</td><td>Limited</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Defense in Depth for Code Security:</strong> Best practice is to use ALL THREE in combination: SAST during development (shift-left), DAST in staging before deployment, IAST during QA testing. No single tool catches everything. Manual code review adds human judgment for business logic flaws.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Exam Trap — SCA vs. SAST:</strong> Software Composition Analysis (SCA) is NOT the same as SAST. SCA scans dependencies and third-party libraries for known vulnerabilities (checks component versions against CVE databases). SAST scans YOUR code for flaws. Both are important but test different things.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Manual Code Review &amp; Peer Review</h2>
+<div class="definition callout">
+  <strong>Manual Code Review:</strong> A human reviewer reads and analyzes source code to find security vulnerabilities, logic errors, and design flaws that automated tools miss. Particularly effective for catching business logic vulnerabilities, authorization bypass flaws, and design-level issues.
+</div>
+<h3>Types of Manual Review</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>When to Use</th></tr>
+  <tr><td>Peer Review</td><td>Developer's code reviewed by a colleague before merge; informal or lightweight process</td><td>Every code change (pull request review); standard DevOps practice</td></tr>
+  <tr><td>Formal Inspection (Fagan Inspection)</td><td>Structured process: planning → overview → preparation → inspection meeting → rework → follow-up. Roles: moderator, author, reader, recorder, inspector</td><td>Safety-critical code; regulated environments; high-risk components</td></tr>
+  <tr><td>Walkthrough</td><td>Author presents code to reviewers informally; less structured than formal inspection</td><td>Knowledge sharing; early design feedback</td></tr>
+  <tr><td>Security-Focused Review</td><td>Reviewer specifically looks for security flaws using a checklist (e.g., OWASP Code Review Guide)</td><td>Security-critical modules; authentication, authorization, encryption code</td></tr>
+</table>
+
+<h3>Code Review Checklist (Security Focus)</h3>
+<ul>
+  <li>✅ Input validation on ALL external inputs (user input, API parameters, file uploads, environment variables)</li>
+  <li>✅ Output encoding to prevent XSS (HTML encoding, URL encoding, JavaScript encoding)</li>
+  <li>✅ Parameterized queries for ALL database operations (prevents SQL injection)</li>
+  <li>✅ No hard-coded secrets (passwords, API keys, tokens) — use secrets management</li>
+  <li>✅ Proper error handling — no stack traces or internal details exposed to users</li>
+  <li>✅ Secure session management — proper token generation, expiration, invalidation</li>
+  <li>✅ Authorization checks on EVERY endpoint (not just the UI — server-side enforcement)</li>
+  <li>✅ Cryptographic functions using approved algorithms and adequate key lengths</li>
+  <li>✅ Logging of security events WITHOUT logging sensitive data (no passwords or PII in logs)</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Fagan Inspection:</strong> The most formal and structured code review method — 6 steps with defined roles. Named after Michael Fagan (IBM, 1976). The CISSP exam may reference this as the "formal inspection" or "Fagan inspection." Key point: defects are found but NOT fixed during the inspection meeting — rework happens separately.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. CWE Top 25 – Most Dangerous Software Weaknesses</h2>
+<div class="definition callout">
+  <strong>CWE Top 25:</strong> Published annually by MITRE, the CWE Top 25 ranks the most dangerous software weaknesses based on prevalence and severity. These are the weakness CATEGORIES (not specific vulnerabilities) that most frequently lead to exploitable vulnerabilities. Used as a baseline for secure coding standards and code review checklists.
+</div>
+<h3>Selected CWE Top 25 Weaknesses (Exam-Relevant)</h3>
+<table>
+  <tr><th>Rank</th><th>CWE ID</th><th>Weakness</th><th>Example</th></tr>
+  <tr><td>1</td><td>CWE-787</td><td>Out-of-bounds Write</td><td>Buffer overflow in C/C++ — write beyond allocated memory</td></tr>
+  <tr><td>2</td><td>CWE-79</td><td>Cross-site Scripting (XSS)</td><td>Injecting script into web pages viewed by other users</td></tr>
+  <tr><td>3</td><td>CWE-89</td><td>SQL Injection</td><td>User input concatenated into SQL queries without parameterization</td></tr>
+  <tr><td>4</td><td>CWE-416</td><td>Use After Free</td><td>Accessing memory after it has been freed — leads to code execution</td></tr>
+  <tr><td>5</td><td>CWE-78</td><td>OS Command Injection</td><td>User input passed to shell/system commands</td></tr>
+  <tr><td>6</td><td>CWE-20</td><td>Improper Input Validation</td><td>Failing to validate user input before processing</td></tr>
+  <tr><td>7</td><td>CWE-125</td><td>Out-of-bounds Read</td><td>Reading beyond allocated buffer (info leak — Heartbleed)</td></tr>
+  <tr><td>8</td><td>CWE-22</td><td>Path Traversal</td><td>../../etc/passwd — accessing files outside intended directory</td></tr>
+  <tr><td>9</td><td>CWE-352</td><td>Cross-Site Request Forgery (CSRF)</td><td>Forged requests from authenticated user's browser</td></tr>
+  <tr><td>10</td><td>CWE-434</td><td>Unrestricted File Upload</td><td>Uploading executable files (web shells) without validation</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>CWE vs. CVE vs. CVSS (Reminder from Day 87):</strong><br>
+  <strong>CWE</strong> = weakness CATEGORY (e.g., "SQL injection is a type of weakness")<br>
+  <strong>CVE</strong> = specific VULNERABILITY instance (e.g., "CVE-2021-44228 is a specific flaw in Log4j")<br>
+  <strong>CVSS</strong> = SCORING system for severity (e.g., "this CVE has a CVSS score of 10.0")
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 SAST / DAST / IAST — "SDI"</strong><br>
+  <strong>S</strong>AST = <strong>S</strong>ource code (Static, no execution) = white box<br>
+  <strong>D</strong>AST = <strong>D</strong>eployed app (Dynamic, running) = black box<br>
+  <strong>I</strong>AST = <strong>I</strong>nstrumented app (Inside agent) = gray box<br>
+  False positives: S=High, D=Medium, I=Low (SDI order = descending FPs)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Fagan Inspection Steps — "POPIR-F"</strong><br>
+  <strong>P</strong>lanning → <strong>O</strong>verview → <strong>P</strong>reparation → <strong>I</strong>nspection → <strong>R</strong>ework → <strong>F</strong>ollow-up<br>
+  "People Often Practice Inspecting, Reworking, Fixing"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Top 3 CWE Weaknesses</strong><br>
+  #1: Out-of-bounds Write (buffer overflow)<br>
+  #2: XSS (script injection into pages)<br>
+  #3: SQLi (database query injection)<br>
+  "Overflows, Scripts, and Queries" — the three horsemen of web/app security
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>SAST</td><td>Analyzes source code without executing; white box; finds code-level flaws; high false positives; runs during development</td></tr>
+  <tr><td>DAST</td><td>Tests running application from outside; black box; no source code needed; finds runtime/config flaws; runs in staging/production</td></tr>
+  <tr><td>IAST</td><td>Agent inside running application; gray box; lowest false positive rate; sees code flow + external behavior simultaneously</td></tr>
+  <tr><td>SCA</td><td>Software Composition Analysis — scans third-party libraries for known CVEs; NOT the same as SAST</td></tr>
+  <tr><td>Manual code review</td><td>Human reviewer catches business logic flaws that automated tools miss</td></tr>
+  <tr><td>Fagan Inspection</td><td>Most formal code review: Planning → Overview → Preparation → Inspection → Rework → Follow-up; defects found but NOT fixed in inspection meeting</td></tr>
+  <tr><td>CWE Top 25</td><td>MITRE's ranked list of most dangerous software weakness categories; used for coding standards and checklists</td></tr>
+  <tr><td>Best practice</td><td>Use SAST + DAST + IAST + manual review together — no single tool catches everything</td></tr>
+  <tr><td>Shift-left security</td><td>SAST in CI/CD pipeline finds flaws at code commit — 6× cheaper than fixing in production</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>SAST does NOT execute code; DAST does NOT need source code — these are the defining differences</li>
+    <li>IAST has the LOWEST false positive rate because it sees both internal code flow and external behavior</li>
+    <li>Fagan Inspection is the MOST FORMAL code review method (6 defined steps, defined roles)</li>
+    <li>CWE = weakness category; CVE = specific vulnerability; CVSS = severity score</li>
+    <li>Manual review is irreplaceable for business logic flaws — automated tools can't understand business requirements</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-090-theory.html" class="nav-btn">← Day 90: Log Management</a>
+  <a href="day-092-theory.html" class="nav-btn">Day 92: Software Testing Methods →</a>
+</div>
+</div>
+</body>
+</html>

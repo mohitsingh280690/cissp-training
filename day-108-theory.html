@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 108 – Preventive Measures</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 108 – Preventive Measures</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 108 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-107-theory.html">← Day 107: Threat Intelligence</a> · Domain 7 · Day 108</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Security Baselines &amp; CIS Benchmarks</a></li>
+  <li><a href="#s4">4. Patch Management</a></li>
+  <li><a href="#s5">5. Anti-Malware &amp; Endpoint Detection</a></li>
+  <li><a href="#s6">6. Application Whitelisting / Allowlisting</a></li>
+  <li><a href="#s7">7. Host-Based Firewalls &amp; IPS</a></li>
+  <li><a href="#s8">8. Hardening &amp; Least Functionality</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Preventive measures are the operational controls that reduce the attack surface before incidents occur. CISSP expects understanding of hardening techniques, patch management, and endpoint protection strategies</td></tr>
+  <tr><td>Question Style</td><td>"Which is the MOST effective control against unknown malware?" (application allowlisting). "What is the PRIMARY purpose of a security baseline?" (ensure consistent, minimum security configuration). "What should be the FIRST step in patch management?" (inventory — you can't patch what you don't know about)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 109 (change management — patches require change control); Day 110 (vulnerability management — identifies what to patch); Domain 3 (network controls — complements host controls)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>The majority of successful breaches exploit known vulnerabilities with available patches. According to Verizon DBIR data, unpatched vulnerabilities remain a top initial access vector. Preventive measures — when consistently applied — eliminate the most common attack paths before adversaries can use them.</p>
+</section>
+
+<section id="s3">
+<h2>3. Security Baselines &amp; CIS Benchmarks</h2>
+<div class="definition callout">
+  <strong>Security Baseline:</strong> A documented, minimum security configuration standard for a specific technology (OS, application, network device). Systems must meet or exceed the baseline before deployment to production. Baselines are compared against during audits and monitoring.
+</div>
+
+<h3>CIS Benchmarks</h3>
+<table>
+  <tr><th>Feature</th><th>Detail</th></tr>
+  <tr><td>Publisher</td><td>Center for Internet Security (CIS)</td></tr>
+  <tr><td>Content</td><td>Detailed, prescriptive configuration guides for 100+ technologies (Windows, Linux, AWS, Azure, databases, network devices)</td></tr>
+  <tr><td>Profiles</td><td>Level 1 (basic, minimal business disruption), Level 2 (defense-in-depth, may impact functionality)</td></tr>
+  <tr><td>Tool support</td><td>CIS-CAT Pro scans systems against benchmarks; many vulnerability scanners include CIS benchmark checks</td></tr>
+</table>
+
+<h3>Other Hardening Standards</h3>
+<table>
+  <tr><th>Standard</th><th>Source</th><th>Focus</th></tr>
+  <tr><td>DISA STIGs</td><td>Defense Information Systems Agency</td><td>US DoD mandatory configurations — more restrictive than CIS</td></tr>
+  <tr><td>NIST SP 800-123</td><td>NIST</td><td>Guide to General Server Security</td></tr>
+  <tr><td>Vendor guides</td><td>Microsoft, Red Hat, Cisco, etc.</td><td>Vendor-specific security hardening documentation</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Patch Management</h2>
+<h3>Patch Management Lifecycle</h3>
+<table>
+  <tr><th>Step</th><th>Activity</th><th>Details</th></tr>
+  <tr><td>1</td><td><strong>Inventory</strong></td><td>Know what you have: complete, accurate asset inventory including OS versions, applications, and configurations</td></tr>
+  <tr><td>2</td><td><strong>Monitor</strong></td><td>Track vendor patch releases, security advisories, CVE announcements</td></tr>
+  <tr><td>3</td><td><strong>Assess</strong></td><td>Evaluate patch urgency/priority based on vulnerability severity (CVSS), asset criticality, exploit availability, and business impact</td></tr>
+  <tr><td>4</td><td><strong>Test</strong></td><td>Test patches in non-production environment first; verify no breaking changes; test with critical business applications</td></tr>
+  <tr><td>5</td><td><strong>Deploy</strong></td><td>Roll out patches through change management process; phased deployment (pilot → broader rollout)</td></tr>
+  <tr><td>6</td><td><strong>Verify</strong></td><td>Confirm patches applied successfully; re-scan systems; validate functionality; document completion</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Trap — Emergency Patches:</strong> Critical zero-day patches may require an emergency change process that bypasses normal testing. This should be pre-approved in the change management policy with defined criteria (e.g., active exploitation of critical vulnerability). Even emergency patches should be tested on at least ONE non-production system before broad deployment.
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Virtual Patching:</strong> When patches cannot be immediately applied (legacy systems, vendor delays, testing requirements), virtual patching provides interim protection. Virtual patches are WAF rules, IPS signatures, or firewall rules that block the specific exploit vector WITHOUT modifying the vulnerable system. Virtual patching is a compensating control, NOT a substitute for actual patching.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Anti-Malware &amp; Endpoint Detection</h2>
+<h3>Evolution of Endpoint Protection</h3>
+<table>
+  <tr><th>Generation</th><th>Technology</th><th>Detection Method</th><th>Limitations</th></tr>
+  <tr><td>1st Gen</td><td>Antivirus (AV)</td><td>Signature-based — matches known malware file hashes/patterns</td><td>Cannot detect unknown (zero-day) malware; requires constant signature updates</td></tr>
+  <tr><td>2nd Gen</td><td>Next-Gen AV (NGAV)</td><td>Heuristic + behavioral analysis — examines code behavior, not just signatures</td><td>Higher false positive rate; still primarily passive</td></tr>
+  <tr><td>3rd Gen</td><td>EDR (Endpoint Detection &amp; Response)</td><td>Continuous monitoring + behavioral analytics + automated response; records endpoint telemetry</td><td>Requires skilled analysts; generates significant data volume</td></tr>
+  <tr><td>4th Gen</td><td>XDR (Extended Detection &amp; Response)</td><td>Integrates EDR + NDR + cloud + email — cross-domain correlation</td><td>Vendor lock-in risk; integration complexity</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>EDR vs Traditional AV:</strong> Traditional AV answers "Is this file malicious?" (point-in-time scan). EDR answers "What is this endpoint doing?" (continuous behavioral monitoring). EDR can detect living-off-the-land attacks (using legitimate tools maliciously), fileless malware, and post-compromise activity that AV misses entirely.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Application Whitelisting / Allowlisting</h2>
+<div class="definition callout">
+  <strong>Application Allowlisting:</strong> A security control that permits ONLY approved applications to execute on a system. Everything not explicitly allowed is blocked by default. This is the inverse of blocklisting/blacklisting (which blocks known-bad and allows everything else).
+</div>
+
+<h3>Allowlisting vs Blocklisting</h3>
+<table>
+  <tr><th>Feature</th><th>Allowlisting (Whitelist)</th><th>Blocklisting (Blacklist)</th></tr>
+  <tr><td>Default stance</td><td>Deny all; permit approved</td><td>Allow all; block known-bad</td></tr>
+  <tr><td>Zero-day protection</td><td>Strong — unknown code is blocked by default</td><td>None — unknown malware is not on blocklist</td></tr>
+  <tr><td>Management overhead</td><td>High — must maintain approved app list; every legitimate update requires approval</td><td>Lower — update signature database automatically</td></tr>
+  <tr><td>User flexibility</td><td>Restrictive — users cannot install unapproved software</td><td>Flexible — users can run anything not on blocklist</td></tr>
+  <tr><td>Best for</td><td>Servers, kiosks, critical infrastructure, fixed-function systems</td><td>General workstations where users need flexibility</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Favorite:</strong> "Which is the MOST effective control against unknown/zero-day malware?" Answer: Application allowlisting. Because unknown malware is NOT on any blocklist, blocklisting fails. Allowlisting blocks everything not explicitly approved, including zero-day malware. This is a frequent exam question.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Host-Based Firewalls &amp; IPS</h2>
+<table>
+  <tr><th>Control</th><th>Function</th><th>Deployment</th></tr>
+  <tr><td><strong>Host-based firewall</strong></td><td>Filters network traffic TO/FROM the individual endpoint; controls inbound and outbound connections per application or port</td><td>Built into OS (Windows Firewall, iptables/nftables on Linux); managed via GPO/MDM for enterprise consistency</td></tr>
+  <tr><td><strong>Host-based IPS (HIPS)</strong></td><td>Monitors system behavior and network traffic at the host level; blocks suspicious activity in real-time</td><td>Part of EDR or standalone agents; monitors process behavior, file changes, registry modifications</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Defense in Depth — Network vs Host:</strong> Network firewalls protect the perimeter; host-based firewalls protect individual systems even when the network perimeter is bypassed (insider threats, lateral movement, VPN-connected remote workers). Both are needed — this is defense in depth.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Hardening &amp; Least Functionality</h2>
+<div class="definition callout">
+  <strong>System Hardening:</strong> The process of reducing the attack surface by removing unnecessary services, ports, protocols, accounts, and features. The goal is to leave ONLY what is needed for the system's intended function.
+</div>
+
+<h3>Hardening Checklist</h3>
+<table>
+  <tr><th>Action</th><th>Details</th></tr>
+  <tr><td>Remove unnecessary services</td><td>Disable services not required for system function (Telnet, FTP, SNMP v1/v2, print services on non-print servers)</td></tr>
+  <tr><td>Close unnecessary ports</td><td>Block all ports not required for operation; use host firewall</td></tr>
+  <tr><td>Remove default accounts</td><td>Disable or rename default admin accounts; remove guest accounts</td></tr>
+  <tr><td>Apply security updates</td><td>Current patches for OS, applications, and firmware</td></tr>
+  <tr><td>Enable logging</td><td>Configure appropriate log levels; forward to SIEM</td></tr>
+  <tr><td>Configure access controls</td><td>Principle of least privilege; remove unnecessary user rights</td></tr>
+  <tr><td>Enable encryption</td><td>Encrypt data at rest (FDE); use TLS for data in transit</td></tr>
+  <tr><td>Disable autorun/autoplay</td><td>Prevent automatic execution of media (USB, CD)</td></tr>
+  <tr><td>BIOS/UEFI security</td><td>Set BIOS password; secure boot; boot order (no USB/CD boot)</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Patch Management — "IMATDV"</strong><br>
+  <strong>I</strong>nventory → <strong>M</strong>onitor → <strong>A</strong>ssess → <strong>T</strong>est → <strong>D</strong>eploy → <strong>V</strong>erify<br>
+  "I Must Always Test, Deploy, Verify"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Allowlisting vs Blocklisting Default</strong><br>
+  Allow<strong>list</strong> = "You're not on my <strong>list</strong>, you can't come in" (deny by default)<br>
+  Block<strong>list</strong> = "You're on my <strong>naughty list</strong>, you're blocked" (allow by default)<br>
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Endpoint Protection Evolution — "ANSE-X"</strong><br>
+  <strong>A</strong>V (signatures) → <strong>N</strong>GAV (heuristics) → <strong>S</strong>andbox → <strong>E</strong>DR (behavioral) → <strong>X</strong>DR (cross-domain)<br>
+  "Each generation sees more"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Hardening = Removal</strong><br>
+  "When in doubt, take it out." Hardening is about removing — services, ports, accounts, features. If the system doesn't need it, disable or remove it.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Security baseline</td><td>Minimum configuration standard; CIS Benchmarks (Level 1/2) and DISA STIGs are key references</td></tr>
+  <tr><td>Patch management</td><td>Inventory → Monitor → Assess → Test → Deploy → Verify; FIRST step is always inventory</td></tr>
+  <tr><td>Virtual patching</td><td>Compensating control (WAF/IPS rules) when actual patches can't be applied immediately; NOT a replacement</td></tr>
+  <tr><td>EDR vs AV</td><td>AV = signature-based point-in-time; EDR = continuous behavioral monitoring + response</td></tr>
+  <tr><td>Allowlisting</td><td>MOST effective against zero-day malware; deny-by-default; best for fixed-function systems</td></tr>
+  <tr><td>Host firewalls</td><td>Essential for defense in depth; protect hosts even when perimeter is bypassed</td></tr>
+  <tr><td>Hardening</td><td>Remove unnecessary services, ports, accounts; apply baselines; disable defaults</td></tr>
+  <tr><td>Least functionality</td><td>Systems should be configured with ONLY what is needed for their designated purpose</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-107-theory.html" class="nav-btn">← Day 107: Threat Intelligence</a>
+  <a href="day-109-theory.html" class="nav-btn">Day 109: Change &amp; Configuration Mgmt →</a>
+</div>
+</div>
+</body>
+</html>

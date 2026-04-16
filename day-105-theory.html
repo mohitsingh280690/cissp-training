@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 105 – Incident Response Lifecycle</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 105 – Incident Response Lifecycle</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 105 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-104-theory.html">← Day 104: Incident Management</a> · Domain 7 · Day 105</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Phase 1: Preparation</a></li>
+  <li><a href="#s4">4. Phase 2: Detection &amp; Analysis</a></li>
+  <li><a href="#s5">5. Phase 3: Containment</a></li>
+  <li><a href="#s6">6. Phase 3: Eradication</a></li>
+  <li><a href="#s7">7. Phase 3: Recovery</a></li>
+  <li><a href="#s8">8. Phase 4: Post-Incident Activity</a></li>
+  <li><a href="#s9">9. Playbooks &amp; Runbooks</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>The incident response lifecycle is one of the most heavily tested topics in Domain 7. CISSP expects you to know each phase in detail — especially containment decisions, root cause analysis, and lessons learned</td></tr>
+  <tr><td>Question Style</td><td>"After detecting a ransomware infection, what is the FIRST containment action?" (isolate affected systems from the network). "What is the PRIMARY purpose of a lessons learned meeting?" (improve future incident response). "During which phase should evidence be preserved?" (containment — before eradication alters system state)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 104 (incident management framework); Day 101-103 (evidence and forensics — performed during containment); Day 106 (SIEM/monitoring — enables detection phase)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>The IR lifecycle is not academic — it is the difference between a contained incident costing thousands and an uncontained one costing millions. The 2017 Equifax breach demonstrated the cost of poor detection (vulnerability known for months before exploitation) and poor containment. The 2021 Colonial Pipeline incident showed the business impact of rushed eradication decisions (paying ransom vs systematic recovery).</p>
+</section>
+
+<section id="s3">
+<h2>3. Phase 1: Preparation</h2>
+<div class="definition callout">
+  <strong>Preparation:</strong> Everything done BEFORE an incident occurs to ensure the organization can respond effectively. This is the proactive, ongoing phase — it never ends.
+</div>
+
+<h3>Key Preparation Activities</h3>
+<table>
+  <tr><th>Activity</th><th>Details</th></tr>
+  <tr><td>Policy &amp; authorization</td><td>Approve IR policy; define authority to contain (disconnect systems, block IPs, disable accounts); obtain management sign-off</td></tr>
+  <tr><td>Team building</td><td>Recruit and train IRT/CSIRT; define roles; establish on-call rotations; identify external resources (retainer agreements with forensic firms, legal counsel)</td></tr>
+  <tr><td>Tool deployment</td><td>SIEM; IDS/IPS; EDR; forensic imaging tools; write-blockers; packet capture capability; secure communication channels</td></tr>
+  <tr><td>Documentation</td><td>IR plan; procedures for each incident type; playbooks/runbooks; contact lists; escalation matrices</td></tr>
+  <tr><td>Training &amp; exercises</td><td>Tabletop exercises; simulation drills; red/blue/purple team exercises; annual IR training</td></tr>
+  <tr><td>Baseline &amp; intelligence</td><td>Document normal network behavior (baselines); subscribe to threat intelligence feeds; join ISACs</td></tr>
+  <tr><td>Jump bag / Go bag</td><td>Pre-assembled kit: forensic laptop, write-blockers, cables, blank media, forms, contact lists, credentials (separate from daily-use credentials)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Favorite — Jump Bag Contents:</strong> A prepared forensic toolkit ("jump bag") includes: forensic laptop (non-domain-joined), write-blockers, forensic imaging software, blank hard drives, network cables, chain of custody forms, incident report templates, contact lists, and documentation of the organization's standard configurations (to identify anomalies).
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Phase 2: Detection &amp; Analysis</h2>
+<h3>Detection Sources</h3>
+<table>
+  <tr><th>Source</th><th>Examples</th></tr>
+  <tr><td>Automated monitoring</td><td>SIEM alerts; IDS/IPS signatures; antimalware detections; EDR behavioral alerts; DLP alerts</td></tr>
+  <tr><td>User reports</td><td>Help desk calls; user notices unusual behavior; phishing email reported</td></tr>
+  <tr><td>External notification</td><td>Law enforcement contact; vendor notification; ISP abuse report; threat intelligence report; media report</td></tr>
+  <tr><td>Threat hunting</td><td>Proactive searching for indicators of compromise not caught by automated tools</td></tr>
+</table>
+
+<h3>Indicators of Compromise (IoC) vs Indicators of Attack (IoA)</h3>
+<table>
+  <tr><th>Type</th><th>Definition</th><th>Examples</th><th>Timing</th></tr>
+  <tr><td><strong>IoC</strong></td><td>Artifacts that indicate a system has been compromised — evidence of past or current breach</td><td>Known malware hashes; C2 IP addresses; unusual registry keys; unauthorized accounts; data exfiltration patterns</td><td>Reactive — detected after compromise has occurred</td></tr>
+  <tr><td><strong>IoA</strong></td><td>Behaviors that indicate an attack is in progress — focus on attacker methodology and intent</td><td>Reconnaissance scanning; lateral movement; privilege escalation attempts; anomalous login patterns; data staging</td><td>Proactive — can detect attacks before damage is done</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>IoC vs IoA — Exam Distinction:</strong> IoCs are forensic artifacts (think "fingerprints left behind"). IoAs are behavioral patterns (think "catching the attacker in the act"). Modern detection combines both: signature-based detection (IoC) + behavioral/anomaly detection (IoA).
+</div>
+
+<h3>Analysis — Triage and Scoping</h3>
+<ul>
+  <li><strong>Validate:</strong> Is this a true positive or false positive?</li>
+  <li><strong>Categorize:</strong> What type of incident? (malware, unauthorized access, data breach, etc.)</li>
+  <li><strong>Prioritize:</strong> Severity + urgency = priority. Impact on critical business functions is the primary factor</li>
+  <li><strong>Scope:</strong> How many systems are affected? Is the attack still active? What data may be compromised?</li>
+  <li><strong>Document:</strong> Start the incident record immediately — who, what, when, where, how discovered</li>
+</ul>
+</section>
+
+<section id="s5">
+<h2>5. Phase 3: Containment</h2>
+<h3>Short-Term vs Long-Term Containment</h3>
+<table>
+  <tr><th>Containment Type</th><th>Goal</th><th>Actions</th><th>Timing</th></tr>
+  <tr><td><strong>Short-term</strong></td><td>Immediately stop the bleeding; prevent further damage</td><td>Isolate systems from network (unplug/VLAN); block malicious IPs at firewall; disable compromised accounts; take system snapshot for forensics</td><td>Minutes to hours</td></tr>
+  <tr><td><strong>Long-term</strong></td><td>Maintain containment while allowing business operations to partially resume</td><td>Patch vulnerabilities; apply temporary firewall rules; rebuild affected systems on clean infrastructure; implement enhanced monitoring on contained systems</td><td>Hours to days</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Containment Decision — Business vs Security:</strong> Containment always involves a trade-off between stopping the attack and maintaining business operations. Disconnecting a production database server stops the attacker but also stops the business. The IR team must coordinate with business stakeholders to make containment decisions that balance security risk with business impact. This is why <strong>management authorization for containment actions</strong> should be established DURING preparation (Phase 1), not during the crisis.
+</div>
+
+<h3>Evidence Preservation During Containment</h3>
+<p>Containment is the CRITICAL window for evidence preservation:</p>
+<ul>
+  <li>Capture volatile evidence (RAM dump, process list, network connections) BEFORE isolation</li>
+  <li>Create forensic images of affected systems AFTER short-term containment</li>
+  <li>If the decision to involve law enforcement is likely, engage them BEFORE containment actions alter evidence</li>
+</ul>
+</section>
+
+<section id="s6">
+<h2>6. Phase 3: Eradication</h2>
+<div class="definition callout">
+  <strong>Eradication:</strong> Removing the root cause of the incident from the environment — malware removal, closing vulnerabilities, eliminating attacker access, removing persistence mechanisms.
+</div>
+
+<h3>Root Cause Analysis (RCA)</h3>
+<p>Before eradication, you must identify the root cause — otherwise you are treating symptoms, not the disease:</p>
+<table>
+  <tr><th>RCA Question</th><th>Examples</th></tr>
+  <tr><td>How did the attacker get in?</td><td>Unpatched vulnerability; phishing email; stolen credentials; misconfigured service</td></tr>
+  <tr><td>How did the attacker maintain access?</td><td>Backdoor; new user account; scheduled task; web shell; modified startup scripts</td></tr>
+  <tr><td>How did the attacker move laterally?</td><td>Pass-the-hash; service account abuse; RDP; SMB; admin shares; trust relationships</td></tr>
+  <tr><td>What was the attacker's objective?</td><td>Data theft; ransomware deployment; cryptomining; espionage; destruction</td></tr>
+</table>
+
+<h3>Eradication Activities</h3>
+<ul>
+  <li><strong>Reimaging systems:</strong> Most reliable method — wipe and reinstall from known-good media (do NOT trust "cleaned" systems)</li>
+  <li><strong>Patching vulnerabilities:</strong> Apply patches for the exploited vulnerability</li>
+  <li><strong>Credential reset:</strong> Reset all potentially compromised credentials (especially privileged accounts, service accounts, and Kerberos tickets)</li>
+  <li><strong>Remove persistence:</strong> Delete backdoors, unauthorized accounts, scheduled tasks, registry modifications, web shells</li>
+  <li><strong>Verify eradication:</strong> Scan for remaining IoCs; monitor for re-infection indicators</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>Exam Point — Reimaging vs Cleaning:</strong> For CISSP, reimaging (rebuild from scratch using clean media) is the PREFERRED method for eradication. Simply removing detected malware files is insufficient — there may be undetected persistence mechanisms. The only way to be certain is to wipe and rebuild.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Phase 3: Recovery</h2>
+<h3>Recovery Activities</h3>
+<table>
+  <tr><th>Step</th><th>Activity</th><th>Details</th></tr>
+  <tr><td>1</td><td>Restore from known-good backups</td><td>Verify backup integrity (pre-compromise); restore data to rebuilt systems</td></tr>
+  <tr><td>2</td><td>Validate system functionality</td><td>Test applications, services, integrations; confirm systems operate correctly</td></tr>
+  <tr><td>3</td><td>Gradually return to production</td><td>Phase systems back in with enhanced monitoring; don't restore everything at once</td></tr>
+  <tr><td>4</td><td>Enhanced monitoring</td><td>Increase logging, alerting, and review for recovered systems; watch for re-infection or attacker return</td></tr>
+  <tr><td>5</td><td>Business validation</td><td>Business owners confirm systems are functioning correctly for their operations</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Recovery Validation:</strong> Recovery is NOT complete when systems are technically operational. Recovery is complete when: (1) systems are confirmed clean, (2) business operations are restored, (3) enhanced monitoring is in place, and (4) there is no evidence of continued compromise. Set a monitoring period (30-90 days) before declaring the incident fully resolved.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Phase 4: Post-Incident Activity</h2>
+<h3>Lessons Learned Meeting</h3>
+<div class="definition callout">
+  <strong>Lessons Learned (Post-Mortem):</strong> A formal meeting held after incident resolution to review what happened, what went well, what went poorly, and how to improve. Should be held within 1-2 weeks of incident closure while details are fresh.
+</div>
+
+<h3>Lessons Learned Questions</h3>
+<table>
+  <tr><th>Question Category</th><th>Specific Questions</th></tr>
+  <tr><td>What happened?</td><td>What was the timeline? What was the root cause? What was the impact?</td></tr>
+  <tr><td>Detection</td><td>How was the incident detected? Could we have detected it sooner? What detection gaps exist?</td></tr>
+  <tr><td>Response effectiveness</td><td>Did the IR plan work? Were procedures followed? Were the right people available? Was communication effective?</td></tr>
+  <tr><td>Containment &amp; eradication</td><td>Was containment effective? Was eradication complete? Did the attacker regain access?</td></tr>
+  <tr><td>Recovery</td><td>How long did recovery take? Were backups adequate? Were RTO/RPO met?</td></tr>
+  <tr><td>Improvements</td><td>What should we do differently? What tools, training, or process changes are needed? What worked well?</td></tr>
+</table>
+
+<h3>Post-Incident Deliverables</h3>
+<ul>
+  <li><strong>Incident report:</strong> Full documentation of the incident for management, compliance, and historical record</li>
+  <li><strong>Updated IoCs:</strong> Share indicators of compromise with threat intelligence community, ISACs, and internal detection systems</li>
+  <li><strong>Process improvements:</strong> Update IR plan, procedures, playbooks based on lessons learned</li>
+  <li><strong>Training updates:</strong> Address any skill gaps identified during the response</li>
+  <li><strong>Evidence retention:</strong> Preserve evidence according to legal hold requirements and organizational retention policy</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>Exam Emphasis:</strong> The MOST important post-incident activity is the <strong>lessons learned meeting</strong>. The exam asks about this frequently. The primary PURPOSE of lessons learned is to IMPROVE future incident response — not to assign blame.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Playbooks &amp; Runbooks</h2>
+<table>
+  <tr><th>Feature</th><th>Playbook</th><th>Runbook</th></tr>
+  <tr><td>Definition</td><td>Strategic document outlining the overall approach to a specific type of incident</td><td>Tactical, step-by-step procedures for executing specific tasks within a playbook</td></tr>
+  <tr><td>Audience</td><td>IR team leads; SOC managers; decision-makers</td><td>SOC analysts; system administrators; executors</td></tr>
+  <tr><td>Detail level</td><td>Decision trees; escalation criteria; communication templates; resource allocation</td><td>Exact commands; tool-specific procedures; configuration steps; verification checks</td></tr>
+  <tr><td>Example</td><td>"Ransomware Response Playbook" — covers decision to pay/not pay, communication plan, law enforcement engagement</td><td>"Isolate Windows Endpoint" — step 1: disable NIC; step 2: capture RAM; step 3: image disk</td></tr>
+  <tr><td>Automation</td><td>Orchestrated through SOAR platforms</td><td>Often automated via SOAR; scripts; configuration management tools</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 IR Lifecycle Phases — "P-DCER-P"</strong><br>
+  <strong>P</strong>reparation → <strong>D</strong>etection → <strong>C</strong>ontainment → <strong>E</strong>radication → <strong>R</strong>ecovery → <strong>P</strong>ost-Incident<br>
+  "Prepare, Detect, Contain, Eradicate, Recover, Post-mortem"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Containment: Short → Long</strong><br>
+  <strong>Short-term:</strong> "Stop the bleeding" — isolate immediately<br>
+  <strong>Long-term:</strong> "Controlled tourniquet" — maintain containment while enabling partial operations<br>
+  "First aid, then surgery"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 IoC vs IoA</strong><br>
+  <strong>IoC = Fingerprints</strong> (evidence left behind — reactive)<br>
+  <strong>IoA = Footsteps</strong> (behavior being observed — proactive)<br>
+  "Fingerprints are found after; footsteps are heard during"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Eradication: Reimage &gt; Clean</strong><br>
+  "When in doubt, wipe it out." Reimaging is always preferred over attempting to clean a compromised system in place.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>IR lifecycle</td><td>Preparation → Detection/Analysis → Containment/Eradication/Recovery → Post-Incident (NIST SP 800-61)</td></tr>
+  <tr><td>Preparation</td><td>Most critical phase; includes jump bag, team building, documentation, exercises, management authorization</td></tr>
+  <tr><td>IoC vs IoA</td><td>IoC = forensic artifacts (reactive); IoA = behavioral patterns (proactive)</td></tr>
+  <tr><td>Short-term containment</td><td>Immediate — isolate affected systems, block malicious traffic, disable compromised accounts</td></tr>
+  <tr><td>Long-term containment</td><td>Sustained — patch, rebuild, enhanced monitoring while maintaining partial operations</td></tr>
+  <tr><td>Evidence timing</td><td>Capture volatile evidence BEFORE containment actions; image systems AFTER initial containment</td></tr>
+  <tr><td>Eradication</td><td>Reimage from clean media (preferred); patch vulnerabilities; reset credentials; remove persistence mechanisms</td></tr>
+  <tr><td>Recovery</td><td>Restore from verified backups; phased return to production; enhanced monitoring period (30-90 days)</td></tr>
+  <tr><td>Lessons learned</td><td>MOST important post-incident activity; improve processes, not assign blame; hold within 1-2 weeks</td></tr>
+  <tr><td>Playbooks vs runbooks</td><td>Playbooks = strategic decision guides; Runbooks = tactical step-by-step procedures</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-104-theory.html" class="nav-btn">← Day 104: Incident Management</a>
+  <a href="day-106-theory.html" class="nav-btn">Day 106: SIEM &amp; Security Monitoring →</a>
+</div>
+</div>
+</body>
+</html>

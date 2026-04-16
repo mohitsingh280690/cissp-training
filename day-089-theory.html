@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 89 – Penetration Testing: Types</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 89 – Penetration Testing: Types</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 89 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-088-theory.html">← Day 88: Penetration Testing Methodology</a> · Domain 6 · Day 89</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Knowledge-Based Testing Types (Black/White/Gray Box)</a></li>
+  <li><a href="#s4">4. Scope-Based Testing Types (Internal vs. External)</a></li>
+  <li><a href="#s5">5. Physical Penetration Testing</a></li>
+  <li><a href="#s6">6. Social Engineering Testing</a></li>
+  <li><a href="#s7">7. Red Team / Blue Team / Purple Team</a></li>
+  <li><a href="#s8">8. Bug Bounty Programs</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>The CISSP must understand not only HOW pen tests are conducted (methodology) but WHAT TYPES exist and when each is appropriate. The exam tests organizational decision-making: when should you run a black-box test? What is a red team exercise for? How do bug bounties differ from contracted pen tests?</td></tr>
+  <tr><td>Question Style</td><td>"A company wants to test incident response procedures without testers having prior knowledge of the environment — which type of test is BEST?" (black box, red team); "What is the PRIMARY purpose of a purple team exercise?" (improve collaboration between red and blue)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 7 (incident response — blue team's day job); Domain 1 (contracting and legal authorization differences between bug bounty vs. contracted test); Domain 6 (assessment planning — choosing appropriate test type)</td></tr>
+  <tr><td>Key Exam Traps</td><td>Thinking "gray box" means testers have partial access — it means partial KNOWLEDGE (credentials given but not full architecture diagrams); confusing "red team" with a standard penetration test (red team is adversary simulation with full chain of attack; pen test is vulnerability-focused)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Organizations choose pen test types based on objectives. A startup with a new web application might use a white-box assessment to maximize coverage quickly with limited budget. A financial institution practicing incident response might run a full red team exercise to test how the SOC detects and responds. A large tech company might run a public bug bounty year-round to crowdsource vulnerability discovery from thousands of researchers.</p>
+<p>The wrong test type leads to wasted resources or gaps: running a black-box test when you want full coverage misses vulnerabilities that require internal knowledge. Running only external tests when internal threats are a primary concern provides false assurance.</p>
+</section>
+
+<section id="s3">
+<h2>3. Knowledge-Based Testing Types (Black / White / Gray Box)</h2>
+<div class="definition callout">
+  These terms describe how much <strong>prior knowledge of the target environment</strong> the pen testers are given BEFORE the engagement begins. This is about information, not access level.
+</div>
+<table>
+  <tr><th>Type</th><th>Prior Knowledge Given</th><th>Simulates</th><th>Advantages</th><th>Disadvantages</th></tr>
+  <tr><td><strong>Black Box</strong></td><td>None — testers receive only target name/IP range; no architecture, no credentials, no source code</td><td>External attacker with zero prior knowledge of the target</td><td>Most realistic attacker simulation; tests what a real external attacker would find; challenges SOC/detection capabilities</td><td>Time-consuming; may miss internal vulnerabilities; testers spend significant time on reconnaissance that adds cost</td></tr>
+  <tr><td><strong>White Box</strong> (Crystal Box)</td><td>Full — complete architecture diagrams, source code, credentials, configuration details, network diagrams</td><td>Malicious insider with full knowledge; OR thorough coverage audit</td><td>Maximum vulnerability coverage; fastest path to findings; catches code-level and design flaws; cost-efficient for finding most vulnerabilities</td><td>Does NOT simulate external attacker; results may not reflect what an outsider could actually find/exploit</td></tr>
+  <tr><td><strong>Gray Box</strong></td><td>Partial — may have valid user credentials, basic architecture info, or partial source code; NOT full internal documentation</td><td>Attacker who has gained a foothold (compromised user account); authenticated user abusing their access</td><td>Balance between realism and efficiency; tests what a compromised account could do; faster than black box while still somewhat realistic</td><td>Partial knowledge may mean testers take different paths than a real attacker would</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip — Gray Box Clarification:</strong> Gray box means partial KNOWLEDGE, not partial ACCESS. A gray-box tester might have valid user credentials (to simulate an authenticated user) and a general network diagram, but not source code or full admin credentials. This is the most common type used in practice.
+</div>
+
+<h3>White Box vs. Black Box — When to Choose Each</h3>
+<table>
+  <tr><th>Scenario</th><th>Best Choice</th><th>Reason</th></tr>
+  <tr><td>"We want to find as many vulnerabilities as possible in our code"</td><td>White Box</td><td>Provides source code access; maximizes coverage; SAST can be combined</td></tr>
+  <tr><td>"We want to know what an outside attacker would find"</td><td>Black Box</td><td>Simulates attacker with no inside knowledge</td></tr>
+  <tr><td>"We want to test what a compromised employee account can do"</td><td>Gray Box</td><td>Tester given employee-level credentials to start from</td></tr>
+  <tr><td>"We want to test incident response capabilities"</td><td>Black Box / Red Team</td><td>Testers behave like real attackers; SOC has no advance notice</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Scope-Based Testing Types (Internal vs. External)</h2>
+<h3>External Penetration Test</h3>
+<div class="definition callout">
+  <strong>External Pen Test:</strong> Testing targets the organization's internet-facing attack surface — public IP addresses, web applications, email servers, VPN gateways, DNS, public APIs. The tester starts from outside the network perimeter, with no internal network access.
+</div>
+<ul>
+  <li><strong>Targets:</strong> DMZ systems, web servers, email gateways, public-facing APIs, SSL/TLS configurations, DNS zone security</li>
+  <li><strong>Purpose:</strong> Identify what an internet-based attacker could exploit</li>
+  <li><strong>Required by:</strong> PCI DSS quarterly external scanning (ASV); annual external pen test requirement</li>
+</ul>
+
+<h3>Internal Penetration Test</h3>
+<div class="definition callout">
+  <strong>Internal Pen Test:</strong> Testing conducted from INSIDE the network perimeter — simulates an attacker who has already bypassed perimeter defenses (via phishing, stolen VPN credentials, insider threat, physical access). Focuses on internal systems, active directory, lateral movement, privilege escalation.
+</div>
+<ul>
+  <li><strong>Targets:</strong> Active Directory, internal servers, shared network drives, lateral movement paths, privilege escalation vectors, internal applications</li>
+  <li><strong>Purpose:</strong> Assess "assume breach" posture — what can an attacker do once inside?</li>
+  <li><strong>Finds:</strong> Domain admin paths, internal network segmentation failures, credential reuse, Kerberoasting, excessive service account privileges</li>
+</ul>
+<div class="key-concept callout">
+  <strong>External vs. Internal is about STARTING POSITION, not knowledge:</strong><br>
+  External = tester starts outside (internet); Internal = tester starts inside (corporate LAN)<br>
+  These are orthogonal to black/gray/white box — you can have a "white box internal" or "black box external" test.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Physical Penetration Testing</h2>
+<div class="definition callout">
+  <strong>Physical Pen Test:</strong> Testing of physical security controls — building access controls, badge readers, locks, guard procedures, tailgating prevention, secure areas. Testers attempt to gain unauthorized physical access to restricted areas.
+</div>
+<h3>Physical Testing Techniques</h3>
+<table>
+  <tr><th>Technique</th><th>Description</th></tr>
+  <tr><td>Tailgating / Piggybacking</td><td>Following an authorized person through a secured door without using own badge; tailgating = without their knowledge; piggybacking = with their complicit assistance</td></tr>
+  <tr><td>Impersonation</td><td>Posing as IT support, maintenance worker, delivery person, or contractor to gain building access</td></tr>
+  <tr><td>Lock picking / bypass</td><td>Bypassing physical locks using lock picks, bump keys, or relay attacks on RFID</td></tr>
+  <tr><td>Badge cloning</td><td>Using RFID/NFC readers to clone proximity cards (HID, 125kHz cards are highly vulnerable)</td></tr>
+  <tr><td>Dumpster diving</td><td>Searching discarded materials for sensitive documents, credentials, hardware</td></tr>
+  <tr><td>USB drop attack</td><td>Leaving malicious USB drives in parking lots or common areas to test if employees plug them in</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip — Tailgating vs. Piggybacking:</strong> Tailgating = without the person's knowledge or consent (they don't know they let an attacker in). Piggybacking = the authorized person knowingly holds the door open for the tester/attacker. Both are physical access vulnerabilities; different social engineering dynamics.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Social Engineering Testing</h2>
+<div class="definition callout">
+  <strong>Social Engineering Testing:</strong> Authorized testing that attempts to manipulate employees into taking insecure actions — revealing credentials, opening malicious attachments, granting unauthorized access, or disclosing sensitive information.
+</div>
+<h3>Social Engineering Test Types</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>What It Tests</th></tr>
+  <tr><td>Phishing Campaign</td><td>Simulated phishing emails sent to employee email addresses to test click/credential submission rates</td><td>Email security awareness; MFA adoption; phishing filter effectiveness</td></tr>
+  <tr><td>Spear Phishing</td><td>Targeted phishing using personal information about specific employees (OSINT-gathered)</td><td>High-value target resilience; executive/privileged user security</td></tr>
+  <tr><td>Vishing (Voice Phishing)</td><td>Phone calls to employees attempting to extract credentials, reset passwords, or get system info</td><td>Help desk social engineering resistance; phone verification procedures</td></tr>
+  <tr><td>Smishing</td><td>SMS-based phishing — text messages with malicious links</td><td>Mobile security awareness</td></tr>
+  <tr><td>Impersonation (in-person)</td><td>Physical presence + social engineering — pretending to be IT support to get someone to reveal credentials or grant access</td><td>Physical ID verification procedures; employee awareness</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Red Team / Blue Team / Purple Team</h2>
+<h3>Red Team</h3>
+<div class="definition callout">
+  <strong>Red Team:</strong> An internal or external group that simulates a full, realistic adversary attack against an organization — using ALL attack vectors (digital, physical, social engineering) over an extended period (weeks or months). The goal is to test detection and response capabilities, NOT just find vulnerabilities. The defensive team (Blue Team) does NOT know the test is occurring.
+</div>
+<ul>
+  <li>Uses TTPs (Tactics, Techniques, Procedures) of real threat actors (often modeled after APT groups)</li>
+  <li>Multi-vector attack: combines network hacking + social engineering + physical testing</li>
+  <li>Success is measured differently: can the red team achieve a specific objective (e.g., reach payment data, exfiltrate IP)?</li>
+  <li>More expensive and time-intensive than a pen test; typically 4–12 week engagements</li>
+</ul>
+
+<h3>Blue Team</h3>
+<div class="definition callout">
+  <strong>Blue Team:</strong> The internal defensive security team — SOC analysts, incident responders, security architects. Their job is to detect, respond to, and recover from attacks (real or simulated). During a red team exercise, the blue team is unaware that they're being tested.
+</div>
+
+<h3>Purple Team</h3>
+<div class="definition callout">
+  <strong>Purple Team:</strong> A collaborative exercise where red team and blue team work TOGETHER to improve both offensive testing coverage and defensive detection/response. The red team shares TTPs and attack methods in real-time so the blue team can practice detection and tuning of controls against known attack patterns.
+</div>
+<div class="key-concept callout">
+  <strong>Red vs. Purple Exercise — Key Difference:</strong><br>
+  <strong>Red team:</strong> Adversarial; blue team DOESN'T know they're being tested; measures real detection capability<br>
+  <strong>Purple team:</strong> Collaborative; both teams work together; goal is to IMPROVE controls together, not measure them<br>
+  Red team → assesses current state; Purple team → builds/improves defensive capability
+</div>
+<div class="diagram">
+                    TEAM EXERCISES COMPARISON
+
+  Red Team          Purple Team         Blue Team
+  ───────────       ────────────        ───────────
+  Adversary         Collaborative       Defender
+  simulation        training            operations
+      │                  │                   │
+  Attacks           Red+Blue            Detects &
+  undetected        share TTPs          responds
+      │                  │                   │
+  Measures          Improves            Defends
+  real detection    detection logic     production
+</div>
+
+<h3>Comparison Table</h3>
+<table>
+  <tr><th>Attribute</th><th>Pen Test</th><th>Red Team</th><th>Purple Team</th></tr>
+  <tr><td>Blue team aware?</td><td>Usually not</td><td>No — covert</td><td>Yes — collaborative</td></tr>
+  <tr><td>Duration</td><td>Days to weeks</td><td>Weeks to months</td><td>Ongoing/periodic</td></tr>
+  <tr><td>Goal</td><td>Find exploitable vulnerabilities</td><td>Test detection &amp; response to realistic adversary</td><td>Improve both offensive and defensive capability together</td></tr>
+  <tr><td>Attack vectors</td><td>Specified scope</td><td>All vectors (cyber + physical + social)</td><td>Structured scenarios, mutually planned</td></tr>
+  <tr><td>Cost</td><td>$15K–$100K</td><td>$100K–$500K+</td><td>Varies; often ongoing</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Bug Bounty Programs</h2>
+<div class="definition callout">
+  <strong>Bug Bounty Program:</strong> An organization invites independent security researchers (white-hat hackers) to test systems within a defined scope and pays rewards (bounties) for valid vulnerability reports. Unlike contracted pen tests, bug bounties are open to the public or a defined pool of researchers continuously.
+</div>
+<h3>Key Characteristics</h3>
+<table>
+  <tr><th>Attribute</th><th>Bug Bounty</th><th>Contracted Pen Test</th></tr>
+  <tr><td>Testers</td><td>Crowd of independent researchers globally</td><td>Defined, contracted security firm or individuals</td></tr>
+  <tr><td>Duration</td><td>Ongoing / continuous</td><td>Fixed timeframe engagement</td></tr>
+  <tr><td>Payment</td><td>Per valid finding (bounty)</td><td>Fixed fee for engagement</td></tr>
+  <tr><td>Coverage</td><td>Broad — many researchers, many skills, unpredictable paths</td><td>Defined scope; methodology-driven; systematic</td></tr>
+  <tr><td>Scope control</td><td>Legally defining scope is critical — researchers must stay within scope</td><td>Scope controlled by SOW and ROE document</td></tr>
+  <tr><td>Legal authorization</td><td>Public program policy IS the legal authorization for in-scope activity</td><td>Signed contract and ROE required</td></tr>
+  <tr><td>Best for</td><td>Continuous coverage; large attack surfaces; large organizations (Google, Microsoft)</td><td>Deep systematic assessment; compliance requirements; testing under NDA</td></tr>
+</table>
+<h3>Bug Bounty Platforms</h3>
+<ul>
+  <li><strong>HackerOne:</strong> Largest bug bounty platform; used by US DoD, major tech companies</li>
+  <li><strong>Bugcrowd:</strong> Alternative platform; also offers "managed" programs with vetting</li>
+  <li><strong>Synack:</strong> Vetted, trusted researcher pool (combines crowdsourced + curated)</li>
+</ul>
+<div class="warning callout">
+  ⚠️ <strong>Scope Violations:</strong> Bug bounty hunters who test systems outside defined scope (even accidentally) can face legal consequences. The scope definition in the bug bounty policy IS the legal authorization — testing out-of-scope is identical to unauthorized access.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Black/White/Gray — Knowledge Levels</strong><br>
+  <strong>Black box</strong> = Dark room (no info — must find everything yourself)<br>
+  <strong>White box</strong> = Lights fully on (full info — architecture, code, credentials)<br>
+  <strong>Gray box</strong> = Dim room (partial info — maybe one key, maybe a map, but not everything)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Red/Blue/Purple Team Summary</strong><br>
+  <strong>Red</strong> = Attacks (adversary, offensive)<br>
+  <strong>Blue</strong> = Defends (SOC, incident response)<br>
+  <strong>Purple</strong> = Both play together ("Red + Blue = Purple") — collaborative improvement
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Tailgating vs. Piggybacking</strong><br>
+  <strong>Tailgating</strong> = Follows WITHOUT knowledge (like a dog following you without being invited — you don't know)<br>
+  <strong>Piggybacking</strong> = Held the door (the person knowingly lets them in — they chose to let the "pig" ride along)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Bug Bounty vs. Pen Test</strong><br>
+  Bug Bounty = <strong>Open invitation</strong> (many researchers, continuous, pay-per-bug)<br>
+  Pen Test = <strong>Hired contractor</strong> (specific testers, fixed scope, fixed fee)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Black box</td><td>No prior knowledge given; simulates external attacker; most realistic but most time-consuming</td></tr>
+  <tr><td>White box (crystal box)</td><td>Full knowledge (architecture, code, credentials); maximum coverage; does not simulate external attacker</td></tr>
+  <tr><td>Gray box</td><td>Partial knowledge (e.g., user credentials but not full architecture); simulates compromised user/insider</td></tr>
+  <tr><td>External pen test</td><td>Starts from outside network (internet); tests perimeter/DMZ systems</td></tr>
+  <tr><td>Internal pen test</td><td>Starts from inside network; simulates attacker who bypassed perimeter; tests lateral movement/privesc</td></tr>
+  <tr><td>Physical pen test</td><td>Tests physical security controls: badge readers, locks, tailgating, RFID cloning</td></tr>
+  <tr><td>Tailgating</td><td>Following authorized person through secured door without their knowledge</td></tr>
+  <tr><td>Piggybacking</td><td>Authorized person knowingly holds door for unauthorized person</td></tr>
+  <tr><td>Social engineering testing</td><td>Phishing campaigns, vishing, impersonation — tests human security controls</td></tr>
+  <tr><td>Red team</td><td>Full adversary simulation; covert; tests blue team detection; multi-vector; weeks to months</td></tr>
+  <tr><td>Blue team</td><td>Internal defensive security team; detects and responds; does not know red team exercise is happening</td></tr>
+  <tr><td>Purple team</td><td>Red + blue collaborate; builds detection/response capability; not adversarial</td></tr>
+  <tr><td>Bug bounty</td><td>Continuous, crowd-sourced vulnerability discovery; pay-per-valid-finding; scope-defined legal authorization</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>Gray box = partial KNOWLEDGE (not partial access); most common test type in real engagements</li>
+    <li>Red team = covert adversary simulation measuring real detection capability; not a standard pen test</li>
+    <li>Purple team = collaborative RED + BLUE improvement exercise (not adversarial)</li>
+    <li>Bug bounty is CONTINUOUS and CROWDSOURCED; pen test is FIXED SCOPE and CONTRACTED</li>
+    <li>Physical testing includes USB drop attacks, badge cloning, tailgating — all valid CISSP exam topics</li>
+    <li>Internal testing simulates "assume breach" — most dangerous and often most revealing</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-088-theory.html" class="nav-btn">← Day 88: Pen Testing Methodology</a>
+  <a href="day-090-theory.html" class="nav-btn">Day 90: Log Management &amp; Monitoring →</a>
+</div>
+</div>
+</body>
+</html>

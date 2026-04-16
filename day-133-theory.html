@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 133 – Cross-Domain Review: Domains 5 &amp; 6</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 133 – Cross-Domain Review: Domains 5 &amp; 6</h1>
+  <div class="subtitle">Identity &amp; Access Management + Security Assessment &amp; Testing</div>
+  <div class="meta">
+    <span>📅 Day 133 of 140</span>
+    <span>📚 Cross-Domain Review</span>
+    <span>⏱️ ~60 min review</span>
+    <span>🎯 Integration &amp; Exam Prep</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-132-theory.html">← Day 132: Cross-Domain D3+D4</a> · Cross-Domain · Day 133</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 5 – Identity &amp; Access Management (13%)</a></li>
+  <li><a href="#s2">2. Domain 6 – Security Assessment &amp; Testing (12%)</a></li>
+  <li><a href="#s3">3. Cross-Domain Connections: D5 ↔ D6</a></li>
+  <li><a href="#s4">4. Authentication &amp; Authorization Master Table</a></li>
+  <li><a href="#s5">5. High-Yield Exam Concepts</a></li>
+  <li><a href="#s6">6. D5 + D6 Mnemonic Summary</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 5 – Identity &amp; Access Management (13%)</h2>
+
+<h3>Authentication Factors</h3>
+<table>
+  <tr><th>Factor</th><th>Type</th><th>Examples</th></tr>
+  <tr><td><strong>Type 1 — Something You Know</strong></td><td>Knowledge</td><td>Password, PIN, passphrase, security question</td></tr>
+  <tr><td><strong>Type 2 — Something You Have</strong></td><td>Possession</td><td>Smart card, token, phone (OTP), PIV card</td></tr>
+  <tr><td><strong>Type 3 — Something You Are</strong></td><td>Biometric</td><td>Fingerprint, retina, iris, voice, facial recognition</td></tr>
+  <tr><td><strong>Type 4 — Somewhere You Are</strong></td><td>Location</td><td>IP address, GPS, geolocation</td></tr>
+  <tr><td><strong>Type 5 — Something You Do</strong></td><td>Behavior</td><td>Typing rhythm, gait analysis, signature dynamics</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>MFA requires factors from DIFFERENT categories.</strong> Two passwords = NOT MFA (both Type 1). Password + smart card = MFA (Type 1 + Type 2). MFA is ALWAYS the best answer for improving authentication security.
+</div>
+
+<h3>Biometric Error Rates</h3>
+<table>
+  <tr><th>Metric</th><th>Definition</th><th>Exam Focus</th></tr>
+  <tr><td><strong>FRR (Type I)</strong></td><td>False Rejection Rate — rejects authorized user</td><td>Inconvenience (too sensitive)</td></tr>
+  <tr><td><strong>FAR (Type II)</strong></td><td>False Acceptance Rate — accepts unauthorized user</td><td>Security risk (too lenient)</td></tr>
+  <tr><td><strong>CER/EER</strong></td><td>Crossover Error Rate — where FRR = FAR</td><td>Lower CER = more accurate system; BEST comparison metric</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Type II (FAR) is always the MORE DANGEROUS error</strong> — it lets unauthorized users in. Type I (FRR) is annoying but not a security breach. CER is the gold standard for comparing biometric systems.
+</div>
+
+<h3>Access Control Models</h3>
+<table>
+  <tr><th>Model</th><th>Who Decides</th><th>Basis</th><th>Example</th></tr>
+  <tr><td><strong>DAC</strong></td><td>Data owner</td><td>Identity of requester</td><td>NTFS permissions, Unix file perms</td></tr>
+  <tr><td><strong>MAC</strong></td><td>System/policy</td><td>Labels/clearances</td><td>Military classified systems (Top Secret, Secret)</td></tr>
+  <tr><td><strong>RBAC</strong></td><td>Administrator</td><td>Job role/function</td><td>Doctor role, Nurse role → different access</td></tr>
+  <tr><td><strong>ABAC</strong></td><td>Policy engine</td><td>Attributes (user, resource, environment, action)</td><td>IF dept=finance AND time=business_hours → allow</td></tr>
+  <tr><td><strong>Rule-based</strong></td><td>Rules/ACLs</td><td>Predefined rules</td><td>Firewall rules (allow/deny by IP/port)</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>DAC = most common, least restrictive.</strong> MAC = most restrictive, most secure. RBAC = best for large organizations (role-based). ABAC = most flexible, granular (attribute-based policies).
+</div>
+
+<h3>SSO Technologies</h3>
+<table>
+  <tr><th>Protocol</th><th>Use</th><th>Key Fact</th></tr>
+  <tr><td><strong>Kerberos</strong></td><td>Enterprise SSO (AD)</td><td>Ticket-based; port 88; TGT from KDC; mutual auth; vulnerable to pass-the-ticket, golden ticket</td></tr>
+  <tr><td><strong>SAML</strong></td><td>Web SSO (enterprise)</td><td>XML-based; IdP sends assertions to SP; browser redirect flow</td></tr>
+  <tr><td><strong>OAuth 2.0</strong></td><td>Authorization (APIs)</td><td>NOT authentication; grants access tokens; delegated authorization</td></tr>
+  <tr><td><strong>OpenID Connect</strong></td><td>Authentication</td><td>Built ON TOP of OAuth 2.0; adds ID token (JWT); "Login with Google"</td></tr>
+  <tr><td><strong>RADIUS</strong></td><td>Network AAA</td><td>Encrypts password only; UDP; combined auth + authz; 802.1X backend</td></tr>
+  <tr><td><strong>TACACS+</strong></td><td>Network AAA</td><td>Encrypts ENTIRE payload; TCP; separates AAA functions; Cisco preferred</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>RADIUS vs TACACS+:</strong> If the question asks about encrypting the full payload or separating AAA → TACACS+. If asking about 802.1X backend → RADIUS. TACACS+ = TCP + full encryption + separate AAA. RADIUS = UDP + password-only encryption + combined auth/authz.
+</div>
+
+<h3>Identity Lifecycle</h3>
+<p><strong>Provisioning → Review → Modification → Deprovisioning</strong></p>
+<ul>
+  <li><strong>Provisioning:</strong> Create account, assign minimum permissions (least privilege)</li>
+  <li><strong>Review:</strong> Periodic access reviews/recertification (manager attestation)</li>
+  <li><strong>Modification:</strong> Role changes; REMOVE old access (prevent privilege creep/aggregation)</li>
+  <li><strong>Deprovisioning:</strong> Disable IMMEDIATELY on termination; delete after retention period</li>
+</ul>
+</section>
+
+<section id="s2">
+<h2>2. Domain 6 – Security Assessment &amp; Testing (12%)</h2>
+
+<h3>Assessment Types</h3>
+<table>
+  <tr><th>Type</th><th>Purpose</th><th>Key Difference</th></tr>
+  <tr><td><strong>Vulnerability Assessment</strong></td><td>Identify weaknesses</td><td>Does NOT exploit; scans and reports</td></tr>
+  <tr><td><strong>Penetration Test</strong></td><td>Exploit weaknesses</td><td>Actually exploits to prove impact; requires authorization</td></tr>
+  <tr><td><strong>Security Audit</strong></td><td>Verify compliance</td><td>Measures against a standard/policy; formal report</td></tr>
+  <tr><td><strong>Red Team</strong></td><td>Adversary simulation</td><td>Realistic attack; tests detection + response; long-term</td></tr>
+  <tr><td><strong>Blue Team</strong></td><td>Defensive operations</td><td>Detection, monitoring, incident response</td></tr>
+  <tr><td><strong>Purple Team</strong></td><td>Collaboration</td><td>Red + Blue working together to improve both</td></tr>
+</table>
+
+<h3>Pen Test Methodologies</h3>
+<table>
+  <tr><th>Type</th><th>Knowledge</th><th>Also Called</th></tr>
+  <tr><td><strong>Black box</strong></td><td>No prior knowledge</td><td>External/blind test</td></tr>
+  <tr><td><strong>White box</strong></td><td>Full knowledge (source code, architecture)</td><td>Crystal box, full disclosure</td></tr>
+  <tr><td><strong>Grey box</strong></td><td>Partial knowledge</td><td>Partial disclosure</td></tr>
+</table>
+
+<h3>SOC Reports</h3>
+<table>
+  <tr><th>Report</th><th>Focus</th><th>Audience</th></tr>
+  <tr><td><strong>SOC 1</strong></td><td>Financial controls (ICFR)</td><td>Auditors, financial stakeholders</td></tr>
+  <tr><td><strong>SOC 2</strong></td><td>Trust Services Criteria (security, availability, processing integrity, confidentiality, privacy)</td><td>Management, regulators, specified parties (NDA)</td></tr>
+  <tr><td><strong>SOC 3</strong></td><td>Same as SOC 2 but general use</td><td>Public — can be posted on website</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>SOC Type I vs Type II:</strong> Type I = point-in-time (design of controls). Type II = over a period (6+ months, tests operating effectiveness). Type II is ALWAYS more valuable and more commonly requested.
+</div>
+
+<h3>Testing Techniques</h3>
+<table>
+  <tr><th>Technique</th><th>Description</th></tr>
+  <tr><td><strong>Log review</strong></td><td>Analyze security logs for anomalies; SIEM aggregation; must be regular</td></tr>
+  <tr><td><strong>Code review</strong></td><td>Manual or automated analysis of source code; Fagan inspection = most formal</td></tr>
+  <tr><td><strong>Misuse case testing</strong></td><td>Test from attacker's perspective; what SHOULDN'T work</td></tr>
+  <tr><td><strong>Interface testing</strong></td><td>Test APIs, UIs, network interfaces for proper behavior and security</td></tr>
+  <tr><td><strong>Compliance testing</strong></td><td>Verify adherence to regulations (PCI DSS, HIPAA, SOX)</td></tr>
+  <tr><td><strong>KRI/KPI</strong></td><td>Key Risk Indicators (leading) vs Key Performance Indicators (lagging); KRIs predict risk, KPIs measure past performance</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cross-Domain Connections: D5 ↔ D6</h2>
+<table>
+  <tr><th>Connection</th><th>D5 Concept</th><th>D6 Concept</th></tr>
+  <tr><td>Access review</td><td>Periodic access recertification; prevent privilege creep</td><td>User access reviews as a security assessment activity</td></tr>
+  <tr><td>Authentication testing</td><td>MFA, SSO, Kerberos, federation</td><td>Pen testing authentication mechanisms; credential attacks</td></tr>
+  <tr><td>Account management</td><td>Provisioning/deprovisioning lifecycle</td><td>Audit of account management processes</td></tr>
+  <tr><td>Privileged access</td><td>PAM (Privileged Access Management), just-in-time access</td><td>Testing privileged account controls; monitoring privileged sessions</td></tr>
+  <tr><td>Third-party access</td><td>Federation, SAML, external IdP</td><td>SOC 2 Type II reports validating third-party security</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Authentication &amp; Authorization Master Table</h2>
+<table>
+  <tr><th>Concept</th><th>Authentication</th><th>Authorization</th></tr>
+  <tr><td>Question answered</td><td>"Who are you?"</td><td>"What can you do?"</td></tr>
+  <tr><td>Occurs</td><td>First</td><td>After authentication</td></tr>
+  <tr><td>Based on</td><td>Credentials (factors)</td><td>Policies, roles, attributes</td></tr>
+  <tr><td>Protocols</td><td>OIDC, Kerberos, SAML</td><td>OAuth 2.0, XACML, ACLs</td></tr>
+  <tr><td>Fails as</td><td>401 Unauthorized</td><td>403 Forbidden</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>OAuth 2.0 = AUTHORIZATION only.</strong> It's the most commonly confused protocol. OAuth grants access tokens for API authorization. OpenID Connect (built on OAuth) adds AUTHENTICATION via ID tokens.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. High-Yield Exam Concepts</h2>
+<table>
+  <tr><th>#</th><th>Concept</th><th>Exam Point</th></tr>
+  <tr><td>1</td><td>MFA</td><td>ALWAYS best answer for authentication security; factors must be from DIFFERENT categories</td></tr>
+  <tr><td>2</td><td>CER/EER</td><td>Lower CER = better biometric system; where FRR = FAR</td></tr>
+  <tr><td>3</td><td>Type I vs Type II error</td><td>Type I = false reject (annoying); Type II = false accept (dangerous)</td></tr>
+  <tr><td>4</td><td>DAC/MAC/RBAC/ABAC</td><td>Know which model fits each scenario; MAC = most secure but rigid</td></tr>
+  <tr><td>5</td><td>Kerberos</td><td>Ticket-based, port 88, TGT/TGS, no password sent over network</td></tr>
+  <tr><td>6</td><td>OAuth vs OIDC</td><td>OAuth = authorization; OIDC = authentication on top of OAuth</td></tr>
+  <tr><td>7</td><td>RADIUS vs TACACS+</td><td>RADIUS = UDP + partial encryption; TACACS+ = TCP + full encryption + separate AAA</td></tr>
+  <tr><td>8</td><td>Privilege creep</td><td>Accumulation of access after role changes; prevented by access reviews</td></tr>
+  <tr><td>9</td><td>SOC 2 Type II</td><td>Most valuable third-party assurance; tests operating effectiveness over time</td></tr>
+  <tr><td>10</td><td>Vuln scan vs pen test</td><td>Scan = identify; pen test = exploit; pen test needs written authorization</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. D5 + D6 Mnemonic Summary</h2>
+<table>
+  <tr><th>Mnemonic</th><th>Topic</th><th>Meaning</th></tr>
+  <tr><td>"Know, Have, Are"</td><td>Auth factors</td><td>Type 1 = knowledge, Type 2 = possession, Type 3 = biometric</td></tr>
+  <tr><td>"Type I = Innocent rejected; Type II = Intruder Accepted"</td><td>Biometric errors</td><td>FRR = inconvenience; FAR = security breach</td></tr>
+  <tr><td>"TACACS+ = TCP, Total encryption, Tripartite AAA"</td><td>AAA protocols</td><td>Three T's distinguish TACACS+ from RADIUS</td></tr>
+  <tr><td>"OAuth = Open Authorization (NOT authentication)"</td><td>OAuth vs OIDC</td><td>OAuth grants access; OIDC adds identity</td></tr>
+  <tr><td>"SOC 2 Type II = Time Tested"</td><td>SOC reports</td><td>Type II covers a period; more valuable than Type I point-in-time</td></tr>
+  <tr><td>"DRMM = Data owner, RBAC, MAC, MANDATORY"</td><td>Access control</td><td>DAC=owner decides; RBAC=roles; MAC=mandatory labels</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-132-theory.html" class="nav-btn">← Day 132: Cross-Domain D3+D4</a>
+  <a href="day-134-theory.html" class="nav-btn">Day 134: Cross-Domain D7+D8 →</a>
+</div>
+</div>
+</body>
+</html>

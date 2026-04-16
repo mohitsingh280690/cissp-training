@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 88 – Penetration Testing: Methodology</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 88 – Penetration Testing: Methodology</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 88 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate–Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-087-theory.html">← Day 87: Vulnerability Assessments</a> · Domain 6 · Day 88</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. What Is a Penetration Test?</a></li>
+  <li><a href="#s4">4. Penetration Testing Frameworks</a></li>
+  <li><a href="#s5">5. Phases of a Penetration Test</a></li>
+  <li><a href="#s6">6. Reconnaissance Techniques (Passive vs. Active)</a></li>
+  <li><a href="#s7">7. Exploitation &amp; Post-Exploitation</a></li>
+  <li><a href="#s8">8. Reporting &amp; Rules of Engagement</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>CISSP candidates must understand how penetration tests are conducted, what frameworks govern them, and what each phase produces. The exam tests both managerial understanding (authorization, ROE, legal) and technical knowledge (phases, reconnaissance types)</td></tr>
+  <tr><td>Question Style</td><td>"A penetration tester discovered a vulnerability but did NOT exploit it beyond initial access — what phase were they in when they stopped?" (exploitation); "Which framework uses a comprehensive methodology covering physical, wireless, telecom?" (OSSTMM)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 6 (vulnerability assessment as Phase 1 input); Domain 1 (legal authorization, liability); Domain 4 (network scanning, firewall bypass); Domain 7 (incident response if pen test discovery warrants)</td></tr>
+  <tr><td>Exam Traps</td><td>Thinking pen test phases are identical across frameworks (they use different names); confusing passive vs. active reconnaissance; assuming a pen test provides blanket indemnity without a signed authorization document</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Penetration testing is a <strong>services-based engagement</strong> — organizations either employ internal red teams or hire external firms. A typical enterprise pen test costs $15,000–$100,000+ depending on scope and duration. PCI DSS Requirement 11.4 mandates annual penetration testing of the CDE. HIPAA requires periodic testing of "technical controls" (often interpreted as pen testing).</p>
+<p>The output is a <strong>findings report with exploitation evidence</strong> — screenshots, proof-of-concept (PoC) code, network captures showing successful attacks. This differentiates pen test output from vulnerability scan output (which only shows what was found, not what is actually exploitable).</p>
+<div class="warning callout">
+  ⚠️ <strong>Legal Warning:</strong> Penetration testing without explicit written authorization is illegal under the Computer Fraud and Abuse Act (CFAA), UK Computer Misuse Act, and equivalent laws globally. Even internal employees can violate CFAA by testing systems without written authorization from the system owner.
+</div>
+</section>
+
+<section id="s3">
+<h2>3. What Is a Penetration Test?</h2>
+<div class="definition callout">
+  <strong>Penetration Test:</strong> An authorized, simulated cyber attack against a system, network, or application to identify vulnerabilities that can be exploited and to evaluate the effectiveness of security controls. Unlike vulnerability assessment, pen testing DOES involve exploitation to prove that a vulnerability can result in real unauthorized access or data exposure.
+</div>
+<p>A penetration test's value is in <strong>proving risk</strong> — not just listing potential issues. The pen tester demonstrates: "I can log in as administrator using CVE-2021-XXXX" or "I can read the production database contents by exploiting this SQL injection."</p>
+
+<h3>Penetration Test vs. Vulnerability Assessment</h3>
+<table>
+  <tr><th>Attribute</th><th>Vulnerability Assessment</th><th>Penetration Test</th></tr>
+  <tr><td>Goal</td><td>Find and list vulnerabilities</td><td>Exploit to prove impact</td></tr>
+  <tr><td>Exploitation</td><td>No</td><td>Yes (authorized)</td></tr>
+  <tr><td>False positives</td><td>High — scanner may flag non-vulnerabilities</td><td>Low — exploitation confirms the finding</td></tr>
+  <tr><td>Scope</td><td>Broad — many systems</td><td>Focused — less systems, deeper probing</td></tr>
+  <tr><td>Report</td><td>CVSS-scored vulnerability list</td><td>Narrative + exploitation evidence + remediation guidance</td></tr>
+  <tr><td>Frequency</td><td>Frequent (automated weekly/monthly)</td><td>Annual or event-driven</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Penetration Testing Frameworks</h2>
+<h3>PTES — Penetration Testing Execution Standard</h3>
+<div class="definition callout">
+  <strong>PTES</strong> defines seven phases: Pre-engagement interactions, Intelligence gathering, Threat modeling, Vulnerability analysis, Exploitation, Post-exploitation, Reporting. It is widely used as a comprehensive methodology for black-box and gray-box engagements. Available at pentest-standard.org.
+</div>
+
+<h3>OSSTMM — Open Source Security Testing Methodology Manual</h3>
+<div class="definition callout">
+  <strong>OSSTMM</strong> (by ISECOM) is the broadest methodology — covers not only network/application testing but also <strong>physical security, social engineering, wireless, telecommunications, and data networks</strong>. It formalized the quantitative measurement of <strong>Attack Surface</strong> using "attack surface area" in its scoring. Produces quantitative metrics rather than just qualitative findings. Best for organizations needing comprehensive physical and technical combined assessment.
+</div>
+
+<h3>NIST SP 800-115 — Technical Guide to Information Security Testing and Assessment</h3>
+<div class="definition callout">
+  <strong>NIST SP 800-115</strong> is the US federal government's standard technical guide for security testing. Defines the phases: Planning, Discovery, Attack, Reporting. Widely used for government system assessments and by organizations following NIST RMF. Includes vulnerability scanning, penetration testing, and review techniques (log review, ruleset review, documentation review).
+</div>
+
+<h3>OWASP Testing Guide (OTG)</h3>
+<div class="definition callout">
+  <strong>OWASP Testing Guide</strong> focuses specifically on <strong>web application</strong> penetration testing. Organized around OWASP Top 10 risk categories (injection, broken authentication, XSS, etc.). Most relevant for web application security assessments; not a general network pen test framework.
+</div>
+
+<h3>Framework Comparison</h3>
+<table>
+  <tr><th>Framework</th><th>Scope</th><th>Best For</th><th>Output Type</th></tr>
+  <tr><td>PTES</td><td>Network, systems, applications</td><td>General-purpose pen test engagements</td><td>Qualitative findings report</td></tr>
+  <tr><td>OSSTMM</td><td>Network + physical + social + wireless + telecom</td><td>Comprehensive security tests including physical</td><td>Quantitative rav (Risk Assessment Values) scores via STAR report</td></tr>
+  <tr><td>NIST SP 800-115</td><td>Networks, systems; government context</td><td>Federal/government system assessments; NIST RMF compliance</td><td>Findings report; government-style documentation</td></tr>
+  <tr><td>OWASP OTG</td><td>Web applications</td><td>Web app pen tests; developers</td><td>Findings report by OWASP category</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Key Exam Distinguisher:</strong> OSSTMM is the ONLY framework covering physical security, wireless, and telecommunications. If the question mentions "all security domains including physical" → OSSTMM. If the question is about "US government/federal compliance" → NIST SP 800-115.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Phases of a Penetration Test</h2>
+<div class="diagram">
+PHASE 1: Planning & Pre-Engagement
+  ├── Define scope, permissions, objectives
+  ├── Sign Statement of Work (SOW) + Rules of Engagement (ROE)
+  └── Emergency contacts, escalation procedures
+
+PHASE 2: Reconnaissance (Intelligence Gathering)
+  ├── Passive recon (OSINT — no direct target interaction)
+  └── Active recon (direct probing — DNS queries, port scans)
+
+PHASE 3: Scanning / Discovery
+  ├── Vulnerability scanning (Nessus, OpenVAS)
+  ├── Port scanning (Nmap)
+  └── Service enumeration; OS fingerprinting
+
+PHASE 4: Exploitation
+  ├── Attempt to exploit discovered vulnerabilities
+  ├── Use exploit frameworks (Metasploit, Cobalt Strike)
+  └── Establish initial access
+
+PHASE 5: Post-Exploitation
+  ├── Privilege escalation (local → admin → domain admin)
+  ├── Lateral movement (pivot to other systems)
+  ├── Persistence establishment (backdoor, C2)
+  └── Data exfiltration simulation; demonstrate impact
+
+PHASE 6: Reporting
+  ├── Executive summary (risk level, business impact)
+  ├── Technical findings (vulnerability + evidence + CVSS)
+  └── Remediation recommendations
+</div>
+
+<h3>Phase Detail — Planning</h3>
+<p>The most critical phase from a legal and organizational standpoint. Defines <strong>scope</strong> (which systems are in-scope), <strong>timing</strong> (when testing may occur), <strong>contacts</strong> (who to call if something breaks or alarms trigger), <strong>rules of engagement</strong> (what is allowed and what is off-limits), and <strong>legal authorization</strong> (signed document authorizing the testing).</p>
+
+<h3>Phase Detail — Exploitation</h3>
+<p>This is the key differentiator from a vulnerability assessment. The tester <strong>actively attempts to gain unauthorized access</strong> using discovered vulnerabilities. Tools include Metasploit (exploit framework), Cobalt Strike (commercial red team platform), and custom exploits. The goal is to gain an initial foothold.</p>
+
+<h3>Phase Detail — Post-Exploitation</h3>
+<p>After gaining initial access, the tester demonstrates <strong>what an attacker could do with that access</strong>. This includes privilege escalation, lateral movement, accessing sensitive data, and establishing persistence. This phase provides the most meaningful evidence of real-world risk — showing the business impact, not just the technical vulnerability.</p>
+</section>
+
+<section id="s6">
+<h2>6. Reconnaissance Techniques (Passive vs. Active)</h2>
+<table>
+  <tr><th>Type</th><th>Definition</th><th>Examples</th><th>Detectability</th></tr>
+  <tr><td><strong>Passive Reconnaissance (OSINT)</strong></td><td>Gathering intelligence WITHOUT directly interacting with the target's systems. Uses publicly available information.</td><td>Whois lookups, Google dorking, Shodan searches, LinkedIn employee enumeration, certificate transparency logs (crt.sh), DNS records via third-party services, job postings revealing technology stack</td><td>Very low — no traffic sent to target systems</td></tr>
+  <tr><td><strong>Active Reconnaissance</strong></td><td>Directly probing target systems to gather information. Generates traffic that reaches (and can be detected by) the target.</td><td>Nmap port scan, DNS zone transfer attempt, web application crawling, SMTP enumeration, OS fingerprinting, banner grabbing</td><td>Medium to high — IDS/SIEM can detect scanning activity</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>OSINT Tools for Passive Recon:</strong><br>
+  • <strong>Shodan</strong> — search engine for internet-connected devices; finds exposed cameras, ICS, servers<br>
+  • <strong>Maltego</strong> — visualizes relationships between entities (domains, IPs, people, organizations)<br>
+  • <strong>theHarvester</strong> — collects emails, hosts, subdomains, IPs from public sources<br>
+  • <strong>crt.sh</strong> — certificate transparency log search; reveals subdomains<br>
+  • <strong>Recon-ng</strong> — open-source OSINT framework
+</div>
+<div class="exam-tip callout">
+  <strong>Exam Tip — Passive vs. Active:</strong> Passive recon does NOT touch the target — it uses information others have gathered (search engines, registration databases, public DNS). Active recon DOES touch the target — a port scan is active recon even though it precedes exploitation.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Exploitation &amp; Post-Exploitation</h2>
+<h3>Exploitation Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Purpose</th></tr>
+  <tr><td>Metasploit Framework</td><td>Open source exploit framework</td><td>Contains thousands of exploits, payloads, and auxiliary modules; most widely used pen test exploitation platform</td></tr>
+  <tr><td>Cobalt Strike</td><td>Commercial red team platform</td><td>Advanced C2 (command and control) capabilities; beacon implants; post-exploitation automation</td></tr>
+  <tr><td>Burp Suite</td><td>Web application testing</td><td>Intercepts HTTP/HTTPS traffic; fuzzing; scanner; web app exploitation</td></tr>
+  <tr><td>SQLmap</td><td>Automated SQL injection</td><td>Detects and exploits SQL injection vulnerabilities in web apps</td></tr>
+  <tr><td>Mimikatz</td><td>Credential harvesting</td><td>Extracts Windows credentials (NTLM hashes, Kerberos tickets) from memory</td></tr>
+</table>
+
+<h3>Post-Exploitation Objectives</h3>
+<ul>
+  <li><strong>Privilege Escalation:</strong> Move from low-privileged access to administrator/SYSTEM/root</li>
+  <li><strong>Credential Dumping:</strong> Extract password hashes for offline cracking (Mimikatz, impacket)</li>
+  <li><strong>Lateral Movement:</strong> Use compromised system as pivot point to attack other internal systems (impossible with VPN not in scope)</li>
+  <li><strong>Persistence:</strong> Install backdoor, create rogue admin account, add scheduled task — to simulate attacker maintaining access</li>
+  <li><strong>Data Exfiltration Simulation:</strong> Show that sensitive data could be extracted (demonstrate impact to business)</li>
+</ul>
+</section>
+
+<section id="s8">
+<h2>8. Reporting &amp; Rules of Engagement</h2>
+<h3>Rules of Engagement (ROE)</h3>
+<p>The ROE document defines everything permitted and prohibited during the test. Without ROE, the pen tester has no legal protection.</p>
+<table>
+  <tr><th>ROE Component</th><th>Example Content</th></tr>
+  <tr><td>Scope</td><td>IP ranges, domains, applications in-scope; explicit out-of-scope list</td></tr>
+  <tr><td>Testing Window</td><td>"Testing allowed 8PM–6AM weekdays and weekends only" — to minimize business impact</td></tr>
+  <tr><td>Authorized Techniques</td><td>Social engineering allowed? Physical access testing allowed? DoS allowed?</td></tr>
+  <tr><td>Notification Contacts</td><td>Who to call if a critical system is accidentally taken down</td></tr>
+  <tr><td>Escalation Procedures</td><td>What to do if active exploitation of a 3rd party found; criminal activity discovered</td></tr>
+  <tr><td>Emergency Stop Conditions</td><td>Tester must immediately stop and notify if real attacker discovered on network</td></tr>
+  <tr><td>Evidence Handling</td><td>How to secure and destroy data gathered during the test; data classification</td></tr>
+</table>
+
+<h3>Penetration Test Report Components</h3>
+<table>
+  <tr><th>Section</th><th>Audience</th><th>Content</th></tr>
+  <tr><td>Executive Summary</td><td>Board, CISO, non-technical leadership</td><td>Overall risk posture; most critical findings; business impact; remediation investment needed</td></tr>
+  <tr><td>Scope &amp; Methodology</td><td>Technical leadership</td><td>What was tested; framework used; testing dates; tester credentials</td></tr>
+  <tr><td>Findings Summary</td><td>Security management</td><td>List of vulnerabilities with severity ratings; exploitation status</td></tr>
+  <tr><td>Technical Findings</td><td>IT/security teams</td><td>Each finding: description, CVE/CWE reference, CVSS score, evidence (screenshots, logs), step-by-step reproduction</td></tr>
+  <tr><td>Remediation Guidance</td><td>System owners, developers</td><td>Specific, actionable patching/configuration guidance for each finding</td></tr>
+  <tr><td>Attack Narrative</td><td>Security team</td><td>Story of the engagement: how attacker would chain findings to achieve objective (kill chain narrative)</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Pen Test Phases — "Please Run Six Exploits Past Reporting"</strong><br>
+  <strong>P</strong>lanning → <strong>R</strong>econnaissance → <strong>S</strong>canning → <strong>E</strong>xploitation → <strong>P</strong>ost-exploitation → <strong>R</strong>eporting
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Framework Quick Reference</strong><br>
+  <strong>PTES</strong> = General pen test (most popular, 7 phases)<br>
+  <strong>OSSTMM</strong> = Everything including Physical (Open Source = comprehensive)<br>
+  <strong>NIST 800-115</strong> = Government/federal (4 phases: Plan/Discover/Attack/Report)<br>
+  <strong>OWASP OTG</strong> = Web apps only
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Passive vs. Active Recon</strong><br>
+  <strong>Passive</strong> = you don't touch them (read public info — Google, Shodan, Whois)<br>
+  <strong>Active</strong> = you send packets to them (port scan, DNS query, banner grab)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Why Post-Exploitation Matters</strong><br>
+  "Initial access is not impact" — the POST-exploitation phase shows whether a foothold can be used to cause real damage (domain admin, data exfil, lateral spread). Without post-exploitation, a pen test only proves entry, not consequence.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Pen test definition</td><td>Authorized simulated attack that exploits vulnerabilities to prove real-world impact</td></tr>
+  <tr><td>Legal requirement</td><td>Must have signed written authorization before any testing; CFAA violations possible without it</td></tr>
+  <tr><td>PTES</td><td>7-phase general-purpose pen test framework; most widely cited for network/app engagements</td></tr>
+  <tr><td>OSSTMM</td><td>Broadest framework; covers physical, social, wireless, telecom in addition to technical; quantitative scoring</td></tr>
+  <tr><td>NIST SP 800-115</td><td>US government standard; 4 phases: Planning, Discovery, Attack, Reporting</td></tr>
+  <tr><td>Passive recon</td><td>No direct interaction with target; uses public/third-party information; undetectable</td></tr>
+  <tr><td>Active recon</td><td>Direct probing of target systems; generates detectable traffic; includes port scans</td></tr>
+  <tr><td>Exploitation phase</td><td>Actively attempts to gain unauthorized access using discovered vulnerabilities</td></tr>
+  <tr><td>Post-exploitation</td><td>Demonstrates impact after initial access: privesc, lateral movement, data exfil simulation</td></tr>
+  <tr><td>Rules of Engagement</td><td>Must define scope, allowed techniques, timing, contacts, and emergency stops before testing</td></tr>
+  <tr><td>Executive report section</td><td>Business risk and impact for non-technical leadership; NOT detailed technical findings</td></tr>
+  <tr><td>Metasploit</td><td>Open-source exploitation framework; most widely used pen test platform</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>OSSTMM is unique for covering physical and wireless — PTES and NIST 800-115 are more network/IT focused</li>
+    <li>Passive recon = no packets sent to target; active recon = packets sent to target</li>
+    <li>Post-exploitation proves IMPACT — the difference between "this is technically vulnerable" and "we can steal your data"</li>
+    <li>Rules of Engagement provide legal protection for pen testers</li>
+    <li>Pen testing does NOT require exploiting every vulnerability — only testing to prove a finding within scope</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-087-theory.html" class="nav-btn">← Day 87: Vulnerability Assessments</a>
+  <a href="day-089-theory.html" class="nav-btn">Day 89: Penetration Testing Types →</a>
+</div>
+</div>
+</body>
+</html>

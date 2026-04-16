@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 118 – SDLC &amp; Security Integration</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 118 – SDLC &amp; Security Integration</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 118 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-117-theory.html">← Day 117: Domain 7 Review</a> · Domain 8 · Day 118</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. SDLC Phases &amp; Security Activities</a></li>
+  <li><a href="#s4">4. SDLC Models</a></li>
+  <li><a href="#s5">5. Security Requirements &amp; Threat Modeling</a></li>
+  <li><a href="#s6">6. Software Acquisition &amp; Third-Party Security</a></li>
+  <li><a href="#s7">7. Secure SDLC Frameworks</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security (10%)</td></tr>
+  <tr><td>Why Tested</td><td>Security must be integrated throughout the SDLC, not bolted on at the end. Candidates must know SDLC phases, where security activities occur, common development models, and how to integrate security into each phase</td></tr>
+  <tr><td>Question Style</td><td>"In which SDLC phase should security requirements be defined?" (Requirements/Analysis). "What is the PRIMARY advantage of addressing security early in the SDLC?" (Lower cost to fix — cost increases exponentially in later phases). "Which SDLC model is LEAST flexible to changing requirements?" (Waterfall)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (governance drives security requirements); Domain 3 (security architecture); Day 119 (development methodologies); Day 120 (DevSecOps)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Application vulnerabilities are the #1 attack vector. Verizon DBIR consistently shows web application attacks as a top breach pattern. Fixing a vulnerability in production costs 30-100x more than fixing it during requirements or design. Organizations that integrate security into the SDLC (shift-left) dramatically reduce vulnerabilities, remediation cost, and time-to-market delays from late-stage security findings.</p>
+</section>
+
+<section id="s3">
+<h2>3. SDLC Phases &amp; Security Activities</h2>
+<table>
+  <tr><th>SDLC Phase</th><th>Security Activities</th></tr>
+  <tr><td><strong>1. Requirements / Initiation</strong></td><td>Define security requirements; identify regulatory/compliance needs; initial risk assessment; classify data to be processed; define security SLAs</td></tr>
+  <tr><td><strong>2. Design / Analysis</strong></td><td>Threat modeling (STRIDE); security architecture design; attack surface analysis; define security controls; design review; secure design patterns</td></tr>
+  <tr><td><strong>3. Development / Implementation</strong></td><td>Secure coding standards (OWASP); code reviews; static analysis (SAST); developer security training; use of approved libraries/frameworks</td></tr>
+  <tr><td><strong>4. Testing / Verification</strong></td><td>Dynamic testing (DAST); penetration testing; fuzz testing; vulnerability scanning; security regression testing; test for OWASP Top 10</td></tr>
+  <tr><td><strong>5. Deployment / Release</strong></td><td>Security configuration review; hardening; final security sign-off; secure deployment checklist; environment separation</td></tr>
+  <tr><td><strong>6. Operations / Maintenance</strong></td><td>Patch management; vulnerability monitoring; incident response; security monitoring; change management; periodic reassessment</td></tr>
+  <tr><td><strong>7. Disposal / End-of-Life</strong></td><td>Secure data destruction; credential revocation; decommission documentation; archival per retention policy</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Shift Left:</strong> Moving security activities earlier in the SDLC (to the "left" on the timeline). The earlier a vulnerability is found, the cheaper and easier it is to fix. Security should start in requirements, not testing.
+</div>
+
+<div class="exam-tip callout">
+  <strong>Cost of Fixing Defects:</strong> Fixing a security flaw costs approximately:<br>
+  • Requirements phase: 1x (baseline)<br>
+  • Design phase: 5x<br>
+  • Development: 10x<br>
+  • Testing: 20x<br>
+  • Production: 30-100x<br>
+  This exponential increase is why "shift left" is so important.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. SDLC Models</h2>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td><strong>Waterfall</strong></td><td>Sequential phases; each phase must complete before next begins; no going back</td><td>Simple; well-documented; clear milestones; good for stable requirements</td><td>Inflexible; no backtracking; late testing; poor for changing requirements</td></tr>
+  <tr><td><strong>V-Model</strong></td><td>Extension of waterfall; each development phase has a corresponding test phase</td><td>Testing planned early; clear relationship between dev and test phases</td><td>Still sequential and inflexible; expensive to change</td></tr>
+  <tr><td><strong>Iterative / Incremental</strong></td><td>Build system in repeated cycles; each iteration adds functionality</td><td>Feedback incorporated; risk reduced per iteration; partial delivery</td><td>Scope creep risk; requires strong planning</td></tr>
+  <tr><td><strong>Spiral</strong></td><td>Combines iterative with risk analysis; four quadrants: Plan → Risk Analysis → Develop → Evaluate</td><td>Risk-driven; good for large, complex projects; flexibility</td><td>Complex; expensive; requires risk expertise</td></tr>
+  <tr><td><strong>Agile</strong></td><td>Short iterations (sprints); continuous delivery; adaptive to change; collaboration focused</td><td>Flexible; rapid delivery; customer involvement; responds to change</td><td>Documentation may suffer; requires experienced team; security can be overlooked without discipline</td></tr>
+  <tr><td><strong>Prototyping</strong></td><td>Build quick prototype → get feedback → refine → build actual system</td><td>User feedback early; reduces misunderstanding of requirements</td><td>Prototype may become production (without proper security); throwaway work</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Waterfall vs Agile — Exam Favorite:</strong><br>
+  • <strong>Waterfall</strong> = best when requirements are well-defined and stable upfront; sequential; documentation-heavy<br>
+  • <strong>Agile</strong> = best when requirements are evolving; iterative; collaboration-heavy<br>
+  • <strong>Spiral</strong> = best for large, risky projects — uniquely emphasizes RISK ANALYSIS in each cycle
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Security Requirements &amp; Threat Modeling</h2>
+
+<h3>STRIDE Threat Model</h3>
+<table>
+  <tr><th>Threat</th><th>Description</th><th>Security Property Violated</th></tr>
+  <tr><td><strong>S</strong>poofing</td><td>Pretending to be someone/something else</td><td>Authentication</td></tr>
+  <tr><td><strong>T</strong>ampering</td><td>Modifying data or code</td><td>Integrity</td></tr>
+  <tr><td><strong>R</strong>epudiation</td><td>Denying having performed an action</td><td>Non-repudiation</td></tr>
+  <tr><td><strong>I</strong>nformation Disclosure</td><td>Exposing information to unauthorized parties</td><td>Confidentiality</td></tr>
+  <tr><td><strong>D</strong>enial of Service</td><td>Making a system unavailable</td><td>Availability</td></tr>
+  <tr><td><strong>E</strong>levation of Privilege</td><td>Gaining unauthorized access/permissions</td><td>Authorization</td></tr>
+</table>
+
+<h3>Other Threat Modeling Approaches</h3>
+<table>
+  <tr><th>Approach</th><th>Focus</th></tr>
+  <tr><td><strong>DREAD</strong></td><td>Risk ranking: Damage, Reproducibility, Exploitability, Affected users, Discoverability</td></tr>
+  <tr><td><strong>PASTA</strong></td><td>Process for Attack Simulation and Threat Analysis — 7-stage risk-centric model</td></tr>
+  <tr><td><strong>Attack Trees</strong></td><td>Visual tree structure showing attack goals and paths; root = goal, branches = methods</td></tr>
+  <tr><td><strong>VAST</strong></td><td>Visual, Agile, Simple Threat modeling — scales for Agile/DevOps environments</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Software Acquisition &amp; Third-Party Security</h2>
+<table>
+  <tr><th>Acquisition Type</th><th>Security Considerations</th></tr>
+  <tr><td><strong>COTS (Commercial Off-The-Shelf)</strong></td><td>Vendor reputation; patch history; known vulnerabilities; configuration hardening; vendor lock-in; no source code access</td></tr>
+  <tr><td><strong>Open Source</strong></td><td>Community review; license compliance; known vulnerabilities (CVE); maintenance status; supply chain risk</td></tr>
+  <tr><td><strong>Custom developed</strong></td><td>Full control; security built in; most expensive; requires in-house expertise</td></tr>
+  <tr><td><strong>Outsourced development</strong></td><td>Contract must include security requirements; code ownership; escrow agreements; right to audit; security testing requirements</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Software Supply Chain Risk:</strong> Third-party libraries, open-source components, and vendor software can introduce vulnerabilities. Software Composition Analysis (SCA) tools identify known vulnerabilities in dependencies. Software Bill of Materials (SBOM) provides a complete inventory of all components — increasingly required by regulation (e.g., US Executive Order 14028).
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Secure SDLC Frameworks</h2>
+<table>
+  <tr><th>Framework</th><th>Description</th></tr>
+  <tr><td><strong>Microsoft SDL</strong></td><td>Security Development Lifecycle — integrates security practices into every development phase; training, requirements, design, implementation, verification, release, response</td></tr>
+  <tr><td><strong>OWASP SAMM</strong></td><td>Software Assurance Maturity Model — measures and improves software security posture across governance, design, implementation, verification, operations</td></tr>
+  <tr><td><strong>BSIMM</strong></td><td>Building Security In Maturity Model — descriptive model based on observed practices of real organizations (not prescriptive)</td></tr>
+  <tr><td><strong>NIST SP 800-64</strong></td><td>Security Considerations in the SDLC — guidance on integrating security into federal system development</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 STRIDE Threats</strong><br>
+  <strong>S</strong>poofing = fake identity<br>
+  <strong>T</strong>ampering = modify data<br>
+  <strong>R</strong>epudiation = deny action<br>
+  <strong>I</strong>nformation disclosure = leak data<br>
+  <strong>D</strong>enial of service = crash system<br>
+  <strong>E</strong>levation of privilege = gain access<br>
+  "STRIDE through the threats"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SDLC Security — "Shift Left = Start Security at the Start"</strong><br>
+  Requirements → Design → Code → Test → Deploy → Maintain → Dispose<br>
+  Security starts at Requirements (leftmost) and continues through every phase.<br>
+  "The further RIGHT you find a bug, the more it COSTS to fix"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Spiral Model = "RISK Spiral"</strong><br>
+  Spiral is the ONLY model that explicitly incorporates risk analysis in every cycle. "Spiral around the risk."
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 DREAD</strong><br>
+  <strong>D</strong>amage, <strong>R</strong>eproducibility, <strong>E</strong>xploitability, <strong>A</strong>ffected users, <strong>D</strong>iscoverability — risk scoring for each threat
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Shift left</td><td>Integrate security from earliest SDLC phase; cost increases exponentially in later phases</td></tr>
+  <tr><td>SDLC phases</td><td>Requirements → Design → Develop → Test → Deploy → Maintain → Dispose; security in EVERY phase</td></tr>
+  <tr><td>Waterfall</td><td>Sequential, rigid, documentation-heavy; best for stable requirements</td></tr>
+  <tr><td>Agile</td><td>Iterative, flexible, collaboration-focused; requires discipline to include security</td></tr>
+  <tr><td>Spiral</td><td>Risk-driven; risk analysis in every cycle; best for large complex projects</td></tr>
+  <tr><td>STRIDE</td><td>Threat model: Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege</td></tr>
+  <tr><td>DREAD</td><td>Risk ranking: Damage, Reproducibility, Exploitability, Affected users, Discoverability</td></tr>
+  <tr><td>SBOM</td><td>Software Bill of Materials — inventory of all components; essential for supply chain security</td></tr>
+  <tr><td>Microsoft SDL</td><td>Integrates security into every SDLC phase; prescriptive framework</td></tr>
+  <tr><td>BSIMM vs SAMM</td><td>BSIMM = descriptive (observation-based); OWASP SAMM = prescriptive (improvement-focused)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-117-theory.html" class="nav-btn">← Day 117: Domain 7 Review</a>
+  <a href="day-119-theory.html" class="nav-btn">Day 119: Development Methodologies →</a>
+</div>
+</div>
+</body>
+</html>

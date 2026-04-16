@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 90 – Log Management &amp; Monitoring</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 90 – Log Management &amp; Monitoring</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 90 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-089-theory.html">← Day 89: Penetration Testing Types</a> · Domain 6 · Day 90</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Log Types</a></li>
+  <li><a href="#s4">4. Log Collection &amp; Aggregation</a></li>
+  <li><a href="#s5">5. SIEM Fundamentals</a></li>
+  <li><a href="#s6">6. Log Retention Policies</a></li>
+  <li><a href="#s7">7. Log Integrity &amp; Tamper-Proofing</a></li>
+  <li><a href="#s8">8. Continuous Monitoring</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Logs are the primary source of evidence for security investigations, compliance audits, and real-time threat detection. The CISSP must understand what logs to collect, how to aggregate them, how SIEM works, and why log integrity matters legally.</td></tr>
+  <tr><td>Question Style</td><td>"Which log source would provide the BEST evidence of a successful SQL injection attack against a web application?" (application/web server logs + database audit logs). "Which control ensures that logs cannot be modified by an attacker after a compromise?" (write-once media, separate log server, cryptographic hashing)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 7 (incident response — logs as primary evidence source); Domain 1 (evidence handling, chain of custody); Domain 4 (IDS/IPS generate logs fed to SIEM); Domain 2 (asset classification affects log retention)</td></tr>
+  <tr><td>Key Exam Traps</td><td>Thinking that storing logs on the same system they were generated from is sufficient (it isn't — attacker can modify them); confusing SIEM (Security Information and Event Management) with IDS; not recognizing that log tampering destroys legal admissibility</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Logs are the <strong>forensic trail of all system activity</strong>. Without logs, incident responders cannot determine the scope of a breach, verify the attacker's path, or produce evidence for legal proceedings. The FBI and regulatory bodies (SEC, HIPAA, PCI DSS) all require organizations to maintain logs for specific periods.</p>
+<p>Modern enterprises generate terabytes of log data daily. Organizations use SIEM platforms to make this data searchable and actionable: Splunk, IBM QRadar, Microsoft Sentinel, and Elastic SIEM are the dominant platforms. The average cost of "not logging" during an incident investigation is $1M+ in extended containment time (IBM Cost of a Data Breach Report).</p>
+</section>
+
+<section id="s3">
+<h2>3. Log Types</h2>
+<table>
+  <tr><th>Log Type</th><th>Generated By</th><th>What It Captures</th><th>Use Cases</th></tr>
+  <tr><td><strong>Security Logs</strong></td><td>OS, authentication systems, IAM</td><td>Login successes/failures, privilege use, account changes, security policy changes</td><td>Detecting brute force, privilege escalation, unauthorized access, insider threats</td></tr>
+  <tr><td><strong>System Logs</strong></td><td>OS kernel, services, daemons</td><td>Service starts/stops, system errors, driver events, OS-level activity</td><td>Stability monitoring, forensic timeline reconstruction, malware detection (unexpected services)</td></tr>
+  <tr><td><strong>Application Logs</strong></td><td>Applications (web apps, databases, middleware)</td><td>Application errors, user actions within the app, transactions, API calls</td><td>Debugging, detecting injection attacks, business process fraud, data access anomalies</td></tr>
+  <tr><td><strong>Firewall Logs</strong></td><td>Network firewalls (perimeter, internal)</td><td>Allowed/denied connections, source/destination IP, port, protocol, rule matched</td><td>Detecting unauthorized connection attempts, C2 traffic, data exfiltration patterns</td></tr>
+  <tr><td><strong>IDS/IPS Logs</strong></td><td>Intrusion Detection/Prevention Systems</td><td>Signature matches, anomaly detections, blocked attacks, alert events</td><td>Attack detection, correlation with other log sources, threat hunting</td></tr>
+  <tr><td><strong>DNS Logs</strong></td><td>DNS servers (internal resolvers, authoritative)</td><td>Query names, response codes (NXDOMAIN), client IPs</td><td>Detecting DNS tunneling, C2 domain lookups, data exfiltration via DNS</td></tr>
+  <tr><td><strong>VPN/Remote Access Logs</strong></td><td>VPN concentrators, remote access gateways</td><td>Connection attempts, authentication success/failure, connected IP, session duration</td><td>Detecting credential stuffing, account takeover, unusual access locations</td></tr>
+  <tr><td><strong>Database Audit Logs</strong></td><td>DBMS (SQL Server, Oracle, MySQL)</td><td>Queries executed, schema changes, data access, privilege grants</td><td>Detecting SQL injection results, unauthorized data access, insider data theft</td></tr>
+  <tr><td><strong>Web Server Access Logs</strong></td><td>Apache, Nginx, IIS</td><td>HTTP requests (URL, method, status code, user agent, referrer, source IP)</td><td>Detecting web attacks (SQLi, XSS, path traversal), bot activity, crawler patterns</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Log Coverage Rule:</strong> Security events require correlation across MULTIPLE log sources. Example: investigating a successful SQL injection requires web server logs (request URL) + application logs (error) + database audit logs (what data was returned). No single log source tells the complete story.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Log Collection &amp; Aggregation</h2>
+<h3>Log Collection Architecture</h3>
+<div class="diagram">
+Log Sources (Generators)                    Aggregation               Analysis
+──────────────────────────────              ─────────────             ─────────
+
+  [Firewalls]        ─────────────────►
+  [IDS/IPS]          ─────────────────►
+  [Web Servers]      ─────────────────►     [Syslog       ────────►  [SIEM]
+  [Auth Systems]     ─────────────────►      Server /      
+  [Databases]        ─────────────────►      Log           ────────►  [SOC
+  [Endpoints]        ─────────────────►      Aggregator]             Analysts]
+  [Cloud Services]   ─────────────────►
+  [Applications]     ─────────────────►
+                           ▲
+                    Centralized collection
+                    (NOT local to source!)
+</div>
+<h3>Syslog Protocol</h3>
+<div class="definition callout">
+  <strong>Syslog (RFC 5424):</strong> The standard protocol for sending log messages over IP networks, typically using UDP port 514 (or TCP 6514 for TLS-encrypted syslog). Syslog messages include a facility code (source type) and severity level (0=Emergency to 7=Debug). Most Unix/Linux systems and network devices support syslog natively.
+</div>
+<table>
+  <tr><th>Syslog Severity Level</th><th>Code</th><th>Description</th></tr>
+  <tr><td>Emergency</td><td>0</td><td>System is unusable</td></tr>
+  <tr><td>Alert</td><td>1</td><td>Immediate action required</td></tr>
+  <tr><td>Critical</td><td>2</td><td>Critical conditions</td></tr>
+  <tr><td>Error</td><td>3</td><td>Error conditions</td></tr>
+  <tr><td>Warning</td><td>4</td><td>Warning conditions</td></tr>
+  <tr><td>Notice</td><td>5</td><td>Normal but significant</td></tr>
+  <tr><td>Informational</td><td>6</td><td>Informational messages</td></tr>
+  <tr><td>Debug</td><td>7</td><td>Debug-level messages</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>NTP Time Synchronization for Logs:</strong> All log sources MUST be synchronized to a common time source (NTP — Network Time Protocol). Without synchronized timestamps, correlating events across log sources becomes impossible. A firewall log showing an event at 14:35:00 and an application log showing 14:38:00 are actually the same event if clocks are 3 minutes apart.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SIEM Fundamentals</h2>
+<div class="definition callout">
+  <strong>SIEM (Security Information and Event Management):</strong> A platform that combines Security Information Management (SIM — historical log storage and compliance reporting) and Security Event Management (SEM — real-time threat detection and alerting) into a single system. SIEM ingests logs from all sources, normalizes them to a common format, correlates events, generates alerts (using rules and ML), and provides search and reporting capabilities.
+</div>
+
+<h3>Core SIEM Functions</h3>
+<table>
+  <tr><th>Function</th><th>Description</th></tr>
+  <tr><td>Log Aggregation</td><td>Collects logs from all sources (network, endpoints, applications, cloud)</td></tr>
+  <tr><td>Normalization</td><td>Converts logs from different formats into a common schema for correlation</td></tr>
+  <tr><td>Correlation</td><td>Links related events across sources to identify complex attack patterns (e.g., failed logins + successful login + privilege escalation = account compromise chain)</td></tr>
+  <tr><td>Alerting</td><td>Rule-based and ML-based alerts on suspicious activity; generates tickets for SOC analysts</td></tr>
+  <tr><td>Dashboards &amp; Reporting</td><td>Real-time and historical views of security posture; compliance reports (PCI DSS, HIPAA)</td></tr>
+  <tr><td>Retention &amp; Search</td><td>Long-term storage of log data; full-text search for incident investigation and forensics</td></tr>
+  <tr><td>Threat Intelligence Integration</td><td>Enriches events with external threat intel (IOCs — Indicators of Compromise) from OSINT, commercial feeds</td></tr>
+</table>
+
+<h3>Major SIEM Products</h3>
+<table>
+  <tr><th>Product</th><th>Vendor</th><th>Key Characteristic</th></tr>
+  <tr><td>Splunk</td><td>Cisco (acquired 2024)</td><td>Most widely deployed; powerful search processing language (SPL); broad integrations</td></tr>
+  <tr><td>IBM QRadar</td><td>IBM</td><td>Strong network flow (NetFlow) correlation; common in enterprise/government</td></tr>
+  <tr><td>Microsoft Sentinel</td><td>Microsoft (Azure native)</td><td>Cloud-native; tightly integrated with Microsoft 365 and Azure; KQL query language</td></tr>
+  <tr><td>Elastic SIEM (ELK Stack)</td><td>Elastic</td><td>Open source core; Elasticsearch + Logstash + Kibana; highly customizable; lower cost</td></tr>
+  <tr><td>LogRhythm</td><td>LogRhythm</td><td>Built-in SOAR capabilities; strong UEBA (User and Entity Behavior Analytics)</td></tr>
+</table>
+
+<h3>SIEM vs. IDS vs. IPS</h3>
+<table>
+  <tr><th>Attribute</th><th>IDS</th><th>IPS</th><th>SIEM</th></tr>
+  <tr><td>What it monitors</td><td>Network traffic or host activity</td><td>Network traffic (inline)</td><td>All log sources (network, host, app, cloud)</td></tr>
+  <tr><td>Can it block attacks?</td><td>No — detect only</td><td>Yes — can block inline</td><td>No — alerts analysts; can trigger automated response via SOAR</td></tr>
+  <tr><td>Scope</td><td>Narrow (specific traffic)</td><td>Narrow (specific traffic, inline)</td><td>Broad (entire environment)</td></tr>
+  <tr><td>Primary value</td><td>Real-time network attack detection</td><td>Real-time prevention + detection</td><td>Correlation, investigation, compliance reporting, threat hunting</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Log Retention Policies</h2>
+<div class="definition callout">
+  <strong>Log Retention:</strong> The organizational policy and technical implementation defining how long log records must be kept. Driven by regulatory requirements, legal litigation hold obligations, and operational needs (forensic investigations may need historical logs going back months).
+</div>
+<h3>Common Regulatory Retention Requirements</h3>
+<table>
+  <tr><th>Regulation / Standard</th><th>Minimum Log Retention</th><th>Scope</th></tr>
+  <tr><td>PCI DSS (Requirement 10.7)</td><td>12 months (3 months immediately available)</td><td>All systems in CDE (Cardholder Data Environment)</td></tr>
+  <tr><td>HIPAA</td><td>6 years (security rule documentation); audit logs: typically 90 days minimum recommended</td><td>PHI systems; covered entities</td></tr>
+  <tr><td>SOX (Sarbanes-Oxley)</td><td>7 years</td><td>Financial systems; publicly traded US companies</td></tr>
+  <tr><td>GDPR</td><td>Does not specify minimum; "as long as necessary" for stated purpose; data minimization principle</td><td>EU personal data</td></tr>
+  <tr><td>NIST SP 800-92</td><td>Guidance only (not mandate); recommends tiered retention based on data sensitivity</td><td>Federal systems; guidance framework</td></tr>
+  <tr><td>FedRAMP</td><td>90 days immediately accessible; 1 year total</td><td>Cloud service providers serving federal agencies</td></tr>
+</table>
+<div class="warning callout">
+  ⚠️ <strong>Log Deletion Risk:</strong> Deleting logs before the retention period ends can result in compliance violations, destruction of evidence charges (spoliation), and inability to investigate past incidents. Organizations should have a documented retention policy and test it regularly.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Log Integrity &amp; Tamper-Proofing</h2>
+<p>Logs are <strong>only valuable if they are trustworthy</strong>. An attacker who gains access to a system will typically attempt to delete or modify logs to hide their tracks. Log integrity controls prevent or detect this tampering.</p>
+<h3>Log Integrity Controls</h3>
+<table>
+  <tr><th>Control</th><th>How It Works</th><th>Strength</th></tr>
+  <tr><td><strong>Separate Log Server</strong></td><td>Logs are sent immediately to a remote server the attacked system cannot write to (send-only, remote syslog). Attacker compromises source system but cannot access the log server.</td><td>High — depends on log server access control</td></tr>
+  <tr><td><strong>Write-Once Media / WORM</strong></td><td>Logs written to Write-Once, Read-Many (WORM) storage. Once written, data cannot be modified or deleted. Common for long-term archival.</td><td>Very high — physical cannot be modified</td></tr>
+  <tr><td><strong>Cryptographic Hashing</strong></td><td>Hash each log entry (SHA-256) or log file periodically. Any modification changes the hash; comparison detects tampering.</td><td>High — detects modification but does not prevent it</td></tr>
+  <tr><td><strong>Digital Signatures</strong></td><td">Each log entry or batch signed with private key. Verification with public key proves authenticity and integrity. Used in advanced log systems.</td><td>Very high — proves both integrity and origin</td></tr>
+  <tr><td><strong>Time Stamps from Trusted Source</strong></td><td>NTP-synced timestamps from a trusted authoritative source; secure NTP (RFC 8915) prevents time manipulation attacks.</td><td>Medium — prevents timestamp manipulation</td></tr>
+  <tr><td><strong>Immutable Cloud Logging</strong></td><td>Cloud logging services (AWS CloudTrail with S3 Object Lock, Azure Activity Log, GCP Cloud Logging) offer native immutability features.</td><td>High — cloud provider controls prevent deletion without explicit unlock</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Legal Admissibility of Logs:</strong> For logs to be admissible as evidence in legal proceedings, they must be:
+  <ul>
+    <li><strong>Authentic:</strong> Proven to come from the claimed source (digital signatures, chain of custody)</li>
+    <li><strong>Unmodified:</strong> Integrity proven via hashing or write-once media</li>
+    <li><strong>Complete:</strong> No unexplained gaps in the log timeline</li>
+    <li><strong>Timely collected:</strong> Gathered before potential tampering; chain of custody maintained</li>
+  </ul>
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Continuous Monitoring</h2>
+<div class="definition callout">
+  <strong>Continuous Monitoring:</strong> The ongoing, automated collection and evaluation of security controls and system activities to maintain situational awareness and detect deviations from expected behavior in real time (or near-real time). Required by NIST RMF (SP 800-137) and essential for FedRAMP-authorized systems.
+</div>
+<h3>Continuous Monitoring Components</h3>
+<ul>
+  <li><strong>Configuration monitoring:</strong> Continuous detection of unauthorized configuration changes (SCCM, Chef, Puppet, AWS Config, Azure Policy)</li>
+  <li><strong>Vulnerability scanning:</strong> Automated, continuous vulnerability scanning (Tenable.io continuous assessment plugins) rather than periodic point-in-time scans</li>
+  <li><strong>Log monitoring (SIEM):</strong> Real-time log analysis and alerting</li>
+  <li><strong>User behavior analytics (UEBA):</strong> ML-based detection of anomalous user behavior (unusual login times, data access patterns, lateral movement indicators)</li>
+  <li><strong>Network traffic analysis (NTA):</strong> Continuous analysis of network flow (NetFlow, IPFIX) for anomalies; C2 beaconing detection</li>
+  <li><strong>Endpoint Detection and Response (EDR):</strong> Continuous endpoint telemetry collection and analysis (CrowdStrike Falcon, Microsoft Defender for Endpoint)</li>
+</ul>
+<div class="diagram">
+CONTINUOUS MONITORING ARCHITECTURE (NIST SP 800-137)
+
+  Define         Establish          Implement       Analyze/Report
+  Metrics   →   Monitoring     →   Collection  →   &amp; Respond
+    │             Strategy           Process           │
+    │                                                  │
+  What to         Choose             Automate         Alert,
+  measure         tools,             data             escalate,
+  and why         frequency,         gathering        remediate,
+                  thresholds                          and report
+                       ↑                                │
+                       └─────── Continuous Review ──────┘
+</div>
+<h3>NIST SP 800-137 (Information Security Continuous Monitoring)</h3>
+<p>Defines ISCM (Information Security Continuous Monitoring) as "maintaining ongoing awareness of information security, vulnerabilities, and threats to support organizational risk management decisions." Requires:</p>
+<ul>
+  <li>Defined metrics and performance indicators</li>
+  <li>Monitoring strategy based on risk</li>
+  <li>Automated data collection where possible</li>
+  <li>Analysis and reporting to appropriate officials</li>
+  <li>Responding to findings (remediation or risk acceptance)</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Log Integrity — "SAVE Logs"</strong><br>
+  <strong>S</strong>eparate log server (remote — attacker can't reach it)<br>
+  <strong>A</strong>uthenticate logs (digital signatures)<br>
+  <strong>V</strong>erify hashes (SHA-256 of each entry/file)<br>
+  <strong>E</strong>nsure write-once media (WORM for archival)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SIEM — "SIM + SEM"</strong><br>
+  <strong>SIM</strong> = Security Information Management (historical storage, compliance reports)<br>
+  <strong>SEM</strong> = Security Event Management (real-time detection, alerting)<br>
+  SIEM = SIM + SEM = both historical AND real-time
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Why NTP Matters for Logs</strong><br>
+  Without synchronized clocks → logs from different systems can't be correlated<br>
+  "Time is the spine of forensics" — without accurate timestamps, event sequencing is impossible
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Continuous Monitoring vs. Periodic Assessment</strong><br>
+  Periodic assessment = snapshot (what did it look like at point in time)<br>
+  Continuous monitoring = movie (what is happening RIGHT NOW and over time)<br>
+  Continuous &gt; periodic for detecting evolving threats and configuration drift
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Security logs</td><td>Authentication events, privilege use, account changes — primary source for access investigations</td></tr>
+  <tr><td>Application logs</td><td>App-specific activity; critical for detecting injection attacks, business fraud, unauthorized data access</td></tr>
+  <tr><td>Firewall logs</td><td>Allowed/denied connections; source/destination IP, port, rule matched</td></tr>
+  <tr><td>IDS/IPS logs</td><td>Attack signatures detected; blocked events; feed into SIEM for correlation</td></tr>
+  <tr><td>Syslog</td><td>Standard log shipping protocol; UDP 514 (or TLS TCP 6514); 8 severity levels (0=Emergency, 7=Debug)</td></tr>
+  <tr><td>NTP synchronization</td><td>Required for all log sources — without synchronized time, cross-source correlation fails</td></tr>
+  <tr><td>SIEM function</td><td>Aggregates, normalizes, correlates logs from all sources; alerts on suspicious patterns; supports investigation</td></tr>
+  <tr><td>PCI DSS log retention</td><td>12 months total; 3 months must be immediately available</td></tr>
+  <tr><td>SOX log retention</td><td>7 years (financial systems)</td></tr>
+  <tr><td>Log integrity — separate server</td><td>Best practice — compromised source system cannot reach or modify remote log server</td></tr>
+  <tr><td>Log integrity — WORM</td><td>Write-Once Read-Many media; physically unmodifiable; best for long-term archival</td></tr>
+  <tr><td>Log integrity — hashing</td><td>SHA-256 of log entries/files; detects modification (does not prevent it)</td></tr>
+  <tr><td>Continuous monitoring</td><td>NIST SP 800-137; ongoing automated detection; required for FedRAMP; "movie not snapshot"</td></tr>
+  <tr><td>UEBA</td><td>User and Entity Behavior Analytics — ML-based detection of anomalous user behavior patterns in SIEM</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>Logs stored ONLY on the source system are vulnerable to attacker deletion — remote/separate log server is required</li>
+    <li>NTP synchronization is not optional — without it, cross-source log correlation is unreliable</li>
+    <li>SIEM combines SIM (historical/compliance) + SEM (real-time detection); it does NOT block attacks alone</li>
+    <li>PCI DSS requires 12 months log retention; SOX requires 7 years</li>
+    <li>WORM storage is the strongest log integrity control (physical impossibility to modify)</li>
+    <li>Continuous monitoring (NIST SP 800-137) is "maintain ongoing awareness" — not just periodic scans</li>
+    <li>Log admissibility as evidence requires authenticated, unmodified, complete, and timely-collected logs</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-089-theory.html" class="nav-btn">← Day 89: Pen Testing Types</a>
+  <a href="day-091-theory.html" class="nav-btn">Day 91: Code Review &amp; Analysis →</a>
+</div>
+</div>
+</body>
+</html>

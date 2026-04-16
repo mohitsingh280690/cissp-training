@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 76 – Authorization: RBAC &amp; ABAC</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 76 – Authorization: RBAC &amp; ABAC</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 76 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-075-theory.html">← Day 75: Authorization: DAC &amp; MAC</a> · Domain 5 · Day 76</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Role-Based Access Control (RBAC)</a></li>
+  <li><a href="#s4">4. RBAC Role Hierarchies</a></li>
+  <li><a href="#s5">5. RBAC Separation of Duties</a></li>
+  <li><a href="#s6">6. Attribute-Based Access Control (ABAC)</a></li>
+  <li><a href="#s7">7. XACML – ABAC Policy Language</a></li>
+  <li><a href="#s8">8. Policy-Based Access Control</a></li>
+  <li><a href="#s9">9. Temporal &amp; Context-Aware Access</a></li>
+  <li><a href="#s10">10. Access Control Models – Full Comparison</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — RBAC and ABAC authorization models</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>RBAC is the most widely deployed authorization model in enterprise — CISSP expects candidates to know its components (roles, permissions, users, sessions), role hierarchy benefits, and how static vs. dynamic SoD differ. ABAC is increasing in exam weight as cloud and zero trust adoption grows.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which model is BEST for a large organization with defined job functions?" (RBAC); "Which model provides the most fine-grained, context-aware access control?" (ABAC); "What is the difference between static and dynamic SoD in RBAC?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 75 (DAC/MAC comparison); Day 70 (authorization as IAAA pillar); Day 79 (PAM — privilege roles); Domain 8 (authorization in application design — principle of least privilege)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>RBAC does NOT replace authentication — it only governs WHAT authenticated users can do. ABAC ≠ RBAC — ABAC uses arbitrary attributes (department, clearance, device, time) not just role assignment. "Policy-based" access control is often ABAC implemented via centralized policy engine.</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>RBAC is the enterprise default</strong></td><td>Active Directory groups, AWS IAM roles, Azure RBAC, Linux sudo rules — all RBAC implementations. Organizing permissions by role (job function) rather than individual user dramatically reduces administrative overhead: changing one role definition propagates to all users with that role.</td></tr>
+  <tr><td><strong>ABAC enables Zero Trust</strong></td><td>Zero Trust requires evaluating context on every request — not just "is this user in the HR role?" but "is this user in the HR role, accessing from a managed device, within business hours, from a corporate IP range, with current MFA?" That multi-attribute policy evaluation IS ABAC. Cloud IAM policies (AWS IAM Condition keys, Azure Conditional Access) are ABAC.</td></tr>
+  <tr><td><strong>Role explosion problem</strong></td><td>As organizations grow, RBAC can suffer from role explosion — hundreds of permutations of fine-grained roles (HR-Manager-EMEA-Level3-Read-Only). ABAC solves this by encoding those distinctions as attributes rather than separate role names.</td></tr>
+  <tr><td><strong>Regulatory SoD requirements</strong></td><td>SOX: financial reporting requires separation of duties between those who initiate and approve transactions. PCI-DSS: administrative access must be separated. RBAC SoD constraints (static and dynamic) are the mechanism for enforcing these requirements technically.</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Role-Based Access Control (RBAC)</h2>
+<div class="callout definition">
+  <strong>📖 RBAC:</strong> An access control model where access permissions are assigned to roles (representing job functions), and users are assigned to roles. Users receive permissions indirectly through their role membership. The four core RBAC components: Users, Roles, Permissions, and Sessions.
+</div>
+<table>
+  <tr><th>RBAC Component</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>User</strong></td><td>An authenticated identity (person or service account) in the system</td><td>Employee "Alice"; Service account "backup-agent"</td></tr>
+  <tr><td><strong>Role</strong></td><td>A named collection of permissions based on a job function or responsibility</td><td>HR-Manager, Finance-Analyst, Network-Admin, Read-Only</td></tr>
+  <tr><td><strong>Permission</strong></td><td>An approved action on a specific object (operation + object)</td><td>Read /payroll/reports; Write /config/firewall; Execute /scripts/backup</td></tr>
+  <tr><td><strong>Session</strong></td><td>A user's active mapping to a set of activated roles. Allows a user with multiple roles to activate only the roles needed at a given time (principle of least privilege in runtime).</td><td>Admin logs in as a standard user; elevates to Admin role only when needed (like sudo)</td></tr>
+  <tr><td><strong>User-Role Assignment (UA)</strong></td><td>The many-to-many mapping of users to roles</td><td>Alice → HR-Manager, Alice → Payroll-Viewer</td></tr>
+  <tr><td><strong>Permission-Role Assignment (PA)</strong></td><td>The many-to-many mapping of permissions to roles</td><td>HR-Manager → {read employee records, write performance reviews, read salary data}</td></tr>
+</table>
+
+<h3>RBAC Core Principle: Group Permissions on Roles, Not on Users</h3>
+<div class="diagram">Traditional (pre-RBAC):              RBAC:
+─────────────────────────             ──────────────────────────────────
+ Alice → {read A, write B, read C}    ROLES:
+ Bob   → {read A, write B}             HR-Analyst: {read empRec, read salary}
+ Carol → {read A, write B, read C}     HR-Manager: {read empRec, write empRec,
+ [manage 15 permissions per user]                   read salary, write reviews}
+                                      USER-ROLE ASSIGNMENTS:
+ On role change: update all of         Alice → HR-Manager
+ Alice's individual permissions        Bob   → HR-Analyst
+ (error-prone, time-consuming)         Carol → HR-Manager
+
+                                      On role change: change role assignment only
+                                      (one change updates all permissions at once)</div>
+</section>
+
+<section id="s4">
+<h2>4. RBAC Role Hierarchies</h2>
+<div class="callout definition">
+  <strong>📖 Role Hierarchy:</strong> An ordering of roles where senior roles inherit all permissions of junior roles. Reflects natural organizational reporting structures. Reduces redundancy — junior role permissions don't need to be restated in senior roles.
+</div>
+<div class="diagram">Role Hierarchy Example (HR Department)
+────────────────────────────────────────────────────────
+              [HR Director]
+            inherits everything below
+                    │
+             [HR Manager]
+           inherits HR Analyst permissions
+                    │
+             [HR Analyst]
+         {read employee records,
+          read org chart}
+
+HR Director role automatically has all HR Manager + HR Analyst permissions.
+Adding "write salary bands" to HR Manager auto-propagates to HR Director.
+────────────────────────────────────────────────────────</div>
+<table>
+  <tr><th>Hierarchy Benefit</th><th>Detail</th></tr>
+  <tr><td><strong>Inheritance reduces redundancy</strong></td><td>Senior roles don't need explicit listing of all sub-role permissions. Only the NET additions at each level are defined.</td></tr>
+  <tr><td><strong>Reflects org structure</strong></td><td>Natural mapping to manager → individual contributor hierarchies. Intuitive for admins and auditors.</td></tr>
+  <tr><td><strong>Controlled inheritance</strong></td><td>Hierarchies should be limited to actual authority chains. Flat "everyone inherits from Admin" creates privilege escalation risk.</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. RBAC Separation of Duties</h2>
+<table>
+  <tr><th>SoD Type</th><th>Definition</th><th>Enforcement</th><th>Example</th></tr>
+  <tr><td><strong>Static SoD (SSoD)</strong></td><td>Certain role combinations are PERMANENTLY mutually exclusive. A user can NEVER hold both roles simultaneously — regardless of any request or justification.</td><td>RBAC system prevents the user from being assigned to both roles at the same time. If Alice has Role A, she cannot be given Role B (system blocks it).</td><td>Finance-Approver and Finance-Requester roles are statically mutually exclusive. No employee can hold both, ever. Prevents a single person from requesting AND approving their own transactions.</td></tr>
+  <tr><td><strong>Dynamic SoD (DSoD)</strong></td><td>A user may HOLD both roles but cannot ACTIVATE both in the same session or transaction. Conflict is detected at use time, not at assignment time.</td><td>The session management layer monitors which roles are active. If user activates Role A for a transaction, they cannot simultaneously use Role B in that same transaction.</td><td>System auditor role AND system admin role: the same person (e.g., a contractor) may hold both roles but cannot use admin privileges during the same session where they are auditing — prevents audit manipulation.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Static vs. Dynamic SoD:</strong><br>
+  Static SoD = cannot HAVE both roles. System blocks assignment.<br>
+  Dynamic SoD = can HAVE both roles but cannot USE both in same session/transaction. Blocked at runtime.<br>
+  Static is more restrictive but less flexible. Dynamic allows one person to hold multiple roles for different contexts (common in smaller organizations).
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Attribute-Based Access Control (ABAC)</h2>
+<div class="callout definition">
+  <strong>📖 ABAC:</strong> An access control model where authorization decisions are made based on attributes of the subject, the object, and the environment — evaluated against a policy. More expressive than RBAC: any attribute can be incorporated into access decisions, enabling highly granular, context-sensitive policies.
+</div>
+<table>
+  <tr><th>Attribute Category</th><th>Examples</th></tr>
+  <tr><td><strong>Subject attributes</strong></td><td>User role, department, clearance level, employment status, location, authentication method used, MFA status, device compliance state</td></tr>
+  <tr><td><strong>Object/Resource attributes</strong></td><td>Resource classification, data sensitivity level, owner, creation date, project tag, PII flag, geographic location of data</td></tr>
+  <tr><td><strong>Environmental attributes</strong></td><td>Current time, day of week, network location (VPN vs. public vs. corporate), threat intelligence score, session duration, geographic location of access attempt</td></tr>
+  <tr><td><strong>Action attributes</strong></td><td>Read, write, download, print, share, execute, approve</td></tr>
+</table>
+
+<h3>ABAC Policy Example</h3>
+<div class="diagram">ABAC Policy (pseudo-code):
+────────────────────────────────────────────────────────
+ALLOW access IF:
+  subject.department     == "HR"          AND
+  subject.clearance      >= "CONFIDENTIAL" AND
+  subject.mfa_verified   == true           AND
+  subject.device_managed == true           AND
+  resource.classification == "CONFIDENTIAL" AND
+  resource.project        == subject.project_assignment AND
+  environment.time_of_day BETWEEN 08:00 AND 18:00      AND
+  environment.network     IN ["corporate-lan", "vpn"]
+ELSE DENY
+
+Compare to RBAC: RBAC would need a unique role for every combination
+of these attributes (explosion of roles) to achieve the same granularity.
+────────────────────────────────────────────────────────</div>
+
+<table>
+  <tr><th>RBAC vs. ABAC</th><th>RBAC</th><th>ABAC</th></tr>
+  <tr><td>Basis for access</td><td>Role assignment (job function)</td><td>Multiple attributes (context)</td></tr>
+  <tr><td>Granularity</td><td>Role-level</td><td>Fine-grained (any attribute))</td></tr>
+  <tr><td>Scalability</td><td>Good for stable roles; role explosion at scale</td><td>Scales to complex organizations without role explosion</td></tr>
+  <tr><td>Administrative burden</td><td>Low (manage roles + assignments)</td><td>Higher (complex policy management)</td></tr>
+  <tr><td>Context-awareness</td><td>Limited (static)</td><td>Full — time, location, device, etc.</td></tr>
+  <tr><td>Implementation examples</td><td>AD Groups, AWS IAM Roles, Azure RBAC</td><td>AWS IAM Condition keys, Azure Conditional Access, XACML</td></tr>
+  <tr><td>Zero Trust fit</td><td>Partial</td><td>Native — Zero Trust is ABAC</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. XACML – ABAC Policy Language</h2>
+<div class="callout definition">
+  <strong>📖 XACML (eXtensible Access Control Markup Language):</strong> An OASIS standard XML-based policy language for expressing and evaluating ABAC policies in a vendor-neutral way. Defines a complete architecture including policy decision points and policy enforcement points.
+</div>
+<table>
+  <tr><th>XACML Component</th><th>Role</th></tr>
+  <tr><td><strong>PAP</strong> (Policy Administration Point)</td><td>Where access control policies are created, managed, and stored. Used by security administrators.</td></tr>
+  <tr><td><strong>PDP</strong> (Policy Decision Point)</td><td>The engine that evaluates access requests against policies and returns Permit/Deny decisions. Receives request attributes; applies all relevant policies; returns authorization decision.</td></tr>
+  <tr><td><strong>PEP</strong> (Policy Enforcement Point)</td><td>The component that intercepts user access requests, constructs the authorization request, sends it to the PDP, and enforces the decision (allow or deny).</td></tr>
+  <tr><td><strong>PIP</strong> (Policy Information Point)</td><td>Provides attribute values to the PDP at decision time (e.g., look up user's current clearance from LDAP, device compliance from MDM, time from NTP).</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> PDP decides; PEP enforces; PIP provides attribute data; PAP authors policies. This architecture also appears in Zero Trust descriptions (NIST SP 800-207 uses PDP/PEP terminology extensively).
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Policy-Based Access Control</h2>
+<div class="callout definition">
+  <strong>📖 Policy-Based Access Control (PBAC):</strong> A broad term for access control where decisions are driven by centrally managed, machine-readable policies. Often used interchangeably with ABAC in practice. Key feature: policies are written separately from application code and evaluated centrally.
+</div>
+<table>
+  <tr><th>Feature</th><th>Detail</th></tr>
+  <tr><td><strong>Centralized policy management</strong></td><td>Policies managed in one place; changes propagate across all consuming applications without code changes. Enables consistent enforcement across hybrid environments.</td></tr>
+  <tr><td><strong>Policy engine / decision service</strong></td><td>A standalone service (often cloud-hosted) that applications query: "Can user X do action Y on resource Z?" — returns permit/deny + obligation (e.g., log this access, require re-authentication)</td></tr>
+  <tr><td><strong>OPA (Open Policy Agent)</strong></td><td>Popular open-source, general-purpose policy engine. Policies written in Rego language. Used in Kubernetes admission control, API gateways, microservices authorization. Cloud-native PBAC standard.</td></tr>
+  <tr><td><strong>Obligation</strong></td><td>An action that MUST be performed along with a permit/deny decision. Examples: "log the access", "require MFA before proceeding", "notify the data owner". Part of XACML specification.</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Temporal &amp; Context-Aware Access</h2>
+<table>
+  <tr><th>Control Type</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>Temporal access restriction</strong></td><td>Access granted only during specific time windows. Outside the window, access is automatically denied regardless of authentication.</td><td>Payroll system accessible only Mon–Fri 8am–6pm. Contractor accounts valid only for project duration (expiry date). Just-in-time (JIT) privileged access windows (2-hour admin access ticket).</td></tr>
+  <tr><td><strong>Location-aware access</strong></td><td>Access decisions based on physical or network location of the request.</td><td>Finance system only accessible from corporate network or VPN. Remote access to production databases blocked from untrusted geographies. Conditional Access policies in Azure AD/Entra ID.</td></tr>
+  <tr><td><strong>Device-state access control</strong></td><td>Access conditioned on the compliance state of the device making the request.</td><td>Only managed/enrolled devices allowed to access sensitive apps (NAC at network layer; MDM compliance check at app layer). BYOD can access low-sensitivity apps; only managed devices access high-sensitivity apps.</td></tr>
+  <tr><td><strong>Context-aware / risk-adaptive</strong></td><td>Real-time risk score of the authentication context determines access level. High-risk context triggers step-up authentication or denial.</td><td>New country login + new device + Friday night = high risk → block or require additional verification. All attributes evaluated in real-time per request.</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Access Control Models – Full Comparison</h2>
+<table>
+  <tr><th>Model</th><th>Controls By</th><th>Admin Effort</th><th>Security Level</th><th>Best For</th></tr>
+  <tr><td><strong>DAC</strong></td><td>Data owner</td><td>Low (owner self-manages)</td><td>Low</td><td>Small offices, personal files, general-purpose OS</td></tr>
+  <tr><td><strong>MAC</strong></td><td>System/labels</td><td>High (central label management)</td><td>Very High</td><td>Government/military classified systems, high-assurance</td></tr>
+  <tr><td><strong>RBAC</strong></td><td>Roles/job function</td><td>Medium (manage roles + assignments)</td><td>Medium-High</td><td>Large enterprises with defined job functions; most commercial deployments</td></tr>
+  <tr><td><strong>ABAC</strong></td><td>Attributes + policy engine</td><td>High (complex policies)</td><td>High</td><td>Cloud-native, Zero Trust, microservices, complex context-aware requirements</td></tr>
+  <tr><td><strong>Rule-Based</strong></td><td>Rules/conditions</td><td>Medium</td><td>Variable</td><td>Network access (firewalls, NAC), time-based restrictions</td></tr>
+</table>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 RBAC Core Four — "Users Ride Pretty Stallions":</strong><br>
+  <strong>U</strong>sers → <strong>R</strong>oles → <strong>P</strong>ermissions → <strong>S</strong>essions<br>
+  Users are assigned to Roles. Roles carry Permissions. Sessions activate a subset of the user's Roles.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SoD: Static vs. Dynamic — "Can't HAVE vs. Can't USE":</strong><br>
+  <strong>Static</strong> SoD = cannot <strong>HAVE</strong> both roles assigned simultaneously<br>
+  <strong>Dynamic</strong> SoD = can HAVE both, but cannot <strong>USE</strong> both in same session<br>
+  Static = assignment blocked. Dynamic = activation blocked.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ABAC > RBAC when context matters:</strong><br>
+  If the question says "based on time, location, device, department, clearance level all at once" → ABAC<br>
+  If the question says "based on job title/function" → RBAC<br>
+  ABAC = RBAC + context + environment + resource attributes
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 XACML Architecture — "PAP authors, PDP decides, PEP enforces, PIP informs":</strong><br>
+  PAP (Admin writes Policy) → PDP (Engine Decides) → PEP (Gate Enforces) ← PIP (Attribute Source)
+</div>
+</section>
+
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>RBAC core components</td><td>Users, Roles, Permissions, Sessions; users assigned to roles; roles carry permissions; sessions activate roles</td></tr>
+  <tr><td>RBAC benefit</td><td>One role change updates all users with that role; reduces admin overhead; maps to org structure</td></tr>
+  <tr><td>Role hierarchy</td><td>Senior roles inherit all sub-role permissions; reduces redundancy; reflects authority chains</td></tr>
+  <tr><td>Static SoD</td><td>Cannot HAVE both conflicting roles assigned; system blocks the assignment</td></tr>
+  <tr><td>Dynamic SoD</td><td>Can have both roles but cannot activate both in same session/transaction; detected at runtime</td></tr>
+  <tr><td>ABAC</td><td>Access based on attributes of subject + object + environment; most granular; enables Zero Trust</td></tr>
+  <tr><td>ABAC vs. RBAC</td><td>RBAC = role only; ABAC = role + any context; ABAC solves role explosion at scale</td></tr>
+  <tr><td>XACML PDP</td><td>Policy Decision Point — the engine that evaluates ABAC policies; PEP enforces; PIP supplies attribute data; PAP authors policies</td></tr>
+  <tr><td>Temporal access</td><td>Time-bounded access (expiry, business-hours-only); JIT access tickets are temporal RBAC + temporal restriction</td></tr>
+  <tr><td>Zero Trust = ABAC</td><td>Zero Trust continuous verification requires multi-attribute context evaluation on every request = ABAC architecture</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-075-theory.html" class="nav-btn">← Day 75: Authorization: DAC &amp; MAC</a>
+  <a href="day-077-theory.html" class="nav-btn">Day 77: Access Control Implementation →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 109 – Change &amp; Configuration Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 109 – Change &amp; Configuration Management</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 109 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-108-theory.html">← Day 108: Preventive Measures</a> · Domain 7 · Day 109</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Change Management Process</a></li>
+  <li><a href="#s4">4. Change Advisory Board (CAB)</a></li>
+  <li><a href="#s5">5. Configuration Management</a></li>
+  <li><a href="#s6">6. CMDB &amp; Configuration Items</a></li>
+  <li><a href="#s7">7. Unauthorized Change Detection</a></li>
+  <li><a href="#s8">8. Infrastructure as Code (IaC)</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Unauthorized or uncontrolled changes are a leading cause of security incidents and outages. CISSP expects understanding of formal change control processes and how configuration management maintains a known-good security state</td></tr>
+  <tr><td>Question Style</td><td>"Who approves changes to production systems?" (CAB or designated authority). "What is the PRIMARY purpose of configuration management?" (maintain a known, documented baseline). "What should be done FIRST when an unauthorized change is detected?" (investigate as a potential security incident)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 108 (patching requires change control); Day 110 (vulnerability management feeds change requests); Domain 8 (SDLC change management)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>According to Gartner, 80% of unplanned outages are caused by ill-planned changes. The 2017 AWS S3 outage that took down much of the internet was caused by a single command entered incorrectly during routine maintenance — a change management process failure. Proper change management prevents outages, maintains security posture, and ensures regulatory compliance (SOX, PCI DSS, HIPAA all require formal change control).</p>
+</section>
+
+<section id="s3">
+<h2>3. Change Management Process</h2>
+<div class="definition callout">
+  <strong>Change Management:</strong> A structured process for requesting, evaluating, approving, implementing, and reviewing changes to IT systems. The goal is to minimize risk from changes while enabling necessary business evolution.
+</div>
+
+<div class="diagram">
+CHANGE MANAGEMENT LIFECYCLE
+
+  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+  │  1. REQUEST  │──→│ 2. EVALUATE │──→│ 3. APPROVE  │
+  │              │   │             │   │             │
+  │ Submit RFC   │   │ Impact      │   │ CAB review  │
+  │ (Request for │   │ analysis    │   │ Risk accept │
+  │  Change)     │   │ Risk assess │   │ or reject   │
+  └──────────────┘   │ Back-out    │   └──────┬──────┘
+                     │ plan reqd   │          │
+                     └─────────────┘          │
+                                              ▼
+  ┌─────────────┐   ┌─────────────┐   ┌──────────────┐
+  │  6. CLOSE   │←──│ 5. REVIEW   │←──│4. IMPLEMENT  │
+  │             │   │             │   │              │
+  │ Document    │   │ Verify      │   │ Schedule     │
+  │ Update CMDB │   │ success     │   │ Execute      │
+  │ Archive     │   │ Lessons     │   │ Test/validate│
+  └─────────────┘   │ learned     │   │ Back-out if  │
+                     └─────────────┘   │ failed       │
+                                       └──────────────┘
+</div>
+
+<h3>Change Management Steps in Detail</h3>
+<table>
+  <tr><th>Step</th><th>Activity</th><th>Key Outputs</th></tr>
+  <tr><td><strong>1. Request (RFC)</strong></td><td>Requestor submits formal Request for Change documenting: what, why, when, who, impact assessment, testing plan, back-out plan</td><td>RFC document</td></tr>
+  <tr><td><strong>2. Evaluate</strong></td><td>Change manager/team assesses risk, impact on other systems, resource requirements, security implications, scheduling conflicts</td><td>Impact analysis; risk assessment</td></tr>
+  <tr><td><strong>3. Approve</strong></td><td>CAB (or delegated authority) reviews and approves/rejects/defers. Emergency changes may use emergency CAB (ECAB)</td><td>Approval decision; conditions</td></tr>
+  <tr><td><strong>4. Implement</strong></td><td>Execute the change during approved maintenance window; follow documented procedures; test after implementation</td><td>Implementation records; test results</td></tr>
+  <tr><td><strong>5. Review</strong></td><td>Post-implementation review: Did the change achieve its objective? Any unexpected impacts? Back-out executed if failed</td><td>Review report; lessons learned</td></tr>
+  <tr><td><strong>6. Close</strong></td><td>Update CMDB with new configuration; archive RFC; close change ticket</td><td>Updated CMDB; closed RFC</td></tr>
+</table>
+
+<h3>Change Types</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Approval Process</th></tr>
+  <tr><td><strong>Standard</strong></td><td>Pre-approved, low-risk, routine changes that follow a documented procedure (e.g., monthly password rotation, standard user provisioning)</td><td>Pre-authorized — no individual CAB review needed</td></tr>
+  <tr><td><strong>Normal</strong></td><td>Changes requiring full evaluation and CAB approval</td><td>Full RFC process through CAB</td></tr>
+  <tr><td><strong>Emergency</strong></td><td>Changes required urgently to restore service or fix critical security vulnerability (e.g., zero-day patch)</td><td>ECAB (subset of CAB) for rapid approval; full documentation completed retroactively</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Trap — Emergency Changes:</strong> Emergency changes still require APPROVAL — they just use an expedited process (ECAB). "Emergency" does NOT mean "skip change management." After implementation, emergency changes must be documented and reviewed retroactively through the normal process.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Change Advisory Board (CAB)</h2>
+<div class="definition callout">
+  <strong>CAB (Change Advisory Board):</strong> A group of stakeholders that evaluates and authorizes changes to IT systems. Membership typically includes IT management, security, operations, application owners, and business representatives affected by changes.
+</div>
+
+<table>
+  <tr><th>CAB Characteristic</th><th>Detail</th></tr>
+  <tr><td>Purpose</td><td>Evaluate risk; approve/reject/defer changes; resolve scheduling conflicts; ensure business alignment</td></tr>
+  <tr><td>Composition</td><td>IT ops, security, development, QA, business stakeholders, service desk, network/infrastructure leads</td></tr>
+  <tr><td>Meeting frequency</td><td>Weekly or as needed; emergency CAB convened ad-hoc</td></tr>
+  <tr><td>Authority</td><td>Derives from management — CAB typically has authority to approve or schedule changes within defined scope</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Back-Out Plan Requirement:</strong> Every change MUST have a documented back-out (rollback) plan before approval. The back-out plan describes exactly how to reverse the change if it fails or causes unexpected problems. Without a viable back-out plan, the change should NOT be approved.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Configuration Management</h2>
+<div class="definition callout">
+  <strong>Configuration Management:</strong> The process of identifying, documenting, controlling, and auditing the configuration of IT systems throughout their lifecycle. Configuration management ensures systems remain in a known, approved, secure state.
+</div>
+
+<h3>Configuration Management Activities</h3>
+<table>
+  <tr><th>Activity</th><th>Description</th></tr>
+  <tr><td><strong>Identification</strong></td><td>Identify and document all Configuration Items (CIs) — hardware, software, documentation, network components</td></tr>
+  <tr><td><strong>Control</strong></td><td>Ensure changes to CIs follow the change management process; prevent unauthorized modifications</td></tr>
+  <tr><td><strong>Status Accounting</strong></td><td>Record and report the current status and history of each CI (version, location, owner, changes made)</td></tr>
+  <tr><td><strong>Verification &amp; Audit</strong></td><td>Periodically verify that actual configurations match documented configurations; identify drift</td></tr>
+</table>
+
+<h3>Configuration Baseline</h3>
+<div class="key-concept callout">
+  <strong>Configuration Baseline:</strong> A formally approved configuration of a system at a specific point in time — the "known good" state. All changes are measured FROM the baseline. After approved changes, a NEW baseline is established. Configuration drift occurs when actual system state deviates from the baseline without going through change management.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. CMDB &amp; Configuration Items</h2>
+<div class="definition callout">
+  <strong>CMDB (Configuration Management Database):</strong> A centralized database that stores information about all CIs and their relationships. The CMDB is the authoritative source for "what do we have and how is it configured."
+</div>
+
+<h3>Configuration Item (CI) Examples</h3>
+<table>
+  <tr><th>CI Category</th><th>Examples</th></tr>
+  <tr><td>Hardware</td><td>Servers, workstations, routers, switches, firewalls, storage arrays</td></tr>
+  <tr><td>Software</td><td>Operating systems, applications, middleware, firmware, scripts</td></tr>
+  <tr><td>Documentation</td><td>Procedures, policies, network diagrams, architecture documents</td></tr>
+  <tr><td>Network</td><td>IP addresses, VLANs, firewall rules, certificates, DNS records</td></tr>
+  <tr><td>Services</td><td>Business services, dependencies, SLAs</td></tr>
+</table>
+
+<h3>CMDB Relationships</h3>
+<p>The power of CMDB is in relationships between CIs — for example, knowing that Server A hosts Application B, which depends on Database C, connected via Network D. During incident response, these relationships enable rapid impact analysis: "If Server A goes down, what is affected?"</p>
+
+<div class="warning callout">
+  ⚠️ <strong>CMDB Accuracy Challenge:</strong> A CMDB is only valuable if it is accurate and current. Stale or inaccurate CMDB data provides false confidence. Automated discovery tools should continuously reconcile actual infrastructure with CMDB records. Any discrepancy is a potential unauthorized change.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Unauthorized Change Detection</h2>
+<h3>Detection Methods</h3>
+<table>
+  <tr><th>Method</th><th>Description</th><th>Tools</th></tr>
+  <tr><td><strong>File integrity monitoring (FIM)</strong></td><td>Monitors critical files for unauthorized modifications (hashes compared to baseline)</td><td>Tripwire; OSSEC; AIDE; commercial EDR</td></tr>
+  <tr><td><strong>Configuration assessment</strong></td><td>Compares actual configuration against approved baseline/benchmark</td><td>CIS-CAT; vulnerability scanners; SCAP tools</td></tr>
+  <tr><td><strong>CMDB reconciliation</strong></td><td>Automated discovery compares actual infrastructure to CMDB records</td><td>ServiceNow Discovery; BMC Discovery; Qualys</td></tr>
+  <tr><td><strong>Change log analysis</strong></td><td>SIEM correlates system changes with approved change tickets</td><td>SIEM; log analysis platforms</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Point — Unauthorized Change = Security Incident:</strong> An unauthorized change should be treated as a potential security incident until proven otherwise. It could indicate: a compromised system, an insider threat, a policy violation, or simply a process failure. The first response is to investigate, not to simply remediate.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Infrastructure as Code (IaC)</h2>
+<div class="definition callout">
+  <strong>Infrastructure as Code (IaC):</strong> Managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. IaC applies software engineering practices (version control, testing, review) to infrastructure management.
+</div>
+
+<h3>IaC Security Benefits</h3>
+<table>
+  <tr><th>Benefit</th><th>Description</th></tr>
+  <tr><td>Consistency</td><td>Every deployment is identical — eliminates configuration drift and "snowflake" servers</td></tr>
+  <tr><td>Version control</td><td>Infrastructure definitions stored in Git — full audit trail of who changed what and when</td></tr>
+  <tr><td>Peer review</td><td>Infrastructure changes go through code review (pull requests) before deployment</td></tr>
+  <tr><td>Automated testing</td><td>Security checks (policy compliance, vulnerability scanning) can be automated in the deployment pipeline</td></tr>
+  <tr><td>Rapid recovery</td><td>Rebuild infrastructure from code in minutes rather than manually reconfiguring</td></tr>
+  <tr><td>Immutable infrastructure</td><td>Rather than patching in place, deploy new instances from updated templates and destroy old ones</td></tr>
+</table>
+
+<h3>IaC Tools</h3>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Purpose</th></tr>
+  <tr><td>Terraform</td><td>Declarative</td><td>Multi-cloud infrastructure provisioning</td></tr>
+  <tr><td>Ansible</td><td>Declarative/Imperative</td><td>Configuration management and application deployment</td></tr>
+  <tr><td>Puppet</td><td>Declarative</td><td>Configuration management — enforce desired state</td></tr>
+  <tr><td>Chef</td><td>Imperative</td><td>Configuration management — Ruby-based procedural recipes</td></tr>
+  <tr><td>CloudFormation</td><td>Declarative</td><td>AWS-specific infrastructure provisioning</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Change Management — "REAIRC"</strong><br>
+  <strong>R</strong>equest (RFC) → <strong>E</strong>valuate → <strong>A</strong>pprove → <strong>I</strong>mplement → <strong>R</strong>eview → <strong>C</strong>lose<br>
+  "Request Evaluated, Approved, Implemented, Reviewed, Closed"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Change Types — "SEN"</strong><br>
+  <strong>S</strong>tandard (pre-approved, routine) → <strong>E</strong>mergency (urgent, ECAB) → <strong>N</strong>ormal (full CAB process)<br>
+  "SEN — from least process to most process"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Config Management — "ICSV"</strong><br>
+  <strong>I</strong>dentify CIs → <strong>C</strong>ontrol changes → <strong>S</strong>tatus accounting → <strong>V</strong>erification/audit<br>
+  "I Control System Versions"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Back-Out Plan</strong><br>
+  "No back-out, no go-out." Every change needs a rollback plan before approval.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Change management</td><td>Request → Evaluate → Approve → Implement → Review → Close; formal process for ALL production changes</td></tr>
+  <tr><td>RFC</td><td>Request for Change — formal submission documenting what, why, when, impact, back-out plan</td></tr>
+  <tr><td>CAB</td><td>Cross-functional board that evaluates and approves changes; ECAB for emergencies</td></tr>
+  <tr><td>Emergency changes</td><td>Still require approval (ECAB); documentation completed retroactively; NOT a bypass of change management</td></tr>
+  <tr><td>Back-out plan</td><td>Mandatory for every change; describes how to reverse if change fails</td></tr>
+  <tr><td>Configuration management</td><td>Identify, control, account, verify — maintain systems in known-good baseline state</td></tr>
+  <tr><td>CMDB</td><td>Central database of all CIs and relationships; must be kept accurate via automated discovery</td></tr>
+  <tr><td>Configuration drift</td><td>Deviation from approved baseline without change management; detected via FIM, assessment, CMDB reconciliation</td></tr>
+  <tr><td>Unauthorized change</td><td>Treat as potential security incident; investigate before remediating</td></tr>
+  <tr><td>IaC</td><td>Applies version control, peer review, automated testing to infrastructure; eliminates drift</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-108-theory.html" class="nav-btn">← Day 108: Preventive Measures</a>
+  <a href="day-110-theory.html" class="nav-btn">Day 110: Vulnerability &amp; Patch Management →</a>
+</div>
+</div>
+</body>
+</html>

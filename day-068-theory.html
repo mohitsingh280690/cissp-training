@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 68 – Network Segmentation</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 68 – Network Segmentation</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 68 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-067-theory.html">← Day 67: CDN &amp; Network Optimization</a> · Domain 4 · Day 68</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Network Zones &amp; DMZ Design</a></li>
+  <li><a href="#s4">4. VLANs &amp; Network Segmentation Controls</a></li>
+  <li><a href="#s5">5. Microsegmentation</a></li>
+  <li><a href="#s6">6. Zero Trust Network Access (ZTNA)</a></li>
+  <li><a href="#s7">7. Software-Defined Networking (SDN)</a></li>
+  <li><a href="#s8">8. Network Function Virtualization (NFV)</a></li>
+  <li><a href="#s9">9. East-West vs. North-South Traffic</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Network segmentation is a core defense-in-depth control. CISSP expects candidates to understand how to limit the blast radius of a compromise through segmentation, which controls enforce segment boundaries, and how modern concepts (microsegmentation, ZTNA, SDN) are changing traditional network design. DMZ design is a classic CISSP exam topic.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"An organization's web servers must face the internet while internal databases must not be exposed — which design?"; "An attacker has compromised one internal system and is moving laterally — which control would best limit this?"; "ZTNA differs from VPN in what fundamental way?"; "SDN separates what two planes?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 60 (firewalls enforce zone boundaries); Day 61 (IDS within zones monitors for lateral movement); Day 67 (SASE = ZTNA + SD-WAN); Day 84 (Zero Trust Architecture — the broader framework that ZTNA is part of)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>A DMZ places servers between two firewalls — NOT just behind a single firewall with a separate interface (though dual-homed DMZ is acceptable). VLANs provide Layer 2 segmentation but are not equivalent to firewall-enforced zone boundaries — VLAN hopping can bypass them. ZTNA does not extend network access; it provides application-level access — no lateral movement possible by default. SDN separates the control plane (intelligence/decisions) from the data plane (forwarding).</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>Flat networks enable breaches</strong></td><td>The most common post-breach finding is a flat network — once an attacker compromises any device, they can reach anything. NotPetya (2017) spread globally in minutes on flat corporate networks, costing billions. Segmentation limits lateral movement.</td></tr>
+  <tr><td><strong>Compliance requires segmentation</strong></td><td>PCI-DSS mandates cardholder data environment (CDE) isolation. HIPAA requires ePHI systems to be isolated. NIST SP 800-53 mandates network segmentation as a control (SC-7). Regulators expect segmented network diagrams.</td></tr>
+  <tr><td><strong>Cloud segmentation</strong></td><td>Cloud workloads need microsegmentation — traditional perimeter controls don't exist in cloud VPCs. AWS Security Groups, Azure NSGs, and cloud firewalls provide east-west segmentation. Zero Trust assumes no network perimeter.</td></tr>
+  <tr><td><strong>ZTNA replacing VPN</strong></td><td>Remote work accelerated ZTNA adoption. VPN gives users network-level access — a compromised VPN user can reach everything on the corporate network. ZTNA gives per-application access — a compromised ZTNA session only exposes the specific app, not the entire network.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Network Zones &amp; DMZ Design</h2>
+<div class="callout definition">
+  <strong>📖 DMZ (Demilitarized Zone):</strong> A network segment positioned between the internet and the internal network. Hosts publicly accessible servers (web, email, DNS) that must be reachable from the internet while protecting the internal network if those servers are compromised. Named by analogy to the strip of neutral territory between two military front lines.
+</div>
+
+<div class="diagram">
+Screened Subnet (Dual Firewall) DMZ — Recommended:
+
+Internet
+   │
+[Outer Firewall / Edge Router]
+   │  (only allows 80/443 inbound to web servers, 25 to mail relay)
+   │
+[DMZ — 10.0.1.0/24]
+  ├── Web Server (public-facing)
+  ├── Mail Relay / MX
+  └── Public DNS Server
+   │
+[Inner Firewall]
+   │  (only allows specific DB traffic from web servers to DB tier)
+   │  (denies ALL direct internet→internal traffic)
+   │
+[Internal Network — 10.0.0.0/24]
+  ├── Application Servers
+  ├── Database Servers
+  └── Internal user workstations
+
+NOTE: Two firewalls from DIFFERENT vendors = defence in depth
+      (avoids single vendor vulnerability compromising both)
+</div>
+
+<table>
+  <tr><th>Zone</th><th>Trust Level</th><th>Examples</th><th>Controls</th></tr>
+  <tr><td><strong>Internet / Untrusted</strong></td><td>Zero trust</td><td>External users, internet</td><td>All traffic denied by default; only permitted inbound services allowed</td></tr>
+  <tr><td><strong>DMZ / Semi-trusted</strong></td><td>Low</td><td>Web servers, mail relay, public DNS, jump hosts</td><td>Restricted inbound from internet; restricted outbound to internal; all DMZ→internal traffic inspected</td></tr>
+  <tr><td><strong>Internal / Trusted</strong></td><td>Medium</td><td>User workstations, printers, internal apps</td><td>No direct internet inbound; can initiate outbound via proxy; segmented from sensitive zones</td></tr>
+  <tr><td><strong>Restricted / High Security</strong></td><td>High</td><td>Database servers, PCI CDE, SCADA/ICS, executive segment</td><td>Access from internal requires additional authentication; minimal connectivity; heavily monitored</td></tr>
+  <tr><td><strong>Management / Out-of-Band</strong></td><td>High</td><td>iDRAC, IPMI, network device management interfaces, SIEM</td><td>Completely isolated management network; only accessible via jump server; no internet access</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. VLANs &amp; Network Segmentation Controls</h2>
+<table>
+  <tr><th>Control</th><th>Layer</th><th>Description</th><th>Limitation</th></tr>
+  <tr><td><strong>VLAN</strong></td><td>L2</td><td>Logically separate broadcast domains on the same physical switch infrastructure. Traffic between VLANs requires a router or Layer 3 switch.</td><td>VLAN hopping attacks (802.1Q double-tagging, switch spoofing) can bypass VLAN boundaries. VLANs alone are insufficient for security-critical segmentation — inter-VLAN traffic must route through a firewall.</td></tr>
+  <tr><td><strong>Subnet / IP segmentation</strong></td><td>L3</td><td>Separate IP subnets for different zones. Routing between subnets enforced by routers/firewalls applying ACLs.</td><td>Requires proper firewall ACL enforcement — a misconfigured ACL with "permit any any" defeats segmentation.</td></tr>
+  <tr><td><strong>Firewall-based zone enforcement</strong></td><td>L3–L7</td><td>All inter-zone traffic routes through a stateful firewall. Explicit allow rules required; default deny. Provides the strongest zone boundary enforcement.</td><td>Performance becomes a bottleneck for east-west traffic in large data centers — microsegmentation scales better in cloud.</td></tr>
+  <tr><td><strong>ACL (Access Control List)</strong></td><td>L3–L4</td><td>Router/switch rules permitting or denying traffic based on IP address and port. Stateless — each packet evaluated independently.</td><td>Stateless — cannot track TCP session state; must create rules for both directions; more complex than stateful firewall rules.</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Microsegmentation</h2>
+<div class="callout definition">
+  <strong>📖 Microsegmentation:</strong> A security technique that divides the network into very small, isolated segments — down to the individual workload, virtual machine, or container level. Each workload has its own security policy controlling inbound and outbound traffic. Prevents lateral movement even between systems in the same traditional network zone.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Traditional Segmentation</th><th>Microsegmentation</th></tr>
+  <tr><td><strong>Granularity</strong></td><td>Zone-level (e.g., DMZ, internal, restricted)</td><td>Workload-level (per VM, per container, per service)</td></tr>
+  <tr><td><strong>Enforcement</strong></td><td>Perimeter firewall at zone boundary</td><td>Host-based firewall, hypervisor-level controls (vSphere NSX), cloud security groups</td></tr>
+  <tr><td><strong>East-west control</strong></td><td>Limited — traffic within a zone flows freely</td><td>Full — even within a zone, workloads can only communicate if explicitly permitted</td></tr>
+  <tr><td><strong>Lateral movement</strong></td><td>Compromised host can reach all hosts in same zone</td><td>Compromised host can only reach permitted workloads — blast radius minimized</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Physical firewall appliances</td><td>Software-defined: NSX, Illumio, AWS Security Groups, Azure NSGs, Calico (Kubernetes)</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Zero Trust Network Access (ZTNA)</h2>
+<div class="callout definition">
+  <strong>📖 ZTNA (Zero Trust Network Access):</strong> A security model providing secure remote access to specific applications based on defined access control policies — without granting broad network access. Users/devices are continuously verified (identity + device posture) before each application access, regardless of network location. The antithesis of "trust the network."
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Traditional VPN</th><th>ZTNA</th></tr>
+  <tr><td><strong>Access model</strong></td><td>Network tunnel — user gets IP on corporate network; can reach any host on that network (like being in the office)</td><td>Application-level proxy — user connects to specific app only; never placed on the network segment</td></tr>
+  <tr><td><strong>Lateral movement risk</strong></td><td>High — compromised VPN user can scan and attack internal systems</td><td>None — user only has access to permitted apps; cannot reach other hosts</td></tr>
+  <tr><td><strong>Verification</strong></td><td>One-time authentication at tunnel establishment</td><td>Continuous — identity + device posture (patch level, EDR installed, OS version) verified per session and continuously</td></tr>
+  <tr><td><strong>User experience</strong></td><td>VPN client; sometimes slow due to backhaul</td><td>Direct connection from user to app (no backhaul); faster; transparent</td></tr>
+  <tr><td><strong>Managed devices</strong></td><td>Usually required</td><td>Supports unmanaged/BYOD devices (via agentless browser-based access)</td></tr>
+  <tr><td><strong>CISSP context</strong></td><td>VPN = network-centric access</td><td>ZTNA = identity-centric, application-centric access; implements Zero Trust principles</td></tr>
+</table>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. Software-Defined Networking (SDN)</h2>
+<div class="callout definition">
+  <strong>📖 SDN (Software-Defined Networking):</strong> A network architecture that separates the network's control plane (where routing and policy decisions are made) from the data plane (where packets are forwarded). A centralized SDN controller programs all network devices, enabling programmable, dynamic, and policy-driven network behaviour.
+</div>
+
+<table>
+  <tr><th>SDN Plane</th><th>Role</th><th>Traditional equivalent</th></tr>
+  <tr><td><strong>Control Plane</strong></td><td>Centralized SDN controller — makes forwarding decisions; computes routes; enforces policies; programs the data plane via southbound APIs (OpenFlow, NETCONF)</td><td>Distributed routing protocols (OSPF, BGP) running inside each router</td></tr>
+  <tr><td><strong>Data Plane (Forwarding Plane)</strong></td><td>Network devices (virtual or physical switches) that forward packets according to flow tables programmed by the controller. No independent routing intelligence.</td><td>Router/switch ASIC forwarding hardware</td></tr>
+  <tr><td><strong>Management Plane</strong></td><td>Northbound APIs used by applications and orchestration systems to instruct the SDN controller (REST APIs, intent-based networking)</td><td>CLI / SNMP management of individual devices</td></tr>
+</table>
+
+<h3>SDN Security Implications</h3>
+<table>
+  <tr><th>Benefit</th><th>Risk</th></tr>
+  <tr><td>Centralized security policy enforcement — consistent firewall rules across all network devices simultaneously</td><td>SDN controller is a single point of failure and a high-value attack target — compromise = control of entire network</td></tr>
+  <tr><td>Dynamic network reconfiguration — isolate compromised hosts instantly by changing flow tables</td><td>Southbound interface (OpenFlow) must be secured — man-in-the-middle between controller and devices could inject malicious flow rules</td></tr>
+  <tr><td>Network programmability — automated security response (quarantine compromised hosts)</td><td>API security — northbound API must require strong authentication to prevent unauthorized policy changes</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. Network Function Virtualization (NFV)</h2>
+<div class="callout definition">
+  <strong>📖 NFV (Network Function Virtualization):</strong> The virtualization of traditional network appliances — firewalls, IDS/IPS, load balancers, routers, WAN optimizers — replacing purpose-built hardware with software running on commodity servers or in the cloud. Enables rapid deployment, scaling, and chaining of network security functions.
+</div>
+
+<table>
+  <tr><th>Traditional</th><th>NFV Equivalent</th><th>Benefit</th></tr>
+  <tr><td>Physical firewall appliance</td><td>Virtual firewall (vFW) — software on VM</td><td>Deploy as many as needed; scale up/down; no hardware procurement lead time</td></tr>
+  <tr><td>Physical IDS/IPS appliance</td><td>Virtual IDS/IPS</td><td>Insert into traffic flows in software; integrate with SDN orchestration</td></tr>
+  <tr><td>Physical load balancer</td><td>Software load balancer (NGINX, HAProxy, cloud LB)</td><td>Elastic scaling; no hardware bottleneck</td></tr>
+  <tr><td>Hardware WAN router</td><td>Virtual router on x86 server</td><td>Cloud deployment; rapid provisioning</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Service Function Chaining (SFC):</strong> NFV enables traffic to be automatically routed through a chain of virtualized security functions in sequence (e.g., traffic enters vFirewall → vIDS → vWAF → application). The chain can be dynamically configured and changed without physical rewiring. This is how SASE delivers multiple security services in sequence at a cloud PoP.
+</div>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. East-West vs. North-South Traffic</h2>
+<div class="callout definition">
+  <strong>📖 Traffic Directions in Data Centers:</strong>
+  <strong>North-South traffic</strong> = traffic entering or leaving the data center (between clients and data center, between DC and internet). Traditional security architectures focused almost exclusively on this perimeter traffic.<br>
+  <strong>East-West traffic</strong> = traffic flowing between servers/workloads <em>within</em> the data center (server-to-server, microservice-to-microservice). Modern data centers have significantly more east-west than north-south traffic — yet most early security architectures left east-west uninspected.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>North-South</th><th>East-West</th></tr>
+  <tr><td><strong>Direction</strong></td><td>External ↔ Data Center</td><td>Server ↔ Server (within DC or cloud)</td></tr>
+  <tr><td><strong>Volume</strong></td><td>Smaller (external user traffic)</td><td>Dominant (inter-service, database queries, replication) — typically 70–80% of DC traffic</td></tr>
+  <tr><td><strong>Traditional controls</strong></td><td>Perimeter firewall, edge router, WAF</td><td>Often uninspected in legacy architectures — flat internal networks</td></tr>
+  <tr><td><strong>Modern controls</strong></td><td>Edge firewall, CDN, WAF, DDoS scrubbing (same)</td><td>Microsegmentation, intra-datacenter firewalls, SDN flow policies, service mesh (Istio mTLS)</td></tr>
+  <tr><td><strong>Threat relevance</strong></td><td>External threats (DDoS, web exploits)</td><td>Lateral movement after initial compromise; insider threat; ransomware spread</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The shift to microservices/cloud has made east-west traffic the primary risk surface. A security architecture that only defends the perimeter (north-south) but leaves east-west uncontrolled is fundamentally flawed. Microsegmentation, ZTNA, and SDN specifically address east-west inspection and control.
+</div>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 DMZ — "Public servers in no man's land":</strong><br>
+  The DMZ is between two firewalls — outer firewall faces internet, inner firewall faces internal network.<br>
+  Web/mail/DNS servers live in the DMZ because they must be reachable from internet.<br>
+  Rule: Internet → DMZ allowed (limited). DMZ → Internal restricted. Internet → Internal NEVER directly.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SDN — "Controller Calls the Shots":</strong><br>
+  <strong>Control Plane</strong> = the brain (SDN Controller) — makes routing/policy decisions<br>
+  <strong>Data Plane</strong> = the muscle (switches/routers) — just forwards packets per controller's flow tables<br>
+  Traditional networking: brain and muscle are in the same box (each router thinks for itself).<br>
+  SDN: centralized brain programs all the muscles.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ZTNA vs VPN — "App vs. Network":</strong><br>
+  <strong>VPN</strong>: gives the user a virtual network interface + corporate IP → can reach the whole network<br>
+  <strong>ZTNA</strong>: gives the user a tunnel to one specific app → cannot see rest of network at all<br>
+  If the user is compromised: VPN = whole network exposed; ZTNA = only that one app exposed (minimized blast radius)
+</div>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>DMZ</td><td>Semi-trusted zone between internet and internal network; screened subnet (dual firewall) is the most secure design; hosts public-facing servers</td></tr>
+  <tr><td>Network zones</td><td>Internet (untrusted) → DMZ (semi-trusted) → Internal → Restricted → Management (OOB); all inter-zone traffic enforced by firewall</td></tr>
+  <tr><td>VLAN limitation</td><td>VLANs provide L2 segmentation but VLAN hopping attacks can bypass them; inter-VLAN traffic must route through firewall for security enforcement</td></tr>
+  <tr><td>Microsegmentation</td><td>Per-workload security policy; implemented at hypervisor or cloud security group level; controls east-west traffic; limits lateral movement blast radius</td></tr>
+  <tr><td>ZTNA</td><td>Application-level access (not network access); continuous identity + device posture verification; no lateral movement possible; replacing VPN for remote access</td></tr>
+  <tr><td>SDN</td><td>Separates control plane (centralized controller) from data plane (dumb forwarding devices); enables programmable, dynamic network policy; controller is high-value attack target</td></tr>
+  <tr><td>NFV</td><td>Virtualized network functions (vFirewall, vIDS, vLB) on commodity hardware; enables service function chaining; elastic scaling</td></tr>
+  <tr><td>East-West traffic</td><td>Server-to-server within datacenter; majority of modern datacenter traffic; historically uninspected; microsegmentation and SDN address this gap</td></tr>
+  <tr><td>North-South traffic</td><td>External ↔ datacenter; protected by perimeter controls (edge firewall, CDN, WAF); smaller proportion of total DC traffic</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-067-theory.html" class="nav-btn">← Day 67: CDN &amp; Network Optimization</a>
+  <a href="day-069-theory.html" class="nav-btn">Day 69: Domain 4 Review →</a>
+</div>
+</div>
+</body>
+</html>

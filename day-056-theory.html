@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 56 – Core Protocols: TCP, UDP, ICMP, ARP &amp; Port Numbers</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 56 – Core Protocols: TCP, UDP, ICMP, ARP &amp; Ports</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 56 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-055-theory.html">← Day 55: IP Addressing &amp; Subnetting</a> · Domain 4 · Day 56</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. TCP – Transmission Control Protocol</a></li>
+  <li><a href="#s4">4. The TCP Three-Way Handshake</a></li>
+  <li><a href="#s5">5. TCP Flags &amp; Connection Termination</a></li>
+  <li><a href="#s6">6. UDP – User Datagram Protocol</a></li>
+  <li><a href="#s7">7. ICMP – Internet Control Message Protocol</a></li>
+  <li><a href="#s8">8. ARP – Address Resolution Protocol</a></li>
+  <li><a href="#s9">9. Port Numbers</a></li>
+  <li><a href="#s10">10. Attacks Exploiting Core Protocols</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13% of exam)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Core protocols are the foundation for understanding every network security control — firewalls, IDS/IPS, VPNs, and network attacks all operate at this level. You cannot understand a SYN flood, ARP poisoning, or ping sweep without knowing TCP, ICMP, and ARP.</td></tr>
+  <tr><td><strong>Question Style</strong></td><td>Scenario-based: "An attacker sends thousands of SYN packets without completing the handshake — which attack is this?"; definition-based: "Which protocol operates connectionlessly?"; comparison: "When would you use UDP over TCP?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 7 (incident response — identifying attacks via protocol analysis), Domain 3 (IPSec uses IP/ICMP), Domain 6 (vulnerability scanning uses ICMP/TCP for host discovery)</td></tr>
+  <tr><td><strong>Exam Traps</strong></td><td>Confusing ARP as Layer 3 vs. Layer 2; claiming UDP is "insecure" and TCP is "secure" (they are neither — security is added by TLS, not by the transport protocol); forgetting that ICMP has no port numbers</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Ownership</strong></td><td>Network operations teams own protocol configuration; security teams write firewall ACLs based on protocol/port; SOC analysts use protocol knowledge to interpret IDS/IPS alerts and PCAP captures</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Firewalls filter by protocol and port; IPS/IDS signatures trigger on protocol anomalies; network monitoring tools decode protocol fields; penetration testers use protocol-level tools (nmap, Wireshark, tcpdump)</td></tr>
+  <tr><td><strong>Failure Modes</strong></td><td>Allowing ICMP unrestricted enables reconnaissance; not filtering unused ports increases attack surface; ARP monitoring gaps enable MITM attacks; unvalidated UDP traffic is common in amplification DDoS attacks</td></tr>
+  <tr><td><strong>Business Impact</strong></td><td>Protocol-level security is the first line of defence at the network perimeter; poor port management directly leads to exposure of internal services; understanding protocols is essential for incident investigation and forensics</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3">
+<h2>3. TCP – Transmission Control Protocol</h2>
+<div class="callout definition">
+  <strong>📖 TCP (Transmission Control Protocol):</strong> A <strong>connection-oriented, reliable</strong> Layer 4 (Transport) protocol. TCP guarantees delivery, ordering, and error checking of data between two endpoints. Defined in RFC 793.
+</div>
+
+<h3>TCP Characteristics</h3>
+<table>
+  <tr><th>Characteristic</th><th>Mechanism</th><th>Security Implication</th></tr>
+  <tr><td><strong>Connection-Oriented</strong></td><td>Requires a 3-way handshake before data transfer</td><td>Creates state — attackers can exploit the handshake (SYN flood)</td></tr>
+  <tr><td><strong>Reliable Delivery</strong></td><td>Sequence numbers + acknowledgements (ACKs); retransmits lost segments</td><td>Sequence number prediction enables session hijacking</td></tr>
+  <tr><td><strong>Ordered Delivery</strong></td><td>Sequence numbers ensure segments are reassembled in order</td><td>Fragmentation attacks (Teardrop) exploit reassembly</td></tr>
+  <tr><td><strong>Flow Control</strong></td><td>Sliding window adjusts the amount of data sent based on receiver capacity</td><td>Window size manipulation in DoS attacks</td></tr>
+  <tr><td><strong>Full-Duplex</strong></td><td>Data can flow in both directions simultaneously</td><td>Bidirectional interception in MITM attacks</td></tr>
+  <tr><td><strong>Error Checking</strong></td><td>16-bit checksum on each segment header</td><td>Checksum does not provide integrity against manipulation</td></tr>
+</table>
+
+<h3>TCP Header (Key Fields)</h3>
+<div class="diagram">
+TCP Header (20 bytes minimum):
+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+┌─────────────────────────┬─────────────────────────────────────┐
+│     Source Port (16)    │       Destination Port (16)         │
+├─────────────────────────────────────────────────────────────────┤
+│                    Sequence Number (32)                         │
+├─────────────────────────────────────────────────────────────────┤
+│                 Acknowledgement Number (32)                      │
+├──────────┬──────────────┬────────────────────────────────────────┤
+│  Offset  │   Reserved   │ Flags: URG ACK PSH RST SYN FIN (6)    │
+├──────────────────────────┬─────────────────────────────────────┤
+│       Window Size (16)   │         Checksum (16)               │
+└──────────────────────────┴─────────────────────────────────────┘
+Key: Source/Dest Port identify the application service
+     Sequence Number enables ordered reassembly
+     Flags (SYN, ACK, FIN, RST) control connection state
+     Window Size controls flow (sliding window)
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4">
+<h2>4. The TCP Three-Way Handshake</h2>
+<div class="callout definition">
+  <strong>📖 Three-Way Handshake:</strong> The process by which TCP establishes a connection between client and server. Requires three messages — SYN, SYN-ACK, and ACK — before any data is transferred. This creates a stateful, agreed-upon connection with synchronized sequence numbers.
+</div>
+
+<div class="diagram">
+        Client                          Server
+          │                               │
+          │──── SYN (seq=x) ─────────────▶│  Client: "I want to talk; my seq# is x"
+          │                               │
+          │◀─── SYN-ACK (seq=y, ack=x+1)──│  Server: "OK; my seq# is y; I got your x"
+          │                               │
+          │──── ACK (ack=y+1) ────────────▶│  Client: "Got it; confirming your seq y"
+          │                               │
+          │════════ DATA TRANSFER ════════│
+          │                               │
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Why Sequence Numbers Matter (Security):</strong> Sequence numbers are critical for session security. If an attacker can <strong>predict</strong> the initial sequence number (ISN), they can spoof packets as either party — this is the basis of TCP session hijacking. Modern OS implementations use <strong>cryptographically random ISNs</strong> to prevent this. Early systems (before RFC 6528) used predictable ISNs, enabling famous attacks like the 1994 Mitnick attack on Tsutomu Shimomura.
+</div>
+
+<h3>SYN Flood Attack (TCP Handshake Exploitation)</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>How it works</strong></td><td>Attacker sends thousands of SYN packets with spoofed source IPs. The server replies SYN-ACK to non-existent addresses. Since the final ACK never arrives, the server's TCP state table fills up with half-open (SYN_RCVD) connections.</td></tr>
+  <tr><td><strong>Impact</strong></td><td>Server exhausts connection table — legitimate connections are refused (DoS)</td></tr>
+  <tr><td><strong>Defence</strong></td><td>SYN cookies (cryptographic ISN that encodes session state, eliminating the need to store half-open connections); rate limiting; firewall thresholds</td></tr>
+  <tr><td><strong>Detection</strong></td><td>High rate of SYN packets; large number of connections in SYN_RCVD state; asymmetrical traffic</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The SYN flood exploits the <strong>stateful nature of TCP</strong>. The answer to "why does SYN flood work?" is that the server must maintain state for every half-open connection. SYN cookies solve this by encoding the connection state in the ISN, so the server doesn't need to store anything until the handshake completes.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5 ═══ -->
+<section id="s5">
+<h2>5. TCP Flags &amp; Connection Termination</h2>
+<h3>TCP Flags (Control Bits)</h3>
+<table>
+  <tr><th>Flag</th><th>Full Name</th><th>Purpose &amp; Security Context</th></tr>
+  <tr><td><strong>SYN</strong></td><td>Synchronize</td><td>Initiates a connection; SYN-only scan (nmap -sS) is the most common port scan technique — sends SYN and waits for response</td></tr>
+  <tr><td><strong>ACK</strong></td><td>Acknowledge</td><td>Confirms receipt; used in all established connections; ACK scans can bypass some stateless firewalls</td></tr>
+  <tr><td><strong>FIN</strong></td><td>Finish</td><td>Gracefully closes a connection; FIN scan (nmap -sF) sends FIN without prior connection — closed ports reply RST, open ports ignore</td></tr>
+  <tr><td><strong>RST</strong></td><td>Reset</td><td>Abruptly closes a connection; used by firewalls to reject connections; RST injection can terminate established sessions</td></tr>
+  <tr><td><strong>PSH</strong></td><td>Push</td><td>Instructs receiver to pass data to application immediately without buffering</td></tr>
+  <tr><td><strong>URG</strong></td><td>Urgent</td><td>Marks urgent data; Urgent Pointer field indicates where urgent data ends</td></tr>
+  <tr><td><strong>NULL</strong></td><td>No flags set</td><td>Used in NULL scans (nmap -sN) — no flags set; RFC compliant hosts close port responds RST, open ports ignore (Unix systems only)</td></tr>
+  <tr><td><strong>XMAS</strong></td><td>FIN+PSH+URG set</td><td>XMAS scan (nmap -sX) — like NULL scan; works only on Unix; Windows ignores flag combinations, making it unreliable</td></tr>
+</table>
+
+<h3>TCP Four-Way Termination</h3>
+<div class="diagram">
+        Client                          Server
+          │                               │
+          │──── FIN ──────────────────────▶│  "I'm done sending"
+          │◀─── ACK ───────────────────────│  "Got your FIN"
+          │                               │  (Server may still be sending)
+          │◀─── FIN ───────────────────────│  "I'm done sending too"
+          │──── ACK ──────────────────────▶│  "Got your FIN"
+          │                               │
+          │     [TIME_WAIT on client]      │
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 TIME_WAIT State:</strong> After sending the final ACK, the client remains in TIME_WAIT for 2×MSL (Maximum Segment Lifetime, typically 2 minutes) to ensure the final ACK was received. This prevents delayed duplicate packets from a previous connection from being misinterpreted by a new connection on the same port.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6 ═══ -->
+<section id="s6">
+<h2>6. UDP – User Datagram Protocol</h2>
+<div class="callout definition">
+  <strong>📖 UDP (User Datagram Protocol):</strong> A <strong>connectionless, unreliable</strong> Layer 4 protocol. UDP sends datagrams without establishing a connection, without guaranteeing delivery, and without ordering. Defined in RFC 768. It is the "fire and forget" protocol.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>TCP</th><th>UDP</th></tr>
+  <tr><td><strong>Connection</strong></td><td>Connection-oriented (3-way handshake)</td><td>Connectionless</td></tr>
+  <tr><td><strong>Reliability</strong></td><td>Guaranteed delivery (ACKs + retransmission)</td><td>Best-effort, no guarantees</td></tr>
+  <tr><td><strong>Ordering</strong></td><td>Ordered (sequence numbers)</td><td>Unordered (application must handle if needed)</td></tr>
+  <tr><td><strong>Speed</strong></td><td>Slower (overhead of handshake, ACKs, retransmission)</td><td>Faster (no overhead)</td></tr>
+  <tr><td><strong>Header Size</strong></td><td>20–60 bytes</td><td>8 bytes (fixed)</td></tr>
+  <tr><td><strong>Flow Control</strong></td><td>Yes (sliding window)</td><td>No</td></tr>
+  <tr><td><strong>Use Cases</strong></td><td>HTTP/S, FTP, SMTP, SSH, Telnet</td><td>DNS, DHCP, VoIP, video streaming, TFTP, SNMP, NTP</td></tr>
+  <tr><td><strong>State on server</strong></td><td>Stateful (socket maintained)</td><td>Largely stateless</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Why Use UDP at All?</strong> Speed and overhead. For real-time applications like VoIP or video streaming, a retransmitted packet arrives too late to be useful — it's better to drop it and continue. DNS uses UDP for initial queries (speed); falling back to TCP for large responses (&gt;512 bytes in DNS traditionally, now &gt;4096 with EDNS0). DTLS (Datagram TLS) adds security to UDP for VPNs (e.g., used in WebRTC, QUIC).
+</div>
+
+<h3>UDP Security Concerns</h3>
+<table>
+  <tr><th>Threat</th><th>Mechanism</th><th>Example / Mitigation</th></tr>
+  <tr><td><strong>Amplification DDoS</strong></td><td>Attacker spoofs victim's IP; sends small UDP request to open resolver; large response floods victim (amplification factor 50–100x)</td><td>DNS amplification, NTP monlist (200x amplification); mitigated by BCP 38 (ingress filtering), response rate limiting</td></tr>
+  <tr><td><strong>UDP Flood</strong></td><td>High-volume UDP packets sent to random ports; target sends ICMP "port unreachable" for each; overwhelms target</td><td>Rate limiting at perimeter; UDP flood blocking</td></tr>
+  <tr><td><strong>Spoofing</strong></td><td>Since there's no handshake, source IP is easily spoofed in UDP packets</td><td>BCP 38 (network ingress filtering); stateful firewall inspection</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> UDP amplification attacks are possible precisely <em>because</em> UDP is connectionless — there's no handshake to verify that the requester's IP is real. TCP's three-way handshake naturally prevents amplification because the attacker never completes the handshake to an uncontrolled destination. This is a key CISSP exam distinction.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7 ═══ -->
+<section id="s7">
+<h2>7. ICMP – Internet Control Message Protocol</h2>
+<div class="callout definition">
+  <strong>📖 ICMP (Internet Control Message Protocol):</strong> A Layer 3 supporting protocol used by network devices to send error messages and operational information. ICMP does not transport application data — it carries network-layer diagnostic and control messages. Defined in RFC 792.
+</div>
+
+<div class="callout warning">
+  <strong>⚠️ ICMP Has No Port Numbers:</strong> A very common exam trap. ICMP operates at Layer 3 (Network). It does not use TCP or UDP ports. You cannot filter ICMP by port number — you filter by ICMP type and code.
+</div>
+
+<h3>Key ICMP Message Types</h3>
+<table>
+  <tr><th>Type</th><th>Code / Name</th><th>Purpose</th><th>Security Use</th></tr>
+  <tr><td><strong>0</strong></td><td>Echo Reply</td><td>Response to ping</td><td>Host discovery; live host confirmed</td></tr>
+  <tr><td><strong>3</strong></td><td>Destination Unreachable</td><td>Packet can't reach destination; code indicates why (network, host, port, protocol)</td><td>Reconnaissance — closed port returns type 3 code 3 (Port Unreachable)</td></tr>
+  <tr><td><strong>5</strong></td><td>Redirect</td><td>Instructs host to use a different router for a specific destination</td><td>ICMP redirect attacks — redirect victim's traffic through attacker's machine (MITM)</td></tr>
+  <tr><td><strong>8</strong></td><td>Echo Request</td><td>The ping request</td><td>Ping sweep (mass host discovery); often blocked at perimeters</td></tr>
+  <tr><td><strong>11</strong></td><td>Time Exceeded</td><td>TTL expired in transit</td><td>Used by traceroute (each router decrements TTL to 0 and replies with type 11)</td></tr>
+  <tr><td><strong>13/14</strong></td><td>Timestamp Request/Reply</td><td>Network time measurement</td><td>Can be used for covert channel — timing-based data exfiltration</td></tr>
+</table>
+
+<h3>ICMP-Based Recon &amp; Attacks</h3>
+<table>
+  <tr><th>Attack/Technique</th><th>ICMP Usage</th><th>Defence</th></tr>
+  <tr><td><strong>Ping Sweep</strong></td><td>Send ICMP Echo Request to a range of IPs; any Echo Reply = live host</td><td>Block inbound/outbound ICMP Echo at perimeter; monitor for high-volume ICMP</td></tr>
+  <tr><td><strong>Ping of Death (PoD)</strong></td><td>Sends an ICMP Echo Request larger than 65,535 bytes (after fragmentation reassembly) causing buffer overflow</td><td>Patching; all modern OSes are immune</td></tr>
+  <tr><td><strong>Smurf Attack</strong></td><td>Sends ICMP Echo Request to broadcast address with victim's spoofed IP as source; all hosts on subnet reply to victim (amplification)</td><td>Disable directed broadcast at routers; ingress filtering</td></tr>
+  <tr><td><strong>ICMP Redirect Attack</strong></td><td>Attacker sends a forged ICMP Redirect to victim, directing traffic through attacker's host</td><td>Disable ICMP redirect acceptance on hosts; use static routes where possible</td></tr>
+  <tr><td><strong>ICMP Tunneling</strong></td><td>Data exfiltration hidden in ICMP payload (e.g., tools like icmptunnel)</td><td>Deep packet inspection; anomaly-based IDS detecting large ICMP payloads</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Traceroute uses UDP (on Unix/Linux — sends UDP probes to ports 33434+ with incrementing TTL) or ICMP (Windows <code>tracert</code> sends ICMP Echo Requests with incrementing TTL by default). Either way, the intermediate routers return ICMP Type 11 (Time Exceeded). The exam may ask: "What protocol does traceroute use?" — the answer depends on OS, but the <em>reply</em> is always ICMP.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8 ═══ -->
+<section id="s8">
+<h2>8. ARP – Address Resolution Protocol</h2>
+<div class="callout definition">
+  <strong>📖 ARP (Address Resolution Protocol):</strong> Maps IP addresses (Layer 3) to MAC addresses (Layer 2). When a host wants to communicate with another host on the same local network, it must know the destination MAC address. ARP provides this mapping. Defined in RFC 826.
+</div>
+
+<div class="diagram">
+ARP Process:
+
+Host A (10.0.0.1)                               Host B (10.0.0.2)
+      │                                                │
+      │──── ARP Request (Broadcast) ──────────────────▶│
+      │     "Who has 10.0.0.2? Tell 10.0.0.1"          │
+      │     Destination MAC: FF:FF:FF:FF:FF:FF          │
+      │                                                │
+      │◀─── ARP Reply (Unicast) ───────────────────────│
+      │     "10.0.0.2 is at AA:BB:CC:DD:EE:FF"         │
+      │                                                │
+      │  [Host A caches entry in ARP table]            │
+      │══════════════ DATA FLOWS ═════════════════════▶│
+</div>
+
+<h3>ARP Poisoning / ARP Spoofing (MITM Attack)</h3>
+<div class="callout warning">
+  <strong>⚠️ ARP Has No Authentication:</strong> ARP is stateless and trusts any response. A host will update its ARP cache whenever it receives an ARP reply, <strong>even if it never sent a request</strong> (gratuitous ARP). This fundamental design flaw enables ARP poisoning.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>How it works</strong></td><td>Attacker sends unsolicited (gratuitous) ARP replies to both the victim and the gateway. Victim maps gateway IP → attacker MAC. Gateway maps victim IP → attacker MAC. All traffic flows through attacker (MITM).</td></tr>
+  <tr><td><strong>Impact</strong></td><td>Man-in-the-Middle (can intercept, modify, or drop traffic); credential theft if traffic is unencrypted; can redirect to malicious sites</td></tr>
+  <tr><td><strong>Tools</strong></td><td>Arpspoof, arpwatch (detection), Ettercap, Bettercap</td></tr>
+  <tr><td><strong>Defences</strong></td><td>Dynamic ARP Inspection (DAI) on switches — validates ARP packets against a trusted DHCP snooping binding table; static ARP entries for critical servers; encrypted traffic (TLS renders MITM ineffective for data theft); network segmentation; IDS monitoring ARP anomalies</td></tr>
+  <tr><td><strong>Scope</strong></td><td>ARP is only local — it only works within the same broadcast domain (same VLAN/subnet). Cross-subnet attacks require other techniques.</td></tr>
+</table>
+
+<h3>RARP, Proxy ARP, and Gratuitous ARP</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Security Note</th></tr>
+  <tr><td><strong>RARP</strong></td><td>Reverse ARP — maps MAC → IP (deprecated, replaced by DHCP/BOOTP)</td><td>Largely obsolete; was used before DHCP</td></tr>
+  <tr><td><strong>Proxy ARP</strong></td><td>A router responds to ARP requests on behalf of devices in another subnet</td><td>Can hide network topology; enables ARP spoofing across subnets if misconfigured</td></tr>
+  <tr><td><strong>Gratuitous ARP</strong></td><td>ARP reply sent without a request — used by hosts to announce their IP/MAC (e.g., after IP change, or failover)</td><td>The primary mechanism for ARP poisoning — hosts accept gratuitous ARPs unconditionally</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> ARP poisoning leads to a Man-in-the-Middle attack on the <em>local network</em>. The most important defence the CISSP exam expects is <strong>Dynamic ARP Inspection (DAI)</strong> combined with <strong>DHCP snooping</strong>. Static ARP entries are mentioned but impractical at scale. Encryption (TLS) is the compensating control when MITM cannot be prevented.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 9 ═══ -->
+<section id="s9">
+<h2>9. Port Numbers</h2>
+<div class="callout definition">
+  <strong>📖 Port Numbers:</strong> 16-bit numbers (0–65,535) used by TCP and UDP to identify specific applications or services running on a host. Combined with an IP address, a port forms a <strong>socket</strong> (e.g., 192.168.1.1:443). Port numbers allow a single host to run many services simultaneously.
+</div>
+
+<h3>Port Number Ranges</h3>
+<table>
+  <tr><th>Range</th><th>Name</th><th>Description</th></tr>
+  <tr><td><strong>0–1,023</strong></td><td>Well-Known (System) Ports</td><td>Assigned by IANA; standard services (HTTP=80, HTTPS=443, SSH=22); on most OS, require root/admin to bind</td></tr>
+  <tr><td><strong>1,024–49,151</strong></td><td>Registered Ports</td><td>Registered with IANA for specific applications (MS SQL=1433, MySQL=3306, RDP=3389)</td></tr>
+  <tr><td><strong>49,152–65,535</strong></td><td>Dynamic / Ephemeral Ports</td><td>Assigned dynamically by the OS for outgoing connections (client-side ports); also called private ports</td></tr>
+</table>
+
+<h3>Critical Ports to Know for CISSP</h3>
+<table>
+  <tr><th>Port</th><th>Protocol</th><th>Service</th><th>Security Note</th></tr>
+  <tr><td>20/21</td><td>TCP</td><td>FTP (Data/Control)</td><td>Cleartext; use SFTP (TCP 22) or FTPS (TCP 990) instead</td></tr>
+  <tr><td>22</td><td>TCP</td><td>SSH / SFTP / SCP</td><td>Encrypted remote access; key-based auth preferred over password</td></tr>
+  <tr><td>23</td><td>TCP</td><td>Telnet</td><td>Cleartext — never use on production; replace with SSH</td></tr>
+  <tr><td>25</td><td>TCP</td><td>SMTP</td><td>Email transfer; configure SPF/DKIM/DMARC; use SMTPS (465/587) for client submission</td></tr>
+  <tr><td>53</td><td>TCP/UDP</td><td>DNS</td><td>UDP for queries; TCP for zone transfers (AXFR); restrict zone transfers to authorized servers only</td></tr>
+  <tr><td>67/68</td><td>UDP</td><td>DHCP (Server/Client)</td><td>Rogue DHCP servers can redirect DNS and gateway; enable DHCP snooping</td></tr>
+  <tr><td>80</td><td>TCP</td><td>HTTP</td><td>Cleartext; deploy TLS (HTTPS/443); HTTP should redirect to HTTPS</td></tr>
+  <tr><td>110</td><td>TCP</td><td>POP3</td><td>Cleartext email retrieval; use POP3S (TCP 995)</td></tr>
+  <tr><td>119</td><td>TCP</td><td>NNTP (Usenet)</td><td>Legacy; generally blocked</td></tr>
+  <tr><td>123</td><td>UDP</td><td>NTP</td><td>NTP monlist amplification attack (factor ~200x); use NTP v4, restrict monlist</td></tr>
+  <tr><td>135–139</td><td>TCP/UDP</td><td>NetBIOS / RPC</td><td>Windows legacy; block at perimeter; exploited in EternalBlue (MS17-010)</td></tr>
+  <tr><td>143</td><td>TCP</td><td>IMAP</td><td>Cleartext email; use IMAPS (TCP 993)</td></tr>
+  <tr><td>161/162</td><td>UDP</td><td>SNMP (Agent/Trap)</td><td>v1/v2c use community strings (cleartext); use SNMPv3 with authentication and encryption</td></tr>
+  <tr><td>389</td><td>TCP/UDP</td><td>LDAP</td><td>Cleartext directory; use LDAPS (TCP 636) or StartTLS</td></tr>
+  <tr><td>443</td><td>TCP</td><td>HTTPS / TLS</td><td>Encrypted HTTP; TLS 1.3 is current standard; block TLS 1.0/1.1</td></tr>
+  <tr><td>445</td><td>TCP</td><td>SMB (Direct)</td><td>Windows file sharing; target of EternalBlue (WannaCry); block at perimeter; enforce SMBv3</td></tr>
+  <tr><td>514</td><td>UDP</td><td>Syslog</td><td>Cleartext; use TLS Syslog (RFC 5425) for secure log transport</td></tr>
+  <tr><td>636</td><td>TCP</td><td>LDAPS</td><td>LDAP over TLS — encrypted directory access</td></tr>
+  <tr><td>993</td><td>TCP</td><td>IMAPS</td><td>IMAP over TLS</td></tr>
+  <tr><td>995</td><td>TCP</td><td>POP3S</td><td>POP3 over TLS</td></tr>
+  <tr><td>1433</td><td>TCP</td><td>MS SQL Server</td><td>Database; never expose to internet; use allow-listing by source IP</td></tr>
+  <tr><td>3306</td><td>TCP</td><td>MySQL / MariaDB</td><td>Database; bind to localhost or restrict via firewall rules</td></tr>
+  <tr><td>3389</td><td>TCP</td><td>RDP</td><td>Remote Desktop; high-value attack target; never expose directly to internet; use VPN + MFA</td></tr>
+  <tr><td>8080</td><td>TCP</td><td>HTTP alternate</td><td>Development/proxy HTTP; often used for management interfaces</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Cleartext vs. Encrypted Ports:</strong> A cluster of CISSP questions test this pattern: "Which protocol should be used to securely replace X?" Know the insecure–secure pairs:
+  <br>Telnet (23) → SSH (22) | HTTP (80) → HTTPS (443) | FTP (21) → SFTP (22) or FTPS (990/989) | LDAP (389) → LDAPS (636) | IMAP (143) → IMAPS (993) | POP3 (110) → POP3S (995) | SNMP v1/v2 → SNMPv3
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
+<section id="s10">
+<h2>10. Attacks Exploiting Core Protocols</h2>
+<table>
+  <tr><th>Attack</th><th>Protocol Exploited</th><th>Mechanism</th><th>Primary Defence</th></tr>
+  <tr><td><strong>SYN Flood</strong></td><td>TCP</td><td>Half-open connections exhaust server state table</td><td>SYN cookies; rate limiting; firewall thresholds</td></tr>
+  <tr><td><strong>Session Hijacking</strong></td><td>TCP</td><td>Predict or intercept sequence numbers to inject into an established session</td><td>Encrypted sessions (TLS); random ISNs; network monitoring</td></tr>
+  <tr><td><strong>UDP Amplification</strong></td><td>UDP</td><td>Spoof victim IP in UDP requests to open services; large replies flood victim</td><td>BCP38 ingress filtering; rate limiting; disable amplifiable services</td></tr>
+  <tr><td><strong>Ping of Death</strong></td><td>ICMP</td><td>Oversized fragmented ICMP causes buffer overflow on reassembly</td><td>Modern OS patching — all current systems immune</td></tr>
+  <tr><td><strong>Smurf Attack</strong></td><td>ICMP + IP spoofing</td><td>Broadcast ping with spoofed source = amplified flood at victim</td><td>Disable directed broadcast on routers (default on modern routers)</td></tr>
+  <tr><td><strong>ARP Poisoning</strong></td><td>ARP</td><td>Gratuitous ARP overwrites victim's ARP cache → MITM</td><td>Dynamic ARP Inspection (DAI); DHCP snooping; static ARP for critical hosts</td></tr>
+  <tr><td><strong>ICMP Redirect</strong></td><td>ICMP</td><td>Forge ICMP redirect to change victim's routing through attacker</td><td>Disable ICMP redirect acceptance on hosts; static routing</td></tr>
+  <tr><td><strong>ICMP Tunneling</strong></td><td>ICMP</td><td>Exfiltrate data or create C2 channel hidden in ICMP payload</td><td>Deep packet inspection; anomaly detection; block ICMP with unusually large payloads</td></tr>
+  <tr><td><strong>Port Scanning</strong></td><td>TCP / UDP / ICMP</td><td>Send crafted packets to probe which services are listening</td><td>Host-based firewalls; IDS/IPS signatures; network segmentation</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Protocol Security Principle:</strong> The core protocols (TCP, UDP, ICMP, ARP) were designed in the 1970s–1980s for trusted academic networks — they were <strong>never designed with security in mind</strong>. Security has been retrofitted through: TLS (over TCP), DTLS (over UDP), DNSSEC (over DNS), IPSec (at the IP layer), and DAI (for ARP). The CISSP exam tests whether you understand these design limitations and the compensating controls.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 TCP vs. UDP — "Reliable Taxicab vs. Unreliable Bus":</strong><br>
+  <strong>TCP</strong> = Taxicab: calls ahead (handshake), guarantees you'll arrive, acknowledges receipt<br>
+  <strong>UDP</strong> = Bus: departs on schedule, doesn't wait for you, no confirmation you boarded<br>
+  Use TCP when delivery matters; use UDP when speed matters more than guarantee.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 TCP Three-Way Handshake — "SYN SYN-ACK ACK":</strong><br>
+  "Sam Said Aye" (SYN → SYN-ACK → ACK) or<br>
+  "I Synchronize → I Synchronize-Acknowledge → I Acknowledge" — always exactly 3 messages, always in this order.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 TCP Flags — "UAPRSF":</strong><br>
+  <strong>U</strong>rgent <strong>A</strong>cknowledge <strong>P</strong>ush <strong>R</strong>eset <strong>S</strong>ynchronize <strong>F</strong>in<br>
+  Memory phrase: <em>"Unapologetically Axing Poisonous Rabbits Since Forever"</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ICMP Has No Ports:</strong><br>
+  <em>"ICMP doesn't knock — it shouts"</em> — ICMP is Layer 3, operates at the IP level, has no port concept. When filtering ICMP, use type and code, not port numbers.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Critical Secure Port Pairs — "Just Remember Secure Sockets":</strong><br>
+  HTTP(80) → HTTPS(443) | Telnet(23) → SSH(22) | FTP(21) → SFTP(22)<br>
+  LDAP(389) → LDAPS(636) | IMAP(143) → IMAPS(993) | POP3(110) → POP3S(995)<br>
+  Pattern: each has a TLS/encrypted counterpart — always choose the encrypted version.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ARP Poisoning Defence — "DAI + DHCP Snooping":</strong><br>
+  Dynamic ARP Inspection checks ARP packets against the DHCP snooping binding table.<br>
+  <em>"DHCP Snoops; DAI Inspects; Together they block ARP lies."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SYN Flood Solution — "Cookie Not State":</strong><br>
+  SYN cookies eliminate the half-open connection table. The server encodes state in the ISN.<br>
+  <em>"Can't fill a table that doesn't exist."</em>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>TCP</td><td>Connection-oriented, reliable; 3-way handshake (SYN→SYN-ACK→ACK); stateful = exploitable (SYN flood)</td></tr>
+  <tr><td>UDP</td><td>Connectionless, best-effort; fast but unreliable; used for DNS, DHCP, VoIP; enables amplification DDoS</td></tr>
+  <tr><td>ICMP</td><td>Layer 3 diagnostic protocol; NO port numbers; Type 8/0 = ping; Type 11 = traceroute; used for recon and Smurf attacks</td></tr>
+  <tr><td>ARP</td><td>Maps IP→MAC locally; no authentication; gratuitous ARP enables poisoning/MITM; defend with DAI + DHCP snooping</td></tr>
+  <tr><td>Port Ranges</td><td>0–1023: well-known; 1024–49151: registered; 49152–65535: dynamic/ephemeral</td></tr>
+  <tr><td>Secure Ports</td><td>Replace cleartext (Telnet/FTP/HTTP/LDAP/IMAP/POP3) with encrypted equivalents (SSH/SFTP/HTTPS/LDAPS/IMAPS/POP3S)</td></tr>
+  <tr><td>Protocol Design</td><td>Core protocols were not designed with security; security is retrofitted via TLS, IPSec, DNSSEC, DAI — know the compensating controls</td></tr>
+  <tr><td>SYN Flood Defence</td><td>SYN cookies; eliminates stateful half-open connection table requirement</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-055-theory.html" class="nav-btn">← Day 55: IP Addressing &amp; Subnetting</a>
+  <a href="day-057-theory.html" class="nav-btn">Day 57: Network Services →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 69 – Domain 4 Review</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+.review-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;border:1px solid #2e7d32;border-radius:20px;padding:2px 14px;font-size:.85rem;font-weight:600;margin-left:10px;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 69 – Domain 4 Review</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 69 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~75 min read</span><span>🎯 Review Day</span><span>📝 20-Question MCQ</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-068-theory.html">← Day 68: Network Segmentation</a> · Domain 4 · Day 69 (Review)</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 4 Scope &amp; Coverage (Days 53–69)</a></li>
+  <li><a href="#s2">2. OSI Model Quick Reference</a></li>
+  <li><a href="#s3">3. Protocol &amp; Port Reference Table</a></li>
+  <li><a href="#s4">4. Firewall &amp; Network Defence Technology Review</a></li>
+  <li><a href="#s5">5. VPN &amp; Wireless Security Review</a></li>
+  <li><a href="#s6">6. Network Attacks &amp; Mitigations Matrix</a></li>
+  <li><a href="#s7">7. Email Security Quick Reference</a></li>
+  <li><a href="#s8">8. Secure Communications Quick Reference</a></li>
+  <li><a href="#s9">9. Modern Network Architecture Quick Reference</a></li>
+  <li><a href="#s10">10. High-Value Exam Traps for Domain 4</a></li>
+  <li><a href="#s11">11. Domain 4 Master Mnemonics</a></li>
+  <li><a href="#s12">12. Key Numbers You Must Know</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Domain 4 Scope &amp; Coverage (Days 53–69)</h2>
+<table>
+  <tr><th>Day</th><th>Topic</th><th>Key Concepts</th></tr>
+  <tr><td>53</td><td>OSI Layers 1–4</td><td>Physical, Data Link, Network, Transport; MAC, IP, TCP/UDP, ARP, ICMP</td></tr>
+  <tr><td>54</td><td>OSI Layers 5–7</td><td>Session, Presentation, Application; TLS, encryption at L6; DNS, HTTP, FTP at L7</td></tr>
+  <tr><td>55</td><td>TCP/IP Protocols</td><td>TCP 3-way handshake (SYN/SYN-ACK/ACK); UDP connectionless; ICMP types 0/3/5/8/11</td></tr>
+  <tr><td>56</td><td>Network Addressing</td><td>IPv4 CIDR, subnetting, RFC 1918; IPv6 128-bit, link-local (FE80::), NDP replaces ARP</td></tr>
+  <tr><td>57</td><td>DNS &amp; DHCP</td><td>DNS hierarchy; DNSSEC; DNS attacks (cache poisoning, tunneling); DHCP snooping</td></tr>
+  <tr><td>58</td><td>Network Devices</td><td>Hub (L1, repeater), Switch (L2, CAM table), Router (L3); VLAN; STP; 802.1X</td></tr>
+  <tr><td>59</td><td>Routing Protocols</td><td>RIP (distance vector), OSPF (link-state), BGP (EGP, path vector, AS); BGP hijacking</td></tr>
+  <tr><td>60</td><td>Firewalls &amp; WAF</td><td>Packet-filter → SPI → NGFW → WAF; implicit deny; DMZ dual-firewall design</td></tr>
+  <tr><td>61</td><td>IDS/IPS</td><td>NIDS/NIPS (network), HIDS/HIPS (host); sig/anomaly/heuristic; FPs vs. FNs; Snort/Suricata</td></tr>
+  <tr><td>62</td><td>VPN Technologies</td><td>IPSec (AH/ESP), IKEv1/v2, Transport/Tunnel mode, SSL VPN, L2TP; split tunneling risk</td></tr>
+  <tr><td>63</td><td>Wireless Security</td><td>WEP (broken) → WPA (TKIP) → WPA2 (AES-CCMP) → WPA3 (SAE); 802.1X+RADIUS+EAP</td></tr>
+  <tr><td>64</td><td>Network Attacks</td><td>DoS/DDoS; Smurf; SYN flood; amplification; MitM; replay; session hijacking; ARP poisoning; DNS attacks; botnet/C2</td></tr>
+  <tr><td>65</td><td>Email Security</td><td>SMTP/POP3/IMAP ports; S/MIME; PGP; SPF; DKIM; DMARC; SEG; phishing/BEC</td></tr>
+  <tr><td>66</td><td>Secure Communications</td><td>TLS 1.3 (forward secrecy mandatory); HTTPS/HSTS; SSH; SFTP vs FTPS vs SCP; SIP/SRTP; Signal Protocol</td></tr>
+  <tr><td>67</td><td>CDN &amp; Network Optimization</td><td>CDN (anycast, DDoS absorption); L4 vs L7 LB; reverse proxy; caching; SD-WAN; SASE</td></tr>
+  <tr><td>68</td><td>Network Segmentation</td><td>DMZ; VLANs; microsegmentation; ZTNA vs VPN; SDN (control/data plane); NFV; east-west vs north-south</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. OSI Model Quick Reference</h2>
+<table>
+  <tr><th>Layer</th><th>Name</th><th>PDU</th><th>Key Protocols / Devices</th><th>Security Controls</th></tr>
+  <tr><td>7</td><td>Application</td><td>Data</td><td>HTTP, HTTPS, DNS, FTP, SMTP, SSH, SNMP</td><td>WAF, application firewall, DLP, antivirus</td></tr>
+  <tr><td>6</td><td>Presentation</td><td>Data</td><td>TLS/SSL (encryption/compression), MIME</td><td>Encryption (TLS), encoding standards</td></tr>
+  <tr><td>5</td><td>Session</td><td>Data</td><td>NetBIOS, RPC, PPTP</td><td>Session tokens, timeouts</td></tr>
+  <tr><td>4</td><td>Transport</td><td>Segment</td><td>TCP (reliable), UDP (fast)</td><td>TLS, port filtering, firewall (L4), SYN cookies</td></tr>
+  <tr><td>3</td><td>Network</td><td>Packet</td><td>IP, ICMP, OSPF, BGP, RIP</td><td>Router ACLs, packet-filter firewall, IPSec</td></tr>
+  <tr><td>2</td><td>Data Link</td><td>Frame</td><td>Ethernet, ARP, 802.11, 802.1X, STP, VLANs</td><td>MAC filtering, DAI, DHCP snooping, 802.1X, BPDU guard</td></tr>
+  <tr><td>1</td><td>Physical</td><td>Bit</td><td>Cables, fiber, hubs, repeaters, Wi-Fi signals</td><td>Physical security, cable shielding, EMI protection, TEMPEST</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Protocol &amp; Port Reference Table</h2>
+<table>
+  <tr><th>Protocol</th><th>Port</th><th>Secure Version</th><th>Secure Port</th></tr>
+  <tr><td>HTTP</td><td>80</td><td>HTTPS (HTTP/TLS)</td><td>443</td></tr>
+  <tr><td>FTP (control)</td><td>21</td><td>SFTP (SSH) / FTPS Explicit</td><td>22 / 21+TLS</td></tr>
+  <tr><td>FTP (data)</td><td>20</td><td>FTPS Implicit</td><td>990/989</td></tr>
+  <tr><td>Telnet</td><td>23</td><td>SSH</td><td>22</td></tr>
+  <tr><td>SMTP relay</td><td>25</td><td>SMTPS / Submission+TLS</td><td>465 / 587</td></tr>
+  <tr><td>DNS</td><td>53 (UDP/TCP)</td><td>DNS over TLS / DNS over HTTPS</td><td>853 / 443</td></tr>
+  <tr><td>DHCP server</td><td>67 UDP</td><td>—</td><td>—</td></tr>
+  <tr><td>DHCP client</td><td>68 UDP</td><td>—</td><td>—</td></tr>
+  <tr><td>HTTP</td><td>80</td><td>HTTPS</td><td>443</td></tr>
+  <tr><td>POP3</td><td>110</td><td>POP3S</td><td>995</td></tr>
+  <tr><td>IMAP</td><td>143</td><td>IMAPS</td><td>993</td></tr>
+  <tr><td>LDAP</td><td>389</td><td>LDAPS</td><td>636</td></tr>
+  <tr><td>HTTPS</td><td>443</td><td>(already secure)</td><td>—</td></tr>
+  <tr><td>SMB</td><td>445</td><td>SMB over TLS (SMB 3.0+)</td><td>445</td></tr>
+  <tr><td>RADIUS auth</td><td>1812 UDP</td><td>RadSec (RADIUS over TLS)</td><td>2083</td></tr>
+  <tr><td>RADIUS acct</td><td>1813 UDP</td><td>—</td><td>—</td></tr>
+  <tr><td>RDP</td><td>3389</td><td>RDP + NLA + TLS</td><td>3389</td></tr>
+  <tr><td>SIP</td><td>5060 UDP/TCP</td><td>SIPS (SIP+TLS)</td><td>5061</td></tr>
+  <tr><td>RTP (VoIP media)</td><td>varies UDP 16384–32767</td><td>SRTP</td><td>same ports, encrypted</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Firewall &amp; Network Defence Technology Review</h2>
+<table>
+  <tr><th>Technology</th><th>Layer</th><th>Key Characteristics</th><th>Limitation</th></tr>
+  <tr><td>Packet-filter firewall</td><td>L3–L4</td><td>Static rules on IP/port; stateless; fast</td><td>No session state; no application inspection; vulnerable to IP spoofing</td></tr>
+  <tr><td>Stateful Packet Inspection (SPI)</td><td>L3–L4</td><td>Tracks TCP/UDP sessions; only permits return traffic for established sessions</td><td>Cannot inspect application payload; no URL/content filtering</td></tr>
+  <tr><td>Application-layer firewall (proxy)</td><td>L7</td><td>Full packet reassembly; circuit-level proxy; deep inspection</td><td>High CPU overhead; must understand each application protocol</td></tr>
+  <tr><td>NGFW (Next-Generation Firewall)</td><td>L3–L7</td><td>SPI + application identification + IPS + TLS inspection + identity-based rules + URL filtering</td><td>Expensive; requires TLS inspection for HTTPS traffic (man-in-the-middle to decrypt)</td></tr>
+  <tr><td>WAF (Web App Firewall)</td><td>L7 (HTTP)</td><td>SQLi, XSS, OWASP Top 10 defence; sits in front of web app; positive and negative security models</td><td>HTTP/HTTPS only; bypassed by unknown/novel attacks not in rule set</td></tr>
+  <tr><td>IDS (Intrusion Detection)</td><td>L3–L7</td><td>Passive monitoring; alerts on matches; no traffic blocking; out-of-band</td><td>Only detect, not prevent; IDS with high FP rates cause alert fatigue</td></tr>
+  <tr><td>IPS (Intrusion Prevention)</td><td>L3–L7</td><td>Inline; blocks matched traffic in real-time; active response</td><td>False positives block legitimate traffic; inline = single point of failure</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. VPN &amp; Wireless Security Review</h2>
+<table>
+  <tr><th>Topic</th><th>Key Facts</th></tr>
+  <tr><td><strong>IPSec AH (Protocol 51)</strong></td><td>Authentication + integrity only; no encryption; incompatible with NAT (protects IP header incl. source IP which NAT changes); rarely used alone</td></tr>
+  <tr><td><strong>IPSec ESP (Protocol 50)</strong></td><td>Encryption + authentication + integrity; NAT-compatible (with NAT-T, UDP 4500 encapsulation); used in all modern IPSec VPNs</td></tr>
+  <tr><td><strong>IPSec Transport mode</strong></td><td>Protects payload only; original IP header visible; used for host-to-host</td></tr>
+  <tr><td><strong>IPSec Tunnel mode</strong></td><td>Encapsulates entire original packet in new IP packet; hides internal addressing; used for site-to-site VPNs</td></tr>
+  <tr><td><strong>IKEv1 weakness</strong></td><td>Aggressive mode transmits identity hash in the clear — offline cracking possible; use IKEv2 (MOBIKE, EAP, simpler)</td></tr>
+  <tr><td><strong>WEP</strong></td><td>Broken: RC4 + 24-bit IV reuse → FMS/PTW attacks crack key in minutes; never use</td></tr>
+  <tr><td><strong>WPA/TKIP</strong></td><td>RC4 with 128-bit key per packet (better than WEP); deprecated 2012; avoid</td></tr>
+  <tr><td><strong>WPA2 / AES-CCMP</strong></td><td>Strong encryption; PSK mode vulnerable to offline dictionary attack (capture 4-way handshake + PMKID); KRACK (2017) vulnerability in 4-way handshake; use Enterprise mode (802.1X)</td></tr>
+  <tr><td><strong>WPA3 / SAE</strong></td><td>Replaces PSK with SAE (Simultaneous Authentication of Equals — Dragonfly) providing forward secrecy; online-only guessing; PMF mandatory; resistant to KRACK</td></tr>
+  <tr><td><strong>802.1X / EAP</strong></td><td>Port-based network access control; EAP-TLS (strongest, mutual cert auth); PEAP (server cert only, MS-CHAPv2 inside TLS tunnel — most common); EAP-MD5 (deprecated)</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Network Attacks &amp; Mitigations Matrix</h2>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Mitigation</th></tr>
+  <tr><td>SYN Flood</td><td>Half-open TCP connections exhaust server state table</td><td>SYN cookies; rate limiting; firewall SYN rate limit</td></tr>
+  <tr><td>Smurf Attack</td><td>ICMP broadcast with spoofed victim source IP → amplification</td><td>Disable directed broadcasts; BCP38 ingress filtering</td></tr>
+  <tr><td>DDoS Amplification (DNS/NTP/Memcached)</td><td>Spoofed source → reflector sends large response to victim</td><td>BCP38 (prevent IP spoofing); disable open resolvers; rate limiting</td></tr>
+  <tr><td>ARP Poisoning</td><td>Gratuitous ARP maps attacker MAC to gateway IP</td><td>Dynamic ARP Inspection (DAI) + DHCP snooping</td></tr>
+  <tr><td>DNS Cache Poisoning</td><td>Inject false DNS records into resolver cache</td><td>DNSSEC; source port randomization</td></tr>
+  <tr><td>BGP Hijacking</td><td>Announce more specific route to redirect internet traffic</td><td>RPKI + ROA; BGP authentication; AS-path filtering</td></tr>
+  <tr><td>MitM (SSL Stripping)</td><td>Downgrade HTTPS to HTTP and intercept</td><td>HSTS; HSTS Preloading</td></tr>
+  <tr><td>Replay Attack</td><td>Capture and retransmit valid auth/transaction token</td><td>Nonce; timestamp; sequence numbers</td></tr>
+  <tr><td>Session Hijacking (Cookie)</td><td>Steal session cookie via XSS or sniffing</td><td>HttpOnly + Secure cookie flags; HTTPS everywhere; session regeneration on auth</td></tr>
+  <tr><td>IP Spoofing</td><td>Forge source IP in packet headers</td><td>BCP38; uRPF; cryptographic authentication</td></tr>
+  <tr><td>DNS Tunneling</td><td>Encode C2/exfil data in DNS queries/responses</td><td>DNS query monitoring; anomaly detection; internal DNS resolver only</td></tr>
+</table>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. Email Security Quick Reference</h2>
+<table>
+  <tr><th>Technology</th><th>What It Checks</th><th>What It Does NOT Protect</th></tr>
+  <tr><td><strong>SPF</strong></td><td>SMTP MAIL FROM (envelope sender) domain vs. authorized sending IPs (DNS TXT)</td><td>Does NOT check user-visible From: header; breaks on email forwarding</td></tr>
+  <tr><td><strong>DKIM</strong></td><td>Cryptographic signature on message headers + body; public key in DNS; verifies integrity and signing domain</td><td>Does NOT enforce policy; survives forwarding; does not check From: header alignment alone</td></tr>
+  <tr><td><strong>DMARC</strong></td><td>Alignment of SPF/DKIM results with From: header domain; enforces policy (none/quarantine/reject); provides reports</td><td>Only as good as SPF + DKIM underneath; p=none = monitoring only, no enforcement</td></tr>
+  <tr><td><strong>S/MIME</strong></td><td>End-to-end message encryption (recipient pubkey) and signing (sender privkey); X.509 certificates</td><td>Does NOT protect metadata; requires certificate exchange with each recipient</td></tr>
+  <tr><td><strong>PGP/GPG</strong></td><td>Same E2EE operations as S/MIME; Web of Trust (no central CA)</td><td>No centralized CA — trust relies on manual key signing; harder to deploy at enterprise scale</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 DMARC alignment rule:</strong> DMARC PASSES if: (SPF passes AND MAIL FROM domain aligns with From: domain) OR (DKIM passes AND DKIM d= domain aligns with From: domain). At least ONE must align.
+</div>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. Secure Communications Quick Reference</h2>
+<table>
+  <tr><th>Topic</th><th>Key Facts</th></tr>
+  <tr><td><strong>TLS 1.3</strong></td><td>Forward secrecy mandatory (ECDHE/DHE only); 1-RTT handshake; RSA key exchange removed; 5 AEAD cipher suites only; most of handshake encrypted</td></tr>
+  <tr><td><strong>Forward secrecy</strong></td><td>Ephemeral session keys — past sessions safe even if long-term key is later compromised; TLS 1.2 with RSA key exchange does NOT provide FS</td></tr>
+  <tr><td><strong>HSTS</strong></td><td>Instructs browser to refuse HTTP connections for the domain; max-age; preloading bakes into browsers; defeats SSL stripping</td></tr>
+  <tr><td><strong>SSH</strong></td><td>Port 22; replaces Telnet (23); public key auth preferred; used for admin, SFTP, SCP, tunneling</td></tr>
+  <tr><td><strong>SFTP vs FTPS vs SCP</strong></td><td>SFTP = SSH subsystem (port 22, full file management); SCP = SSH copy (port 22, one-way copy); FTPS = FTP+TLS (port 990 implicit / 21 explicit); FTP = plaintext never use</td></tr>
+  <tr><td><strong>SRTP</strong></td><td>RTP + AES-CTR encryption + HMAC-SHA1; required to prevent VoIP eavesdropping; SIP must also use TLS (SIPS) for complete confidentiality</td></tr>
+  <tr><td><strong>Signal Protocol</strong></td><td>Double Ratchet (per-message forward secrecy + break-in recovery) + X3DH (async key agreement); used by Signal, WhatsApp; E2EE means server cannot read messages</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. Modern Network Architecture Quick Reference</h2>
+<table>
+  <tr><th>Technology</th><th>Purpose</th><th>Key Point</th></tr>
+  <tr><td><strong>CDN</strong></td><td>Edge caching + DDoS absorption + WAF at edge</td><td>Anycast routing spreads DDoS across global PoPs; TLS terminates at CDN edge — CDN sees plaintext</td></tr>
+  <tr><td><strong>Layer 4 LB</strong></td><td>Distribute TCP/UDP by IP:port</td><td>Fast; cannot inspect application layer; no SSL termination</td></tr>
+  <tr><td><strong>Layer 7 LB (ADC)</strong></td><td>Route by HTTP URL/header/cookie; SSL termination</td><td>WAF integration; application-aware routing; more CPU-intensive</td></tr>
+  <tr><td><strong>Reverse Proxy</strong></td><td>Hides backend servers; SSL offloading; WAF</td><td>Clients talk to proxy, not real servers; forward proxy hides clients from servers</td></tr>
+  <tr><td><strong>SD-WAN</strong></td><td>Dynamic WAN with path selection; replaces MPLS</td><td>NOT inherently secure; requires SASE or security overlay for inspection</td></tr>
+  <tr><td><strong>SASE</strong></td><td>SD-WAN + cloud security (SWG + CASB + ZTNA + FWaaS)</td><td>Security applied at cloud PoP regardless of user location; security is a service</td></tr>
+  <tr><td><strong>SDN</strong></td><td>Separates control plane (controller) from data plane (forwarders)</td><td>Centralized policy; programmable; controller is high-value target</td></tr>
+  <tr><td><strong>NFV</strong></td><td>Virtualize network functions (firewall, IPS, LB)</td><td>Elastic scaling; enables service function chaining</td></tr>
+  <tr><td><strong>DMZ</strong></td><td>Semi-trusted zone between internet and internal</td><td>Screened subnet (two firewalls) is most secure; different vendor firewalls preferred</td></tr>
+  <tr><td><strong>Microsegmentation</strong></td><td>Per-workload security policy</td><td>Controls east-west traffic; limits lateral movement blast radius</td></tr>
+  <tr><td><strong>ZTNA</strong></td><td>Per-app access based on identity + device posture</td><td>No network access = no lateral movement; VPN replacement</td></tr>
+</table>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. High-Value Exam Traps for Domain 4</h2>
+<div class="callout warning">
+  <strong>⚠️ Common Traps — Memorize These:</strong>
+</div>
+<table>
+  <tr><th>Trap</th><th>Correct Answer</th></tr>
+  <tr><td>Hub vs. Switch security</td><td>Hub broadcasts all frames to all ports — passive sniffing possible. Switch sends frames only to the destination port. Switches do NOT prevent all sniffing (SPAN ports, ARP poisoning re-enables it).</td></tr>
+  <tr><td>ARP is at Layer…</td><td>Layer 2 (Data Link) — ARP maps IP (L3) to MAC (L2) but operates at L2. Often considered to bridge L2/L3.</td></tr>
+  <tr><td>IPSec AH vs ESP</td><td>AH = auth only, no encryption, NAT-incompatible. ESP = encryption + auth, NAT-compatible. Use ESP in practice.</td></tr>
+  <tr><td>SPF checks which address?</td><td>MAIL FROM (envelope sender) — NOT the From: header visible to users. Attackers can pass SPF while spoofing the visible From: header.</td></tr>
+  <tr><td>DMARC enforcement</td><td>p=none = monitor only (no action!). Only p=reject blocks spoofed email. "Deploying DMARC" without p=reject does nothing to block attacks.</td></tr>
+  <tr><td>SFTP runs on which port?</td><td>Port 22 (SSH). NOT port 21 (that's FTP). SFTP is NOT "FTP with SSL" — that's FTPS. SFTP is a completely different protocol that happens to have "FTP" in the name.</td></tr>
+  <tr><td>TLS terminates at…</td><td>In CDN/reverse proxy deployments, TLS terminates at the proxy/CDN edge — NOT end-to-end. The CDN/proxy can see plaintext. End-to-end encryption (S/MIME, PGP) is different.</td></tr>
+  <tr><td>VLAN security</td><td>VLANs alone are NOT equivalent to firewall security zones. VLAN hopping attacks (802.1Q double-tagging) can bypass VLANs. Inter-VLAN traffic must route through a firewall.</td></tr>
+  <tr><td>Replay vs. session hijack</td><td>Replay = captured token reused (session may be over). Session hijack = stealing an active live session. Both defeated by different mechanisms (nonce/timestamp vs. HTTPS/HttpOnly).</td></tr>
+  <tr><td>DoS vs. DDoS mitigation</td><td>Small DoS: firewall rate limiting works. Large volumetric DDoS: ONLY cloud scrubbing/CDN can absorb it — on-premise firewall is saturated before it can even respond.</td></tr>
+  <tr><td>WPA2 PSK weakness</td><td>WPA2-PSK can be cracked offline after capturing the 4-way handshake. All users share the same PSK — if cracked, all traffic can be decrypted retroactively (no forward secrecy). Use WPA3 or WPA2-Enterprise (802.1X).</td></tr>
+  <tr><td>IDS placement</td><td>IDS in passive/monitoring mode = copy of traffic via SPAN/TAP — cannot block traffic. IPS in inline mode = traffic passes through it — can block but creates single point of failure and causes latency.</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Domain 4 Master Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 OSI Layers — "Please Do Not Throw Sausage Pizza Away":</strong><br>
+  Physical · Data Link · Network · Transport · Session · Presentation · Application (bottom to top)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Wireless Security Evolution — "Weak WEP, Temporary WPA, Workhorse WPA2, Winning WPA3":</strong><br>
+  WEP = Completely broken (RC4 + tiny IV) → Never use<br>
+  WPA = Transitional fix (TKIP) → Deprecated 2012 → Avoid<br>
+  WPA2 = Enterprise standard (AES-CCMP) → PSK vulnerable to offline attack → Use Enterprise mode<br>
+  WPA3 = Modern (SAE, forward secrecy) → Best available today
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SPF / DKIM / DMARC — "Check the IP, Sign the Message, Make the Policy":</strong><br>
+  SPF = check authorized <strong>I</strong>P list<br>
+  DKIM = <strong>s</strong>ign with private key<br>
+  DMARC = define <strong>p</strong>olicy (none/quarantine/reject) when alignment fails<br>
+  All three are DNS TXT records. DMARC without enforcement (p=none) = monitoring only.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ZTNA vs VPN — "ZTNA gives you a door, VPN gives you the whole building":</strong><br>
+  VPN = network access — you're ON the network, can explore<br>
+  ZTNA = app access — you get to use ONE specific app; can't see the network
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Numbers You Must Know</h2>
+<table>
+  <tr><th>Number</th><th>Meaning</th></tr>
+  <tr><td>5-minute clock skew</td><td>Maximum Kerberos timestamp tolerance (replay prevention)</td></tr>
+  <tr><td>24-bit IV</td><td>WEP's fatal flaw — only 2^24 = ~16M unique IVs; reused quickly</td></tr>
+  <tr><td>128-bit AES key</td><td>WPA2/WPA3-Personal use AES-128 (CCMP); WPA3-Enterprise 192-bit mode uses AES-256 (GCMP-256)</td></tr>
+  <tr><td>5 cipher suites</td><td>TLS 1.3's allowed cipher suite count (all AEAD)</td></tr>
+  <tr><td>1-RTT</td><td>TLS 1.3 handshake round trips (vs. TLS 1.2's 2-RTT)</td></tr>
+  <tr><td>Port 443</td><td>HTTPS; also used for DNS over HTTPS</td></tr>
+  <tr><td>Port 22</td><td>SSH; SFTP; SCP</td></tr>
+  <tr><td>Port 3389</td><td>RDP (must use NLA + TLS)</td></tr>
+  <tr><td>Protocol 50 / 51</td><td>IPSec ESP (50) / AH (51)</td></tr>
+  <tr><td>UDP 500 / 4500</td><td>IKE key exchange (500) / NAT-T for IPSec (4500)</td></tr>
+  <tr><td>UDP 1812, 1813</td><td>RADIUS auth (1812) / accounting (1813)</td></tr>
+  <tr><td>BCP38</td><td>IETF Best Current Practice — ingress filtering to prevent IP spoofing at ISP level</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-068-theory.html" class="nav-btn">← Day 68: Network Segmentation</a>
+  <a href="day-070-theory.html" class="nav-btn">Day 70: IAM Fundamentals →</a>
+</div>
+</div>
+</body>
+</html>

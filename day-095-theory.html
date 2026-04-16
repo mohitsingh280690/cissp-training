@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 95 – SOC Reports</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 95 – SOC Reports</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 95 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate-Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-094-theory.html">← Day 94: Security Audits</a> · Domain 6 · Day 95</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Relevance</a></li>
+  <li><a href="#s3">3. SOC Report Framework &amp; SSAE 18</a></li>
+  <li><a href="#s4">4. SOC 1 Reports (Financial Controls)</a></li>
+  <li><a href="#s5">5. SOC 2 Reports (Trust Services Criteria)</a></li>
+  <li><a href="#s6">6. SOC 3 Reports (General Purpose)</a></li>
+  <li><a href="#s7">7. SOC for Cybersecurity &amp; Supply Chain</a></li>
+  <li><a href="#s8">8. Type I vs Type II — The Critical Difference</a></li>
+  <li><a href="#s9">9. Comprehensive SOC Report Comparison</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>SOC reports are the primary mechanism by which service organizations demonstrate control effectiveness to customers and regulators. CISSP candidates must distinguish between SOC 1/2/3, Type I/Type II, and understand which report type is appropriate for different assurance needs</td></tr>
+  <tr><td>Question Style</td><td>"A cloud provider wants to demonstrate its security controls to customers. Which report type is MOST appropriate?" (SOC 2 Type II). "Which SOC report covers financial reporting controls?" (SOC 1)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (third-party risk management, vendor due diligence); Domain 6 (audits); Domain 8 (supply chain security)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Relevance</h2>
+<p>SOC reports have become the de facto standard for third-party assurance in cloud and SaaS environments. Before signing a contract with AWS, Salesforce, or any SaaS vendor, procurement and security teams request the SOC 2 Type II report. Without it, enterprise customers often refuse to proceed.</p>
+<h3>When Organizations Encounter SOC Reports</h3>
+<ul>
+  <li><strong>Vendor risk assessment:</strong> Reviewing a vendor's SOC 2 before onboarding</li>
+  <li><strong>Customer requests:</strong> Your customers demand to see YOUR SOC 2 report</li>
+  <li><strong>Financial audits:</strong> External auditors request SOC 1 reports from payroll/ERP service providers</li>
+  <li><strong>Regulatory compliance:</strong> Demonstrating due diligence for HIPAA, PCI DSS, GDPR via SOC reports</li>
+  <li><strong>Insurance applications:</strong> Cyber insurers may request SOC 2 reports as part of underwriting</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. SOC Report Framework &amp; SSAE 18</h2>
+<div class="definition callout">
+  <strong>SOC (System and Organization Controls):</strong> A suite of audit reports developed by the AICPA (American Institute of Certified Public Accountants). SOC reports are prepared by independent CPA firms using the SSAE 18 (Statement on Standards for Attestation Engagements No. 18) framework.
+</div>
+<h3>Key Terminology</h3>
+<table>
+  <tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td>AICPA</td><td>American Institute of Certified Public Accountants — develops SOC standards</td></tr>
+  <tr><td>SSAE 18</td><td>The attestation standard under which SOC 1 and SOC 2 reports are issued (replaced SSAE 16 in 2017, which replaced SAS 70)</td></tr>
+  <tr><td>Service Organization</td><td>The entity providing services (e.g., cloud provider, payroll processor, data center operator)</td></tr>
+  <tr><td>User Entity</td><td>The customer using the service organization's services</td></tr>
+  <tr><td>Subservice Organization</td><td>A vendor used by the service organization (e.g., AWS hosting the SaaS provider's infrastructure)</td></tr>
+  <tr><td>CUECs</td><td>Complementary User Entity Controls — controls that must be implemented by the customer for the service organization's controls to be effective</td></tr>
+</table>
+<div class="warning callout">
+  ⚠️ <strong>SAS 70 is Obsolete:</strong> SAS 70 was replaced by SSAE 16 (2011), which was then replaced by SSAE 18 (2017). If you see "SAS 70 audit" referenced, it is outdated. The current standard is SSAE 18. However, the exam may reference the historical evolution.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. SOC 1 Reports (Financial Controls)</h2>
+<div class="definition callout">
+  <strong>SOC 1:</strong> Reports on controls at a service organization relevant to <strong>user entities' internal control over financial reporting</strong> (ICFR). SOC 1 focuses exclusively on financial controls — NOT security or privacy.
+</div>
+<h3>When SOC 1 is Used</h3>
+<ul>
+  <li>Payroll processing services (ADP, Paychex)</li>
+  <li>Financial transaction processing (payment processors)</li>
+  <li>Hosting services that process financial data (ERP hosting)</li>
+  <li>Loan servicing and claims processing</li>
+</ul>
+<h3>Audience</h3>
+<p>SOC 1 reports are <strong>restricted-use</strong> — intended only for the service organization, user entities, and their auditors. They are NOT published publicly.</p>
+<div class="exam-tip callout">
+  <strong>Exam Trap:</strong> SOC 1 is about FINANCIAL controls, not security controls. If a question asks about security, availability, or privacy assurance — that's SOC 2, not SOC 1.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SOC 2 Reports (Trust Services Criteria)</h2>
+<div class="definition callout">
+  <strong>SOC 2:</strong> Reports on controls relevant to <strong>security, availability, processing integrity, confidentiality, and/or privacy</strong> — known as the Trust Services Criteria (TSC). This is the most relevant SOC report for CISSP and cybersecurity.
+</div>
+<h3>Trust Services Criteria (TSC)</h3>
+<table>
+  <tr><th>Criterion</th><th>Focus Area</th><th>Key Questions Addressed</th></tr>
+  <tr><td><strong>Security</strong> (Common Criteria)</td><td>Protection against unauthorized access</td><td>Are systems protected against unauthorized access? (REQUIRED — always included in every SOC 2)</td></tr>
+  <tr><td><strong>Availability</strong></td><td>System uptime and accessibility</td><td>Are systems available for operation as agreed? SLAs, DR, capacity planning</td></tr>
+  <tr><td><strong>Processing Integrity</strong></td><td>Accurate, complete, timely processing</td><td>Is data processed completely, accurately, and in a timely manner?</td></tr>
+  <tr><td><strong>Confidentiality</strong></td><td>Protection of confidential information</td><td>Is information designated as confidential protected throughout its lifecycle?</td></tr>
+  <tr><td><strong>Privacy</strong></td><td>Personal information handling</td><td>Is personal information collected, used, retained, disclosed, and disposed of properly? (Aligned with GAPP — Generally Accepted Privacy Principles)</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Security is ALWAYS Included:</strong> Security (Common Criteria) is mandatory in every SOC 2 report. The other four criteria (Availability, Processing Integrity, Confidentiality, Privacy) are optional — selected based on relevance to the services provided. A SOC 2 may cover only Security, or Security + Availability, etc.
+</div>
+<h3>Audience</h3>
+<p>SOC 2 reports are <strong>restricted-use</strong> — provided only to the service organization, user entities, user entity auditors, and prospective customers under NDA. They contain detailed control descriptions and test results, making them sensitive documents.</p>
+</section>
+
+<section id="s6">
+<h2>6. SOC 3 Reports (General Purpose)</h2>
+<div class="definition callout">
+  <strong>SOC 3:</strong> A general-purpose report that uses the same Trust Services Criteria as SOC 2 but provides a <strong>summary-level opinion</strong> without detailed control descriptions or test results. Designed for public distribution.
+</div>
+<h3>SOC 3 vs SOC 2</h3>
+<table>
+  <tr><th>Attribute</th><th>SOC 2</th><th>SOC 3</th></tr>
+  <tr><td>Detail Level</td><td>Comprehensive — detailed controls, tests, results</td><td>Summary — opinion only with no control details</td></tr>
+  <tr><td>Audience</td><td>Restricted (NDA required)</td><td>General public (can post on website)</td></tr>
+  <tr><td>Use Case</td><td>Due diligence, vendor risk assessment</td><td>Marketing, trust badge on website</td></tr>
+  <tr><td>Trust Services Criteria</td><td>Same criteria</td><td>Same criteria</td></tr>
+  <tr><td>CPA Firm</td><td>Yes — independent CPA</td><td>Yes — independent CPA (same audit, different report format)</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> SOC 3 is often the result of the SAME audit as SOC 2 — just formatted differently. Think of SOC 3 as the "public summary" version of SOC 2. It's useful for marketing but insufficient for detailed due diligence.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. SOC for Cybersecurity &amp; Supply Chain</h2>
+<h3>SOC for Cybersecurity</h3>
+<p>A newer AICPA framework allowing ANY organization (not just service organizations) to report on its cybersecurity risk management program. Unlike SOC 2, which focuses on specific services, SOC for Cybersecurity covers the entity-wide cybersecurity program.</p>
+<table>
+  <tr><th>Attribute</th><th>SOC 2</th><th>SOC for Cybersecurity</th></tr>
+  <tr><td>Who Can Use</td><td>Service organizations only</td><td>Any organization</td></tr>
+  <tr><td>Scope</td><td>Specific system/service</td><td>Enterprise-wide cybersecurity program</td></tr>
+  <tr><td>Criteria</td><td>Trust Services Criteria</td><td>AICPA cybersecurity criteria (flexible framework mapping)</td></tr>
+  <tr><td>Audience</td><td>Restricted use</td><td>General use (board, investors, public)</td></tr>
+</table>
+
+<h3>SOC for Supply Chain</h3>
+<p>Addresses supply chain risks by reporting on controls relevant to production and distribution. Useful for manufacturers and distributors who need to assure customers that their supply chain processes are secure and reliable.</p>
+<ul>
+  <li>Covers production and distribution controls</li>
+  <li>Addresses integrity and security of the supply chain</li>
+  <li>Uses Trust Services Criteria adapted for supply chain context</li>
+  <li>Relevant for industries with complex supply chains (manufacturing, pharmaceuticals, food)</li>
+</ul>
+</section>
+
+<section id="s8">
+<h2>8. Type I vs Type II — The Critical Difference</h2>
+<div class="diagram">
+TYPE I vs TYPE II — The Fundamental Distinction
+
+  TYPE I (Point-in-Time)              TYPE II (Period of Time)
+  ─────────────────────────           ────────────────────────────
+  "Are controls DESIGNED                "Are controls OPERATING
+   properly?"                            EFFECTIVELY over time?"
+
+  Examines: Control design              Examines: Control design AND
+   at a specific date                    operating effectiveness
+
+                                        Test period: Usually 6-12 months
+  ────── X ──────                       ═══════════════════════════════
+  Single date snapshot                  Continuous period of testing
+
+
+  Lower assurance                       Higher assurance
+  (intention ≠ action)                  (proves controls actually work)
+
+  Less expensive / faster               More expensive / longer
+  Often used as first step              Gold standard for assurance
+</div>
+
+<table>
+  <tr><th>Attribute</th><th>Type I</th><th>Type II</th></tr>
+  <tr><td>What Is Tested</td><td>Design suitability of controls AT a specific date</td><td>Design AND operating effectiveness OVER a period (typically 6-12 months)</td></tr>
+  <tr><td>Assurance Level</td><td>Lower — confirms controls exist and are suitably designed, but not that they work consistently</td><td>Higher — confirms controls exist, are designed properly, AND operate effectively over time</td></tr>
+  <tr><td>Period</td><td>Point in time (e.g., "as of March 31, 2024")</td><td>Period of time (e.g., "April 1, 2023 through March 31, 2024")</td></tr>
+  <tr><td>Testing</td><td>Auditor inspects control design; minimal testing</td><td>Auditor performs extensive testing of control operation over the entire period</td></tr>
+  <tr><td>Customer Preference</td><td>Acceptable for new service organizations with no Type II history</td><td>Strongly preferred; many enterprises require Type II</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Most Common Exam Trap:</strong> Type I only proves controls are DESIGNED — it does NOT prove they actually WORK over time. Many exam questions test whether you understand this distinction. Type II is always the higher-assurance answer.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Comprehensive SOC Report Comparison</h2>
+<table>
+  <tr><th>Report</th><th>Focus</th><th>Criteria</th><th>Audience</th><th>Types Available</th></tr>
+  <tr><td>SOC 1</td><td>Financial reporting controls (ICFR)</td><td>Control objectives defined by service org</td><td>Restricted (service org, user entities, auditors)</td><td>Type I, Type II</td></tr>
+  <tr><td>SOC 2</td><td>Security, Availability, Processing Integrity, Confidentiality, Privacy</td><td>Trust Services Criteria (Security mandatory)</td><td>Restricted (under NDA)</td><td>Type I, Type II</td></tr>
+  <tr><td>SOC 3</td><td>Same as SOC 2</td><td>Trust Services Criteria</td><td>General public</td><td>Summary only (no Type I/II distinction in practice)</td></tr>
+  <tr><td>SOC for Cybersecurity</td><td>Entity-wide cybersecurity program</td><td>AICPA cybersecurity criteria</td><td>General use</td><td>Point in time</td></tr>
+  <tr><td>SOC for Supply Chain</td><td>Production &amp; distribution controls</td><td>Trust Services Criteria (supply chain context)</td><td>Restricted/General</td><td>Type I, Type II</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 SOC 1-2-3 Quick Recall</strong><br>
+  <strong>SOC 1</strong> = "$" = Financial controls (money → SOC 1)<br>
+  <strong>SOC 2</strong> = "🔒" = Security controls (lock → SOC 2 Trust Services)<br>
+  <strong>SOC 3</strong> = "🌐" = Public summary (globe → anyone can see it)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Trust Services Criteria — "SAPCP"</strong><br>
+  <strong>S</strong>ecurity (always mandatory!)<br>
+  <strong>A</strong>vailability<br>
+  <strong>P</strong>rocessing Integrity<br>
+  <strong>C</strong>onfidentiality<br>
+  <strong>P</strong>rivacy<br>
+  "Security Always Protects Confidential People"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Type I vs Type II</strong><br>
+  Type <strong>I</strong> = <strong>I</strong>nstant (point in time, snapshot)<br>
+  Type <strong>II</strong> = <strong>II</strong> = "over tIIme" (period of time, sustained operation)<br>
+  Type II > Type I for assurance (always!)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SSAE Evolution</strong><br>
+  SAS <strong>70</strong> → SSAE <strong>16</strong> → SSAE <strong>18</strong><br>
+  "70, 16, 18" — the numbers went down then up; remember "18 is current"
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>SOC 1</td><td>Financial reporting controls only (ICFR); NOT security; restricted audience</td></tr>
+  <tr><td>SOC 2</td><td>Security + optional (A/PI/C/P); Trust Services Criteria; restricted; gold standard for vendor security</td></tr>
+  <tr><td>SOC 3</td><td>Same criteria as SOC 2 but summary only; public; used for marketing/trust badges</td></tr>
+  <tr><td>Security criterion</td><td>MANDATORY in every SOC 2; other four TSC are optional</td></tr>
+  <tr><td>Type I</td><td>Control DESIGN at a point in time — lower assurance</td></tr>
+  <tr><td>Type II</td><td>Design + OPERATING EFFECTIVENESS over 6-12 months — higher assurance</td></tr>
+  <tr><td>SSAE 18</td><td>Current attestation standard; replaced SAS 70 → SSAE 16 → SSAE 18</td></tr>
+  <tr><td>CUECs</td><td>Complementary User Entity Controls — customer's responsibility to implement</td></tr>
+  <tr><td>SOC for Cybersecurity</td><td>Entity-wide (not just service orgs); general-use report on cybersecurity program</td></tr>
+  <tr><td>Restricted vs General</td><td>SOC 1 and SOC 2 = restricted; SOC 3 and SOC for Cybersecurity = general use</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-094-theory.html" class="nav-btn">← Day 94: Security Audits</a>
+  <a href="day-096-theory.html" class="nav-btn">Day 96: Security Metrics →</a>
+</div>
+</div>
+</body>
+</html>

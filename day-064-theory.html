@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 64 – Network Attacks</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 64 – Network Attacks</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 64 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~70 min read</span><span>🎯 Difficulty: Advanced</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-063-theory.html">← Day 63: Wireless Security</a> · Domain 4 · Day 64</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DoS &amp; DDoS Attacks</a></li>
+  <li><a href="#s4">4. DDoS Amplification Attacks</a></li>
+  <li><a href="#s5">5. Man-in-the-Middle (MitM) Attacks</a></li>
+  <li><a href="#s6">6. Replay Attacks</a></li>
+  <li><a href="#s7">7. Session Hijacking</a></li>
+  <li><a href="#s8">8. IP Spoofing</a></li>
+  <li><a href="#s9">9. DNS Attacks</a></li>
+  <li><a href="#s10">10. ARP Poisoning</a></li>
+  <li><a href="#s11">11. Botnet &amp; C2 Infrastructure</a></li>
+  <li><a href="#s12">12. DDoS Mitigation Strategies</a></li>
+  <li><a href="#s13">13. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s14">14. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═════════════════ SECTION 1 ═════════════════ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Understanding the attack landscape is essential for designing defences. CISSP tests attack mechanics to ensure candidates select appropriate countermeasures. The exam typically presents an attack scenario and asks for the correct mitigation, or describes a mitigation and asks which attack it prevents. DoS/DDoS, MitM, session hijacking, and ARP/DNS poisoning are the most heavily tested.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"A SYN flood consumes all server connection slots — which countermeasure?"; "An attacker intercepts traffic between two hosts without their knowledge — what attack?"; "Packets arrive from an IP address belonging to the internal network from the external interface — what attack and what countermeasure?"; "A session token is captured and reused — what attack?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 56 (TCP, ICMP, ARP — the protocols being abused); Day 57 (DNS attacks detailed); Day 58 (ARP/CAM flooding); Day 61 (IDS/IPS detects these attacks); Day 60 (firewalls mitigate many of these attacks); Domain 7 (incident response to network attacks)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>DoS = single source; DDoS = distributed/botnet. Mitigating DDoS requires upstream ISP / cloud scrubbing — a single on-premise firewall cannot absorb volumetric DDoS. Smurf attack uses broadcast ICMP + spoofed source IP. SYN cookies mitigate SYN flood — not just "block all SYN." Replay attack ≠ session hijacking (replay reuses previously captured tokens; hijacking steals live sessions).</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 2 ═════════════════ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Attack Trend</th><th>Organizational Context</th></tr>
+  <tr><td><strong>DDoS scale</strong></td><td>DDoS attacks have reached multi-Tbps volumes (Cloudflare mitigated a 5.6 Tbps attack in 2024). No on-premise device can absorb this — cloud scrubbing services (Cloudflare, Akamai, AWS Shield Advanced) are mandatory for internet-facing services.</td></tr>
+  <tr><td><strong>MitM in enterprise</strong></td><td>Corporate network MitM via ARP poisoning remains common in internal red team exercises. Encrypted protocols (HTTPS, SSH) mitigate most MitM impact but poor certificate validation (accepting any cert) re-opens the attack surface.</td></tr>
+  <tr><td><strong>Session hijacking</strong></td><td>Web application session hijacking via XSS (cookie theft) is an OWASP Top 10 issue. Network-level session hijacking of TCP sessions is rare on encrypted networks but still relevant for unencrypted services.</td></tr>
+  <tr><td><strong>Botnet prevalence</strong></td><td>Most DDoS attacks use compromised IoT devices and home routers. Organizations should monitor for outbound C2 traffic — compromised internal devices participating in botnets generate significant outbound traffic and expose the organization to legal liability and ISP blacklisting.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 3 ═════════════════ -->
+<section id="s3">
+<h2>3. DoS &amp; DDoS Attacks</h2>
+<div class="callout definition">
+  <strong>📖 DoS (Denial of Service):</strong> An attack from a <em>single source</em> intended to render a resource unavailable to legitimate users. Exploits either a vulnerability (crash the service) or resource exhaustion (consume all CPU/memory/bandwidth/connections).
+</div>
+<div class="callout definition">
+  <strong>📖 DDoS (Distributed Denial of Service):</strong> DoS attack using <em>multiple sources simultaneously</em> (hundreds to millions of compromised devices — a botnet). Volumetric DDoS can saturate internet uplinks with legitimate-looking traffic that no single victim can defend against at the network edge.
+</div>
+
+<table>
+  <tr><th>Attack Type</th><th>Mechanism</th><th>Target Resource</th><th>Countermeasure</th></tr>
+  <tr><td><strong>SYN Flood</strong></td><td>Send thousands of TCP SYN packets with spoofed source IPs. Server allocates state for each (half-open connection) waiting for the third ACK that never arrives. TCP half-open connection table fills up; legitimate connections refused.</td><td>Server memory / connection table (Layer 4)</td><td>SYN cookies: server doesn't allocate state until ACK received (cryptographic token in SYN-ACK); rate limiting SYN per IP; firewall/IPS SYN rate limits</td></tr>
+  <tr><td><strong>UDP Flood</strong></td><td>Send massive volumes of UDP packets to random ports. Target must process each packet, check if a service is listening, and send ICMP "unreachable" — exhausting CPU and bandwidth.</td><td>CPU + bandwidth (Layer 4)</td><td>Rate limiting; cloud scrubbing; upstream black-hole routing (RTBH); ISP coordination</td></tr>
+  <tr><td><strong>ICMP Flood (Ping Flood)</strong></td><td>Overwhelm target with ICMP Echo Request packets (pings), forcing continuous Echo Reply responses and consuming bandwidth/CPU.</td><td>Bandwidth + CPU</td><td>Rate limit ICMP at firewall; block ICMP from untrusted sources; cloud scrubbing</td></tr>
+  <tr><td><strong>Smurf Attack</strong></td><td>Send ICMP Echo Requests with the <em>victim's IP spoofed as source</em> to a network broadcast address. Every host on the broadcast domain replies to the victim — amplifying the attack by the number of hosts on that network.</td><td>Victim bandwidth (amplification)</td><td>Disable broadcast forwarding on routers (no ip directed-broadcast); ingress filtering (BCP38) prevents IP spoofing; deprecated by modern ISPs</td></tr>
+  <tr><td><strong>HTTP Flood</strong></td><td>Send high volumes of legitimate-looking HTTP GET/POST requests to exhaust web server resources (CPU for request processing, database queries). Harder to filter than volumetric UDP/ICMP — looks like real user traffic.</td><td>Web server CPU/application resources (Layer 7)</td><td>WAF rate limiting; CAPTCHA challenges; CDN absorption; bot detection (JavaScript challenge)</td></tr>
+  <tr><td><strong>Slow HTTP (Slowloris)</strong></td><td>Open many HTTP connections to a server but send headers very slowly — keeping the connection open indefinitely. Server's connection limit fills with half-completed requests; legitimate users cannot connect. Requires very low bandwidth from attacker.</td><td>Web server connection slots</td><td>Connection timeout configuration; reverse proxy (nginx); limiting connections per IP; WAF</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 4 ═════════════════ -->
+<section id="s4">
+<h2>4. DDoS Amplification Attacks</h2>
+<div class="callout definition">
+  <strong>📖 Amplification Attack:</strong> The attacker sends a small request with a <em>spoofed source IP (victim's IP)</em> to a reflector server that generates a much larger response. The large response is directed to the victim — not the attacker. Amplification factor = response size / request size. The attacker generates a small amount of traffic and the reflectors generate the massive attack volume.
+</div>
+
+<table>
+  <tr><th>Protocol</th><th>Amplification Factor</th><th>Mechanism</th><th>Defence</th></tr>
+  <tr><td><strong>DNS Amplification</strong></td><td>28–73×</td><td>Small DNS ANY query (60 bytes) → large DNS response (3,000+ bytes). Use open DNS resolvers as reflectors.</td><td>Block open DNS resolvers; BCP38 (prevent IP spoofing at ISP); Response Rate Limiting (RRL) on DNS servers</td></tr>
+  <tr><td><strong>NTP Amplification (monlist)</strong></td><td>200–556×</td><td>NTP monlist command returns list of last 600 clients — small request generates massive response. NTP servers as reflectors.</td><td>Disable NTP monlist (ntpdc -c monlist should fail); update NTP to version 4.2.7p26+; BCP38</td></tr>
+  <tr><td><strong>SSDP Amplification</strong></td><td>30×</td><td>Simple Service Discovery Protocol (upnP devices); M-SEARCH request → large device descriptor response</td><td>Block inbound SSDP (UDP 1900) from internet; disable UPnP on routers</td></tr>
+  <tr><td><strong>Memcached Amplification</strong></td><td>Up to 51,000×</td><td>Memcached UDP (port 11211) — stores cached data; forged request returns entire cache entry. 15-byte request → 750KB response.</td><td>Disable Memcached UDP (TCP only); bind to localhost; never expose Memcached to internet</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Root Cause of All Amplification Attacks:</strong> Two requirements: (1) IP spoofing allowed by ISP (violates BCP38), (2) servers running services with asymmetric request/response sizes that respond to unauthenticated queries. BCP38 (ingress filtering at ISP network edge) eliminates spoofed source IPs — the fundamental fix at the internet infrastructure level.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 5 ═════════════════ -->
+<section id="s5">
+<h2>5. Man-in-the-Middle (MitM) Attacks</h2>
+<div class="callout definition">
+  <strong>📖 MitM (Man-in-the-Middle):</strong> The attacker secretly positions themselves between two communicating parties, intercepting and possibly altering communications. Both parties believe they are communicating directly with each other, while the attacker reads, modifies, or injects traffic.
+</div>
+
+<table>
+  <tr><th>MitM Technique</th><th>Layer</th><th>Mechanism</th><th>Defence</strong></th></tr>
+  <tr><td><strong>ARP Poisoning MitM</strong></td><td>L2</td><td>Attacker sends gratuitous ARP replies mapping attacker's MAC to gateway's IP. Victims send traffic to attacker's MAC. Attacker forwards to real gateway (transparent relay). Full traffic interception on LAN.</td><td>Dynamic ARP Inspection (DAI); static ARP entries for gateways; 802.1X; encrypted protocols (TLS)</td></tr>
+  <tr><td><strong>SSL Stripping</strong></td><td>L7</td><td>Attacker (as intercepting proxy) downgrades HTTPS connection: responds to client with HTTP while maintaining HTTPS to the server. Client sees HTTP; traffic is plaintext to attacker.</td><td>HSTS (HTTP Strict Transport Security) — browser refuses HTTP after first HTTPS visit; HSTS preloading; only HTTPS links in application</td></tr>
+  <tr><td><strong>BGP Hijacking</strong></td><td>L3</td><td>Attacker announces more specific route for victim's IP prefix — internet routes traffic to attacker's AS. Attacker can inspect (and forward) traffic before routing it onward. (See Day 59)</td><td>RPKI + ROA; BGP authentication; AS-path filtering</td></tr>
+  <tr><td><strong>DNS Spoofing MitM</strong></td><td>L7 (DNS)</td><td>Poisoned DNS resolution sends victim to attacker's IP for a legitimate domain. TLS certificate validation becomes the last line of defence.</td><td>DNSSEC; HTTPS certificate pinning; DNS over TLS/HTTPS</td></tr>
+  <tr><td><strong>Evil Twin</strong></td><td>L2 (Wi-Fi)</td><td>Rogue AP with matching SSID — all wireless traffic through attacker. (See Day 63)</td><td>802.1X mutual auth; VPN overlay; certificate validation</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — MitM Defence:</strong> The fundamental defence against MitM is <strong>mutual authentication with cryptographic verification</strong> — TLS with proper certificate validation, DNSSEC, RPKI. Encryption alone without authentication only prevents passive eavesdropping, not active MitM (the attacker can establish two separate encrypted sessions, one with each party). Certificate pinning goes further by rejecting even valid-looking certificates from unexpected issuers.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 6 ═════════════════ -->
+<section id="s6">
+<h2>6. Replay Attacks</h2>
+<div class="callout definition">
+  <strong>📖 Replay Attack:</strong> An attacker captures a valid authentication or transaction message and retransmits it later to achieve unauthorized access or repeat a transaction. The captured data was legitimate at the time — the attack exploits the lack of session uniqueness controls.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Classic example</strong></td><td>Attacker captures a valid login credential hash (Kerberos TGT, NTLM hash) and replays it to authenticate without knowing the password. "Pass-the-Hash" and "Pass-the-Ticket" Kerberos attacks are replay attacks.</td></tr>
+  <tr><td><strong>Transaction replay</strong></td><td>Capture a "transfer $100" request and resend it multiple times — each replay executes an additional transfer. Financial systems must use unique transaction IDs to prevent this.</td></tr>
+  <tr><td><strong>Countermeasures</strong></td><td><strong>Nonce (Number Used Once):</strong> unique random value included in each message; server rejects reuse of nonces. <strong>Timestamp:</strong> Kerberos requires synchronized clocks (within 5 minutes); old timestamps are rejected. <strong>Sequence numbers:</strong> TLS/IPSec use sequence numbers; replayed packets are out-of-order and rejected. <strong>Challenge-response:</strong> each authentication requires a fresh unique challenge.</td></tr>
+  <tr><td><strong>Kerberos</strong></td><td>Kerberos tickets have a limited lifetime (typically 10 hours). The 5-minute clock skew limit and ticket expiry together prevent replay. NTP synchronization is therefore a Kerberos security dependency.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 7 ═════════════════ -->
+<section id="s7">
+<h2>7. Session Hijacking</h2>
+<div class="callout definition">
+  <strong>📖 Session Hijacking:</strong> An attacker takes over an already-authenticated session by stealing or predicting the session token used to identify the session, then using that token to impersonate the legitimate user without needing to know the credentials.
+</div>
+
+<table>
+  <tr><th>Technique</th><th>How</th><th>Defence</th></tr>
+  <tr><td><strong>TCP Session Hijacking</strong></td><td>Attacker predicts TCP sequence numbers, injects forged packets into an active TCP session. Effective on unencrypted protocols (Telnet, HTTP). TLS encryption prevents this by ensuring packets that don't match the session key are rejected.</td><td>Encrypt all sessions with TLS; TLS sequence numbers are inside the encrypted record</td></tr>
+  <tr><td><strong>Cookie Theft (XSS)</strong></td><td>Attacker injects JavaScript into a web page that steals the victim's session cookie and sends it to the attacker's server. Attacker uses the cookie to access the session. Most common web session hijacking method.</td><td>HttpOnly cookie flag (JavaScript cannot access cookie); Secure flag (HTTPS only); CSP headers; XSS prevention (input validation, output encoding)</td></tr>
+  <tr><td><strong>Cookie Sniffing</strong></td><td>Attacker on the same LAN uses ARP poisoning or a passive sniffer to capture session cookies transmitted over HTTP (not HTTPS).</td><td>Enforce HTTPS everywhere; HSTS; Secure cookie flag</td></tr>
+  <tr><td><strong>Session Fixation</strong></td><td>Attacker forces a known Session ID on the victim before authentication. When victim authenticates, the attacker's pre-known session ID is now authenticated. Attacker uses the same ID to access the authenticated session.</td><td>Regenerate session ID on successful authentication; never accept externally-supplied session IDs</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 8 ═════════════════ -->
+<section id="s8">
+<h2>8. IP Spoofing</h2>
+<div class="callout definition">
+  <strong>📖 IP Spoofing:</strong> Forging the source IP address in IP packet headers to impersonate another host or to hide the attacker's true identity. Used to bypass IP-based access controls, enable amplification/reflection attacks, and in combination with other attacks.
+</div>
+
+<table>
+  <tr><th>Use in Attacks</th><th>Description</th></tr>
+  <tr><td><strong>DDoS/amplification</strong></td><td>Spoof victim's IP as source in requests to reflectors — response floods the victim. Enables attribution evasion and amplification simultaneously. (See Section 4)</td></tr>
+  <tr><td><strong>Trust exploitation</strong></td><td>Old systems using rsh/rlogin relied on source IP for authentication. Spoofing a trusted IP bypassed authentication. Same principle applies to IP-based firewall rules that trust specific source IPs without additional authentication.</td></tr>
+  <tr><td><strong>SYN flood</strong></td><td>Spoofed source IPs prevent the server from tracing the attack and prevent SYN-ACK responses from reaching the attacker (which would complete the 3-way handshake).</td></tr>
+</table>
+
+<h3>Countermeasures Against IP Spoofing</h3>
+<table>
+  <tr><th>Control</th><th>How It Works</th></tr>
+  <tr><td><strong>BCP38 Ingress Filtering</strong></td><td>ISPs filter packets at network ingress — if a packet arrives on your upstream link with a source IP that could not legitimately originate from that direction, drop it. Prevents internet-scale spoofing but requires ISP cooperation.</td></tr>
+  <tr><td><strong>Firewall ingress filtering</strong></td><td>Drop any inbound packet from internet with a source IP in your internal RFC 1918 space (impossible to legitimately originate from internet). Drop inbound with your own external IP as source.</td></tr>
+  <tr><td><strong>Cryptographic authentication</strong></td><td>Use TLS, IPSec, or application-level authentication — validates identity cryptographically rather than relying on IP address. IP spoofing is irrelevant if credentials are cryptographically verified.</td></tr>
+  <tr><td><strong>Unicast Reverse Path Forwarding (uRPF)</strong></td><td>Router checks that the source IP of an arriving packet is reachable via the same interface it arrived on. If not, the packet is rejected (asymmetric routing complicates this).</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 9 ═════════════════ -->
+<section id="s9">
+<h2>9. DNS Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Defence</th></tr>
+  <tr><td><strong>DNS Cache Poisoning (Kaminsky Attack)</strong></td><td>Attacker floods a DNS resolver with forged responses containing a malicious IP for a legitimate domain, racing to get the poisoned record cached before the legitimate response arrives. Kaminsky (2008) showed this was practical against unpatched resolvers by randomizing additional data.</td><td>DNSSEC (cryptographically signed records); DNS source port randomization; 0x20 encoding; DNSSEC validation in resolvers</td></tr>
+  <tr><td><strong>DNS Amplification</strong></td><td>Spoofed ANY queries to open resolvers generate large responses directed at victim. (Covered in Section 4)</td><td>Block open resolvers; BCP38; DNS RRL</td></tr>
+  <tr><td><strong>DNS Tunneling</strong></td><td>Encodes arbitrary data (command & control traffic, exfiltrated data) inside DNS query/response fields (subdomain labels, TXT records). DNS is usually permitted outbound through firewalls and rarely inspected deeply.</td><td>DNS query monitoring (anomalous query length, high frequency, NXDOMAIN rate); DNS traffic analysis tools; DNS over HTTPS to internal resolver only</td></tr>
+  <tr><td><strong>DNS Hijacking</strong></td><td>Modify DNS records at registrar level (compromising registrar account) or at hosting provider for authoritative records. Traffic redirected to attacker-controlled server.</td><td>Registrar account security (MFA, registry lock); domain locking; DNSSEC; CAA records limit certificate issuance</td></tr>
+  <tr><td><strong>Fast Flux DNS</strong></td><td>Malware C2 domains rapidly change IP addresses (TTL of seconds) to evade IP blocklists and attribution. Hundreds of compromised hosts host the C2 service at any time.</td><td>Domain reputation / threat intelligence; behavioral detection (high NX rate, short TTLs); DNS RPZ (Response Policy Zones) blocking</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 10 ═════════════════ -->
+<section id="s10">
+<h2>10. ARP Poisoning</h2>
+<div class="callout definition">
+  <strong>📖 ARP Poisoning (ARP Spoofing):</strong> The attacker sends unsolicited (gratuitous) ARP Reply messages that map the attacker's MAC address to a legitimate IP address (typically the gateway's IP). Hosts cache this mapping and send traffic for that IP to the attacker's MAC instead of the legitimate host's MAC.
+</div>
+
+<div class="diagram">
+ARP Poisoning – MitM on LAN:
+
+Legitimate State:
+  Host A (10.0.0.1) ─── ARP Cache: 10.0.0.254 → [Gateway's real MAC: AA:BB:CC:DD:EE:FF]
+  Traffic to internet: → sent to AA:BB:CC:DD:EE:FF → [Gateway]
+
+After ARP Poisoning by Attacker (10.0.0.100):
+  Attacker sends: "I am 10.0.0.254; My MAC is 11:22:33:44:55:66"  (Gratuitous ARP)
+  Host A ARP Cache: 10.0.0.254 → [Attacker's MAC: 11:22:33:44:55:66]
+
+  Host A traffic → [Attacker's MAC] → Attacker intercepts → forwards to real gateway
+                                       ^
+                                       Attacker performs MitM; sees all plaintext traffic
+</div>
+
+<table>
+  <tr><th>Countermeasure</th><th>How It Works</th></tr>
+  <tr><td><strong>Dynamic ARP Inspection (DAI)</strong></td><td>Switch validates ARP packets against a trusted DHCP snooping binding table (IP→MAC→port mappings). ARP replies that don't match the binding table are dropped. Prevents gratuitous ARP poisoning on the switch.</td></tr>
+  <tr><td><strong>Static ARP entries</strong></td><td>Manually configure ARP entries for the gateway on all hosts — not scalable in large environments but effective for critical hosts</td></tr>
+  <tr><td><strong>ARP spoofing detection tools</strong></td><td>ARPwatch, XArp — monitor ARP cache changes; alert on IP→MAC mapping changes that indicate poisoning</td></tr>
+  <tr><td><strong>Encrypted protocols</strong></td><td>Even if ARP poisoning succeeds, TLS/HTTPS/SSH encryption of all sessions means the attacker sees only encrypted traffic — MitM without SSL inspection yields no useful data</td></tr>
+  <tr><td><strong>802.1X</strong></td><td>Only authenticated devices on the network; reduces ARP poisoning attack surface by restricting who can send frames</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 11 ═════════════════ -->
+<section id="s11">
+<h2>11. Botnet &amp; C2 Infrastructure</h2>
+<div class="callout definition">
+  <strong>📖 Botnet:</strong> A network of compromised devices (bots/zombies) remotely controlled by an attacker through Command and Control (C2) infrastructure. Used to launch DDoS attacks, send spam, distribute malware, mine cryptocurrency, or commit click fraud — all at scale without direct exposure of the attacker.
+</div>
+
+<table>
+  <tr><th>C2 Channel Type</th><th>Description</th><th>Detection</th></tr>
+  <tr><td><strong>IRC-based C2</strong></td><td>Early botnets used IRC channels for commands. Bot connects to IRC server and waits for commands. Detectable by outbound IRC on unusual ports.</td><td>Block outbound IRC (port 6667); detect IRC protocol on non-standard ports</td></tr>
+  <tr><td><strong>HTTP/HTTPS C2</strong></td><td>Bot beacons to a web server (or compromised website) for commands. Blends in with normal web traffic. HTTP responses contain encoded commands.</td><td>Proxy with URL reputation filtering; beacon detection (periodic outbound connections at regular intervals); threat intelligence feeds</td></tr>
+  <tr><td><strong>DNS C2</strong></td><td>Commands encoded in DNS TXT/subdomain records. Bot polls attacker's DNS server for commands. Bypasses many proxies that allow DNS.</td><td>DNS traffic analysis; anomalous query rates; subdomain entropy analysis; block external DNS (force internal DNS resolver)</td></tr>
+  <tr><td><strong>P2P C2</strong></td><td>No central C2 server — bots communicate peer-to-peer. Highly resilient; taking down one C2 server doesn't disrupt the botnet. Used by sophisticated botnets (Conficker, Sality).</td><td>Peer-to-peer traffic analysis; anomalous connection patterns; reputation-based blocking</td></tr>
+  <tr><td><strong>Domain Generation Algorithm (DGA)</strong></td><td>Bots and C2 server use the same DGA (seeded by date/time) to generate hundreds of domain names daily. Only attacker registers a few; bot tries all until one resolves. Defeats domain blocklists.</td><td>DGA detection via machine learning on DNS query patterns; NXDOMAIN spike detection; threat intel; Threat hunting for DGA domains</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. DDoS Mitigation Strategies</h2>
+<table>
+  <tr><th>Strategy</th><th>Description</th><th>Scope</th></tr>
+  <tr><td><strong>Cloud Scrubbing / CDN</strong></td><td>Traffic is routed through a cloud scrubbing service (Cloudflare, Akamai, AWS Shield Advanced) that absorbs volumetric DDoS via globally distributed capacity. Malicious traffic is dropped at the edge; clean traffic forwarded to origin.</td><td>Volumetric DDoS (Tbps scale)</td></tr>
+  <tr><td><strong>ISP-Level Black-Holing (RTBH)</strong></td><td>Remote Triggered Black Hole routing — ISP drops all traffic destined for the targeted IP prefix. Stops attack traffic but also stops legitimate traffic to that IP. Last resort when the attack volume exceeds all other mitigations.</td><td>Saves network infrastructure; sacrifices the targeted IP</td></tr>
+  <tr><td><strong>Firewall Rate Limiting</strong></td><td>Limit connection rate per source IP; drop excessive ICMP; limit SYN rate per source. Effective against smaller, non-distributed attacks. Ineffective against large-volume DDoS where attack comes from millions of IPs.</td><td>Small to medium DoS</td></tr>
+  <tr><td><strong>SYN Cookies</strong></td><td>Server doesn't allocate connection state until the 3-way handshake completes. The initial SYN-ACK encodes state in the TCP sequence number cryptographically. Only legitimate connections that complete the handshake consume server resources.</td><td>TCP SYN flood</td></tr>
+  <tr><td><strong>Anycast Distribution</strong></td><td">Distribute the targeted service across many anycast nodes globally. Attack traffic is naturally spread across all nodes based on BGP routing — no single node absorbs the full volume.</td><td>Large DDoS absorbed by distributed infrastructure</td></tr>
+  <tr><td><strong>Ingress Filtering (BCP38)</strong></td><td>ISPs drop packets with impossible source IPs at network ingress. Eliminates IP-spoofed UDP/ICMP amplification attacks at internet scale.</td><td>Spoofed-source amplification attacks</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 13 ═════════════════ -->
+<section id="s13">
+<h2>13. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 DoS vs. DDoS — "Solo vs. Swarm":</strong><br>
+  <strong>DoS</strong> = one attacker, one victim (solo attacker; scalable via amplification)<br>
+  <strong>DDoS</strong> = botnet swarm of thousands → victim flooded from every direction simultaneously<br>
+  DDoS at Tbps scale requires cloud scrubbing — no single on-premise device can handle it.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Smurf Attack — "Smurf Hides Behind the Crowd":</strong><br>
+  Smurf = spoof victim's IP + send ICMP to <em>broadcast</em> address → entire network replies to victim.<br>
+  Fixed by: disabling directed broadcasts on routers. Historical attack — mostly irrelevant on modern networks. Still on exams.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Replay vs. Session Hijacking:</strong><br>
+  <strong>Replay</strong> = record-and-playback of a previously captured auth/transaction token. The session may no longer be active. Defence: nonce, timestamp, sequence number.<br>
+  <strong>Session Hijacking</strong> = steal a <em>currently active</em> session token and impersonate the active user in real time. Defence: HTTPOnly/Secure cookie, HTTPS everywhere, session regeneration.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 ARP Poisoning Defence — "DAI Stands Guard":</strong><br>
+  <strong>DAI</strong> (Dynamic ARP Inspection) = switch checks every ARP reply against DHCP snooping binding table; rejects unauthorized IP→MAC claims.<br>
+  DHCP Snooping (trusted/untrusted port config) is a prerequisite for DAI → both are deployed together.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 14 ═════════════════ -->
+<section id="s14">
+<h2>14. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>SYN Flood</td><td>Half-open connection table exhaustion; mitigated by SYN cookies (no state until ACK received)</td></tr>
+  <tr><td>Smurf Attack</td><td>ICMP broadcast amplification with spoofed victim source IP; fixed by disabling directed broadcasts (BCP38)</td></tr>
+  <tr><td>DDoS at scale</td><td>Requires cloud scrubbing services; on-premise defences are insufficient for volumetric attacks</td></tr>
+  <tr><td>Amplification</td><td>Spoofed source IP → reflector with asymmetric response → victim flooded; BCP38 ingress filtering is the root fix</td></tr>
+  <tr><td>MitM</td><td>Attacker intercepts communications; fundamental defence is mutual cryptographic authentication (TLS), not just encryption</td></tr>
+  <tr><td>SSL Stripping</td><td>Downgrade HTTPS to HTTP; defeated by HSTS and HSTS preloading</td></tr>
+  <tr><td>Replay Attack</td><td>Reuse of captured valid tokens/credentials; defeated by nonce, timestamp, sequence numbers</td></tr>
+  <tr><td>Session Hijacking</td><td>Steal active session token; defeated by HTTPS everywhere, HttpOnly/Secure cookies, session regeneration after auth</td></tr>
+  <tr><td>IP Spoofing</td><td>Forge source IP; defeated by BCP38 / ingress filtering; cryptographic authentication is the proper fix</td></tr>
+  <tr><td>ARP Poisoning</td><td>Forge ARP replies to redirect traffic; defeated by Dynamic ARP Inspection (DAI) + DHCP snooping</td></tr>
+  <tr><td>DNS Cache Poisoning</td><td>Inject false DNS records into resolver cache; defeated by DNSSEC</td></tr>
+  <tr><td>Botnet / C2</td><td>Compromised devices receive commands via HTTP/DNS/P2P; detection via outbound connection monitoring, DNS analytics, threat intelligence</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-063-theory.html" class="nav-btn">← Day 63: Wireless Security</a>
+  <a href="day-065-theory.html" class="nav-btn">Day 65: Email Security →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

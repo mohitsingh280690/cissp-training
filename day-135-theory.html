@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 135 – Exam Review &amp; Weak-Area Analysis</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 135 – Exam Review &amp; Weak-Area Analysis</h1>
+  <div class="subtitle">Targeted Review Across All 8 Domains</div>
+  <div class="meta">
+    <span>📅 Day 135 of 137</span>
+    <span>📖 Review Day</span>
+    <span>⏱️ ~60 min study</span>
+    <span>🎯 Strengthen Weak Domains</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-134-theory.html">← Day 134</a> · Review · Day 135</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. How to Use This Review</a></li>
+  <li><a href="#s2">2. Domain Score Tracker</a></li>
+  <li><a href="#s3">3. Domain 1 &amp; 2 — Key Reinforcement</a></li>
+  <li><a href="#s4">4. Domain 3 &amp; 4 — Key Reinforcement</a></li>
+  <li><a href="#s5">5. Domain 5 &amp; 6 — Key Reinforcement</a></li>
+  <li><a href="#s6">6. Domain 7 &amp; 8 — Key Reinforcement</a></li>
+  <li><a href="#s7">7. Common Exam Traps from Mock 1</a></li>
+  <li><a href="#s8">8. "Think Like a Manager" Decision Framework</a></li>
+  <li><a href="#s9">9. Study Plan for Remaining Days</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. How to Use This Review</h2>
+<p>This review is designed to turn your Mock Exam 1 results into a targeted study plan. Follow these steps:</p>
+<ol>
+  <li><strong>Score your exam by domain</strong> using the tracker below</li>
+  <li><strong>Identify weak domains</strong> — any domain below 70% needs focused review</li>
+  <li><strong>Review the key concepts</strong> for each domain pair below — focus extra time on weak areas</li>
+  <li><strong>Study the exam traps</strong> that commonly catch candidates</li>
+  <li><strong>Internalize the decision framework</strong> for "think like a manager" questions</li>
+</ol>
+</section>
+
+<section id="s2">
+<h2>2. Domain Score Tracker</h2>
+<p>Record your Mock Exam 1 results per domain. Questions mapped to domains were tagged in each question.</p>
+<table>
+  <tr><th>Domain</th><th>Questions</th><th>Correct / Total</th><th>% Score</th><th>Status</th></tr>
+  <tr><td>D1: Security &amp; Risk Management</td><td>Q1-Q5</td><td>___ / 5</td><td>____%</td><td>🟢 ≥70% / 🔴 &lt;70%</td></tr>
+  <tr><td>D2: Asset Security</td><td>Q6-Q10</td><td>___ / 5</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D3: Security Architecture</td><td>Q11-Q16</td><td>___ / 6</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D4: Communication &amp; Network</td><td>Q17-Q22</td><td>___ / 6</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D5: IAM</td><td>Q23-Q28</td><td>___ / 6</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D6: Security Assessment</td><td>Q29-Q34</td><td>___ / 6</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D7: Security Operations</td><td>Q35-Q42</td><td>___ / 8</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td>D8: Software Development</td><td>Q43-Q50</td><td>___ / 8</td><td>____%</td><td>🟢 / 🔴</td></tr>
+  <tr><td><strong>TOTAL</strong></td><td><strong>All</strong></td><td><strong>___ / 50</strong></td><td><strong>____%</strong></td><td></td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Benchmark:</strong> Target 70% overall and 70% per domain. If you scored below 60% in any domain, prioritize that domain heavily before Mock Exam 2. If 60-70%, review the key concepts. If above 70%, do a light refresh.
+</div>
+</section>
+
+<section id="s3">
+<h2>3. Domain 1 &amp; 2 — Key Reinforcement</h2>
+<h3>Domain 1: Security &amp; Risk Management (16%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>CIA Triad</td><td>Confidentiality (prevent unauthorized disclosure), Integrity (prevent unauthorized modification), Availability (ensure authorized access when needed)</td><td>Day 1</td></tr>
+  <tr><td>Quantitative Risk</td><td>SLE = AV × EF; ALE = SLE × ARO; Value of safeguard = ALE(before) - ALE(after) - Annual cost of safeguard</td><td>Day 8</td></tr>
+  <tr><td>Risk Responses</td><td>Accept (acknowledge), Mitigate (reduce), Transfer (share — insurance, SLA), Avoid (eliminate activity)</td><td>Day 9</td></tr>
+  <tr><td>Governance vs Management</td><td>Governance = strategic direction (board); Management = implementation (CISO). Governance asks "what"; Management asks "how"</td><td>Day 2</td></tr>
+  <tr><td>Legal Systems</td><td>Civil law (codified statutes), Common law (precedent/case law), Religious law, Customary law</td><td>Day 12</td></tr>
+  <tr><td>BCP Priority</td><td>ALWAYS: Safety of people first → then stop damage → then restore operations</td><td>Day 17</td></tr>
+</table>
+
+<h3>Domain 2: Asset Security (10%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>Data Owner</td><td>Senior management; determines classification level; NOT the IT person who manages data day-to-day</td><td>Day 21</td></tr>
+  <tr><td>Data Roles</td><td>Owner (classifies) → Custodian (implements protections) → User (complies with policy)</td><td>Day 21</td></tr>
+  <tr><td>Classification</td><td>Government: Top Secret &gt; Secret &gt; Confidential &gt; Unclassified. Commercial: Confidential &gt; Private &gt; Sensitive &gt; Public</td><td>Day 22</td></tr>
+  <tr><td>Data Remanence</td><td>Clearing (overwrite) → Purging (degauss/crypto-erase) → Destroying (physical). For classified: destruction required</td><td>Day 25</td></tr>
+  <tr><td>Privacy Principles</td><td>Collection limitation, purpose specification, use limitation, data minimization, retention limitation, individual participation</td><td>Day 14</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Domain 3 &amp; 4 — Key Reinforcement</h2>
+<h3>Domain 3: Security Architecture &amp; Engineering (13%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>Security Models</td><td>Bell-LaPadula (confidentiality — no read up, no write down); Biba (integrity — no read down, no write up); Clark-Wilson (integrity — well-formed transactions via access triples)</td><td>Day 29-30</td></tr>
+  <tr><td>Evaluation Criteria</td><td>Common Criteria: EAL1-7 (higher = more rigorous). Protection Profiles (requirements) → Security Targets (vendor claims) → TOE (what's evaluated)</td><td>Day 33</td></tr>
+  <tr><td>Crypto Fundamentals</td><td>Symmetric (one key, fast, bulk data — AES); Asymmetric (two keys, slow, key exchange — RSA, ECC); Hashing (integrity — SHA-256)</td><td>Day 44-45</td></tr>
+  <tr><td>PKI</td><td>CA issues certificates; RA verifies identity; CRL/OCSP for revocation. Certificate chain: Root CA → Intermediate CA → End entity</td><td>Day 52</td></tr>
+  <tr><td>Site/Facility Security</td><td>Defense in depth: perimeter → building → floor → room → rack → device. Crime Prevention Through Environmental Design (CPTED)</td><td>Day 38</td></tr>
+</table>
+
+<h3>Domain 4: Communication &amp; Network Security (13%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>OSI Model</td><td>Please Do Not Throw Sausage Pizza Away (Physical, Data Link, Network, Transport, Session, Presentation, Application). Know which protocols operate at each layer</td><td>Day 55</td></tr>
+  <tr><td>TCP/UDP</td><td>TCP: connection-oriented, reliable, 3-way handshake (SYN, SYN-ACK, ACK). UDP: connectionless, fast, no guaranteed delivery</td><td>Day 56</td></tr>
+  <tr><td>Network Attacks</td><td>ARP spoofing (Layer 2); IP spoofing (Layer 3); SYN flood (Layer 4); DNS poisoning; Man-in-the-middle; DDoS</td><td>Day 63</td></tr>
+  <tr><td>VPN Protocols</td><td>IPSec (tunnel/transport mode, IKE for key exchange); TLS VPN (browser-based); L2TP/IPSec (combined)</td><td>Day 60</td></tr>
+  <tr><td>Firewall Types</td><td>Packet filter (stateless, L3-4) → Stateful (connection table) → Application proxy (L7, full inspection) → NGFW (DPI + threat intel)</td><td>Day 59</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Domain 5 &amp; 6 — Key Reinforcement</h2>
+<h3>Domain 5: Identity &amp; Access Management (13%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>Authentication Factors</td><td>Something you know (password), something you have (token), something you are (biometric). MFA = two+ different factors</td><td>Day 71</td></tr>
+  <tr><td>Access Control Models</td><td>DAC (owner decides); MAC (labels — classification); RBAC (roles — most common enterprise); ABAC (attributes — most flexible)</td><td>Day 74</td></tr>
+  <tr><td>SSO Protocols</td><td>SAML (XML, enterprise/web); OAuth 2.0 (authorization delegation); OpenID Connect (authentication layer on OAuth); Kerberos (tickets, on-premises)</td><td>Day 76-77</td></tr>
+  <tr><td>Biometric Errors</td><td>FRR (Type I — false rejection, inconvenience); FAR (Type II — false acceptance, SECURITY RISK); CER/EER (crossover — lower is better). FAR is worse for security</td><td>Day 73</td></tr>
+  <tr><td>Provisioning</td><td>Least privilege; need-to-know; separation of duties; account review; immediate revocation on termination</td><td>Day 78</td></tr>
+</table>
+
+<h3>Domain 6: Security Assessment &amp; Testing (12%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>Assessment Types</td><td>Vulnerability scan (automated, finds weaknesses); Penetration test (simulates attack, exploits weaknesses); Red team (adversary simulation, broader scope)</td><td>Day 86-87</td></tr>
+  <tr><td>Audit Types</td><td>SOC 1 (financial controls); SOC 2 Type I (design at a point in time); SOC 2 Type II (operational effectiveness over period — MOST valuable)</td><td>Day 93</td></tr>
+  <tr><td>CVSS</td><td>Common Vulnerability Scoring System: Base (inherent severity) + Temporal (current state) + Environmental (organizational context). Score 0-10</td><td>Day 88</td></tr>
+  <tr><td>Pentest Phases</td><td>Planning → Reconnaissance → Scanning → Exploitation → Post-exploitation → Reporting. Get WRITTEN authorization first</td><td>Day 87</td></tr>
+  <tr><td>Log Reviews</td><td>Review authentication logs, access logs, change logs, error logs regularly. Anomalies indicate potential compromise or policy violations</td><td>Day 92</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Domain 7 &amp; 8 — Key Reinforcement</h2>
+<h3>Domain 7: Security Operations (13%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>IR Lifecycle</td><td>Preparation → Detection/Analysis → Containment/Eradication/Recovery → Post-Incident (NIST SP 800-61). Preparation is MOST important phase</td><td>Day 104-105</td></tr>
+  <tr><td>Evidence</td><td>Real (physical, strongest) &gt; Documentary (records) &gt; Testimonial (oral). Chain of custody must be unbroken. Work on forensic COPIES only</td><td>Day 102</td></tr>
+  <tr><td>Order of Volatility</td><td>CPU registers → RAM → Temp files → Disk → Remote logs → Physical config → Archival. Capture MOST volatile first</td><td>Day 103</td></tr>
+  <tr><td>DR Sites</td><td>Hot (ready immediately, most expensive) → Warm (hours to days) → Cold (days to weeks, least expensive). Cloud DR increasingly common</td><td>Day 112</td></tr>
+  <tr><td>Backup Types</td><td>Full (everything, clears archive bit); Incremental (since last ANY backup, fast backup/slow restore); Differential (since last FULL, moderate/moderate)</td><td>Day 113</td></tr>
+  <tr><td>RAID</td><td>0 (striping, no redundancy); 1 (mirroring); 5 (striping + parity, min 3 disks, tolerates 1 failure); 6 (double parity, tolerates 2); 10 (mirror + stripe)</td><td>Day 112</td></tr>
+</table>
+
+<h3>Domain 8: Software Development Security (10%)</h3>
+<table>
+  <tr><th>Concept</th><th>Must-Know Point</th><th>Review Day</th></tr>
+  <tr><td>SDLC Security</td><td>Security must be integrated at EVERY phase — not bolted on at the end. Requirements phase: define security requirements and abuse cases</td><td>Day 118</td></tr>
+  <tr><td>OWASP Top 10</td><td>Broken Access Control; Cryptographic Failures; Injection; Insecure Design; Security Misconfiguration; Vulnerable &amp; Outdated Components; Identification &amp; Authentication Failures; Software &amp; Data Integrity Failures; Security Logging &amp; Monitoring Failures; SSRF</td><td>Day 123-124</td></tr>
+  <tr><td>Input Validation</td><td>Validate ALL input on SERVER side. Never trust client-side validation. Whitelist (allow known-good) preferred over blacklist (block known-bad)</td><td>Day 125</td></tr>
+  <tr><td>SAST vs DAST</td><td>SAST (white-box, analyzes source code, early in SDLC); DAST (black-box, tests running application, later in SDLC); IAST (combines both, runtime analysis)</td><td>Day 126</td></tr>
+  <tr><td>DevSecOps</td><td>Shift-left security; automate security in CI/CD pipeline; security as code; shared responsibility</td><td>Day 120</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Common Exam Traps from Mock 1</h2>
+<table>
+  <tr><th>Trap</th><th>Why Candidates Fall for It</th><th>How to Avoid</th></tr>
+  <tr><td>"Most secure" answer</td><td>Candidates pick the most technically restrictive option</td><td>CISSP asks for BEST answer considering business context — the most restrictive isn't always best if it kills business operations</td></tr>
+  <tr><td>Technical vs managerial answer</td><td>Candidates pick the technical "fix" instead of the governance solution</td><td>When two answers seem correct, pick the managerial/policy/governance answer first. CISSP is a management exam</td></tr>
+  <tr><td>"First" vs "most important"</td><td>Different question types need different approaches</td><td>"FIRST" = sequence (what comes before); "MOST IMPORTANT" = priority (what matters most regardless of sequence)</td></tr>
+  <tr><td>Absolute words</td><td>Answers with "always," "never," "all," "none" seem definitive</td><td>Absolute answers are usually WRONG on CISSP. Security is about risk management, not absolutes</td></tr>
+  <tr><td>Technology-specific answers</td><td>Vendor/product names seem authoritative</td><td>CISSP is vendor-neutral. Answers with specific product names are usually distractors</td></tr>
+  <tr><td>Scope creep in answers</td><td>An answer that addresses more than the question asks</td><td>Pick the answer that DIRECTLY addresses exactly what was asked — no more, no less</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. "Think Like a Manager" Decision Framework</h2>
+<div class="key-concept callout">
+  <strong>The CISSP Mindset:</strong> You are a CISO advising the board, not a system administrator fixing servers. Every decision must balance security with business needs, legal requirements, and available resources.
+</div>
+
+<h3>Decision Priority Hierarchy</h3>
+<table>
+  <tr><th>Priority</th><th>Principle</th><th>Example</th></tr>
+  <tr><td>1</td><td><strong>Human safety FIRST</strong></td><td>Evacuate before fighting fire; unlock doors during emergency even if security is reduced</td></tr>
+  <tr><td>2</td><td><strong>Legal/regulatory compliance</strong></td><td>Notify regulators within required timeframes; comply with court orders; follow privacy laws</td></tr>
+  <tr><td>3</td><td><strong>Prevent further damage</strong></td><td>Contain the incident; stop data loss; isolate compromised systems</td></tr>
+  <tr><td>4</td><td><strong>Restore operations</strong></td><td>Recover from backups; bring systems back online; resume business functions</td></tr>
+  <tr><td>5</td><td><strong>Investigate and improve</strong></td><td>Root cause analysis; lessons learned; process improvements</td></tr>
+</table>
+
+<h3>When Two Answers Both Seem Correct</h3>
+<ul>
+  <li><strong>Policy before technology:</strong> Governance/policy answer beats technical control answer</li>
+  <li><strong>Prevent before detect:</strong> Preventive control beats detective control (unless the question specifically asks about detection)</li>
+  <li><strong>Address root cause before symptom:</strong> Fixing the underlying issue beats patching the immediate problem</li>
+  <li><strong>People before process before technology:</strong> Training/awareness beats procedure change beats technical control</li>
+  <li><strong>Risk-based over checklist-based:</strong> Risk assessment answer beats compliance-checkbox answer</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2>9. Study Plan for Remaining Days</h2>
+<table>
+  <tr><th>Day</th><th>Activity</th><th>Focus</th></tr>
+  <tr><td>137</td><td>Mock Exam 2 (50 questions)</td><td>Increased difficulty; scenario-heavy; "think like a manager" emphasis</td></tr>
+  <tr><td>138</td><td>Mock Exam 2 Review</td><td>Progress comparison; refine weak areas</td></tr>
+  <tr><td>139</td><td>Mock Exam 3 (50 questions)</td><td>Final comprehensive assessment; adaptive difficulty simulation</td></tr>
+  <tr><td>140</td><td>Final Prep &amp; Exam Strategy</td><td>Last-minute review; exam logistics; time management; confidence reinforcement</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Between Now and Mock 2:</strong> Spend your study time on your weakest domains. Re-read the theory files for any domain where you scored below 70%. Focus on understanding the WHY behind correct answers, not memorizing answers.
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-134-theory.html" class="nav-btn">← Day 134: Cross-Domain D7+D8</a>
+  <a href="day-136-theory.html" class="nav-btn">Day 136: Advanced Review & Scenario Strategy →</a>
+</div>
+</div>
+</body>
+</html>

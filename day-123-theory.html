@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 123 – Web Application Security – Part 1</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 123 – Web Application Security – Part 1</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 123 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Difficulty: Intermediate–Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-122-theory.html">← Day 122: Database Security</a> · Domain 8 · Day 123</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. OWASP Top 10 Overview</a></li>
+  <li><a href="#s4">4. Injection Attacks</a></li>
+  <li><a href="#s5">5. Cross-Site Scripting (XSS)</a></li>
+  <li><a href="#s6">6. Cross-Site Request Forgery (CSRF)</a></li>
+  <li><a href="#s7">7. Insecure Direct Object References &amp; Access Control Failures</a></li>
+  <li><a href="#s8">8. Security Misconfigurations</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>Web application vulnerabilities (XSS, CSRF, injection) are the most exploited attack vectors. CISSP tests understanding of attack mechanics AND appropriate defenses, not how to exploit</td></tr>
+  <tr><td>Question Style</td><td>"An attacker inserts JavaScript into a web form that executes in other users' browsers. This is…?" (Stored XSS). "What is the BEST defense against SQL injection?" (Parameterized queries/prepared statements)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 122 (SQL injection in databases); Day 124 (session management, auth flaws); Domain 1 (risk from web vulns)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Web applications are the primary interface between organizations and users, making them the #1 attack vector. Verizon DBIR consistently shows web application attacks account for the majority of breaches. The shift to cloud-native, API-driven architectures has expanded the web attack surface. Understanding these vulnerabilities is essential for security architects reviewing application designs and for managers approving deployment decisions.</p>
+</section>
+
+<section id="s3">
+<h2>3. OWASP Top 10 Overview</h2>
+<div class="definition callout">
+  <strong>OWASP (Open Worldwide Application Security Project):</strong> A nonprofit organization producing free, open resources for web application security. The OWASP Top 10 is the most widely recognized awareness document for web application security risks, updated periodically (latest: 2021).
+</div>
+
+<table>
+  <tr><th>#</th><th>2021 Category</th><th>Description</th></tr>
+  <tr><td>A01</td><td><strong>Broken Access Control</strong></td><td>Users act outside intended permissions; #1 most common vulnerability</td></tr>
+  <tr><td>A02</td><td><strong>Cryptographic Failures</strong></td><td>Failures related to cryptography leading to sensitive data exposure</td></tr>
+  <tr><td>A03</td><td><strong>Injection</strong></td><td>SQL, NoSQL, OS, LDAP injection when untrusted data sent to interpreter</td></tr>
+  <tr><td>A04</td><td><strong>Insecure Design</strong></td><td>Missing or ineffective security controls in design; not implementation bugs</td></tr>
+  <tr><td>A05</td><td><strong>Security Misconfiguration</strong></td><td>Default configs, open cloud storage, unnecessary features, verbose errors</td></tr>
+  <tr><td>A06</td><td><strong>Vulnerable Components</strong></td><td>Using components with known vulnerabilities; unpatched libraries/frameworks</td></tr>
+  <tr><td>A07</td><td><strong>Authentication Failures</strong></td><td>Broken authentication allowing credential stuffing, brute force, session attacks</td></tr>
+  <tr><td>A08</td><td><strong>Software &amp; Data Integrity Failures</strong></td><td>Assumptions about software updates, CI/CD pipelines without integrity checks</td></tr>
+  <tr><td>A09</td><td><strong>Security Logging &amp; Monitoring Failures</strong></td><td>Insufficient logging making breach detection/forensics impossible</td></tr>
+  <tr><td>A10</td><td><strong>Server-Side Request Forgery (SSRF)</strong></td><td>App fetches remote resource without validating user-supplied URL</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>OWASP 2021 Key Change:</strong> Broken Access Control moved to #1 (was #5 in 2017). Injection dropped to #3 (was #1 in 2017). "Insecure Design" (A04) and "SSRF" (A10) are NEW categories added in 2021.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Injection Attacks</h2>
+<h3>SQL Injection</h3>
+<div class="definition callout">
+  <strong>SQL Injection:</strong> An attacker inserts malicious SQL statements into input fields that are concatenated directly into database queries. This can bypass authentication, read/modify/delete data, and even execute OS commands.
+</div>
+
+<p><strong>How it works:</strong></p>
+<p>Application builds query: <code>SELECT * FROM users WHERE name = 'USER_INPUT'</code></p>
+<p>Attacker enters: <code>' OR '1'='1</code></p>
+<p>Resulting query: <code>SELECT * FROM users WHERE name = '' OR '1'='1'</code> — always true, returns all rows.</p>
+
+<h3>Types of SQL Injection</h3>
+<table>
+  <tr><th>Type</th><th>Description</th></tr>
+  <tr><td><strong>Classic/In-band</strong></td><td>Attacker uses same channel to inject and receive results (error-based, UNION-based)</td></tr>
+  <tr><td><strong>Blind</strong></td><td>No visible output; attacker infers data by observing behavior differences (boolean-based) or time delays (time-based)</td></tr>
+  <tr><td><strong>Second-order</strong></td><td>Malicious input stored first, executed later when a different operation retrieves and uses it</td></tr>
+</table>
+
+<h3>Other Injection Types</h3>
+<table>
+  <tr><th>Type</th><th>Target</th><th>Example</th></tr>
+  <tr><td>LDAP injection</td><td>LDAP directory queries</td><td>Manipulating authentication lookups in Active Directory</td></tr>
+  <tr><td>XML injection (XXE)</td><td>XML parsers</td><td>Injecting malicious XML entities to read files, SSRF</td></tr>
+  <tr><td>OS command injection</td><td>System shell</td><td>Inserting <code>; rm -rf /</code> into a field passed to a system command</td></tr>
+  <tr><td>XPath injection</td><td>XML data queries</td><td>Manipulating XPath expressions that query XML documents</td></tr>
+</table>
+
+<h3>Injection Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>Effectiveness</th></tr>
+  <tr><td><strong>Parameterized queries (prepared statements)</strong></td><td>#1 best defense — separates SQL code from data; input NEVER interpreted as SQL</td></tr>
+  <tr><td><strong>Stored procedures</strong></td><td>Good if properly parameterized; still vulnerable if they use dynamic SQL internally</td></tr>
+  <tr><td><strong>Input validation (whitelist)</strong></td><td>Defense in depth — validate type, length, range, format; whitelist &gt; blacklist</td></tr>
+  <tr><td><strong>Output encoding</strong></td><td>Encode special characters before rendering; prevents interpretation</td></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Database account used by app should have minimal permissions; never use DBA/sa account</td></tr>
+  <tr><td><strong>WAF</strong></td><td>Web Application Firewall — additional layer; NOT a replacement for secure coding</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Common Exam Trap:</strong> WAFs and input validation are defense-in-depth measures, but <strong>parameterized queries are ALWAYS the best answer</strong> for preventing SQL injection on the CISSP exam.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Cross-Site Scripting (XSS)</h2>
+<div class="definition callout">
+  <strong>XSS (Cross-Site Scripting):</strong> An attacker injects malicious client-side scripts (typically JavaScript) into web pages viewed by other users. The victim's browser executes the script because it trusts the website. XSS attacks the USER, not the server.
+</div>
+
+<table>
+  <tr><th>Type</th><th>How It Works</th><th>Persistence</th></tr>
+  <tr><td><strong>Reflected (Non-persistent)</strong></td><td>Malicious script is embedded in a URL/link; server reflects it back in the response; victim clicks crafted link</td><td>Not stored; one-time delivery per click</td></tr>
+  <tr><td><strong>Stored (Persistent)</strong></td><td>Malicious script stored on server (e.g., in a forum post, comment, profile); executes for every user who views the page</td><td>Permanently stored; affects ALL visitors — MOST DANGEROUS</td></tr>
+  <tr><td><strong>DOM-based</strong></td><td>Payload executed by modifying the DOM in victim's browser; vulnerability is in client-side JavaScript, not server response</td><td>Not stored on server; executed entirely client-side</td></tr>
+</table>
+
+<h3>XSS Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>Description</th></tr>
+  <tr><td><strong>Output encoding</strong></td><td>Encode all untrusted data before rendering in HTML (&lt; → &amp;lt;, > → &amp;gt;); BEST defense</td></tr>
+  <tr><td><strong>Input validation</strong></td><td>Whitelist acceptable characters; reject or sanitize dangerous input</td></tr>
+  <tr><td><strong>Content Security Policy (CSP)</strong></td><td>HTTP header telling browser which sources of scripts are allowed; blocks inline scripts</td></tr>
+  <tr><td><strong>HttpOnly cookies</strong></td><td>Prevents JavaScript from reading session cookies — limits session hijacking via XSS</td></tr>
+  <tr><td><strong>X-XSS-Protection header</strong></td><td>Legacy browser-side XSS filter (deprecated in modern browsers; CSP is replacement)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>XSS vs SQL Injection:</strong><br>
+  • SQL injection targets the <strong>server/database</strong> — server-side attack<br>
+  • XSS targets the <strong>user/browser</strong> — client-side attack<br>
+  • SQL injection defense: <strong>parameterized queries</strong><br>
+  • XSS defense: <strong>output encoding</strong>
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Cross-Site Request Forgery (CSRF)</h2>
+<div class="definition callout">
+  <strong>CSRF (Cross-Site Request Forgery):</strong> Also called XSRF or "session riding." Forces an authenticated user's browser to submit a forged request to a vulnerable site. Exploits the SITE'S TRUST in the user's browser. The user is already logged in; the attacker tricks their browser into performing an action (e.g., transferring money) without their knowledge.
+</div>
+
+<h3>CSRF vs XSS</h3>
+<table>
+  <tr><th>Aspect</th><th>XSS</th><th>CSRF</th></tr>
+  <tr><td>Exploits trust of…</td><td>User trusts the website → browser runs script from "trusted" site</td><td>Website trusts the user's browser → processes authenticated request</td></tr>
+  <tr><td>Attack target</td><td>The user/browser</td><td>The web application (performs actions as victim)</td></tr>
+  <tr><td>Requires script execution?</td><td>Yes — script runs in victim's browser</td><td>No — just needs an HTTP request from the victim's authenticated session</td></tr>
+  <tr><td>Best defense</td><td>Output encoding, CSP</td><td>Anti-CSRF tokens (synchronizer tokens), SameSite cookies</td></tr>
+</table>
+
+<h3>CSRF Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>How It Works</th></tr>
+  <tr><td><strong>Anti-CSRF tokens</strong></td><td>Unique, unpredictable token embedded in each form; server verifies token on submission; attacker cannot guess the token</td></tr>
+  <tr><td><strong>SameSite cookies</strong></td><td>Cookie attribute preventing browser from sending cookies with cross-site requests; Strict or Lax mode</td></tr>
+  <tr><td><strong>Re-authentication</strong></td><td>Require password/MFA for sensitive actions (transfers, password changes)</td></tr>
+  <tr><td><strong>Referer/Origin header checking</strong></td><td>Verify the request originated from the application's own domain</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Insecure Direct Object References &amp; Access Control Failures</h2>
+<div class="definition callout">
+  <strong>IDOR (Insecure Direct Object Reference):</strong> Application exposes internal object identifiers (e.g., database IDs) in URLs or form parameters. Attacker changes the ID to access another user's data. Example: <code>/account?id=12345</code> → change to <code>/account?id=12346</code> to view someone else's account.
+</div>
+
+<h3>Broken Access Control Patterns</h3>
+<table>
+  <tr><th>Pattern</th><th>Description</th></tr>
+  <tr><td>IDOR</td><td>Manipulating object references to access unauthorized resources</td></tr>
+  <tr><td>Horizontal privilege escalation</td><td>Accessing another user's data at the same privilege level</td></tr>
+  <tr><td>Vertical privilege escalation</td><td>Performing actions reserved for higher-privilege roles (user → admin)</td></tr>
+  <tr><td>Missing function-level access control</td><td>Administrative URLs accessible without proper authorization checks</td></tr>
+  <tr><td>Path traversal</td><td>Using <code>../</code> in file paths to access files outside intended directory</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Defense:</strong> Enforce access control on every request, server-side. Never rely on client-side checks. Use indirect references (map user-facing IDs to internal IDs). Deny by default. Log all access control failures.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Security Misconfigurations</h2>
+<table>
+  <tr><th>Misconfiguration</th><th>Risk</th><th>Fix</th></tr>
+  <tr><td>Default credentials</td><td>Trivial takeover of admin accounts</td><td>Change ALL default passwords; remove default accounts</td></tr>
+  <tr><td>Verbose error messages</td><td>Reveal stack traces, DB versions, file paths to attackers</td><td>Custom error pages; log details server-side only</td></tr>
+  <tr><td>Directory listings enabled</td><td>Exposes all files in web directories</td><td>Disable directory browsing; use proper access controls</td></tr>
+  <tr><td>Unnecessary services/features</td><td>Expanded attack surface</td><td>Remove or disable unused features, ports, protocols</td></tr>
+  <tr><td>Missing security headers</td><td>XSS, clickjacking, MIME sniffing</td><td>Implement CSP, X-Frame-Options, X-Content-Type-Options, HSTS</td></tr>
+  <tr><td>Unpatched software</td><td>Known vulnerability exploitation</td><td>Regular patching; vulnerability scanning; SBOM tracking</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 XSS Types — "RSD"</strong><br>
+  <strong>R</strong>eflected = Request (one-time, via URL)<br>
+  <strong>S</strong>tored = Server stores it (persistent, most dangerous)<br>
+  <strong>D</strong>OM-based = Direct browser manipulation (client-side only)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 "XSS exploits user's trust in the site; CSRF exploits site's trust in the user"</strong><br>
+  This single sentence distinguishes the two on the exam every time.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Best Defenses Quick Reference</strong><br>
+  SQL injection → <strong>P</strong>arameterized queries<br>
+  XSS → <strong>O</strong>utput encoding<br>
+  CSRF → <strong>T</strong>okens (anti-CSRF)<br>
+  Mnemonic: <strong>POT</strong> — Parameterized, Output encode, Tokens
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>OWASP Top 10 (2021)</td><td>Broken Access Control is #1; Injection dropped to #3; Insecure Design and SSRF are NEW</td></tr>
+  <tr><td>SQL injection</td><td>Best defense: parameterized queries; WAF is supplementary, not primary</td></tr>
+  <tr><td>XSS Reflected</td><td>One-time via crafted URL; not stored; user clicks malicious link</td></tr>
+  <tr><td>XSS Stored</td><td>Persistent on server; affects ALL visitors; most dangerous type</td></tr>
+  <tr><td>XSS DOM-based</td><td>Client-side only; vulnerability in JavaScript, not server</td></tr>
+  <tr><td>CSRF</td><td>Exploits site's trust in user's browser; defense: anti-CSRF tokens</td></tr>
+  <tr><td>IDOR</td><td>Manipulating object IDs to access unauthorized data; always validate server-side</td></tr>
+  <tr><td>Security headers</td><td>CSP (XSS), X-Frame-Options (clickjacking), HSTS (force HTTPS), HttpOnly (cookie theft)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-122-theory.html" class="nav-btn">← Day 122: Database Security</a>
+  <a href="day-124-theory.html" class="nav-btn">Day 124: Web App Security – Part 2 →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 113 – Backup &amp; Recovery</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 113 – Backup &amp; Recovery</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 113 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-112-theory.html">← Day 112: Recovery Strategies &amp; Sites</a> · Domain 7 · Day 113</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Backup Types — Full, Incremental, Differential</a></li>
+  <li><a href="#s4">4. Backup Rotation Schemes</a></li>
+  <li><a href="#s5">5. The 3-2-1 Backup Rule</a></li>
+  <li><a href="#s6">6. Backup Media &amp; Storage</a></li>
+  <li><a href="#s7">7. Backup Verification &amp; Testing</a></li>
+  <li><a href="#s8">8. RPO &amp; RTO Alignment with Backups</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Backup types and strategies are heavily tested. Candidates must know the differences between full, incremental, and differential backups, including restore time, storage requirements, and which archive bit they use</td></tr>
+  <tr><td>Question Style</td><td>"Which backup type takes the LONGEST to restore?" (Incremental — needs full + all incrementals). "Which backup type takes LESS storage than full but MORE than incremental?" (Differential). "What does the 3-2-1 rule mean?"</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 111 (RPO requirement drives backup frequency); Day 112 (off-site storage at alternate sites); Day 114 (testing backups)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Ransomware has elevated backup strategy from a routine IT task to a board-level concern. Organizations with tested, air-gapped backups can recover from ransomware without paying. Those with only online backups often find them encrypted alongside production data. The 3-2-1 rule and immutable backup storage have become essential defenses, not just best practices.</p>
+</section>
+
+<section id="s3">
+<h2>3. Backup Types — Full, Incremental, Differential</h2>
+
+<h3>The Archive Bit</h3>
+<div class="definition callout">
+  The <strong>archive bit</strong> (also called archive flag or modification flag) is a file attribute that is SET (turned on) whenever a file is created or modified. Backup software uses this bit to determine which files need to be backed up. A full or incremental backup CLEARS the bit; a differential backup does NOT.
+</div>
+
+<table>
+  <tr><th>Backup Type</th><th>What It Backs Up</th><th>Archive Bit After</th><th>Backup Speed</th><th>Restore Speed</th><th>Storage Used</th></tr>
+  <tr><td><strong>Full</strong></td><td>ALL data regardless of archive bit</td><td>CLEARS all bits</td><td>Slowest (all data)</td><td>Fastest (single restore)</td><td>Most</td></tr>
+  <tr><td><strong>Incremental</strong></td><td>Only files changed SINCE LAST BACKUP (any type)</td><td>CLEARS bits</td><td>Fastest (smallest set)</td><td>Slowest (full + ALL incrementals in order)</td><td>Least</td></tr>
+  <tr><td><strong>Differential</strong></td><td>All files changed SINCE LAST FULL backup</td><td>Does NOT clear bits</td><td>Moderate (grows daily)</td><td>Moderate (full + latest differential only)</td><td>Moderate (grows daily)</td></tr>
+</table>
+
+<div class="diagram">
+WEEK EXAMPLE — Full on Sunday, Daily Backups Mon-Sat
+
+INCREMENTAL Strategy:
+Sun: Full (all data) → clears bits
+Mon: Inc = Mon changes only → clears bits
+Tue: Inc = Tue changes only → clears bits
+Wed: Inc = Wed changes only → clears bits
+RESTORE Wed = Full + Mon Inc + Tue Inc + Wed Inc (4 tapes)
+
+DIFFERENTIAL Strategy:
+Sun: Full (all data) → clears bits
+Mon: Diff = Mon changes → does NOT clear bits
+Tue: Diff = Mon+Tue changes → does NOT clear bits
+Wed: Diff = Mon+Tue+Wed changes → does NOT clear bits
+RESTORE Wed = Full + Wed Diff only (2 tapes)
+</div>
+
+<div class="exam-tip callout">
+  <strong>The Critical Exam Distinction:</strong><br>
+  • <strong>Incremental clears</strong> the archive bit → next incremental only captures NEW changes since last backup<br>
+  • <strong>Differential does NOT clear</strong> the archive bit → keeps growing because it recaptures all changes since last full<br>
+  • <strong>Restore trade-off:</strong> Incremental = fastest backup, slowest restore; Differential = moderate backup, moderate restore
+</div>
+
+<div class="key-concept callout">
+  <strong>Copy Backup:</strong> A full backup that does NOT clear the archive bit. Used for ad-hoc copies (e.g., before a migration) without disrupting the regular backup schedule. Useful when you need a snapshot but don't want to affect incremental/differential chains.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Backup Rotation Schemes</h2>
+
+<h3>Grandfather-Father-Son (GFS)</h3>
+<div class="definition callout">
+  <strong>GFS</strong> is a hierarchical backup rotation scheme:<br>
+  • <strong>Son</strong> = Daily backups (incremental or differential) — retained for 1 week<br>
+  • <strong>Father</strong> = Weekly full backups — retained for 1 month<br>
+  • <strong>Grandfather</strong> = Monthly full backups — retained for 1 year (or longer per retention policy)
+</div>
+
+<h3>Tower of Hanoi</h3>
+<p>A more complex rotation scheme that uses multiple backup sets cycled at different frequencies (every day, every 2nd day, every 4th day, etc.). Provides longer retention with fewer media sets than GFS but is more complex to manage. Less commonly tested than GFS.</p>
+
+<div class="exam-tip callout">
+  <strong>Exam Focus:</strong> GFS is the most commonly tested rotation scheme. Know the three levels (daily/weekly/monthly) and that Grandfather provides the longest retention. Tower of Hanoi is mentioned but rarely tested in depth.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. The 3-2-1 Backup Rule</h2>
+<div class="key-concept callout">
+  <strong>The 3-2-1 Rule:</strong><br>
+  <strong>3</strong> copies of data (1 production + 2 backups)<br>
+  <strong>2</strong> different media types (e.g., disk + tape, or disk + cloud)<br>
+  <strong>1</strong> copy off-site (geographically separate location)<br><br>
+  <strong>Modern extension — 3-2-1-1:</strong> Add <strong>1</strong> immutable/air-gapped copy (protection against ransomware that targets backup systems)
+</div>
+
+<h3>Why Each Component Matters</h3>
+<table>
+  <tr><th>Element</th><th>Protects Against</th></tr>
+  <tr><td>3 copies</td><td>Any single point of failure — if one copy is corrupted or destroyed, two remain</td></tr>
+  <tr><td>2 media types</td><td>Media-specific failures — a vulnerability affecting one medium (e.g., disk firmware bug) won't affect the other</td></tr>
+  <tr><td>1 off-site</td><td>Site-level disasters — fire, flood, earthquake at primary site</td></tr>
+  <tr><td>1 immutable (3-2-1-1)</td><td>Ransomware — attackers increasingly target backup systems; immutable copies cannot be encrypted or deleted</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Backup Media &amp; Storage</h2>
+<table>
+  <tr><th>Medium</th><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td><strong>Tape (LTO)</strong></td><td>Lowest cost per GB; excellent for long-term archival; air-gapped when stored off-site; high capacity (LTO-9 = 18+ TB native)</td><td>Slow sequential access; physical handling risks; requires compatible drive; degradation over time</td></tr>
+  <tr><td><strong>Disk-based (SAN/NAS)</strong></td><td>Fast random access; quick restore; supports deduplication and compression</td><td>Higher cost per GB than tape; subject to same logical attacks as production (ransomware)</td></tr>
+  <tr><td><strong>Cloud storage</strong></td><td>Off-site by default; scalable; no hardware management; often supports immutability (object lock)</td><td>Egress costs; restore speed dependent on bandwidth; cloud provider dependency; potential data sovereignty issues</td></tr>
+  <tr><td><strong>Optical (Blu-ray, WORM)</strong></td><td>WORM (Write Once Read Many) — truly immutable; excellent for compliance/legal holds</td><td>Limited capacity; slow; niche use cases</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Electronic Vaulting vs Remote Journaling vs Database Shadowing:</strong><br>
+  • <strong>Electronic vaulting:</strong> Batch transfers of backup data to off-site location (scheduled, not real-time)<br>
+  • <strong>Remote journaling:</strong> Transaction logs transferred to remote site in near real-time (journal/transaction based)<br>
+  • <strong>Database shadowing:</strong> Complete database copy maintained at remote site in real-time (most current, most expensive)<br>
+  Ordered by currency and cost: Vaulting &lt; Journaling &lt; Shadowing
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Backup Verification &amp; Testing</h2>
+<table>
+  <tr><th>Verification Activity</th><th>Description</th></tr>
+  <tr><td><strong>Media integrity check</strong></td><td>Verify backup media is readable and not corrupted (checksum/hash verification)</td></tr>
+  <tr><td><strong>Test restore</strong></td><td>Actually restore data from backup to verify it works — the ONLY way to truly confirm backup integrity</td></tr>
+  <tr><td><strong>Backup logs review</strong></td><td>Review backup job logs for errors, warnings, or incomplete runs</td></tr>
+  <tr><td><strong>Random file restore</strong></td><td>Periodically restore random files to verify backup content matches expectations</td></tr>
+  <tr><td><strong>Full DR test restore</strong></td><td>Complete system restoration as part of DR testing (Day 114)</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>"Untested Backups Are NOT Backups":</strong> An organization that has never test-restored from its backups has unverified assumptions, not a backup strategy. Backups must be tested regularly. Exam scenarios frequently involve discovering during a disaster that backups are corrupt or incomplete because they were never tested.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. RPO &amp; RTO Alignment with Backups</h2>
+<table>
+  <tr><th>RPO Requirement</th><th>Backup Strategy Needed</th></tr>
+  <tr><td>RPO = 0 (zero data loss)</td><td>Synchronous replication — NOT traditional backups (still need backups for corruption protection)</td></tr>
+  <tr><td>RPO = 1 hour</td><td>Continuous Data Protection (CDP) or hourly snapshots; transaction log shipping</td></tr>
+  <tr><td>RPO = 4 hours</td><td>Snapshots or incremental backups every 4 hours</td></tr>
+  <tr><td>RPO = 24 hours</td><td>Nightly full or differential backup</td></tr>
+  <tr><td>RPO = 1 week</td><td>Weekly full backup (non-critical data)</td></tr>
+</table>
+
+<div class="definition callout">
+  <strong>Continuous Data Protection (CDP):</strong> Captures EVERY change to data in real-time, allowing recovery to any point in time (not just backup intervals). True CDP achieves near-zero RPO. <strong>Near-CDP</strong> captures changes at very frequent intervals (every few minutes) but not every write operation.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Incremental vs Differential — "I Clean, D Doesn't"</strong><br>
+  <strong>I</strong>ncremental <strong>C</strong>lears the archive bit → only captures changes since LAST backup<br>
+  <strong>D</strong>ifferential <strong>D</strong>oesn't clear → captures all changes since last FULL
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Restore Speed — "Incremental = I Need everything; Differential = Just 2"</strong><br>
+  <strong>Incremental restore:</strong> Full + ALL incrementals in sequence (slowest restore)<br>
+  <strong>Differential restore:</strong> Full + latest differential (just 2 — faster restore)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 3-2-1 Rule</strong><br>
+  <strong>3</strong> copies, <strong>2</strong> media types, <strong>1</strong> off-site<br>
+  "Three copies, Two types, One far away"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 GFS — "Grandfather = Grandest; Father = Monthly check; Son = daily chore"</strong><br>
+  <strong>Son</strong> = Daily (disposable, short retention)<br>
+  <strong>Father</strong> = Weekly (kept for a month)<br>
+  <strong>Grandfather</strong> = Monthly (long-term archive — the patriarch, kept longest)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Vaulting → Journaling → Shadowing = "VJS = Value Goes Up"</strong><br>
+  Vaulting = batch (least current, cheapest)<br>
+  Journaling = near real-time transactions<br>
+  Shadowing = real-time full copy (most current, most expensive)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Full backup</td><td>All data; clears archive bit; slowest backup but fastest restore</td></tr>
+  <tr><td>Incremental</td><td>Changes since last backup (any type); clears archive bit; fastest backup, slowest restore</td></tr>
+  <tr><td>Differential</td><td>Changes since last FULL; does NOT clear archive bit; grows daily; restore needs only full + latest diff</td></tr>
+  <tr><td>Archive bit</td><td>Set when file modified; cleared by full and incremental; NOT cleared by differential</td></tr>
+  <tr><td>GFS rotation</td><td>Son=daily, Father=weekly, Grandfather=monthly → hierarchical retention</td></tr>
+  <tr><td>3-2-1 rule</td><td>3 copies, 2 media types, 1 off-site; modern: add 1 immutable (3-2-1-1)</td></tr>
+  <tr><td>Untested = unreliable</td><td>Backups must be test-restored regularly; untested backups provide false confidence</td></tr>
+  <tr><td>RPO drives frequency</td><td>RPO = 1 hour → backup every hour minimum; RPO = 0 → synchronous replication</td></tr>
+  <tr><td>CDP</td><td>Captures every change for any-point-in-time recovery; near-zero RPO</td></tr>
+  <tr><td>Electronic vaulting</td><td>Batch transfer off-site; remote journaling = near real-time; database shadowing = real-time (most expensive)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-112-theory.html" class="nav-btn">← Day 112: Recovery Strategies &amp; Sites</a>
+  <a href="day-114-theory.html" class="nav-btn">Day 114: DR Testing &amp; Maintenance →</a>
+</div>
+</div>
+</body>
+</html>

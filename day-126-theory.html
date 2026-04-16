@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 126 – Software Security Testing</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 126 – Software Security Testing</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 126 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-125-theory.html">← Day 125: Secure Coding Practices</a> · Domain 8 · Day 126</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Testing Approaches – White/Black/Grey Box</a></li>
+  <li><a href="#s4">4. Static Application Security Testing (SAST)</a></li>
+  <li><a href="#s5">5. Dynamic Application Security Testing (DAST)</a></li>
+  <li><a href="#s6">6. Interactive &amp; Runtime Testing (IAST/RASP)</a></li>
+  <li><a href="#s7">7. Fuzz Testing</a></li>
+  <li><a href="#s8">8. Penetration Testing</a></li>
+  <li><a href="#s9">9. Code Review Methods</a></li>
+  <li><a href="#s10">10. Software Composition Analysis (SCA)</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>CISSP expects candidates to know the different security testing methods, when to use each, and their strengths/limitations. SAST vs DAST is a high-frequency comparison. Understanding testing approaches is essential for a security professional overseeing software development</td></tr>
+  <tr><td>Question Style</td><td>"Which testing method analyzes source code without executing it?" (SAST). "Sending random/malformed input to find crashes is called…?" (Fuzz testing). "A penetration test that simulates a real attacker with no prior knowledge is…?" (Black-box)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 120 (CI/CD pipeline testing); Day 125 (secure coding these tests verify); Domain 6 (vulnerability assessment vs pen testing)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Testing is the verification side of "trust but verify." Without security testing, secure coding guidelines are unenforceable. Modern DevSecOps pipelines integrate SAST, DAST, SCA, and fuzz testing into CI/CD — finding vulnerabilities before deployment instead of after a breach. Penetration testing provides the adversarial perspective that automated tools miss, particularly for business logic flaws.</p>
+</section>
+
+<section id="s3">
+<h2>3. Testing Approaches – White/Black/Grey Box</h2>
+<table>
+  <tr><th>Approach</th><th>Knowledge Level</th><th>What Tester Knows</th><th>Best For</th></tr>
+  <tr><td><strong>White box</strong> (clear box, open box)</td><td>Full knowledge</td><td>Source code, architecture, design docs, credentials, network diagrams</td><td>Thorough internal review; code audit; finds logic vulnerabilities deep in code</td></tr>
+  <tr><td><strong>Black box</strong> (closed box)</td><td>Zero knowledge</td><td>Nothing — simulates external attacker with no inside info</td><td>Realistic attack simulation; tests external-facing defenses</td></tr>
+  <tr><td><strong>Grey box</strong></td><td>Partial knowledge</td><td>Some documentation, limited credentials, partial architecture knowledge</td><td>Efficient compromise — insider threat simulation; authenticated testing</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>White box finds MORE vulnerabilities; black box simulates REAL attacks.</strong> On the CISSP exam, white box is best for comprehensive code review; black box is best for simulating external attackers. Grey box balances both.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Static Application Security Testing (SAST)</h2>
+<div class="definition callout">
+  <strong>SAST (Static Analysis):</strong> Analyzes source code, bytecode, or binary WITHOUT executing the application. Scans for vulnerable patterns, insecure functions, and coding standard violations. "White box" by nature — requires access to code.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>When</strong></td><td>During development — earliest in pipeline (shift-left); runs on every code commit in CI/CD</td></tr>
+  <tr><td><strong>Finds</strong></td><td>SQL injection patterns, buffer overflows, hardcoded credentials, use of deprecated functions, insecure crypto</td></tr>
+  <tr><td><strong>Strengths</strong></td><td>Finds bugs early (cheapest to fix); covers entire codebase; no running environment needed; pinpoints exact line of code</td></tr>
+  <tr><td><strong>Weaknesses</strong></td><td>High false positive rate; cannot find runtime issues (auth bypass, config errors); cannot test deployed environment</td></tr>
+  <tr><td><strong>Tools</strong></td><td>SonarQube, Checkmarx, Fortify, Semgrep, Bandit (Python)</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Dynamic Application Security Testing (DAST)</h2>
+<div class="definition callout">
+  <strong>DAST (Dynamic Analysis):</strong> Tests the RUNNING application by sending crafted HTTP requests and analyzing responses. "Black box" by nature — does NOT examine source code. Tests the application as an attacker would.
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>When</strong></td><td>After deployment to testing/staging environment; later in pipeline than SAST</td></tr>
+  <tr><td><strong>Finds</strong></td><td>XSS, SQL injection (runtime), authentication flaws, server misconfigurations, exposed endpoints, information leakage</td></tr>
+  <tr><td><strong>Strengths</strong></td><td>Low false positives (finds real exploitable issues); language/framework agnostic; tests actual deployed state</td></tr>
+  <tr><td><strong>Weaknesses</strong></td><td>Cannot pinpoint exact code location; cannot test unexecuted code paths; slower than SAST; requires running application</td></tr>
+  <tr><td><strong>Tools</strong></td><td>OWASP ZAP, Burp Suite, Acunetix, Nessus (web scanning)</td></tr>
+</table>
+
+<h3>SAST vs DAST Comparison</h3>
+<table>
+  <tr><th>Feature</th><th>SAST</th><th>DAST</th></tr>
+  <tr><td>Analysis type</td><td>Code (static)</td><td>Running application (dynamic)</td></tr>
+  <tr><td>Box type</td><td>White box</td><td>Black box</td></tr>
+  <tr><td>When in SDLC</td><td>Early (development)</td><td>Late (testing/staging)</td></tr>
+  <tr><td>False positives</td><td>HIGH</td><td>LOW</td></tr>
+  <tr><td>Code location</td><td>Yes — exact line</td><td>No — only endpoint/parameter</td></tr>
+  <tr><td>Runtime issues</td><td>Cannot find</td><td>Can find</td></tr>
+  <tr><td>Requires code</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Requires running app</td><td>No</td><td>Yes</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Interactive &amp; Runtime Testing (IAST/RASP)</h2>
+<table>
+  <tr><th>Method</th><th>How It Works</th><th>Benefit</th></tr>
+  <tr><td><strong>IAST (Interactive AST)</strong></td><td>Agent embedded in running application; combines SAST + DAST — observes code execution while handling real requests</td><td>Best of both worlds: real vulnerability confirmation + exact code location; low false positives; tests during QA</td></tr>
+  <tr><td><strong>RASP (Runtime Application Self-Protection)</strong></td><td>Embedded in production application; monitors behavior in real-time; can BLOCK attacks, not just detect</td><td>Real-time protection; can terminate malicious sessions; deep visibility into app context; defense-in-depth layer</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>IAST = Testing tool (QA phase).</strong> RASP = Runtime protection tool (production). IAST finds; RASP blocks. Both are agent-based (instrumented inside the application).
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Fuzz Testing</h2>
+<div class="definition callout">
+  <strong>Fuzz Testing (Fuzzing):</strong> Sending random, malformed, unexpected, or boundary-value input to an application to discover crashes, hangs, memory leaks, and unhandled exceptions. Effective at finding vulnerabilities that manual testing misses — especially buffer overflows and input parsing errors.
+</div>
+
+<h3>Fuzzing Types</h3>
+<table>
+  <tr><th>Type</th><th>Description</th></tr>
+  <tr><td><strong>Mutation-based (dumb)</strong></td><td>Takes valid input and randomly mutates it (bit flips, byte insertions, truncation); no knowledge of input format</td></tr>
+  <tr><td><strong>Generation-based (smart/intelligent)</strong></td><td>Generates input based on knowledge of the protocol/format specification; more targeted; better coverage</td></tr>
+  <tr><td><strong>Coverage-guided</strong></td><td>Uses code coverage feedback to guide mutation toward unexplored code paths; modern approach (AFL, libFuzzer)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Fuzzing finds:</strong> Buffer overflows, format string bugs, integer overflows, crashes, DoS conditions, unhandled exceptions. <strong>Fuzzing does NOT find:</strong> Business logic flaws, authentication bypasses, access control issues. It's a brute-force approach that excels at finding input-handling bugs.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Penetration Testing</h2>
+<div class="definition callout">
+  <strong>Penetration Testing:</strong> Authorized, simulated attack against systems to identify exploitable vulnerabilities. Goes beyond scanning — testers actively exploit discovered vulnerabilities to demonstrate real-world impact. Requires written authorization (Rules of Engagement).
+</div>
+
+<h3>Penetration Testing Phases</h3>
+<table>
+  <tr><th>Phase</th><th>Activity</th></tr>
+  <tr><td><strong>1. Planning &amp; Scoping</strong></td><td>Define targets, rules of engagement, authorization, timeline, emergency contacts</td></tr>
+  <tr><td><strong>2. Reconnaissance</strong></td><td>Information gathering — passive (OSINT) and active (scanning, enumeration)</td></tr>
+  <tr><td><strong>3. Scanning/Discovery</strong></td><td>Port scanning, vulnerability scanning, service identification</td></tr>
+  <tr><td><strong>4. Exploitation</strong></td><td>Attempt to exploit discovered vulnerabilities; gain access</td></tr>
+  <tr><td><strong>5. Post-exploitation</strong></td><td>Lateral movement, privilege escalation, data exfiltration (within scope)</td></tr>
+  <tr><td><strong>6. Reporting</strong></td><td>Detailed findings, evidence, risk ratings, remediation recommendations</td></tr>
+</table>
+
+<h3>Pen Test vs Vulnerability Assessment</h3>
+<table>
+  <tr><th>Feature</th><th>Vulnerability Assessment</th><th>Penetration Test</th></tr>
+  <tr><td>Purpose</td><td>Identify vulnerabilities</td><td>Exploit vulnerabilities</td></tr>
+  <tr><td>Approach</td><td>Scanning — automated, broad</td><td>Attacking — manual, focused, deep</td></tr>
+  <tr><td>Output</td><td>List of vulnerabilities with severity</td><td>Proof of exploitability with impact demonstration</td></tr>
+  <tr><td>Risk</td><td>Low (non-invasive)</td><td>Higher (active exploitation may disrupt systems)</td></tr>
+  <tr><td>Frequency</td><td>Regular/continuous</td><td>Periodic (annually, or after major changes)</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>ALWAYS GET WRITTEN AUTHORIZATION before penetration testing.</strong> Without it, pen testing is legally indistinguishable from an actual attack. The Rules of Engagement document must specify: scope, targets, methods, timeframe, contacts, and data handling.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Code Review Methods</h2>
+<table>
+  <tr><th>Method</th><th>Description</th><th>Effectiveness</th></tr>
+  <tr><td><strong>Formal code review (Fagan inspection)</strong></td><td>Structured, multi-phase process: planning, overview, preparation, inspection meeting, rework, follow-up</td><td>Most thorough; finds 60-90% of defects; time-intensive</td></tr>
+  <tr><td><strong>Peer review (walkthrough)</strong></td><td>Developer explains code to peers; less formal than Fagan; reviewer checks for issues</td><td>Good balance of thoroughness and efficiency</td></tr>
+  <tr><td><strong>Over-the-shoulder</strong></td><td>Reviewer looks at code on developer's screen; informal, real-time</td><td>Quick but limited coverage</td></tr>
+  <tr><td><strong>Pair programming</strong></td><td>Two developers write code together simultaneously; continuous review</td><td>Prevents bugs from being introduced; XP practice</td></tr>
+  <tr><td><strong>Tool-assisted review</strong></td><td>Automated review tools (SAST) + human review of findings</td><td>Scalable; reduces reviewer burden; catches pattern-based issues</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Fagan Inspection:</strong> The MOST formal and MOST effective code review method. Named after Michael Fagan (IBM, 1976). Key characteristic: structured phases with defined roles (moderator, designer, coder, tester). CISSP loves asking about this as the "most thorough" review method.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Software Composition Analysis (SCA)</h2>
+<div class="definition callout">
+  <strong>SCA:</strong> Automated analysis of third-party and open-source components in a codebase. Identifies known vulnerabilities (CVEs), license compliance issues, and outdated dependencies. Essential because modern applications are 70-90% third-party code.
+</div>
+
+<table>
+  <tr><th>SCA Capability</th><th>Purpose</th></tr>
+  <tr><td>Vulnerability detection</td><td>Match components against CVE databases (NVD); alert on known-vulnerable versions</td></tr>
+  <tr><td>License compliance</td><td>Identify open-source licenses (GPL, MIT, Apache); flag copyleft requirements</td></tr>
+  <tr><td>SBOM generation</td><td>Create Software Bill of Materials listing all components and versions</td></tr>
+  <tr><td>Version tracking</td><td>Identify outdated dependencies; recommend updates</td></tr>
+</table>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 SAST vs DAST — "SAST = Source, DAST = Deployed"</strong><br>
+  <strong>S</strong>AST = <strong>S</strong>ource code analysis (static, white box, early, high false positives)<br>
+  <strong>D</strong>AST = <strong>D</strong>eployed app testing (dynamic, black box, late, low false positives)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Testing Tools — "SDIR" (Security Defense In Rounds)</strong><br>
+  <strong>S</strong>AST → <strong>D</strong>AST → <strong>I</strong>AST → <strong>R</strong>ASP<br>
+  Static → Dynamic → Interactive → Runtime<br>
+  Development → Testing → QA → Production
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Fagan Inspection — "POPIR-F" (People Often Plan Inspections Really Formally)</strong><br>
+  <strong>P</strong>lanning → <strong>O</strong>verview → <strong>P</strong>reparation → <strong>I</strong>nspection → <strong>R</strong>ework → <strong>F</strong>ollow-up
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Pen Test Phases — "PRSEPR" (Professionals Recon, Scan, Exploit, Post-Exploit, Report)</strong><br>
+  <strong>P</strong>lanning → <strong>R</strong>econnaissance → <strong>S</strong>canning → <strong>E</strong>xploitation → <strong>P</strong>ost-exploitation → <strong>R</strong>eporting
+</div>
+</section>
+
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>SAST</td><td>Static analysis of source code; white box; early in SDLC; high false positives; finds code-level bugs</td></tr>
+  <tr><td>DAST</td><td>Dynamic testing of running app; black box; later in SDLC; low false positives; finds runtime issues</td></tr>
+  <tr><td>IAST</td><td>Combines SAST + DAST via instrumentation; best of both; used in QA phase</td></tr>
+  <tr><td>RASP</td><td>Runtime protection in production; can BLOCK attacks; defense-in-depth layer</td></tr>
+  <tr><td>Fuzzing</td><td>Random/malformed input to find crashes; great for buffer overflows; NOT for logic flaws</td></tr>
+  <tr><td>Pen testing</td><td>Simulated attack with exploitation; requires written authorization; goes beyond scanning</td></tr>
+  <tr><td>Vuln assessment</td><td>Identifies vulnerabilities; non-invasive; pen test exploits them</td></tr>
+  <tr><td>Fagan inspection</td><td>Most formal and effective code review method; 6 phases</td></tr>
+  <tr><td>SCA</td><td>Analyzes third-party components for known CVEs and license issues</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-125-theory.html" class="nav-btn">← Day 125: Secure Coding Practices</a>
+  <a href="day-127-theory.html" class="nav-btn">Day 127: APIs &amp; Microservices Security →</a>
+</div>
+</div>
+</body>
+</html>

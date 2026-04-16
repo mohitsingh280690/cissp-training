@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 107 – Threat Intelligence</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 107 – Threat Intelligence</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 107 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-106-theory.html">← Day 106: SIEM &amp; Security Monitoring</a> · Domain 7 · Day 107</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Threat Intelligence Sources</a></li>
+  <li><a href="#s4">4. Threat Intelligence Lifecycle</a></li>
+  <li><a href="#s5">5. Indicators of Compromise (IoC)</a></li>
+  <li><a href="#s6">6. STIX &amp; TAXII</a></li>
+  <li><a href="#s7">7. MITRE ATT&amp;CK Framework</a></li>
+  <li><a href="#s8">8. Threat Intelligence Platforms &amp; ISACs</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Threat intelligence informs every phase of security operations — from risk assessment to detection rules to incident response. CISSP candidates must understand intelligence sources, sharing standards, and operational application</td></tr>
+  <tr><td>Question Style</td><td>"Which standard is used to share structured threat intelligence?" (STIX). "What is the PRIMARY purpose of an ISAC?" (sector-specific threat intelligence sharing). "Which framework maps adversary tactics and techniques?" (MITRE ATT&amp;CK)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 106 (SIEM — consumes threat intel for enrichment); Day 105 (IR — threat intel informs detection and response); Domain 1 (risk management — threat landscape informs risk decisions)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Threat intelligence transforms security from reactive to proactive. Instead of waiting for attacks, organizations can anticipate threats, pre-position defenses, and reduce attacker dwell time. The 2020 SolarWinds supply chain attack was first discovered by FireEye through its own internal monitoring; the resulting shared threat intelligence then helped thousands of other affected organizations detect and respond to the compromise.</p>
+</section>
+
+<section id="s3">
+<h2>3. Threat Intelligence Sources</h2>
+<table>
+  <tr><th>Source Type</th><th>Description</th><th>Examples</th><th>Cost</th></tr>
+  <tr><td><strong>OSINT</strong></td><td>Open Source Intelligence — publicly available information</td><td>VirusTotal; Shodan; WHOIS; social media; security blogs; CVE databases (NVD); paste sites; darknet forums</td><td>Free (mostly)</td></tr>
+  <tr><td><strong>Commercial feeds</strong></td><td>Curated, high-quality intelligence from vendors</td><td>Recorded Future; Mandiant; CrowdStrike; IBM X-Force; Anomali</td><td>Paid subscription</td></tr>
+  <tr><td><strong>Government</strong></td><td>Intelligence shared by government agencies</td><td>CISA (US); NCSC (UK); FBI Flash alerts; US-CERT advisories; NSA cybersecurity advisories</td><td>Free</td></tr>
+  <tr><td><strong>Industry sharing</strong></td><td>Peer sharing within sectors</td><td>ISACs (Financial, Healthcare, Energy, etc.); ISAOs; peer trust groups</td><td>Membership fee</td></tr>
+  <tr><td><strong>Internal</strong></td><td>Intelligence generated from own operations</td><td>SIEM alerts; IR findings; honeypot/honeynet data; pentest results; vulnerability scans</td><td>Operational cost</td></tr>
+  <tr><td><strong>Dark web</strong></td><td>Intelligence gathered from underground forums and markets</td><td>Stolen credential feeds; vulnerability marketplaces; attacker communications</td><td>Specialized tools/vendors</td></tr>
+</table>
+
+<h3>Intelligence Levels</h3>
+<table>
+  <tr><th>Level</th><th>Audience</th><th>Content</th><th>Example</th></tr>
+  <tr><td><strong>Strategic</strong></td><td>Executives, board</td><td>Big-picture trends; attacker motivations; risk to business</td><td>"Nation-state actors are increasingly targeting our sector for intellectual property theft"</td></tr>
+  <tr><td><strong>Tactical</strong></td><td>Security managers, architects</td><td>Attacker TTPs (Tactics, Techniques, Procedures)</td><td>"APT29 uses spear-phishing with OAuth token theft as initial access"</td></tr>
+  <tr><td><strong>Operational</strong></td><td>IR team, SOC leads</td><td>Specific campaigns; impending attacks; attacker infrastructure</td><td>"Campaign X targets our industry starting next week using watering hole attacks on industry news sites"</td></tr>
+  <tr><td><strong>Technical</strong></td><td>SOC analysts, automated tools</td><td>Machine-readable IoCs</td><td>Malware hashes, C2 IP addresses, malicious domains, YARA rules</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Threat Intelligence Lifecycle</h2>
+<div class="diagram">
+THREAT INTELLIGENCE LIFECYCLE
+
+  ┌─────────────┐
+  │ 1. PLANNING │  Define requirements: What do we need to know?
+  │ &amp; DIRECTION │  Who are our adversaries? What are their targets?
+  └──────┬──────┘
+         │
+  ┌──────▼──────┐
+  │2. COLLECTION│  Gather raw data from OSINT, commercial,
+  │             │  government, internal, dark web sources
+  └──────┬──────┘
+         │
+  ┌──────▼──────┐
+  │3. PROCESSING│  Normalize data; translate; decrypt;
+  │             │  filter noise; organize into usable format
+  └──────┬──────┘
+         │
+  ┌──────▼──────┐
+  │4. ANALYSIS  │  Evaluate context; confirm relevance; assess
+  │             │  reliability; identify patterns; attribute actors
+  └──────┬──────┘
+         │
+  ┌──────▼──────────┐
+  │5. DISSEMINATION │  Distribute to stakeholders in appropriate
+  │                 │  format (strategic reports, STIX feeds, alerts)
+  └──────┬──────────┘
+         │
+  ┌──────▼──────┐
+  │ 6. FEEDBACK │  Consumers report what was useful, what gaps
+  │             │  remain → refines planning for next cycle
+  └─────────────┘
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Indicators of Compromise (IoC)</h2>
+<h3>IoC Types — The Pyramid of Pain</h3>
+<p>David Bianco's Pyramid of Pain ranks IoC types by how much pain they cause the attacker when detected and blocked:</p>
+<table>
+  <tr><th>Level (Bottom → Top)</th><th>IoC Type</th><th>Attacker Pain</th><th>Defender Effort</th></tr>
+  <tr><td>1 (easiest to change)</td><td>Hash values (file hashes)</td><td>Trivial — recompile and get new hash</td><td>Low — simple blocklist</td></tr>
+  <tr><td>2</td><td>IP addresses</td><td>Easy — use new infrastructure</td><td>Low — firewall rules</td></tr>
+  <tr><td>3</td><td>Domain names</td><td>Simple — register new domains</td><td>Low-Medium — DNS blocklist</td></tr>
+  <tr><td>4</td><td>Network/host artifacts</td><td>Annoying — must change tools and payloads</td><td>Medium — behavioral rules</td></tr>
+  <tr><td>5</td><td>Tools</td><td>Challenging — must find or develop new tools</td><td>Medium-High — tool detection</td></tr>
+  <tr><td>6 (hardest to change)</td><td>TTPs (Tactics, Techniques, Procedures)</td><td>Tough — must fundamentally change methodology</td><td>High — behavioral analytics, UEBA</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Pyramid of Pain — Exam Insight:</strong> Detecting and blocking TTPs (the top of the pyramid) is the most effective defense because it forces adversaries to completely change their operational methodology — which is expensive and time-consuming. This is why frameworks like MITRE ATT&amp;CK (which catalogs TTPs) are so valuable.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. STIX &amp; TAXII</h2>
+<table>
+  <tr><th>Standard</th><th>Full Name</th><th>Purpose</th><th>Analogy</th></tr>
+  <tr><td><strong>STIX</strong></td><td>Structured Threat Information eXpression</td><td>A standardized LANGUAGE for describing threat intelligence (IoCs, adversaries, campaigns, TTPs, vulnerabilities, courses of action) in machine-readable JSON format</td><td>The "language" — how threat intelligence is expressed</td></tr>
+  <tr><td><strong>TAXII</strong></td><td>Trusted Automated eXchange of Indicator Information</td><td>A standardized TRANSPORT PROTOCOL for exchanging STIX data between organizations and platforms. Defines how to publish and consume threat intelligence via APIs</td><td>The "delivery mechanism" — how threat intelligence is moved</td></tr>
+</table>
+
+<h3>STIX 2.1 Domain Objects</h3>
+<table>
+  <tr><th>STIX Object</th><th>Description</th></tr>
+  <tr><td>Attack Pattern</td><td>TTPs used by adversaries (maps to MITRE ATT&amp;CK techniques)</td></tr>
+  <tr><td>Campaign</td><td>Set of coordinated adversary activities against specific targets</td></tr>
+  <tr><td>Indicator</td><td>Observable patterns (IoCs) used to detect adversary activity</td></tr>
+  <tr><td>Malware</td><td>Software used by adversaries for malicious purposes</td></tr>
+  <tr><td>Threat Actor</td><td>Individuals, groups, or organizations operating with malicious intent</td></tr>
+  <tr><td>Vulnerability</td><td>Weaknesses that can be exploited (links to CVEs)</td></tr>
+  <tr><td>Course of Action</td><td>Recommended defensive measures</td></tr>
+</table>
+
+<h3>TAXII 2.1 Sharing Models</h3>
+<table>
+  <tr><th>Model</th><th>Description</th></tr>
+  <tr><td><strong>Collection</strong></td><td>Consumers poll a server to retrieve intelligence (pull model)</td></tr>
+  <tr><td><strong>Channel</strong></td><td>Producers push intelligence to subscribers (push model)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> STIX = the format/language (WHAT you share). TAXII = the transport mechanism (HOW you share it). Together they enable automated, machine-to-machine threat intelligence sharing.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. MITRE ATT&amp;CK Framework</h2>
+<div class="definition callout">
+  <strong>MITRE ATT&amp;CK:</strong> A comprehensive, publicly available knowledge base of adversary tactics and techniques based on real-world observations. ATT&amp;CK stands for <strong>A</strong>dversarial <strong>T</strong>actics, <strong>T</strong>echniques, and <strong>C</strong>ommon <strong>K</strong>nowledge.
+</div>
+
+<h3>ATT&amp;CK Structure</h3>
+<table>
+  <tr><th>Level</th><th>Description</th><th>Example</th></tr>
+  <tr><td><strong>Tactic</strong></td><td>The adversary's objective — the WHY (14 categories in Enterprise ATT&amp;CK)</td><td>Initial Access; Execution; Persistence; Privilege Escalation; Defense Evasion; Credential Access; Discovery; Lateral Movement; Collection; Command and Control; Exfiltration; Impact</td></tr>
+  <tr><td><strong>Technique</strong></td><td>HOW the adversary achieves the tactic</td><td>Under "Initial Access": Phishing (T1566), Exploit Public-Facing Application (T1190), Drive-by Compromise (T1189)</td></tr>
+  <tr><td><strong>Sub-technique</strong></td><td>More specific variant of a technique</td><td>Under Phishing: Spearphishing Attachment (T1566.001), Spearphishing Link (T1566.002)</td></tr>
+  <tr><td><strong>Procedure</strong></td><td>Specific implementation by a known group</td><td>APT28 uses spearphishing with macro-enabled Word documents</td></tr>
+</table>
+
+<h3>ATT&amp;CK Use Cases</h3>
+<ul>
+  <li><strong>Detection engineering:</strong> Map SIEM rules to ATT&amp;CK techniques to identify coverage gaps</li>
+  <li><strong>Red/purple teaming:</strong> Use ATT&amp;CK to plan realistic adversary simulations</li>
+  <li><strong>Threat assessment:</strong> Identify which techniques are most relevant to your industry/adversaries</li>
+  <li><strong>IR documentation:</strong> Describe incidents using standardized technique IDs</li>
+</ul>
+
+<div class="key-concept callout">
+  <strong>ATT&amp;CK vs Kill Chain:</strong> Lockheed Martin Cyber Kill Chain (7 linear stages) describes the attack lifecycle. ATT&amp;CK is more granular and non-linear — adversaries do not follow a fixed sequence. ATT&amp;CK provides specific techniques for each tactic, making it more actionable for detection engineering.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Threat Intelligence Platforms &amp; ISACs</h2>
+<h3>Threat Intelligence Platform (TIP)</h3>
+<div class="definition callout">
+  <strong>TIP:</strong> A software platform that aggregates, correlates, and manages threat intelligence from multiple sources (OSINT, commercial, government, internal). TIPs normalize data into a common format, deduplicate, and distribute intelligence to consumers (SIEM, firewalls, EDR).
+</div>
+
+<h3>Information Sharing and Analysis Centers (ISACs)</h3>
+<table>
+  <tr><th>ISAC</th><th>Sector</th></tr>
+  <tr><td>FS-ISAC</td><td>Financial Services</td></tr>
+  <tr><td>H-ISAC</td><td>Healthcare</td></tr>
+  <tr><td>E-ISAC / ES-ISAC</td><td>Electricity / Energy</td></tr>
+  <tr><td>MS-ISAC</td><td>Multi-State (government)</td></tr>
+  <tr><td>IT-ISAC</td><td>Information Technology</td></tr>
+  <tr><td>A-ISAC</td><td>Aviation</td></tr>
+</table>
+
+<p>ISACs are <strong>sector-specific</strong> organizations that facilitate sharing of threat intelligence and best practices among member organizations. They provide anonymized incident reports, early warnings, and analysis of sector-targeted threats. ISAOs (Information Sharing and Analysis Organizations) are similar but not sector-restricted.</p>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Intelligence Levels — "STOT"</strong><br>
+  <strong>S</strong>trategic (executives — trends)<br>
+  <strong>T</strong>actical (managers — TTPs)<br>
+  <strong>O</strong>perational (IR leads — campaigns)<br>
+  <strong>T</strong>echnical (SOC/tools — IoCs)<br>
+  "Strategy before Tactics before Operations before Technical details"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 STIX vs TAXII</strong><br>
+  STI<strong>X</strong> = e<strong>X</strong>pression (the language)<br>
+  TA<strong>XII</strong> = ta<strong>X</strong>i cab (the transport)<br>
+  "STIX speaks it, TAXII ships it"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Threat Intel Lifecycle — "PCP-ADF"</strong><br>
+  <strong>P</strong>lanning → <strong>C</strong>ollection → <strong>P</strong>rocessing → <strong>A</strong>nalysis → <strong>D</strong>issemination → <strong>F</strong>eedback<br>
+  "Plan, Collect, Process, Analyze, Disseminate, Feedback"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Pyramid of Pain — Bottom to Top</strong><br>
+  <strong>H</strong>ashes → <strong>I</strong>Ps → <strong>D</strong>omains → <strong>A</strong>rtifacts → <strong>T</strong>ools → <strong>T</strong>TPs<br>
+  "HIDATT — Hide the ATTacker by blocking what hurts them most (TTPs)"
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Intelligence levels</td><td>Strategic (trends) → Tactical (TTPs) → Operational (campaigns) → Technical (IoCs)</td></tr>
+  <tr><td>Sources</td><td>OSINT, commercial, government, ISACs, internal, dark web</td></tr>
+  <tr><td>Lifecycle</td><td>Plan → Collect → Process → Analyze → Disseminate → Feedback</td></tr>
+  <tr><td>Pyramid of Pain</td><td>TTPs at top = most pain for attacker; hashes at bottom = trivial to change</td></tr>
+  <tr><td>STIX</td><td>Standardized language for expressing threat intelligence (JSON format)</td></tr>
+  <tr><td>TAXII</td><td>Transport protocol for sharing STIX data (collection/channel models)</td></tr>
+  <tr><td>MITRE ATT&amp;CK</td><td>Knowledge base of adversary tactics and techniques; more granular than Kill Chain</td></tr>
+  <tr><td>ISACs</td><td>Sector-specific intelligence sharing organizations (FS-ISAC, H-ISAC, etc.)</td></tr>
+  <tr><td>TIP</td><td>Platform that aggregates, normalizes, and distributes threat intelligence from multiple sources</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-106-theory.html" class="nav-btn">← Day 106: SIEM &amp; Monitoring</a>
+  <a href="day-108-theory.html" class="nav-btn">Day 108: Preventive Measures →</a>
+</div>
+</div>
+</body>
+</html>

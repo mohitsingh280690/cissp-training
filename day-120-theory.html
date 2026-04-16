@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 120 – DevSecOps &amp; CI/CD Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 120 – DevSecOps &amp; CI/CD Security</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 120 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-119-theory.html">← Day 119: Development Methodologies</a> · Domain 8 · Day 120</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DevOps → DevSecOps Evolution</a></li>
+  <li><a href="#s4">4. CI/CD Pipeline &amp; Security Gates</a></li>
+  <li><a href="#s5">5. Infrastructure as Code (IaC) Security</a></li>
+  <li><a href="#s6">6. Container &amp; Microservices Security</a></li>
+  <li><a href="#s7">7. Secrets Management</a></li>
+  <li><a href="#s8">8. Security Automation Tools in CI/CD</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security (10%)</td></tr>
+  <tr><td>Why Tested</td><td>DevSecOps represents the modern approach to integrating security into rapid development cycles. Candidates must understand CI/CD pipelines, automated security testing, IaC security, container security, and secrets management</td></tr>
+  <tr><td>Question Style</td><td>"What is the PRIMARY goal of DevSecOps?" (Integrate security into every stage of DevOps). "Secrets such as API keys should be…?" (Stored in a secrets vault, never in code repositories). "SAST is performed during which CI/CD stage?" (Build/commit)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 118 (SDLC — shift left); Day 119 (Agile/Scrum); Day 126 (software testing tools)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Organizations deploying code hundreds of times per day cannot rely on manual security reviews for each release. DevSecOps automates security checks within the CI/CD pipeline — SAST at commit, SCA at build, DAST in staging, and compliance verification before production. This enables "security at the speed of DevOps" without manual bottlenecks.</p>
+</section>
+
+<section id="s3">
+<h2>3. DevOps → DevSecOps Evolution</h2>
+<table>
+  <tr><th>Concept</th><th>Definition</th></tr>
+  <tr><td><strong>DevOps</strong></td><td>Cultural and technical practice unifying Development and Operations; automates software delivery; aims for faster, more reliable releases through collaboration, automation, and continuous feedback</td></tr>
+  <tr><td><strong>DevSecOps</strong></td><td>Extension of DevOps that integrates Security as a shared responsibility throughout the entire pipeline. Security is not a separate team/gate but embedded into every stage</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>DevSecOps Core Principle:</strong> "Everyone is responsible for security." Security is not the security team's job alone — developers write secure code, operations deploy securely, and security provides tools, training, and automation to enable both. Security is a shared responsibility, not a bottleneck.
+</div>
+
+<div class="diagram">
+DEVOPS vs DEVSECOPS
+
+DevOps:      Dev ↔ Ops
+             (security bolt-on / afterthought)
+
+DevSecOps:   Dev ↔ Sec ↔ Ops
+             (security integrated throughout)
+
+Pipeline:    Plan → Code → Build → Test → Release → Deploy → Operate → Monitor
+                ↑        ↑        ↑         ↑          ↑           ↑
+              Threat   SAST/    SCA/     DAST/      Config     Runtime
+              Model    Linting  Deps     PenTest    Audit      Security
+</div>
+</section>
+
+<section id="s4">
+<h2>4. CI/CD Pipeline &amp; Security Gates</h2>
+
+<h3>CI/CD Defined</h3>
+<table>
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr><td><strong>Continuous Integration (CI)</strong></td><td>Developers frequently merge code into shared repository; each merge triggers automated build and tests. Catches issues early</td></tr>
+  <tr><td><strong>Continuous Delivery (CD)</strong></td><td>Code is always in a deployable state; deployment to production requires manual approval</td></tr>
+  <tr><td><strong>Continuous Deployment</strong></td><td>Every change that passes automated tests is automatically deployed to production — no manual approval</td></tr>
+</table>
+
+<h3>Security Gates in CI/CD Pipeline</h3>
+<table>
+  <tr><th>Pipeline Stage</th><th>Security Activity</th><th>Tool Type</th></tr>
+  <tr><td><strong>Code commit</strong></td><td>Pre-commit hooks; secret scanning; linting for security patterns</td><td>Secret scanners, linters</td></tr>
+  <tr><td><strong>Build</strong></td><td>Static Application Security Testing (SAST); code quality analysis</td><td>SAST tools</td></tr>
+  <tr><td><strong>Dependency check</strong></td><td>Software Composition Analysis (SCA); vulnerability check in libraries</td><td>SCA tools</td></tr>
+  <tr><td><strong>Test</strong></td><td>Unit security tests; integration security tests; DAST in staging</td><td>DAST, security test frameworks</td></tr>
+  <tr><td><strong>Container build</strong></td><td>Container image scanning; base image verification; Dockerfile analysis</td><td>Container scanners</td></tr>
+  <tr><td><strong>Release</strong></td><td>Compliance verification; security sign-off; SBOM generation</td><td>Compliance as code</td></tr>
+  <tr><td><strong>Deploy</strong></td><td>Configuration audit; infrastructure verification; secrets injection</td><td>IaC scanning, config mgmt</td></tr>
+  <tr><td><strong>Runtime</strong></td><td>Runtime Application Self-Protection (RASP); monitoring; WAF</td><td>RASP, APM, SIEM</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>SAST vs DAST:</strong><br>
+  • <strong>SAST (Static)</strong> = analyzes SOURCE CODE without running it; finds bugs early (build stage); white-box; fast; many false positives<br>
+  • <strong>DAST (Dynamic)</strong> = tests RUNNING APPLICATION from outside; finds runtime vulnerabilities; black-box; fewer false positives but later in pipeline<br>
+  • <strong>IAST (Interactive)</strong> = combines both; instrumented agent inside running app; most accurate but requires runtime
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Infrastructure as Code (IaC) Security</h2>
+<div class="definition callout">
+  <strong>Infrastructure as Code (IaC):</strong> Managing and provisioning infrastructure through machine-readable definition files rather than manual configuration. Examples: Terraform, CloudFormation, Ansible, Puppet, Chef.
+</div>
+
+<table>
+  <tr><th>Security Benefit</th><th>Security Risk</th></tr>
+  <tr><td>Consistent, repeatable configurations (eliminates drift)</td><td>Misconfiguration in code propagates at scale</td></tr>
+  <tr><td>Version controlled — changes tracked and auditable</td><td>Secrets accidentally committed to repositories</td></tr>
+  <tr><td>Can be scanned for security issues before deployment</td><td>Overly permissive defaults may be templated</td></tr>
+  <tr><td>Enables immutable infrastructure (replace, don't patch)</td><td>Complexity of IaC tools themselves</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Immutable Infrastructure:</strong> Instead of patching running servers, replace them entirely with new instances built from updated IaC templates. Eliminates configuration drift and ensures every server matches the known-good template. "Cattle, not pets" — servers are disposable and replaceable, not individually maintained.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Container &amp; Microservices Security</h2>
+<table>
+  <tr><th>Concern</th><th>Security Practice</th></tr>
+  <tr><td><strong>Base image vulnerabilities</strong></td><td>Use minimal, verified base images; scan images in CI/CD; update regularly</td></tr>
+  <tr><td><strong>Image integrity</strong></td><td>Sign container images; verify signatures before deployment; use trusted registries</td></tr>
+  <tr><td><strong>Runtime isolation</strong></td><td>Containers share host kernel — NOT full isolation like VMs; use namespaces, cgroups, seccomp profiles</td></tr>
+  <tr><td><strong>Secrets in containers</strong></td><td>Never bake secrets into images; inject at runtime from secrets vault</td></tr>
+  <tr><td><strong>Network segmentation</strong></td><td>Microservice-to-microservice communication should be encrypted (mTLS); network policies limit lateral movement</td></tr>
+  <tr><td><strong>Orchestration security</strong></td><td>Kubernetes RBAC; pod security policies; namespace isolation; API server authentication</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Containers ≠ VMs:</strong> Containers share the host OS kernel. A kernel vulnerability affects ALL containers on that host. Containers provide process isolation (namespaces), not hardware isolation (hypervisor). For true isolation between untrusted workloads, use VMs or microVMs.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Secrets Management</h2>
+<div class="definition callout">
+  <strong>Secrets:</strong> Any credential, key, certificate, or token that grants access — API keys, database passwords, encryption keys, SSH keys, TLS certificates, OAuth tokens.
+</div>
+
+<h3>Secrets Management Best Practices</h3>
+<table>
+  <tr><th>Practice</th><th>Description</th></tr>
+  <tr><td><strong>Never in code</strong></td><td>Secrets must NEVER be hardcoded in source code or committed to version control</td></tr>
+  <tr><td><strong>Secrets vault</strong></td><td>Use dedicated secrets management (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault); centralized, encrypted, access-controlled</td></tr>
+  <tr><td><strong>Inject at runtime</strong></td><td>Secrets delivered to applications at runtime via environment variables or vault API calls — never baked into images/artifacts</td></tr>
+  <tr><td><strong>Rotation</strong></td><td>Automated secret rotation; short-lived credentials; revoke immediately on compromise</td></tr>
+  <tr><td><strong>Audit</strong></td><td>Log all secret access; monitor for unusual access patterns</td></tr>
+  <tr><td><strong>Pre-commit scanning</strong></td><td>Automated scanning of commits for accidentally included secrets (git-secrets, truffleHog)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Essential:</strong> If a question mentions API keys, passwords, or tokens stored in source code — the answer is ALWAYS to move them to a secrets vault and inject at runtime. Hardcoded credentials are one of the most common and critical vulnerabilities.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Security Automation Tools in CI/CD</h2>
+<table>
+  <tr><th>Tool Category</th><th>What It Does</th><th>When in Pipeline</th></tr>
+  <tr><td><strong>SAST</strong></td><td>Static code analysis — finds vulnerabilities in source code</td><td>Build / commit</td></tr>
+  <tr><td><strong>SCA</strong></td><td>Software Composition Analysis — identifies vulnerable dependencies</td><td>Build / dependency resolution</td></tr>
+  <tr><td><strong>DAST</strong></td><td>Dynamic testing — scans running application for vulnerabilities</td><td>Test / staging</td></tr>
+  <tr><td><strong>IAST</strong></td><td>Interactive — agent inside running app combines static + dynamic</td><td>Test / staging</td></tr>
+  <tr><td><strong>RASP</strong></td><td>Runtime protection — detects/blocks attacks in production</td><td>Production runtime</td></tr>
+  <tr><td><strong>Container scanning</strong></td><td>Scans container images for known vulnerabilities</td><td>Build / registry</td></tr>
+  <tr><td><strong>IaC scanning</strong></td><td>Checks infrastructure code for misconfigurations</td><td>Build / pre-deploy</td></tr>
+  <tr><td><strong>Secret scanning</strong></td><td>Detects credentials accidentally committed to repos</td><td>Pre-commit / commit</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 DevSecOps = "Dev + Sec + Ops = Security is EVERYONE's job"</strong><br>
+  Not a team, not a gate — a culture. Security embedded in every pipeline stage.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SAST vs DAST — "S = Source code (Static); D = Deployed app (Dynamic)"</strong><br>
+  SAST = looks at code (white-box, early, fast, more false positives)<br>
+  DAST = tests running app (black-box, later, slower, fewer false positives)<br>
+  IAST = inside the app (best of both, requires runtime)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CI/CD — "CI = Code In (frequently); CD = Code Delivered (always ready)"</strong><br>
+  Continuous Integration = merge + build + test frequently<br>
+  Continuous Delivery = always deployable (manual approval)<br>
+  Continuous Deployment = automatically deployed (no manual gate)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Secrets — "Never In Code, Always In Vault"</strong><br>
+  NICAIV — secrets NEVER in code repos; ALWAYS in a secrets vault; inject at runtime; rotate regularly.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>DevSecOps</td><td>Security integrated throughout DevOps; shared responsibility; automated security in CI/CD</td></tr>
+  <tr><td>CI</td><td>Frequent code integration with automated build and test</td></tr>
+  <tr><td>CD (Delivery vs Deploy)</td><td>Delivery = always deployable with manual approval; Deployment = auto-deploy to production</td></tr>
+  <tr><td>SAST</td><td>Static analysis of source code; early in pipeline; white-box; fast; more false positives</td></tr>
+  <tr><td>DAST</td><td>Dynamic testing of running app; later in pipeline; black-box; fewer false positives</td></tr>
+  <tr><td>SCA</td><td>Identifies vulnerable third-party dependencies/libraries</td></tr>
+  <tr><td>IaC security</td><td>Scan infrastructure code for misconfigurations before deployment; enables immutable infrastructure</td></tr>
+  <tr><td>Container security</td><td>Containers share kernel (not full isolation); scan images; sign images; inject secrets at runtime</td></tr>
+  <tr><td>Secrets management</td><td>Never in code; use vaults; inject at runtime; rotate; audit access</td></tr>
+  <tr><td>Immutable infrastructure</td><td>Replace servers instead of patching; built from IaC templates; eliminates drift</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-119-theory.html" class="nav-btn">← Day 119: Development Methodologies</a>
+  <a href="day-121-theory.html" class="nav-btn">Day 121: Programming Concepts &amp; Security →</a>
+</div>
+</div>
+</body>
+</html>

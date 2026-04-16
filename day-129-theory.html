@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 129 – Third-Party Software Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 129 – Third-Party Software Security</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 129 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-128-theory.html">← Day 128: AI/ML Security</a> · Domain 8 · Day 129</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Software Acquisition Types</a></li>
+  <li><a href="#s4">4. Supply Chain Risk Management</a></li>
+  <li><a href="#s5">5. Software Bill of Materials (SBOM)</a></li>
+  <li><a href="#s6">6. Open Source Software Risks</a></li>
+  <li><a href="#s7">7. Vendor Assessment &amp; Contractual Controls</a></li>
+  <li><a href="#s8">8. Software Composition Analysis (SCA)</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>Modern applications are 70-90% third-party code. Supply chain attacks (SolarWinds, Log4j, Codecov) demonstrated devastating impact. CISSP tests understanding of supply chain risk, SBOM requirements, open source governance, and vendor security assessment</td></tr>
+  <tr><td>Question Style</td><td>"What document lists all third-party components in a software product?" (SBOM). "Which is the GREATEST risk of using open-source software?" (Known vulnerabilities in unpatched components, or lack of commercial support). "The SolarWinds attack is an example of…?" (Supply chain attack)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (supply chain risk management); Day 120 (SCA in CI/CD); Day 126 (SCA testing)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>The SolarWinds breach (2020) compromised ~18,000 organizations via a trojanized software update. Log4Shell (2021) affected millions of applications using a single open-source library. These attacks proved that your security is only as strong as your weakest dependency. Executive Order 14028 now mandates SBOM for US federal software procurement. Organizations must inventory, monitor, and govern every piece of third-party code in their environment.</p>
+</section>
+
+<section id="s3">
+<h2>3. Software Acquisition Types</h2>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Security Considerations</th></tr>
+  <tr><td><strong>COTS (Commercial Off-the-Shelf)</strong></td><td>Pre-built commercial software purchased from vendor (Microsoft Office, SAP, Oracle)</td><td>Vendor controls security; limited customization; reliance on vendor patching; evaluate vendor security posture</td></tr>
+  <tr><td><strong>Open Source</strong></td><td>Source code freely available; community-developed (Linux, Apache, OpenSSL)</td><td>Transparent code (auditable); community patches; risk of abandoned projects; license compliance</td></tr>
+  <tr><td><strong>Custom (in-house)</strong></td><td>Built by organization's own developers</td><td>Full control; highest cost; organization responsible for all security testing and patching</td></tr>
+  <tr><td><strong>Outsourced</strong></td><td>Custom software built by external contractor/vendor</td><td>Contractual security requirements; code escrow; IP ownership; vendor assessment; secure coding standards in contract</td></tr>
+  <tr><td><strong>Cloud/SaaS</strong></td><td>Software as a Service; vendor hosts and maintains</td><td>Shared responsibility; limited security visibility; vendor lock-in; data sovereignty concerns</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>COTS vs Custom Trade-off:</strong><br>
+  • COTS: Lower cost, less customization, dependent on vendor for security patches<br>
+  • Custom: Higher cost, full control, organization bears all security responsibility<br>
+  • CISSP questions focus on understanding the security implications and risk ownership for each acquisition type.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Supply Chain Risk Management</h2>
+<div class="definition callout">
+  <strong>Software Supply Chain Attack:</strong> Compromising a software product by attacking a component in its supply chain — the vendor, a library, the build process, the distribution channel, or the update mechanism. The attacker targets the weakest link to reach many downstream victims.
+</div>
+
+<h3>Notable Supply Chain Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Year</th><th>Vector</th><th>Impact</th></tr>
+  <tr><td><strong>SolarWinds</strong></td><td>2020</td><td>Trojanized build process; malicious update (Orion)</td><td>~18,000 organizations including US government agencies</td></tr>
+  <tr><td><strong>Log4Shell</strong></td><td>2021</td><td>Critical vulnerability in Log4j open-source library</td><td>Millions of Java applications worldwide; zero-day RCE</td></tr>
+  <tr><td><strong>Codecov</strong></td><td>2021</td><td>Compromised CI/CD script exfiltrated environment variables</td><td>Credentials leaked from hundreds of customer CI pipelines</td></tr>
+  <tr><td><strong>3CX</strong></td><td>2023</td><td>Supply chain compromise of desktop VoIP application</td><td>600,000+ organizations; malicious DLL in signed application</td></tr>
+</table>
+
+<h3>Supply Chain Security Controls</h3>
+<table>
+  <tr><th>Control</th><th>Purpose</th></tr>
+  <tr><td><strong>Vendor security assessment</strong></td><td>Evaluate vendor's security practices before procurement (questionnaires, audits, certifications)</td></tr>
+  <tr><td><strong>SBOM requirement</strong></td><td>Require vendors to provide SBOM; know every component in delivered software</td></tr>
+  <tr><td><strong>Code signing verification</strong></td><td>Verify digital signatures on software/updates before installation</td></tr>
+  <tr><td><strong>Secure distribution channels</strong></td><td>Download only from official sources; verify checksums/hashes</td></tr>
+  <tr><td><strong>SCA scanning</strong></td><td>Continuously scan for known vulnerabilities in all dependencies</td></tr>
+  <tr><td><strong>Build integrity</strong></td><td>Reproducible builds; SLSA framework; secure build environments</td></tr>
+  <tr><td><strong>Contractual requirements</strong></td><td>Security clauses in vendor contracts; right to audit; incident notification requirements</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Software Bill of Materials (SBOM)</h2>
+<div class="definition callout">
+  <strong>SBOM:</strong> A comprehensive, machine-readable inventory of all components, libraries, and dependencies that make up a software product. Like a nutrition label for software — tells you exactly what's inside.
+</div>
+
+<table>
+  <tr><th>SBOM Element</th><th>Information</th></tr>
+  <tr><td>Component name</td><td>Name of each library/package/module</td></tr>
+  <tr><td>Version</td><td>Exact version number of each component</td></tr>
+  <tr><td>Supplier</td><td>Who created/maintains the component</td></tr>
+  <tr><td>Dependency relationships</td><td>How components relate to each other (direct vs transitive dependencies)</td></tr>
+  <tr><td>License</td><td>License type for each component (MIT, GPL, Apache, etc.)</td></tr>
+  <tr><td>Hash/checksum</td><td>Cryptographic hash to verify component integrity</td></tr>
+</table>
+
+<h3>SBOM Standards</h3>
+<table>
+  <tr><th>Standard</th><th>Description</th></tr>
+  <tr><td><strong>SPDX</strong></td><td>Software Package Data Exchange — Linux Foundation; ISO/IEC 5962 standard</td></tr>
+  <tr><td><strong>CycloneDX</strong></td><td>OWASP standard; designed for security use cases; supports vulnerability data</td></tr>
+  <tr><td><strong>SWID Tags</strong></td><td>Software Identification Tags — ISO/IEC 19770-2; focused on installed software inventory</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>SBOM Value:</strong> When a vulnerability like Log4Shell is announced, an SBOM lets you instantly determine if your software is affected — instead of spending days or weeks investigating. US Executive Order 14028 (2021) mandates SBOM for software sold to the federal government.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Open Source Software Risks</h2>
+<table>
+  <tr><th>Risk</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td><strong>Known vulnerabilities</strong></td><td>CVEs in popular libraries; may persist if not patched promptly</td><td>SCA scanning; automated dependency updates; vulnerability monitoring</td></tr>
+  <tr><td><strong>Abandoned projects</strong></td><td>Maintainer stops updating; no security patches for new vulnerabilities</td><td>Evaluate project health (commit frequency, contributor count, responsiveness)</td></tr>
+  <tr><td><strong>Typosquatting</strong></td><td>Malicious packages with names similar to popular ones (e.g., "requets" vs "requests")</td><td>Verify exact package names; use lockfiles; SCA to detect malicious packages</td></tr>
+  <tr><td><strong>Dependency confusion</strong></td><td>Attacker uploads malicious package to public registry with same name as private internal package</td><td>Namespace reservation; private registry configuration; scoped packages</td></tr>
+  <tr><td><strong>License compliance</strong></td><td>Copyleft licenses (GPL) may require releasing your code as open source</td><td>SCA license scanning; legal review; policy on acceptable licenses</td></tr>
+  <tr><td><strong>Transitive dependencies</strong></td><td>Your code depends on A, which depends on B, C, D… — vulnerabilities deep in the chain</td><td>SBOM with full dependency tree; lock file management; SCA for transitive deps</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Copyleft License Risk (GPL):</strong> If your proprietary software incorporates GPL-licensed code, you may be legally required to release YOUR source code under the same GPL license. This is a significant IP risk. Always have legal review open-source licenses before incorporation. Permissive licenses (MIT, Apache, BSD) are generally safe for commercial use.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Vendor Assessment &amp; Contractual Controls</h2>
+<h3>Vendor Assessment Methods</h3>
+<table>
+  <tr><th>Method</th><th>Description</th></tr>
+  <tr><td><strong>Security questionnaires</strong></td><td>Standardized questions about vendor's security practices (SIG, CAIQ); self-reported</td></tr>
+  <tr><td><strong>SOC 2 reports</strong></td><td>Independent auditor's report on vendor's controls (Type I = point-in-time; Type II = over time period)</td></tr>
+  <tr><td><strong>ISO 27001 certification</strong></td><td>Third-party certified ISMS; demonstrates systematic security management</td></tr>
+  <tr><td><strong>Penetration testing reports</strong></td><td>Request or review vendor's pen test results; verify they test regularly</td></tr>
+  <tr><td><strong>On-site audits</strong></td><td>Physical inspection of vendor's facilities and practices; most thorough; most expensive</td></tr>
+  <tr><td><strong>Continuous monitoring</strong></td><td>Security ratings services (BitSight, SecurityScorecard); ongoing vendor risk monitoring</td></tr>
+</table>
+
+<h3>Contract Security Clauses</h3>
+<table>
+  <tr><th>Clause</th><th>Purpose</th></tr>
+  <tr><td><strong>Right to audit</strong></td><td>Organization can audit vendor's security practices and compliance</td></tr>
+  <tr><td><strong>Incident notification</strong></td><td>Vendor must notify within X hours of a security breach; define what constitutes an incident</td></tr>
+  <tr><td><strong>SLA for patching</strong></td><td>Vendor commits to patch critical vulnerabilities within defined timeframes</td></tr>
+  <tr><td><strong>Data handling requirements</strong></td><td>How vendor stores, processes, transmits, and destroys organization's data</td></tr>
+  <tr><td><strong>Code escrow</strong></td><td>Source code held by trusted third party; released if vendor goes bankrupt or fails to maintain</td></tr>
+  <tr><td><strong>Subcontractor flow-down</strong></td><td>Security requirements extend to vendor's subcontractors</td></tr>
+  <tr><td><strong>Termination &amp; data return</strong></td><td>How data is returned/destroyed when contract ends</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>SOC 2 Type I vs Type II:</strong><br>
+  • Type I = Design of controls at a POINT IN TIME (snapshot)<br>
+  • Type II = Effectiveness of controls OVER A TIME PERIOD (typically 6-12 months)<br>
+  • Type II is always MORE valuable because it proves controls actually work over time, not just that they exist.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Software Composition Analysis (SCA)</h2>
+<table>
+  <tr><th>SCA Capability</th><th>What It Does</th></tr>
+  <tr><td>Dependency inventory</td><td>Identifies all open-source and third-party components in the codebase</td></tr>
+  <tr><td>Vulnerability matching</td><td>Matches components against CVE/NVD databases; alerts on known-vulnerable versions</td></tr>
+  <tr><td>License detection</td><td>Identifies all open-source licenses; flags copyleft or incompatible licenses</td></tr>
+  <tr><td>SBOM generation</td><td>Produces SPDX or CycloneDX SBOM documents</td></tr>
+  <tr><td>Remediation guidance</td><td>Recommends version upgrades that fix vulnerabilities</td></tr>
+  <tr><td>Policy enforcement</td><td>Block builds that include components violating security or license policies</td></tr>
+</table>
+
+<p><strong>Popular SCA Tools:</strong> Snyk, Black Duck (Synopsys), WhiteSource (Mend), OWASP Dependency-Check, GitHub Dependabot, Sonatype Nexus.</p>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Software Acquisition — "COCOC" (Compare Options Carefully, Outsource Cautiously)</strong><br>
+  <strong>C</strong>OTS — Buy off the shelf<br>
+  <strong>O</strong>pen source — Free, inspect the code<br>
+  <strong>C</strong>ustom — Build it yourself<br>
+  <strong>O</strong>utsource — Hire someone to build<br>
+  <strong>C</strong>loud/SaaS — Rent from vendor
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SOC Types — "1 = Snapshot, 2 = Sustained"</strong><br>
+  Type <strong>I</strong> = point <strong>I</strong>n time (design only)<br>
+  Type <strong>II</strong> = over time per<strong>II</strong>od (design + effectiveness)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SBOM = "Software's Nutrition Label"</strong><br>
+  Just as food labels list ingredients, <strong>SBOM</strong> lists every software component. When a recall happens (vulnerability), you check the label to see if you're affected.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Supply chain attack</td><td>Compromise upstream vendor/component to reach downstream victims (SolarWinds, Log4j)</td></tr>
+  <tr><td>SBOM</td><td>Complete inventory of all software components; mandatory for US federal procurement (EO 14028)</td></tr>
+  <tr><td>SCA</td><td>Automated tool that identifies vulnerable/licensed third-party components</td></tr>
+  <tr><td>COTS</td><td>Commercial software; vendor responsible for patches; limited customization</td></tr>
+  <tr><td>Open source risks</td><td>Known CVEs, abandoned projects, typosquatting, dependency confusion, copyleft licenses</td></tr>
+  <tr><td>SOC 2 Type II</td><td>Controls tested over time period; more valuable than Type I (point-in-time)</td></tr>
+  <tr><td>Code escrow</td><td>Source code held by third party; protection if vendor fails</td></tr>
+  <tr><td>Copyleft (GPL)</td><td>May require releasing your code as open source; always get legal review</td></tr>
+  <tr><td>Vendor assessment</td><td>Questionnaires, SOC reports, ISO 27001, pen tests, audits, continuous monitoring</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-128-theory.html" class="nav-btn">← Day 128: AI/ML Security</a>
+  <a href="day-130-theory.html" class="nav-btn">Day 130: Domain 8 Review →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 112 – Recovery Strategies &amp; Sites</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 112 – Recovery Strategies &amp; Sites</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 112 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-111-theory.html">← Day 111: Disaster Recovery Planning</a> · Domain 7 · Day 112</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Alternate Processing Sites — Hot, Warm, Cold</a></li>
+  <li><a href="#s4">4. Other Site Types</a></li>
+  <li><a href="#s5">5. Cloud-Based DR</a></li>
+  <li><a href="#s6">6. RAID — Redundant Array of Independent Disks</a></li>
+  <li><a href="#s7">7. Redundancy &amp; High Availability Strategies</a></li>
+  <li><a href="#s8">8. Recovery Strategy Selection</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Recovery site types (hot/warm/cold) and RAID levels are among the most frequently tested topics. Candidates must distinguish site types by readiness, cost, and activation time, and know which RAID level provides what type of protection</td></tr>
+  <tr><td>Question Style</td><td>"Which site type requires the LEAST activation time?" (Hot). "Which RAID level provides BOTH performance AND redundancy?" (RAID 10). "What is the PRIMARY disadvantage of a cold site?" (Longest recovery time)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 111 (DRP — RTO/RPO drive site selection); Day 113 (backups); Day 114 (testing)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Recovery strategy selection directly determines whether an organization meets its RTO/RPO. A financial trading firm with a 15-minute RTO cannot rely on a cold site — it needs a hot site with real-time replication. Conversely, a small nonprofit with a 72-hour RTO would waste money on a hot site when a cold site suffices. The strategy must match the BIA requirements while staying within budget constraints.</p>
+</section>
+
+<section id="s3">
+<h2>3. Alternate Processing Sites — Hot, Warm, Cold</h2>
+<table>
+  <tr><th>Feature</th><th>Hot Site</th><th>Warm Site</th><th>Cold Site</th></tr>
+  <tr><td><strong>Hardware</strong></td><td>Fully equipped, mirrored</td><td>Partially equipped (servers, network — may not be latest config)</td><td>Empty facility — power, HVAC, connectivity only (shell)</td></tr>
+  <tr><td><strong>Data</strong></td><td>Near real-time replication; current data</td><td>Recent backups (hours to days old)</td><td>No data on-site; must restore from off-site backups</td></tr>
+  <tr><td><strong>Activation Time</strong></td><td>Minutes to hours</td><td>Hours to days (typically 24-72 hours)</td><td>Days to weeks (must procure/install hardware, restore data)</td></tr>
+  <tr><td><strong>Annual Cost</strong></td><td>Highest ($$$$) — maintaining duplicate infrastructure</td><td>Moderate ($$)</td><td>Lowest ($) — only facility costs</td></tr>
+  <tr><td><strong>Suitable RTO</strong></td><td>0-4 hours</td><td>4-72 hours</td><td>72+ hours to weeks</td></tr>
+  <tr><td><strong>Testing</strong></td><td>Easiest to test (infrastructure ready)</td><td>Moderate effort</td><td>Difficult to test (no infrastructure to test with)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Trap — "Warm Site":</strong> A warm site has SOME hardware but NOT current data and NOT identical configuration. It's the compromise between hot and cold. Think: "Warm = some equipment, BUT data and config need work."
+</div>
+
+<div class="key-concept callout">
+  <strong>Cost vs Speed Trade-off:</strong> As activation time decreases (faster recovery), cost increases exponentially. Hot site = fastest + most expensive. Cold site = slowest + cheapest. The BIA determines which trade-off is acceptable for each business function.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Other Site Types</h2>
+<table>
+  <tr><th>Site Type</th><th>Description</th><th>Key Characteristics</th></tr>
+  <tr><td><strong>Mobile Site</strong></td><td>Self-contained, transportable computing facility (trailer/container)</td><td>Can be deployed anywhere; useful when geographic flexibility needed; limited capacity; setup time varies</td></tr>
+  <tr><td><strong>Mirrored Site</strong></td><td>Fully redundant, real-time mirror of primary site</td><td>Most expensive; ZERO downtime; synchronous replication; essentially running simultaneously. Often considered "beyond hot"</td></tr>
+  <tr><td><strong>Reciprocal Agreement</strong></td><td>Two organizations agree to provide DR hosting for each other</td><td>Low cost but LEAST reliable; depends on partner availability; capacity limitations; potential competition; hard to enforce; may expose sensitive data</td></tr>
+  <tr><td><strong>Multiple Processing Sites</strong></td><td>Workload distributed across multiple active sites</td><td>Active-active configuration; best availability; load balancing; if one site fails, others absorb load</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Reciprocal Agreements — Exam Favorite:</strong> Reciprocal agreements are the LEAST reliable/dependable alternate site option. Problems: (1) partner may not have capacity when needed; (2) both may be affected by same disaster; (3) difficult to test; (4) security/confidentiality concerns sharing facilities; (5) hard to enforce contractually. The exam will test whether you know this is the weakest option.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Cloud-Based DR</h2>
+<h3>DRaaS — Disaster Recovery as a Service</h3>
+<p>Cloud providers offer DR capabilities that change the traditional site model:</p>
+<table>
+  <tr><th>Advantage</th><th>Concern</th></tr>
+  <tr><td>Pay-as-you-go (no idle hardware costs)</td><td>Dependency on cloud provider availability</td></tr>
+  <tr><td>Geographic distribution (multi-region)</td><td>Data sovereignty and regulatory compliance</td></tr>
+  <tr><td>Rapid scaling during recovery</td><td>Bandwidth limitations during large-scale recovery</td></tr>
+  <tr><td>Automated failover capabilities</td><td>Shared responsibility model — know what provider covers vs your responsibility</td></tr>
+  <tr><td>Eliminates need for physical alternate site</td><td>Internet dependency — on-premises network disruptions can block cloud access</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. RAID — Redundant Array of Independent Disks</h2>
+<div class="definition callout">
+  <strong>RAID</strong> combines multiple physical disks into a logical unit to improve <strong>performance</strong>, <strong>redundancy</strong>, or both. RAID is NOT a backup — it protects against single disk failure but not against data corruption, deletion, ransomware, or site-level disaster.
+</div>
+
+<table>
+  <tr><th>RAID Level</th><th>Name</th><th>How It Works</th><th>Min Disks</th><th>Fault Tolerance</th><th>Performance</th><th>Usable Capacity</th></tr>
+  <tr><td><strong>RAID 0</strong></td><td>Striping</td><td>Data split across disks in stripes</td><td>2</td><td>NONE — any disk fails = total loss</td><td>Excellent read/write</td><td>100%</td></tr>
+  <tr><td><strong>RAID 1</strong></td><td>Mirroring</td><td>Exact copy on second disk</td><td>2</td><td>1 disk failure</td><td>Good read; write same as single</td><td>50%</td></tr>
+  <tr><td><strong>RAID 5</strong></td><td>Striping + Distributed Parity</td><td>Data striped; parity distributed across all disks</td><td>3</td><td>1 disk failure</td><td>Good read; slower write (parity calc)</td><td>(n-1)/n</td></tr>
+  <tr><td><strong>RAID 6</strong></td><td>Striping + Double Parity</td><td>Like RAID 5 but with TWO parity blocks</td><td>4</td><td>2 disk failures</td><td>Good read; slower write than RAID 5</td><td>(n-2)/n</td></tr>
+  <tr><td><strong>RAID 10</strong></td><td>Mirroring + Striping (1+0)</td><td>Mirrors first, then stripes across mirrors</td><td>4</td><td>1 disk per mirror set</td><td>Excellent read/write</td><td>50%</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>RAID Exam Essentials:</strong><br>
+  • <strong>RAID 0</strong> = NO fault tolerance (performance only) — "0 redundancy"<br>
+  • <strong>RAID 1</strong> = Mirroring — simplest redundancy; 50% capacity cost<br>
+  • <strong>RAID 5</strong> = Most popular in enterprise; tolerates 1 disk failure; needs 3+ disks<br>
+  • <strong>RAID 10</strong> = Best performance + redundancy; most expensive (50% capacity)<br>
+  • RAID is NOT a backup — protects against hardware failure only, not data corruption/deletion/ransomware
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>"RAID is NOT a Backup":</strong> RAID protects against disk hardware failure. It does NOT protect against: accidental deletion (mirrors instantly), ransomware (encrypts both copies), data corruption (corrupted data replicated), fire/flood (all disks destroyed), logical errors. Always combine RAID with proper backups.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Redundancy &amp; High Availability Strategies</h2>
+<table>
+  <tr><th>Strategy</th><th>Description</th><th>Protects Against</th></tr>
+  <tr><td><strong>Server clustering</strong></td><td>Multiple servers working as one; automatic failover</td><td>Single server failure</td></tr>
+  <tr><td><strong>Load balancing</strong></td><td>Distribute traffic across multiple servers</td><td>Overload; single server failure</td></tr>
+  <tr><td><strong>NIC teaming</strong></td><td>Multiple network interfaces bonded together</td><td>Network adapter failure; bandwidth bottleneck</td></tr>
+  <tr><td><strong>Redundant power</strong></td><td>Dual power supplies, UPS, generators, redundant utility feeds</td><td>Power failure at any single point</td></tr>
+  <tr><td><strong>Geographic dispersion</strong></td><td>Spread resources across physical locations</td><td>Site-level disasters (flood, earthquake, fire)</td></tr>
+  <tr><td><strong>Data replication</strong></td><td>Synchronous (real-time, zero RPO) or asynchronous (near real-time, small RPO)</td><td>Data loss; site failure</td></tr>
+</table>
+
+<h3>Synchronous vs Asynchronous Replication</h3>
+<table>
+  <tr><th>Aspect</th><th>Synchronous</th><th>Asynchronous</th></tr>
+  <tr><td>RPO</td><td>Zero (RPO = 0) — no data loss</td><td>Near-zero — seconds to minutes of potential loss</td></tr>
+  <tr><td>Write performance</td><td>Slower — must wait for remote confirmation</td><td>Faster — local write completes immediately</td></tr>
+  <tr><td>Distance limitation</td><td>~100-200 km (latency dependent)</td><td>Unlimited — any distance</td></tr>
+  <tr><td>Cost</td><td>Higher (dedicated low-latency links)</td><td>Lower</td></tr>
+  <tr><td>Use case</td><td>Financial transactions; zero-loss-tolerance systems</td><td>Most enterprise applications; cross-region DR</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Recovery Strategy Selection</h2>
+<p>Match the strategy to the BIA requirements:</p>
+<table>
+  <tr><th>BIA Requirement</th><th>Recommended Strategy</th></tr>
+  <tr><td>RTO = 0 (zero downtime)</td><td>Mirrored site / active-active / synchronous replication</td></tr>
+  <tr><td>RTO &lt; 4 hours</td><td>Hot site with real-time or near-real-time replication</td></tr>
+  <tr><td>RTO = 4-72 hours</td><td>Warm site with recent backups (daily/hourly)</td></tr>
+  <tr><td>RTO &gt; 72 hours</td><td>Cold site with off-site backup restoration</td></tr>
+  <tr><td>Budget severely constrained</td><td>Cloud DRaaS (pay-per-use) or reciprocal agreement (least reliable)</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Hot, Warm, Cold — "Temperature = Readiness"</strong><br>
+  <strong>Hot</strong> = Ready NOW (minutes) — fully equipped, data replicated<br>
+  <strong>Warm</strong> = Getting there (hours-days) — some equipment, need data restore<br>
+  <strong>Cold</strong> = Starting from scratch (days-weeks) — empty shell, need everything
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 RAID Levels — "0-1-5-6-10"</strong><br>
+  <strong>0</strong> = Zero protection (striping only)<br>
+  <strong>1</strong> = One mirror (mirroring)<br>
+  <strong>5</strong> = Five-finger spread (parity distributed)<br>
+  <strong>6</strong> = Six = double the parity of 5<br>
+  <strong>10</strong> = 1+0 = Mirror first, THEN stripe (best of both worlds)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Reciprocal = "Risky"</strong><br>
+  Both start with R. Reciprocal agreements are the Riskiest/least Reliable alternate site option.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Sync vs Async — "Sync = Same time; Async = A little later"</strong><br>
+  <strong>Synchronous:</strong> RPO = 0 (zero loss), but distance-limited (~200 km) and slower writes<br>
+  <strong>Asynchronous:</strong> RPO &gt; 0 (some loss), but works anywhere and faster writes
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Hot site</td><td>Fastest recovery (minutes-hours), most expensive, fully equipped with replicated data</td></tr>
+  <tr><td>Warm site</td><td>Moderate recovery (hours-days), partial equipment, needs data restoration</td></tr>
+  <tr><td>Cold site</td><td>Slowest recovery (days-weeks), cheapest, empty shell — only power/HVAC/connectivity</td></tr>
+  <tr><td>Mirrored site</td><td>Beyond hot — real-time mirror, zero downtime, most expensive</td></tr>
+  <tr><td>Reciprocal agreement</td><td>Least reliable alternate site option — capacity, security, enforceability concerns</td></tr>
+  <tr><td>RAID 0</td><td>Striping only — ZERO fault tolerance; "0 = zero redundancy"</td></tr>
+  <tr><td>RAID 1</td><td>Mirroring — tolerates 1 disk failure; 50% capacity loss</td></tr>
+  <tr><td>RAID 5</td><td>Distributed parity — tolerates 1 disk failure; needs 3+ disks; most common</td></tr>
+  <tr><td>RAID 10</td><td>Mirror+Stripe — best performance AND redundancy; 50% capacity; needs 4+ disks</td></tr>
+  <tr><td>RAID ≠ Backup</td><td>RAID prevents disk failure loss ONLY — not deletion, corruption, ransomware, or site disaster</td></tr>
+  <tr><td>Sync replication</td><td>RPO = 0, distance-limited (~200 km), slower writes</td></tr>
+  <tr><td>Async replication</td><td>RPO &gt; 0, works any distance, faster writes</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-111-theory.html" class="nav-btn">← Day 111: Disaster Recovery Planning</a>
+  <a href="day-113-theory.html" class="nav-btn">Day 113: Backup &amp; Recovery →</a>
+</div>
+</div>
+</body>
+</html>

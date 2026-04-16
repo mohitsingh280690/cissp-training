@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 92 – Software Testing Methods</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 92 – Software Testing Methods</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 92 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-091-theory.html">← Day 91: Code Review &amp; Analysis</a> · Domain 6 · Day 92</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Testing Levels (Unit → Integration → System → Acceptance)</a></li>
+  <li><a href="#s4">4. Regression, Smoke &amp; Sanity Testing</a></li>
+  <li><a href="#s5">5. Performance Testing (Load, Stress, Volume)</a></li>
+  <li><a href="#s6">6. Test-Driven Development (TDD)</a></li>
+  <li><a href="#s7">7. Complete Testing Comparison</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Security testing must integrate with software testing at every level. The CISSP must know what each testing level validates, when security tests should be applied, and how testing methodologies (TDD, regression) affect software assurance</td></tr>
+  <tr><td>Question Style</td><td>"Which testing level validates that individual code modules work correctly?" (unit testing). "After a security patch is applied, which test type verifies that existing functionality is not broken?" (regression testing)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 8 (SDLC — testing phases align with development stages); Domain 6 (SAST/DAST integrate at specific testing levels); Domain 7 (operational acceptance testing before production deployment)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p><strong>QA teams</strong> own testing processes; <strong>developers</strong> write unit and integration tests; <strong>security teams</strong> define security test requirements and review results. Modern CI/CD pipelines run automated tests on every code commit — a failed test blocks deployment. Organizations practicing DevSecOps integrate security tests (SAST, DAST, dependency scanning) as mandatory pipeline gates alongside functional tests.</p>
+<p><strong>Failure modes:</strong> Deploying without regression testing after a hotfix (breaks existing features); skipping UAT for urgent releases (deploys software that doesn't meet business requirements); no load testing before launch (system crashes under real traffic).</p>
+</section>
+
+<section id="s3">
+<h2>3. Testing Levels (Unit → Integration → System → Acceptance)</h2>
+<div class="diagram">
+Testing Levels (V-Model Alignment)
+
+  Requirements ──────────────────── Acceptance Testing (UAT)
+       │                                     ▲
+  High-Level Design ────────────── System Testing
+       │                                     ▲
+  Detailed Design ──────────────── Integration Testing
+       │                                     ▲
+  Coding ───────────────────────── Unit Testing
+</div>
+
+<h3>Unit Testing</h3>
+<div class="definition callout">
+  <strong>Unit Testing:</strong> Tests individual components (functions, methods, classes) in isolation. Each unit is tested independently with mock objects replacing dependencies. Written by developers, typically automated, and run on every code commit.
+</div>
+<ul>
+  <li><strong>Scope:</strong> Single function or method — smallest testable unit</li>
+  <li><strong>Who:</strong> Developers</li>
+  <li><strong>When:</strong> During coding; runs in CI pipeline on every commit</li>
+  <li><strong>Security relevance:</strong> Tests input validation functions, authentication logic, encryption/decryption routines at the code level</li>
+  <li><strong>Tools:</strong> JUnit (Java), pytest (Python), NUnit (.NET), Jest (JavaScript)</li>
+</ul>
+
+<h3>Integration Testing</h3>
+<div class="definition callout">
+  <strong>Integration Testing:</strong> Tests how multiple units/modules work TOGETHER. Verifies that interfaces between components function correctly — data passes correctly between modules, API calls return expected responses, database queries work with real (or test) database.
+</div>
+<ul>
+  <li><strong>Scope:</strong> Interactions between 2+ modules/services</li>
+  <li><strong>Approaches:</strong> Top-down (test from UI layer down), bottom-up (test from data layer up), sandwich/hybrid (both simultaneously)</li>
+  <li><strong>Security relevance:</strong> Tests authentication flows end-to-end, API authorization between services, encrypted communication between components</li>
+</ul>
+
+<h3>System Testing</h3>
+<div class="definition callout">
+  <strong>System Testing:</strong> Tests the COMPLETE, integrated system as a whole against the original requirements. Conducted in an environment that mirrors production. Includes functional testing, performance testing, security testing, and usability testing.
+</div>
+<ul>
+  <li><strong>Scope:</strong> Entire application/system in production-like environment</li>
+  <li><strong>Who:</strong> QA team (independent from developers)</li>
+  <li><strong>Security relevance:</strong> DAST scanning, full penetration testing, configuration review are performed at system test level</li>
+</ul>
+
+<h3>Acceptance Testing (UAT)</h3>
+<div class="definition callout">
+  <strong>User Acceptance Testing (UAT):</strong> Final testing phase where actual end users or business stakeholders verify the system meets their business requirements and is ready for production deployment. UAT is the LAST gate before go-live.
+</div>
+<ul>
+  <li><strong>Types:</strong> Alpha testing (at developer site by users), Beta testing (at user site in real environment)</li>
+  <li><strong>Who:</strong> End users, business stakeholders, product owners</li>
+  <li><strong>Pass/fail criteria:</strong> Business requirements are met — NOT technical correctness (that was verified in earlier phases)</li>
+  <li><strong>Security relevance:</strong> Validates that security controls don't impede business workflows; confirms data access controls match business rules</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Exam Tip — V-Model:</strong> The V-Model maps each development phase to a corresponding test level. Requirements → UAT; High-level design → System testing; Detailed design → Integration testing; Coding → Unit testing. Each left-side phase has a matching right-side verification.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Regression, Smoke &amp; Sanity Testing</h2>
+<table>
+  <tr><th>Test Type</th><th>Definition</th><th>When Run</th><th>Purpose</th></tr>
+  <tr><td><strong>Regression Testing</strong></td><td>Re-running previously passing tests after a code change to ensure the change didn't break existing functionality</td><td>After every code change, patch, or bug fix</td><td>Ensure no unintended side effects; verify stability</td></tr>
+  <tr><td><strong>Smoke Testing</strong></td><td>A quick, shallow test of critical functions to verify the build is stable enough for further testing ("does it turn on and not crash?")</td><td>After every new build; first test run on a new deployment</td><td>Verify basic functionality before investing time in full test suite</td></tr>
+  <tr><td><strong>Sanity Testing</strong></td><td>Narrow, focused testing of a specific area after a targeted change (subset of regression testing)</td><td>After a specific bug fix or feature change</td><td>Confirm the specific fix works without full regression suite</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Smoke vs. Sanity:</strong><br>
+  <strong>Smoke:</strong> Broad and shallow — "does the whole thing work at a basic level?" (like smoke testing electronics — turn it on, does it smoke?)<br>
+  <strong>Sanity:</strong> Narrow and focused — "does this specific change work?" (a sanity check on one area)
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Exam Trap:</strong> Regression testing is NOT about finding new bugs — it's about ensuring that changes didn't break EXISTING, previously working functionality. After a security patch, regression testing confirms the patch didn't break legitimate features.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Performance Testing (Load, Stress, Volume)</h2>
+<table>
+  <tr><th>Test Type</th><th>Definition</th><th>What It Measures</th><th>Example</th></tr>
+  <tr><td><strong>Load Testing</strong></td><td>Tests system behavior under EXPECTED peak load (normal maximum users/transactions)</td><td>Response time, throughput, resource utilization at expected capacity</td><td>"How does the site perform with 10,000 concurrent users?" (our expected peak)</td></tr>
+  <tr><td><strong>Stress Testing</strong></td><td>Tests system behavior BEYOND maximum capacity — pushes until failure to find the breaking point</td><td>Breaking point, failure mode (graceful degradation vs. crash), recovery behavior</td><td>"What happens if 50,000 users hit the site simultaneously?" (3× our capacity)</td></tr>
+  <tr><td><strong>Volume Testing</strong></td><td>Tests system behavior with large amounts of DATA (not users) — massive datasets, large database operations</td><td>Performance with large data volumes; database query performance; storage handling</td><td>"How does the database perform with 100 million records vs. 1 million?"</td></tr>
+  <tr><td><strong>Endurance (Soak) Testing</strong></td><td>Tests system stability over an EXTENDED TIME period under sustained load</td><td>Memory leaks, resource exhaustion, performance degradation over hours/days</td><td>"Does the application stay stable after 72 hours of continuous operation?"</td></tr>
+  <tr><td><strong>Spike Testing</strong></td><td>Tests system response to SUDDEN, dramatic load increases</td><td>How quickly the system handles sudden traffic bursts; auto-scaling behavior</td><td>"What happens when traffic jumps from 1,000 to 20,000 users in 10 seconds?"</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Security Relevance of Performance Testing:</strong> DDoS resilience is validated through stress/spike testing. Resource exhaustion attacks exploit systems that haven't been stress-tested. Memory leaks found in endurance testing can be exploited for denial of service.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Test-Driven Development (TDD)</h2>
+<div class="definition callout">
+  <strong>TDD (Test-Driven Development):</strong> A software development methodology where developers write automated test cases BEFORE writing the actual code. The cycle: (1) Write a failing test, (2) Write minimal code to pass the test, (3) Refactor the code while keeping tests passing. Also known as "Red-Green-Refactor."
+</div>
+<div class="diagram">
+TDD Cycle — "Red-Green-Refactor"
+
+  ┌─────────────────────────────────────────┐
+  │                                         │
+  ▼                                         │
+RED: Write a                              │
+failing test        ──► GREEN: Write      │
+(test first!)              minimum code   │
+                           to pass test   │
+                               │          │
+                               ▼          │
+                         REFACTOR:        │
+                         Clean up code    │
+                         (tests still     │
+                          pass)  ─────────┘
+</div>
+<h3>TDD Security Benefits</h3>
+<ul>
+  <li>Security requirements expressed as tests from the start (e.g., "input with SQL characters should be rejected")</li>
+  <li>Regression protection — any code change that breaks a security test is immediately caught</li>
+  <li>Forces developers to think about edge cases and failure modes before writing code</li>
+  <li>Building security tests into the test suite ensures they're run on every build</li>
+</ul>
+<div class="key-concept callout">
+  <strong>BDD (Behavior-Driven Development):</strong> Extension of TDD that writes tests in natural language ("Given... When... Then...") to describe expected behavior. Security-focused BDD: "Given a user without admin privileges, When they access the admin page, Then they should receive a 403 Forbidden response." Tools: Cucumber, SpecFlow.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Complete Testing Comparison</h2>
+<table>
+  <tr><th>Test Type</th><th>What It Tests</th><th>Who Performs</th><th>When in SDLC</th></tr>
+  <tr><td>Unit</td><td>Individual functions/methods</td><td>Developers</td><td>Coding phase</td></tr>
+  <tr><td>Integration</td><td>Module interactions/interfaces</td><td>Developers / QA</td><td>After unit testing</td></tr>
+  <tr><td>System</td><td>Complete system vs. requirements</td><td>QA team</td><td>After integration</td></tr>
+  <tr><td>UAT (Acceptance)</td><td>Business requirements met?</td><td>End users / stakeholders</td><td>Before go-live</td></tr>
+  <tr><td>Regression</td><td>Existing features still work after changes</td><td>Automated / QA</td><td>After every change</td></tr>
+  <tr><td>Smoke</td><td>Basic functionality of new build</td><td>QA / automated</td><td>After each build/deploy</td></tr>
+  <tr><td>Load</td><td>Performance at expected peak</td><td>Performance team</td><td>Pre-production</td></tr>
+  <tr><td>Stress</td><td>Breaking point beyond capacity</td><td>Performance team</td><td>Pre-production</td></tr>
+  <tr><td>Volume</td><td>Large data set handling</td><td>Performance / DB team</td><td>Pre-production</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Testing Levels — "U-I-S-A"</strong><br>
+  <strong>U</strong>nit → <strong>I</strong>ntegration → <strong>S</strong>ystem → <strong>A</strong>cceptance<br>
+  "USA-I" — scope increases from smallest (unit) to largest (acceptance)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Load vs. Stress vs. Volume</strong><br>
+  <strong>Load</strong> = expected USERS (how many people can use it?)<br>
+  <strong>Stress</strong> = BEYOND limits (what breaks it?)<br>
+  <strong>Volume</strong> = DATA size (how much data can it handle?)<br>
+  "LSV: Load=Users, Stress=Limits, Volume=Data"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 TDD = "Red-Green-Refactor"</strong><br>
+  <strong>Red</strong> = test fails (you haven't written the code yet)<br>
+  <strong>Green</strong> = test passes (you wrote minimal code)<br>
+  <strong>Refactor</strong> = clean up (improve code quality, tests still pass)<br>
+  Test FIRST, then code — the opposite of traditional development
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Smoke vs. Regression</strong><br>
+  <strong>Smoke</strong> = "Can it turn on without catching fire?" (quick, basic check)<br>
+  <strong>Regression</strong> = "Did we accidentally break something that was working?" (comprehensive recheck)
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Unit testing</td><td>Tests smallest code units (functions/methods); written by developers; first testing level</td></tr>
+  <tr><td>Integration testing</td><td>Tests module-to-module interactions; validates interfaces and data flow between components</td></tr>
+  <tr><td>System testing</td><td>Tests complete system against requirements; independent QA team; production-like environment</td></tr>
+  <tr><td>UAT</td><td>End users validate business requirements; last gate before production; alpha (dev site) / beta (user site)</td></tr>
+  <tr><td>Regression testing</td><td>Ensures existing functionality not broken by changes; run after EVERY change; automated</td></tr>
+  <tr><td>Smoke testing</td><td>Quick basic functionality check of new build; "does it turn on?"; precedes full testing</td></tr>
+  <tr><td>Load testing</td><td>Performance at expected peak users; validates capacity planning</td></tr>
+  <tr><td>Stress testing</td><td>Pushed beyond capacity to find breaking point; validates failure mode and recovery</td></tr>
+  <tr><td>Volume testing</td><td>Performance with large data volumes; validates database and storage handling</td></tr>
+  <tr><td>TDD</td><td>Write test BEFORE code; Red-Green-Refactor cycle; builds security tests into test suite from start</td></tr>
+  <tr><td>V-Model</td><td>Maps each development phase to a corresponding test level (Requirements↔UAT, Design↔System/Integration, Code↔Unit)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-091-theory.html" class="nav-btn">← Day 91: Code Review &amp; Analysis</a>
+  <a href="day-093-theory.html" class="nav-btn">Day 93: Specialized Testing →</a>
+</div>
+</div>
+</body>
+</html>

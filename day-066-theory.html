@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 66 – Secure Communications</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 66 – Secure Communications</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 66 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-065-theory.html">← Day 65: Email Security</a> · Domain 4 · Day 66</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. TLS 1.3 – Transport Layer Security</a></li>
+  <li><a href="#s4">4. HTTPS – HTTP over TLS</a></li>
+  <li><a href="#s5">5. SSH – Secure Shell</a></li>
+  <li><a href="#s6">6. Secure File Transfer Protocols</a></li>
+  <li><a href="#s7">7. Voice Security: VoIP and SIP</a></li>
+  <li><a href="#s8">8. SRTP – Secure Real-Time Transport Protocol</a></li>
+  <li><a href="#s9">9. Secure Messaging – Signal Protocol</a></li>
+  <li><a href="#s10">10. Common Secure Communications Ports</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════ S1 ═══════════════ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>CISSP expects candidates to know which protocols provide confidentiality, integrity, and authentication at each layer—and to distinguish between protocols that are secure by design, upgraded versions (TLS 1.3 vs. 1.2), and deprecated protocols (SSLv3, TLS 1.0/1.1). The exam frequently presents a protocol description and asks which is most secure, or presents a network scenario requiring a secure replacement for an insecure protocol.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which protocol provides in-transit encryption for web traffic?"; "An admin needs to securely manage a remote server via command line — which protocol?"; "Which secure file-transfer protocol encapsulates FTP inside SSH?"; "What replaces RTP to provide confidentiality for VoIP media streams?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 35 (TLS uses symmetric + asymmetric crypto); Day 48 (RSA/ECC used in TLS handshake); Day 29–32 (PKI provides TLS certificates); Day 62 (VPN uses TLS or IPSec for tunneling); Day 65 (SMTP over TLS)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>SFTP ≠ FTPS. SFTP is FTP-like functionality tunneled over SSH (port 22). FTPS is FTP with TLS/SSL (ports 989/990). SSH replaces Telnet, rlogin, rsh — all unencrypted. TLS 1.3 removed RSA key exchange — all key exchanges now use ephemeral Diffie-Hellman (forward secrecy mandatory). HTTPS on its own is only as good as the TLS certificate validation; HSTS prevents downgrade.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S2 ═══════════════ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Organizational Context</th></tr>
+  <tr><td><strong>TLS everywhere mandate</strong></td><td>"HTTPS by default" is now a baseline security requirement. Browsers mark HTTP sites as "Not Secure." PCI-DSS, HIPAA, and most frameworks require encryption in transit. TLS 1.0 and 1.1 are deprecated — modern compliance requires TLS 1.2+ (TLS 1.3 preferred).</td></tr>
+  <tr><td><strong>SSH key management</strong></td><td>Organizations often accumulate thousands of unmanaged SSH keys (authorized_keys entries). Unmanaged keys represent persistent unauthorized access paths. Privileged Access Management (PAM) tools and SSH certificate authorities address this at scale.</td></tr>
+  <tr><td><strong>VoIP security gap</strong></td><td>Many organizations deploy VoIP (Cisco UCM, Microsoft Teams Phone) but neglect to enable SRTP for media encryption. Eavesdropping on VoIP traffic on internal networks is trivial without SRTP — call recordings are plaintext.</td></tr>
+  <tr><td><strong>Secure messaging</strong></td><td>End-to-end encrypted messaging (Signal, WhatsApp E2E, iMessage) has become standard for sensitive communications. Organizations increasingly allow or require Signal for incident response communications, especially during breach response where email infrastructure may be compromised.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S3 ═══════════════ -->
+<section id="s3">
+<h2>3. TLS 1.3 – Transport Layer Security</h2>
+<div class="callout definition">
+  <strong>📖 TLS (Transport Layer Security):</strong> The dominant protocol for securing point-to-point communications over the internet. Provides confidentiality (encryption), integrity (MAC/AEAD), and server authentication (PKI certificate). TLS 1.3 (RFC 8446, 2018) is the current version — significantly simplified and hardened versus TLS 1.2.
+</div>
+
+<h3>TLS 1.3 Handshake (Simplified)</h3>
+<div class="diagram">
+TLS 1.3 Handshake — 1-RTT (1 Round-Trip):
+
+Client                                   Server
+  │── ClientHello ─────────────────────────►│
+  │   (TLS version, cipher suites,          │
+  │    client key_share [ECDHE])            │
+  │                                         │
+  │◄── ServerHello ─────────────────────────│
+  │    (selected cipher suite,              │
+  │     server key_share [ECDHE],           │
+  │     Certificate + CertificateVerify,    │
+  │     Finished [all messages MACed])      │
+  │                                         │
+  │── Finished ─────────────────────────────►│
+  │   (client MAC over all handshake msgs)  │
+  │                                         │
+  │◄══════ Application Data (encrypted) ════│
+           [Session established — 1 RTT]
+</div>
+
+<table>
+  <tr><th>Feature</th><th>TLS 1.2</th><th>TLS 1.3</th></tr>
+  <tr><td><strong>Handshake RTT</strong></td><td>2 RTT (more round trips)</td><td>1 RTT (faster)</td></tr>
+  <tr><td><strong>Key exchange</strong></td><td>RSA (static), DHE, ECDHE</td><td>ECDHE or DHE only — RSA key exchange removed</td></tr>
+  <tr><td><strong>Forward secrecy</strong></td><td>Optional (only with DHE/ECDHE cipher suites)</td><td>Mandatory (all key exchange uses ephemeral DH)</td></tr>
+  <tr><td><strong>Cipher suites</strong></td><td>Many, including weak options (RC4, 3DES, NULL)</td><td>Only 5 AEAD cipher suites (AES-GCM, ChaCha20-Poly1305)</td></tr>
+  <tr><td><strong>Encryption scope</strong></td><td>Post-handshake only; much of handshake is plaintext</td><td>Most of handshake is encrypted (certificate now encrypted)</td></tr>
+  <tr><td><strong>Removed features</strong></td><td>N/A</td><td>Removed: RSA key exchange, static DH, RC4, 3DES, MD5, SHA-1, compression, renegotiation</td></tr>
+  <tr><td><strong>0-RTT resumption</strong></td><td>Session resumption (session ID / ticket)</td><td>0-RTT ("early data") for session resumption — replay risk acknowledged</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Forward Secrecy:</strong> Even if the server's long-term private key is compromised later, past session recordings cannot be decrypted. Requires ephemeral key exchange (DHE/ECDHE) — a new temporary key pair is generated for each session and discarded after. TLS 1.3 makes this mandatory. TLS 1.2 with RSA key exchange does NOT provide forward secrecy.
+</div>
+</section>
+
+<!-- ═══════════════ S4 ═══════════════ -->
+<section id="s4">
+<h2>4. HTTPS – HTTP over TLS</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>What it is</strong></td><td>HTTP carried inside a TLS tunnel. Server certificate authenticates the server's identity. All HTTP content (headers, body, URL path and query string) is encrypted. Port 443 (plaintext HTTP uses port 80).</td></tr>
+  <tr><td><strong>Certificate types</strong></td><td><strong>DV (Domain Validated):</strong> CA verifies domain ownership only — fast and cheap; browser padlock shown. <strong>OV (Organization Validated):</strong> CA verifies organization legal existence. <strong>EV (Extended Validation):</strong> Rigorous identity verification; historically showed green bar (browsers removed EV UI in 2019). All types encrypt equally well.</td></tr>
+  <tr><td><strong>HSTS</strong></td><td>HTTP Strict Transport Security — server instructs browser to always use HTTPS for the domain for a set max-age (e.g., 1 year). Prevents SSL stripping attacks. HSTS preloading bakes the policy into browsers' hardcoded list — enforced even on first visit.</td></tr>
+  <tr><td><strong>Certificate Transparency (CT)</strong></td><td>All publicly-trusted TLS certificates must be logged in public CT logs. Enables detection of unauthorized certificates issued for a domain. Used with CAA DNS records (limits which CAs may issue for your domain).</td></tr>
+  <tr><td><strong>Certificate pinning</strong></td><td>Application hardcodes the expected certificate or public key — rejects connections presenting any other certificate, even if signed by a trusted CA. Prevents CA compromise / MitM via rogue CA. Difficult to maintain (pin rotation complexity).</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S5 ═══════════════ -->
+<section id="s5">
+<h2>5. SSH – Secure Shell</h2>
+<div class="callout definition">
+  <strong>📖 SSH (Secure Shell — RFC 4251-4254):</strong> A cryptographic network protocol for secure remote access (terminal/shell), remote command execution, secure file transfer (SFTP/SCP), and port forwarding (tunneling). Replaces plaintext equivalents: Telnet (23), rlogin (513), rsh (514). SSH uses port 22 by default.
+</div>
+
+<table>
+  <tr><th>SSH Component</th><th>Function</th></tr>
+  <tr><td><strong>SSH Transport Layer</strong></td><td>Provides server authentication, encryption, and integrity. Key exchange (typically ECDH or Diffie-Hellman), then AES-GCM or ChaCha20-Poly1305 for data.</td></tr>
+  <tr><td><strong>SSH User Authentication</strong></td><td>Authenticates the client to the server. Methods: password (weak — brute-forceable), public key (preferred — client proves possession of private key corresponding to an authorized_keys entry), GSSAPI/Kerberos.</td></tr>
+  <tr><td><strong>SSH Connection Protocol</strong></td><td>Multiplexes the encrypted transport into multiple logical channels: interactive shell sessions, tunneled TCP connections, SFTP subsystem, X11 forwarding.</td></tr>
+</table>
+
+<h3>SSH Public Key Authentication Flow</h3>
+<div class="diagram">
+Client setup: ssh-keygen → generates id_rsa (private) + id_rsa.pub (public)
+              Copy id_rsa.pub to server's ~/.ssh/authorized_keys
+
+Connection:
+  Client ─── "I want to authenticate as user 'alice' using key fingerprint X" ──► Server
+  Server: "Is fingerprint X in alice's authorized_keys?" → YES
+  Server ─── "Prove it: here is a challenge encrypted with your public key" ──────► Client
+  Client: Decrypt challenge with private key; sign with private key ──────────────► Server
+  Server: Verify signature with stored public key → Auth GRANTED
+</div>
+
+<table>
+  <tr><th>SSH Security Hardening</th><th>Detail</th></tr>
+  <tr><td>Disable password auth</td><td>Use public key only (PasswordAuthentication no in sshd_config)</td></tr>
+  <tr><td>Disable root login</td><td>PermitRootLogin no — force users to log in as normal user then sudo</td></tr>
+  <tr><td>Change default port</td><td>Move SSH off port 22 — reduces automated scanning noise (not a true security control, security through obscurity)</td></tr>
+  <tr><td>Key management</td><td>Audit authorized_keys entries; use SSH certificate authorities for scalable key management; rotate old keys</td></tr>
+  <tr><td>SSH tunneling caution</td><td>SSH can tunnel arbitrary TCP traffic — can be used to bypass firewall controls. Restrict with AllowTcpForwarding no for non-admin users.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S6 ═══════════════ -->
+<section id="s6">
+<h2>6. Secure File Transfer Protocols</h2>
+<div class="callout warning">
+  <strong>⚠️ Classic Exam Trap — SFTP vs FTPS vs SCP:</strong> These three are commonly confused. SFTP and SCP both run over SSH (port 22 only). FTPS runs FTP with TLS (different ports, different protocol). Plain FTP (port 21) and Telnet (port 23) are unencrypted and should never be used.
+</div>
+
+<table>
+  <tr><th>Protocol</th><th>Full Name</th><th>Underlying Protocol</th><th>Port(s)</th><th>Notes</th></tr>
+  <tr><td><strong>SFTP</strong></td><td>SSH File Transfer Protocol</td><td>SSH subsystem</td><td>22</td><td>Full-featured file management (list, delete, rename, download, upload) over SSH. No separate control/data channels. Most used secure file transfer protocol today.</td></tr>
+  <tr><td><strong>SCP</strong></td><td>Secure Copy Protocol</td><td>SSH</td><td>22</td><td>Simple one-way file copy over SSH. No directory listing or management. Faster than SFTP for simple copies. Being replaced by SFTP in modern tools.</td></tr>
+  <tr><td><strong>FTPS</strong></td><td>FTP Secure (FTP over TLS)</td><td>FTP + TLS</td><td>990 (implicit), 21+STARTTLS (explicit)</td><td>Standard FTP protocol with TLS encryption layer. Uses two channels (control + data) — NAT-unfriendly. Explicit FTPS (AUTH TLS command on port 21) vs. Implicit FTPS (TLS from session start on port 990).</td></tr>
+  <tr><td><strong>FTP</strong></td><td>File Transfer Protocol</td><td>TCP</td><td>21 (control), 20 (data)</td><td>PLAINTEXT — credentials and data sent unencrypted. Never use over untrusted networks. Should be disabled on all production systems.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S7 ═══════════════ -->
+<section id="s7">
+<h2>7. Voice Security: VoIP and SIP</h2>
+<div class="callout definition">
+  <strong>📖 VoIP (Voice over IP):</strong> Transmission of voice communications as digital packets over IP networks. Enables telephone services over the internet or corporate IP networks. Introduces security challenges absent from traditional PSTN telephony.
+</div>
+
+<table>
+  <tr><th>Protocol</th><th>Role</th><th>Security Concern</th></tr>
+  <tr><td><strong>SIP (Session Initiation Protocol)</strong></td><td>Signaling: sets up, modifies, tears down voice/video sessions. Port 5060 (UDP/TCP), 5061 (TLS). Analogous to the "dialing" function.</td><td>Unencrypted SIP reveals who is calling whom (metadata). SIP can be exploited for toll fraud (unauthorized calls), registration hijacking (impersonate a user), DoS (INVITE flood). Secure SIP uses TLS (SIPS — port 5061).</td></tr>
+  <tr><td><strong>RTP (Real-Time Transport Protocol)</strong></td><td>Carries actual voice/video media stream. UDP-based (low latency). No built-in security.</td><td>RTP streams are plaintext — voice calls can be intercepted and reassembled from captured packets using Wireshark + VoIP call flow tools. SRTP replaces RTP to add encryption.</td></tr>
+  <tr><td><strong>H.323</strong></td><td>Older VoIP signaling standard (ITU-T). Largely replaced by SIP in enterprise.</td><td>Complex protocol suite; harder to firewall. Limited modern support.</td></tr>
+</table>
+
+<h3>VoIP Security Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th></tr>
+  <tr><td><strong>Eavesdropping</strong></td><td>Capture RTP packets on LAN (via ARP poisoning or switch SPAN port) and reassemble call audio. Wireshark has a built-in "Telephony → RTP → Play Streams" feature. Mitigated by SRTP.</td></tr>
+  <tr><td><strong>Toll Fraud</strong></td><td>Exploit SIP registration weaknesses to make calls billed to the victim organization. Common with misconfigured SIP trunks. Can result in five-figure phone bills overnight.</td></tr>
+  <tr><td><strong>SPIT (Spam over Internet Telephony)</strong></td><td>VoIP equivalent of email spam — automated calls to VoIP endpoints.</td></tr>
+  <tr><td><strong>VLAN-hopping for VoIP</strong></td><td>VoIP phones are typically on a dedicated voice VLAN. Switch misconfigurations can allow attacker on data VLAN to access voice VLAN and intercept calls.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S8 ═══════════════ -->
+<section id="s8">
+<h2>8. SRTP – Secure Real-Time Transport Protocol</h2>
+<div class="callout definition">
+  <strong>📖 SRTP (Secure Real-Time Transport Protocol — RFC 3711):</strong> An extension of RTP that adds encryption, message authentication, and replay protection to VoIP and multimedia streams. Provides confidentiality for voice/video media. Only encrypts the media (payload). SIP signaling must be separately secured with TLS.
+</div>
+
+<table>
+  <tr><th>SRTP Feature</th><th>Detail</th></tr>
+  <tr><td><strong>Encryption</strong></td><td>AES in Counter Mode (AES-CTR) or AES-f8 mode. Encrypts the RTP payload (voice data). RTP header remains unencrypted for routing.</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>HMAC-SHA1 message authentication code on each packet — detects packet tampering.</td></tr>
+  <tr><td><strong>Replay protection</strong></td><td>Sequence numbers with a sliding window — replayed packets rejected.</td></tr>
+  <tr><td><strong>Key management</strong></td><td>SRTP keys are typically derived via ZRTP (peer-to-peer) or negotiated via SDP security descriptions (SDES) within SIP signaling (requires SIP/TLS to protect key exchange).</td></tr>
+  <tr><td><strong>What SRTP does NOT protect</strong></td><td>Call metadata (who called whom, when, duration) — visible in SIP headers. Requires TLS-protected SIP for metadata confidentiality.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S9 ═══════════════ -->
+<section id="s9">
+<h2>9. Secure Messaging – Signal Protocol</h2>
+<div class="callout definition">
+  <strong>📖 Signal Protocol (formerly Axolotl):</strong> A cryptographic protocol developed by Open Whisper Systems providing end-to-end encryption for instant messaging with forward secrecy and break-in recovery. Used by Signal, WhatsApp, Facebook Messenger (Secret Conversations), and others.
+</div>
+
+<table>
+  <tr><th>Signal Protocol Feature</th><th>How It Works</th></tr>
+  <tr><td><strong>End-to-End Encryption (E2EE)</strong></td><td>Only sender and recipient can decrypt messages. The messaging server sees only ciphertext — cannot read messages. This contrasts with server-side encryption where the server can access plaintext.</td></tr>
+  <tr><td><strong>Double Ratchet Algorithm</strong></td><td>Combines a Diffie-Hellman ratchet (forward secrecy — new DH key per session) and a symmetric-key ratchet (new message key per message). Provides per-message forward secrecy AND break-in recovery (if a key is compromised, past and future messages remain secure).</td></tr>
+  <tr><td><strong>Extended Triple Diffie-Hellman (X3DH)</strong></td><td>Asynchronous key agreement for establishing initial session keys even when one party is offline. Uses pre-published one-time prekeys (signed by the recipient). Enables asynchronous secure messaging.</td></tr>
+  <tr><td><strong>Forward secrecy</strong></td><td>Compromise of today's message key does not reveal past messages — past keys are erased after use.</td></tr>
+  <tr><td><strong>Break-in recovery (future secrecy)</strong></td><td>Even if an attacker obtains current session state, future messages become secure again after sufficient ratchet steps.</td></tr>
+  <tr><td><strong>CISSP relevance</strong></td><td>Understand E2EE vs. transit encryption and server-side encryption distinction. E2EE means only communicating parties can decrypt — not the service provider. This creates lawful intercept challenges but provides maximum confidentiality.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════ S10 ═══════════════ -->
+<section id="s10">
+<h2>10. Common Secure Communications Ports</h2>
+<table>
+  <tr><th>Protocol</th><th>Port</th><th>Insecure Predecessor</th><th>Insecure Port</th></tr>
+  <tr><td>HTTPS (HTTP over TLS)</td><td>443</td><td>HTTP</td><td>80</td></tr>
+  <tr><td>SSH</td><td>22</td><td>Telnet / rlogin / rsh</td><td>23 / 513 / 514</td></tr>
+  <tr><td>SFTP / SCP (over SSH)</td><td>22</td><td>FTP</td><td>21 (control), 20 (data)</td></tr>
+  <tr><td>FTPS Implicit (FTP+TLS)</td><td>990</td><td>FTP</td><td>21</td></tr>
+  <tr><td>SMTPS (SMTP+TLS)</td><td>465</td><td>SMTP</td><td>25</td></tr>
+  <tr><td>SMTP Submission (STARTTLS)</td><td>587</td><td>SMTP</td><td>25</td></tr>
+  <tr><td>IMAPS (IMAP+TLS)</td><td>993</td><td>IMAP</td><td>143</td></tr>
+  <tr><td>POP3S (POP3+TLS)</td><td>995</td><td>POP3</td><td>110</td></tr>
+  <tr><td>LDAPS (LDAP+TLS)</td><td>636</td><td>LDAP</td><td>389</td></tr>
+  <tr><td>SIPS (SIP+TLS)</td><td>5061</td><td>SIP</td><td>5060</td></tr>
+  <tr><td>RDP over TLS</td><td>3389 (TLS wrapper)</td><td>RDP basic (no NLA)</td><td>3389</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Pattern:</strong> Nearly every plaintext protocol has a TLS-secured version. The pattern is: wrap in TLS (often add S suffix), assign a new well-known port. STARTTLS is the alternative approach — upgrade an existing plaintext connection to TLS mid-session using an explicit command (used by SMTP/IMAP/POP3).
+</div>
+</section>
+
+<!-- ═══════════════ S11 ═══════════════ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 SFTP vs FTPS — "FTP over SSH vs FTP over SSL":</strong><br>
+  <strong>SFTP</strong> = SSH-based file transfer (NOT Standard FTP) → port 22 only, no data channel<br>
+  <strong>FTPS</strong> = FTP + S(ecure) = FTP protocol with TLS overlay → ports 21 (explicit) / 990 (implicit)<br>
+  <strong>SCP</strong> = "Secure CoPy" over SSH → port 22, simple one-way copy, no directory listing
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 TLS 1.3 Key Changes — "No RSA, All Forward":</strong><br>
+  TLS 1.3 removed RSA key exchange entirely → <strong>every</strong> session now uses ephemeral DH → <strong>forward secrecy mandatory</strong><br>
+  Also removed: 3DES, RC4, SHA-1, MD5, compression, custom DH groups<br>
+  Cipher suites reduced to 5 AEAD-only options (AES-GCM, ChaCha20-Poly1305)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 VoIP Security — "SIP signals, RTP delivers, SRTP secures":</strong><br>
+  <strong>SIP</strong> = Session setup/teardown (signaling). Secure with TLS → SIPS on port 5061<br>
+  <strong>RTP</strong> = Real-time media stream (voice packets). Plaintext by default<br>
+  <strong>SRTP</strong> = RTP + encryption (AES-CTR) + auth (HMAC-SHA1). Replaces RTP for secure calls<br>
+  Both SIP/TLS and SRTP required for complete VoIP confidentiality.
+</div>
+</section>
+
+<!-- ═══════════════ S12 ═══════════════ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>TLS 1.3</td><td>Mandatory forward secrecy (no RSA key exchange); 1-RTT handshake; only AEAD cipher suites; most of handshake encrypted</td></tr>
+  <tr><td>Forward secrecy</td><td>Ephemeral DH/ECDH key exchange; session keys discarded after use; past traffic cannot be decrypted if private key later compromised</td></tr>
+  <tr><td>HTTPS</td><td>HTTP over TLS port 443; HSTS prevents downgrade to HTTP; CT logs detect unauthorized certs; CAA restricts issuing CAs</td></tr>
+  <tr><td>SSH</td><td>Secure shell port 22; replaces Telnet (23); public key auth preferred over password; used for host management, SFTP, SCP, tunneling</td></tr>
+  <tr><td>SFTP vs FTPS</td><td>SFTP = SSH subsystem (port 22); FTPS = FTP + TLS (ports 990/21); SCP = simple SSH file copy (port 22); plain FTP = unencrypted (port 21) — never use</td></tr>
+  <tr><td>SIP security</td><td>SIPS (SIP+TLS) on port 5061 secures signaling; plain SIP on port 5060 is unencrypted — allows call metadata interception and toll fraud</td></tr>
+  <tr><td>RTP → SRTP</td><td>SRTP adds AES-CTR encryption + HMAC-SHA1 auth to voice media streams; needed to prevent VoIP eavesdropping on LAN</td></tr>
+  <tr><td>Signal Protocol</td><td>E2EE with Double Ratchet providing per-message forward secrecy + break-in recovery; X3DH for async session setup; used by Signal, WhatsApp</td></tr>
+  <tr><td>STARTTLS</td><td>Upgrade plaintext connection to TLS mid-session; used by SMTP (587), IMAP (143), POP3 (110); distinct from native TLS (implicit) ports</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-065-theory.html" class="nav-btn">← Day 65: Email Security</a>
+  <a href="day-067-theory.html" class="nav-btn">Day 67: CDN &amp; Network Optimization →</a>
+</div>
+</div>
+</body>
+</html>

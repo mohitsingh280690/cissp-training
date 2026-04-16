@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 124 – Web Application Security – Part 2</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 124 – Web Application Security – Part 2</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 124 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate–Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-123-theory.html">← Day 123: Web App Security – Part 1</a> · Domain 8 · Day 124</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Session Management Security</a></li>
+  <li><a href="#s4">4. Authentication &amp; Credential Flaws</a></li>
+  <li><a href="#s5">5. Server-Side Request Forgery (SSRF)</a></li>
+  <li><a href="#s6">6. Clickjacking &amp; UI Redress</a></li>
+  <li><a href="#s7">7. Security Headers</a></li>
+  <li><a href="#s8">8. Web Application Firewalls (WAF)</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security</td></tr>
+  <tr><td>Why Tested</td><td>Session management, authentication failures, SSRF, and security headers are high-frequency CISSP topics. Candidates must understand how web sessions work, how they're attacked, and server-side protections</td></tr>
+  <tr><td>Question Style</td><td>"Which cookie attribute prevents JavaScript from reading the session cookie?" (HttpOnly). "Session fixation can be mitigated by…?" (Regenerating session ID after authentication)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 123 (XSS/CSRF); Day 65-66 (Identity &amp; Access Management); Domain 4 (network controls)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Session hijacking and authentication bypass attacks account for a large portion of data breaches. Weak session management lets attackers impersonate legitimate users without needing their credentials. With cloud/SaaS adoption, organizations increasingly depend on web-based authentication flows (OAuth, SAML, OIDC), making secure session handling and authentication architecture critical for enterprise security posture.</p>
+</section>
+
+<section id="s3">
+<h2>3. Session Management Security</h2>
+<div class="definition callout">
+  <strong>Session Management:</strong> HTTP is stateless — each request is independent. Sessions provide continuity by assigning a unique session ID (token) after authentication, stored in cookies. The server validates this token with each request to maintain the authenticated state.
+</div>
+
+<h3>Session Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defense</th></tr>
+  <tr><td><strong>Session hijacking</strong></td><td>Stealing an active session ID (via network sniffing, XSS, log exposure) to impersonate the user</td><td>HTTPS everywhere; HttpOnly cookies; Secure flag; short session timeouts</td></tr>
+  <tr><td><strong>Session fixation</strong></td><td>Attacker sets a known session ID before victim logs in; after authentication, attacker uses the same ID</td><td>Regenerate session ID after successful authentication (critical defense)</td></tr>
+  <tr><td><strong>Session prediction</strong></td><td>Guessing valid session IDs due to weak randomness (sequential, predictable patterns)</td><td>Use cryptographically secure random number generators for session IDs; sufficient length (128+ bits)</td></tr>
+  <tr><td><strong>Session replay</strong></td><td>Capturing and replaying a valid session token at a later time</td><td>Short expiration; bind session to client IP/fingerprint; use nonces</td></tr>
+</table>
+
+<h3>Secure Cookie Attributes</h3>
+<table>
+  <tr><th>Attribute</th><th>Purpose</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Secure</strong></td><td>Cookie only sent over HTTPS</td><td>Prevents transmission over unencrypted HTTP; stops network sniffing of session ID</td></tr>
+  <tr><td><strong>HttpOnly</strong></td><td>Cookie inaccessible to JavaScript</td><td>Prevents XSS from stealing session cookies via <code>document.cookie</code></td></tr>
+  <tr><td><strong>SameSite</strong></td><td>Controls cross-site cookie sending</td><td>Prevents CSRF; Strict (never cross-site) or Lax (safe methods only)</td></tr>
+  <tr><td><strong>Domain/Path</strong></td><td>Limits which URLs receive the cookie</td><td>Restricts cookie scope to intended application</td></tr>
+  <tr><td><strong>Expires/Max-Age</strong></td><td>Controls cookie lifetime</td><td>Short-lived sessions reduce window of exploitation</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Session Fixation vs Session Hijacking:</strong><br>
+  • <strong>Fixation:</strong> Attacker sets the session ID BEFORE authentication (pre-login attack)<br>
+  • <strong>Hijacking:</strong> Attacker steals the session ID AFTER authentication (post-login attack)<br>
+  • <strong>Fixation defense:</strong> Regenerate session ID after login<br>
+  • <strong>Hijacking defense:</strong> HTTPS + HttpOnly + Secure cookie flags
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Authentication &amp; Credential Flaws</h2>
+<table>
+  <tr><th>Flaw</th><th>Description</th><th>Defense</th></tr>
+  <tr><td><strong>Credential stuffing</strong></td><td>Automated login attempts using leaked username/password pairs from other breaches</td><td>MFA; rate limiting; account lockout; CAPTCHA; credential breach detection</td></tr>
+  <tr><td><strong>Brute force</strong></td><td>Systematically trying all possible passwords</td><td>Account lockout after N attempts; progressive delays; MFA; strong password policies</td></tr>
+  <tr><td><strong>Password spraying</strong></td><td>Trying common passwords across many accounts (avoids lockout)</td><td>MFA; detect distributed login patterns; ban common passwords</td></tr>
+  <tr><td><strong>Default credentials</strong></td><td>Using manufacturer-default usernames/passwords left unchanged</td><td>Force password change on first login; remove default accounts; scan for defaults</td></tr>
+  <tr><td><strong>Insecure password recovery</strong></td><td>Weak "forgot password" — security questions with guessable answers, reset links in email without expiration</td><td>Token-based reset with short expiration; MFA for recovery; no security questions</td></tr>
+</table>
+
+<h3>Secure Authentication Practices</h3>
+<ul style="margin:10px 0 10px 24px;">
+  <li><strong>Multi-factor authentication (MFA)</strong> — ALWAYS the best answer for authentication security on CISSP</li>
+  <li><strong>Bcrypt/Argon2/PBKDF2</strong> for password hashing (NOT MD5 or SHA alone)</li>
+  <li><strong>Salting</strong> — unique random value per password prevents rainbow table attacks</li>
+  <li><strong>Generic error messages</strong> — "Invalid username or password" (don't reveal which is wrong)</li>
+  <li><strong>Account lockout</strong> — lock after threshold; auto-unlock after delay (not permanent)</li>
+</ul>
+
+<div class="warning callout">
+  <strong>Permanent account lockout = denial of service risk.</strong> Attackers can intentionally lock out legitimate users. Best practice: temporary lockout with progressive delays, plus alerting.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Server-Side Request Forgery (SSRF)</h2>
+<div class="definition callout">
+  <strong>SSRF:</strong> An attacker makes the server send requests to unintended locations — internal services, cloud metadata endpoints, or other backend systems. The server acts as a proxy for the attacker, bypassing firewalls and ACLs that protect internal resources.
+</div>
+
+<h3>SSRF Attack Scenarios</h3>
+<table>
+  <tr><th>Scenario</th><th>Impact</th></tr>
+  <tr><td>Access cloud metadata (e.g., <code>169.254.169.254</code>)</td><td>Steal IAM credentials, API keys, instance metadata from AWS/GCP/Azure</td></tr>
+  <tr><td>Scan internal network</td><td>Discover internal services not exposed to the internet</td></tr>
+  <tr><td>Access internal APIs</td><td>Bypass authentication on internal services that trust server-to-server traffic</td></tr>
+  <tr><td>Read local files via file:// protocol</td><td>Access server configuration files, credentials</td></tr>
+</table>
+
+<h3>SSRF Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>Description</th></tr>
+  <tr><td><strong>Input validation</strong></td><td>Whitelist allowed URLs/domains/IP ranges; block private IP ranges (10.x, 172.16-31.x, 192.168.x, 127.x)</td></tr>
+  <tr><td><strong>Network segmentation</strong></td><td>Restrict server's outbound network access to only necessary destinations</td></tr>
+  <tr><td><strong>Disable unused protocols</strong></td><td>Block file://, gopher://, dict:// — only allow https://</td></tr>
+  <tr><td><strong>IMDSv2</strong></td><td>Cloud metadata service requiring session tokens (AWS); prevents simple SSRF metadata theft</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>SSRF is NEW in OWASP Top 10 (2021) at #10.</strong> It's particularly dangerous in cloud environments where cloud metadata APIs are accessible from the server. The Capital One breach (2019) was a famous SSRF attack exploiting AWS metadata.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Clickjacking &amp; UI Redress</h2>
+<div class="definition callout">
+  <strong>Clickjacking:</strong> An attacker loads a legitimate website in a transparent iframe overlaid on a malicious page. The victim thinks they're clicking on the attacker's page but actually clicks on the hidden legitimate site, performing unintended actions (changing settings, authorizing transactions).
+</div>
+
+<h3>Defenses</h3>
+<table>
+  <tr><th>Defense</th><th>Description</th></tr>
+  <tr><td><strong>X-Frame-Options header</strong></td><td>DENY (never framed) or SAMEORIGIN (only framed by same domain); prevents embedding in iframes</td></tr>
+  <tr><td><strong>CSP frame-ancestors</strong></td><td>Modern replacement: <code>Content-Security-Policy: frame-ancestors 'self'</code></td></tr>
+  <tr><td><strong>Frame-busting scripts</strong></td><td>JavaScript that detects if page is in iframe; legacy approach, less reliable than headers</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Security Headers</h2>
+<table>
+  <tr><th>Header</th><th>Purpose</th><th>Protects Against</th></tr>
+  <tr><td><strong>Content-Security-Policy (CSP)</strong></td><td>Whitelist allowed sources of scripts, styles, images, fonts</td><td>XSS, data injection, clickjacking (frame-ancestors)</td></tr>
+  <tr><td><strong>Strict-Transport-Security (HSTS)</strong></td><td>Forces browser to use HTTPS for all future requests to domain</td><td>SSL stripping, downgrade attacks</td></tr>
+  <tr><td><strong>X-Frame-Options</strong></td><td>Controls whether page can be embedded in iframe</td><td>Clickjacking</td></tr>
+  <tr><td><strong>X-Content-Type-Options</strong></td><td>Set to <code>nosniff</code> — prevents MIME type sniffing</td><td>MIME confusion attacks</td></tr>
+  <tr><td><strong>Referrer-Policy</strong></td><td>Controls how much referrer information is sent with requests</td><td>Information leakage via Referer header</td></tr>
+  <tr><td><strong>Permissions-Policy</strong></td><td>Controls which browser features (camera, mic, geolocation) the page can use</td><td>Feature abuse, privilege escalation</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Web Application Firewalls (WAF)</h2>
+<div class="definition callout">
+  <strong>WAF:</strong> A Layer 7 (application layer) firewall that inspects HTTP/HTTPS traffic for malicious patterns. Sits between clients and the web server. Can operate in positive model (whitelist) or negative model (blacklist/signature-based).
+</div>
+
+<table>
+  <tr><th>WAF Deployment</th><th>Description</th></tr>
+  <tr><td><strong>Inline/reverse proxy</strong></td><td>WAF intercepts all traffic; can block attacks in real-time; adds latency</td></tr>
+  <tr><td><strong>Out-of-band/passive</strong></td><td>WAF monitors copy of traffic; detection only (no blocking); no latency impact</td></tr>
+  <tr><td><strong>Cloud-based</strong></td><td>Managed WAF service (AWS WAF, Cloudflare, Akamai); scales automatically; subscription-based</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>WAF Limitations:</strong> A WAF is defense-in-depth, NOT a replacement for secure coding. It cannot protect against all attack variations (WAF bypass techniques exist). It cannot protect against business logic flaws. On CISSP, if asked for the BEST defense, secure coding practices (parameterized queries, output encoding) always beat WAF.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Cookie Attributes — "SHSD" (She Has Secure Data)</strong><br>
+  <strong>S</strong>ecure = HTTPS only<br>
+  <strong>H</strong>ttpOnly = Hide from JavaScript<br>
+  <strong>S</strong>ameSite = Stop CSRF<br>
+  <strong>D</strong>omain/Path = Define scope
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Session Fixation vs Hijacking</strong><br>
+  <strong>Fix</strong>ation = <strong>Fix</strong>ed BEFORE login (attacker pre-sets ID)<br>
+  <strong>Hi</strong>jacking = <strong>Hi</strong>-jacked AFTER login (attacker steals ID)<br>
+  Fix → Regenerate on login; Hijack → Protect the cookie
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Security Headers — "CHXRP" (Charlie Has eXtra Rad Protection)</strong><br>
+  <strong>C</strong>SP = XSS prevention<br>
+  <strong>H</strong>STS = Force HTTPS<br>
+  <strong>X</strong>-Frame-Options = Clickjacking<br>
+  <strong>R</strong>eferrer-Policy = Info leakage<br>
+  <strong>P</strong>ermissions-Policy = Feature control
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Session fixation</td><td>Attacker pre-sets session ID; defense: regenerate session ID AFTER authentication</td></tr>
+  <tr><td>Session hijacking</td><td>Attacker steals active session; defense: HTTPS + Secure + HttpOnly cookies</td></tr>
+  <tr><td>HttpOnly cookie</td><td>Prevents JavaScript access to cookies — mitigates XSS-based session theft</td></tr>
+  <tr><td>SameSite cookie</td><td>Prevents cross-site cookie sending — mitigates CSRF</td></tr>
+  <tr><td>SSRF</td><td>Server sends requests to attacker-chosen destinations; NEW in OWASP 2021 (#10)</td></tr>
+  <tr><td>Clickjacking</td><td>Transparent iframe overlay; defense: X-Frame-Options or CSP frame-ancestors</td></tr>
+  <tr><td>HSTS</td><td>Forces HTTPS; prevents SSL stripping/downgrade attacks</td></tr>
+  <tr><td>WAF</td><td>Layer 7 defense-in-depth; NOT a replacement for secure coding</td></tr>
+  <tr><td>MFA</td><td>ALWAYS the best answer for authentication security on CISSP</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-123-theory.html" class="nav-btn">← Day 123: Web App Security – Part 1</a>
+  <a href="day-125-theory.html" class="nav-btn">Day 125: Secure Coding Practices →</a>
+</div>
+</div>
+</body>
+</html>

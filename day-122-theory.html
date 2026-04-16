@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 122 – Database Security</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#bf360c,#e65100);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#ff6d00;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#bf360c;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#ff6d00;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#bf360c;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #ff6d00;}
+section h3{color:#e65100;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#fbe9e7;border-left:4px solid #ff6d00;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#fff3e0;border-left:4px solid #ff6d00;}
+.mnemonic strong{color:#bf360c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#bf360c;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#ff6d00;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#bf360c;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 122 – Database Security</h1>
+  <div class="subtitle">Domain 8 – Software Development Security (10%)</div>
+  <div class="meta">
+    <span>📅 Day 122 of 140</span>
+    <span>📚 Domain 8 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-121-theory.html">← Day 121: Programming Concepts &amp; Security</a> · Domain 8 · Day 122</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Database Models</a></li>
+  <li><a href="#s4">4. Relational Database Concepts</a></li>
+  <li><a href="#s5">5. Database Integrity &amp; ACID Properties</a></li>
+  <li><a href="#s6">6. Database Security Controls</a></li>
+  <li><a href="#s7">7. Data Warehousing &amp; Mining</a></li>
+  <li><a href="#s8">8. Database Attacks</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <tr><td><a href="#s10">10. Key Takeaways</a></td></tr>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>8 – Software Development Security (10%)</td></tr>
+  <tr><td>Why Tested</td><td>Database concepts (ACID, normalization, views, polyinstantiation) and database attacks (SQL injection, aggregation, inference) are heavily tested. Candidates must know relational db basics and how to protect database systems</td></tr>
+  <tr><td>Question Style</td><td>"Which ACID property ensures a transaction completes fully or not at all?" (Atomicity). "A view in a database provides…?" (Logical access control to underlying tables). "Combining unclassified data to derive classified information is called…?" (Inference or aggregation)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 2 (data classification); Day 123-124 (SQL injection in web apps); Domain 3 (multilevel security models)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Databases contain an organization's crown jewels — customer PII, financial records, healthcare data, intellectual property. Database breaches consistently result in the highest costs per incident. SQL injection remains in the OWASP Top 10 after 20+ years. Database activity monitoring, encryption at rest, and proper access controls are essential for compliance (PCI DSS, HIPAA, GDPR).</p>
+</section>
+
+<section id="s3">
+<h2>3. Database Models</h2>
+<table>
+  <tr><th>Model</th><th>Structure</th><th>Characteristics</th></tr>
+  <tr><td><strong>Relational (RDBMS)</strong></td><td>Tables (relations) with rows (tuples) and columns (attributes)</td><td>Most common; SQL; ACID compliance; strong integrity; normalized structure</td></tr>
+  <tr><td><strong>Hierarchical</strong></td><td>Tree structure; parent-child relationships; one parent per child</td><td>Fast for defined paths; rigid; IBM IMS; limited flexibility</td></tr>
+  <tr><td><strong>Network (mesh)</strong></td><td>Graph structure; many-to-many relationships; child can have multiple parents</td><td>More flexible than hierarchical; complex navigation; CODASYL</td></tr>
+  <tr><td><strong>Object-oriented (OODBMS)</strong></td><td>Stores objects (like OOP classes) with attributes and methods</td><td>Complex data types; multimedia; CAD; less common</td></tr>
+  <tr><td><strong>NoSQL</strong></td><td>Non-relational; key-value, document, column-family, graph</td><td>Scalable; flexible schema; big data; eventual consistency (BASE); MongoDB, Cassandra</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Relational Database Concepts</h2>
+<table>
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr><td><strong>Relation (Table)</strong></td><td>A two-dimensional table of data</td></tr>
+  <tr><td><strong>Tuple (Row)</strong></td><td>A single record in a table</td></tr>
+  <tr><td><strong>Attribute (Column)</strong></td><td>A specific field/property of the data</td></tr>
+  <tr><td><strong>Primary key</strong></td><td>Unique identifier for each row; cannot be NULL; ensures entity integrity</td></tr>
+  <tr><td><strong>Foreign key</strong></td><td>Links to primary key of another table; enforces referential integrity</td></tr>
+  <tr><td><strong>Schema</strong></td><td>The structure/blueprint of the database — tables, columns, types, relationships</td></tr>
+  <tr><td><strong>Domain</strong></td><td>The set of allowable values for an attribute (e.g., age must be 0-150)</td></tr>
+</table>
+
+<h3>Normalization</h3>
+<div class="definition callout">
+  <strong>Normalization</strong> is the process of organizing database tables to reduce redundancy and dependency. Each normal form (1NF → 2NF → 3NF → BCNF) progressively eliminates specific types of redundancy.
+</div>
+<table>
+  <tr><th>Form</th><th>Rule</th></tr>
+  <tr><td><strong>1NF</strong></td><td>No repeating groups; each cell contains a single atomic value</td></tr>
+  <tr><td><strong>2NF</strong></td><td>1NF + no partial dependencies (every non-key attribute depends on entire primary key)</td></tr>
+  <tr><td><strong>3NF</strong></td><td>2NF + no transitive dependencies (non-key attributes depend only on the primary key, not on other non-key attributes)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Normalization Security Benefit:</strong> Normalized databases reduce data redundancy, which means: (1) fewer places to update data → fewer inconsistencies; (2) smaller attack surface (data stored in one place); (3) access control is more precise (sensitive data isolated in specific tables).
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Database Integrity &amp; ACID Properties</h2>
+
+<h3>ACID Properties</h3>
+<table>
+  <tr><th>Property</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>A</strong>tomicity</td><td>Transaction completes FULLY or not at all (all-or-nothing)</td><td>Bank transfer: debit $100 from A AND credit $100 to B — both happen or neither happens</td></tr>
+  <tr><td><strong>C</strong>onsistency</td><td>Transaction brings database from one valid state to another valid state; all rules/constraints satisfied</td><td>After transfer: total balance across all accounts remains unchanged</td></tr>
+  <tr><td><strong>I</strong>solation</td><td>Concurrent transactions don't interfere with each other; each appears to execute sequentially</td><td>Two simultaneous transfers from same account don't create phantom money</td></tr>
+  <tr><td><strong>D</strong>urability</td><td>Once committed, transaction results are permanent even if system crashes</td><td>After "commit confirmed," the transfer survives a power outage</td></tr>
+</table>
+
+<h3>BASE Properties (NoSQL)</h3>
+<table>
+  <tr><th>Property</th><th>Description</th></tr>
+  <tr><td><strong>B</strong>asically <strong>A</strong>vailable</td><td>System guarantees availability (may serve stale data)</td></tr>
+  <tr><td><strong>S</strong>oft state</td><td>State may change over time even without input (due to eventual consistency)</td></tr>
+  <tr><td><strong>E</strong>ventual consistency</td><td>System will become consistent eventually, but not immediately after a write</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>ACID vs BASE:</strong> ACID (relational) prioritizes consistency and integrity — every read returns the latest write. BASE (NoSQL) prioritizes availability and partition tolerance — reads may return stale data temporarily. CAP Theorem: a distributed system can guarantee only two of three: Consistency, Availability, Partition tolerance.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Database Security Controls</h2>
+<table>
+  <tr><th>Control</th><th>Description</th></tr>
+  <tr><td><strong>Views</strong></td><td>Virtual tables showing only specific columns/rows; restrict what users can see without modifying underlying tables; provides logical access control</td></tr>
+  <tr><td><strong>Stored procedures</strong></td><td>Pre-compiled database operations; users call the procedure instead of writing raw SQL; prevents SQL injection if properly implemented</td></tr>
+  <tr><td><strong>Encryption at rest</strong></td><td>Transparent Data Encryption (TDE) — encrypts database files on disk; protects against physical theft</td></tr>
+  <tr><td><strong>Column-level encryption</strong></td><td>Encrypt specific sensitive columns (SSN, credit card); more granular than TDE</td></tr>
+  <tr><td><strong>Database Activity Monitoring (DAM)</strong></td><td>Monitors all database queries in real-time; detects anomalies, unauthorized access, policy violations</td></tr>
+  <tr><td><strong>RBAC in database</strong></td><td>GRANT/REVOKE permissions; roles define what operations users can perform on which tables</td></tr>
+</table>
+
+<h3>Polyinstantiation</h3>
+<div class="definition callout">
+  <strong>Polyinstantiation:</strong> Allowing multiple rows with the same primary key but different security classifications. Used in multilevel security (MLS) databases to prevent inference attacks. A user with SECRET clearance sees one version of a record; a user with TOP SECRET sees a different version with the actual data. Prevents lower-clearance users from inferring that classified data exists by seeing "access denied" on specific rows.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Data Warehousing &amp; Mining</h2>
+<table>
+  <tr><th>Concept</th><th>Definition</th><th>Security Concern</th></tr>
+  <tr><td><strong>Data warehouse</strong></td><td>Large repository combining data from multiple sources for analysis and reporting; read-optimized; historical data</td><td>Centralizes sensitive data; high-value target; requires strong access controls</td></tr>
+  <tr><td><strong>Data mining</strong></td><td>Analyzing large datasets to discover patterns, trends, and relationships</td><td>Can reveal patterns about individuals (privacy); may discover classified information from unclassified sources</td></tr>
+  <tr><td><strong>Data lake</strong></td><td>Repository storing raw data in native format (structured + unstructured)</td><td>Less structured than warehouse; harder to classify and protect; often stores everything "just in case"</td></tr>
+  <tr><td><strong>Metadata</strong></td><td>Data about data — describes structure, format, relationships, lineage</td><td>Metadata can reveal sensitive information even when the actual data is protected</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Database Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defense</th></tr>
+  <tr><td><strong>SQL Injection</strong></td><td>Inserting malicious SQL into application queries; can read, modify, or delete data; bypass authentication</td><td>Parameterized queries (prepared statements); input validation; stored procedures; least privilege; WAF</td></tr>
+  <tr><td><strong>Aggregation</strong></td><td>Combining multiple pieces of non-sensitive data to derive sensitive information; individually harmless, collectively classified</td><td>Access controls on aggregate queries; classify aggregated data at higher level</td></tr>
+  <tr><td><strong>Inference</strong></td><td>Deducing classified information from observable patterns or available unclassified data</td><td>Polyinstantiation; noise injection; restrict statistical queries; cell suppression</td></tr>
+  <tr><td><strong>Data diddling</strong></td><td>Unauthorized modification of data before or during entry into the system</td><td>Input validation; integrity checks; audit logging; separation of duties</td></tr>
+  <tr><td><strong>TOC/TOU</strong></td><td>Race condition in database operations — data changes between check and use</td><td>Proper locking; serializable isolation level; atomic transactions</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Aggregation vs Inference:</strong><br>
+  • <strong>Aggregation:</strong> Combining many pieces of low-classification data to create high-classification information. Think: collecting all employee salaries to derive total payroll budget.<br>
+  • <strong>Inference:</strong> DEDUCING sensitive information from available clues. Think: noticing that a classified field returns "access denied" reveals that something classified exists there.<br>
+  Both are database-specific threats tested on CISSP. <strong>Polyinstantiation</strong> specifically defends against inference.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 ACID — "All Changes Isolated and Durable"</strong><br>
+  <strong>A</strong>tomicity = All or nothing<br>
+  <strong>C</strong>onsistency = Constraints always satisfied<br>
+  <strong>I</strong>solation = Independent transactions<br>
+  <strong>D</strong>urability = Data survives crashes
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Aggregation vs Inference</strong><br>
+  <strong>Aggregation</strong> = Adding up (aggregate = sum) non-sensitive data to reach sensitive<br>
+  <strong>Inference</strong> = Inferring (guessing/deducing) sensitive data from clues<br>
+  "Aggregation = Addition; Inference = Intelligence"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Polyinstantiation — "Poly = Many versions"</strong><br>
+  Multiple instances of same record at different classification levels. Prevents inference by showing "cover" data to lower clearances instead of "access denied."
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Database Terms — "Relation = Table = R = Row is Tuple, Column is Attribute"</strong><br>
+  Table = Relation<br>
+  Row = Tuple = Record<br>
+  Column = Attribute = Field
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>ACID</td><td>Atomicity (all-or-nothing), Consistency (valid states), Isolation (independent), Durability (permanent)</td></tr>
+  <tr><td>BASE</td><td>Basically Available, Soft state, Eventually consistent — NoSQL trade-off for availability over consistency</td></tr>
+  <tr><td>Primary key</td><td>Unique identifier; ensures entity integrity; cannot be NULL</td></tr>
+  <tr><td>Foreign key</td><td>References another table's primary key; enforces referential integrity</td></tr>
+  <tr><td>Views</td><td>Virtual tables for logical access control; restrict visible data without modifying base tables</td></tr>
+  <tr><td>Normalization</td><td>Reduces redundancy; improves integrity; 1NF→2NF→3NF progressively eliminate dependencies</td></tr>
+  <tr><td>SQL injection</td><td>#1 database attack; defense: parameterized queries (prepared statements)</td></tr>
+  <tr><td>Aggregation</td><td>Combining low-sensitivity data to derive high-sensitivity information</td></tr>
+  <tr><td>Inference</td><td>Deducing classified info from clues; defense: polyinstantiation</td></tr>
+  <tr><td>Polyinstantiation</td><td>Multiple record versions at different classifications; prevents inference in MLS databases</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-121-theory.html" class="nav-btn">← Day 121: Programming Concepts</a>
+  <a href="day-123-theory.html" class="nav-btn">Day 123: Web App Security – Part 1 →</a>
+</div>
+</div>
+</body>
+</html>

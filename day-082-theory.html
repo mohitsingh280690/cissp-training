@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 82 – Session &amp; Credential Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00897b;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 82 – Session &amp; Credential Management</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (IAM)</div>
+  <div class="meta">
+    <span>📅 Day 82 of 140</span>
+    <span>📚 Domain 5 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-081-theory.html">← Day 81: Access Control Attacks</a> · Domain 5 · Day 82</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Session Tokens &amp; Cookies</a></li>
+  <li><a href="#s4">4. Session Fixation &amp; Session Hijacking</a></li>
+  <li><a href="#s5">5. Credential Storage — Hashing &amp; Salting</a></li>
+  <li><a href="#s6">6. Token Management (JWT, OAuth)</a></li>
+  <li><a href="#s7">7. Password Managers</a></li>
+  <li><a href="#s8">8. Passwordless Authentication — FIDO2 &amp; WebAuthn</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>5 – Identity and Access Management (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Session and credential management failures are among the most common application-layer vulnerabilities. CISSP candidates must understand secure design of authentication persistence, credential storage, and emerging passwordless standards</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "A developer stores passwords using MD5 without salts. What specific attack does this enable?" or "Which cookie attribute prevents JavaScript from reading a session token?" — mix of technical and conceptual</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 3 (cryptographic hash functions — bcrypt, Argon2); Domain 6 (pen testing application sessions); Domain 7 (incident response when sessions are hijacked); Domain 8 (OWASP A07 — Identification &amp; Authentication Failures)</td></tr>
+  <tr><td>Exam Traps</td><td>Thinking HTTPS alone protects cookies (it does not if the Secure flag is missing); confusing session fixation (attacker sets the session ID) with session hijacking (attacker steals an established session ID); confusing FIDO2 and WebAuthn (FIDO2 is the standard; WebAuthn is the browser API component)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p>The <strong>application development team</strong> is responsible for secure session management and credential storage. The <strong>security architecture team</strong> sets standards (e.g., "use bcrypt with cost factor 12"). The <strong>IAM team</strong> governs MFA and passwordless rollout. The <strong>SOC</strong> monitors for session anomalies.</p>
+<h3>Implementation Reality</h3>
+<p>OWASP's A07:2021 (Identification and Authentication Failures) highlights that weak credential storage and broken session management remain top-10 web vulnerabilities year after year. Leading organizations now mandate bcrypt/Argon2 for password hashing, HttpOnly+Secure cookie flags, and are actively migrating to passkeys (FIDO2) for consumer and employee authentication. Google and Apple both support passkeys natively in their platforms since 2022-2023.</p>
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>RockYou 2009:</strong> 32 million passwords stored in plaintext — enabled mass account takeovers across the internet via credential stuffing</li>
+  <li><strong>LinkedIn 2012:</strong> 117 million passwords hashed with unsalted SHA-1 — cracked within days using rainbow tables</li>
+  <li><strong>Session fixation in banking portals:</strong> Attacker sends a known session token via link; victim authenticates → attacker's session is now authenticated</li>
+</ul>
+<h3>Business Impact</h3>
+<p>Credential database breaches trigger regulatory notification obligations (GDPR: 72 hours), class action lawsuits, and reputational damage. Proper password storage (bcrypt/Argon2) dramatically reduces the window of exploitation if a database is stolen — a 12-round bcrypt hash takes ~100ms to crack per candidate vs. microseconds for MD5.</p>
+</section>
+
+<section id="s3">
+<h2>3. Session Tokens &amp; Cookies</h2>
+<div class="definition callout">
+  <strong>Session Token:</strong> A cryptographically random, opaque identifier issued by a server after successful authentication. It represents the authenticated session and is sent with every subsequent request to authorize access — replacing the need to re-transmit credentials.
+</div>
+
+<h3>Cookie Security Attributes</h3>
+<table>
+  <tr><th>Attribute</th><th>Purpose</th><th>What It Prevents</th></tr>
+  <tr><td><code>Secure</code></td><td>Cookie only sent over HTTPS</td><td>Cookie theft via network sniffing (MITM)</td></tr>
+  <tr><td><code>HttpOnly</code></td><td>JavaScript cannot access the cookie</td><td>Cross-Site Scripting (XSS) session theft</td></tr>
+  <tr><td><code>SameSite=Strict</code></td><td>Cookie not sent on cross-site requests</td><td>Cross-Site Request Forgery (CSRF)</td></tr>
+  <tr><td><code>SameSite=Lax</code></td><td>Sent on same-site navigation but not cross-site subresource requests</td><td>Partial CSRF protection</td></tr>
+  <tr><td><code>Domain</code></td><td>Limits cookie scope to specified domain</td><td>Cookie leakage to subdomains</td></tr>
+  <tr><td><code>Path</code></td><td>Limits cookie to specific URL path</td><td>Cookie leakage to unrelated paths</td></tr>
+  <tr><td><code>Max-Age / Expires</code></td><td>Cookie lifetime</td><td>Session persistence beyond intended duration</td></tr>
+</table>
+
+<h3>Session Token Requirements</h3>
+<ul>
+  <li><strong>Sufficient entropy:</strong> At least 128 bits of randomness (OWASP recommendation)</li>
+  <li><strong>Generated server-side:</strong> Client must never generate or predict its own session ID</li>
+  <li><strong>Regenerated on privilege elevation:</strong> New session token issued after login, after role change, after password change</li>
+  <li><strong>Server-side invalidation:</strong> Logout must destroy the server-side session record — client cookie deletion alone is insufficient</li>
+</ul>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> A session is only truly terminated when the server-side session record is destroyed. If only the client-side cookie is deleted, the session token remains valid and can be replayed.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Session Fixation &amp; Session Hijacking</h2>
+
+<h3>Session Fixation</h3>
+<div class="definition callout">
+  <strong>Session Fixation:</strong> The attacker establishes a known session token <em>before</em> the victim authenticates, then waits for the victim to log in using that token. Once authenticated, the attacker uses the same known token to access the victim's authenticated session.
+</div>
+<div class="diagram">
+1. Attacker visits site → gets session ID (SESS=ABC123)
+2. Attacker sends victim a link with that session ID embedded:
+   https://bank.com/login?SESS=ABC123
+3. Victim clicks, logs in — server authenticates the session ABC123
+4. Attacker uses ABC123 → now authenticated as victim!
+
+Fix: Issue a NEW session token immediately after successful authentication
+</div>
+
+<h3>Session Hijacking</h3>
+<div class="definition callout">
+  <strong>Session Hijacking:</strong> The attacker captures an <em>already authenticated</em> session token and presents it to the server to impersonate the victim. The session was legitimate — the attacker steals it mid-flight or from storage.
+</div>
+<p><strong>Methods of session token theft:</strong></p>
+<ul>
+  <li><strong>Network sniffing:</strong> Intercepting unencrypted (HTTP) cookie traffic — prevented by Secure flag + HTTPS</li>
+  <li><strong>Cross-Site Scripting (XSS):</strong> <code>document.cookie</code> exfiltration — prevented by HttpOnly flag</li>
+  <li><strong>Cross-Site Request Forgery (CSRF):</strong> Tricks browser into sending authenticated requests to a different site — prevented by SameSite flag + CSRF tokens</li>
+  <li><strong>Man-in-the-Middle (MITM):</strong> SSL stripping to downgrade HTTPS to HTTP</li>
+</ul>
+<table>
+  <tr><th></th><th>Session Fixation</th><th>Session Hijacking</th></tr>
+  <tr><td>When does attacker act?</td><td>Before victim authenticates</td><td>After victim authenticates</td></tr>
+  <tr><td>What does attacker provide?</td><td>A known session token to the victim</td><td>Steals an existing valid token</td></tr>
+  <tr><td>Primary defense</td><td>Regenerate session ID post-authentication</td><td>Secure + HttpOnly cookies, HTTPS, short session lifetime</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Credential Storage — Hashing &amp; Salting</h2>
+
+<h3>Never Store Passwords in Plaintext or With Reversible Encryption</h3>
+<p>Applications must store only a one-way hash of the password, never the plaintext. If a database is compromised, hashed passwords cannot be directly used (unlike plaintext). Reversible encryption is inadequate because the decryption key may also be compromised.</p>
+
+<h3>The Role of Salting</h3>
+<div class="definition callout">
+  <strong>Salt:</strong> A random value generated uniquely per user and stored alongside the hash. Concatenated with the password before hashing, ensuring identical passwords produce different hashes. Defeats rainbow tables and prevents identical-password accounts from being identified by matching hashes.
+</div>
+
+<h3>Password Hashing Algorithms Comparison</h3>
+<table>
+  <tr><th>Algorithm</th><th>Type</th><th>Key Property</th><th>Recommended?</th></tr>
+  <tr><td>MD5</td><td>Cryptographic hash (fast)</td><td>~10 billion/sec on GPU — trivially crackable</td><td>❌ Never</td></tr>
+  <tr><td>SHA-1 / SHA-256</td><td>Cryptographic hash (fast)</td><td>Fast hashing — wrong tool for passwords</td><td>❌ Never for passwords</td></tr>
+  <tr><td>bcrypt</td><td>Adaptive, CPU-hard</td><td>Built-in salt; cost factor adjusts work; 128-bit salt</td><td>✅ Yes</td></tr>
+  <tr><td>scrypt</td><td>Adaptive, memory-hard</td><td>Memory + CPU intensive; resists GPU/ASIC attacks</td><td>✅ Yes</td></tr>
+  <tr><td>Argon2</td><td>Adaptive, memory-hard</td><td>PHC winner (2015); configurable memory, parallelism, iterations</td><td>✅ Best practice</td></tr>
+  <tr><td>PBKDF2</td><td>Key derivation (iterative)</td><td>NIST/FIPS approved; used in WPA2, iOS; iteration count adjustable</td><td>✅ Acceptable (with high iterations)</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>CPU-hard vs. Memory-hard:</strong><br>
+  <strong>bcrypt and PBKDF2</strong> are CPU-hard — each hash requires CPU cycles; GPUs offer marginal speedup<br>
+  <strong>scrypt and Argon2</strong> are memory-hard — require large amounts of RAM; ASICs and high-GPU-count rigs struggle because memory bandwidth is the bottleneck<br>
+  Memory-hard is considered stronger against custom hardware attacks
+</div>
+<div class="warning callout">
+  ⚠️ <strong>CISSP Exam Note:</strong> bcrypt is CPU-hard, NOT memory-hard. scrypt and Argon2 are memory-hard. This distinction appears in exam questions. From Day 51 correction: bcrypt does NOT require large memory.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Token Management (JWT &amp; OAuth Tokens)</h2>
+
+<h3>JSON Web Tokens (JWT)</h3>
+<div class="definition callout">
+  <strong>JWT (JSON Web Token):</strong> A compact, URL-safe token format consisting of three base64url-encoded parts: <code>Header.Payload.Signature</code>. The signature proves the token was issued by a trusted party and has not been tampered with.
+</div>
+<p><strong>JWT structure:</strong></p>
+<ul>
+  <li><strong>Header:</strong> Algorithm type (e.g., HS256, RS256) and token type</li>
+  <li><strong>Payload (Claims):</strong> Asserted data — e.g., <code>sub</code> (subject/user ID), <code>exp</code> (expiration), <code>iss</code> (issuer), custom roles</li>
+  <li><strong>Signature:</strong> HMAC-SHA256 of header+payload using a shared secret, or RSA/ECDSA signed</li>
+</ul>
+<div class="warning callout">
+  ⚠️ <strong>JWT Security Pitfall — "alg: none" Attack:</strong> If the server does not validate the <code>alg</code> header, an attacker can set <code>"alg": "none"</code>, remove the signature, and the server may accept the unsigned token as valid. Always enforce expected algorithm server-side.
+</div>
+
+<h3>OAuth 2.0 Token Types</h3>
+<table>
+  <tr><th>Token Type</th><th>Purpose</th><th>Lifetime</th><th>Security Note</th></tr>
+  <tr><td>Access Token</td><td>Grants access to a resource on behalf of the user</td><td>Short (minutes to hours)</td><td>Transmitted with every API call; must be kept confidential</td></tr>
+  <tr><td>Refresh Token</td><td>Obtains new access tokens without re-authentication</td><td>Long (days to months)</td><td>Higher value target; must be stored securely, rotated on use</td></tr>
+  <tr><td>ID Token (OIDC)</td><td>Authentication assertion containing user identity claims</td><td>Short</td><td>Used by client to verify who authenticated; JWT format</td></tr>
+</table>
+
+<h3>Token Storage Best Practices</h3>
+<ul>
+  <li><strong>Access tokens in browser:</strong> Memory (JavaScript variable) preferred over localStorage (vulnerable to XSS) or cookies (if not HttpOnly)</li>
+  <li><strong>Refresh tokens:</strong> HttpOnly cookies (not accessible to JavaScript) or secure server-side storage</li>
+  <li><strong>Token rotation:</strong> Issue a new refresh token on every use; invalidate used tokens (prevent replay)</li>
+  <li><strong>Token binding:</strong> Bind tokens to TLS session or client certificate to prevent token theft and replay</li>
+</ul>
+</section>
+
+<section id="s7">
+<h2>7. Password Managers</h2>
+<p>Password managers generate, store, and auto-fill unique, high-entropy passwords for each service. They dramatically reduce credential reuse (the root cause of credential stuffing).</p>
+<h3>Types</h3>
+<table>
+  <tr><th>Type</th><th>Storage</th><th>Example</th><th>Security Consideration</th></tr>
+  <tr><td>Standalone / Local</td><td>Encrypted local vault</td><td>KeePass</td><td>User responsible for backup; no breach risk from cloud provider</td></tr>
+  <tr><td>Cloud-based</td><td>Encrypted on provider's servers</td><td>1Password, Bitwarden, Dashlane</td><td>End-to-end encryption; master password never leaves device; provider cannot decrypt</td></tr>
+  <tr><td>Browser-built-in</td><td>Browser profile (optionally synced)</td><td>Chrome, Firefox, Safari</td><td>Tied to browser; may be accessible if device is compromised; no cross-browser portability</td></tr>
+  <tr><td>Enterprise / Privileged</td><td>Centralized vault + PAM integration</td><td>CyberArk, HashiCorp Vault, BeyondTrust</td><td>Audited, role-based access, auto-rotation, session recording</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> The main security benefit of a password manager is enabling unique, high-entropy passwords per service — defeating credential stuffing. The master password itself is the single point of failure; augmenting with MFA is essential.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Passwordless Authentication — FIDO2 &amp; WebAuthn</h2>
+<div class="definition callout">
+  <strong>FIDO2:</strong> A set of open authentication standards developed by the FIDO Alliance and W3C. Consists of two components: <strong>WebAuthn</strong> (the W3C browser/server API) and <strong>CTAP2</strong> (the Client-to-Authenticator Protocol between browser and hardware authenticator). Enables passwordless and phishing-resistant authentication.
+</div>
+
+<h3>How FIDO2/WebAuthn Works</h3>
+<div class="diagram">
+REGISTRATION:
+  User registers authenticator (hardware key / device biometric) with service
+  Authenticator generates a public/private KEY PAIR per service (origin-bound)
+  Public key stored on server; private key NEVER leaves the authenticator
+
+AUTHENTICATION:
+  Server sends a cryptographic CHALLENGE
+  Authenticator signs challenge with PRIVATE KEY (requires user presence/biometric)
+  Server verifies signature against stored public key
+  → No password, no shared secret, no phishing risk (origin bound)
+</div>
+
+<h3>Passkeys</h3>
+<p>Passkeys are FIDO2 credentials that can sync across devices (e.g., stored in Apple Keychain, Google Password Manager, or Microsoft Authenticator). The private key is protected by device TPM/secure enclave and synced end-to-end encrypted. Make passwordless authentication accessible to mainstream users without a hardware key.</p>
+
+<h3>Why FIDO2 is Phishing-Resistant</h3>
+<p>The credential (key pair) is <strong>cryptographically bound to the website's origin</strong>. When a user is phished to <code>evil-bank.com</code>, the authenticator refuses to sign — the registered origin is <code>bank.com</code>. The challenge-response is unique per authentication and tied to the TLS session — replay attacks and MITM attacks are defeated.</p>
+
+<h3>Authentication Methods — Security Comparison</h3>
+<table>
+  <tr><th>Method</th><th>Phishing Resistant?</th><th>Replay Resistant?</th><th>Shared Secret?</th></tr>
+  <tr><td>Password</td><td>❌</td><td>❌</td><td>Yes (password)</td></tr>
+  <tr><td>SMS OTP</td><td>❌ (SIM swap, AiTM)</td><td>✅ (time-limited)</td><td>Partial</td></tr>
+  <tr><td>TOTP (authenticator app)</td><td>❌ (AiTM relay)</td><td>✅ (30-second window)</td><td>Yes (seed)</td></tr>
+  <tr><td>Push MFA</td><td>❌ (MFA fatigue)</td><td>✅</td><td>Yes</td></tr>
+  <tr><td>FIDO2 / WebAuthn / Passkeys</td><td>✅ (origin bound)</td><td>✅ (challenge-response)</td><td>No (asymmetric)</td></tr>
+  <tr><td>Smart Card / PIV</td><td>✅ (certificate bound)</td><td>✅</td><td>No (asymmetric)</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Passwordless vs. MFA Fatigue:</strong> Push notification MFA is vulnerable to "MFA fatigue" (bombing the user with push requests until they approve). FIDO2 eliminates this because user presence (touching the authenticator) is required and the challenge is cryptographically bound.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Cookie Flags — "SHS"</strong><br>
+  <strong>S</strong>ecure — HTTPS only (network sniffing prevention)<br>
+  <strong>H</strong>ttpOnly — no JavaScript access (XSS prevention)<br>
+  <strong>S</strong>ameSite — no cross-site requests (CSRF prevention)<br>
+  Miss any one → you leave a door open
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Session Fixation vs. Hijacking — Timeline Rule</strong><br>
+  <strong>Fixation</strong> = attacker acts <strong>before</strong> authentication (fixes the ID they know)<br>
+  <strong>Hijacking</strong> = attacker acts <strong>after</strong> authentication (steals the established session)<br>
+  <em>Fix = pre-auth | Jack = post-auth</em>
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Password Hashing Hierarchy — "Don't Use Fast Hashes"</strong><br>
+  Bad: MD5, SHA-1, SHA-256 (designed to be FAST → bad for passwords)<br>
+  Good: bcrypt (CPU-hard), scrypt/Argon2 (memory-hard)<br>
+  Argon2 won the Password Hashing Competition (PHC) 2015 → top choice
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 FIDO2 = WebAuthn + CTAP2</strong><br>
+  <strong>WebAuthn</strong> = browser ↔ server (web API, W3C standard)<br>
+  <strong>CTAP2</strong> = browser ↔ authenticator hardware (USB/NFC/BLE)<br>
+  Together = FIDO2 = phishing-resistant passwordless auth
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Session fixation defense</td><td>Regenerate session token immediately after authentication</td></tr>
+  <tr><td>HttpOnly flag prevents</td><td>XSS-based session token theft (JavaScript cannot read the cookie)</td></tr>
+  <tr><td>Secure flag prevents</td><td>Session token transmission over unencrypted (HTTP) connections</td></tr>
+  <tr><td>SameSite flag prevents</td><td>CSRF attacks (cookie not sent on cross-site requests)</td></tr>
+  <tr><td>Salting defeats</td><td>Rainbow table attacks AND prevents same passwords from having identical hashes</td></tr>
+  <tr><td>bcrypt is</td><td>CPU-hard (not memory-hard); built-in salt; cost factor is adaptive</td></tr>
+  <tr><td>Argon2 is</td><td>Memory-hard; PHC winner 2015; best current recommendation for new systems</td></tr>
+  <tr><td>PBKDF2 is</td><td>NIST/FIPS-approved; used in WPA2, iOS; acceptable with high iteration counts</td></tr>
+  <tr><td>JWT "alg:none" attack</td><td>Occurs when server doesn't enforce expected algorithm; always validate alg server-side</td></tr>
+  <tr><td>FIDO2 phishing resistance</td><td>Credentials cryptographically bound to origin; challenge-response; no shared secrets</td></tr>
+  <tr><td>Passkeys</td><td>Sync-capable FIDO2 credentials; private key protected by device secure enclave; mainstream passwordless auth</td></tr>
+  <tr><td>Refresh tokens</td><td>Higher-value than access tokens; store in HttpOnly cookies; rotate on every use</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>Server must destroy the server-side session on logout — deleting the client cookie alone is insufficient</li>
+    <li>Session token must be regenerated after login (fixes session fixation) and after privilege change</li>
+    <li>Fast hash algorithms (MD5, SHA-256) are inappropriate for password storage — use adaptive slow hashes</li>
+    <li>FIDO2 = WebAuthn (W3C) + CTAP2 (hardware protocol); passkeys are synced FIDO2 credentials</li>
+    <li>Only FIDO2/WebAuthn/smart cards provide phishing resistance — TOTP and SMS OTP are bypassable via AiTM</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-081-theory.html" class="nav-btn">← Day 81: Access Control Attacks</a>
+  <a href="day-083-theory.html" class="nav-btn">Day 83: Identity as a Service →</a>
+</div>
+</div>
+</body>
+</html>

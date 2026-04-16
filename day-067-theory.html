@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 67 – CDN &amp; Network Optimization</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 67 – CDN &amp; Network Optimization</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 67 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-066-theory.html">← Day 66: Secure Communications</a> · Domain 4 · Day 67</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Content Distribution Networks (CDN)</a></li>
+  <li><a href="#s4">4. Load Balancers – Layer 4 vs. Layer 7</a></li>
+  <li><a href="#s5">5. Reverse Proxy</a></li>
+  <li><a href="#s6">6. Web Caching &amp; Its Security Implications</a></li>
+  <li><a href="#s7">7. DDoS Protection via CDN</a></li>
+  <li><a href="#s8">8. SD-WAN – Software-Defined Wide Area Networking</a></li>
+  <li><a href="#s9">9. SASE – Secure Access Service Edge</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Modern enterprise networks rely on CDNs, load balancers, and cloud-native network constructs (SD-WAN, SASE) that have security implications. CISSP expects awareness of how these components affect availability, DDoS resilience, and security architecture. SASE is increasingly tested as a Zero Trust-aligned network security model.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"An organization wants to improve web application availability and DDoS resilience — what should be deployed?"; "A reverse proxy hides what from clients?"; "Which architecture combines SD-WAN with cloud-based security services?"; "Layer 7 load balancers can perform what security function that Layer 4 cannot?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 64 (DDoS mitigation via CDN scrubbing); Day 60 (firewalls, WAF); Day 68 (network segmentation, SDN); Domain 1 (availability is CIA triad — CDN/LB support availability)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>A reverse proxy hides the <em>server</em> (not the client — that's a forward proxy). Layer 7 LB can perform SSL termination and WAF functions; Layer 4 LB cannot inspect application content. SD-WAN improves WAN performance and flexibility but does NOT inherently provide security — SASE adds the security stack. CDN DDoS protection works by distributing the attack across many PoPs (Points of Presence) globally.</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Technology</th><th>Business Context</th></tr>
+  <tr><td><strong>CDN</strong></td><td>Almost every public-facing website uses a CDN (Cloudflare, Akamai, AWS CloudFront, Fastly). Reduces latency by serving content from edge nodes near users. Also provides the first line of DDoS defence at internet scale. Security architects must understand what data passes through CDN edge nodes (TLS termination at edge ≠ end-to-end encryption).</td></tr>
+  <tr><td><strong>Load balancers</strong></td><td>Core infrastructure component for every multi-server deployment. Layer 7 LBs (application delivery controllers) are also the integration point for WAF, SSL offloading, and session affinity — security functions are often centralized here.</td></tr>
+  <tr><td><strong>SD-WAN</strong></td><td>Replacing expensive MPLS circuits with internet-based WAN with dynamic path selection. Adopted widely post-COVID as branches need direct cloud access. SASE extends SD-WAN with cloud-delivered security inspection — full traffic inspection regardless of where users connect from.</td></tr>
+  <tr><td><strong>SASE adoption</strong></td><td>Gartner coined SASE in 2019. Organizations are consolidating disparate security appliances (SWG, CASB, ZTNA, FWaaS) into unified cloud-delivered SASE platforms (Zscaler, Netskope, Palo Alto Prisma). CISSP exams increasingly reference SASE as a modern secure access architecture.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Content Distribution Networks (CDN)</h2>
+<div class="callout definition">
+  <strong>📖 CDN (Content Distribution Network):</strong> A geographically distributed network of servers (edge nodes / Points of Presence — PoPs) that cache and serve web content from locations close to end users. Reduces latency, improves performance, and provides availability by distributing load across many nodes globally.
+</div>
+
+<div class="diagram">
+Without CDN:                    With CDN:
+User (Tokyo) ──────────────►  User (Tokyo) ──► Nearest CDN PoP (Tokyo)
+             Long RTT                           (cached content served locally)
+             to Origin Server                  Only cache misses go to origin
+             (New York)        CDN PoP ──► Origin Server (New York)
+                                           [only on cache miss]
+</div>
+
+<table>
+  <tr><th>CDN Capability</th><th>Security/Availability Benefit</th></tr>
+  <tr><td><strong>Static content caching</strong></td><td>Images, CSS, JS, videos cached at edge — origin server protected from direct traffic; reduces origin attack surface</td></tr>
+  <tr><td><strong>TLS termination at edge</strong></td><td>TLS sessions terminate at CDN edge PoP. Traffic between edge PoP and origin may be encrypted (origin pull over TLS) or not — depends on config. CDN provider can see plaintext content at edge — trust the provider.</td></tr>
+  <tr><td><strong>Anycast routing</strong></td><td>CDN uses anycast IP addresses — traffic routed to nearest PoP by BGP. Natural DDoS distribution — attack traffic spread across all PoPs globally rather than concentrated at origin.</td></tr>
+  <tr><td><strong>DDoS absorption</strong></td><td>Cloudflare (300+ Tbps capacity), Akamai (365+ Tbps) — aggregate global capacity dwarfs any individual DDoS attack. Edge filtering drops attack traffic before reaching origin.</td></tr>
+  <tr><td><strong>WAF at edge</strong></td><td>Many CDNs include WAF functionality — filters SQLi, XSS, OWASP Top 10 at the network edge before requests reach origin application servers.</td></tr>
+  <tr><td><strong>Bot management</strong></td><td>CDNs detect and block automated bot traffic (scrapers, credential stuffing, DDoS bots) using behavioral analysis, CAPTCHA, JavaScript challenges.</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Load Balancers – Layer 4 vs. Layer 7</h2>
+<div class="callout definition">
+  <strong>📖 Load Balancer:</strong> A device or service that distributes incoming network traffic across multiple backend servers (a pool/farm) to ensure no single server is overwhelmed and to provide high availability. If one server fails, traffic is redistributed to healthy servers.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Layer 4 Load Balancer</th><th>Layer 7 Load Balancer (ADC)</th></tr>
+  <tr><td><strong>OSI Layer</strong></td><td>Transport (TCP/UDP)</td><td>Application (HTTP/HTTPS, SMTP)</td></tr>
+  <tr><td><strong>Routing basis</strong></td><td>IP address + TCP/UDP port (source/destination)</td><td>HTTP URL path, headers, cookies, content type, HTTP method, hostname</td></tr>
+  <tr><td><strong>SSL/TLS</strong></td><td>Pass-through only — cannot inspect encrypted content</td><td>SSL termination: decrypts TLS, inspects/routes, re-encrypts (or sends plaintext to backend)</td></tr>
+  <tr><td><strong>Content inspection</strong></td><td>Cannot inspect HTTP content</td><td>Can route based on URL path (/api → API servers, /static → file servers); WAF integration</td></tr>
+  <tr><td><strong>Session persistence</strong></td><td>Source IP affinity (sticky sessions by IP)</td><td>Cookie-based session persistence (follow a session to same backend regardless of IP)</td></tr>
+  <tr><td><strong>Performance</strong></td><td>Higher throughput, lower latency (less processing)</td><td>More CPU-intensive; scales via hardware acceleration or cloud ADCs</td></tr>
+  <tr><td><strong>Algorithms</strong></td><td>Round-robin, IP hash, least connections</td><td>Round-robin, least connections, resource-based, URL hash, random with two choices</td></tr>
+  <tr><td><strong>Security features</strong></td><td>SYN flood protection, rate limiting by IP</td><td>WAF, SSL offloading, HTTP request rate limiting, content validation, CSRF protection</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Reverse Proxy</h2>
+<div class="callout definition">
+  <strong>📖 Reverse Proxy:</strong> A server that sits in front of backend servers and forwards client requests to them. Clients communicate with the reverse proxy; they do not communicate directly with backend servers. Hides backend server identity, IP addresses, and internal architecture.
+</div>
+
+<table>
+  <tr><th>Concept</th><th>Forward Proxy</th><th>Reverse Proxy</th></tr>
+  <tr><td><strong>Protects</strong></td><td>Client (hides client identity from servers)</td><td>Server (hides server identity from clients)</td></tr>
+  <tr><td><strong>Who knows about it</strong></td><td>Client is configured to use it</td><td>Client is unaware — thinks it's talking to the real server</td></tr>
+  <tr><td><strong>Use cases</strong></td><td>Web filtering, anonymization, bypass geo-restrictions</td><td>Load balancing, SSL termination, WAF, caching, authentication gateway</td></tr>
+  <tr><td><strong>Security value</strong></td><td>Internet access control, content filtering</td><td>Hides internal architecture; single point for SSL, WAF, authentication</td></tr>
+</table>
+
+<h3>Reverse Proxy Security Benefits</h3>
+<table>
+  <tr><th>Benefit</th><th>Description</th></tr>
+  <tr><td><strong>Internal server anonymity</strong></td><td>Backend server IPs, OS, web server software versions hidden from clients. Attackers cannot directly probe backend servers.</td></tr>
+  <tr><td><strong>SSL offloading</strong></td><td>TLS handled at the proxy; backend servers receive unencrypted HTTP (or re-encrypted TLS). Reduces backend CPU load. Certificate management centralized at proxy.</td></tr>
+  <tr><td><strong>WAF integration</strong></td><td>WAF rules applied at the proxy before requests reach backend. All traffic inspected in one place.</td></tr>
+  <tr><td><strong>Authentication gateway</strong></td><td>Reverse proxy can require authentication before forwarding requests — single sign-on integration point (e.g., authenticate at Azure AD via reverse proxy before accessing internal apps).</td></tr>
+  <tr><td><strong>Rate limiting</strong></td><td>Throttle requests per IP or per user at the proxy layer without touching application code.</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Web Caching &amp; Its Security Implications</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Cache poisoning</strong></td><td>Attacker tricks a cache into storing a malicious response for a legitimate URL. Subsequent users receive the malicious content from cache. Mitigated by strong cache key design, input validation, and cache-control headers.</td></tr>
+  <tr><td><strong>Sensitive data in cache</strong></td><td>Caching personal data, session tokens, or private responses exposes them to other users (e.g., shared cache returns one user's response to another). Cache-Control: no-store on private/sensitive responses prevents this.</td></tr>
+  <tr><td><strong>Cache key confusion</strong></td><td>Attacker manipulates request headers that are not included in the cache key but are reflected in the cached response — allows serving attacker-controlled content to other users. Related to web cache deception attacks.</td></tr>
+  <tr><td><strong>TLS and caching</strong></td><td>CDN TLS termination at edge means CDN provider sees plaintext before caching. For highly sensitive content, consider preventing CDN caching (Cache-Control: private, no-store) or end-to-end encryption where CDN cannot decrypt.</td></tr>
+</table>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. DDoS Protection via CDN</h2>
+<table>
+  <tr><th>CDN DDoS Mechanism</th><th>How it works</th></tr>
+  <tr><td><strong>Anycast absorption</strong></td><td">CDN anycast routes attack traffic to all global PoPs simultaneously. A 1 Tbps attack hitting 300 PoPs becomes only ~3 Gbps per PoP — easily absorbed. Without CDN, the same 1 Tbps hits the origin datacenter directly.</td></tr>
+  <tr><td><strong>Edge filtering</strong></td><td>Volumetric attack traffic (UDP flood, SYN flood, ICMP flood) is dropped at the CDN edge before reaching origin. Origin server never sees attack packets.</td></tr>
+  <tr><td><strong>Layer 7 DDoS mitigation</strong></td><td>CDN detects HTTP flood / slow-rate attacks (Slowloris, HTTP GET flood) via behavioral analysis. Challenges suspicious traffic with CAPTCHA or JavaScript challenge pages. Rate limits per IP/ASN/country.</td></tr>
+  <tr><td><strong>Origin IP hiding</strong></td><td>Keep origin server IP secret — attackers bypassing CDN and targeting origin directly defeat CDN DDoS protection. Use CDN-to-origin authenticated pull (secret header or mTLS) so origin only accepts traffic from CDN.</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. SD-WAN – Software-Defined Wide Area Networking</h2>
+<div class="callout definition">
+  <strong>📖 SD-WAN:</strong> A software-defined approach to WAN management that abstracts the underlying transport (MPLS, broadband internet, LTE, satellite) and provides centralized control, intelligent path selection, and consistent policy enforcement across all WAN links. Replaces or augments expensive MPLS circuits with cheaper internet links without sacrificing reliability.
+</div>
+
+<table>
+  <tr><th>SD-WAN Capability</th><th>Detail</th></tr>
+  <tr><td><strong>Dynamic path selection</strong></td><td>Continuously monitors link quality (latency, jitter, packet loss). Automatically routes traffic over the best available path. Real-time failover — sub-second switch to backup link if primary degrades.</td></tr>
+  <tr><td><strong>Application-aware routing</strong></td><td>Routes specific applications (VoIP, video, ERP) over high-quality links; non-critical traffic over cheaper internet. QoS policy applied per application.</td></tr>
+  <tr><td><strong>Centralized management</strong></td><td>Single dashboard manages QoS, security policies, and routing for all branch offices. Eliminates per-device CLI configuration.</td></tr>
+  <tr><td><strong>Security considerations</strong></td><td>SD-WAN by itself does NOT provide strong security. Uses IPSec overlays for encryption between sites. May provide basic firewall/stateful inspection. For full security inspection, SASE or security service chaining is required.</td></tr>
+  <tr><td><strong>Direct internet access (DIA)</strong></td><td>Branches can break out internet traffic locally (rather than backhauling to HQ) for performance. Security challenge: local breakout bypasses centralized security inspection — requires cloud-based security (SASE) at each branch.</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. SASE – Secure Access Service Edge</h2>
+<div class="callout definition">
+  <strong>📖 SASE (Secure Access Service Edge — pronounced "sassy"):</strong> A cloud architecture model (coined by Gartner, 2019) that converges wide-area networking (SD-WAN) with comprehensive cloud-delivered security services into a single, unified service. The network and security stacks are merged in the cloud and applied close to the user regardless of location.
+</div>
+
+<h3>SASE Security Services (converged in one platform)</h3>
+<table>
+  <tr><th>Service</th><th>Purpose</th></tr>
+  <tr><td><strong>SWG (Secure Web Gateway)</strong></td><td>URL filtering, SSL inspection, web content filtering, malware protection for all outbound web traffic</td></tr>
+  <tr><td><strong>CASB (Cloud Access Security Broker)</strong></td><td>Visibility and control over cloud application usage (Shadow IT discovery, DLP, compliance for SaaS)</td></tr>
+  <tr><td><strong>ZTNA (Zero Trust Network Access)</strong></td><td>Replaces VPN — grants per-application access based on identity + device posture verification, not network location (see Day 84)</td></tr>
+  <tr><td><strong>FWaaS (Firewall as a Service)</strong></td><td>Full-stack cloud firewall — L7 inspection, IPS/IDS, DNS security, applied to all traffic regardless of user location</td></tr>
+  <tr><td><strong>SD-WAN</strong></td><td>WAN connectivity (the "network edge" component of SASE)</td></tr>
+</table>
+
+<div class="diagram">
+Traditional Architecture:                SASE Architecture:
+                                          
+Branch → MPLS → HQ → Internet          Branch → SASE Cloud PoP → Internet
+Remote User → VPN → HQ → Internet      Remote User → SASE Cloud PoP → App
+                                        
+All traffic backhauled through HQ       All traffic inspected at nearest cloud PoP
+Security appliances at HQ               Security is a cloud service, not location-based
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 SASE vs. SSE:</strong> SASE = SD-WAN (network) + security services. SSE (Security Service Edge) = only the security services component of SASE (SWG + CASB + ZTNA + FWaaS), without SD-WAN. Some vendors offer SSE for organizations that want cloud security without changing their WAN architecture.
+</div>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Reverse Proxy — "Bouncer at the door":</strong><br>
+  A reverse proxy stands in front of servers — clients talk to the bouncer (proxy), not directly to the party inside (backend servers). The bouncer checks credentials, inspects requests (WAF), terminates TLS, and only then forwards to the real server. Clients never see the real server's address.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Layer 4 vs Layer 7 LB — "Port vs. Path":</strong><br>
+  <strong>L4</strong> = load balances on destination IP:port — fast, no content inspection, can't see HTTP<br>
+  <strong>L7</strong> = load balances on HTTP URL/headers/cookies — slower but smarter; can do SSL termination, WAF, redirect /api to API farm and /static to CDN
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SASE = SD-WAN + Security Cloud:</strong><br>
+  <strong>S</strong>ecure <strong>A</strong>ccess <strong>S</strong>ervice <strong>E</strong>dge = network (SD-WAN) + security (SWG + CASB + ZTNA + FWaaS) delivered from the cloud.<br>
+  Old model: traffic backhauled to HQ for inspection. SASE model: inspection happens at nearest cloud PoP, regardless of user location.
+</div>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>CDN</td><td>Globally distributed edge cache; reduces latency; anycast routing enables Tbps-scale DDoS absorption; WAF and bot management at edge</td></tr>
+  <tr><td>CDN TLS</td><td>TLS terminates at CDN edge — CDN sees plaintext; trust CDN provider; use origin-pull TLS and keep origin IP secret</td></tr>
+  <tr><td>Layer 4 LB</td><td>Routes on IP:port; high performance; no content inspection; cannot terminate SSL</td></tr>
+  <tr><td>Layer 7 LB (ADC)</td><td>Routes on HTTP content (URL, headers, cookies); SSL termination; WAF integration; session persistence via cookies</td></tr>
+  <tr><td>Reverse proxy</td><td>Hides backend servers from clients; SSL offloading; WAF; rate limiting; authentication gateway</td></tr>
+  <tr><td>Forward proxy</td><td>Hides clients from servers; used for internet access control and content filtering</td></tr>
+  <tr><td>Cache poisoning</td><td>Attacker poisons cache to serve malicious content; mitigated by strong cache keys, validation, Cache-Control headers</td></tr>
+  <tr><td>SD-WAN</td><td>Software-defined WAN replacing/augmenting MPLS; dynamic path selection; cheaper; no inherent security — requires SASE or security overlay</td></tr>
+  <tr><td>SASE</td><td>SD-WAN + cloud security services (SWG, CASB, ZTNA, FWaaS) converged; security applied at cloud PoP regardless of user location; Zero Trust aligned</td></tr>
+  <tr><td>SSE</td><td>SASE without SD-WAN — just the cloud security services component</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-066-theory.html" class="nav-btn">← Day 66: Secure Communications</a>
+  <a href="day-068-theory.html" class="nav-btn">Day 68: Network Segmentation →</a>
+</div>
+</div>
+</body>
+</html>

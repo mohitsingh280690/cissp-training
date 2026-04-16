@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 83 – Identity as a Service (IDaaS)</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00897b;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 83 – Identity as a Service (IDaaS)</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (IAM)</div>
+  <div class="meta">
+    <span>📅 Day 83 of 140</span>
+    <span>📚 Domain 5 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-082-theory.html">← Day 82: Session &amp; Credential Management</a> · Domain 5 · Day 83</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. IDaaS Overview &amp; Core Components</a></li>
+  <li><a href="#s4">4. Key IDaaS Providers</a></li>
+  <li><a href="#s5">5. SCIM — Identity Provisioning Protocol</a></li>
+  <li><a href="#s6">6. Hybrid Identity Models</a></li>
+  <li><a href="#s7">7. Benefits &amp; Risks of IDaaS</a></li>
+  <li><a href="#s8">8. Cloud IAM Best Practices</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>5 – Identity and Access Management (13%)</td></tr>
+  <tr><td>Why Tested</td><td>As organizations move workloads to the cloud, managing identities across on-premises and cloud environments is a core CISSP competency. IDaaS and hybrid identity are tested extensively in scenario questions</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "A company uses Active Directory on-premises and O365 in the cloud. What technology enables SSO to both?" — expects knowledge of hybrid identity, Azure AD Connect, and cloud federation</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 3 (cloud security — SaaS security, CASB, shared responsibility); Domain 4 (network connectivity to IDaaS, tunneling, split DNS); Domain 5 (SAML/OIDC from Day 74 — IDaaS uses these protocols); Domain 6 (auditing IDaaS providers)</td></tr>
+  <tr><td>Exam Traps</td><td>Confusing IDaaS with PAM (IDaaS = identity for all users; PAM = privileged accounts specifically); thinking IDaaS eliminates identity risk (it transfers operational risk but not governance responsibility); confusing SCIM (provisioning) with SAML (authentication)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p>The <strong>IAM team</strong> designs and operates the IDaaS platform. The <strong>network/infrastructure team</strong> manages directory synchronization (e.g., Azure AD Connect). <strong>Application owners</strong> integrate their apps via SAML or OIDC. <strong>Security leadership</strong> governs access policies, MFA requirements, and conditional access rules.</p>
+<h3>Implementation Reality</h3>
+<p>The majority of enterprises (>80%, per Gartner) now use some form of IDaaS for employee or customer identity. Microsoft Entra ID (formerly Azure AD) has 300M+ monthly active users. Okta serves 17,000+ enterprise customers. The COVID-19 pandemic accelerated adoption massively — remote work demands cloud-based identity rather than on-prem VPN-dependent solutions.</p>
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>Lapsus$ attacks (2022):</strong> Hackers repeatedly compromised IDaaS providers and enterprise tenants via social engineering against help desks — bypassing MFA via helpdesk account resets</li>
+  <li><strong>Directory sync errors:</strong> Stale accounts synchronized from on-prem AD keep cloud access alive for terminated employees</li>
+  <li><strong>Overly permissive conditional access:</strong> Policies that trust any managed device regardless of risk score enable compromised laptops to access cloud resources</li>
+</ul>
+<h3>Business Impact</h3>
+<p>IDaaS reduces IT helpdesk costs (self-service password reset saves $30+/call), improves user productivity via SSO, and enables rapid application onboarding. However, the IDaaS provider becomes a critical single point of failure — SLA guarantees (99.99% = ~52 min/year downtime) must be evaluated against business continuity requirements.</p>
+</section>
+
+<section id="s3">
+<h2>3. IDaaS Overview &amp; Core Components</h2>
+<div class="definition callout">
+  <strong>Identity as a Service (IDaaS):</strong> A cloud-delivered IAM platform providing identity management, authentication, SSO, MFA, and lifecycle governance for users accessing cloud, on-premises, and hybrid resources. Eliminates the need to build and maintain custom IAM infrastructure.
+</div>
+
+<h3>Core IDaaS Components</h3>
+<table>
+  <tr><th>Component</th><th>Function</th><th>Protocol/Technology</th></tr>
+  <tr><td>Cloud Directory</td><td>Authoritative store of user identities, attributes, and group memberships in the cloud</td><td>LDAP-compatible, SCIM, proprietary API</td></tr>
+  <tr><td>Single Sign-On (SSO)</td><td>Authenticate once and access multiple applications without re-entering credentials</td><td>SAML 2.0, OIDC/OAuth 2.0, WS-Federation</td></tr>
+  <tr><td>Multi-Factor Authentication (MFA)</td><td>Require additional verification factor on login or step-up authentication for sensitive operations</td><td>TOTP, push, FIDO2, SMS (legacy)</td></tr>
+  <tr><td>Lifecycle Governance</td><td>Automated provisioning, deprovisioning, and modification of accounts based on HR events</td><td>SCIM, HRMS integration, workflow engines</td></tr>
+  <tr><td>Conditional Access</td><td>Risk-based policies that evaluate device health, location, user risk before granting access</td><td>Policy engine, device compliance signals</td></tr>
+  <tr><td>Directory Synchronization</td><td>Keep cloud directory in sync with on-premises AD or LDAP</td><td>Azure AD Connect, Google Cloud Directory Sync, Okta AD Agent</td></tr>
+  <tr><td>Self-Service</td><td>Password reset, account unlock, group membership requests without helpdesk involvement</td><td>Web portal, mobile app</td></tr>
+</table>
+
+<h3>IDaaS Architecture</h3>
+<div class="diagram">
+      On-Premises                        Cloud
+  ┌──────────────┐                 ┌──────────────────────┐
+  │  Active       │  Directory      │   IDaaS Platform      │
+  │  Directory    │◄─────Sync──────►│  (Entra ID / Okta)    │
+  │  (Source of   │                 │                        │
+  │   Truth)      │                 │  SSO  MFA  Provisioning│
+  └──────────────┘                 │  Conditional Access    │
+                                    └──────────┬───────────┘
+                              ┌────────────────┼────────────────┐
+                              ▼                ▼                ▼
+                         SaaS Apps        Cloud Apps       On-prem Apps
+                       (O365, Slack)   (AWS, GCP, Azure) (via App Proxy)
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Key IDaaS Providers</h2>
+<table>
+  <tr><th>Provider</th><th>Key Strength</th><th>Primary Market</th></tr>
+  <tr><td>Microsoft Entra ID (formerly Azure AD)</td><td>Native integration with Microsoft 365, Azure; largest enterprise footprint; Conditional Access with 200+ signals</td><td>Microsoft-centric enterprises</td></tr>
+  <tr><td>Okta</td><td>Protocol-agnostic (SAML, OIDC, SCIM); 7,000+ pre-built app integrations; strong developer platform</td><td>Multi-cloud, SaaS-heavy organizations</td></tr>
+  <tr><td>Ping Identity</td><td>Strong on-prem and hybrid scenarios; enterprise-grade; strong API security</td><td>Financial services, healthcare</td></tr>
+  <tr><td>Google Workspace / Cloud Identity</td><td>Native integration with Google services; Android/Chrome device management</td><td>Google-centric organizations</td></tr>
+  <tr><td>CyberArk Identity</td><td>PAM-integrated IDaaS; combines privileged and regular identity management</td><td>High-security industries</td></tr>
+  <tr><td>OneLogin</td><td>Simple deployment; smart factor authentication; mid-market focus</td><td>Mid-size organizations</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> The CISSP exam does not test vendor-specific features. Know IDaaS conceptual capabilities (SSO, MFA, provisioning, conditional access) and the protocols they use (SAML, OIDC, SCIM), not specific vendor UIs.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. SCIM — Identity Provisioning Protocol</h2>
+<div class="definition callout">
+  <strong>SCIM (System for Cross-domain Identity Management):</strong> An open standard (RFC 7644/7643) for automating the exchange of user identity information between identity providers and cloud applications. Enables automated provisioning and deprovisioning of user accounts across systems.
+</div>
+
+<h3>SCIM vs. SAML / OIDC</h3>
+<div class="warning callout">
+  ⚠️ <strong>Critical Distinction — SCIM vs. SAML/OIDC:</strong><br>
+  <strong>SCIM</strong> = identity <strong>provisioning</strong> (creating/updating/deleting accounts, syncing attributes)<br>
+  <strong>SAML/OIDC</strong> = identity <strong>authentication/federation</strong> (proving identity at login time)<br>
+  These are complementary — SCIM provisions the account; SAML/OIDC authenticates the user to it
+</div>
+
+<h3>SCIM in Practice</h3>
+<ul>
+  <li><strong>HR system triggers:</strong> New hire in Workday → SCIM creates accounts in Entra ID, Slack, Salesforce, GitHub automatically</li>
+  <li><strong>Termination:</strong> HR terminates employee in Workday → SCIM disables/deletes all downstream accounts within seconds</li>
+  <li><strong>Attribute sync:</strong> Department, title, manager changes propagate to all apps automatically</li>
+  <li><strong>Just-in-time provisioning (JIT):</strong> SAML-based alternative — account created on first login from IdP assertion, using SAML attributes</li>
+</ul>
+
+<h3>SCIM Technical Overview</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>RFC</td><td>7643 (core schema), 7644 (protocol)</td></tr>
+  <tr><td>Transport</td><td>REST over HTTPS; JSON payloads</td></tr>
+  <tr><td>Resources</td><td>Users, Groups, custom Enterprise extensions</td></tr>
+  <tr><td>Operations</td><td>HTTP GET, POST (create), PUT (replace), PATCH (update), DELETE</td></tr>
+  <tr><td>Authentication</td><td>Bearer token (OAuth 2.0 access token)</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Hybrid Identity Models</h2>
+<p>Most enterprises have a mix of on-premises and cloud resources, requiring a hybrid identity strategy that unifies both into a single identity plane.</p>
+
+<h3>Model 1: Cloud-Only Identity</h3>
+<p>All identities exist only in the cloud directory (e.g., Entra ID). Suitable for cloud-first/cloud-native organizations. No on-premises AD dependency. Simplest model but not viable for organizations with on-premises applications or OT systems requiring AD authentication.</p>
+
+<h3>Model 2: Directory Synchronization (Password Hash Sync)</h3>
+<p>On-premises AD remains the source of truth. A sync tool (e.g., Azure AD Connect) copies user objects and a hash of the password hash to the cloud directory. Authentication can happen in the cloud without calling back to the on-prem AD. <strong>Advantage:</strong> Uses on-prem passwords for cloud auth. <strong>Risk:</strong> Credential compromise in AD propagates to cloud.</p>
+
+<h3>Model 3: Pass-Through Authentication (PTA)</h3>
+<p>Authentication occurs against the on-premises AD in real time via a lightweight agent. The password hash is NOT stored in the cloud. <strong>Advantage:</strong> On-prem password policies instantly enforced in cloud. <strong>Risk:</strong> Requires on-prem infrastructure availability; if on-prem AD is unavailable, cloud auth fails.</p>
+
+<h3>Model 4: Federation (ADFS / SAML)</h3>
+<p>On-premises Active Directory Federation Services (ADFS) issues SAML tokens. The cloud directory trusts tokens from ADFS. Full on-prem control; supports advanced claims transformation. <strong>Complex; most organizations are moving away from ADFS toward Azure AD Connect cloud sync.</strong></p>
+
+<table>
+  <tr><th>Model</th><th>Password Stored in Cloud</th><th>On-Prem Dependency</th><th>Complexity</th></tr>
+  <tr><td>Cloud-Only</td><td>Yes (cloud managed)</td><td>None</td><td>Low</td></tr>
+  <tr><td>Password Hash Sync</td><td>Yes (hash of hash)</td><td>Low (sync tool)</td><td>Low</td></tr>
+  <tr><td>Pass-Through Auth</td><td>No</td><td>High (agent must be online)</td><td>Medium</td></tr>
+  <tr><td>Federation (ADFS)</td><td>No</td><td>Very High (ADFS farm)</td><td>High</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Benefits &amp; Risks of IDaaS</h2>
+<h3>Benefits</h3>
+<ul>
+  <li><strong>Rapid application integration:</strong> Pre-built connectors for thousands of SaaS apps (SAML/OIDC/SCIM)</li>
+  <li><strong>Reduced infrastructure:</strong> No servers to patch, no HA clusters to maintain for identity services</li>
+  <li><strong>Automatic updates:</strong> Provider handles security patches, new protocol support, feature rollout</li>
+  <li><strong>Global scalability:</strong> Multi-region availability by default; cloud SLAs typically 99.9–99.99%</li>
+  <li><strong>Advanced capabilities:</strong> AI-powered risk signals, behavioral analytics, impossible travel detection out-of-box</li>
+</ul>
+<h3>Risks</h3>
+<table>
+  <tr><th>Risk</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td>Vendor dependency</td><td>Single IDaaS provider is a single point of failure for all authentication</td><td>SLA review, offline bypass procedures, multi-IdP architecture</td></tr>
+  <tr><td>Data sovereignty</td><td>Identity data (names, attributes, auth logs) stored in provider's data centers</td><td>Choose providers with regional data residency options; review DPA/DPAs (Data Processing Agreements)</td></tr>
+  <tr><td>Account takeover at provider</td><td>Compromise of the IDaaS provider affects all tenants</td><td>Phishing-resistant MFA, IP restrictions, hardware keys for admin accounts</td></tr>
+  <tr><td>Shadow IT integration</td><td>Developers bypass IDaaS, create direct user stores in SaaS apps</td><td>Policies requiring SSO; CASB to detect direct SaaS auth</td></tr>
+  <tr><td>Misconfigured policies</td><td>Overly permissive conditional access or missing MFA requirements</td><td>Regular policy review; automated compliance scanning</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Cloud IAM Best Practices</h2>
+<ul>
+  <li><strong>Enforce MFA for all users</strong> — phishing-resistant (FIDO2) for admins and high-risk users</li>
+  <li><strong>Implement Conditional Access</strong> — device compliance, location, risk score evaluation before granting access</li>
+  <li><strong>Automate lifecycle management via SCIM</strong> — no manual deprovisioning; tie to HRMS</li>
+  <li><strong>Audit and certify access regularly</strong> — quarterly access reviews; immediate revocation on termination</li>
+  <li><strong>Apply least privilege in cloud roles</strong> — no standing admin roles; use just-in-time elevation (PIM/PAM)</li>
+  <li><strong>Monitor sign-in logs</strong> — integrate IDaaS logs into SIEM; alert on anomalous sign-ins, impossible travel, new device registration</li>
+  <li><strong>Protect admin accounts separately</strong> — dedicated admin accounts; privileged access workstations (PAWs); break-glass accounts with offline storage</li>
+  <li><strong>Use app-specific service accounts with minimal scope</strong> — avoid global admin service principals; rotate secrets via managed identities where possible</li>
+</ul>
+<div class="key-concept callout">
+  <strong>Privileged Identity Management (PIM) in IDaaS:</strong> Allows eligible users to activate elevated roles just-in-time with time limits and approval workflows. Eliminates standing admin accounts — aligns with PAM concepts from Day 79. Major IDaaS platforms include PIM capabilities (Azure PIM, Okta Admin Roles, Google Cloud Privileged Access Manager).
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 IDaaS Core Functions — "SSM-CLD"</strong><br>
+  <strong>S</strong>ingle Sign-On (one login, many apps)<br>
+  <strong>S</strong>CIM provisioning (automate lifecycle)<br>
+  <strong>M</strong>FA enforcement (second factor mandatory)<br>
+  <strong>C</strong>onditional Access (context-aware policies)<br>
+  <strong>L</strong>ifecycle governance (join/move/leave)<br>
+  <strong>D</strong>irectory sync (on-prem ↔ cloud)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SCIM vs. SAML — Provisioning vs. Authentication</strong><br>
+  <strong>SCIM</strong> = "Set up the account" (before login) — provisioning<br>
+  <strong>SAML</strong> = "Sign in with the account" (at login) — authentication<br>
+  SCIM creates the room; SAML opens the door
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Hybrid Identity Models — Password Location</strong><br>
+  <strong>Cloud-Only:</strong> Password lives in cloud<br>
+  <strong>Password Hash Sync:</strong> Hash-of-hash lives in cloud<br>
+  <strong>Pass-Through Auth:</strong> Password stays on-prem (validated live)<br>
+  <strong>Federation (ADFS):</strong> Token-based, password stays on-prem<br>
+  Security preference: Pass-Through ≥ Federation &gt; Hash Sync (for on-prem control)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>IDaaS vs. on-prem IAM</td><td>IDaaS is cloud-delivered; operational risk transferred to provider; governance responsibility retained by organization</td></tr>
+  <tr><td>SCIM purpose</td><td>Automated provisioning/deprovisioning/attribute sync — NOT authentication</td></tr>
+  <tr><td>SAML/OIDC purpose</td><td>Federated authentication and SSO — NOT provisioning</td></tr>
+  <tr><td>SCIM RFC</td><td>RFC 7643 (schema) + RFC 7644 (protocol); REST/JSON/HTTPS</td></tr>
+  <tr><td>Hybrid identity — PHS</td><td>Password Hash Sync: hash-of-hash stored in cloud; simplest hybrid model</td></tr>
+  <tr><td>Hybrid identity — PTA</td><td>Pass-Through Authentication: no cloud password storage; requires on-prem agent availability</td></tr>
+  <tr><td>Federation (ADFS)</td><td>Most complex; most control; organizations are generally consolidating away from it</td></tr>
+  <tr><td>IDaaS vendor risk</td><td>Provider SLA, data residency, breach notification procedures must be assessed under shared responsibility model</td></tr>
+  <tr><td>Conditional Access</td><td>Risk-based: evaluates device health, location, user risk before granting access — enables adaptive MFA</td></tr>
+  <tr><td>PIM in IDaaS</td><td>Just-in-time privileged role activation; time-limited; approval workflow; eliminates standing admin accounts</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>SCIM automates provisioning; SAML/OIDC handles authentication — they serve different purposes and are complementary</li>
+    <li>IDaaS does not eliminate identity governance responsibility — the organization remains accountable</li>
+    <li>Third-party IDaaS introduces supply chain risk — requires vendor risk assessment, SLA, DPA</li>
+    <li>Just-in-Time provisioning (JIT) via SAML creates accounts on first login using IdP attributes — alternative to SCIM pre-provisioning</li>
+    <li>Managed identities and service principals in cloud platforms eliminate the need for static credentials in service accounts</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-082-theory.html" class="nav-btn">← Day 82: Session &amp; Credential Management</a>
+  <a href="day-084-theory.html" class="nav-btn">Day 84: Zero Trust Architecture →</a>
+</div>
+</div>
+</body>
+</html>

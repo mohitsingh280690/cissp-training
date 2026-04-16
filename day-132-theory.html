@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 132 – Cross-Domain Review: Domains 3 &amp; 4</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 132 – Cross-Domain Review: Domains 3 &amp; 4</h1>
+  <div class="subtitle">Security Architecture &amp; Engineering + Communication &amp; Network Security</div>
+  <div class="meta">
+    <span>📅 Day 132 of 140</span>
+    <span>📚 Cross-Domain Review</span>
+    <span>⏱️ ~60 min review</span>
+    <span>🎯 Integration &amp; Exam Prep</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-131-theory.html">← Day 131: Cross-Domain D1+D2</a> · Cross-Domain · Day 132</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 3 – Security Architecture &amp; Engineering (13%)</a></li>
+  <li><a href="#s2">2. Domain 4 – Communication &amp; Network Security (13%)</a></li>
+  <li><a href="#s3">3. Cross-Domain Connections: D3 ↔ D4</a></li>
+  <li><a href="#s4">4. Cryptography Master Reference</a></li>
+  <li><a href="#s5">5. High-Yield Exam Concepts</a></li>
+  <li><a href="#s6">6. D3 + D4 Mnemonic Summary</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 3 – Security Architecture &amp; Engineering (13%)</h2>
+
+<h3>Security Models</h3>
+<table>
+  <tr><th>Model</th><th>Focus</th><th>Key Rule</th></tr>
+  <tr><td><strong>Bell-LaPadula</strong></td><td>Confidentiality</td><td>No read up (Simple Security), No write down (Star Property)</td></tr>
+  <tr><td><strong>Biba</strong></td><td>Integrity</td><td>No read down, No write up (inverted Bell-LaPadula)</td></tr>
+  <tr><td><strong>Clark-Wilson</strong></td><td>Integrity (commercial)</td><td>Well-formed transactions; separation of duties; CDIs via TPs</td></tr>
+  <tr><td><strong>Brewer-Nash (Chinese Wall)</strong></td><td>Conflict of interest</td><td>Access restrictions based on prior access; prevents COI</td></tr>
+  <tr><td><strong>Graham-Denning</strong></td><td>Object access rights</td><td>8 primitive operations for creating/deleting subjects/objects and granting rights</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Bell-LaPadula vs Biba — Opposite Twins:</strong><br>
+  • Bell-LaPadula = <strong>Confidentiality</strong> = "No read UP, No write DOWN" (prevents data leakage)<br>
+  • Biba = <strong>Integrity</strong> = "No read DOWN, No write UP" (prevents data corruption)<br>
+  Think: BLP reads like "BLP = Bottom Levels Protected" from reading up; Biba = "Biba Keeps Integrity By (preventing) Ascending writes"
+</div>
+
+<h3>Security Architecture Concepts</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td><strong>TCB (Trusted Computing Base)</strong></td><td>Totality of hardware, firmware, software that enforces security policy; smaller = more secure</td></tr>
+  <tr><td><strong>Reference Monitor</strong></td><td>Abstract concept; mediates ALL access between subjects and objects</td></tr>
+  <tr><td><strong>Security Kernel</strong></td><td>Actual implementation of reference monitor in hardware/firmware/software</td></tr>
+  <tr><td><strong>Protection Rings</strong></td><td>Ring 0 (kernel) → Ring 3 (user apps); higher number = less privilege</td></tr>
+  <tr><td><strong>Defense in Depth</strong></td><td>Multiple layers of controls; no single point of failure</td></tr>
+  <tr><td><strong>Zero Trust</strong></td><td>Never trust, always verify; microsegmentation; least privilege; continuous verification</td></tr>
+</table>
+
+<h3>Cryptography Essentials</h3>
+<table>
+  <tr><th>Type</th><th>Key</th><th>Algorithms</th><th>Speed</th><th>Use Case</th></tr>
+  <tr><td><strong>Symmetric</strong></td><td>Same key encrypt/decrypt</td><td>AES, 3DES, Blowfish, RC4</td><td>Fast</td><td>Bulk data encryption</td></tr>
+  <tr><td><strong>Asymmetric</strong></td><td>Key pair (public/private)</td><td>RSA, ECC, DH, DSA, ElGamal</td><td>Slow</td><td>Key exchange, digital signatures, authentication</td></tr>
+  <tr><td><strong>Hashing</strong></td><td>No key (one-way)</td><td>SHA-256, SHA-3, MD5⚠️</td><td>Fast</td><td>Integrity verification, password storage</td></tr>
+</table>
+
+<h3>PKI Components</h3>
+<table>
+  <tr><th>Component</th><th>Role</th></tr>
+  <tr><td>CA (Certificate Authority)</td><td>Issues and signs digital certificates</td></tr>
+  <tr><td>RA (Registration Authority)</td><td>Verifies identity before CA issues certificate</td></tr>
+  <tr><td>CRL</td><td>Certificate Revocation List — list of revoked certificates</td></tr>
+  <tr><td>OCSP</td><td>Online Certificate Status Protocol — real-time revocation checking</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Domain 4 – Communication &amp; Network Security (13%)</h2>
+
+<h3>OSI Model</h3>
+<table>
+  <tr><th>Layer</th><th>Name</th><th>Protocols/Devices</th><th>Security</th></tr>
+  <tr><td>7</td><td>Application</td><td>HTTP, FTP, SMTP, DNS, SNMP</td><td>WAF, proxy, content filter</td></tr>
+  <tr><td>6</td><td>Presentation</td><td>SSL/TLS (encryption), JPEG, ASCII</td><td>Encryption, format validation</td></tr>
+  <tr><td>5</td><td>Session</td><td>NetBIOS, RPC, PPTP</td><td>Session management, authentication</td></tr>
+  <tr><td>4</td><td>Transport</td><td>TCP, UDP, TLS</td><td>Port-based filtering, stateful inspection</td></tr>
+  <tr><td>3</td><td>Network</td><td>IP, ICMP, IPsec, routers</td><td>ACLs, IPsec, routing security</td></tr>
+  <tr><td>2</td><td>Data Link</td><td>Ethernet, ARP, switches, MAC</td><td>802.1X, port security, VLANs</td></tr>
+  <tr><td>1</td><td>Physical</td><td>Cables, hubs, wireless signals</td><td>Physical access controls, cable shielding</td></tr>
+</table>
+
+<h3>Network Devices &amp; Protocols</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td><strong>Firewall types</strong></td><td>Packet filter (L3-4) → Stateful (L3-4) → Proxy/Application (L7) → NGFW (L3-7)</td></tr>
+  <tr><td><strong>IDS vs IPS</strong></td><td>IDS = detect + alert (passive); IPS = detect + BLOCK (inline/active)</td></tr>
+  <tr><td><strong>VPN protocols</strong></td><td>IPsec (L3, tunnel+transport mode); SSL/TLS VPN (L4-7); always encrypted tunnel</td></tr>
+  <tr><td><strong>VLAN</strong></td><td>Logical network segmentation at L2; reduces broadcast domain; VLAN hopping attack</td></tr>
+  <tr><td><strong>NAC (802.1X)</strong></td><td>Port-based network access control; supplicant → authenticator → auth server (RADIUS)</td></tr>
+  <tr><td><strong>DNS Security</strong></td><td>DNSSEC (integrity); DNS over HTTPS/TLS (confidentiality); DNS poisoning attack</td></tr>
+</table>
+
+<h3>IPsec</h3>
+<table>
+  <tr><th>Component</th><th>Function</th></tr>
+  <tr><td><strong>AH (Authentication Header)</strong></td><td>Integrity + authentication; NO encryption; protocol 51</td></tr>
+  <tr><td><strong>ESP (Encapsulating Security Payload)</strong></td><td>Integrity + authentication + ENCRYPTION; protocol 50</td></tr>
+  <tr><td><strong>Transport mode</strong></td><td>Encrypts payload only; original IP header visible; host-to-host</td></tr>
+  <tr><td><strong>Tunnel mode</strong></td><td>Encrypts ENTIRE original packet; new IP header added; gateway-to-gateway</td></tr>
+  <tr><td><strong>IKE</strong></td><td>Internet Key Exchange — negotiates security associations; Phase 1 (ISAKMP SA) + Phase 2 (IPsec SA)</td></tr>
+</table>
+
+<h3>Wireless Security</h3>
+<table>
+  <tr><th>Standard</th><th>Encryption</th><th>Status</th></tr>
+  <tr><td>WEP</td><td>RC4 (24-bit IV)</td><td>❌ Broken — never use</td></tr>
+  <tr><td>WPA</td><td>TKIP (RC4 improved)</td><td>⚠️ Deprecated</td></tr>
+  <tr><td>WPA2</td><td>AES-CCMP (128-bit)</td><td>✅ Acceptable (enterprise with 802.1X)</td></tr>
+  <tr><td>WPA3</td><td>AES-GCMP (192/256-bit); SAE</td><td>✅ Best — forward secrecy via SAE (Dragonfly)</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cross-Domain Connections: D3 ↔ D4</h2>
+<table>
+  <tr><th>Connection</th><th>D3 Concept</th><th>D4 Concept</th></tr>
+  <tr><td>Cryptography in networks</td><td>Crypto algorithms (AES, RSA, DH)</td><td>TLS/IPsec apply those algorithms to network traffic</td></tr>
+  <tr><td>Defense in depth</td><td>Architecture principle — multiple layers</td><td>Firewalls + IDS + VLANs + VPN = network layers</td></tr>
+  <tr><td>Zero trust</td><td>Architecture model — never trust</td><td>Microsegmentation + mTLS + NAC = network implementation</td></tr>
+  <tr><td>PKI &amp; certificates</td><td>CA/RA/CRL/OCSP infrastructure</td><td>TLS certificates authenticate servers; 802.1X uses certs</td></tr>
+  <tr><td>IPsec</td><td>Crypto protocol design (AH/ESP/IKE)</td><td>VPN tunnels connecting networks</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Cryptography Master Reference</h2>
+<table>
+  <tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Status</th></tr>
+  <tr><td>AES</td><td>Symmetric block</td><td>128/192/256</td><td>✅ Standard — CISSP default answer</td></tr>
+  <tr><td>3DES</td><td>Symmetric block</td><td>168 (effective 112)</td><td>⚠️ Deprecated 2023</td></tr>
+  <tr><td>RSA</td><td>Asymmetric</td><td>2048+ recommended</td><td>✅ Key exchange, signatures</td></tr>
+  <tr><td>ECC</td><td>Asymmetric</td><td>256 ≈ RSA 3072</td><td>✅ Efficient; mobile/IoT</td></tr>
+  <tr><td>Diffie-Hellman</td><td>Key exchange</td><td>2048+</td><td>✅ Key agreement; no authentication</td></tr>
+  <tr><td>SHA-256/SHA-3</td><td>Hash</td><td>256-bit output</td><td>✅ Integrity, signatures</td></tr>
+  <tr><td>MD5</td><td>Hash</td><td>128-bit output</td><td>❌ Broken — collisions found</td></tr>
+  <tr><td>RC4</td><td>Symmetric stream</td><td>Variable</td><td>❌ Broken — used in WEP</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Digital Signature Process:</strong><br>
+  1. Sender hashes the message (SHA-256)<br>
+  2. Sender encrypts hash with their PRIVATE key = signature<br>
+  3. Receiver decrypts signature with sender's PUBLIC key<br>
+  4. Receiver hashes received message, compares hashes<br>
+  Provides: Integrity + Authentication + Non-repudiation. Does NOT provide confidentiality.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. High-Yield Exam Concepts</h2>
+<table>
+  <tr><th>#</th><th>Concept</th><th>Exam Point</th></tr>
+  <tr><td>1</td><td>Bell-LaPadula vs Biba</td><td>BLP = confidentiality (no read up/write down); Biba = integrity (no read down/write up)</td></tr>
+  <tr><td>2</td><td>AES</td><td>Default symmetric algorithm answer; 128/192/256 bit; replaced DES/3DES</td></tr>
+  <tr><td>3</td><td>IPsec AH vs ESP</td><td>AH = integrity only; ESP = integrity + encryption; ESP is almost always preferred</td></tr>
+  <tr><td>4</td><td>Transport vs Tunnel mode</td><td>Transport = payload only (host-to-host); Tunnel = entire packet (gateway-to-gateway)</td></tr>
+  <tr><td>5</td><td>Symmetric vs Asymmetric</td><td>Symmetric = fast, shared key, bulk data; Asymmetric = slow, key pair, key exchange</td></tr>
+  <tr><td>6</td><td>WPA3/SAE</td><td>Best wireless; SAE replaces PSK; provides forward secrecy</td></tr>
+  <tr><td>7</td><td>Digital signatures</td><td>Hash + encrypt with private key; provides integrity + auth + non-repudiation</td></tr>
+  <tr><td>8</td><td>IDS vs IPS</td><td>IDS = passive (detect/alert); IPS = active (detect/block)</td></tr>
+  <tr><td>9</td><td>Zero trust principles</td><td>Never trust, always verify; microsegmentation; continuous authentication</td></tr>
+  <tr><td>10</td><td>OSI Layer security mapping</td><td>Know which security controls operate at which layers</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. D3 + D4 Mnemonic Summary</h2>
+<table>
+  <tr><th>Mnemonic</th><th>Topic</th><th>Meaning</th></tr>
+  <tr><td>"Please Do Not Throw Sausage Pizza Away"</td><td>OSI layers</td><td>Physical, Data Link, Network, Transport, Session, Presentation, Application</td></tr>
+  <tr><td>"No Read Up, No Write Down"</td><td>Bell-LaPadula</td><td>Confidentiality model rules</td></tr>
+  <tr><td>"No Read Down, No Write Up"</td><td>Biba</td><td>Integrity model rules</td></tr>
+  <tr><td>AH = Authentication, ESP = Everything</td><td>IPsec</td><td>AH = integrity only; ESP = integrity + encryption</td></tr>
+  <tr><td>"Symmetric = Same key, Speed"</td><td>Crypto types</td><td>Same key, fast, bulk data</td></tr>
+  <tr><td>"Asymmetric = A pair, Authentication"</td><td>Crypto types</td><td>Key pair, slow, key exchange/signatures</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-131-theory.html" class="nav-btn">← Day 131: Cross-Domain D1+D2</a>
+  <a href="day-133-theory.html" class="nav-btn">Day 133: Cross-Domain D5+D6 →</a>
+</div>
+</div>
+</body>
+</html>

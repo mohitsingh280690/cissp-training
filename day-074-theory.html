@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 74 – Federated Identity Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 74 – Federated Identity Management</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 74 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~70 min read</span><span>🎯 Difficulty: Advanced</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-073-theory.html">← Day 73: SSO &amp; Kerberos</a> · Domain 5 · Day 74</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Federation Concepts &amp; Trust Models</a></li>
+  <li><a href="#s4">4. SAML 2.0</a></li>
+  <li><a href="#s5">5. OAuth 2.0</a></li>
+  <li><a href="#s6">6. OpenID Connect (OIDC)</a></li>
+  <li><a href="#s7">7. WS-Federation</a></li>
+  <li><a href="#s8">8. SAML vs. OAuth vs. OIDC Comparison</a></li>
+  <li><a href="#s9">9. Federation Attacks</a></li>
+  <li><a href="#s10">10. IdP Concepts &amp; Trust Architecture</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — Cross-domain identity federation and modern authentication protocols</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>SAML, OAuth, OIDC are foundational to enterprise cloud and SaaS access. CISSP tests conceptual differences (SAML for authentication/SSO; OAuth for delegated authorization; OIDC for authentication on OAuth). Understanding assertion types, IdP/SP roles, and trust models is expected.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"A user logs in with Google to access a third-party app — which protocol?" (OIDC); "SAML assertion is issued by whom?" (IdP); "OAuth grants access WITHOUT sharing credentials — what concept?" (delegated authorization); "Which protocol replaced WS-Federation in cloud contexts?" (SAML/OIDC)</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 73 (SSO/Kerberos — internal federation vs. cross-domain); Day 38 (cryptography — JWT signing, SAML signatures, X.509 certs); Domain 8 (OAuth 2.0 security — OWASP API Security); Domain 1 (privacy — federation shares identity attributes)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>OAuth 2.0 is an AUTHORIZATION framework, NOT an authentication protocol. OIDC adds authentication on top of OAuth 2.0 (it IS an authentication protocol). SAML assertions are signed XML. The IdP (Identity Provider) authenticates the user; the SP (Service Provider) trusts the IdP's assertion.</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>Cloud SSO</strong></td><td>Organizations use SAML 2.0 to federate their on-premises identity provider (Okta, Azure AD, ADFS) with cloud SaaS applications (Salesforce, Office 365, Workday, AWS Console). User authenticates to corporate IdP; SAML assertion grants access to SaaS without separate SaaS password.</td></tr>
+  <tr><td><strong>"Sign in with Google/Apple/GitHub"</strong></td><td>OIDC powers social login. The identity provider (Google, Apple) authenticates the user and issues an ID token (JWT). The relying party (website) accepts this token to establish user identity. No need for separate account creation.</td></tr>
+  <tr><td><strong>API authorization</strong></td><td>OAuth 2.0 powers API authorization across the internet. When "Slack" wants to access your "Google Calendar," OAuth 2.0 grants Slack a scoped access token without sharing your Google password. The token scope limits what Slack can do.</td></tr>
+  <tr><td><strong>B2B federation</strong></td><td>Partners, suppliers, auditors, contractors need access to internal systems. Rather than creating accounts in your IdP, you federate with the partner's IdP. Users authenticate with their own organization's credentials — their identity is trusted via federation agreement.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Federation Concepts &amp; Trust Models</h2>
+<div class="callout definition">
+  <strong>📖 Identity Federation:</strong> A system that allows users to use their identity from one domain (Identity Provider) to access resources in another domain (Service Provider / Relying Party) without creating a separate account, based on a pre-established trust relationship between the two parties.
+</div>
+<table>
+  <tr><th>Role</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>Identity Provider (IdP)</strong></td><td>The entity that authenticates the user and issues assertions/tokens about their identity. The authoritative source of identity.</td><td>Enterprise ADFS; Okta; Azure AD; Google Accounts; Auth0</td></tr>
+  <tr><td><strong>Service Provider (SP)</strong></td><td>The entity that provides the service/resource the user wants to access. Trusts assertions from the IdP without re-authenticating the user.</td><td>Salesforce; AWS Console; GitHub Enterprise; your internal app behind Okta</td></tr>
+  <tr><td><strong>Relying Party (RP)</strong></td><td>OAuth/OIDC equivalent of the Service Provider. Relies on the authorization server/IdP to authenticate and authorize the user.</td><td>Third-party app using OIDC; API consuming OAuth tokens</td></tr>
+</table>
+
+<h3>Federation Trust Models</h3>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Example</th></tr>
+  <tr><td><strong>Direct trust</strong></td><td>One organization directly trusts another's IdP. Bilateral agreement. Simple; doesn't scale beyond a few partners.</td><td>Company A trusts Company B's ADFS. One SAML metadata exchange, manual agreement.</td></tr>
+  <tr><td><strong>Brokered / Hub-and-spoke</strong></td><td>A central federation broker (hub) that all parties trust. Any party in the federation can authenticate users from any other party via the broker. Scales to many IdPs/SPs.</td><td>InCommon Federation (US higher education); REFEDS; national eID schemes</td></tr>
+  <tr><td><strong>Identity mesh</strong></td><td>Every party trusts every other party — each has direct trust with all others. Maximum flexibility, exponentially complex to manage as parties scale.</td><td>Rare in practice above a few parties; replaced by hub-and-spoke at scale</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. SAML 2.0</h2>
+<div class="callout definition">
+  <strong>📖 SAML 2.0 (Security Assertion Markup Language):</strong> An XML-based, open standard for exchanging authentication and authorization data between an Identity Provider and a Service Provider. The primary standard for enterprise web SSO since 2005. Uses signed and optionally encrypted XML assertions.
+</div>
+
+<h3>SAML Assertion Types</h3>
+<table>
+  <tr><th>Assertion Type</th><th>Purpose</th></tr>
+  <tr><td><strong>Authentication assertion</strong></td><td>States that the user was authenticated by the IdP at a specific time using a specific method. Answers: WHO authenticated, WHEN, HOW.</td></tr>
+  <tr><td><strong>Attribute assertion</strong></td><td>Contains attributes about the user (email, role, group membership, department). Service Provider uses these for authorization decisions.</td></tr>
+  <tr><td><strong>Authorization decision assertion</strong></td><td>States whether the user is permitted to access a specific resource. Rarely used directly — most implementations derive authorization from attribute assertions.</td></tr>
+</table>
+
+<div class="diagram">SAML SP-Initiated Flow (most common in enterprise SSO)
+══════════════════════════════════════════════════════════════
+
+  User           Service Provider (SP)          Identity Provider (IdP)
+   │                     │                              │
+   │ 1. Request resource │                              │
+   │────────────────────►│                              │
+   │                     │ Generate SAML AuthnRequest   │
+   │ 2. Redirect to IdP  │ (XML, signed, base64)        │
+   │◄────────────────────│                              │
+   │                     │                              │
+   │ 3. Authenticate to IdP (username + MFA)            │
+   │───────────────────────────────────────────────────►│
+   │                     │                              │ Build signed SAML
+   │                     │                              │ Response with Assertion
+   │ 4. POST SAML        │                              │
+   │   Response to SP    │                              │
+   │◄───────────────────────────────────────────────────│
+   │                     │                              │
+   │ 5. Submit SAML      │                              │
+   │   Response to SP    │                              │
+   │────────────────────►│                              │
+   │                     │ Validate signature;          │
+   │                     │ Check audience, NotBefore,   │
+   │                     │ NotOnOrAfter                 │
+   │ 6. Grant access     │                              │
+   │◄────────────────────│                              │
+══════════════════════════════════════════════════════════════
+Note: SAML Response POSTed via browser (HTTP POST binding)
+IdP-initiated flow: IdP sends assertion without AuthnRequest</div>
+
+<h3>SAML Security Controls</h3>
+<table>
+  <tr><th>Control</th><th>Purpose</th></tr>
+  <tr><td><strong>XML digital signature</strong></td><td>Ensures assertion was issued by the legitimate IdP (integrity + authenticity). SP must validate signature against IdP's certificate.</td></tr>
+  <tr><td><strong>Audience restriction</strong></td><td>Assertion contains the SP's entity ID as the intended audience. Prevents token re-use at a different SP ("audience confusion")</td></tr>
+  <tr><td><strong>Time conditions (NotBefore / NotOnOrAfter)</strong></td><td>Assertion is only valid within a defined time window. Prevents replay attacks using old assertions.</td></tr>
+  <tr><td><strong>InResponseTo</strong></td><td>Ties the response to a specific SP-originated request. Prevents unsolicited IdP-initiated assertion injection attacks.</td></tr>
+  <tr><td><strong>Assertion encryption (optional)</strong></td><td>Encrypts attribute assertions in transit so SP proxy servers cannot read user attributes.</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. OAuth 2.0</h2>
+<div class="callout key-concept">
+  <strong>🔑 Critical: OAuth 2.0 is an AUTHORIZATION framework, NOT an authentication protocol.</strong><br>
+  OAuth 2.0 answers: "Can app X access resource Y on behalf of user Z?"<br>
+  It does NOT answer: "Is this person who they claim to be?" (that's OIDC or SAML)<br>
+  Core concept: <strong>delegated authorization</strong> — grant access without sharing credentials
+</div>
+
+<h3>OAuth 2.0 Key Roles</h3>
+<table>
+  <tr><th>Role</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>Resource Owner</strong></td><td>The user who owns the data/resource and grants access</td><td>User "Alice" who owns Google Calendar data</td></tr>
+  <tr><td><strong>Client</strong></td><td>The application requesting access to the resource on behalf of the resource owner</td><td>Slack (wants to read Alice's calendar)</td></tr>
+  <tr><td><strong>Authorization Server</strong></td><td>Issues access tokens after authenticating the resource owner and obtaining consent</td><td>Google Auth server (accounts.google.com)</td></tr>
+  <tr><td><strong>Resource Server</strong></td><td>The API/server hosting the protected resource. Validates access tokens.</td><td>Google Calendar API</td></tr>
+</table>
+
+<h3>OAuth 2.0 Grant Types</h3>
+<table>
+  <tr><th>Grant Type</th><th>Use Case</th><th>Security Notes</th></tr>
+  <tr><td><strong>Authorization Code</strong></td><td>Server-side web apps with a back end that can keep secrets</td><td>Most secure standard grant; code exchanged for token on back channel; PKCE extension required even for server-side apps</td></tr>
+  <tr><td><strong>Authorization Code + PKCE</strong></td><td>Mobile/SPA/native apps that cannot store client secrets</td><td>Current recommended replacement for Implicit; code verifier/challenge prevents code interception attacks</td></tr>
+  <tr><td><strong>Client Credentials</strong></td><td>Machine-to-machine (no user involved); service-to-service</td><td>Client authenticates with its own credentials (client_id + client_secret); no user context</td></tr>
+  <tr><td><strong>Device Code</strong></td><td>Devices with limited input (Smart TV, printer, CLI)</td><td>Device shows code; user authenticates on secondary device (phone/laptop)</td></tr>
+  <tr><td><strong>Implicit (deprecated)</strong></td><td>SPAs (legacy) — access token returned directly in URL fragment</td><td>⚠️ Deprecated (OAuth 2.1): token in URL = logged in server logs, accessible to scripts; replaced by Auth Code + PKCE</td></tr>
+  <tr><td><strong>Resource Owner Password Credentials (ROPC) (deprecated)</strong></td><td>Legacy apps where client collects username/password directly</td><td>⚠️ Deprecated (OAuth 2.1): app handles credentials directly — defeats OAuth's purpose of not sharing credentials; only acceptable for migration from legacy systems</td></tr>
+</table>
+
+<h3>OAuth 2.0 Tokens</h3>
+<table>
+  <tr><th>Token Type</th><th>Purpose</th><th>Notes</th></tr>
+  <tr><td><strong>Access token</strong></td><td>Bearer token presented to resource server to access the resource. Scoped to specific permissions.</td><td>Short-lived (minutes to hours); opaque or JWT; resource server validates by introspection (opaque) or signature (JWT)</td></tr>
+  <tr><td><strong>Refresh token</strong></td><td>Long-lived token used to obtain new access tokens without re-prompting the user.</td><td>Never sent to resource servers; stored securely by client; can be revoked by authorization server; rotation recommended</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. OpenID Connect (OIDC)</h2>
+<div class="callout definition">
+  <strong>📖 OpenID Connect (OIDC):</strong> An authentication layer built on top of OAuth 2.0. While OAuth 2.0 handles authorization (resource access), OIDC adds identity — the ability to authenticate a user and receive identity information about them. OIDC = OAuth 2.0 + UserInfo endpoint + ID Token.
+</div>
+
+<table>
+  <tr><th>OIDC Concept</th><th>Description</th></tr>
+  <tr><td><strong>ID Token</strong></td><td>A JSON Web Token (JWT) returned by the authorization server that contains claims about the authenticated user (sub, email, name, iat, exp, iss). The ID token IS the authentication credential. The relying party validates the JWT signature to verify identity.</td></tr>
+  <tr><td><strong>UserInfo endpoint</strong></td><td>An OAuth 2.0 protected endpoint where the relying party can retrieve additional user attributes using the access token. Supplements ID token claims.</td></tr>
+  <tr><td><strong>Claims</strong></td><td>Key-value pairs in the ID token (JWT payload). Standard claims: sub (subject/user ID), iss (issuer), aud (audience), exp (expiry), iat (issued at), email, name, preferred_username.</td></tr>
+  <tr><td><strong>sub (Subject)</strong></td><td>Unique identifier for the user within the authorization server. Stable and non-reassignable. Used as the primary user identifier — more stable than email (email can change).</td></tr>
+  <tr><td><strong>Scopes</strong></td><td>openid scope is required to trigger OIDC (returns ID token). Additional scopes: profile, email, address, phone — each adds specific claims to the ID token/UserInfo response.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip: OAuth 2.0 vs. OIDC purpose:</strong><br>
+  <strong>OAuth 2.0:</strong> "Can this app access my calendar?" — authorization, resource access, delegated permissions<br>
+  <strong>OIDC:</strong> "Who is this user?" — authentication, identity assertion, sign-in<br>
+  OIDC requires the <code>openid</code> scope in the OAuth 2.0 request. Without it, you get OAuth 2.0 access tokens but no ID token.
+</div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. WS-Federation</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Definition</strong></td><td>A WS-* (Web Services) protocol for cross-organizational identity federation. Uses WS-Trust for token exchange and SOAP-based messaging. Microsoft/IBM initiative.</td></tr>
+  <tr><td><strong>Token format</strong></td><td>Uses SAML 1.1 or SAML 2.0 tokens (unlike SAML profiles which define binding). WS-Federation defines the federation protocol; SAML defines the token format.</td></tr>
+  <tr><td><strong>Use in practice</strong></td><td>Primarily found in Microsoft environments (ADFS — Active Directory Federation Services). WS-Federation passive profile used for browser-based SSO; WS-Federation active profile for thick-client/WCF service authentication.</td></tr>
+  <tr><td><strong>Current relevance</strong></td><td>Being replaced by SAML 2.0 and OIDC in new deployments. Microsoft has shifted Azure AD toward SAML 2.0 and OIDC. WS-Federation legacy support remains in ADFS for backward compatibility.</td></tr>
+  <tr><td><strong>CISSP exam use</strong></td><td>Tested as a federation concept; know: WS-Federation = Microsoft environment, uses security tokens, predecessor to modern federation standards in M365/Azure ecosystems</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. SAML vs. OAuth vs. OIDC Comparison</h2>
+<table>
+  <tr><th>Attribute</th><th>SAML 2.0</th><th>OAuth 2.0</th><th>OpenID Connect</th></tr>
+  <tr><td><strong>Purpose</strong></td><td>Authentication + Authorization (SSO, enterprise)</td><td>Delegated Authorization only</td><td>Authentication (built on OAuth)</td></tr>
+  <tr><td><strong>Token format</strong></td><td>Signed XML assertion</td><td>Opaque token or JWT (access token)</td><td>JWT (ID token) + access token</td></tr>
+  <tr><td><strong>Transport</strong></td><td>HTTP POST/Redirect (browser-based)</td><td>HTTP/HTTPS REST API</td><td>HTTP/HTTPS REST API</td></tr>
+  <tr><td><strong>Typical use case</strong></td><td>Enterprise SSO; cloud SaaS access from corporate IdP</td><td>"Login with Google" for API access; third-party app permissions on APIs</td><td>"Sign in with Google/Apple/GitHub"; mobile/SPA login</td></tr>
+  <tr><td><strong>Identity info</strong></td><td>Attribute assertions in SAML response</td><td>No identity info (just access token)</td><td>ID token contains user claims</td></tr>
+  <tr><td><strong>Standard year</strong></td><td>2005</td><td>2012 (updated 2.1)</td><td>2014</td></tr>
+  <tr><td><strong>Protocol complexity</strong></td><td>High (XML, complex flows)</td><td>Medium (REST, JSON)</td><td>Medium (REST, JSON + JWT)</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. Federation Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defence</th></tr>
+  <tr><td><strong>Golden SAML</strong></td><td>Analogous to Kerberos Golden Ticket. Attacker steals the IdP's SAML signing private key (from compromised ADFS/identity server). Can forge arbitrary SAML assertions for any user, granting access to all federated services. Used in SolarWinds attack (2020).</td><td>Protect IdP signing key with HSM; monitor for SAML assertions with unusual attributes; IP restrictions on SAML-consuming services; certificate rotation</td></tr>
+  <tr><td><strong>SAML XML injection / wrapping attack</strong></td><td>Older XML signature vulnerability allowing an attacker to wrap the signed portion of an XML assertion, replacing unsigned content while signature still validates.</td><td>Use modern SAML libraries with full XML canonicalization; validate both signed element reference AND entire assertion integrity</td></tr>
+  <tr><td><strong>OAuth token theft</strong></td><td>Stealing access tokens from client storage (browser localStorage, logs, insecure apps).</td><td>Store tokens in HttpOnly cookies or secure in-memory; short token lifetimes; token binding; mTLS sender-constrained tokens</td></tr>
+  <tr><td><strong>OAuth redirect_uri manipulation</strong></td><td>Attacker registers a malicious redirect URI; if authorization server doesn't strictly validate redirect URIs, authorization code or token is redirected to attacker's server.</td><td>Exact match redirect URI validation (no wildcards); PKCE prevents stolen auth codes from being used</td></tr>
+  <tr><td><strong>Open redirector abuse</strong></td><td>OAuth authorization endpoint is an open redirector — attacker crafts malicious authorization URL that redirects victim to attacker's site after consent.</td><td>Server validates redirect URI against pre-registered exact values; user education</td></tr>
+  <tr><td><strong>IdP compromise</strong></td><td>Compromising the Identity Provider gives access to all service providers that trust it. The IdP is the highest-value target in a federated architecture.</td><td>Harden IdP to highest standard; MFA on IdP admin; monitor for anomalous assertion issuance; IdP key HSM protection</td></tr>
+</table>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. IdP Concepts &amp; Trust Architecture</h2>
+<table>
+  <tr><th>Concept</th><th>Detail</th></tr>
+  <tr><td><strong>Identity Provider (IdP)</strong></td><td>The authoritative authentication authority. Authenticates users, manages their identity lifecycle, issues assertions/tokens. Examples: Okta, Azure AD, ADFS, Auth0, Ping Identity, Google Workspace.</td></tr>
+  <tr><td><strong>Federation metadata</strong></td><td>XML document describing an IdP or SP's capabilities, entity ID, signing certificates, supported bindings. Exchanged between parties to establish trust. SAML metadata is imported at both ends before federation works.</td></tr>
+  <tr><td><strong>Trust establishment</strong></td><td>SPs must be configured to trust specific IdPs (import IdP metadata). IdPs must register SPs (import SP metadata, define which attributes to release). Manual or metadata-based automated trust.</td></tr>
+  <tr><td><strong>Attribute release policy</strong></td><td>IdPs control which user attributes are shared with which SPs. A policy might release email to Service A but only employee number to Service B. Minimizes data exposure and supports privacy principles.</td></tr>
+  <tr><td><strong>Cross-domain authentication</strong></td><td>When User from Domain A accesses Service in Domain B: User authenticates to Domain A IdP → IdP issues credential → Domain B SP validates credential based on pre-established trust → User gets access without Domain B account.</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 OAuth vs. OIDC — "Authorization vs Authentication":</strong><br>
+  <strong>OAuth</strong> = <strong>O</strong> for <strong>O</strong>pen authorization = "Can you access this?" — delegation<br>
+  <strong>OIDC</strong> = <strong>O</strong>Auth + identity = "Who are you?" — authentication on top of OAuth<br>
+  If you see "Sign in with..." → OIDC<br>
+  If you see "Allow app X to access your Y..." → OAuth 2.0
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SAML Parties — "Idp Serves, SP Trusts":</strong><br>
+  <strong>IdP</strong> = Identity Provider = WHO ISSUED the assertion (authenticates user, signs XML)<br>
+  <strong>SP</strong> = Service Provider = WHO TRUSTS the assertion (validates signature, grants access)<br>
+  Flow: User → SP → redirect to IdP → authenticate → IdP sends SAML back → SP grants access
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Golden SAML = Golden Ticket, different protocol:</strong><br>
+  Golden Ticket (Kerberos) = steal KRBTGT → forge Kerberos tickets<br>
+  Golden SAML (federation) = steal IdP signing key → forge SAML assertions<br>
+  Both require IdP/KDC-level compromise but grant access to ALL downstream services
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Federation purpose</td><td>Use identity from one domain to access resources in another; pre-established trust between IdP and SP; no separate account needed</td></tr>
+  <tr><td>IdP</td><td>Authenticates user, issues assertions/tokens; most critical node in federation — compromise = all SPs compromised</td></tr>
+  <tr><td>SP / Relying Party</td><td>Trusts IdP assertions; grants access based on assertion content; must validate signature, audience, and time conditions</td></tr>
+  <tr><td>SAML 2.0</td><td>XML-based; enterprise SSO; IdP → signed XML assertion → SP; three assertion types (authentication, attribute, authorization decision)</td></tr>
+  <tr><td>OAuth 2.0</td><td>AUTHORIZATION framework (not authentication); delegated access; access tokens + refresh tokens; deprecated grants: Implicit, ROPC</td></tr>
+  <tr><td>OIDC</td><td>Authentication ON TOP of OAuth 2.0; adds ID token (JWT) + UserInfo endpoint; "Sign in with..." is OIDC</td></tr>
+  <tr><td>WS-Federation</td><td>Microsoft/enterprise protocol; used in ADFS; being replaced by SAML 2.0/OIDC in new deployments</td></tr>
+  <tr><td>Golden SAML</td><td>Steal IdP signing private key → forge any SAML assertion; used in SolarWinds attack; defend with HSM for signing key</td></tr>
+  <tr><td>OAuth redirect_uri</td><td>Must be exact-match registered; wildcard redirect URIs enable token theft; PKCE prevents stolen code attacks</td></tr>
+  <tr><td>PKCE</td><td>Proof Key for Code Exchange; required for mobile/SPA OAuth; prevents authorization code interception; replaces Implicit grant</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-073-theory.html" class="nav-btn">← Day 73: SSO &amp; Kerberos</a>
+  <a href="day-075-theory.html" class="nav-btn">Day 75: Authorization: DAC &amp; MAC →</a>
+</div>
+</div>
+</body>
+</html>

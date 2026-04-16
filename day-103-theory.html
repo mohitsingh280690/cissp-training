@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 103 – Digital Forensics: Procedures</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 103 – Digital Forensics: Procedures</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 103 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-102-theory.html">← Day 102: Digital Forensics – Evidence</a> · Domain 7 · Day 103</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Forensic Process Model</a></li>
+  <li><a href="#s4">4. Disk Imaging &amp; Hashing</a></li>
+  <li><a href="#s5">5. Volatile vs Non-Volatile Data &amp; Order of Volatility</a></li>
+  <li><a href="#s6">6. Timeline Analysis &amp; Artifact Correlation</a></li>
+  <li><a href="#s7">7. Network Forensics</a></li>
+  <li><a href="#s8">8. Anti-Forensics Techniques</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Forensic procedures determine whether digital evidence is collected correctly. CISSP candidates must understand the proper technical procedures for preserving, acquiring, and examining digital evidence without altering it</td></tr>
+  <tr><td>Question Style</td><td>"What is the FIRST action when arriving at a digital crime scene?" (secure the area and prevent alteration). "Which should be collected FIRST during live forensics?" (CPU registers and cache — most volatile). "What is the primary purpose of a write-blocker?" (prevent modification to original media during imaging)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 101 (investigation framework); Day 102 (evidence types and admissibility — procedures ensure admissibility); Day 105 (incident response — forensics occurs during containment/eradication phases)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Business Impact</h3>
+<p>Digital forensic procedures are invoked during: data breach investigations (mandatory under many regulations), insider threat cases, intellectual property theft, litigation support (e-discovery), and malware analysis. The difference between a successful prosecution and a failed case often comes down to whether proper forensic procedures were followed.</p>
+
+<h3>Common Procedural Failures</h3>
+<ul>
+  <li><strong>Shutting down the system prematurely:</strong> Destroys volatile evidence (RAM contents, running processes, network connections, encryption keys in memory)</li>
+  <li><strong>No write-blocker:</strong> Connecting a drive to a normal system modifies access times, altering the evidence</li>
+  <li><strong>Using unvalidated tools:</strong> Forensic tools must be validated and accepted by the forensic community; custom scripts may not withstand legal scrutiny</li>
+  <li><strong>Single hash algorithm:</strong> Best practice is dual hashing (MD5 + SHA-256) to prevent any argument of hash collision</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Forensic Process Model</h2>
+<div class="diagram">
+NIST SP 800-86 — DIGITAL FORENSIC PROCESS
+
+  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+  │ COLLECTION   │──→│ EXAMINATION  │──→│  ANALYSIS    │──→│  REPORTING   │
+  │              │   │              │   │              │   │              │
+  │ Identify     │   │ Extract data │   │ Correlate    │   │ Document     │
+  │ Label        │   │ from forensic│   │ findings     │   │ findings     │
+  │ Record       │   │ image        │   │ Reconstruct  │   │ Conclusions  │
+  │ Acquire      │   │ File carving │   │ events       │   │ Methodology  │
+  │              │   │ Keyword      │   │ Timeline     │   │ Recommend-   │
+  │              │   │ search       │   │ analysis     │   │ ations       │
+  └──────────────┘   └──────────────┘   └──────────────┘   └──────────────┘
+
+  ←──── Documentation and Chain of Custody throughout entire process ────→
+</div>
+
+<h3>Phase Details</h3>
+<table>
+  <tr><th>Phase</th><th>Activities</th><th>Key Outputs</th></tr>
+  <tr><td><strong>Collection</strong></td><td>Secure the scene; photograph evidence; identify data sources; create forensic images using write-blockers; calculate hashes; document chain of custody</td><td>Forensic images; hash values; chain of custody forms; photographs</td></tr>
+  <tr><td><strong>Examination</strong></td><td>Work on forensic copies; extract relevant data; file carving (recovering deleted files); keyword searching; parse metadata; recover artifacts from slack space, unallocated clusters</td><td>Extracted files; recovered deleted data; metadata reports</td></tr>
+  <tr><td><strong>Analysis</strong></td><td>Correlate extracted data; build timeline of events; link artifacts to users and activities; determine what happened, when, by whom</td><td>Timeline; event reconstruction; attribution analysis</td></tr>
+  <tr><td><strong>Reporting</strong></td><td>Document methodology, tools used, findings, and conclusions; make the report understandable to non-technical stakeholders (judges, lawyers, executives)</td><td>Forensic report; expert testimony preparation</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Emphasis — NIST SP 800-86:</strong> This is THE referenced forensic standard for CISSP. Remember the four phases: Collection → Examination → Analysis → Reporting (CEAR). Documentation and chain of custody are continuous activities throughout ALL phases.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Disk Imaging &amp; Hashing</h2>
+<h3>Forensic Imaging</h3>
+<div class="definition callout">
+  <strong>Forensic Image (Bit-Stream Copy):</strong> An exact, bit-for-bit duplicate of the entire storage medium — including deleted files, file slack, unallocated space, and partition tables. This is NOT the same as a normal file copy (which only copies active files).
+</div>
+
+<h3>Imaging vs Copying</h3>
+<table>
+  <tr><th>Feature</th><th>Forensic Image (Bit-Stream)</th><th>Normal Copy</th></tr>
+  <tr><td>Captures deleted files</td><td>Yes — copies entire disk surface</td><td>No — only copies active files</td></tr>
+  <tr><td>Captures slack space</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Captures unallocated clusters</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Captures hidden data</td><td>Yes (HPA, DCO areas)</td><td>No</td></tr>
+  <tr><td>Hash verifiable</td><td>Yes — bit-for-bit identical to source</td><td>No — different hash than source device</td></tr>
+  <tr><td>Court admissible</td><td>Yes — meets best evidence rule</td><td>Likely challenged</td></tr>
+</table>
+
+<h3>Hashing</h3>
+<table>
+  <tr><th>Algorithm</th><th>Hash Length</th><th>Status</th><th>Forensic Use</th></tr>
+  <tr><td>MD5</td><td>128 bits (32 hex chars)</td><td>Known collision vulnerabilities</td><td>Still used in forensics for backward compatibility; pair with SHA-256</td></tr>
+  <tr><td>SHA-1</td><td>160 bits (40 hex chars)</td><td>Deprecated for security</td><td>Avoid — use SHA-256 instead</td></tr>
+  <tr><td>SHA-256</td><td>256 bits (64 hex chars)</td><td>Current standard</td><td>Primary forensic hash algorithm</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Dual Hashing Best Practice:</strong> Calculate BOTH MD5 and SHA-256 at time of acquisition. Verify both hashes match when accessing the forensic image. Dual hashing eliminates arguments about hash collisions (the probability of two different inputs producing collisions in BOTH algorithms simultaneously is astronomically small).
+</div>
+
+<h3>Write-Blockers</h3>
+<div class="definition callout">
+  <strong>Write-Blocker:</strong> A hardware device or software tool that allows read access to a storage device while blocking all write operations. Essential for forensic imaging — prevents the forensic workstation from modifying the evidence drive (even auto-mount, journaling, or time stamp updates).
+</div>
+<p><strong>Hardware write-blockers</strong> are preferred over software write-blockers because they are independent of the operating system and harder to bypass. They sit between the evidence drive and the forensic workstation.</p>
+</section>
+
+<section id="s5">
+<h2>5. Volatile vs Non-Volatile Data &amp; Order of Volatility</h2>
+<div class="definition callout">
+  <strong>Volatile Data:</strong> Data that is lost when power is removed or the system is shut down (RAM, cache, running processes, network connections).<br>
+  <strong>Non-Volatile Data:</strong> Data that persists without power (hard drives, SSDs, USB drives, flash memory, optical media).
+</div>
+
+<h3>RFC 3227 – Order of Volatility</h3>
+<p>RFC 3227 (Guidelines for Evidence Collection and Archiving) establishes the order in which evidence should be collected — from MOST volatile (lost soonest) to LEAST volatile:</p>
+
+<table>
+  <tr><th>#</th><th>Data Source</th><th>Volatility</th><th>Examples</th></tr>
+  <tr><td>1</td><td>CPU registers &amp; cache</td><td>Nanoseconds</td><td>Current instruction pointer, register contents</td></tr>
+  <tr><td>2</td><td>Routing table, ARP cache, process table, kernel stats, memory (RAM)</td><td>Seconds to minutes</td><td>Running processes, network connections, memory-resident malware, encryption keys</td></tr>
+  <tr><td>3</td><td>Temporary file systems (/tmp)</td><td>Minutes</td><td>Temp files that may be cleared on reboot</td></tr>
+  <tr><td>4</td><td>Disk / hard drive</td><td>Persistent until overwritten</td><td>Files, logs, databases, swap space</td></tr>
+  <tr><td>5</td><td>Remote logging &amp; monitoring data</td><td>Persistent until rotation</td><td>SIEM logs, syslog server, IDS/IPS logs</td></tr>
+  <tr><td>6</td><td>Physical configuration &amp; network topology</td><td>Semi-permanent</td><td>Network diagrams, switch configs, firewall rules</td></tr>
+  <tr><td>7</td><td>Archival media (backups, tapes)</td><td>Years</td><td>Backup tapes, archived disk images</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Favorite:</strong> "What should be captured FIRST during a forensic investigation?" Answer: the MOST volatile data — CPU registers/cache, then RAM. This is why live forensics (capturing data from a running system) is critical — once the system is powered off, volatile data is gone forever.
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Never Pull the Plug:</strong> Unplugging a system destroys ALL volatile evidence. The forensic examiner should perform live acquisition of volatile data BEFORE the system is shut down. The only exception: if the system is actively destroying evidence (e.g., a wipe process is running), immediate power disconnection may be warranted.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Timeline Analysis &amp; Artifact Correlation</h2>
+<h3>Timeline Analysis</h3>
+<p>Timeline analysis reconstructs the chronological sequence of events by correlating timestamps from multiple sources:</p>
+<ul>
+  <li><strong>File system timestamps:</strong> MAC times — Modified, Accessed, Created (or Changed on Linux); note: Windows NTFS stores Created, Modified, Accessed, Entry Modified</li>
+  <li><strong>Log files:</strong> System logs, application logs, security logs, web server logs</li>
+  <li><strong>Registry entries (Windows):</strong> Last access times, USB connection history, program execution history</li>
+  <li><strong>Network logs:</strong> Firewall logs, IDS alerts, DNS queries, proxy logs</li>
+  <li><strong>Email headers:</strong> Sent/received timestamps, mail server relay times</li>
+</ul>
+
+<h3>MAC Times</h3>
+<table>
+  <tr><th>Timestamp</th><th>Updated When</th><th>Forensic Significance</th></tr>
+  <tr><td><strong>Modified</strong></td><td>File content is changed</td><td>When was the file last written to?</td></tr>
+  <tr><td><strong>Accessed</strong></td><td>File is read or opened</td><td>When was the file last viewed? (may be disabled for performance on modern OS)</td></tr>
+  <tr><td><strong>Created (NTFS) / Changed (ext)</strong></td><td>File is first created (NTFS) or metadata changes (ext)</td><td>When was the file placed on this volume? NOTE: A "Created" date AFTER the Modified date indicates the file was COPIED from elsewhere</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Timestomping:</strong> An anti-forensic technique where an attacker deliberately modifies file timestamps to hide when files were created or accessed. Forensic examiners can detect this by comparing file system timestamps with entries in the MFT (Master File Table) journal, log entries, or other timestamped artifacts.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Network Forensics</h2>
+<div class="definition callout">
+  <strong>Network Forensics:</strong> The capture, recording, and analysis of network traffic for the purpose of detecting intrusions, investigating security incidents, or gathering evidence. Unlike disk forensics, network forensics often deals with real-time or near-real-time data.
+</div>
+
+<h3>Two Approaches</h3>
+<table>
+  <tr><th>Approach</th><th>Description</th><th>Pros</th><th>Cons</th></tr>
+  <tr><td><strong>Catch-it-as-you-can</strong></td><td>Capture ALL network traffic (full packet capture) and store for later analysis</td><td>Complete record; thorough analysis possible</td><td>Massive storage requirements; performance impact; privacy concerns</td></tr>
+  <tr><td><strong>Stop, look, and listen</strong></td><td>Analyze traffic in real-time and only save relevant data; flag anomalies on the fly</td><td>Less storage; faster alerting; reduced privacy exposure</td><td>May miss relevant data not flagged; can't go back to review past traffic</td></tr>
+</table>
+
+<h3>Key Network Evidence Sources</h3>
+<ul>
+  <li><strong>Packet captures (PCAP):</strong> Full content of network communications — the gold standard for network forensics</li>
+  <li><strong>NetFlow / IPFIX / sFlow:</strong> Summary records of network conversations (source, destination, port, bytes, duration) — no payload content</li>
+  <li><strong>IDS/IPS alerts:</strong> Records of detected suspicious or malicious network activity</li>
+  <li><strong>Firewall logs:</strong> Allowed and denied connection attempts</li>
+  <li><strong>DNS logs:</strong> Domain resolution requests — critical for detecting C2 (command and control) communication, DNS tunneling, DGA (domain generation algorithm) activity</li>
+  <li><strong>Proxy/web filter logs:</strong> URLs accessed, content categories, blocked requests</li>
+</ul>
+</section>
+
+<section id="s8">
+<h2>8. Anti-Forensics Techniques</h2>
+<table>
+  <tr><th>Technique</th><th>Description</th><th>Detection Method</th></tr>
+  <tr><td><strong>Data wiping</strong></td><td>Overwriting data with zeros or random patterns (DoD 5220.22-M standard recommends multiple passes)</td><td>Look for large blocks of zeros/patterns; check for discrepancies between file system records and actual disk content</td></tr>
+  <tr><td><strong>Steganography</strong></td><td>Hiding data within other files (images, audio, video) without visible alteration</td><td>Statistical analysis of carrier files; steganalysis tools; file size anomalies</td></tr>
+  <tr><td><strong>Encryption</strong></td><td>Encrypting files or entire volumes to prevent access without the key</td><td>Capture RAM before shutdown (keys may be in memory); legal compulsion; key escrow</td></tr>
+  <tr><td><strong>Timestomping</strong></td><td>Modifying file timestamps to disguise when files were created/modified</td><td>Compare filesystem timestamps with MFT journal entries, $LogFile, $UsnJrnl</td></tr>
+  <tr><td><strong>Slack space hiding</strong></td><td>Storing data in file slack space (gap between end of file and end of cluster)</td><td>Forensic tools analyze slack space; file carving can recover hidden data</td></tr>
+  <tr><td><strong>Log tampering</strong></td><td>Deleting or modifying log entries to erase evidence of activity</td><td>Remote logging (attacker can't easily modify); log integrity monitoring; SIEM correlation</td></tr>
+  <tr><td><strong>Trail obfuscation</strong></td><td>Using proxies, VPNs, Tor, or compromised intermediary systems to hide origin</td><td>Correlation across multiple log sources; timing analysis; traffic pattern analysis</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Point — Best Defense Against Anti-Forensics:</strong> Centralized, remote logging (send logs to a separate, hardened SIEM/syslog server). An attacker who compromises a system can tamper with local logs but cannot easily modify logs already sent to a remote server.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Forensic Process — "CEAR"</strong><br>
+  <strong>C</strong>ollection → <strong>E</strong>xamination → <strong>A</strong>nalysis → <strong>R</strong>eporting<br>
+  "Collect Evidence, Analyze, Report" (NIST SP 800-86)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Order of Volatility — "CPU Runs Through Disk, Remote, Physical, Archive"</strong><br>
+  1. <strong>CPU</strong> registers/cache<br>
+  2. <strong>R</strong>AM (memory, routing table, ARP, processes)<br>
+  3. <strong>T</strong>emp file systems<br>
+  4. <strong>D</strong>isk (hard drive, SSD)<br>
+  5. <strong>R</strong>emote logging<br>
+  6. <strong>P</strong>hysical topology/config<br>
+  7. <strong>A</strong>rchival media<br>
+  "Collect from fastest-disappearing to most-persistent"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 MAC Times</strong><br>
+  <strong>M</strong>odified = content changed<br>
+  <strong>A</strong>ccessed = last opened/read<br>
+  <strong>C</strong>reated = first placed on volume<br>
+  "If Created date is AFTER Modified date → file was COPIED here"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Write-Blocker Rule</strong><br>
+  "Never plug evidence into a naked port." Always use a write-blocker between evidence media and forensic workstation.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Forensic process</td><td>NIST SP 800-86: Collection → Examination → Analysis → Reporting; chain of custody throughout</td></tr>
+  <tr><td>Forensic image</td><td>Bit-stream copy including deleted files, slack space, unallocated space; NOT a normal file copy</td></tr>
+  <tr><td>Write-blockers</td><td>Hardware preferred; prevents any writes to evidence; mandatory for imaging</td></tr>
+  <tr><td>Dual hashing</td><td>MD5 + SHA-256 at acquisition and at every access point; eliminates collision arguments</td></tr>
+  <tr><td>Order of volatility</td><td>RFC 3227: capture most volatile first — CPU registers → RAM → temp → disk → remote → physical → archival</td></tr>
+  <tr><td>Live forensics</td><td>Capture volatile data (RAM, processes, connections) BEFORE shutdown; never just pull the plug</td></tr>
+  <tr><td>MAC times</td><td>Modified/Accessed/Created; Created after Modified = file was copied from elsewhere</td></tr>
+  <tr><td>Timestomping</td><td>Anti-forensic timestamp manipulation; detected via MFT journal comparison</td></tr>
+  <tr><td>Network forensics</td><td>Full packet capture (catch-it-as-you-can) vs real-time analysis (stop-look-listen)</td></tr>
+  <tr><td>Anti-forensics defense</td><td>Best counter: centralized remote logging to hardened SIEM/syslog server</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-102-theory.html" class="nav-btn">← Day 102: Evidence</a>
+  <a href="day-104-theory.html" class="nav-btn">Day 104: Incident Management →</a>
+</div>
+</div>
+</body>
+</html>

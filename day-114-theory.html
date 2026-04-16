@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 114 – DR Testing &amp; Maintenance</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 114 – DR Testing &amp; Maintenance</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 114 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-113-theory.html">← Day 113: Backup &amp; Recovery</a> · Domain 7 · Day 114</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. DR Test Types — From Least to Most Disruptive</a></li>
+  <li><a href="#s4">4. Detailed Comparison of Test Types</a></li>
+  <li><a href="#s5">5. Test Planning &amp; Execution</a></li>
+  <li><a href="#s6">6. DR Plan Maintenance</a></li>
+  <li><a href="#s7">7. After-Action Reports &amp; Lessons Learned</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>DR test types ordered from least to most disruptive is one of the highest-frequency exam topics. Candidates must know the five test types, their risk level, and which provides the most realistic validation</td></tr>
+  <tr><td>Question Style</td><td>"Which DR test type poses the GREATEST risk to operations?" (Full interruption). "Which test type involves walking through the plan as a group discussion?" (Tabletop). "An organization's first DR test should be?" (Checklist or tabletop — lowest risk)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 111 (DRP components include test schedule); Day 113 (backup testing); Day 105 (IR lessons learned similar to DR after-action)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>Many organizations create DR plans but never test them. When disaster strikes, untested plans routinely fail — contact lists are outdated, procedures reference decommissioned systems, staff don't know their roles. Regular DR testing transforms a document into an operational capability. The 2017 British Airways data center outage caused 75,000 passengers to be stranded; their DR procedures were found inadequate after going years without a realistic test.</p>
+</section>
+
+<section id="s3">
+<h2>3. DR Test Types — From Least to Most Disruptive</h2>
+<table>
+  <tr><th>#</th><th>Test Type</th><th>Description</th><th>Risk to Production</th><th>Realism</th></tr>
+  <tr><td>1</td><td><strong>Checklist (Desk Check)</strong></td><td>Each team member reviews the plan individually and checks off items for accuracy and completeness</td><td>None</td><td>Lowest</td></tr>
+  <tr><td>2</td><td><strong>Structured Walk-Through (Tabletop)</strong></td><td>Team members gather in a conference room and walk through the plan step by step, discussing roles and responses to scenarios</td><td>None</td><td>Low</td></tr>
+  <tr><td>3</td><td><strong>Simulation</strong></td><td>A specific disaster scenario is role-played; team members act out their responses but do NOT actually activate systems or move to alternate sites</td><td>Very Low</td><td>Moderate</td></tr>
+  <tr><td>4</td><td><strong>Parallel Test</strong></td><td>Systems are actually recovered at the alternate site while PRIMARY SYSTEMS CONTINUE running. Verifies recovery capability without affecting production</td><td>Low-Moderate</td><td>High</td></tr>
+  <tr><td>5</td><td><strong>Full Interruption</strong></td><td>Primary systems are actually SHUT DOWN and ALL operations are transferred to the alternate site. Most realistic but also most dangerous</td><td>Highest</td><td>Highest</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Detailed Comparison of Test Types</h2>
+
+<h3>Checklist (Desk Check) Review</h3>
+<ul>
+  <li>Individual activity — no group meeting required</li>
+  <li>Verifies plan completeness: are all systems listed? contacts current? procedures documented?</li>
+  <li>Does NOT validate that the plan actually works</li>
+  <li>Good starting point for new or significantly updated plans</li>
+</ul>
+
+<h3>Structured Walk-Through (Tabletop Exercise)</h3>
+<ul>
+  <li>Group discussion — team gathers and talks through scenarios</li>
+  <li>Identifies logical gaps, confusion about roles, and planning assumptions</li>
+  <li>No actual systems are activated</li>
+  <li>Cost-effective way to identify plan weaknesses before more expensive tests</li>
+  <li>Often facilitated by a moderator who presents escalating scenarios</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>Tabletop vs Simulation:</strong> Tabletop = discussion only ("what would you do if..."). Simulation = role-playing with actions ("show me what you would do") but still no actual system activation. Both are paper-based in that production systems are not affected.
+</div>
+
+<h3>Simulation Test</h3>
+<ul>
+  <li>Specific scenario is enacted (e.g., "building is on fire at 2 PM Tuesday")</li>
+  <li>Participants perform their roles — make calls, reference procedures, make decisions</li>
+  <li>May include practice notifications, assembly at rally points</li>
+  <li>Does NOT involve actual system recovery or site activation</li>
+</ul>
+
+<h3>Parallel Test</h3>
+<ul>
+  <li>Alternate site is actually activated and systems recovered there</li>
+  <li>Primary site continues normal operations — no business disruption</li>
+  <li>Validates that recovery procedures actually work technically</li>
+  <li>Can verify RTO achievement (did we recover within target time?)</li>
+  <li>Most realistic test that does NOT risk production</li>
+</ul>
+
+<div class="key-concept callout">
+  <strong>Parallel Test — The Sweet Spot:</strong> A parallel test proves that recovery procedures work (systems actually restored at alternate site) without risking production operations (primary stays running). This is the most realistic test that most organizations can justify doing regularly. It's also how you validate RTO — "Can we restore within our target time?"
+</div>
+
+<h3>Full Interruption Test</h3>
+<ul>
+  <li>Primary site is actually shut down</li>
+  <li>ALL operations transfer to alternate site</li>
+  <li>Provides most realistic validation — proves the plan works end-to-end</li>
+  <li>Highest risk — if recovery fails, business operations are disrupted for real</li>
+  <li>Requires executive approval due to risk</li>
+  <li>Rarely performed except by organizations with the highest maturity</li>
+</ul>
+
+<div class="warning callout">
+  ⚠️ <strong>Full Interruption = Most Realistic but Most Dangerous:</strong> This is the only test that truly proves your DR plan works under real conditions. However, failure means actual business disruption. Most organizations never perform full interruption tests due to risk. The exam will test whether you know this is the most realistic AND most risky option.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Test Planning &amp; Execution</h2>
+<table>
+  <tr><th>Element</th><th>Description</th></tr>
+  <tr><td><strong>Scope</strong></td><td>Which systems, teams, and scenarios will be tested</td></tr>
+  <tr><td><strong>Objectives</strong></td><td>Specific goals — e.g., recover email within 4-hour RTO; verify backup integrity</td></tr>
+  <tr><td><strong>Schedule</strong></td><td>When the test occurs; avoid peak business periods for parallel/full interruption</td></tr>
+  <tr><td><strong>Participants</strong></td><td>All relevant DR team members and stakeholders</td></tr>
+  <tr><td><strong>Success criteria</strong></td><td>How success/failure will be measured (e.g., systems operational within RTO)</td></tr>
+  <tr><td><strong>Rollback plan</strong></td><td>How to return to normal if the test causes issues (especially for parallel/full interruption)</td></tr>
+  <tr><td><strong>Observer/evaluator</strong></td><td>Independent observer documenting what works and what doesn't</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Progressive Testing Strategy:</strong> Organizations should progress through test types over time: Start with checklist → tabletop → simulation → parallel → (optionally) full interruption. Each level builds on lessons from the previous level. Never jump straight to full interruption without first validating through less disruptive tests.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. DR Plan Maintenance</h2>
+<h3>Triggers for Plan Update</h3>
+<ul>
+  <li><strong>After every DR test</strong> — incorporate lessons learned</li>
+  <li><strong>Organizational changes</strong> — new systems, staff turnover, facility changes</li>
+  <li><strong>Technology changes</strong> — system upgrades, cloud migrations, new applications</li>
+  <li><strong>Regulatory changes</strong> — new compliance requirements</li>
+  <li><strong>After any actual incident</strong> — real events reveal gaps</li>
+  <li><strong>Scheduled review</strong> — at minimum annually, preferably quarterly</li>
+</ul>
+
+<h3>Maintenance Activities</h3>
+<ul>
+  <li>Update contact lists (people change roles/leave — most common plan failure)</li>
+  <li>Review and update recovery procedures for changed systems</li>
+  <li>Verify alternate site readiness</li>
+  <li>Confirm vendor contracts and SLAs are current</li>
+  <li>Version control the plan — document all changes with dates</li>
+  <li>Distribute updated copies to all plan holders</li>
+</ul>
+</section>
+
+<section id="s7">
+<h2>7. After-Action Reports &amp; Lessons Learned</h2>
+<table>
+  <tr><th>Component</th><th>Content</th></tr>
+  <tr><td><strong>Executive summary</strong></td><td>Overall test results — pass/fail against objectives</td></tr>
+  <tr><td><strong>Timeline</strong></td><td>Chronological record of events during the test</td></tr>
+  <tr><td><strong>What worked</strong></td><td>Procedures and capabilities that performed as expected</td></tr>
+  <tr><td><strong>What failed</strong></td><td>Gaps, failures, delays, and unexpected issues</td></tr>
+  <tr><td><strong>Root causes</strong></td><td>Why failures occurred — not just symptoms but underlying causes</td></tr>
+  <tr><td><strong>Recommendations</strong></td><td>Specific, actionable improvements with owners and deadlines</td></tr>
+  <tr><td><strong>Metrics</strong></td><td>Actual RTO achieved vs target; systems recovered; data loss (actual RPO)</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Five DR Test Types — "Can The Students Pass Finals?"</strong><br>
+  <strong>C</strong>hecklist (desk check) — individual review<br>
+  <strong>T</strong>abletop (structured walk-through) — group discussion<br>
+  <strong>S</strong>imulation — role-play scenario<br>
+  <strong>P</strong>arallel — recover at alternate site, primary stays running<br>
+  <strong>F</strong>ull interruption — shut down primary, operate from alternate
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Risk/Realism Scale</strong><br>
+  "As you go down the list (C→T→S→P→F), BOTH risk AND realism INCREASE"<br>
+  Checklist = zero risk, lowest realism<br>
+  Full interruption = highest risk, highest realism
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Parallel vs Full Interruption — "Parallel = Primary stays UP; Full = Primary goes DOWN"</strong><br>
+  Parallel: recovery site activated + primary continues = safe<br>
+  Full: primary shut down + recovery site takes over = dangerous
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Test type order</td><td>Checklist → Tabletop → Simulation → Parallel → Full Interruption (least to most disruptive)</td></tr>
+  <tr><td>Checklist</td><td>Individual review; verifies completeness; no group meeting; zero risk</td></tr>
+  <tr><td>Tabletop</td><td>Group discussion; walks through scenarios; identifies logical gaps; zero risk</td></tr>
+  <tr><td>Simulation</td><td>Role-play specific scenario; no actual system activation; very low risk</td></tr>
+  <tr><td>Parallel</td><td>Actual recovery at alternate site; primary continues running; proves procedures work without risk</td></tr>
+  <tr><td>Full interruption</td><td>Primary shut down; most realistic; most dangerous; requires executive approval</td></tr>
+  <tr><td>Progressive testing</td><td>Start with low-risk tests, progress to higher-risk over time; never skip levels</td></tr>
+  <tr><td>Plan maintenance</td><td>Update after every test, org change, tech change, incident; at minimum annually</td></tr>
+  <tr><td>Contact lists</td><td>Most common plan failure — outdated contact information</td></tr>
+  <tr><td>After-action report</td><td>Document what worked, what failed, root causes, recommendations with owners/deadlines</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-113-theory.html" class="nav-btn">← Day 113: Backup &amp; Recovery</a>
+  <a href="day-115-theory.html" class="nav-btn">Day 115: Physical Security Operations →</a>
+</div>
+</div>
+</body>
+</html>

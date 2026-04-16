@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 71 – Authentication Methods</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 71 – Authentication Methods</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 71 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-070-theory.html">← Day 70: IAM Fundamentals</a> · Domain 5 · Day 71</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Type 1 – Something You Know</a></li>
+  <li><a href="#s4">4. Password Management &amp; Policies</a></li>
+  <li><a href="#s5">5. Type 2 – Something You Have</a></li>
+  <li><a href="#s6">6. OTP: HOTP and TOTP</a></li>
+  <li><a href="#s7">7. Type 3 – Something You Are (Preview)</a></li>
+  <li><a href="#s8">8. Multi-Factor Authentication Deep Dive</a></li>
+  <li><a href="#s9">9. Authentication Protocols</a></li>
+  <li><a href="#s10">10. Authentication Attack Methods</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — Authentication methods and credential management</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Authentication is the linchpin of access control. CISSP tests which factors belong to which types, the distinction between step-up vs. step-back authentication, password policy components (specifically what "aging" and "history" do), token types (synchronous vs. asynchronous), and common authentication protocol weaknesses.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"A hard token generates a value every 60 seconds — which type is this?"; "What is the PRIMARY weakness of passwords?"; "SMS OTP is which MFA type?"; "Which authentication protocol sends passwords in cleartext?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 70 (IAAA framework); Day 72 (biometrics &amp; MFA in depth); Day 73 (Kerberos authentication flow); Day 74 (federated authentication); Domain 8 (OWASP A07); Day 38 (cryptography in PKI — certificate-based authentication)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>SMS OTP is Type 2, NOT Type 3 (it's something you HAVE — your phone). Two-factor ≠ two-step (two-step can use the same factor type twice). Synchronous tokens are time-based; asynchronous tokens are challenge-response based. PAP sends passwords in cleartext; CHAP never sends the password itself.</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>Password re-use across platforms</strong></td><td>Average user has 100+ online accounts. Studies show 50–60% of users re-use the same password. A single breach of a low-security site (credential stuffing) enables attackers to access high-value accounts. Enterprise single password reuse is equally dangerous.</td></tr>
+  <tr><td><strong>Phishing as auth bypass</strong></td><td>Phishing attacks don't break cryptography — they steal credentials directly. Traditional MFA (TOTP, SMS) can be bypassed by real-time phishing proxies (EvilProxy, Modlishka). Only phishing-resistant MFA (FIDO2/WebAuthn, PIV/CAC) binds the credential to the origin domain.</td></tr>
+  <tr><td><strong>Password manager adoption</strong></td><td>Password managers enable unique, complex, long passwords for every site without memorization burden. NIST 800-63b explicitly recommends password managers and eliminates mandatory rotation policies — rotate only on evidence of compromise.</td></tr>
+  <tr><td><strong>Regulatory MFA mandates</strong></td><td>PCI-DSS 4.0: MFA required for all admin access and all remote access to CDE. CISA/NSA: phishing-resistant MFA for all federal agencies. Healthcare: MFA recommended for all electronic PHI access.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Type 1 – Something You Know</h2>
+<table>
+  <tr><th>Mechanism</th><th>Description</th><th>Security Notes</th></tr>
+  <tr><td><strong>Password</strong></td><td>A string of characters known only to the user and the system (or its cryptographic representation)</td><td>Most common; most attacked. Vulnerable to guessing, brute force, dictionary attacks, phishing, keyloggers, shoulder surfing, credential stuffing</td></tr>
+  <tr><td><strong>PIN</strong></td><td>Typically 4–8 digit numeric code. Often paired with a physical token (card) to form MFA.</td><td>Very short — security depends on accompanying lock-out policy. PIN alone is weak; PIN + smart card = strong MFA</td></tr>
+  <tr><td><strong>Passphrase</strong></td><td>A sentence or series of words used as authentication. Longer than passwords, often easier to remember.</td><td>Recommended by NIST and Bruce Schneier. Entropy from length beats complexity. Example: "correct-horse-battery-staple"</td></tr>
+  <tr><td><strong>Security questions</strong></td><td>Knowledge-based authentication (KBA) — answers to pre-set questions</td><td>Weakest knowledge factor: answers often guessable from public social media. NIST 2017 guidance recommends AGAINST security questions as authentication factors.</td></tr>
+  <tr><td><strong>Pattern</strong></td><td>Swipe pattern on touchscreen</td><td>Vulnerable to smudge attacks (greasy fingerprint traces on screen reveal pattern); entropy is lower than it appears (limited starting points)</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Password Management &amp; Policies</h2>
+<h3>Password Policy Components (CISSP Must-Know)</h3>
+<table>
+  <tr><th>Policy Element</th><th>Definition</th><th>Purpose</th></tr>
+  <tr><td><strong>Minimum length</strong></td><td>Minimum number of characters required (NIST recommends ≥ 8, ideally ≥ 15 for privileged accounts)</td><td>Increases entropy; makes brute force computationally expensive</td></tr>
+  <tr><td><strong>Complexity</strong></td><td>Requires mix of uppercase, lowercase, numbers, and special characters</td><td>Increases character space; however NIST 800-63b now discourages mandatory complexity in favour of length (users create predictable patterns: P@ssw0rd1)</td></tr>
+  <tr><td><strong>Aging / Expiration</strong></td><td>Maximum number of days before password must be changed</td><td>Limits window of exposure if password is silently compromised. NIST now recommends against periodic forced rotation — rotate only on breach evidence.</td></tr>
+  <tr><td><strong>History</strong></td><td>Prevents re-use of N previous passwords</td><td>Prevents users cycling through passwords to return to their favourite. Must be combined with aging to be effective.</td></tr>
+  <tr><td><strong>Minimum age</strong></td><td>Minimum number of days before a password can be changed again</td><td>Prevents users from immediately cycling through history list to return to previous password</td></tr>
+  <tr><td><strong>Lockout threshold</strong></td><td>Number of failed attempts before account is locked</td><td>Prevents online brute force attacks. Must balance security vs. DoS risk (attacker could intentionally lock out users)</td></tr>
+  <tr><td><strong>Lockout duration</strong></td><td>How long account remains locked (or until admin unlocks)</td><td>Time lockout: auto-unlock after N minutes. Administrative unlock: requires IT helpdesk — higher security but creates DoS risk</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — NIST 800-63b Modern Guidance:</strong><br>
+  NIST SP 800-63b (2017, updated 2024) made significant changes that appear in CISSP questions:<br>
+  ✓ Remove mandatory periodic password changes (change only on evidence of compromise)<br>
+  ✓ Don't require specific complexity rules (complexity encourages predictable substitution patterns)<br>
+  ✓ Do require minimum length ≥ 8, recommend ≥ 15<br>
+  ✓ Check passwords against known-compromised-password lists (HIBP database)<br>
+  ✓ Allow pasting passwords (supports password manager adoption)<br>
+  ✓ Eliminate security questions as sole authentication factor
+</div>
+
+<h3>Password Storage (How Passwords Should Be Stored)</h3>
+<table>
+  <tr><th>Method</th><th>Security Level</th><th>Notes</th></tr>
+  <tr><td>Plaintext storage</td><td>❌ Never acceptable</td><td>Complete security failure — one breach exposes all passwords</td></tr>
+  <tr><td>Encrypted storage</td><td>❌ Inadequate</td><td>Encryption key can be stolen; decryption possible — same result as plaintext if key compromised</td></tr>
+  <tr><td>MD5 / SHA-1 hash</td><td>⚠️ Unacceptable</td><td>Fast hash functions: billions of attempts/second GPU-accelerated; precomputed rainbow tables exist; no salt = identical passwords have identical hashes</td></tr>
+  <tr><td>Salted SHA-256/512</td><td>⚠️ Marginal</td><td>Salt prevents rainbow tables; but SHA-2 is still fast — brute force is feasible on GPUs</td></tr>
+  <tr><td>bcrypt / scrypt / Argon2</td><td>✅ Correct</td><td>Slow-by-design adaptive hash functions; work factor can be increased with hardware improvements; Argon2 won PHC 2015 and is NIST-recommended</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Type 2 – Something You Have</h2>
+<table>
+  <tr><th>Token Type</th><th>How It Works</th><th>Security Notes</th></tr>
+  <tr><td><strong>Synchronous token (time-based)</strong></td><td>Generates OTP using current time + shared secret seed. Synchronized with server clock (±30–60 sec tolerance). OTP changes every 30–60 seconds.</td><td>TOTP (RFC 6238). Requires time sync; if clocks drift, authentication fails. Vulnerable to real-time phishing (attacker relays OTP immediately). Examples: Google Authenticator, Authy, RSA SecurID (hybrid)</td></tr>
+  <tr><td><strong>Asynchronous token (challenge-response)</strong></td><td>Server issues a random challenge; token computes response using shared secret + challenge. No time dependency.</td><td>HOTP (RFC 4226) — counter-based variant. Server sends challenge; token/app generates HMAC-based OTP. More resistant to replay (each challenge unique). RSA SecurID original design.</td></tr>
+  <tr><td><strong>Smart card (contact)</strong></td><td>Contains a microprocessor and cryptographic key stored on card. Performs signing operations on-chip (private key never leaves card). Requires physical insertion into reader.</td><td>PIV (Personal Identity Verification — US Govt FIPS 201), CAC (Common Access Card — DoD). PIN + card = strong MFA. Card alone cannot authenticate (requires PIN). Best protection against remote attacks — attacker needs physical card.</td></tr>
+  <tr><td><strong>Contactless smart card</strong></td><td>ISO/IEC 14443 NFC-based communication. Same cryptographic capability as contact card.</td><td>Risk: relay attacks (attacker relays communication between card and rogue reader). Distance limitations mitigate (active relay attacks extend range). Proximity-based authentication.</td></tr>
+  <tr><td><strong>Mobile soft token / authenticator app</strong></td><td>Software implementation of TOTP/HOTP on smartphone. Tied to device via enrollment (secret key installed at provisioning time).</td><td>Convenience; device loss = token loss; phone compromise (malware) could extract secret. Better than SMS. Push-based MFA (Duo, Microsoft Authenticator) adds usability but MFA fatigue attacks exploit push notifications.</td></tr>
+  <tr><td><strong>SMS OTP</strong></td><td>One-time code sent via text message to registered phone number.</td><td>Type 2 (something you have — your phone). Weakest Type 2 form: subject to SIM-swapping, SS7 protocol attacks, and real-time phishing. NIST deprecated SMS OTP as authenticator in 2017 (SP 800-63b). Still common but not recommended for high-risk use cases.</td></tr>
+  <tr><td><strong>Security key (FIDO2/U2F)</strong></td><td>Hardware device (USB/NFC/Bluetooth) that performs public-key cryptography. Different key pair per site. Challenge-response signs challenge with site-specific private key.</td><td>Most secure Type 2. Phishing-resistant: key pair bound to origin domain — works only on the registered site. Examples: YubiKey, Google Titan Key. Recommended for high-privilege accounts. FIPS 140-2 validated versions available.</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. OTP: HOTP and TOTP</h2>
+<div class="diagram">HOTP (Counter-Based) — RFC 4226
+────────────────────────────────────────
+  Server: shared secret + counter → HMAC-SHA1 → truncate → 6-8 digit OTP
+  Token:  same shared secret + counter → same OTP
+
+  Both server and token increment counter on successful use.
+  Risk: counter de-sync if OTP generated but not used (server allows look-ahead window)
+
+TOTP (Time-Based) — RFC 6238 (extends HOTP)
+────────────────────────────────────────
+  Server: shared secret + floor(Unix_time / 30) → HMAC-SHA1 → truncate → OTP
+  Token:  same shared secret + same time window → same OTP
+
+  OTP valid for 30-second window (±1 window for clock drift tolerance)
+  Risk: real-time phishing can relay valid OTP within the 30-second window</div>
+
+<div class="callout key-concept">
+  <strong>🔑 HOTP vs. TOTP at a glance:</strong>
+  <table>
+    <tr><th>Attribute</th><th>HOTP</th><th>TOTP</th></tr>
+    <tr><td>RFC</td><td>4226</td><td>6238</td></tr>
+    <tr><td>Based on</td><td>Counter (HMAC-SHA1)</td><td>Time window (extends HOTP)</td></tr>
+    <tr><td>Server dependency</td><td>Counter sync</td><td>Time sync (clock drift ±1 window)</td></tr>
+    <tr><td>OTP validity window</td><td>Indefinite (until used)</td><td>30–60 seconds</td></tr>
+    <tr><td>Replay risk</td><td>Low (counter invalidated on use)</td><td>Medium (valid for full window)</td></tr>
+    <tr><td>Type classification</td><td>Asynchronous</td><td>Synchronous</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. Type 3 – Something You Are (Preview)</h2>
+<div class="callout definition">
+  <strong>📖 Biometrics (Full coverage in Day 72):</strong> Authentication using physical or behavioral characteristics unique to the individual. Examples: fingerprint, iris, retina, facial recognition, voice, signature dynamics, gait analysis.
+</div>
+<table>
+  <tr><th>Key Concept</th><th>Definition</th><th>CISSP Signal</th></tr>
+  <tr><td><strong>FRR – False Rejection Rate</strong></td><td>Rate at which legitimate users are incorrectly denied access. Also: Type I error.</td><td>High FRR = inconvenient for users; fingerprint scanner that rejects 1 in 5 legitimate scans</td></tr>
+  <tr><td><strong>FAR – False Acceptance Rate</strong></td><td>Rate at which unauthorized users are incorrectly granted access. Also: Type II error.</td><td>High FAR = security risk; security determines acceptable FAR threshold</td></tr>
+  <tr><td><strong>CER / EER</strong></td><td>Crossover Error Rate — the point where FAR = FRR. Used to compare biometric systems. Lower CER = better system.</td><td>When comparing two biometric systems, the one with lower CER is the better system overall</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. Multi-Factor Authentication Deep Dive</h2>
+<div class="callout key-concept">
+  <strong>🔑 True MFA Rule:</strong> Two or more factors from DIFFERENT categories. Same-category factors = multi-step, NOT multi-factor.
+</div>
+<table>
+  <tr><th>Scenario</th><th>MFA?</th><th>Reasoning</th></tr>
+  <tr><td>Password + PIN</td><td>❌ No</td><td>Both Type 1 (something you know). Two-step, same category.</td></tr>
+  <tr><td>Password + TOTP code</td><td>✅ Yes</td><td>Type 1 (know) + Type 2 (have — phone with auth app)</td></tr>
+  <tr><td>Smart card + PIN</td><td>✅ Yes</td><td>Type 2 (have — card) + Type 1 (know — PIN)</td></tr>
+  <tr><td>Fingerprint + iris scan</td><td>❌ No</td><td>Both Type 3 (something you are). Two-step biometric only.</td></tr>
+  <tr><td>Password + fingerprint</td><td>✅ Yes</td><td>Type 1 (know) + Type 3 (are)</td></tr>
+  <tr><td>FIDO2 key + fingerprint-to-unlock</td><td>✅ Yes</td><td>Type 2 (have — key) + Type 3 (are — fingerprint unlocks on-device)</td></tr>
+</table>
+
+<h3>MFA Attack Vectors</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Defence</th></tr>
+  <tr><td><strong>Real-time phishing proxy</strong></td><td>Attacker proxies the real site; victim authenticates to attacker who relays credentials + OTP in real-time to real site before OTP expires</td><td>Phishing-resistant MFA (FIDO2/WebAuthn); origin-binding prevents proxy relay</td></tr>
+  <tr><td><strong>MFA fatigue (push bombing)</strong></td><td>Attacker has username + password; floods victim with push MFA requests until user accidentally approves</td><td>Number matching in push notifications; context-aware push (show IP, location); FIDO2</td></tr>
+  <tr><td><strong>SIM swapping</strong></td><td>Attacker socially engineers telco to port victim's phone number to attacker's SIM; intercepts SMS OTPs</td><td>Don't use SMS OTP for high-value accounts; use authenticator app or FIDO2</td></tr>
+  <tr><td><strong>SS7 exploitation</strong></td><td>Attacker exploits SS7 protocol weaknesses in the global telephone signaling system to intercept SMS messages</td><td>Same as above — avoid SMS OTP</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. Authentication Protocols</h2>
+<table>
+  <tr><th>Protocol</th><th>Type</th><th>Security</th><th>Notes</th></tr>
+  <tr><td><strong>PAP</strong> (Password Authentication Protocol)</td><td>Password-based</td><td>❌ Sends password in cleartext across the link. Completely insecure on public networks.</td><td>PPP-based; legacy; never use unless link is independently encrypted (IPsec tunnel)</td></tr>
+  <tr><td><strong>CHAP</strong> (Challenge-Handshake Authentication Protocol)</td><td>Challenge-response</td><td>✅ Password never transmitted; server challenges client; client responds with hash(challenge + secret)</td><td>PPP-based; susceptible to replay only if same challenge reused; MS-CHAPv2 is deprecated (MPPE key derivation weakness)</td></tr>
+  <tr><td><strong>EAP</strong> (Extensible Authentication Protocol)</td><td>Framework</td><td>Varies by EAP type (EAP-TLS = very strong; EAP-MD5 = weak)</td><td>Used in 802.1X wired/wireless authentication; tunneled EAP types (PEAP, EAP-TTLS) protect inner authentication</td></tr>
+  <tr><td><strong>RADIUS</strong> (Remote Authentication Dial-In User Service)</td><td>AAA protocol</td><td>Encrypts password in Access-Request; uses MD5-based obfuscation (only for password field)</td><td>UDP-based; ports 1812/1813; single shared secret between NAS and RADIUS server; widely used in 802.1X, VPN, wireless</td></tr>
+  <tr><td><strong>TACACS+</strong></td><td>AAA protocol</td><td>Encrypts entire payload (not just password). Separates Authentication, Authorization, Accounting</td><td>TCP port 49; Cisco proprietary; preferred in network device (router/switch) administration vs. RADIUS; provides per-command authorization</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — RADIUS vs. TACACS+:</strong><br>
+  RADIUS: UDP, encrypts only password, combines AuthN and AuthZ, better for network access (wireless, VPN)<br>
+  TACACS+: TCP, encrypts entire body, separates AuthN/AuthZ/Accounting, better for network device administration (per-command authorization for routers/switches)
+</div>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. Authentication Attack Methods</h2>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Countermeasure</th></tr>
+  <tr><td><strong>Brute force</strong></td><td>Try every possible password combination until the correct one is found. Offline brute force (hash cracking) vs. online brute force (live login attempts).</td><td>Account lockout (online); long passwords + slow hash (offline); CAPTCHA (online)</td></tr>
+  <tr><td><strong>Dictionary attack</strong></td><td>Try a list of common words, phrases, and known passwords. Much faster than pure brute force.</td><td>Long passphrases; complexity rules (limited); check against HIBP known-compromised-password lists</td></tr>
+  <tr><td><strong>Rainbow table attack</strong></td><td>Precomputed table of hash→password mappings. Fast lookups of hashed passwords stolen from database.</td><td>Salting (unique per-user random value combined with password before hashing) — makes precomputed tables useless</td></tr>
+  <tr><td><strong>Credential stuffing</strong></td><td>Automated testing of username/password pairs from breached databases against other sites, exploiting password reuse.</td><td>MFA; breach notification + forced reset; bot detection; device fingerprinting</td></tr>
+  <tr><td><strong>Password spraying</strong></td><td>Try a few common passwords (Password1, Welcome1) against many accounts, avoiding lockout thresholds.</td><td>Account lockout; anomalous login detection; MFA; FIDO2</td></tr>
+  <tr><td><strong>Phishing</strong></td><td>Trick user into submitting credentials to a fake site. Captures plaintext credentials regardless of password complexity.</td><td>Phishing-resistant MFA (FIDO2); security awareness training; anti-phishing DNS / email filtering; DMARC enforcement</td></tr>
+  <tr><td><strong>Pass-the-hash</strong></td><td>In Windows NTLM, steal the hash from memory (via Mimikatz) and use it directly to authenticate without knowing the plaintext password.</td><td>Credential Guard (Windows); Protected Users group; disable NTLM; use Kerberos; privileged access workstations (PAW)</td></tr>
+  <tr><td><strong>Replay attack</strong></td><td>Capture authentication message/token and retransmit it later to authenticate as the victim.</td><td>Nonces (one-time numbers in challenges); timestamps; challenge-response protocols (CHAP, Kerberos)</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Authentication Factor Types — "Know, Have, Are / KHA":</strong><br>
+  Type 1 = <strong>K</strong>now (passwords, PINs, passphrases) — cognitive<br>
+  Type 2 = <strong>H</strong>ave (tokens, smart cards, FIDO2 keys) — possession<br>
+  Type 3 = <strong>A</strong>re (biometrics) — inherence<br><br>
+  MFA = different letters. Password + PIN = same letter (KK) = NOT MFA.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 RADIUS vs. TACACS+:</strong><br>
+  <strong>R</strong>ADIUS = <strong>R</strong>apid UDP, encrypts only <strong>p</strong>assword, for <strong>N</strong>etwork <strong>A</strong>ccess (wireless, VPN)<br>
+  <strong>T</strong>ACACS+ = <strong>T</strong>CP, <strong>T</strong>otal encryption, separates AuthN/<strong>A</strong>uthZ/<strong>A</strong>ccounting, for device <strong>A</strong>dministration (routers/switches)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Password Storage Quality Ladder:</strong><br>
+  Plaintext → Encrypted → Fast Hash (MD5/SHA) → Salted Fast Hash → <strong>Slow Hash (bcrypt/Argon2)</strong> ← Only this is correct
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Type 1 – Know</td><td>Something you know: passwords, PINs, passphrases; weakest factor; phishing steals them regardless of complexity</td></tr>
+  <tr><td>Type 2 – Have</td><td>Something you have: smart card, FIDO2 key, TOTP app, SMS (weakest Type 2); SMS OTP subject to SIM-swap/SS7</td></tr>
+  <tr><td>Type 3 – Are</td><td>Something you are: biometrics (full detail Day 72); cannot be "changed" if compromised</td></tr>
+  <tr><td>True MFA</td><td>Two+ factors from DIFFERENT categories; password + PIN is NOT MFA</td></tr>
+  <tr><td>TOTP vs. HOTP</td><td>TOTP = time-based (synchronous, 30-sec window); HOTP = counter-based (asynchronous); both HMAC-SHA1 based</td></tr>
+  <tr><td>PAP vs. CHAP</td><td>PAP = cleartext password (dangerous); CHAP = challenge-response (password never transmitted)</td></tr>
+  <tr><td>RADIUS vs. TACACS+</td><td>RADIUS: UDP, encrypts password only, for network access; TACACS+: TCP, full encryption, separates AuthN/AuthZ/Acct, for device admin</td></tr>
+  <tr><td>Password storage</td><td>Only bcrypt/scrypt/Argon2 (adaptive slow hashes) are acceptable; always salt; never store plaintext or fast hashes</td></tr>
+  <tr><td>NIST 800-63b</td><td>No mandatory password rotation; no mandatory complexity; check against breach lists; minimum length ≥ 8/recommend ≥ 15</td></tr>
+  <tr><td>Phishing-resistant MFA</td><td>Only FIDO2/WebAuthn and PIV/CAC are phishing-resistant (challenge bound to origin domain); TOTP/SMS can be relayed</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-070-theory.html" class="nav-btn">← Day 70: IAM Fundamentals</a>
+  <a href="day-072-theory.html" class="nav-btn">Day 72: Biometrics &amp; MFA →</a>
+</div>
+</div>
+</body>
+</html>

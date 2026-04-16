@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 134 – Cross-Domain Review: Domains 7 &amp; 8</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#37474f,#455a64);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#78909c;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#37474f;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#78909c;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#37474f;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #78909c;}
+section h3{color:#455a64;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#eceff1;border-left:4px solid #78909c;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#eceff1;border-left:4px solid #78909c;}
+.mnemonic strong{color:#37474f;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#37474f;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#78909c;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#37474f;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 134 – Cross-Domain Review: Domains 7 &amp; 8</h1>
+  <div class="subtitle">Security Operations + Software Development Security</div>
+  <div class="meta">
+    <span>📅 Day 134 of 140</span>
+    <span>📚 Cross-Domain Review</span>
+    <span>⏱️ ~60 min review</span>
+    <span>🎯 Integration &amp; Exam Prep</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-133-theory.html">← Day 133: Cross-Domain D5+D6</a> · Cross-Domain · Day 134</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 7 – Security Operations (13%)</a></li>
+  <li><a href="#s2">2. Domain 8 – Software Development Security (10%)</a></li>
+  <li><a href="#s3">3. Cross-Domain Connections: D7 ↔ D8</a></li>
+  <li><a href="#s4">4. Incident Response &amp; SDLC Master Reference</a></li>
+  <li><a href="#s5">5. High-Yield Exam Concepts</a></li>
+  <li><a href="#s6">6. D7 + D8 Mnemonic Summary</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 7 – Security Operations (13%)</h2>
+
+<h3>Incident Response Phases</h3>
+<table>
+  <tr><th>Phase</th><th>Key Activities</th><th>Exam Focus</th></tr>
+  <tr><td><strong>1. Preparation</strong></td><td>IR plan, team, tools, training</td><td>Most important phase; done BEFORE incidents</td></tr>
+  <tr><td><strong>2. Detection &amp; Analysis</strong></td><td>IDS/SIEM alerts, log analysis, triage</td><td>Determine if event is actually an incident</td></tr>
+  <tr><td><strong>3. Containment</strong></td><td>Short-term + long-term containment</td><td>FIRST priority after detection; prevent spread</td></tr>
+  <tr><td><strong>4. Eradication</strong></td><td>Remove cause, patch, rebuild</td><td>Eliminate root cause completely</td></tr>
+  <tr><td><strong>5. Recovery</strong></td><td>Restore systems, verify, monitor</td><td>Return to normal operations; validate security</td></tr>
+  <tr><td><strong>6. Lessons Learned</strong></td><td>Post-incident review, update plans</td><td>Most often skipped; improves future response</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>After detection, the FIRST action is always CONTAINMENT</strong> — not eradication, not investigation. Contain the damage first, then investigate. Also: preserve evidence BEFORE reimaging systems.
+</div>
+
+<h3>Evidence &amp; Forensics</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td><strong>Order of Volatility</strong></td><td>Collect most volatile first: Registers → Cache → RAM → Disk → Logs → Backups</td></tr>
+  <tr><td><strong>Chain of Custody</strong></td><td>Document WHO handled evidence, WHEN, WHERE, WHY; breaks invalidate evidence</td></tr>
+  <tr><td><strong>Forensic image</strong></td><td>Bit-for-bit copy; work on copy NEVER original; hash before and after</td></tr>
+  <tr><td><strong>Evidence types</strong></td><td>Real (physical) > Documentary > Testimonial; best evidence = original document</td></tr>
+  <tr><td><strong>Legal hold</strong></td><td>Preserve all potentially relevant data; overrides retention schedules</td></tr>
+</table>
+
+<h3>Disaster Recovery</h3>
+<table>
+  <tr><th>Site Type</th><th>Readiness</th><th>Cost</th><th>Recovery Time</th></tr>
+  <tr><td><strong>Hot site</strong></td><td>Fully operational; real-time data</td><td>Highest</td><td>Minutes to hours</td></tr>
+  <tr><td><strong>Warm site</strong></td><td>Hardware ready; needs data restoration</td><td>Medium</td><td>Hours to days</td></tr>
+  <tr><td><strong>Cold site</strong></td><td>Power + connectivity only; no hardware</td><td>Lowest</td><td>Days to weeks</td></tr>
+  <tr><td><strong>Cloud/DRaaS</strong></td><td>On-demand; elastic</td><td>Variable (pay per use)</td><td>Minutes to hours</td></tr>
+</table>
+
+<h3>Business Continuity Metrics</h3>
+<table>
+  <tr><th>Metric</th><th>Definition</th><th>Relationship</th></tr>
+  <tr><td><strong>MTD</strong></td><td>Maximum Tolerable Downtime</td><td>Outer boundary; exceeding = business failure</td></tr>
+  <tr><td><strong>RTO</strong></td><td>Recovery Time Objective</td><td>Target time to restore service; must be &lt; MTD</td></tr>
+  <tr><td><strong>RPO</strong></td><td>Recovery Point Objective</td><td>Max acceptable data loss (time); drives backup frequency</td></tr>
+  <tr><td><strong>WRT</strong></td><td>Work Recovery Time</td><td>Time to verify restored systems; RTO + WRT ≤ MTD</td></tr>
+</table>
+
+<div class="warning callout">
+  <strong>Critical formula: RTO + WRT ≤ MTD.</strong> If RTO = 4 hours and WRT = 2 hours, then MTD must be at least 6 hours. RPO determines backup frequency: RPO of 1 hour = backup every hour.
+</div>
+
+<h3>Security Operations Essentials</h3>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Minimum access needed for job function</td></tr>
+  <tr><td><strong>Need to know</strong></td><td>Access only to data required for specific task (subset of least privilege)</td></tr>
+  <tr><td><strong>Separation of duties</strong></td><td>No single person controls entire critical process</td></tr>
+  <tr><td><strong>Job rotation</strong></td><td>Detective control; exposes fraud; cross-training benefit</td></tr>
+  <tr><td><strong>Mandatory vacation</strong></td><td>Detective control; someone else performs duties; uncovers irregularities</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Domain 8 – Software Development Security (10%)</h2>
+
+<h3>SDLC Models</h3>
+<table>
+  <tr><th>Model</th><th>Approach</th><th>When to Use</th></tr>
+  <tr><td><strong>Waterfall</strong></td><td>Sequential phases; no going back</td><td>Well-defined, stable requirements</td></tr>
+  <tr><td><strong>Agile/Scrum</strong></td><td>Iterative sprints; adaptive</td><td>Evolving requirements; quick delivery</td></tr>
+  <tr><td><strong>Spiral</strong></td><td>Risk-driven; iterative with risk analysis each loop</td><td>High-risk, complex projects</td></tr>
+  <tr><td><strong>DevSecOps</strong></td><td>Security integrated into CI/CD pipeline</td><td>Modern development; continuous delivery</td></tr>
+</table>
+
+<h3>CMMI Maturity Levels</h3>
+<table>
+  <tr><th>Level</th><th>Name</th><th>Key Characteristic</th></tr>
+  <tr><td>1</td><td>Initial</td><td>Ad hoc, chaotic; success depends on heroes</td></tr>
+  <tr><td>2</td><td>Managed</td><td>Project-level processes; reactive</td></tr>
+  <tr><td>3</td><td>Defined</td><td>Organization-wide standards; proactive</td></tr>
+  <tr><td>4</td><td>Quantitatively Managed</td><td>Measured and controlled with metrics</td></tr>
+  <tr><td>5</td><td>Optimizing</td><td>Continuous improvement; defect prevention</td></tr>
+</table>
+
+<div class="mnemonic callout">
+  <strong>🧠 CMMI: "I Must Do Quality Ops"</strong><br>
+  Initial → Managed → Defined → Quantitatively managed → Optimizing
+</div>
+
+<h3>Web Application Security Top Threats</h3>
+<table>
+  <tr><th>Attack</th><th>Target</th><th>Best Defense</th></tr>
+  <tr><td>SQL Injection</td><td>Database via input fields</td><td>Parameterized queries (ALWAYS #1 answer)</td></tr>
+  <tr><td>XSS (Stored)</td><td>Users via stored malicious scripts</td><td>Output encoding + CSP</td></tr>
+  <tr><td>XSS (Reflected)</td><td>Users via URL parameters</td><td>Output encoding + input validation</td></tr>
+  <tr><td>CSRF</td><td>User's authenticated session</td><td>Anti-CSRF tokens + SameSite cookies</td></tr>
+  <tr><td>SSRF</td><td>Server making unauthorized requests</td><td>URL allowlists + network segmentation</td></tr>
+  <tr><td>XXE</td><td>XML parser</td><td>Disable external entity processing</td></tr>
+  <tr><td>Broken Access Control</td><td>#1 OWASP 2021</td><td>Server-side enforcement + least privilege</td></tr>
+</table>
+
+<h3>Testing Methods</h3>
+<table>
+  <tr><th>Method</th><th>Type</th><th>When</th><th>Finds</th></tr>
+  <tr><td><strong>SAST</strong></td><td>White box (static)</td><td>During development</td><td>Code-level flaws; exact line location</td></tr>
+  <tr><td><strong>DAST</strong></td><td>Black box (dynamic)</td><td>Running application</td><td>Runtime vulnerabilities; low false positives</td></tr>
+  <tr><td><strong>IAST</strong></td><td>Hybrid (agent-based)</td><td>QA/testing phase</td><td>Best of SAST + DAST; context-aware</td></tr>
+  <tr><td><strong>RASP</strong></td><td>Runtime protection</td><td>Production</td><td>Can block attacks in real time</td></tr>
+  <tr><td><strong>SCA</strong></td><td>Dependency analysis</td><td>Build pipeline</td><td>Vulnerable libraries, license issues</td></tr>
+  <tr><td><strong>Fuzzing</strong></td><td>Random input testing</td><td>Testing phase</td><td>Crashes, buffer overflows; NOT logic flaws</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. Cross-Domain Connections: D7 ↔ D8</h2>
+<table>
+  <tr><th>Connection</th><th>D7 Concept</th><th>D8 Concept</th></tr>
+  <tr><td>Vulnerability management</td><td>Patch management, change control</td><td>SAST/DAST/SCA finding vulnerabilities in code</td></tr>
+  <tr><td>Change management</td><td>CAB approval, rollback plans, testing</td><td>CI/CD pipeline gates, code review before merge</td></tr>
+  <tr><td>Incident response</td><td>IR phases, containment, forensics</td><td>Security bugs as incidents; hotfix processes</td></tr>
+  <tr><td>Supply chain security</td><td>Vendor management, third-party risk</td><td>SBOM, SCA, dependency management, open source risk</td></tr>
+  <tr><td>Logging &amp; monitoring</td><td>SIEM, log analysis, alerting</td><td>Application logging, WAF, RASP telemetry</td></tr>
+  <tr><td>Configuration management</td><td>Baselines, hardening, inventory</td><td>Infrastructure as Code, immutable deployments, container security</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Incident Response &amp; SDLC Master Reference</h2>
+
+<h3>IR Priorities (In Order)</h3>
+<ol>
+  <li><strong>Life safety</strong> — always #1 priority in ANY scenario</li>
+  <li><strong>Containment</strong> — stop the bleeding</li>
+  <li><strong>Evidence preservation</strong> — before eradication</li>
+  <li><strong>Eradication</strong> — remove root cause</li>
+  <li><strong>Recovery</strong> — restore operations</li>
+  <li><strong>Notification</strong> — legal/regulatory requirements</li>
+</ol>
+
+<div class="exam-tip callout">
+  <strong>CISSP Priority Rule:</strong> Safety of human life ALWAYS comes first. If a question has "protect people" as an option, that's the answer — before systems, data, or business operations.
+</div>
+
+<h3>Secure SDLC Integration Points</h3>
+<table>
+  <tr><th>SDLC Phase</th><th>Security Activity</th></tr>
+  <tr><td>Requirements</td><td>Security requirements, abuse cases, compliance needs, risk assessment</td></tr>
+  <tr><td>Design</td><td>Threat modeling (STRIDE), security architecture review, attack surface analysis</td></tr>
+  <tr><td>Implementation</td><td>Secure coding standards, SAST, peer code review</td></tr>
+  <tr><td>Testing</td><td>DAST, IAST, fuzzing, penetration testing</td></tr>
+  <tr><td>Deployment</td><td>Configuration review, hardening, SCA, final security review</td></tr>
+  <tr><td>Operations</td><td>RASP, WAF, monitoring, patching, incident response</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. High-Yield Exam Concepts</h2>
+<table>
+  <tr><th>#</th><th>Concept</th><th>Exam Point</th></tr>
+  <tr><td>1</td><td>IR phases order</td><td>Prep → Detect → Contain → Eradicate → Recover → Lessons Learned</td></tr>
+  <tr><td>2</td><td>First action after detection</td><td>CONTAINMENT (not investigation or eradication)</td></tr>
+  <tr><td>3</td><td>Order of volatility</td><td>Registers → Cache → RAM → Disk → Logs → Backups; collect most volatile first</td></tr>
+  <tr><td>4</td><td>Hot/Warm/Cold sites</td><td>Hot = fastest/most expensive; Cold = cheapest/slowest; know RTO implications</td></tr>
+  <tr><td>5</td><td>RTO + WRT ≤ MTD</td><td>Critical formula; RPO drives backup frequency</td></tr>
+  <tr><td>6</td><td>SDLC security integration</td><td>Security at EVERY phase, not just testing; "shift left"</td></tr>
+  <tr><td>7</td><td>SQL injection defense</td><td>Parameterized queries ALWAYS #1; not input validation alone</td></tr>
+  <tr><td>8</td><td>SAST vs DAST</td><td>SAST = code, early, white box; DAST = running app, late, black box</td></tr>
+  <tr><td>9</td><td>Change management</td><td>Request → Review → Approve → Test → Implement → Verify; CAB approval</td></tr>
+  <tr><td>10</td><td>Chain of custody</td><td>Unbroken documentation of evidence handling; breaks = inadmissible</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. D7 + D8 Mnemonic Summary</h2>
+<table>
+  <tr><th>Mnemonic</th><th>Topic</th><th>Meaning</th></tr>
+  <tr><td>"PDCERL" — "Please Don't Cry, Everyone Recovers Lessons"</td><td>IR Phases</td><td>Preparation, Detection, Containment, Eradication, Recovery, Lessons Learned</td></tr>
+  <tr><td>"Run Cool RAM Disks Log Backups"</td><td>Volatility Order</td><td>Registers, Cache, RAM, Disk, Logs, Backups</td></tr>
+  <tr><td>"Hot = Hours, Warm = Wait, Cold = Construct"</td><td>DR Sites</td><td>Recovery time expectations for each site type</td></tr>
+  <tr><td>"POT" — Parameterized, Output encoding, Tokens</td><td>Web defenses</td><td>SQLi = Parameterized; XSS = Output encoding; CSRF = Tokens</td></tr>
+  <tr><td>"I Must Do Quality Ops"</td><td>CMMI</td><td>Initial, Managed, Defined, Quantitatively Managed, Optimizing</td></tr>
+  <tr><td>"Shift Left"</td><td>Secure SDLC</td><td>Move security earlier in development lifecycle</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-133-theory.html" class="nav-btn">← Day 133: Cross-Domain D5+D6</a>
+  <a href="day-135-theory.html" class="nav-btn">Day 135: Exam Review & Weak-Area Analysis →</a>
+</div>
+</div>
+</body>
+</html>

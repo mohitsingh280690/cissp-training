@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 73 – SSO &amp; Kerberos</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 73 – SSO &amp; Kerberos</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 73 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~70 min read</span><span>🎯 Difficulty: Advanced</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-072-theory.html">← Day 72: Biometrics &amp; MFA</a> · Domain 5 · Day 73</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Single Sign-On (SSO)</a></li>
+  <li><a href="#s4">4. Kerberos Components</a></li>
+  <li><a href="#s5">5. Kerberos Authentication Flow</a></li>
+  <li><a href="#s6">6. Kerberos Security Properties</a></li>
+  <li><a href="#s7">7. Kerberos Attacks</a></li>
+  <li><a href="#s8">8. SESAME</a></li>
+  <li><a href="#s9">9. SSO Risks and Mitigations</a></li>
+  <li><a href="#s10">10. Kerberos vs. Others Comparison</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — SSO architecture and Kerberos protocol detail</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Kerberos is extremely testable on CISSP: components (KDC, AS, TGS, TGT), ticket flow, and attacks (golden ticket, silver ticket, pass-the-ticket, Kerberoasting) all appear. SSO trade-offs (single point of failure/compromise) are also frequently tested.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which Kerberos component issues the TGT?"; "An attacker compromised the KRBTGT account — what attack can they perform?"; "What is the PRIMARY risk of SSO?"; "Which Kerberos service issues service tickets?" "What is SESAME designed to improve over Kerberos?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 70 (IAAA framework); Day 74 (federated SSO — SAML/OIDC); Day 38 (symmetric keys in Kerberos); Day 71 (password attacks — Kerberoasting is a password attack); Domain 7 (AD logs for Kerberos ticket events)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>The KDC contains BOTH the AS (Authentication Service) and TGS (Ticket Granting Service). The TGT is issued by the AS, not the TGS. Service tickets are issued by the TGS. Golden ticket = compromise of KRBTGT account. Silver ticket = compromise of service account hash.</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>Active Directory = Kerberos</strong></td><td>Active Directory (the dominant enterprise directory) uses Kerberos as its primary authentication protocol since Windows 2000. Every Windows domain authentication uses Kerberos tickets. Understanding Kerberos is understanding how AD authentication works.</td></tr>
+  <tr><td><strong>SSO drives productivity</strong></td><td>Average enterprise has 100+ SaaS applications. Without SSO, employees manage 100 passwords, leading to reuse, weak passwords, and help-desk burden. SSO reduces authentication friction while centralizing control — allowing immediate deprovisioning from one place.</td></tr>
+  <tr><td><strong>Kerberos attacks are real</strong></td><td>Kerberoasting (used in 30%+ of ransomware attacks), golden ticket attacks (Mimikatz), pass-the-ticket — all exploit Kerberos weaknesses. Red teams routinely use BloodHound + Mimikatz to enumerate and exploit Kerberos in AD environments.</td></tr>
+  <tr><td><strong>SSO is a high-value target</strong></td><td>Compromising the SSO provider (Okta, Azure AD, on-prem AD) gives access to everything. This is why SSO providers are targeted (Okta breaches 2022-2023; SolarWinds/SAML golden SAML attack). The SSO server must be hardened to the highest standard.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Single Sign-On (SSO)</h2>
+<div class="callout definition">
+  <strong>📖 Single Sign-On (SSO):</strong> An authentication system that allows a user to authenticate once and gain access to multiple independent systems or applications without re-authenticating for each one. The SSO service handles authentication and provides tokens/credentials to other systems on the user's behalf.
+</div>
+
+<table>
+  <tr><th>SSO Benefit</th><th>SSO Risk</th></tr>
+  <tr><td>Users authenticate once — reduced password fatigue</td><td>Single point of compromise: if SSO credentials are stolen, all systems are accessible</td></tr>
+  <tr><td>Centralized access management — deprovisioning from one place revokes all access immediately</td><td>Single point of failure: if SSO service is unavailable, users cannot access any systems</td></tr>
+  <tr><td>Enables strong authentication once (MFA at SSO layer) rather than per-application</td><td>Increased exposure window: one long-lived SSO session provides persistent access to all systems</td></tr>
+  <tr><td>Reduced help-desk burden (fewer password resets)</td><td>Session hijacking: stealing SSO session token = access to all connected applications</td></tr>
+  <tr><td>Better audit trail: all access flows through central SSO provider</td><td>Trust relationship complexity: misconfigured federation trust can grant unintended access</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Kerberos Components</h2>
+<table>
+  <tr><th>Component</th><th>Role</th><th>Key Facts</th></tr>
+  <tr><td><strong>KDC</strong> (Key Distribution Center)</td><td>Central trusted authority. Contains both AS and TGS within it. Holds the master key database (all principal secrets).</td><td>Most critical component. If KDC is compromised, the entire domain is compromised. KDC contains both AS and TGS — CISSP often asks which "part" of the KDC does what. UDP/TCP port 88.</td></tr>
+  <tr><td><strong>AS</strong> (Authentication Service)</td><td>Part of the KDC. Issues the Ticket Granting Ticket (TGT) after verifying the user's password hash.</td><td>Client sends AS-REQ with username; AS-REP contains TGT encrypted with KRBTGT key and session key encrypted with user's key. User never learns the KRBTGT key.</td></tr>
+  <tr><td><strong>TGS</strong> (Ticket Granting Service)</td><td>Part of the KDC. Issues service tickets (ST) in exchange for a valid TGT. Client presents TGT to get access to specific services.</td><td>TGS validates the TGT, confirms the service exists, issues a Service Ticket (ST) encrypted with the service account's key. User presents ST to service.</td></tr>
+  <tr><td><strong>TGT</strong> (Ticket Granting Ticket)</td><td>A credential issued by the AS after initial authentication. Presented to the TGS to request service tickets. Acts as a "master ticket."</td><td>Encrypted by KRBTGT key (only KDC can decrypt). Contains user identity, validity period (default 10 hours), session key. Renewable up to 7 days.</td></tr>
+  <tr><td><strong>ST / Service Ticket</strong></td><td>A ticket issued by TGS that grants access to a specific service. Presented to the service (not the KDC).</td><td>Encrypted with the service account's long-term key. Service decrypts it to verify identity without contacting KDC again.</td></tr>
+  <tr><td><strong>KRBTGT account</strong></td><td>Special service account whose password hash is used to encrypt/sign ALL TGTs in a Kerberos realm.</td><td>The "crown jewel" of AD. Compromising KRBTGT hash enables forging any TGT (Golden Ticket attack). Should be changed at least twice during domain compromise recovery (due to replication).</td></tr>
+  <tr><td><strong>Principal</strong></td><td>Any entity (user, service, host) that participates in Kerberos authentication. Identified by a principal name (user@REALM or service/host@REALM).</td><td>SPN (Service Principal Name) is how services register with Kerberos — e.g., HTTP/webserver.corp.com. Required for Kerberos to build service tickets.</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Kerberos Authentication Flow</h2>
+<div class="diagram">Kerberos Authentication Flow (6 Steps)
+═══════════════════════════════════════════════════════════════════
+
+  CLIENT              AS (part of KDC)        TGS (part of KDC)         SERVICE
+    │                      │                        │                      │
+    │ 1. AS-REQ             │                        │                      │
+    │  (username; no pwd)   │                        │                      │
+    │──────────────────────►│                        │                      │
+    │                       │ KDC looks up user,     │                      │
+    │                       │ creates TGT + session  │                      │
+    │ 2. AS-REP             │ key                    │                      │
+    │  [TGT encrypted by    │                        │                      │
+    │   KRBTGT key]         │                        │                      │
+    │  [Session key enc.    │                        │                      │
+    │   by user's key]      │                        │                      │
+    │◄──────────────────────│                        │                      │
+    │                       │                        │                      │
+    │ (Client decrypts session key using own key)     │                      │
+    │                       │                        │                      │
+    │ 3. TGS-REQ            │                        │                      │
+    │  [TGT + Authenticator │                        │                      │
+    │   (timestamp enc. by  │                        │                      │
+    │   session key)]       │                        │                      │
+    │────────────────────────────────────────────────►│                      │
+    │                       │                        │ TGS validates TGT    │
+    │                       │                        │ and Authenticator    │
+    │ 4. TGS-REP            │                        │                      │
+    │  [Service Ticket enc. │                        │                      │
+    │   by service key]     │                        │                      │
+    │  [Service session key │                        │                      │
+    │   enc. by client key] │                        │                      │
+    │◄────────────────────────────────────────────────│                      │
+    │                       │                        │                      │
+    │ 5. AP-REQ             │                        │                      │
+    │  [Service Ticket +    │                        │                      │
+    │   Authenticator]      │                        │                      │
+    │────────────────────────────────────────────────────────────────────────►│
+    │                       │                        │ Service decrypts ST  │
+    │                       │                        │ (no KDC contact)     │
+    │ 6. AP-REP (optional   │                        │                      │
+    │    mutual auth)       │                        │                      │
+    │◄────────────────────────────────────────────────────────────────────────│
+═══════════════════════════════════════════════════════════════════
+ Anti-replay: Authenticator includes timestamp. Kerberos rejects
+ tickets reused beyond 5-minute clock skew (requires time sync).</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Three critical security mechanisms in Kerberos flow:</strong><br>
+  1. <strong>Mutual auth</strong>: Steps 5-6 — service also proves its identity to the client (AP-REP), preventing impersonation of servers<br>
+  2. <strong>Anti-replay</strong>: Authenticator timestamp prevents replaying captured tickets (clock skew tolerance: ±5 minutes by default)<br>
+  3. <strong>No cleartext passwords</strong>: Passwords are never transmitted. All messages encrypted. KDC proves server identity by encrypting response in a key only the legitimate server has.
+</div>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Kerberos Security Properties</h2>
+<table>
+  <tr><th>Property</th><th>How Achieved</th><th>Weakness / Limitation</th></tr>
+  <tr><td><strong>Passwords never transmitted</strong></td><td>Client proves identity by decrypting a message that only a holder of the correct password key can decrypt</td><td>The password HASH is still used as a long-term key — weak passwords lead to weak keys</td></tr>
+  <tr><td><strong>Mutual authentication</strong></td><td>Both client and server prove identity to each other (AP-REQ/AP-REP exchange)</td><td>Optional in some implementations; older configurations may not enforce server auth</td></tr>
+  <tr><td><strong>Third-party authentication</strong></td><td>Authentication delegated to trusted KDC; services don't need to store passwords</td><td>KDC is SPOF — must be highly available and hardened</td></tr>
+  <tr><td><strong>Time-based anti-replay</strong></td><td>Tickets include timestamps; KDC maintains replay cache for 5-minute window</td><td>Requires NTP time synchronization across domain; clock skew &gt; 5 min = authentication failures</td></tr>
+  <tr><td><strong>Ticket confidentiality</strong></td><td>Tickets encrypted with service/KRBTGT secrets</td><td>If service account has a weak password: Kerberoasting extracts and cracks the service ticket offline</td></tr>
+</table>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. Kerberos Attacks</h2>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>What's Required</th><th>Impact</th><th>Defence</th></tr>
+  <tr><td><strong>Golden Ticket</strong></td><td>Attacker compromises KRBTGT account password hash. Forges arbitrary TGTs — can impersonate ANY user, including Domain Admins, with any privilege, any duration.</td><td>KRBTGT hash (domain admin-level compromise)</td><td>Complete domain persistence. Golden ticket valid even after password reset of regular accounts (only valid mitigation: reset KRBTGT twice).</td><td>Reset KRBTGT password twice (force replication); monitor for forged TGT attributes (invalid ticket duration, impossible SIDs)</td></tr>
+  <tr><td><strong>Silver Ticket</strong></td><td>Compromises a specific service account hash. Forges Service Tickets for that specific service. No KDC contact required — service validates ST itself.</td><td>Service account NTLM hash</td><td>Access to that specific service, undetected (KDC not contacted, so no KDC logs). Narrower than golden ticket.</td><td>Protect service account passwords (long, complex, managed by gMSA); monitor for ST without corresponding TGS events</td></tr>
+  <tr><td><strong>Pass-the-Ticket (PtT)</strong></td><td>Steal a live TGT or ST from memory (using Mimikatz/lsass dump) and use it from attacker's machine. Doesn't require password cracking — uses valid live ticket.</td><td>Code execution on victim's machine (to dump LSASS memory)</td><td>Lateral movement using victim's identity until ticket expires</td><td>Credential Guard (protects LSASS); short ticket lifetimes; restricted admin mode; privileged access workstations (PAW)</td></tr>
+  <tr><td><strong>Kerberoasting</strong></td><td>Any domain user can request a TGS service ticket for any SPN. Service ticket is encrypted with the service account's password hash. Attacker requests tickets for service accounts with SPNs and cracks them offline.</td><td>Any domain-authenticated user account</td><td>If service account has weak password: account compromise. Service accounts often have elevated privileges.</td><td>Service accounts: long, complex passwords (&gt;25 chars); use gMSA (Group Managed Service Accounts — machine-managed passwords); monitor for bulk TGS requests from non-service accounts</td></tr>
+  <tr><td><strong>AS-REP Roasting</strong></td><td>Targets accounts with "Do not require Kerberos preauthentication." AS-REP contains data encrypted with user's key — can be cracked offline without any authentication.</td><td>No authentication required — just a domain account list or anonymous LDAP query</td><td>If any accounts have pre-auth disabled AND weak passwords: full account compromise</td><td>Never disable Kerberos pre-authentication; audit accounts with this flag</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. SESAME</h2>
+<div class="callout definition">
+  <strong>📖 SESAME (Secure European System for Applications in a Multi-vendor Environment):</strong> A successor/extension to Kerberos developed in the 1990s. Designed to address Kerberos limitations, particularly the lack of native authorization (delegation) and privilege management. Used Privilege Attribute Certificates (PACs).
+</div>
+<table>
+  <tr><th>Feature</th><th>Kerberos</th><th>SESAME</th></tr>
+  <tr><td><strong>Authentication</strong></td><td>Symmetric key (shared secret with KDC)</td><td>Asymmetric (public key) AND symmetric</td></tr>
+  <tr><td><strong>Authorization</strong></td><td>Limited — tickets contain identity, not explicit privileges</td><td>PAC (Privilege Attribute Certificate) carries authorization attributes explicitly</td></tr>
+  <tr><td><strong>Cross-domain trust</strong></td><td>Requires explicit trust between realms</td><td>Better support for cross-domain and multi-vendor environments</td></tr>
+  <tr><td><strong>SSO</strong></td><td>Within a realm</td><td>Across multiple organizations/domains</td></tr>
+  <tr><td><strong>Deployment</strong></td><td>Ubiquitous (Active Directory, MIT Kerberos)</td><td>Largely obsolete in practice (superseded by SAML/OIDC for federation)</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> SESAME is tested mainly as "what did it improve over Kerberos?" — answer: added public key support and explicit privilege/authorization attributes (PACs). In practice, SESAME itself is not deployed; the concept is tested for understanding evolution toward modern federation (SAML).
+</div>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. SSO Risks and Mitigations</h2>
+<table>
+  <tr><th>Risk</th><th>Detail</th><th>Mitigation</th></tr>
+  <tr><td><strong>Single point of compromise</strong></td><td>Stealing SSO credentials = access to all integrated applications. Stealing SSO session token = same result.</td><td>Strong MFA at SSO layer (phishing-resistant); short session lifetimes; conditional access policies</td></tr>
+  <tr><td><strong>Single point of failure</strong></td><td>SSO provider downtime = complete service disruption for all dependent applications. Business-critical.</td><td>HA clustering; geographic redundancy; fallback authentication mechanisms</td></tr>
+  <tr><td><strong>Session token theft</strong></td><td>After SSO authentication, session token (cookie/JWT) grants access. Token theft (XSS, network sniff, physical) = session hijacking across all apps.</td><td>Secure cookies (HttpOnly, Secure, SameSite); short token lifetimes; token binding; IP/device binding</td></tr>
+  <tr><td><strong>Overly broad access</strong></td><td>SSO can mask the scope of access breach — user (or attacker posing as user) authenticates once and silently accesses many systems.</td><td>Maintain per-application authorization (SSO handles authentication; each app still enforces authorization); audit access logs per application</td></tr>
+  <tr><td><strong>Orphaned SSO integrations</strong></td><td>Applications integrated with SSO but decommissioned at the app level; SSO account still maps to them; access persists.</td><td>Application decommissioning checklist includes SSO integration removal; periodic review of SSO connected apps</td></tr>
+</table>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. Kerberos vs. Others Comparison</h2>
+<table>
+  <tr><th>Protocol</th><th>Architecture</th><th>Scope</th><th>Credential Type</th><th>CISSP Focus</th></tr>
+  <tr><td><strong>Kerberos</strong></td><td>Ticket-based, symmetric, KDC-centric</td><td>Within a realm/domain (AD)</td><td>Tickets (TGT, ST); temporary</td><td>Attacks (golden/silver/PtT/Kerberoasting); components; flow</td></tr>
+  <tr><td><strong>NTLM</strong></td><td>Challenge-response, no KDC, older Windows</td><td>Legacy; non-AD scenarios, local accounts</td><td>Hash (pass-the-hash attack); persistent</td><td>Deprecated; disable; PtH attack; weaker than Kerberos</td></tr>
+  <tr><td><strong>RADIUS</strong></td><td>Centralized AAA for network access</td><td>Network devices, VPN, wireless</td><td>Username/password; shared secret</td><td>UDP; encrypts only password (Day 71)</td></tr>
+  <tr><td><strong>SAML</strong></td><td>XML assertion, IdP/SP model</td><td>Cross-domain federation (enterprise SSO web)</td><td>SAML assertions (XML); signed/encrypted</td><td>Day 74 in detail; Kerberos for internal, SAML for external federation</td></tr>
+  <tr><td><strong>OAuth 2.0 / OIDC</strong></td><td>Token-based (access + id tokens)</td><td>Modern web/mobile, API authorization</td><td>JWT access tokens, ID tokens; scoped</td><td>Day 74 in detail</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Kerberos Components — "KDC has AS and TGS; AS gives TGT; TGS gives ST":</strong><br>
+  <strong>K</strong>DC = house that contains <strong>A</strong>S (front door) and <strong>T</strong>GS (back room)<br>
+  Walk in front door (AS) → Get a master key (TGT)<br>
+  Take master key to back room (TGS) → Get room key (ST)<br>
+  Use room key at the room (Service) → Get in
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Kerberos Attacks — "Gold crowns Silver tickets, Thieves Pass, Roasters brew":</strong><br>
+  <strong>Golden</strong> Ticket = forge TGTs (need KRBTGT hash = crown jewels)<br>
+  <strong>Silver</strong> Ticket = forge service tickets (need service account hash)<br>
+  <strong>Pass-the-Ticket</strong> = steal live tickets from memory (need LSASS access)<br>
+  <strong>Kerberoasting</strong> = request STs and crack offline (any domain user can do it)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 SSO Risk — "One key opens every door":</strong><br>
+  Benefit: one authentication, many doors.<br>
+  Risk: one stolen key, many open doors. + one broken lock, no doors open.
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>SSO benefit</td><td>Authenticate once, access many; centralized deprovisioning; reduced password fatigue</td></tr>
+  <tr><td>SSO primary risk</td><td>Single point of compromise + single point of failure; SSO credentials are the highest-value target</td></tr>
+  <tr><td>KDC</td><td>Contains both AS and TGS; must be highly protected; compromise = domain compromise</td></tr>
+  <tr><td>AS</td><td>Issues TGT after initial authentication; part of KDC</td></tr>
+  <tr><td>TGS</td><td>Issues Service Tickets in exchange for valid TGT; part of KDC</td></tr>
+  <tr><td>TGT</td><td>"Master ticket" — prove identity to KDC and get service tickets; encrypted by KRBTGT</td></tr>
+  <tr><td>Service Ticket</td><td>Grants access to a specific service; encrypted by service account key; presented directly to service (no KDC)</td></tr>
+  <tr><td>KRBTGT</td><td>Account whose hash encrypts ALL TGTs; crown jewels of AD; compromise = Golden Ticket attack</td></tr>
+  <tr><td>Golden Ticket</td><td>Forged TGT from KRBTGT hash; impersonate anyone; persist domain access; reset KRBTGT twice to remediate</td></tr>
+  <tr><td>Silver Ticket</td><td>Forged ST from service account hash; access specific service; stealthy (no KDC contact in logs)</td></tr>
+  <tr><td>Pass-the-Ticket</td><td>Steal live Kerberos tickets from LSASS memory; lateral movement; requires code execution on host</td></tr>
+  <tr><td>Kerberoasting</td><td>Any domain user requests ST for SPN, cracks offline; defend with long passwords or gMSA for service accounts</td></tr>
+  <tr><td>SESAME</td><td>Extended Kerberos with public key auth + PACs (privilege attributes); largely historical; CISSP tests what it IMPROVED over Kerberos</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-072-theory.html" class="nav-btn">← Day 72: Biometrics &amp; MFA</a>
+  <a href="day-074-theory.html" class="nav-btn">Day 74: Federated Identity Management →</a>
+</div>
+</div>
+</body>
+</html>

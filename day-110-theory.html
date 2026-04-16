@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 110 – Vulnerability &amp; Patch Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 110 – Vulnerability &amp; Patch Management</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 110 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~50 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-109-theory.html">← Day 109: Change &amp; Configuration Management</a> · Domain 7 · Day 110</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Vulnerability Management Lifecycle</a></li>
+  <li><a href="#s4">4. Vulnerability Scoring — CVSS</a></li>
+  <li><a href="#s5">5. Virtual Patching &amp; Compensating Controls</a></li>
+  <li><a href="#s6">6. Vulnerability Disclosure</a></li>
+  <li><a href="#s7">7. Zero-Day Management</a></li>
+  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s9">9. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>Vulnerability management is an operational control that identifies weaknesses before attackers do. CISSP tests understanding of the lifecycle, prioritization using CVSS, compensating controls, and responsible disclosure</td></tr>
+  <tr><td>Question Style</td><td>"What determines vulnerability remediation priority?" (CVSS score + asset criticality + exploit availability). "When a patch cannot be applied, what is the BEST alternative?" (compensating control / virtual patch). "What is responsible disclosure?" (notifying vendor before public disclosure, allowing time to patch)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Day 108 (patch management operational procedures); Day 109 (changes require change control); Domain 1 (risk management — vulnerability = weakness that threat exploits)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<p>The 2017 Equifax breach exploited a known Apache Struts vulnerability (CVE-2017-5638) that had a patch available for two months before the breach. The 2021 Log4Shell vulnerability (CVE-2021-44228, CVSS 10.0) demonstrated the challenge of zero-day management — organizations had to identify all instances of a ubiquitous library across their entire software stack. Effective vulnerability management would have prevented the former; mature zero-day response was essential for the latter.</p>
+</section>
+
+<section id="s3">
+<h2>3. Vulnerability Management Lifecycle</h2>
+<div class="diagram">
+VULNERABILITY MANAGEMENT LIFECYCLE
+
+  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+  │ 1. DISCOVER  │──→│ 2. PRIORITIZE│──→│ 3. REMEDIATE │
+  │              │   │              │   │              │
+  │ Asset inv.   │   │ CVSS score   │   │ Patch        │
+  │ Vuln scan    │   │ Asset value  │   │ Mitigate     │
+  │ Pen test     │   │ Exploit avail│   │ Accept risk  │
+  │ Bug bounty   │   │ Threat intel │   │ (via change  │
+  └──────────────┘   └──────────────┘   │  management) │
+                                        └──────┬───────┘
+  ┌──────────────┐   ┌──────────────┐          │
+  │ 5. IMPROVE   │←──│ 4. VERIFY    │←─────────┘
+  │              │   │              │
+  │ Metrics      │   │ Re-scan      │
+  │ Process      │   │ Validate fix │
+  │ refinement   │   │ Regression   │
+  │ Reporting    │   │ test         │
+  └──────────────┘   └──────────────┘
+</div>
+
+<h3>Lifecycle Details</h3>
+<table>
+  <tr><th>Phase</th><th>Activities</th><th>Key Outputs</th></tr>
+  <tr><td><strong>1. Discover</strong></td><td>Maintain asset inventory; run authenticated and unauthenticated vulnerability scans; conduct penetration tests; leverage threat intelligence; participate in bug bounty programs</td><td>Vulnerability reports; asset database</td></tr>
+  <tr><td><strong>2. Prioritize</strong></td><td>Score vulnerabilities (CVSS); evaluate asset criticality; check exploit availability (EPSS — Exploit Prediction Scoring System); consider business context</td><td>Prioritized remediation queue</td></tr>
+  <tr><td><strong>3. Remediate</strong></td><td>Apply patches (through change management); implement compensating controls; accept residual risk (documented risk acceptance by asset owner)</td><td>Remediation actions; risk acceptance records</td></tr>
+  <tr><td><strong>4. Verify</strong></td><td>Re-scan to confirm vulnerability is resolved; validate no regressions introduced; test system functionality</td><td>Verification scan results</td></tr>
+  <tr><td><strong>5. Improve</strong></td><td>Track metrics (mean time to remediate, scan coverage, open vulnerability trends); refine processes; report to management</td><td>Metrics dashboard; management reports</td></tr>
+</table>
+
+<h3>Vulnerability Scanning Types</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Pros</th><th>Cons</th></tr>
+  <tr><td><strong>Unauthenticated (network)</strong></td><td>Scans from outside with no credentials; sees what an external attacker sees</td><td>Simulates external attacker perspective; no credential risk</td><td>Misses many host-level vulnerabilities; high false negative rate</td></tr>
+  <tr><td><strong>Authenticated (credentialed)</strong></td><td>Scans with valid system credentials; examines installed software, configurations, patch levels</td><td>Most accurate; fewest false negatives; finds configuration issues</td><td>Requires credential management; slightly higher system load</td></tr>
+  <tr><td><strong>Agent-based</strong></td><td>Lightweight agent installed on each system; continuous assessment</td><td>Works for roaming/remote devices; real-time monitoring; no network scan overhead</td><td>Agent deployment and management; resource consumption on host</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Emphasis:</strong> Authenticated scans are ALWAYS more accurate than unauthenticated scans. When the exam asks about reducing false negatives in vulnerability scanning, "use authenticated scanning" is typically the correct answer.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Vulnerability Scoring — CVSS</h2>
+<div class="definition callout">
+  <strong>CVSS (Common Vulnerability Scoring System):</strong> An open, industry-standard system for assessing the severity of vulnerabilities. Produces a numerical score (0.0-10.0) with a corresponding qualitative rating.
+</div>
+
+<h3>CVSS Score Ranges</h3>
+<table>
+  <tr><th>Score</th><th>Rating</th><th>Typical Response</th></tr>
+  <tr><td>0.0</td><td>None</td><td>Informational — no action required</td></tr>
+  <tr><td>0.1 – 3.9</td><td>Low</td><td>Remediate in regular maintenance cycle</td></tr>
+  <tr><td>4.0 – 6.9</td><td>Medium</td><td>Remediate within 30 days; compensating controls</td></tr>
+  <tr><td>7.0 – 8.9</td><td>High</td><td>Remediate within 7-14 days; escalate priority</td></tr>
+  <tr><td>9.0 – 10.0</td><td>Critical</td><td>Immediate remediation; emergency change process</td></tr>
+</table>
+
+<h3>CVSS Metric Groups</h3>
+<table>
+  <tr><th>Metric Group</th><th>What It Measures</th><th>Key Metrics</th></tr>
+  <tr><td><strong>Base</strong></td><td>Intrinsic, unchanging characteristics of the vulnerability</td><td>Attack Vector (network/adjacent/local/physical); Attack Complexity (low/high); Privileges Required; User Interaction; Scope; CIA Impact</td></tr>
+  <tr><td><strong>Temporal</strong></td><td>Characteristics that change over time</td><td>Exploit Code Maturity (unproven/PoC/functional/high); Remediation Level (official fix/temp fix/workaround/unavailable); Report Confidence</td></tr>
+  <tr><td><strong>Environmental</strong></td><td>Organization-specific context</td><td>Modified Base metrics reflecting local importance; CIA requirements for the affected asset</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>CVSS Base Score Alone Is Insufficient:</strong> Prioritization should consider: (1) CVSS Base score, (2) asset criticality/business value, (3) exploit availability in the wild, (4) compensating controls already in place, and (5) threat intelligence (is this vulnerability being actively exploited?). A CVSS 7.0 on a critical internet-facing database server may be higher priority than a CVSS 9.0 on an isolated test system.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Virtual Patching &amp; Compensating Controls</h2>
+<h3>When Patches Cannot Be Applied</h3>
+<table>
+  <tr><th>Scenario</th><th>Compensating Control Options</th></tr>
+  <tr><td>Legacy system — vendor no longer provides patches</td><td>Network isolation; WAF rules; enhanced monitoring; application retirement plan</td></tr>
+  <tr><td>Critical system — cannot take downtime for patching</td><td>Virtual patch (WAF/IPS rule); schedule patch for next maintenance window</td></tr>
+  <tr><td>Testing delay — patch may break business application</td><td>Virtual patch while testing proceeds; enhanced monitoring; network segmentation</td></tr>
+  <tr><td>Vendor delay — no patch available yet</td><td>Workaround per vendor advisory; virtual patch; monitoring for exploitation attempts</td></tr>
+</table>
+
+<div class="definition callout">
+  <strong>Virtual Patching:</strong> Implementing protective rules at the network perimeter (WAF, IPS, firewall) that block the specific exploit vector for a known vulnerability — WITHOUT modifying the vulnerable application or system. The vulnerability still exists; the exploit path is blocked.
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Virtual Patches Are Temporary:</strong> Virtual patching is a compensating control, NOT a permanent fix. The actual patch must still be applied. Virtual patches only protect against KNOWN exploit vectors — a new exploit technique for the same vulnerability may bypass the virtual patch.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Vulnerability Disclosure</h2>
+<h3>Disclosure Models</h3>
+<table>
+  <tr><th>Model</th><th>Description</th><th>Pros</th><th>Cons</th></tr>
+  <tr><td><strong>Responsible / Coordinated Disclosure</strong></td><td>Researcher notifies vendor privately; gives vendor reasonable time (typically 90 days) to develop and release a patch; then researcher publishes</td><td>Vendor has time to fix; users can patch before exploit details are public</td><td>Vendor may delay indefinitely; users are unaware of risk during disclosure period</td></tr>
+  <tr><td><strong>Full Disclosure</strong></td><td>Researcher publishes vulnerability details publicly immediately, with or without vendor notification</td><td>Pressures vendors to act quickly; informs defenders immediately</td><td>Attackers can exploit before patch is available; creates zero-day window</td></tr>
+  <tr><td><strong>Non-Disclosure</strong></td><td>Researcher does not disclose at all, or sells vulnerability on underground markets</td><td>None (ethically problematic)</td><td>Vulnerability persists; may be exploited by threat actors who purchase it</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>CISSP favors Responsible/Coordinated Disclosure:</strong> The exam considers coordinated disclosure as the ethical standard. The researcher gives the vendor a reasonable timeframe (commonly 90 days — Google Project Zero standard) to issue a fix before public disclosure.
+</div>
+
+<h3>Key Vulnerability Identifiers</h3>
+<table>
+  <tr><th>System</th><th>Purpose</th><th>Format Example</th></tr>
+  <tr><td><strong>CVE</strong></td><td>Common Vulnerabilities and Exposures — unique identifier for each known vulnerability</td><td>CVE-2021-44228 (Log4Shell)</td></tr>
+  <tr><td><strong>NVD</strong></td><td>National Vulnerability Database — NIST-maintained database that adds CVSS scores and analysis to CVEs</td><td>NVD entry with CVSS score, references, patch info</td></tr>
+  <tr><td><strong>CWE</strong></td><td>Common Weakness Enumeration — categorizes types of software weaknesses</td><td>CWE-79 (Cross-Site Scripting)</td></tr>
+  <tr><td><strong>CPE</strong></td><td>Common Platform Enumeration — standardized naming for IT products</td><td>cpe:2.3:a:apache:log4j:2.14.1</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Zero-Day Management</h2>
+<div class="definition callout">
+  <strong>Zero-Day Vulnerability:</strong> A vulnerability that is being exploited (or that has no available patch) on the same day it becomes publicly known — the vendor has had "zero days" to develop a fix. Zero-day = no patch available.
+</div>
+
+<h3>Zero-Day Response Strategy</h3>
+<table>
+  <tr><th>Action</th><th>Details</th></tr>
+  <tr><td>Assess exposure</td><td>Identify all instances of the affected software/component across the environment (requires accurate asset inventory)</td></tr>
+  <tr><td>Apply vendor workarounds</td><td>Implement any temporary mitigations recommended by the vendor (disable affected feature, configuration change)</td></tr>
+  <tr><td>Virtual patching</td><td>Deploy WAF/IPS rules to block known exploit vectors</td></tr>
+  <tr><td>Network segmentation</td><td>Isolate affected systems to limit blast radius if compromised</td></tr>
+  <tr><td>Enhanced monitoring</td><td>Increase logging and alerting for affected systems; monitor for IoCs associated with the vulnerability</td></tr>
+  <tr><td>Threat hunting</td><td>Proactively search for signs that the vulnerability has already been exploited in the environment</td></tr>
+  <tr><td>Patch immediately when available</td><td>Use emergency change process to apply vendor patch as soon as released</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Vulnerability Management Lifecycle — "DPRVI"</strong><br>
+  <strong>D</strong>iscover → <strong>P</strong>rioritize → <strong>R</strong>emediate → <strong>V</strong>erify → <strong>I</strong>mprove<br>
+  "Discover Problems, Remediate, Verify, Improve"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CVSS Metric Groups — "BTE"</strong><br>
+  <strong>B</strong>ase (intrinsic — never changes)<br>
+  <strong>T</strong>emporal (changes over time — exploit maturity, patch status)<br>
+  <strong>E</strong>nvironmental (org-specific context)<br>
+  "Base is constant; Temporal evolves; Environmental is yours"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CVE vs CWE</strong><br>
+  CV<strong>E</strong> = specific <strong>E</strong>xample ("CVE-2021-44228 is Log4Shell")<br>
+  CW<strong>E</strong> = <strong>E</strong>numerated weakness type ("CWE-79 is XSS")<br>
+  "CVE points at ONE bug; CWE names the BUG TYPE"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Disclosure — 90 Days</strong><br>
+  Responsible disclosure standard: Give the vendor 90 days. "90 days to fix it, then the world knows."
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Vuln management lifecycle</td><td>Discover → Prioritize → Remediate → Verify → Improve; continuous cycle</td></tr>
+  <tr><td>Authenticated scanning</td><td>Always more accurate than unauthenticated; fewer false negatives</td></tr>
+  <tr><td>CVSS</td><td>0-10 score; Base (intrinsic) + Temporal (evolving) + Environmental (org-specific)</td></tr>
+  <tr><td>Prioritization</td><td>CVSS alone is insufficient; also consider asset criticality, exploit availability, threat intel, compensating controls</td></tr>
+  <tr><td>Virtual patching</td><td>WAF/IPS rules blocking exploit vector; temporary compensating control, not a permanent fix</td></tr>
+  <tr><td>Responsible disclosure</td><td>Notify vendor first; 90-day standard; CISSP-preferred approach</td></tr>
+  <tr><td>CVE / NVD / CWE</td><td>CVE = specific vulnerability ID; NVD = NIST database with scores; CWE = weakness category</td></tr>
+  <tr><td>Zero-day response</td><td>Assess exposure → vendor workarounds → virtual patch → segment → monitor → hunt → patch when available</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-109-theory.html" class="nav-btn">← Day 109: Change &amp; Config Management</a>
+  <a href="day-111-theory.html" class="nav-btn">Day 111: Disaster Recovery Planning →</a>
+</div>
+</div>
+</body>
+</html>

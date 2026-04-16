@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 87 – Vulnerability Assessments</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#4527a0,#6a1b9a);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#7e57c2;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#4527a0;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#7e57c2;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#4527a0;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #7e57c2;}
+section h3{color:#6a1b9a;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#ede7f6;border-left:4px solid #7e57c2;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#4527a0;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#7e57c2;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#4527a0;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 87 – Vulnerability Assessments</h1>
+  <div class="subtitle">Domain 6 – Security Assessment and Testing</div>
+  <div class="meta">
+    <span>📅 Day 87 of 140</span>
+    <span>📚 Domain 6 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-086-theory.html">← Day 86: Assessment Strategies Overview</a> · Domain 6 · Day 87</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Vulnerability Assessment Overview</a></li>
+  <li><a href="#s4">4. Scanning Types — Authenticated vs. Unauthenticated</a></li>
+  <li><a href="#s5">5. Key Scanning Tools</a></li>
+  <li><a href="#s6">6. CVSS Scoring System</a></li>
+  <li><a href="#s7">7. CVE, CWE &amp; NVD Databases</a></li>
+  <li><a href="#s8">8. Vulnerability Prioritization &amp; Remediation</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>6 – Security Assessment and Testing (12%)</td></tr>
+  <tr><td>Why Tested</td><td>Vulnerability assessment is the foundation of security testing — it identifies weaknesses before they are exploited. The CISSP must understand scanning methodologies, scoring systems, and the management of vulnerability programs</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "Which scan type will find vulnerabilities that require valid credentials to detect?" (authenticated). "What is the primary difference between a vulnerability scan and a penetration test?" — expects understanding that scanning identifies; pen testing exploits</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 7 (vulnerability management lifecycle — scanning feeds into patch management); Domain 8 (SAST/DAST in code review); Domain 3 (system hardening against found vulnerabilities); Domain 4 (network scanning techniques)</td></tr>
+  <tr><td>Exam Traps</td><td>Confusing vulnerability assessment with penetration testing (assess = find; pen test = exploit); thinking unauthenticated scanning finds more vulnerabilities than authenticated scanning (authenticated finds MORE); confusing CVE (specific flaw instance) with CWE (weakness category type)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p>The <strong>vulnerability management team</strong> (often part of Security Operations) owns the scanning program. <strong>System owners</strong> are responsible for remediating findings on their systems. <strong>IT operations/patching teams</strong> apply patches. <strong>Security leadership</strong> sets remediation SLAs and reports metrics to the board.</p>
+<h3>Implementation Reality</h3>
+<p>Enterprises typically run automated vulnerability scanners on weekly or monthly cycles. PCI DSS requires quarterly external scans by an Approved Scanning Vendor (ASV). Organizations maintain vulnerability management platforms (Tenable.io, Qualys VMDR, Rapid7 InsightVM) that integrate with ticketing systems (ServiceNow, Jira) for remediation tracking. The average organization discovers 870 new vulnerabilities per month (Tenable Research, 2023).</p>
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>Scan but don't remediate:</strong> 60-day-old critical finding still unpatched — common in organizations without formal SLAs</li>
+  <li><strong>Scanning exclusions:</strong> Legacy systems excluded from scans due to "fragility concerns" — often the highest-risk systems</li>
+  <li><strong>Unauthenticated-only scanning:</strong> Misses 70%+ of vulnerabilities that require credentials to detect</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. Vulnerability Assessment Overview</h2>
+<div class="definition callout">
+  <strong>Vulnerability Assessment:</strong> A systematic process of identifying, quantifying, and prioritizing (ranking) vulnerabilities in a system. The goal is to produce a comprehensive list of weaknesses and their risk level — WITHOUT attempting to exploit them. It answers: "What vulnerabilities exist?"
+</div>
+
+<h3>Vulnerability Assessment vs. Penetration Test</h3>
+<table>
+  <tr><th>Attribute</th><th>Vulnerability Assessment</th><th>Penetration Test</th></tr>
+  <tr><td>Goal</td><td>Identify and categorize vulnerabilities</td><td>Exploit vulnerabilities to prove real-world risk</td></tr>
+  <tr><td>Exploitation?</td><td>No</td><td>Yes (with authorization)</td></tr>
+  <tr><td>Depth</td><td>Broad coverage; many systems quickly</td><td>Deep dive; focused on specific targets</td></tr>
+  <tr><td>False positives?</td><td>Yes — scanners have false positives</td><td>Low — exploitation confirms the finding</td></tr>
+  <tr><td>Frequency</td><td>Frequent (weekly/monthly automated)</td><td>Annual or periodic; resource-intensive</td></tr>
+  <tr><td>Output</td><td>List of vulnerabilities + CVSS scores</td><td>Narrative report + exploitation evidence + impact proof</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Vulnerability assessment DOES NOT exploit — it only identifies. Penetration testing DOES exploit to prove impact. When the exam asks "what is the BEST first step?" — vulnerability assessment before pen testing.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Scanning Types — Authenticated vs. Unauthenticated</h2>
+
+<h3>Unauthenticated (Credentialless) Scanning</h3>
+<div class="definition callout">
+  <strong>Unauthenticated Scan:</strong> Scanner connects to target systems as an external, unprivileged entity — no login credentials provided. Identifies only vulnerabilities visible from the network (open ports, exposed services, banner information, publicly known vulnerabilities based on service versions).
+</div>
+<ul>
+  <li><strong>Simulates:</strong> External attacker with no credentials</li>
+  <li><strong>Finds:</strong> Network-exposed service vulnerabilities, open ports, SSL/TLS weaknesses, HTTP misconfigurations</li>
+  <li><strong>Misses:</strong> Internal vulnerabilities (missing patches, application flaws, privilege configuration) that require login to detect</li>
+  <li><strong>Advantage:</strong> Can be run without system access negotiation; simulates real attack surface</li>
+</ul>
+
+<h3>Authenticated (Credentialed) Scanning</h3>
+<div class="definition callout">
+  <strong>Authenticated Scan:</strong> Scanner logs into target systems using valid credentials (typically a service account) and performs internal inspection — checking installed software versions, patch levels, registry settings, file permissions, user accounts, and service configurations.
+</div>
+<ul>
+  <li><strong>Simulates:</strong> Insider or attacker who has gained initial access</li>
+  <li><strong>Finds:</strong> Missing patches, weak configurations, unsafe software versions, excessive privileges, default credentials, all unauthenticated vulnerabilities PLUS internal ones</li>
+  <li><strong>More comprehensive:</strong> Consistently finds 70-90% more vulnerabilities than unauthenticated scanning</li>
+  <li><strong>Risk:</strong> Scanner credentials must be secured — if compromised, attacker has privileged access to all scanned systems</li>
+</ul>
+<div class="warning callout">
+  ⚠️ <strong>Exam Trap:</strong> Authenticated scanning finds MORE vulnerabilities, not fewer. A common distractor is the idea that unauthenticated is "more thorough" because it tests what an outside attacker sees. In terms of total vulnerability count, authenticated is more thorough.
+</div>
+
+<h3>Network vs. Host-Based Scanning</h3>
+<table>
+  <tr><th>Type</th><th>How It Works</th><th>Coverage</th><th>Example Tool</th></tr>
+  <tr><td>Network-Based Scanning</td><td>Scans systems over the network; connects to open ports; tests service responses</td><td>All network-reachable systems</td><td>Nessus, Qualys, OpenVAS</td></tr>
+  <tr><td>Host-Based Scanning (Agent)</td><td>Lightweight agent installed on each host; reports to central console; checks internal state directly</td><td>Deep inventory of one system; works without network connectivity</td><td>Tenable Nessus Agent, Qualys Cloud Agent, Rapid7 Insight Agent</td></tr>
+  <tr><td>Passive Scanning</td><td>Monitors network traffic without sending probes; identifies hosts and services by observation</td><td>Stealthy; non-disruptive; less complete</td><td>Tenable.ot, Claroty, Darktrace</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Key Scanning Tools</h2>
+<table>
+  <tr><th>Tool</th><th>Type</th><th>Key Features</th><th>Notes</th></tr>
+  <tr><td>Nessus (Tenable)</td><td>Commercial + free (Essentials)</td><td>Industry leader; 200,000+ plugins; authenticated/unauthenticated; agent-based option</td><td>PCI ASV certification available</td></tr>
+  <tr><td>Qualys VMDR</td><td>Cloud-based commercial</td><td>Agent-based; continuous monitoring; integrated patch management; CMDB integration</td><td>Strong for enterprise continuous monitoring</td></tr>
+  <tr><td>OpenVAS / GVM</td><td>Open source</td><td>Greenbone Vulnerability Manager; community-maintained NVT feed; no agent</td><td>Free alternative; strong in lab environments</td></tr>
+  <tr><td>Rapid7 InsightVM (formerly Nexpose)</td><td>Commercial</td><td>Live risk scoring; remediation workflow; integrates with InsightIDR (SIEM)</td><td>Strong on reporting and integration</td></tr>
+  <tr><td>Nmap (network mapper)</td><td>Open source port scanner</td><td>Port scanning, OS detection, service version detection, NSE scripts for vuln detection</td><td>Reconnaissance tool; precursor to deeper scanning</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Nmap is NOT a vulnerability scanner — it's a port/service scanner.</strong> Nmap identifies what ports are open and what services are running. Vulnerability scanners take that information further and check those services against known vulnerability databases. Knowing this distinction matters on the CISSP exam.
+</div>
+</section>
+
+<section id="s6">
+<h2>6. CVSS Scoring System</h2>
+<div class="definition callout">
+  <strong>CVSS (Common Vulnerability Scoring System):</strong> An open industry standard (maintained by FIRST — Forum of Incident Response and Security Teams) for rating the severity of security vulnerabilities. Produces a numerical score from 0 to 10 and a qualitative rating. Current major version: CVSS v3.1 (widely used); CVSS v4.0 released November 2023.
+</div>
+
+<h3>CVSS v3.1 Score Groups</h3>
+<table>
+  <tr><th>Score Range</th><th>Severity Rating</th><th>Action Priority</th></tr>
+  <tr><td>9.0 – 10.0</td><td>Critical</td><td>Immediate emergency patching; 24-48 hour SLA</td></tr>
+  <tr><td>7.0 – 8.9</td><td>High</td><td>Urgent; patch within 7-30 days</td></tr>
+  <tr><td>4.0 – 6.9</td><td>Medium</td><td>Important; patch within 30-90 days</td></tr>
+  <tr><td>0.1 – 3.9</td><td>Low</td><td>Informational; patch in next maintenance cycle</td></tr>
+  <tr><td>0.0</td><td>None/Informational</td><td>Advisory; no immediate action required</td></tr>
+</table>
+
+<h3>CVSS Metric Groups</h3>
+<table>
+  <tr><th>Group</th><th>Metrics</th><th>Description</th></tr>
+  <tr><td><strong>Base Score</strong></td><td>Attack Vector, Attack Complexity, Privileges Required, User Interaction, Scope, Confidentiality/Integrity/Availability Impact</td><td>Intrinsic characteristics of the vulnerability; does not change based on environment; published by vendor/researcher</td></tr>
+  <tr><td><strong>Temporal Score</strong></td><td>Exploit Code Maturity, Remediation Level, Report Confidence</td><td>Changes over time as exploits are published, patches released; reduces or raises urgency</td></tr>
+  <tr><td><strong>Environmental Score</strong></td><td>Modified Base metrics + Confidentiality/Integrity/Availability Requirements</td><td>Customized for a specific organization's environment; affected system criticality adjusts the score</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip — CVSS Score Customization:</strong><br>
+  The <strong>Base Score</strong> is universal — same for everyone.<br>
+  The <strong>Environmental Score</strong> is customized per organization — if a critical system is affected, the score goes UP; if the system is isolated/low-impact, it goes DOWN.<br>
+  This is why a CVSS 7.5 CVE on a honeypot might actually be lower priority than a CVSS 5.0 CVE on the payment processing system.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. CVE, CWE &amp; NVD Databases</h2>
+<table>
+  <tr><th>Database</th><th>What it Contains</th><th>Maintained by</th><th>Example</th></tr>
+  <tr><td><strong>CVE</strong> — Common Vulnerabilities and Exposures</td><td>Dictionary of publicly known information security vulnerabilities. Each entry is a specific flaw in a specific product with a unique CVE-YYYY-NNNNN identifier.</td><td>MITRE Corporation (funded by CISA)</td><td>CVE-2021-44228 (Log4Shell in Apache Log4j)</td></tr>
+  <tr><td><strong>NVD</strong> — National Vulnerability Database</td><td>Enriches CVE entries with CVSS scores, CWE classifications, CPE (product identifiers), references. The primary vulnerability reference for US federal agencies.</td><td>NIST (feeds from CVE)</td><td>nvd.nist.gov — searchable database</td></tr>
+  <tr><td><strong>CWE</strong> — Common Weakness Enumeration</td><td>Categorizes types of software and hardware weaknesses (root causes). CWE is a class of problem; CVE is a specific instance of that problem in a product.</td><td>MITRE Corporation</td><td>CWE-79 (Cross-Site Scripting); CWE-89 (SQL Injection)</td></tr>
+  <tr><td><strong>CVSS</strong> — Common Vulnerability Scoring System</td><td>Scoring framework for vulnerability severity. Not a database — used alongside CVE/NVD to rate severity.</td><td>FIRST.org</td><td>CVE-2021-44228 has CVSS 10.0 (Critical)</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>CVE vs. CWE — Specific vs. Category:</strong><br>
+  <strong>CVE</strong> = "There is a SQL injection vulnerability in Product X version 2.3" (specific instance)<br>
+  <strong>CWE</strong> = "SQL injection is a type of input validation weakness" (weakness class/category)<br>
+  CWE-89 (SQL injection) ← applies to hundreds of CVEs across many products
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Vulnerability Prioritization &amp; Remediation</h2>
+<h3>Risk-Based Prioritization</h3>
+<p>Not every vulnerability can be patched immediately — organizations must prioritize based on risk:</p>
+<ul>
+  <li><strong>Exploitability:</strong> Is there a known public exploit? Is it being actively exploited in the wild? (CISA KEV — Known Exploited Vulnerabilities catalog)</li>
+  <li><strong>Asset criticality:</strong> Is the vulnerable system in the DMZ? On a payment network? In a development lab?</li>
+  <li><strong>CVSS environmental score:</strong> How does this CVE affect your specific environment?</li>
+  <li><strong>Network exposure:</strong> Is the vulnerable service exposed to the internet or only accessible internally?</li>
+  <li><strong>Ease of exploitation:</strong> Does it require authentication? Physical access? Or is it remotely exploitable with no credentials?</li>
+</ul>
+<div class="diagram">
+Vulnerability Prioritization Matrix
+
+                     HIGH Asset Criticality
+                              │
+                              │ ← PATCH IMMEDIATELY
+                   Critical   │   High
+                    + High    │   Priority
+                  ────────────┼────────────
+              Low  Immediate  │  Scheduled
+           Criticality   │    │  remediation
+                         ▼    ▼
+                LOW Asset Criticality
+</div>
+
+<h3>Remediation Options</h3>
+<table>
+  <tr><th>Option</th><th>Description</th><th>When to Use</th></tr>
+  <tr><td>Patch / Update</td><td>Apply vendor-released fix to eliminate the vulnerability</td><td>Default first choice when patch is available and testable</td></tr>
+  <tr><td>Configuration Change</td><td>Disable vulnerable feature, restrict access, change settings</td><td>When patch unavailable or would break compatibility</td></tr>
+  <tr><td>Virtual Patching</td><td>IPS/WAF rule blocks exploitation of unfixed vulnerability without changing the system</td><td>Legacy systems that cannot be patched; immediate protection while patch is tested</td></tr>
+  <tr><td>Risk Acceptance</td><td>Document and formally accept the risk as-is</td><td>Low criticality; remediation cost exceeds risk; compensating controls in place</td></tr>
+  <tr><td>Isolation / Segmentation</td><td>Network-isolate vulnerable system to reduce exposure</td><td>High-risk legacy systems; OT/ICS systems that cannot be patched</td></tr>
+</table>
+<div class="key-concept callout">
+  <strong>Vulnerability Management Lifecycle:</strong> Discover → Prioritize → Remediate → Verify → Monitor → Repeat<br>
+  "Verify" step is critical — confirm the patch was applied successfully and the vulnerability is gone. Re-scanning after remediation is mandatory.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Vuln Assessment vs. Pen Test — "FE Rule"</strong><br>
+  <strong>V</strong>ulnerability Assessment = <strong>F</strong>ind only (no exploitation)<br>
+  <strong>P</strong>enetration Test = <strong>F</strong>ind + <strong>E</strong>xploit (prove impact)<br>
+  VA first → found weaknesses → PT confirms which ones are actually exploitable
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Authenticated &gt; Unauthenticated</strong><br>
+  Authenticated scan = inside (more findings)<br>
+  Unauthenticated scan = outside view only (external attacker perspective)<br>
+  More comprehensive = Authenticated (always finds more)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CVSS Score Groups — "CHMLI"</strong><br>
+  <strong>C</strong>ritical (9-10)<br>
+  <strong>H</strong>igh (7-8.9)<br>
+  <strong>M</strong>edium (4-6.9)<br>
+  <strong>L</strong>ow (0.1-3.9)<br>
+  <strong>I</strong>nformational (0)<br>
+  "Criminals Hack Many Low-importance systems"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 CVE vs. CWE</strong><br>
+  <strong>CVE</strong> = <strong>V</strong>ulnerability (a specific flaw in product X)<br>
+  <strong>CWE</strong> = <strong>W</strong>eakness (a class/category of flaw type)<br>
+  CWE-89 = type "SQL injection"; CVE-2021-XXXXX = specific SQL injection in specific product
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Vulnerability assessment</td><td>Identifies and rates vulnerabilities; does NOT exploit them</td></tr>
+  <tr><td>Penetration test difference</td><td>Pen test exploits to prove real-world impact; VA only identifies</td></tr>
+  <tr><td>Authenticated scanning</td><td>Logs in with credentials; finds internal vulnerabilities; more thorough than unauthenticated</td></tr>
+  <tr><td>Unauthenticated scanning</td><td>External attacker view; finds network-exposed vulnerabilities only</td></tr>
+  <tr><td>CVSS Critical threshold</td><td>9.0–10.0; Base Score is universal; Environmental Score is org-specific</td></tr>
+  <tr><td>CVE purpose</td><td>Unique identifier for a specific vulnerability in a specific product</td></tr>
+  <tr><td>CWE purpose</td><td>Category/type of software weakness (e.g., CWE-89 = SQL injection)</td></tr>
+  <tr><td>NVD</td><td>NIST database enriching CVEs with CVSS scores; authoritative for federal agencies</td></tr>
+  <tr><td>Virtual patching</td><td>IPS/WAF rule blocks exploitation without changing the vulnerable system; for legacy/unpatchable systems</td></tr>
+  <tr><td>Vulnerability management lifecycle</td><td>Discover → Prioritize → Remediate → Verify → Monitor → Repeat</td></tr>
+  <tr><td>PCI DSS scanning requirement</td><td>Quarterly external scans by ASV (Approved Scanning Vendor)</td></tr>
+  <tr><td>CISA KEV</td><td>Known Exploited Vulnerabilities catalog — highest-priority patching target; CISA mandates federal agency patching</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>Vulnerability assessment = identify; penetration test = exploit and prove impact</li>
+    <li>Authenticated scans are MORE comprehensive than unauthenticated scans</li>
+    <li>CVSS Base Score is universal; Environmental Score is customized per organization's risk context</li>
+    <li>CVE = specific flaw in specific product; CWE = weakness type/class</li>
+    <li>Always verify after remediation — re-scan to confirm the vulnerability is gone</li>
+    <li>Virtual patching via IPS/WAF is a valid compensating control for unpatchable legacy systems</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-086-theory.html" class="nav-btn">← Day 86: Assessment Strategies</a>
+  <a href="day-088-theory.html" class="nav-btn">Day 88: Penetration Testing Methodology →</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 59 – Routing Concepts</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 59 – Routing Concepts</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 59 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-058-theory.html">← Day 58: Switching &amp; VLANs</a> · Domain 4 · Day 59</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Routing Fundamentals</a></li>
+  <li><a href="#s4">4. Static vs. Dynamic Routing</a></li>
+  <li><a href="#s5">5. Distance-Vector Protocols</a></li>
+  <li><a href="#s6">6. Link-State Protocols</a></li>
+  <li><a href="#s7">7. BGP – Border Gateway Protocol</a></li>
+  <li><a href="#s8">8. Routing Security Threats</a></li>
+  <li><a href="#s9">9. Route Filtering &amp; Security Controls</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═══════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>Routing determines the path all traffic takes — a compromised routing table can redirect entire nation-state internet traffic. BGP hijacking is a well-documented real-world attack. The exam tests whether security professionals understand how routing decisions are made and what can go wrong.</td></tr>
+  <tr><td><strong>Question Style</strong></td><td>Conceptual: "Which routing protocol uses Dijkstra's algorithm?"; scenario: "Traffic destined for a bank is being redirected through an overseas ISP — what kind of attack is this?"; comparison: "What is the difference between distance-vector and link-state protocols?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 7 (BGP hijacking as an incident); Domain 3 (network architecture — routing decisions define the security perimeter); Day 60 (firewalls enforce policy as traffic flows through routers)</td></tr>
+  <tr><td><strong>Exam Traps</strong></td><td>Confusing administrative distance with metric; thinking static routes are "more secure" in all cases (they are in small environments but unmanageable at scale); forgetting that BGP is the internet's routing protocol and a prime attack target</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Ownership</strong></td><td>Network engineers manage internal routing (OSPF/EIGRP); ISP relations teams manage BGP peering; security architects define routing policies to enforce traffic flows through security controls (IDS/IPS, firewalls)</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Internal routing via OSPF or EIGRP for dynamic scalability; static routes for critical paths (default gateway, management access); BGP for multi-homed internet connectivity; route filtering and prefix-lists for security governance</td></tr>
+  <tr><td><strong>Failure Modes</strong></td><td>BGP route leak (Pakistan Telecom/YouTube 2008, Facebook outage 2021); OSPF route injection allows attacker to redirect traffic; route poisoning disables valid routes (DoS); routing loops cause packet storms</td></tr>
+  <tr><td><strong>Business Impact</strong></td><td>Internet routing is the foundation of global connectivity. BGP hijacking can immediately redirect customers from legitimate services to attacker-controlled infrastructure. Route manipulation at the ISP level can cause total service outages.</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3">
+<h2>3. Routing Fundamentals</h2>
+<div class="callout definition">
+  <strong>📖 Routing:</strong> The process by which a Layer 3 device (router) determines the best path for a packet to travel from source to destination across interconnected networks, based on the destination IP address. Routers make forwarding decisions using a <strong>routing table</strong>.
+</div>
+
+<div class="diagram">
+Routing Table Entry Components:
+
+Destination Network  | Next Hop         | Interface | Metric | AD  | Source
+─────────────────────┼──────────────────┼───────────┼────────┼─────┼───────
+192.168.10.0/24      | Directly Connected│ Gi0/0     │   0    │  0  │ C
+10.0.0.0/8           | 172.16.1.2        │ Gi0/1     │   110  │  90 │ EIGRP
+0.0.0.0/0            | 203.0.113.1       │ Gi0/2     │   1    │  1  │ Static
+
+Key fields:
+• Destination Network: range of IP addresses matched against packet destination
+• Next Hop: IP address of next router (or "exit interface" for directly connected)
+• Metric: cost of the path (lower = better, within same protocol)
+• Administrative Distance (AD): trust ranking when same destination learned from multiple protocols
+  (lower AD = more trusted)
+</div>
+
+<h3>Administrative Distance (AD)</h3>
+<table>
+  <tr><th>Route Source</th><th>Administrative Distance</th><th>Trust Level</th></tr>
+  <tr><td>Directly Connected</td><td>0</td><td>Absolute trust — physically connected</td></tr>
+  <tr><td>Static Route</td><td>1</td><td>Manually configured by admin</td></tr>
+  <tr><td>EIGRP (internal)</td><td>90</td><td>Cisco proprietary hybrid protocol</td></tr>
+  <tr><td>OSPF</td><td>110</td><td>Open standard link-state protocol</td></tr>
+  <tr><td>RIP</td><td>120</td><td>Old distance-vector; limited hop count</td></tr>
+  <tr><td>EIGRP (external)</td><td>170</td><td>Routes redistributed into EIGRP from another protocol</td></tr>
+  <tr><td>BGP (external)</td><td>20</td><td>Internet routing (eBGP trusted more than iBGP)</td></tr>
+  <tr><td>Unknown / Unroutable</td><td>255</td><td>Not used — route not installed</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 AD vs. Metric:</strong> When the same destination is learned from <em>two different routing protocols</em>, the router uses <strong>Administrative Distance</strong> to choose (lower AD wins). When the same destination is learned from <em>two routes within the same protocol</em>, the router uses <strong>Metric</strong> (lower metric wins; metric meaning varies by protocol — hops for RIP, bandwidth/delay for EIGRP, cost for OSPF).
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4">
+<h2>4. Static vs. Dynamic Routing</h2>
+<table>
+  <tr><th>Aspect</th><th>Static Routing</th><th>Dynamic Routing</th></tr>
+  <tr><td><strong>Configuration</strong></td><td>Manually entered by admin; does not change unless admin modifies it</td><td>Automatically learned and updated by routing protocols (OSPF, EIGRP, BGP)</td></tr>
+  <tr><td><strong>Scalability</strong></td><td>Poor — impractical for large networks; each route managed manually</td><td>Good — protocols discover and propagate routes automatically</td></tr>
+  <tr><td><strong>Adaptability</strong></td><td>Cannot adapt to topology changes; if a link fails, traffic does not automatically reroute unless a floating static route is configured</td><td>Converges automatically to find alternate paths when links fail</td></tr>
+  <tr><td><strong>Security</strong></td><td>More secure — admin controls exactly what is routed; no risk of malicious route injection via protocol</td><td>Risk of route injection attacks if protocol authentication is not configured</td></tr>
+  <tr><td><strong>Bandwidth Overhead</strong></td><td>None — no routing updates sent</td><td>Protocol messages consume bandwidth (BW is minimal on modern networks)</td></tr>
+  <tr><td><strong>CISSP Use Case</strong></td><td>Default route (0.0.0.0/0 → ISP); management access; stub networks with single exit path</td><td>Core enterprise routing; internet edge (BGP); data centre</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> Static routes have AD=1, which means if a static route exists, it will always be preferred over any dynamically learned route to the same destination (except directly connected, AD=0). A <strong>floating static route</strong> is a static route configured with a higher AD (e.g., AD=200) so it is only used as a backup when dynamic routes disappear — a common failover technique.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5 ═══ -->
+<section id="s5">
+<h2>5. Distance-Vector Protocols</h2>
+<div class="callout definition">
+  <strong>📖 Distance-Vector Protocol:</strong> Each router only knows its own directly connected networks and what its neighbours have told it. Routes are shared as "distance and direction" (hop count or composite metric + next hop). Routers share entire routing tables with direct neighbours at regular intervals. Sometimes called "routing by rumour."
+</div>
+
+<h3>RIP – Routing Information Protocol</h3>
+<table>
+  <tr><th>Aspect</th><th>RIPv1</th><th>RIPv2</th></tr>
+  <tr><td><strong>Standard</strong></td><td>RFC 1058</td><td>RFC 2453</td></tr>
+  <tr><td><strong>Metric</strong></td><td>Hop count (max 15; 16 = unreachable)</td><td>Hop count (max 15; 16 = unreachable)</td></tr>
+  <tr><td><strong>Subnet Support</strong></td><td>Classful only — no VLSM/CIDR</td><td>Classless — supports VLSM, CIDR</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>None</td><td>Plain text or MD5</td></tr>
+  <tr><td><strong>Updates</strong></td><td>Broadcast; every 30 seconds</td><td>Multicast (224.0.0.9); every 30 seconds</td></tr>
+  <tr><td><strong>Convergence</strong></td><td>Slow (minutes)</td><td>Slow (minutes)</td></tr>
+  <tr><td><strong>Status</strong></td><td>Obsolete</td><td>Legacy — rarely used; replaced by OSPF/EIGRP</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ Count-to-Infinity Problem:</strong> Distance-vector protocols like RIP suffer from a convergence problem where after a link failure, routers keep incrementing hop counts for a lost route ("counting to infinity" = 16 in RIP). Solutions: split horizon (don't advertise a route back to where you learned it), route poisoning (immediately advertise unavailable routes as infinite cost), and holddown timers (ignore updates for a broken route during convergence). All are built into RIP but convergence is still slow.
+</div>
+
+<h3>IGRP &amp; EIGRP (Cisco Protocols)</h3>
+<table>
+  <tr><th>Protocol</th><th>Type</th><th>Metric</th><th>Notes</th></tr>
+  <tr><td><strong>IGRP</strong></td><td>Distance-Vector (Cisco, legacy)</td><td>Bandwidth, delay, reliability, load, MTU</td><td>Obsolete; AD=100; replaced by EIGRP</td></tr>
+  <tr><td><strong>EIGRP</strong></td><td>Hybrid / Advanced Distance-Vector</td><td>Bandwidth + Delay (primary); reliability and load optional</td><td>Cisco proprietary (now open standard); AD=90; fast convergence via DUAL algorithm; partial updates (not full table)</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Why EIGRP is Called "Hybrid":</strong> EIGRP uses DUAL (Diffusing Update Algorithm) to maintain a topology table and pre-calculate backup routes (feasible successors). It converges nearly as fast as link-state protocols but uses distance-vector concepts. Unlike RIP, it sends only partial incremental updates (not the full routing table every 30 seconds), making it much more bandwidth efficient.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6 ═══ -->
+<section id="s6">
+<h2>6. Link-State Protocols</h2>
+<div class="callout definition">
+  <strong>📖 Link-State Protocol:</strong> Each router has a complete map of the entire network topology (Link State Database / LSDB). Routers flood Link State Advertisements (LSAs) describing their directly connected links to all other routers. Every router runs Dijkstra's Shortest Path First (SPF) algorithm independently to compute the best path to every destination.
+</div>
+
+<h3>OSPF – Open Shortest Path First</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Standard</strong></td><td>RFC 2328 (OSPFv2 for IPv4); RFC 5340 (OSPFv3 for IPv6)</td></tr>
+  <tr><td><strong>Algorithm</strong></td><td>Dijkstra SPF — calculates shortest path tree from the router to all destinations</td></tr>
+  <tr><td><strong>Metric</strong></td><td>Cost = reference bandwidth / interface bandwidth (e.g., 100 Mbps reference: FastEthernet = cost 1, T1 = cost 64)</td></tr>
+  <tr><td><strong>AD</strong></td><td>110</td></tr>
+  <tr><td><strong>Updates</strong></td><td>Multicast LSAs (224.0.0.5/6); only when topology changes (not periodic full tables)</td></tr>
+  <tr><td><strong>Convergence</strong></td><td>Fast — seconds to converge after topology change</td></tr>
+  <tr><td><strong>Areas</strong></td><td>Hierarchical — Area 0 (backbone) + other areas; reduces SPF computation scope; ABR (Area Border Router) connects areas</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>MD5 authentication (OSPFv2); IPSec (OSPFv3)</td></tr>
+</table>
+
+<div class="diagram">
+OSPF Area Design (Hierarchical):
+
+               ┌──────────────────────┐
+               │    Area 0 (Backbone) │
+               │  [Distribution Routers]│
+               └─────┬──────────┬─────┘
+                     │    ABR   │
+              ┌──────┘          └──────┐
+         ┌────┴────┐              ┌────┴────┐
+         │ Area 10  │              │ Area 20  │
+         │[HR Dept] │              │[IT Dept] │
+         └──────────┘              └──────────┘
+
+All areas must connect to Area 0.
+ABR = Area Border Router (has interfaces in Area 0 + another area)
+ASBR = AS Boundary Router (imports external routes into OSPF)
+</div>
+
+<h3>IS-IS – Intermediate System to Intermediate System</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Standard</strong></td><td>ISO 10589; also used for IPv4/IPv6 in SP environments</td></tr>
+  <tr><td><strong>Algorithm</strong></td><td>Dijkstra SPF (same as OSPF)</td></tr>
+  <tr><td><strong>Use</strong></td><td>Common in large ISP and carrier networks; not typically used in enterprise; highly scalable</td></tr>
+  <tr><td><strong>Security Note</strong></td><td>Runs over L2 directly (not IP), making it harder to target with IP-based attacks; supports MD5 authentication</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7 ═══ -->
+<section id="s7">
+<h2>7. BGP – Border Gateway Protocol</h2>
+<div class="callout definition">
+  <strong>📖 BGP (Border Gateway Protocol):</strong> The <strong>routing protocol of the internet</strong>. BGP is an exterior gateway protocol (EGP) that routes traffic between autonomous systems (ASes) across the internet. Operates over TCP port 179. Uses path attributes (AS Path, Next Hop, Local Preference, MED) rather than simple metrics to make routing decisions. Defined in RFC 4271.
+</div>
+
+<div class="callout key-concept">
+  <strong>🔑 Autonomous System (AS):</strong> A collection of IP networks under a common administrative domain (e.g., an ISP, large enterprise, or cloud provider) that has a single routing policy. Each AS is identified by an <strong>ASN (Autonomous System Number)</strong> — 16-bit (historic) or 32-bit. Example: Google is AS15169; Cloudflare is AS13335. BGP routes traffic between ASes.
+</div>
+
+<h3>iBGP vs. eBGP</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>AD</th></tr>
+  <tr><td><strong>eBGP (External BGP)</strong></td><td>BGP session between routers in <em>different</em> autonomous systems (e.g., your company's router ↔ ISP's router)</td><td>20</td></tr>
+  <tr><td><strong>iBGP (Internal BGP)</strong></td><td>BGP session between routers <em>within the same</em> autonomous system; distributes BGP routes internally</td><td>200</td></tr>
+</table>
+
+<h3>BGP Path Selection (Simplified)</h3>
+<p>When BGP has multiple paths to the same prefix, it selects using these attributes in order (the <strong>"Big Wins" order</strong>):</p>
+<table>
+  <tr><th>Priority</th><th>Attribute</th><th>Prefer</th></tr>
+  <tr><td>1</td><td>Weight (Cisco-only)</td><td>Higher</td></tr>
+  <tr><td>2</td><td>Local Preference</td><td>Higher (default 100)</td></tr>
+  <tr><td>3</td><td>Locally Originated</td><td>Local routes preferred</td></tr>
+  <tr><td>4</td><td>AS Path Length</td><td>Shorter (fewer AS hops)</td></tr>
+  <tr><td>5</td><td>Origin</td><td>IGP &gt; EGP &gt; Incomplete</td></tr>
+  <tr><td>6</td><td>MED (Multi-Exit Discriminator)</td><td>Lower</td></tr>
+  <tr><td>7</td><td>eBGP vs. iBGP</td><td>eBGP preferred over iBGP</td></tr>
+</table>
+
+<h3>BGP Security Incidents</h3>
+<table>
+  <tr><th>Incident</th><th>Date</th><th>What Happened</th><th>Impact</th></tr>
+  <tr><td><strong>Pakistan Telecom / YouTube</strong></td><td>2008</td><td>Pakistan Telecom accidentally announced a more-specific route for YouTube's IP space to block YouTube domestically. The announcement leaked to the global internet, and BGP preferred the more-specific route, directing all YouTube traffic to Pakistan Telecom's null route.</td><td>YouTube was unreachable globally for ~2 hours</td></tr>
+  <tr><td><strong>China Telecom BGP Leak</strong></td><td>2010</td><td>China Telecom announced ~37,000 routes including US DoD and Senate IPs; 15 minutes of global traffic routed through China before corrected</td><td>Nation-state traffic interception concern; data confidentiality risk</td></tr>
+  <tr><td><strong>Facebook Outage</strong></td><td>2021</td><td>Facebook's BGP routes were withdrawn (misconfiguration during maintenance), making all Facebook infrastructure unreachable — including internal DNS and authentication systems that prevented engineers from logging in to fix it</td><td>Facebook, Instagram, WhatsApp, Oculus all offline for ~6 hours</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ BGP Was Designed for Trust, Not Security:</strong> BGP was designed in 1989 for interconnecting trusted networks. There is <strong>no built-in cryptographic verification</strong> that an AS actually owns the prefixes it announces. Anyone with a BGP-speaking router can claim to own any IP prefix. The solution is <strong>RPKI (Resource Public Key Infrastructure)</strong> — cryptographically signed Route Origin Authorizations (ROAs) that certify which AS is authorized to originate a prefix.
+</div>
+
+<h3>BGP Security Controls</h3>
+<table>
+  <tr><th>Control</th><th>Description</th><th>What It Prevents</th></tr>
+  <tr><td><strong>RPKI (Resource PKI)</strong></td><td>Cryptographically signed ROAs map IP prefixes to authorized ASNs; routers reject routes that fail ROA validation</td><td>BGP prefix hijacking; route origin spoofing</td></tr>
+  <tr><td><strong>BGP MD5 Session Authentication</strong></td><td>RFC 2385 — MD5 HMAC on TCP session prevents injection of forged BGP UPDATE messages</td><td>BGP session hijacking; forged UPDATE injection</td></tr>
+  <tr><td><strong>Prefix Filtering / Prefix Lists</strong></td><td>Only accept/advertise expected prefixes from peers; reject default route or overly-specific prefixes from untrusted peers</td><td>Route leaks; accidental or malicious prefix propagation</td></tr>
+  <tr><td><strong>BCP 38 (Ingress Filtering)</strong></td><td>ISPs filter packets with source IPs that cannot be valid from that customer's prefix allocation</td><td>IP spoofing in DDoS attacks; prevents amplification attack source spoofing</td></tr>
+  <tr><td><strong>MANRS (Mutually Agreed Norms for Routing Security)</strong></td><td>Industry initiative requiring ISPs to implement filtering, anti-spoofing, coordination, and RPKI</td><td>Systematic routing hygiene across the internet</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8 ═══ -->
+<section id="s8">
+<h2>8. Routing Security Threats</h2>
+<table>
+  <tr><th>Threat</th><th>Description</th><th>Protocol Affected</th><th>Defence</th></tr>
+  <tr><td><strong>BGP Prefix Hijacking</strong></td><td>Attacker announces ownership of victim's IP prefix; traffic is redirected to attacker or dropped</td><td>BGP</td><td>RPKI + ROA; prefix filtering; MANRS compliance</td></tr>
+  <tr><td><strong>Route Injection (Interior)</strong></td><td>Attacker injects malicious routes into OSPF/EIGRP/RIP via an unauthenticated connection to the routing domain</td><td>OSPF, EIGRP, RIP</td><td>Routing protocol authentication (MD5/SHA); isolate routing protocols to dedicated VLANs; limit adjacencies</td></tr>
+  <tr><td><strong>Route Poisoning DoS</strong></td><td>Attacker floods routing updates claiming routes as unreachable, causing legitimate routes to be removed; network becomes unreachable</td><td>Distance-vector protocols</td><td>Route authentication; rate limiting update processing; monitoring for anomalous routing table changes</td></tr>
+  <tr><td><strong>Routing Loop</strong></td><td>Misconfiguration causes packets to circulate indefinitely, consuming bandwidth (TTL eventually drops packets)</td><td>Any</td><td>Proper design; split horizon; route poisoning; holddown timers; STP equivalent in routing</td></tr>
+  <tr><td><strong>OSPF LSA Flooding Attack</strong></td><td>Attacker floods OSPF area with crafted LSAs to overload the SPF computation or inject false topology information</td><td>OSPF</td><td>OSPF MD5 authentication; max-LSA limits; rate limiting</td></tr>
+  <tr><td><strong>Black Hole Routing</strong></td><td>Specifically advertising a route that points to null interface (intentional or via attacker injection) → packets silently discarded</td><td>Any</td><td>Monitoring for routing anomalies; RTBH (Remote Triggered Black Hole) is a legitimate DDoS mitigation tool when used with filters</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 RTBH (Remote-Triggered Black Hole Routing):</strong> A legitimate defensive technique where IP prefixes under DDoS attack are advertised to upstream ISPs with a next-hop pointing to null (discard). This drops attack traffic at the edge rather than letting it traverse the entire network. The trade-off is that legitimate traffic to that prefix is also discarded — acceptable if the destination is unreachable anyway due to the attack volume.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 9 ═══ -->
+<section id="s9">
+<h2>9. Route Filtering &amp; Security Controls</h2>
+<table>
+  <tr><th>Control</th><th>Mechanism</th><th>Security Purpose</th></tr>
+  <tr><td><strong>Prefix Lists</strong></td><td>Match routes by IP prefix and length (e.g., only accept /24 or more specific); applied to BGP neighbour statements</td><td>Prevent route leaks; only accept valid prefixes from peers</td></tr>
+  <tr><td><strong>Route Maps</strong></td><td>Conditional policy applied to routing updates — match specific prefixes then set attributes (local preference, next-hop, etc.)</td><td>Fine-grained control of BGP path selection; policy-based routing</td></tr>
+  <tr><td><strong>ACLs on Routing Protocols</strong></td><td>Access lists that filter which networks are advertised or accepted in routing updates</td><td>Prevent unauthorized network announcements</td></tr>
+  <tr><td><strong>Authentication (MD5/SHA)</strong></td><td>OSPF, EIGRP, BGP, RIPv2 all support MD5 authentication of protocol messages</td><td>Prevents injection of malicious routing updates from unauthenticated sources</td></tr>
+  <tr><td><strong>Passive Interfaces</strong></td><td>Configure interface to not send routing updates but still include its network (used in OSPF/EIGRP)</td><td>Prevents routing protocol neighbour formation on interfaces that should not participate (e.g., DMZ-facing interfaces)</td></tr>
+  <tr><td><strong>Management Plane Protection</strong></td><td>Restrict access to router management (SSH only from management VLAN; control plane policing)</td><td>Router itself is not compromised to inject routes</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> The CISSP exam will not ask you to calculate OSPF costs or configure BGP. Focus on <em>concepts</em>: what routing protocols exist, their general characteristics (distance-vector vs. link-state), their security weaknesses, and the compensating controls. The most tested BGP scenario is hijacking/route injection with RPKI as the solution. The most tested interior routing security concept is the need for protocol authentication.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 Routing Protocol Types — "DV Sees Rumours; LS Sees the Map":</strong><br>
+  <strong>Distance-Vector</strong> = "routing by rumour" — only knows what neighbours say; RIP, IGRP<br>
+  <strong>Link-State</strong> = "routing by map" — knows entire topology; runs Dijkstra SPF; OSPF, IS-IS<br>
+  <strong>Hybrid</strong> (EIGRP) = best of both — distance-vector with fast convergence and topology table
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Administrative Distance — "Static Wins Almost Everything":</strong><br>
+  Connected=0 → Static=1 → eBGP=20 → EIGRP internal=90 → OSPF=110 → RIP=120 → iBGP=200<br>
+  Memory: <em>"Clearly Stated, Eric's OSPF Rather Ignores Borders"</em><br>
+  (Connected, Static, eBGP, EIGRP, OSPF, RIP, iBGP)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 BGP Security =  RPKI + MD5 + Prefix Lists:</strong><br>
+  <strong>RPKI</strong> = proves ownership of IP space (Route Origin Authorization)<br>
+  <strong>MD5</strong> = authenticates the BGP TCP session<br>
+  <strong>Prefix Lists</strong> = filters what routes are accepted/advertised<br>
+  <em>"RPki Manages Prefixes safely."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 OSPF vs. RIP Key Differences:</strong><br>
+  OSPF = <strong>O</strong>pen standard, <strong>S</strong>PF algorithm, <strong>P</strong>artial updates, <strong>F</strong>ast convergence<br>
+  RIP = <strong>R</strong>umour-based, <strong>I</strong>nterval full-table flood, <strong>P</strong>oor scalability (max 15 hops)<br>
+  For CISSP: always prefer OSPF over RIP for enterprise; RIP is legacy/insecure.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 BGP Hijacking Example — "Pakistan, China, Facebook":</strong><br>
+  These three real-world incidents illustrate BGP's trust-by-default weakness. Remember them for scenario questions about "what attack could redirect global internet traffic?" — the answer is BGP prefix hijacking.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Routing Fundamentals</td><td>Routers use routing tables; AD selects between protocols; metric selects within a protocol</td></tr>
+  <tr><td>Static Routing</td><td>AD=1; manually configured; secure (no injection risk); impractical at scale; use for default routes and critical paths</td></tr>
+  <tr><td>Distance-Vector (RIP)</td><td>"Routing by rumour"; hop count metric; max 15 hops; slow convergence; susceptible to count-to-infinity; legacy</td></tr>
+  <tr><td>EIGRP</td><td>Cisco hybrid; bandwidth+delay metric; DUAL algorithm; fast convergence; AD=90; partial updates</td></tr>
+  <tr><td>OSPF</td><td>Open standard link-state; Dijkstra SPF; hierarchical areas (must include Area 0); AD=110; fast convergence; authenticate with MD5</td></tr>
+  <tr><td>BGP</td><td>Internet's routing protocol; TCP 179; path attributes; no built-in authentication by default; prime hijacking target</td></tr>
+  <tr><td>BGP Hijacking</td><td>Announce someone else's prefix → traffic redirected; RPKI + ROA prevents it; prefix filtering is secondary defence</td></tr>
+  <tr><td>Routing Security</td><td>Always authenticate routing protocols (MD5/SHA); filter prefixes; disable routing protocol adjacencies on untrusted interfaces (passive interface)</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-058-theory.html" class="nav-btn">← Day 58: Switching &amp; VLANs</a>
+  <a href="day-060-theory.html" class="nav-btn">Day 60: Firewalls →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

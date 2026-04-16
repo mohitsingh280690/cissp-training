@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 75 – Authorization: DAC &amp; MAC</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.9;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 75 – Authorization: DAC &amp; MAC</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 75 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-074-theory.html">← Day 74: Federated Identity Management</a> · Domain 5 · Day 75</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Access Control Models Overview</a></li>
+  <li><a href="#s4">4. Discretionary Access Control (DAC)</a></li>
+  <li><a href="#s5">5. Mandatory Access Control (MAC)</a></li>
+  <li><a href="#s6">6. Sensitivity Labels and Compartments</a></li>
+  <li><a href="#s7">7. MAC Security Models (Bell-LaPadula, Biba)</a></li>
+  <li><a href="#s8">8. Lattice-Based Access Control</a></li>
+  <li><a href="#s9">9. Rule-Based Access Control</a></li>
+  <li><a href="#s10">10. SELinux – MAC in Practice</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — Access control models</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>DAC vs. MAC is one of the most fundamental CISSP topic areas. Questions test which model provides highest security (MAC), who controls access in each model (owner in DAC, system in MAC), and which formal models (Bell-LaPadula, Biba) map to which model. RBAC and ABAC follow in Day 76.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which model is used in government/military for classified data?" (MAC); "In DAC, who sets permissions on a file?" (owner/creator); "Bell-LaPadula enforces which type of access control?" (MAC, confidentiality); "A user copies a TOP SECRET file to an Unclassified folder — which model prevents this?" (MAC)</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 70 (authorization = IAAA pillar); Day 76 (RBAC, ABAC — next access control models); Domain 3 (security models — Bell-LaPadula, Biba in security engineering context); Domain 2 (data classification — labels in MAC)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>DAC owner-controlled = flexible but weak (Trojan horse attack). MAC system-controlled = rigid but strong. "Rule-based access control" ≠ RBAC (role-based) — rule-based uses conditions/rules; RBAC uses roles. The lattice model = the mathematical basis of MAC.</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>DAC is what you use every day</strong></td><td>Windows NTFS, Linux file permissions, SharePoint folder sharing — all are DAC. You (the owner) decide who can access your files. Flexible and user-friendly but dangerous: you can accidentally grant overly broad access, and malware running as you can access everything you can access.</td></tr>
+  <tr><td><strong>MAC is the government standard</strong></td><td>All US government classified information handling (Top Secret, Secret, Confidential) is governed by MAC principles. Personnel must have both the clearance AND need-to-know. Systems enforce these rules — users cannot override them regardless of ownership.</td></tr>
+  <tr><td><strong>MAC in commercial contexts</strong></td><td>SELinux (server hardening), AppArmor (Ubuntu), INTEGRITY OS (military avionics), Multics (historical MAC OS). MAC is used wherever system integrity and confidentiality requirements exceed what user discretion can ensure.</td></tr>
+  <tr><td><strong>Trojan Horse risk in DAC</strong></td><td>Classic DAC weakness: malware running with user's privileges inherits all the user's permissions. A user with broad discretionary access accidentally runs malicious code — the malicious code can access, exfiltrate, or modify everything the user could. MAC prevents this by enforcing labels regardless of who (or what) is requesting access.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. Access Control Models Overview</h2>
+<table>
+  <tr><th>Model</th><th>Who Controls Access</th><th>Basis</th><th>Security Level</th><th>Flexibility</th></tr>
+  <tr><td><strong>DAC</strong> – Discretionary Access Control</td><td>Data owner / creator</td><td>Identity (who you are)</td><td>Low-Medium</td><td>High (owner decides)</td></tr>
+  <tr><td><strong>MAC</strong> – Mandatory Access Control</td><td>System / security policy (not user)</td><td>Labels (what security level the data IS and what clearance the user HAS)</td><td>High</td><td>Low (rigid, centrally enforced)</td></tr>
+  <tr><td><strong>RBAC</strong> – Role-Based Access Control</td><td>Administrator (via roles)</td><td>Role (job function)</td><td>Medium-High</td><td>Medium (role assignment)</td></tr>
+  <tr><td><strong>ABAC</strong> – Attribute-Based Access Control</td><td>Policy engine</td><td>Attributes (user + resource + environment)</td><td>High</td><td>Very High (fine-grained)</td></tr>
+  <tr><td><strong>Rule-based</strong></td><td>Policy rules</td><td>Rules / conditions</td><td>Variable</td><td>Medium (rule-defined)</td></tr>
+</table>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Discretionary Access Control (DAC)</h2>
+<div class="callout definition">
+  <strong>📖 DAC – Discretionary Access Control:</strong> An access control model where the owner (creator) of a resource has discretion over who can access it. The owner sets permissions at their own discretion. Permission grants can be passed to others (access rights can be delegated).
+</div>
+
+<table>
+  <tr><th>Characteristic</th><th>Detail</th></tr>
+  <tr><td><strong>Identity-based</strong></td><td>Access decisions based on who is requesting (user identity or group membership). Access Control List (ACL) maps users/groups to permitted operations on each resource.</td></tr>
+  <tr><td><strong>Owner controls access</strong></td><td>The creator of a file/resource automatically becomes the owner. Owner can grant or revoke permissions for other users. Owner can delegate ownership.</td></tr>
+  <tr><td><strong>Permissions can be delegated</strong></td><td>A user granted access can pass that access to others (in the most permissive DAC implementation). This is the "discretionary" property — discretion is in the hands of the owner.</td></tr>
+  <tr><td><strong>Implementation</strong></td><td>Access Control Lists (ACLs) per object. Each object has a list of (subject, permission) entries. Examples: NTFS ACLs, UNIX file permissions (user/group/other), AWS S3 bucket policies.</td></tr>
+  <tr><td><strong>Primary weakness: Trojan Horse</strong></td><td>A malicious process running with the user's identity inherits all the user's permissions. The access control checks the requester's identity — the Trojan horse IS the user from the system's perspective.</td></tr>
+  <tr><td><strong>Confinement problem</strong></td><td>In DAC, there is no mechanism to prevent a user from passing copies of data to unauthorized users (data "leaks" downstream through authorized copies).</td></tr>
+</table>
+
+<h3>DAC Access Control List (ACL) Example</h3>
+<div class="diagram">DAC — File Access Control List
+─────────────────────────────────────
+file: /projects/budget.xlsx
+owner: alice
+
+  Subject          Permission
+  ─────────────    ─────────
+  alice            Read, Write, Delete, Change Permissions
+  bob              Read
+  finance-group    Read, Write
+  marketing-group  (none — access denied)
+  everyone         (none — implicit deny)
+─────────────────────────────────────
+alice (as owner) can modify this ACL at will.
+She can grant bob Write, or remove finance-group entirely.</div>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Mandatory Access Control (MAC)</h2>
+<div class="callout definition">
+  <strong>📖 MAC – Mandatory Access Control:</strong> An access control model where the operating system or security policy (not the data owner) enforces access based on security labels. Users cannot grant or modify access permissions — the system makes all access decisions based on the classification label of the resource and the clearance level of the subject.
+</div>
+
+<table>
+  <tr><th>Characteristic</th><th>Detail</th></tr>
+  <tr><td><strong>Label-based</strong></td><td>Every subject (user, process) and object (file, resource) is assigned a security label. The label has two components: classification level (hierarchical) + compartments (non-hierarchical categories).</td></tr>
+  <tr><td><strong>System enforces policy</strong></td><td>The operating system/security kernel enforces the access policy. Owners CANNOT override it — even the owner of a file cannot grant access to someone with insufficient clearance.</td></tr>
+  <tr><td><strong>No discretion by users</strong></td><td>Users cannot change security labels on objects. Cannot grant access to others beyond what policy allows. Cannot declassify data.</td></tr>
+  <tr><td><strong>Clearance + Need-to-know</strong></td><td>Users must have BOTH the appropriate security clearance (level ≥ object classification) AND need-to-know (compartment access) to access an object under MAC.</td></tr>
+  <tr><td><strong>Prevents Trojan Horse</strong></td><td>Even if a Trojan Horse runs with user credentials, it cannot read data above the user's clearance (MAC check) or write data below the user's level without declassification (prevents data leakage downward).</td></tr>
+  <tr><td><strong>Environments</strong></td><td>Government/military classified systems, healthcare systems with strict privacy requirements, high-assurance financial systems</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Sensitivity Labels and Compartments</h2>
+<table>
+  <tr><th>Component</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>Classification level (hierarchical)</strong></td><td>Defines the sensitivity tier. Higher level requires higher clearance to access. Ordered: Top Secret &gt; Secret &gt; Confidential &gt; Unclassified (US Government scale)</td><td>A document labeled SECRET can only be accessed by users with Secret or Top Secret clearance.</td></tr>
+  <tr><td><strong>Compartments (non-hierarchical)</strong></td><td>Additional categories or compartments beyond the classification level. Even with correct clearance level, a user needs explicit access to the relevant compartment (need-to-know).</td><td>SECRET/NOFORN (No Foreign Nationals); TOP SECRET/SCI/HUMINT — TS clearance + SCI access + HUMINT compartment all required</td></tr>
+  <tr><td><strong>Combined label</strong></td><td>A subject must dominate the object's label to access it. "Dominates" = classification level ≥ object's level AND subject has access to ALL compartments of the object.</td><td>User with label [Secret, {SIGINT, HUMINT}] can access file labeled [Secret, {HUMINT}] but NOT [Secret, {SIGINT, TALENT}] (missing TALENT).</td></tr>
+</table>
+
+<div class="diagram">MAC Label Structure
+─────────────────────────────────────────────────────
+  Label = [Classification Level] / [Compartment(s)]
+
+  Examples:
+  TOP SECRET / SCI                    (high level, one compartment)
+  SECRET / NOFORN                     (mid level, NOFORN = no foreign national access)
+  SECRET / HUMINT, SIGINT             (mid level, two compartments)
+  UNCLASSIFIED                        (lowest level, no compartments)
+
+  Dominance rule:
+  Subject S dominates Object O iff:
+    S.level >= O.level  AND  S.compartments ⊇ O.compartments
+─────────────────────────────────────────────────────</div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. MAC Security Models (Bell-LaPadula, Biba)</h2>
+<h3>Bell-LaPadula Model (Confidentiality)</h3>
+<div class="callout definition">
+  <strong>📖 Bell-LaPadula:</strong> A formal MAC security model focused on protecting confidentiality. Prevents unauthorized disclosure of classified information. Government/military origin (developed 1973-1976 for USAF/MITRE).
+</div>
+<table>
+  <tr><th>Property</th><th>Rule</th><th>Purpose</th></tr>
+  <tr><td><strong>Simple Security Property (ss-property)</strong></td><td><strong>"No Read Up"</strong> — Subject cannot READ an object at a higher classification level (e.g., a Secret-cleared user cannot read a Top Secret document)</td><td>Prevents unauthorized READ of sensitive data (confidentiality)</td></tr>
+  <tr><td><strong>Star Property (*-property)</strong></td><td><strong>"No Write Down"</strong> — Subject cannot WRITE to an object at a lower classification level (e.g., a Top Secret user cannot write to a Secret file — prevents data leakage)</td><td>Prevents declassification/downgrading of sensitive data through write operations</td></tr>
+  <tr><td><strong>Strong Tranquility Property</strong></td><td>Security labels never change during operation</td><td>Prevents dynamic label manipulation attacks</td></tr>
+</table>
+
+<h3>Biba Model (Integrity)</h3>
+<div class="callout definition">
+  <strong>📖 Biba:</strong> A formal MAC security model focused on protecting integrity. The inverse twin of Bell-LaPadula — protects against unauthorized modification. Important for financial data, software integrity, audit logs.
+</div>
+<table>
+  <tr><th>Property</th><th>Rule</th><th>Purpose</th></tr>
+  <tr><td><strong>Simple Integrity Property</strong></td><td><strong>"No Read Down"</strong> — Subject cannot READ from a lower integrity level (prevents contamination of high-integrity processes with low-integrity data)</td><td>Prevents low-integrity data from corrupting high-integrity processes</td></tr>
+  <tr><td><strong>Star Integrity Property (*-property)</strong></td><td><strong>"No Write Up"</strong> — Subject cannot WRITE to a higher integrity level (prevents low-integrity data from being injected into high-integrity sources)</td><td>Prevents low-integrity data from polluting trusted data stores</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Bell-LaPadula vs. Biba Summary:</strong><br>
+  <table>
+    <tr><th>Model</th><th>Protects</th><th>No Read</th><th>No Write</th></tr>
+    <tr><td>Bell-LaPadula</td><td>Confidentiality</td><td>No Read Up</td><td>No Write Down</td></tr>
+    <tr><td>Biba</td><td>Integrity</td><td>No Read Down</td><td>No Write Up</td></tr>
+  </table>
+  Memory: Bell-LaPadula = <strong>B</strong> = <strong>B</strong>lue (classified info is sky-high — can't read UP to the stars)<br>
+  Biba = "integrity matters from above" — can't write UP to contaminate trusted sources
+</div>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. Lattice-Based Access Control</h2>
+<div class="callout definition">
+  <strong>📖 Lattice-Based Access Control:</strong> A mathematical framework that formalizes MAC using a lattice structure. A lattice is a partially ordered set where every pair of elements has a least upper bound (join) and greatest lower bound (meet). Security labels are organized into a lattice, and access decisions are based on dominance relationships in the lattice.
+</div>
+<div class="diagram">Security Label Lattice (simplified)
+─────────────────────────────────────────────────────
+          TOP SECRET
+             │
+          SECRET
+           /   \
+  CONFIDENTIAL  SECRET/NOFORN
+           \   /
+       UNCLASSIFIED
+
+Dominance: A label L1 "dominates" L2 if L1 ≥ L2 in the lattice.
+Subject's label must dominate Object's label to allow READ (BLP) or WRITE (Biba).
+─────────────────────────────────────────────────────</div>
+<table>
+  <tr><th>Concept</th><th>Meaning</th></tr>
+  <tr><td><strong>Upper bound (join)</strong></td><td>Least upper bound of two labels = the minimum label that dominates both. Used to determine the classification of a document created from two sources.</td></tr>
+  <tr><td><strong>Lower bound (meet)</strong></td><td>Greatest lower bound = maximum label dominated by both. The "safe" floor for shared operations.</td></tr>
+  <tr><td><strong>BLP implementation</strong></td><td>Bell-LaPadula is a lattice-based model. Access allowed when subject's lattice position dominates the object's position for reads.</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. Rule-Based Access Control</h2>
+<div class="callout definition">
+  <strong>📖 Rule-Based Access Control (RuBAC):</strong> Access control decisions are made based on a set of rules or conditions defined by the administrator — not by the owner, not by label dominance. Rules define conditions under which access is granted or denied. Often combined with other models.
+</div>
+<table>
+  <tr><th>Characteristic</th><th>Detail</th></tr>
+  <tr><td><strong>Rule-driven, not role-driven</strong></td><td>Rules can be time-based, location-based, network-based, or based on any attribute. Example: "Employees may access payroll system only Monday–Friday, 8am–6pm, from corporate network."</td></tr>
+  <tr><td><strong>Firewall ACLs are rule-based</strong></td><td>Classic example: network firewall access control lists. "Allow TCP 443 from any to 10.1.1.5/32; deny all other traffic." Rules applied in order; first match wins.</td></tr>
+  <tr><td><strong>Not to be confused with RBAC</strong></td><td>RBAC = Role-Based Access Control (users assigned to roles, roles have permissions — Day 76). Rule-based = access decisions per rules/conditions. "Rule" vs. "Role" — different concepts despite similar names.</td></tr>
+  <tr><td><strong>Often layered with RBAC</strong></td><td>Many systems combine: RBAC grants baseline access by role; rule-based conditions add further restrictions (time, location, device state). Together = context-aware, adaptive access control.</td></tr>
+</table>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. SELinux – MAC in Practice</h2>
+<div class="callout definition">
+  <strong>📖 SELinux (Security-Enhanced Linux):</strong> A Linux kernel security module that implements MAC using a mandatory access control policy. Every process and file has a security context (label). Policies define what each labeled process type may do with each labeled resource. Default-deny: if not explicitly permitted, access is denied.
+</div>
+<table>
+  <tr><th>Feature</th><th>Detail</th></tr>
+  <tr><td><strong>Security context</strong></td><td>Every process and file has a label: user:role:type:level (e.g., system_u:system_r:httpd_t:s0). The type component is most important — determines what the process CAN do.</td></tr>
+  <tr><td><strong>Type Enforcement (TE)</strong></td><td>Primary policy mechanism. Defines which process types may perform which operations on which file types. Apache (httpd_t) can read web content (httpd_sys_content_t) but NOT read /etc/shadow (shadow_t).</td></tr>
+  <tr><td><strong>MCS (Multi-Category Security)</strong></td><td>Extension for MAC with sensitivity labels. Used in containers (each container gets a unique MCS label) to prevent cross-container access even when running as the same Linux uid.</td></tr>
+  <tr><td><strong>Policy modes</strong></td><td>Enforcing (full MAC policy active), Permissive (log violations but don't block — used for policy development/testing), Disabled (SELinux off)</td></tr>
+  <tr><td><strong>Security benefit</strong></td><td>If Apache is compromised (remote code execution), the attacker runs as httpd_t — SELinux confines the attack to only what httpd_t is permitted to do. Cannot read /etc/passwd, cannot write to system binaries, cannot bind privileged ports.</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 DAC vs. MAC — "Owner vs. System":</strong><br>
+  <strong>DAC</strong> = <strong>D</strong>iscretionary = <strong>D</strong>ata owner decides = flexible = Trojan Horse weakness<br>
+  <strong>MAC</strong> = <strong>M</strong>andatory = <strong>M</strong>ust follow policy = system enforces = rigid = highest security<br>
+  "D" for "Discretion" — YOU choose. "M" for "Mandatory" — you have NO choice.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Bell-LaPadula — "No Read Up, No Write Down" (BLP = Blue sky = confidentiality):</strong><br>
+  Can't read up (secret agent can't read TS documents)<br>
+  Can't write down (TS agent can't post TS info on the unclassified bulletin board)<br>
+  <strong>BLP protects reading classified info UP; prevents writing it DOWN.</strong>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Biba — "No Read Down, No Write Up" (Biba = integrity, inverted BLP):</strong><br>
+  Can't read down (trusted process can't read untrusted data — garbage in, garbage out)<br>
+  Can't write up (untrusted input can't corrupt trusted records)<br>
+  <strong>Biba protects integrity — untrusted can't poison trusted (up), trusted can't be poisoned by reading down).</strong>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Rule-Based ≠ Role-Based:</strong><br>
+  <strong>Rule</strong>-based = conditions/logic (firewall ACL, "access only on weekdays")<br>
+  <strong>Role</strong>-based = job functions (RBAC, "HR role can access HR system") — Day 76<br>
+  When exam says "firewall rules" = rule-based. When exam says "job function permissions" = RBAC.
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>DAC</td><td>Owner controls access; flexible; identity-based ACLs; weak against Trojan Horse; Windows NTFS, Linux file permissions</td></tr>
+  <tr><td>MAC</td><td>System/policy controls access; label-based; no user discretion; highest security; protects against Trojan Horse; government/military use</td></tr>
+  <tr><td>Sensitivity labels</td><td>Classification level (hierarchical) + compartments (non-hierarchical); subject must dominate object's label to access</td></tr>
+  <tr><td>Dominance (MAC)</td><td>Subject dominates object if subject's level ≥ object's level AND subject has all of object's compartments</td></tr>
+  <tr><td>Bell-LaPadula</td><td>Confidentiality model; No Read Up (ss-property); No Write Down (*-property)</td></tr>
+  <tr><td>Biba</td><td>Integrity model; No Read Down; No Write Up; inverse of Bell-LaPadula</td></tr>
+  <tr><td>Lattice model</td><td>Mathematical basis for MAC; partially ordered set; labels form lattice; BLP uses lattice dominance</td></tr>
+  <tr><td>Rule-based access control</td><td>Decisions based on rules/conditions (time, location, network); firewall ACLs are classic example; NOT the same as RBAC</td></tr>
+  <tr><td>SELinux</td><td>MAC on Linux; security contexts (user:role:type:level); type enforcement; default deny; confines compromised processes to their type's permitted actions</td></tr>
+  <tr><td>Trojan Horse weakness</td><td>Exploits DAC: malicious process inherits user's identity; MAC prevents it by enforcing labels regardless of process identity</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-074-theory.html" class="nav-btn">← Day 74: Federated Identity Management</a>
+  <a href="day-076-theory.html" class="nav-btn">Day 76: Authorization: RBAC &amp; ABAC →</a>
+</div>
+</div>
+</body>
+</html>

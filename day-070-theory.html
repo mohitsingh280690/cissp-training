@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 70 – IAM Fundamentals</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 70 – IAM Fundamentals</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 70 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~60 min read</span><span>🎯 Difficulty: Beginner</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-069-theory.html">← Day 69: Domain 4 Review</a> · Domain 5 begins · Day 70</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. IAAA – The Four Pillars</a></li>
+  <li><a href="#s4">4. Identification</a></li>
+  <li><a href="#s5">5. Authentication</a></li>
+  <li><a href="#s6">6. Authorization</a></li>
+  <li><a href="#s7">7. Accountability</a></li>
+  <li><a href="#s8">8. Identity Lifecycle Management</a></li>
+  <li><a href="#s9">9. Subjects and Objects</a></li>
+  <li><a href="#s10">10. Access Control Principles</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>IAM is one of the highest-tested domains. Every security control ultimately comes back to identity — who is doing this, are they allowed, can we prove it happened? CISSP tests fundamental IAM concepts (IAAA), identity lifecycle, access control models, and modern IAM technologies (MFA, SSO, federation, PAM).</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"A user presents a username — which IAM step is this?"; "What is required to hold a user accountable for actions?"; "Which principle states users should only have the minimum access needed?"; "What is the difference between authentication and authorization?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Domain 1 (least privilege, SoD — governance principles); Day 60 (firewalls enforce access between zones); Domain 7 (audit logs enable accountability); Domain 8 (IAM in application development — OWASP A07: Identification and Authentication Failures)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>Identification ≠ Authentication. Identification = claim identity (present username). Authentication = PROVE identity (present password/factor). Authorization = what you CAN DO. Accountability requires authentication to work (can't hold anonymous user accountable). Non-repudiation is the strongest accountability mechanism (cryptographic proof).</td></tr>
+</table>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Issue</th><th>Context</th></tr>
+  <tr><td><strong>Identity is the new perimeter</strong></td><td>Traditional network perimeters (firewalls at the edge) have dissolved with cloud, remote work, and SaaS. Identity is now the primary security control. If an attacker has valid credentials, they can access resources legitimately — no network perimeter to bypass.</td></tr>
+  <tr><td><strong>Access sprawl</strong></td><td>Employees accumulate permissions over time (privilege creep). Without regular access reviews and deprovisioning, users retain access they no longer need — violating least privilege. Orphan accounts (accounts of departed employees) are among the most dangerous.</td></tr>
+  <tr><td><strong>IAM is breach enabler #1</strong></td><td>Verizon DBIR consistently shows that compromised credentials are involved in 80%+ of breaches. MFA alone blocks 99%+ of credential-based automated attacks. IAM hardening (MFA + PAM + just-in-time access) is the highest ROI investment after basic hygiene.</td></tr>
+  <tr><td><strong>Regulatory requirements</strong></td><td>GDPR: access controls for personal data. HIPAA: minimum necessary standard mirrors least privilege. PCI-DSS: unique user IDs, MFA for all admin access. SOX: separation of duties in financial systems. All require demonstrable access controls and audit trails.</td></tr>
+</table>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<h2>3. IAAA – The Four Pillars</h2>
+<div class="callout definition">
+  <strong>📖 IAAA:</strong> The four core functions of an identity and access management system: <strong>I</strong>dentification, <strong>A</strong>uthentication, <strong>A</strong>uthorization, <strong>A</strong>ccountability. Each is distinct — failure at any step weakens the entire IAM chain.
+</div>
+
+<table>
+  <tr><th>Pillar</th><th>Question</th><th>Definition</th><th>Example</th></tr>
+  <tr><td><strong>Identification</strong></td><td>Who are you claiming to be?</td><td>The user claims an identity — presents a unique identifier. Not yet verified.</td><td>Typing a username; presenting an employee badge number; entering an email address in a login form</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>Can you prove who you are?</td><td>The system verifies the claimed identity — proves the claim is genuine using one or more factors.</td><td>Entering a password; scanning a fingerprint; entering an OTP; presenting a smart card</td></tr>
+  <tr><td><strong>Authorization</strong></td><td>What are you allowed to do?</td><td>After proven identity, the system determines what resources and actions the authenticated identity may access. Enforced by access control policies.</td><td>User can read file A but not write it; user can access HR system but not finance; role-based permissions</td></tr>
+  <tr><td><strong>Accountability</strong></td><td>What did you do, and can we prove it?</td><td>All actions by authenticated users are logged and attributable to the specific identity. Enables auditing, forensics, and non-repudiation.</td><td>Audit logs recording every database query; security event logs with user ID timestamps; SIEM correlation</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 IAAA depends on the previous step:</strong><br>
+  Authorization can only work after authentication (can't enforce permissions for an unknown identity).<br>
+  Accountability can only work after authentication (audit logs only meaningful if identity is proven).<br>
+  Non-repudiation (the strongest accountability) requires cryptographic proof — digital signatures prove the specific private key holder performed an action.
+</div>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<h2>4. Identification</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Function</strong></td><td>Allows each user to be uniquely distinguished from all others. The identifier must be unique within the system. No security guarantee at this stage — anyone can claim any identity.</td></tr>
+  <tr><td><strong>Unique identifiers</strong></td><td>Username, user ID, email address, employee number, certificate Distinguished Name, public key</td></tr>
+  <tr><td><strong>Requirements</strong></td><td>Each identifier must be unique. Shared/generic accounts ("admin", "user1") break accountability — cannot attribute actions to a specific individual. Unique IDs are a PCI-DSS requirement.</td></tr>
+  <tr><td><strong>Non-security role</strong></td><td>Identification alone is not a security function — it simply labels the subject so the system knows which credentials to check and which authorization profile to apply.</td></tr>
+</table>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<h2>5. Authentication</h2>
+<table>
+  <tr><th>Authentication Factor Type</th><th>Category</th><th>Examples</th><th>Weakness</th></tr>
+  <tr><td><strong>Type 1 – Something you know</strong></td><td>Knowledge-based</td><td>Password, PIN, passphrase, security question, pattern</td><td>Can be guessed, phished, shoulder-surfed, stolen from database; weakest factor type</td></tr>
+  <tr><td><strong>Type 2 – Something you have</strong></td><td>Possession-based</td><td>Smart card, hardware token (RSA SecurID), software OTP (TOTP/HOTP), physical key, mobile device</td><td>Can be lost, stolen, cloned (depending on implementation); SIM-swapping Attack on SMS</td></tr>
+  <tr><td><strong>Type 3 – Something you are</strong></td><td>Biometric</td><td>Fingerprint, iris scan, retina scan, facial recognition, voice recognition, gait analysis</td><td>Cannot be changed if compromised; false acceptance/rejection; requires enrollment; cultural/legal privacy concerns</td></tr>
+</table>
+
+<h3>Multi-Factor Authentication (MFA)</h3>
+<div class="callout key-concept">
+  <strong>🔑 True MFA requires TWO OR MORE factors from DIFFERENT type categories.</strong><br>
+  Password + PIN = NOT MFA (both are Type 1 – something you know)<br>
+  Password + OTP = MFA (Type 1 + Type 2)<br>
+  Password + fingerprint = MFA (Type 1 + Type 3)<br>
+  Smart card + PIN = MFA (Type 2 + Type 1)
+</div>
+
+<h3>Authentication Strength Comparison</h3>
+<table>
+  <tr><th>Method</th><th>Factors</th><th>Phishing Resistant?</th><th>CISSP Strength Ranking</th></tr>
+  <tr><td>Password only</td><td>Type 1</td><td>No</td><td>Weakest</td></tr>
+  <tr><td>Password + SMS OTP</td><td>Type 1 + Type 2 (weak)</td><td>No (SIM swap, real-time phishing)</td><td>Weak MFA</td></tr>
+  <tr><td>Password + TOTP app</td><td>Type 1 + Type 2</td><td>Partially (can still be real-time phished)</td><td>Medium MFA</td></tr>
+  <tr><td>Smart card + PIN</td><td>Type 2 + Type 1</td><td>Yes (cert pinned to physical card)</td><td>Strong MFA</td></tr>
+  <tr><td>FIDO2 / WebAuthn passkey</td><td>Type 2 + biometric (optional)</td><td>Yes (challenge bound to origin)</td><td>Strongest — phishing-resistant</td></tr>
+</table>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<h2>6. Authorization</h2>
+<table>
+  <tr><th>Concept</th><th>Definition</th></tr>
+  <tr><td><strong>Authorization</strong></td><td>The process of determining what an authenticated identity is permitted to do. Separate from authentication — a user can be authenticated but unauthorized for a specific resource.</td></tr>
+  <tr><td><strong>Access control policy</strong></td><td>Set of rules defining what subjects (users, processes, roles) can access which objects (files, databases, systems) and what operations (read, write, execute, delete) they may perform.</td></tr>
+  <tr><td><strong>Implicit deny</strong></td><td>Unless explicitly granted, access is denied by default. The correct security posture: whitelist approach. The opposite (allow by default) is blacklisting — insecure baseline.</td></tr>
+  <tr><td><strong>Need-to-know</strong></td><td>Even within their clearance level, individuals may only access information they have a specific need for their assigned duties. Limits damage from insider threats and compromised accounts.</td></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Users, processes, and systems are granted only the minimum permissions necessary to perform their function. Reduces attack surface and blast radius of compromise.</td></tr>
+  <tr><td><strong>Separation of duties (SoD)</strong></td><td>No single individual has enough access to commit fraud or sabotage undetected. Critical operations require multiple people (e.g., both request and approval of a wire transfer). Also: dual control, two-man rule.</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Least Privilege vs. Need-to-Know:</strong> These are often used together. <strong>Least privilege</strong> applies to functional capabilities (minimum permissions for the role). <strong>Need-to-know</strong> applies to information access within a clearance level — even if you can technically access the data, you should only see it if you need it for your work.
+</div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<h2>7. Accountability</h2>
+<table>
+  <tr><th>Concept</th><th>Detail</th></tr>
+  <tr><td><strong>Audit trails / logging</strong></td><td>Records of who accessed what, when, from where, and what they did. Required for accountability. Logs must be protected from modification (write-once, log server separate from logged system).</td></tr>
+  <tr><td><strong>Non-repudiation</strong></td><td>The inability to deny having performed an action. Requires strong authentication (especially digital signatures — private key uniquely identifies the signer). Higher standard than simple audit logging.</td></tr>
+  <tr><td><strong>Shared accounts undermine accountability</strong></td><td>If 10 people share one "admin" account, you cannot determine which person performed a malicious action. Shared accounts must be prohibited for any accountable system.</td></tr>
+  <tr><td><strong>Clipping level</strong></td><td>A threshold below which minor security events are not logged or reported. For example, 3 failed login attempts trigger no alert; 10 failed attempts trigger a lockout and alert. Reduces noise while catching genuine attacks.</td></tr>
+  <tr><td><strong>Log integrity</strong></td><td>Logs must be tamper-evident and tamper-resistant. An attacker who compromises a system often deletes logs. Solutions: write-once media (WORM), remote log server (SIEM), cryptographic log chaining, append-only log services.</td></tr>
+</table>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<h2>8. Identity Lifecycle Management</h2>
+<div class="callout definition">
+  <strong>📖 Identity Lifecycle:</strong> The complete lifecycle of a user account from initial creation through modification to eventual deletion. All phases require controls to maintain least privilege, remove stale access, and ensure timely termination.
+</div>
+
+<table>
+  <tr><th>Phase</th><th>Description</th><th>Key Control</th></tr>
+  <tr><td><strong>Provisioning</strong></td><td>Creating a new account with appropriate access based on role/job function. Access should be based on role (RBAC) — not ad-hoc requests.</td><td>Role-based provisioning workflow; manager approval; baseline role definition</td></tr>
+  <tr><td><strong>Modification</strong></td><td>Updating access when role changes, promotions, transfers, additional responsibilities.</td><td>Access must be reviewed at role change — old access removed, new access granted (not just added)</td></tr>
+  <tr><td><strong>Privilege creep</strong></td><td>Accumulation of permissions over time through role changes without removing old permissions. User ends up with far more access than their current role requires.</td><td>Access recertification (periodic review of all access); entitlement reviews</td></tr>
+  <tr><td><strong>Suspension</strong></td><td>Temporary disable of account (leave of absence, investigation, suspected compromise).</td><td>Disable without deletion to preserve audit trail; immediate suspension on security concern</td></tr>
+  <tr><td><strong>Termination</strong></td><td>Immediate disable of all access when employee leaves. Critical control — departing employees (especially those leaving involuntarily) are high risk actors.</td><td>HR-IT integration: account disable triggered on HR termination event; same-day as departure; disable BEFORE notifying if involuntary</td></tr>
+  <tr><td><strong>Orphan accounts</strong></td><td>Accounts belonging to former employees or unused service accounts that still exist with active permissions. A primary attack vector for lateral movement.</td><td>Regular account audits comparing HR records to active accounts; automated deprovisioning</td></tr>
+</table>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+<h2>9. Subjects and Objects</h2>
+<table>
+  <tr><th>Concept</th><th>Definition</th><th>Examples</th></tr>
+  <tr><td><strong>Subject</strong></td><td>An active entity that requests access to a resource. Subjects initiate actions.</td><td>User, process, service, program, application, device acting on behalf of a user</td></tr>
+  <tr><td><strong>Object</strong></td><td>A passive entity that contains or receives information. Objects are acted upon.</td><td>File, database record, printer, network share, API endpoint, memory segment, process (when being accessed by another)</td></tr>
+  <tr><td><strong>Access right</strong></td><td>A specific permitted operation that a subject may perform on an object. Examples: read, write, execute, delete, append, change permissions (own)</td><td>User (subject) has read permission on file (object)</td></tr>
+  <tr><td><strong>A subject can become an object</strong></td><td>A running process (subject) can be inspected by a debugger (making it an object of the debugger process). Context determines role.</td><td>Process A writes to Process B's memory — Process B is the object in that transaction</td></tr>
+</table>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+<h2>10. Access Control Principles</h2>
+<table>
+  <tr><th>Principle</th><th>Definition</th><th>CISSP Relevance</th></tr>
+  <tr><td><strong>Least privilege</strong></td><td>Grant only the minimum permissions required to perform the job function</td><td>Core principle; applies to users, processes, services, and applications. Reduces blast radius of compromise.</td></tr>
+  <tr><td><strong>Need-to-know</strong></td><td>Even with clearance, access only to information needed for current duties</td><td>Especially relevant in government/classified contexts; complements least privilege for information access</td></tr>
+  <tr><td><strong>Separation of duties (SoD)</strong></td><td>No one person can complete a critical transaction alone</td><td>Prevents fraud (finance), prevents single-admin sabotage. Different from separation of privilege (requires two keys/conditions to be met, not two people)</td></tr>
+  <tr><td><strong>Dual control</strong></td><td>Two or more individuals must cooperate simultaneously to perform an action</td><td>Nuclear launch codes; safe deposit boxes; crypto key ceremonies; database decryption</td></tr>
+  <tr><td><strong>Two-man rule</strong></td><td>Two authorized individuals must be present for sensitive operations (mutual oversight)</td><td>Nuclear weapons handling; physical security for critical assets; backup tape retrieval</td></tr>
+  <tr><td><strong>Job rotation</strong></td><td>Periodically rotate people through positions; builds resilience and detects fraud</td><td>Exposes fraudulent activities (requires ongoing maintenance vs. periodic); also provides cross-training</td></tr>
+  <tr><td><strong>Mandatory vacation / forced leave</strong></td><td>Force employees to take leave; temporary replacement may discover ongoing fraud</td><td>Classic banking control — embezzlement often requires constant presence to maintain the cover</td></tr>
+</table>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 IAAA — "I Always Actively Audit":</strong><br>
+  <strong>I</strong>dentification → <strong>A</strong>uthentication → <strong>A</strong>uthorization → <strong>A</strong>ccountability<br>
+  Each step depends on the previous. No accountability without authentication.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Authentication Factors — "Know, Have, Are":</strong><br>
+  Type 1 = Something you <strong>Know</strong> (password, PIN) — weakest, can be shared/stolen<br>
+  Type 2 = Something you <strong>Have</strong> (token, smart card, phone) — can be lost<br>
+  Type 3 = Something you <strong>Are</strong> (biometric) — can't be changed if compromised<br>
+  MFA = two or more from DIFFERENT type categories
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Identity Lifecycle — "Arrive, Change, Leave":</strong><br>
+  <strong>Provision</strong> on hire → <strong>Modify</strong> on role change (remove old, add new) → <strong>Suspend</strong> on leave → <strong>Terminate</strong> on departure<br>
+  Danger zones: Privilege creep (no removal of old access) + Orphan accounts (termination not executed)
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>Identification</td><td>Claims an identity (username); no security guarantee; must be unique per user</td></tr>
+  <tr><td>Authentication</td><td>Proves the claimed identity using one or more factors (Know/Have/Are)</td></tr>
+  <tr><td>Authorization</td><td>Determines what authenticated identity may access; implicit deny by default</td></tr>
+  <tr><td>Accountability</td><td>Logs all actions attributable to authenticated identity; requires unique accounts; non-repudiation is the strongest form</td></tr>
+  <tr><td>MFA</td><td>Two or more factors from different type categories; password + PIN is NOT MFA; phishing-resistant MFA (FIDO2) is strongest</td></tr>
+  <tr><td>Least privilege</td><td>Minimum permissions to perform job function; applies to users, processes, services</td></tr>
+  <tr><td>Need-to-know</td><td>Access only to information needed for current duties, even within clearance level</td></tr>
+  <tr><td>Separation of duties</td><td>No single person can complete critical transaction alone; prevents insider fraud</td></tr>
+  <tr><td>Privilege creep</td><td>Accumulation of permissions over time; defeated by access recertification (periodic reviews)</td></tr>
+  <tr><td>Orphan accounts</td><td>Accounts of departed users still active; primary attack vector; defeated by HR-IT automated deprovisioning</td></tr>
+  <tr><td>Subjects vs. objects</td><td>Subject = active entity requesting access; Object = passive entity being accessed; roles can swap depending on context</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-069-theory.html" class="nav-btn">← Day 69: Domain 4 Review</a>
+  <a href="day-071-theory.html" class="nav-btn">Day 71: Authentication Methods →</a>
+</div>
+</div>
+</body>
+</html>

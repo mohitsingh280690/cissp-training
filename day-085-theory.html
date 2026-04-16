@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 85 – Domain 5 Review: Identity and Access Management</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00897b;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#004d40;}
+.day-card{background:#e0f2f1;border:1px solid #b2dfdb;border-radius:8px;padding:14px 18px;margin-bottom:12px;}
+.day-card strong{color:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 85 – Domain 5 Review</h1>
+  <div class="subtitle">Identity and Access Management (IAM) — Complete Domain Review</div>
+  <div class="meta">
+    <span>📅 Day 85 of 140</span>
+    <span>📚 Domain 5 Complete</span>
+    <span>⏱️ ~70 min review</span>
+    <span>🎯 Difficulty: Review</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-084-theory.html">← Day 84: Zero Trust Architecture</a> · Domain 5 Review · Day 85</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Domain 5 Overview</a></li>
+  <li><a href="#s2">2. Topic-by-Topic Quick Reference (Days 70–84)</a></li>
+  <li><a href="#s3">3. Authentication Methods Comparison</a></li>
+  <li><a href="#s4">4. Access Control Models Comparison</a></li>
+  <li><a href="#s5">5. Key Protocols &amp; Standards Reference</a></li>
+  <li><a href="#s6">6. Attack vs. Defense Matrix</a></li>
+  <li><a href="#s7">7. Common Exam Traps</a></li>
+  <li><a href="#s8">8. Master Mnemonic Sheet</a></li>
+  <li><a href="#s9">9. Final Exam Checklist</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Domain 5 Overview</h2>
+<table>
+  <tr><th>Item</th><th>Detail</th></tr>
+  <tr><td>Domain Name</td><td>Identity and Access Management (IAM)</td></tr>
+  <tr><td>Exam Weight</td><td>13% of CISSP exam (same as Domains 3, 4, and 7)</td></tr>
+  <tr><td>Days Covered</td><td>Days 70–85 (16 days)</td></tr>
+  <tr><td>Core Theme</td><td>Ensuring the right people (and only the right people) access the right resources at the right time — and that you can prove it happened (accountability)</td></tr>
+  <tr><td>Key Frameworks</td><td>NIST SP 800-63 (Digital Identity), NIST SP 800-207 (ZTA), NIST SP 800-53 AC controls, ISO/IEC 27001 A.9</td></tr>
+  <tr><td>Dominant CISSP Concept</td><td>Identity is the new perimeter — know how it's established, how it's protected, how it's attacked, and how it's managed across its lifecycle</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>CISSP Exam Strategy for Domain 5:</strong> Most questions will be scenario-based, asking what the <em>best</em> control is. The answer almost never involves a single technology — it involves defense in depth (MFA + least privilege + monitoring). When in doubt, choose the option that applies the principle of least privilege and strongest authentication.
+</div>
+</section>
+
+<section id="s2">
+<h2>2. Topic-by-Topic Quick Reference (Days 70–84)</h2>
+
+<div class="day-card"><strong>Day 70 — IAM Fundamentals:</strong> Identification (claim an identity) → Authentication (prove it) → Authorization (grant access) → Accountability (log it). IAAA model. Subject vs. object. Identity lifecycle. Provisioning/deprovisioning.</div>
+
+<div class="day-card"><strong>Day 71 — Authentication Methods:</strong> Type 1 = Know (passwords, PINs); Type 2 = Have (tokens, smart cards, OTP); Type 3 = Are (biometrics). MFA requires 2+ different types. Password policies: complexity, aging, history, lockout. Passphrases preferred over complex short passwords.</div>
+
+<div class="day-card"><strong>Day 72 — Biometrics &amp; MFA:</strong> False Reject Rate (FRR / Type I error) vs. False Accept Rate (FAR / Type II error). CER/EER = crossover point (lower = better system). FAR is the security-critical error. Multi-factor requires different factor types — two passwords = two-step, not two-factor.</div>
+
+<div class="day-card"><strong>Day 73 — SSO &amp; Kerberos:</strong> SSO reduces credential fatigue; risk = "one password to lose all access." Kerberos: KDC = AS + TGS; TGT issued by AS; service tickets issued by TGS. Attacks: pass-the-ticket, golden ticket (KRBTGT hash), Kerberoasting (SPN service tickets). SESAME extends Kerberos across orgs.</div>
+
+<div class="day-card"><strong>Day 74 — Federated Identity:</strong> SAML 2.0 (XML, SP-to-IdP, assertions: Authentication/Attribute/Authorization). OAuth 2.0 (authorization framework; grant types: Authorization Code with PKCE, Client Credentials). OIDC = OAuth 2.0 + identity layer (ID token = JWT). WS-Federation (Microsoft). Trust relationships: one-way/two-way/transitive.</div>
+
+<div class="day-card"><strong>Day 75 — DAC &amp; MAC:</strong> DAC: resource owner controls ACLs; discretionary; ACL per object. MAC: labels (classification) + clearances; lattice-based; SELinux; no read-up (Bell-LaPadula), no write-down. Rule-based AC is a variant of MAC using rules not labels.</div>
+
+<div class="day-card"><strong>Day 76 — RBAC &amp; ABAC:</strong> RBAC: permissions assigned to roles, roles assigned to users; static SoD = mutually exclusive roles; dynamic SoD = can't activate simultaneously. ABAC: attribute-based policies; most flexible; XACML standard. Temporal/context-aware access are ABAC variants.</div>
+
+<div class="day-card"><strong>Day 77 — Access Control Implementation:</strong> ACL: list of subjects per object; Capability Table: list of objects per subject; Access Control Matrix: both. Content-dependent AC: access based on data content (e.g., only own records). Context-dependent AC: based on circumstances (time, sequence, state). Restricted interfaces: menu-driven, encrypted databases, constrained interfaces limit actions.</div>
+
+<div class="day-card"><strong>Day 78 — Identity Management Lifecycle:</strong> Provisioning (joiner) → Modification (mover) → Deprovisioning (leaver). Orphan accounts (forgotten, owner left). Dormant accounts (inactive). Service accounts. Account recertification/re-attestation (quarterly). Identity governance and administration (IGA). Separation of duties prevents single-user control of critical functions.</div>
+
+<div class="day-card"><strong>Day 79 — Privileged Access Management (PAM):</strong> Just-in-time access. Credential vaulting. Privilege bracketing. Bastion hosts / jump servers. Session recording. Emergency break-glass procedures (dual custody). LAPS for local admin passwords. NIST SP 800-53 AC-6 (least privilege), AC-17 (remote access), AU-9 (audit protection). CIS v8 Control 5.</div>
+
+<div class="day-card"><strong>Day 80 — Directory Services:</strong> X.500 (1988, ancestor of LDAP). LDAP: RFC 4511; port 389 (cleartext) / port 636 (LDAPS). DN structure. Active Directory: forest = security boundary; NTDS.dit; SID filtering since Windows Server 2003. RADIUS (RFC 2865/2866; UDP 1812/1813; encrypts password only). TACACS+ (TCP 49; full packet encryption; Cisco). Diameter (RFC 6733; 4G LTE/5G mobile).</div>
+
+<div class="day-card"><strong>Day 81 — Access Control Attacks:</strong> Brute force / Dictionary / Rainbow tables (defeated by salting) / Credential stuffing (defeated by MFA + unique passwords) / Password spraying (evades per-account lockout). Pass-the-hash (NTLM; Credential Guard). Pass-the-ticket (Kerberos). Kerberoasting (SPN offline crack; gMSA prevents). Golden Ticket (KRBTGT hash; reset twice). Silver Ticket (service hash; stealthier). Privilege escalation (vertical/horizontal). IDOR, forced browsing, path traversal.</div>
+
+<div class="day-card"><strong>Day 82 — Session &amp; Credential Management:</strong> Cookie flags: Secure (HTTPS only), HttpOnly (no JS access), SameSite (no CSRF). Session fixation (attacker sets token pre-auth) vs. hijacking (steals post-auth). Password storage: bcrypt (CPU-hard, built-in salt), scrypt/Argon2 (memory-hard), PBKDF2 (FIPS/NIST). JWT: header.payload.signature; alg:none vulnerability. FIDO2 = WebAuthn (browser↔server) + CTAP2 (browser↔hardware); phishing-resistant; origin-bound.</div>
+
+<div class="day-card"><strong>Day 83 — IDaaS:</strong> Cloud-based IAM platform. Components: cloud directory, SSO, MFA, lifecycle governance, conditional access, directory sync. SCIM (RFC 7643/7644): provisioning protocol (REST/JSON) — NOT authentication. Hybrid identity: Password Hash Sync / Pass-Through Auth / Federation (ADFS). PIM (Privileged Identity Management): JIT role elevation in cloud. Benefits: scalability, pre-built integrations. Risks: vendor lock-in, data sovereignty, single point of failure.</div>
+
+<div class="day-card"><strong>Day 84 — Zero Trust Architecture:</strong> Principles: Never Trust Always Verify; Assume Breach; Least Privilege. NIST SP 800-207. Components: PE (decides) + PA (instructs) = PDP; PEP (enforces). Micro-segmentation (east-west traffic control). SDP / ZTNA replaces VPN. BeyondCorp (Google): access = identity + device posture, NOT network location. EO 14028 + OMB M-22-09 mandate ZTA for federal agencies.</div>
+</section>
+
+<section id="s3">
+<h2>3. Authentication Methods Comparison</h2>
+<table>
+  <tr><th>Method</th><th>Factor Type</th><th>Strength</th><th>Phishing Resistant?</th><th>Key Weakness</th></tr>
+  <tr><td>Password</td><td>Type 1 (know)</td><td>Low</td><td>❌</td><td>Reuse, guessing, phishing</td></tr>
+  <tr><td>PIN</td><td>Type 1 (know)</td><td>Low</td><td>❌</td><td>Short; shoulder surfing</td></tr>
+  <tr><td>TOTP (authenticator app)</td><td>Type 2 (have)</td><td>Medium</td><td>❌ (AiTM relay)</td><td>Seed value theft; AiTM bypass</td></tr>
+  <tr><td>SMS OTP</td><td>Type 2 (have)</td><td>Low-Medium</td><td>❌</td><td>SIM swap; SS7 interception</td></tr>
+  <tr><td>Hardware OTP token</td><td>Type 2 (have)</td><td>Medium</td><td>❌ (AiTM)</td><td>Real-time relay still possible</td></tr>
+  <tr><td>Smart card / PIV</td><td>Type 1 (PIN) + Type 2 (have)</td><td>High</td><td>✅</td><td>Physical card required; PKI dependency</td></tr>
+  <tr><td>FIDO2 / WebAuthn / Passkey</td><td>Type 2 (have) + Type 3 (often)</td><td>Very High</td><td>✅ (origin-bound)</td><td>Device dependency; backup/recovery</td></tr>
+  <tr><td>Fingerprint / Face / Retina</td><td>Type 3 (are)</td><td>High</td><td>Varies</td><td>Cannot be revoked if compromised</td></tr>
+  <tr><td>Passphrase</td><td>Type 1 (know)</td><td>Medium-High</td><td>❌</td><td>Still a password; stronger than passwords</td></tr>
+</table>
+<div class="warning callout">
+  ⚠️ <strong>MFA Factor Rule:</strong> Multi-factor MUST use different factor TYPES. Two passwords = two-step verification, NOT MFA. Two biometrics from the same modality = still one factor.
+</div>
+</section>
+
+<section id="s4">
+<h2>4. Access Control Models Comparison</h2>
+<table>
+  <tr><th>Model</th><th>Control Basis</th><th>Who Controls</th><th>Primary Use Case</th><th>Key Feature</th></tr>
+  <tr><td>DAC</td><td>Owner discretion</td><td>Resource owner</td><td>Commercial, general IT</td><td>ACLs; flexible but inconsistent</td></tr>
+  <tr><td>MAC</td><td>Labels + clearances</td><td>System / policy</td><td>Military, government classified</td><td>Lattice model; non-discretionary; Bell-LaPadula</td></tr>
+  <tr><td>RBAC</td><td>Role membership</td><td>Administrator defines roles</td><td>Enterprise IT; HIPAA-regulated</td><td>Role hierarchy; SoD enforcement</td></tr>
+  <tr><td>ABAC</td><td>Attribute policies (XACML)</td><td>Policy engine</td><td>Cloud, complex environments</td><td>Most flexible; context-aware; temporal restrictions</td></tr>
+  <tr><td>Rule-Based AC</td><td>Static rules</td><td>Administrator creates rules</td><td>Firewalls, routers</td><td>Variant of MAC; not user-specific</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Exam Tip — Model Selection Questions:</strong><br>
+  "Most granular / flexible" → ABAC<br>
+  "Mandatory, system-enforced, labels" → MAC<br>
+  "Owner controls access" → DAC<br>
+  "Job functions, separation of duties" → RBAC<br>
+  "Military classified systems" → MAC (Bell-LaPadula confidentiality model)
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Key Protocols &amp; Standards Reference</h2>
+<table>
+  <tr><th>Protocol/Standard</th><th>Purpose</th><th>Key Details</th></tr>
+  <tr><td>Kerberos</td><td>Network authentication</td><td>KDC=AS+TGS; TGT lifetime 10hr; uses AES; port 88</td></tr>
+  <tr><td>SAML 2.0</td><td>Federated authentication + SSO</td><td>XML; IdP issues assertions to SP; 3 assertion types</td></tr>
+  <tr><td>OAuth 2.0</td><td>Delegated authorization</td><td>Access/refresh tokens; grant types: Authorization Code (with PKCE), Client Credentials</td></tr>
+  <tr><td>OpenID Connect (OIDC)</td><td>Authentication layer on OAuth 2.0</td><td>ID token (JWT); UserInfo endpoint; authentication assertion</td></tr>
+  <tr><td>LDAP</td><td>Directory queries</td><td>RFC 4511; port 389 (cleartext) / 636 (SSL); DN hierarchy</td></tr>
+  <tr><td>RADIUS</td><td>AAA for network access</td><td>RFC 2865/2866; UDP 1812/1813; encrypts password only; client-server</td></tr>
+  <tr><td>TACACS+</td><td>AAA for device administration</td><td>TCP 49; full packet encryption; Cisco proprietary; separates AAA functions</td></tr>
+  <tr><td>Diameter</td><td>AAA for mobile/carrier networks</td><td>RFC 6733; 4G LTE / 5G; peer-to-peer (not client-server)</td></tr>
+  <tr><td>SCIM</td><td>Identity provisioning</td><td>RFC 7643/7644; REST/JSON; Create/Read/Update/Delete users</td></tr>
+  <tr><td>FIDO2 / WebAuthn</td><td>Passwordless, phishing-resistant auth</td><td>WebAuthn (W3C browser API) + CTAP2 (authenticator protocol); origin-bound key pairs</td></tr>
+  <tr><td>NIST SP 800-207</td><td>Zero Trust Architecture</td><td>PE/PA/PEP components; ZTA tenets; implementation approaches</td></tr>
+  <tr><td>NIST SP 800-63</td><td>Digital identity guidelines</td><td>IAL (Identity Assurance Level) 1-3; AAL (Authenticator Assurance Level) 1-3; FAL (Federation AL) 1-3</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Attack vs. Defense Matrix</h2>
+<table>
+  <tr><th>Attack</th><th>Layer</th><th>Primary Defense</th><th>Detection Signal</th></tr>
+  <tr><td>Brute force</td><td>Credentials</td><td>Account lockout + MFA</td><td>Multiple failed logins (EventID 4625)</td></tr>
+  <tr><td>Password spray</td><td>Credentials</td><td>Smart lockout + MFA + anomaly detection</td><td>Low-rate failures across many accounts</td></tr>
+  <tr><td>Credential stuffing</td><td>Credentials</td><td>MFA + breach monitoring + unique passwords</td><td>Logins from breach IP lists; impossible travel</td></tr>
+  <tr><td>Rainbow table</td><td>Stored hashes</td><td>Salting hashes</td><td>N/A (offline attack)</td></tr>
+  <tr><td>Pass-the-Hash</td><td>NTLM auth</td><td>Credential Guard; disable NTLM; Protected Users</td><td>NTLM auth from unexpected endpoints</td></tr>
+  <tr><td>Pass-the-Ticket</td><td>Kerberos</td><td>Short ticket lifetimes; Protected Users</td><td>TGT usage from multiple source IPs</td></tr>
+  <tr><td>Kerberoasting</td><td>Kerberos SPNs</td><td>gMSA accounts; 25+ char service passwords</td><td>Excessive RC4 TGS requests (EventID 4769)</td></tr>
+  <tr><td>Golden Ticket</td><td>KRBTGT hash</td><td>Reset KRBTGT twice; PAC validation</td><td>Tickets with abnormal lifetimes or encryption</td></tr>
+  <tr><td>Session hijacking</td><td>Web sessions</td><td>Secure + HttpOnly + SameSite cookies; HTTPS</td><td>Session reuse from different IP/User-Agent</td></tr>
+  <tr><td>Session fixation</td><td>Web sessions</td><td>Regenerate session ID post-authentication</td><td>Same session ID used before and after auth</td></tr>
+  <tr><td>Phishing</td><td>Credentials</td><td>FIDO2 MFA (phishing-resistant); security training; SPF/DKIM/DMARC</td><td>Email gateway alerts; credential use from new device</td></tr>
+  <tr><td>Privilege escalation</td><td>Authorization</td><td>Least privilege; PAM; regular access reviews</td><td>Unexpected admin activity; new service installs</td></tr>
+</table>
+</section>
+
+<section id="s7">
+<h2>7. Common Exam Traps</h2>
+<div class="warning callout">
+  ⚠️ <strong>Trap 1 — Two-Factor vs. Two-Step:</strong> "Two passwords" is two-step, NOT MFA. MFA requires two different factor TYPES (know + have, know + are, have + are).
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 2 — FAR vs. FRR:</strong> FAR (False Accept Rate = Type II) is the security-critical metric — it measures how often impostors are let in. A system with low FAR is secure. FRR (False Reject Rate = Type I) is the usability impact — how often legitimate users are rejected. CER = where FAR and FRR are equal.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 3 — Encryption vs. Salting:</strong> Salting defeats rainbow tables. Encryption does NOT defeat rainbow tables. Hashing with a salt makes pre-computed tables impractical.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 4 — SAML vs. SCIM vs. OIDC:</strong> SAML = authentication assertion (SSO). OIDC = authentication layer on OAuth 2.0. SCIM = provisioning (account creation/sync). OAuth 2.0 = authorization delegation (not authentication).
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 5 — DAC vs. MAC Confusion:</strong> DAC = owner controls access (flexible, weaker security). MAC = system controls based on labels (rigid, higher security). When you see "labels, clearances, classification levels, military" → MAC. When you see "owner sets permissions, ACL" → DAC.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 6 — Golden vs. Silver Ticket:</strong> Golden Ticket uses KRBTGT hash = domain-wide access. Silver Ticket uses a service account hash = access only to that service. Silver is stealthier (no KDC contact).
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 7 — RADIUS vs. TACACS+:</strong> RADIUS uses UDP and encrypts only the password. TACACS+ uses TCP and encrypts the ENTIRE payload. TACACS+ separates Authentication, Authorization, Accounting into separate functions. RADIUS combines A+A.
+</div>
+<div class="warning callout">
+  ⚠️ <strong>Trap 8 — Zero Trust "Zero":</strong> Zero Trust does NOT mean zero security. It means zero IMPLICIT trust — explicit, verified trust at every access request. The word "zero" refers to not granting any trust by default.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Master Mnemonic Sheet</h2>
+<div class="mnemonic callout">
+  <strong>🧠 IAAA</strong> — Identification, Authentication, Authorization, Accountability
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Authentication Factors</strong> — Know / Have / Are (+ Where / When for advanced ABAC)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Biometrics — FAR &gt; FRR means poor security</strong> — FAR = security failure (bad guys in); FRR = usability failure (good guys out)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Kerberos Ticket Flow</strong> — Client → AS (get TGT) → TGS (get service ticket) → Application Server
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SAML Actors</strong> — User (Principal) + IdP (Identity Provider) + SP (Service Provider)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Cookie flags</strong> — SHS: Secure, HttpOnly, SameSite
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Password hashing</strong> — Bad=Fast (MD5/SHA); Good=Slow (bcrypt CPU-hard; Argon2/scrypt memory-hard)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Kerberos Attacks by ticket level</strong> — AS-REP Roasting (no pre-auth) → Kerberoasting (SPN crack) → Silver Ticket (service hash) → Golden Ticket (KRBTGT hash = "God mode")
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Zero Trust — NAL</strong> — Never trust / Assume breach / Least privilege
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 NIST ZTA — PE-PA-PEP</strong> — Policy Engine decides; Policy Administrator instructs; Policy Enforcement Point blocks/allows
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SCIM vs SAML</strong> — SCIM creates the room; SAML opens the door
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 RADIUS vs TACACS+</strong> — RADIUS = UDP, password only encrypted; TACACS+ = TCP, ALL encrypted, Cisco
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Final Exam Checklist</h2>
+<div class="exam-tip callout">
+  <strong>✅ Domain 5 Exam Checklist — Know All of These:</strong>
+  <ul>
+    <li>✅ IAAA model and each component's meaning</li>
+    <li>✅ Three authentication factor types + examples — and that MFA requires DIFFERENT types</li>
+    <li>✅ FAR vs. FRR — which is Type I, which is Type II, which is the security risk</li>
+    <li>✅ CER/EER — what it measures and that lower CER = better biometric</li>
+    <li>✅ Kerberos flow: AS → TGT → TGS → service ticket → application server</li>
+    <li>✅ SAML: XML-based, authentication assertions, IdP/SP trust</li>
+    <li>✅ OAuth 2.0: authorization framework (access tokens, refresh tokens); OIDC adds authentication (ID token)</li>
+    <li>✅ DAC: owner controls; MAC: system/labels control; RBAC: roles; ABAC: attributes + policies</li>
+    <li>✅ Bell-LaPadula: confidentiality model (no read up, no write down)</li>
+    <li>✅ ACL (per object), Capability Table (per subject), Access Control Matrix (both)</li>
+    <li>✅ Provisioning lifecycle: joiner-mover-leaver; orphan accounts; access recertification</li>
+    <li>✅ PAM: JIT access, credential vaulting, session recording, break-glass, LAPS</li>
+    <li>✅ LDAP ports: 389 (cleartext), 636 (LDAPS)</li>
+    <li>✅ RADIUS: UDP 1812/1813, encrypts password only; TACACS+: TCP 49, full encryption, separates AAA</li>
+    <li>✅ Salting defeats rainbow tables; slow hashes (bcrypt/Argon2) protect against offline cracking</li>
+    <li>✅ Pass-the-Hash: NTLM; Pass-the-Ticket: Kerberos; Golden Ticket: KRBTGT hash</li>
+    <li>✅ Session fixation: pre-auth; session hijacking: post-auth</li>
+    <li>✅ Cookie flags: Secure, HttpOnly, SameSite and what each prevents</li>
+    <li>✅ FIDO2 = WebAuthn + CTAP2; phishing-resistant because origin-bound</li>
+    <li>✅ SCIM: provisioning; SAML/OIDC: authentication — they are complementary</li>
+    <li>✅ ZTA: 3 tenets; NIST SP 800-207; PE/PA/PEP roles; micro-segmentation; ZTNA replaces VPN</li>
+    <li>✅ BeyondCorp: access = identity + device posture, not network location</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-084-theory.html" class="nav-btn">← Day 84: Zero Trust Architecture</a>
+  <a href="day-085-mcq.html" class="nav-btn">📝 Take Domain 5 Review Quiz →</a>
+  <a href="day-086-theory.html" class="nav-btn">Day 86: Assessment Strategies (Domain 6) →</a>
+</div>
+</div>
+</body>
+</html>

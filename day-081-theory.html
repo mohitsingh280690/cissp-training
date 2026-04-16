@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 81 – Access Control Attacks</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00897b;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 81 – Access Control Attacks</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (IAM)</div>
+  <div class="meta">
+    <span>📅 Day 81 of 140</span>
+    <span>📚 Domain 5 of 8</span>
+    <span>⏱️ ~60 min read</span>
+    <span>🎯 Difficulty: Advanced</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-080-theory.html">← Day 80: Directory Services</a> · Domain 5 · Day 81</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Credential-Based Attacks</a></li>
+  <li><a href="#s4">4. Pass-the-Hash &amp; Pass-the-Ticket</a></li>
+  <li><a href="#s5">5. Kerberos Attacks</a></li>
+  <li><a href="#s6">6. Privilege Escalation</a></li>
+  <li><a href="#s7">7. Social Engineering for Credentials</a></li>
+  <li><a href="#s8">8. Attack Tools &amp; Countermeasures</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>5 – Identity and Access Management (13%)</td></tr>
+  <tr><td>Why Tested</td><td>CISSP tests not just how to build IAM systems but how they fail. Understanding attack techniques drives selection of the right control architecture</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "An attacker obtained an NTLM hash from memory. What attack is this?" or "Which control specifically prevents Kerberoasting?" — expects you to name the attack AND the mitigation</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 4 (network attacks, VLAN hopping, ARP spoofing used for credential interception); Domain 6 (pen testing tests for these attacks); Domain 7 (SIEM detection of pass-the-hash); Domain 8 (application-level IDOR, forced browsing)</td></tr>
+  <tr><td>Exam Traps</td><td>Confusing "pass-the-hash" with "pass-the-ticket" (different protocols); thinking brute force and credential stuffing are the same (they are not); assuming rainbow tables are stopped only by encryption (salting is the correct answer)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p>Access control attack defense is owned jointly by the <strong>IAM team</strong> (credential policies, MFA enforcement), the <strong>SOC/SIEM team</strong> (detecting anomalous access patterns), and the <strong>Red Team / Pen Testing team</strong> (proactively testing for these weaknesses). The CISO is accountable to the board when an attack succeeds.</p>
+<h3>Implementation Reality</h3>
+<p>Most successful breaches involve compromised credentials — the 2021 Verizon DBIR found >80% of hacking-related breaches involved stolen or brute-forced credentials. Organizations deploy MFA, privileged access workstations (PAWs), SIEM rules, and endpoint detection (EDR) to detect and stop these attacks. Microsoft Credential Guard and Protected Users security group specifically harden Windows environments against pass-the-hash and Kerberoasting.</p>
+<h3>Failure Modes</h3>
+<ul>
+  <li><strong>Credential stuffing enablement:</strong> Password reuse from third-party breach dumps hits VPN, webmail, or cloud portals</li>
+  <li><strong>Kerberoasting in AD:</strong> Service accounts with weak passwords and SPNs are trivially crackable offline — never caught by traditional logging</li>
+  <li><strong>Privilege escalation via misconfigured SUDO:</strong> A Linux developer account with excessive sudo rights becomes a full root compromise</li>
+</ul>
+<h3>Business Impact</h3>
+<p>Credential attacks cost organizations an average of $4.5 million per breach (IBM Cost of a Data Breach 2023). The reputational damage from "your account data was used to attack us" is severe. Regulators under GDPR and HIPAA ding organizations that lack basic credential hygiene controls.</p>
+</section>
+
+<section id="s3">
+<h2>3. Credential-Based Attacks</h2>
+
+<h3>Brute Force Attack</h3>
+<div class="definition callout">
+  <strong>Brute Force:</strong> Systematically trying every possible password combination until the correct one is found. Exhaustive key search. The attacker has no prior knowledge of the password.
+</div>
+<p>Modern GPUs can test billions of MD5 hashes per second. Defense: account lockout policies, long/complex passwords, MFA, rate limiting, CAPTCHA.</p>
+
+<h3>Dictionary Attack</h3>
+<p>Uses a pre-compiled wordlist of common passwords, phrases, and variations (e.g., "password1", "Welcome123"). Far faster than pure brute force because it targets human password patterns. Tools: Hashcat, John the Ripper.</p>
+<div class="exam-tip callout">
+  <strong>Exam Tip:</strong> Salting passwords defeats rainbow tables but does NOT stop dictionary attacks — dictionary attacks hash each candidate password combined with the salt and compare. Only strong, unique passwords stop dictionary attacks.
+</div>
+
+<h3>Rainbow Table Attack</h3>
+<p>Pre-computed tables mapping plaintext passwords to their hash values. Allows instant lookup of common passwords from a captured hash — trading storage for speed. <strong>Defense: cryptographic salting.</strong> A salt is a random value unique per credential, prepended to the password before hashing, making pre-computation impractical.</p>
+<div class="warning callout">
+  ⚠️ <strong>Exam Trap:</strong> "Encryption" does NOT defeat rainbow tables — only salting does. A salted hash with SHA-256 defeats rainbow tables even though SHA-256 itself is not "slow."
+</div>
+
+<h3>Credential Stuffing</h3>
+<div class="definition callout">
+  <strong>Credential Stuffing:</strong> Automated injection of stolen username/password pairs (from prior data breaches) against login portals. Relies on password reuse across sites.
+</div>
+<p>Attackers use breach databases (Have I Been Pwned aggregates these) and automated bots. Differs from brute force because each credential pair is a real, known-good password from another site — not a guess. Defense: MFA, anomalous login detection, IP reputation filtering, CAPTCHA.</p>
+
+<h3>Password Spraying</h3>
+<p>The inverse of brute force: tries one or a few very common passwords (e.g., "Spring2024!") across <em>many accounts</em> simultaneously. Avoids lockout thresholds by staying below the per-account limit. Particularly effective against O365 and Azure AD tenants. Defense: smart lockout policies that track by source IP (not just per account), MFA, monitoring for low-frequency multi-account failures.</p>
+<table>
+  <tr><th>Attack</th><th>Logic</th><th>Lockout Triggered?</th><th>Main Defense</th></tr>
+  <tr><td>Brute Force</td><td>Many passwords → one account</td><td>Yes (quickly)</td><td>Lockout + MFA</td></tr>
+  <tr><td>Dictionary</td><td>Wordlist → one account</td><td>Yes (eventually)</td><td>Complex passwords + MFA</td></tr>
+  <tr><td>Credential Stuffing</td><td>Known pairs → many accounts</td><td>Rarely (1 attempt/account)</td><td>MFA + breach monitoring</td></tr>
+  <tr><td>Password Spraying</td><td>One password → many accounts</td><td>No (low per-account rate)</td><td>Smart lockout + anomaly detection</td></tr>
+  <tr><td>Rainbow Table</td><td>Offline hash lookup (pre-computed)</td><td>N/A (offline)</td><td>Salting</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. Pass-the-Hash &amp; Pass-the-Ticket</h2>
+
+<h3>Pass-the-Hash (PtH)</h3>
+<div class="definition callout">
+  <strong>Pass-the-Hash:</strong> An attacker captures the NTLM hash of a user's password (from memory, the SAM database, or domain controller) and uses the hash directly to authenticate — without ever cracking it to obtain the plaintext password.
+</div>
+<p>NTLM authentication passes a hash (not the plaintext) over the network. If an attacker obtains the hash (via Mimikatz from lsass.exe memory), they can present it as proof of identity. <strong>Kerberos-only environments reduce PtH risk</strong>, but NTLM fallback often remains enabled.</p>
+<p><strong>Tools:</strong> Mimikatz (<code>sekurlsa::pth</code>), Impacket's psexec.py, CrackMapExec</p>
+<p><strong>Defenses:</strong> Microsoft Credential Guard (virtualizes LSA secrets), Protected Users AD security group (disables NTLM for members), disabling NTLMv1, enabling Protected Process Light (PPL) for lsass, Privileged Access Workstations (PAWs)</p>
+
+<h3>Pass-the-Ticket (PtT)</h3>
+<div class="definition callout">
+  <strong>Pass-the-Ticket:</strong> An attacker steals a Kerberos Ticket Granting Ticket (TGT) or service ticket from memory and replays it to gain access — without needing the password or hash.
+</div>
+<p>Kerberos tickets are valid for 10 hours by default (TGT). Attackers extract them from LSASS memory. Unlike PtH which abuses NTLM, PtT abuses Kerberos. <strong>Defense:</strong> Short ticket lifetimes, Privileged Access Workstations, Protected Users security group (forces Kerberos-only and limits ticket caching).</p>
+<table>
+  <tr><th>Attribute</th><th>Pass-the-Hash</th><th>Pass-the-Ticket</th></tr>
+  <tr><td>Protocol</td><td>NTLM</td><td>Kerberos</td></tr>
+  <tr><td>What is stolen</td><td>NTLM hash</td><td>Kerberos TGT or service ticket</td></tr>
+  <tr><td>Plaintext needed?</td><td>No</td><td>No</td></tr>
+  <tr><td>Key defense</td><td>Credential Guard, disable NTLM</td><td>Short ticket lifetime, Protected Users</td></tr>
+</table>
+</section>
+
+<section id="s5">
+<h2>5. Kerberos Attacks</h2>
+
+<h3>Kerberoasting</h3>
+<div class="definition callout">
+  <strong>Kerberoasting:</strong> An attacker (with any valid domain account) requests Kerberos service tickets for accounts that have Service Principal Names (SPNs). The ticket is encrypted with the service account's password hash. The attacker takes the encrypted ticket offline and cracks it.
+</div>
+<div class="diagram">
+Domain User (low privilege)
+       │
+       ▼  Request TGS ticket for SPN (e.g., MSSQLSvc/dbserver:1433)
+   Kerberos KDC
+       │
+       ▼  Returns ticket encrypted with SERVICE ACCOUNT's password hash
+   Attacker extracts ticket → cracks offline with Hashcat/John
+       │
+       ▼  If service account password is weak → plaintext recovered
+</div>
+<p><strong>Why it's dangerous:</strong> The attack is legitimate Kerberos behavior — no brute-force against AD, no lockout, no unusual network traffic. Service accounts often have domain admin rights and stale/weak passwords.</p>
+<p><strong>Defense:</strong> Use long random passwords (25+ chars) for service accounts; use Group Managed Service Accounts (gMSA) which auto-rotate 120-character passwords; monitor for excessive SPN ticket requests (4769 events).</p>
+
+<h3>AS-REP Roasting</h3>
+<p>Similar to Kerberoasting but targets accounts with "Do not require Kerberos pre-authentication" enabled. The attacker requests a TGT <em>without providing credentials</em>; the KDC responds with a credential-encrypted message that can be cracked offline. Defense: enable pre-authentication (the default) on all accounts.</p>
+
+<h3>Golden Ticket Attack</h3>
+<div class="definition callout">
+  <strong>Golden Ticket:</strong> Forged Kerberos TGT created using the KRBTGT account's NTLM hash. Valid for any user, any service, with any lifetime — the attacker essentially becomes the KDC.
+</div>
+<p>Requires prior Domain Admin or Domain Controller compromise to dump the KRBTGT hash. Provides unlimited domain persistence — survives password resets of regular accounts. <strong>Defense:</strong> Reset the KRBTGT password twice (it has two versions); detect with event ID 4769 for unusual ticket attributes (lifetime, encryption type, unusual SIDs).</p>
+
+<h3>Silver Ticket Attack</h3>
+<p>Forged Kerberos service ticket using a <em>service account's</em> hash (not KRBTGT). More limited scope (access to that service only) but harder to detect because it doesn't touch the KDC — no KDC event logs generated. Defense: Privileged Attribute Certificate (PAC) validation; service accounts using gMSA.</p>
+
+<div class="exam-tip callout">
+  <strong>Exam Tip — Golden vs. Silver Ticket:</strong><br>
+  Golden = uses KRBTGT hash → any resource in the domain → highest privilege<br>
+  Silver = uses service account hash → only that service → lower privilege but stealthier
+</div>
+</section>
+
+<section id="s6">
+<h2>6. Privilege Escalation</h2>
+<div class="definition callout">
+  <strong>Privilege Escalation:</strong> An attacker gains higher-level access rights than were originally granted. Can be vertical (low user → admin) or horizontal (user A accesses user B's resources).
+</div>
+
+<h3>Vertical Privilege Escalation</h3>
+<p>Low-privileged account gains elevated rights (e.g., standard user → Administrator/root). Exploits vulnerabilities in OS, applications, or misconfigurations.</p>
+<ul>
+  <li><strong>SUDO misconfiguration (Linux):</strong> Wildcard entries or ALL=(ALL) NOPASSWD grants</li>
+  <li><strong>UAC bypass (Windows):</strong> Techniques to bypass User Account Control prompts</li>
+  <li><strong>Unquoted service paths (Windows):</strong> Spaces in service executable paths allow executable path hijacking</li>
+  <li><strong>SUID/SGID binaries (Linux):</strong> Binaries running as root exploited via shell escape</li>
+  <li><strong>Token impersonation (Windows):</strong> Using stolen token via Incognito/Potato attacks</li>
+</ul>
+
+<h3>Horizontal Privilege Escalation</h3>
+<p>User accesses data or functions of a peer user without elevated rights. Common in web applications as <strong>Insecure Direct Object Reference (IDOR)</strong> — e.g., changing <code>?user_id=1001</code> to <code>?user_id=1002</code> in a URL to access another user's profile.</p>
+
+<h3>Access Token Manipulation</h3>
+<p>Windows uses access tokens to represent security context. Attackers may impersonate tokens of higher-privileged processes using <code>ImpersonateLoggedOnUser()</code> API calls. Also: token theft from other processes via Mimikatz <code>token::elevate</code>.</p>
+
+<div class="key-concept callout">
+  <strong>IDOR vs. Forced Browsing vs. Path Traversal:</strong><br>
+  <strong>IDOR:</strong> Changing object reference (ID, filename) in a request to access unauthorized resources<br>
+  <strong>Forced Browsing:</strong> Directly accessing URLs not linked in the UI (e.g., /admin/console)<br>
+  <strong>Path Traversal:</strong> Using <code>../</code> sequences to escape the intended directory and read arbitrary files (e.g., <code>/../../../etc/passwd</code>)
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Social Engineering for Credentials</h2>
+<h3>Phishing</h3>
+<p>Fraudulent email impersonating a trusted entity to steal credentials. Variants: <strong>spear phishing</strong> (targeted, personalized), <strong>whaling</strong> (targeting executives/C-suite), <strong>smishing</strong> (SMS), <strong>vishing</strong> (voice/phone).</p>
+<p><strong>Defenses:</strong> SPF/DKIM/DMARC (email authentication), security awareness training, hardware MFA (phishing-resistant: FIDO2/passkeys), anti-phishing gateways, simulated phishing exercises.</p>
+<div class="warning callout">
+  ⚠️ <strong>Phishing bypasses MFA when:</strong> Real-time adversary-in-the-middle (AiTM) proxies (e.g., Evilginx2) can relay credentials AND session cookies, defeating SMS and TOTP MFA. Only hardware/FIDO2 MFA is phishing-resistant because the credential is cryptographically bound to the legitimate origin.
+</div>
+
+<h3>Pretexting</h3>
+<p>Attacker creates a fabricated scenario (pretext) to manipulate the victim — e.g., impersonating IT support ("We need your VPN credentials to fix your account"). Defense: callback verification procedures, strict identity verification protocols.</p>
+
+<h3>Vishing (Voice Phishing)</h3>
+<p>Phone calls impersonating IT helpdesk, banks, or law enforcement. The 2020 Twitter VIP account hack started with vishing calls to Twitter employees to steal credentials. Defense: strict callback procedures, never give passwords over phone, supervisor approval for sensitive requests.</p>
+</section>
+
+<section id="s8">
+<h2>8. Attack Tools &amp; Countermeasures</h2>
+<table>
+  <tr><th>Tool</th><th>Primary Use</th><th>Key Capability</th></tr>
+  <tr><td>Mimikatz</td><td>Credential extraction</td><td>Dumps NTLM hashes, Kerberos tickets from LSASS memory; PtH, PtT, Golden Ticket</td></tr>
+  <tr><td>BloodHound</td><td>AD attack path mapping</td><td>Visualizes Active Directory trust relationships, shortest path to Domain Admin</td></tr>
+  <tr><td>CrackMapExec (CME)</td><td>Post-exploitation</td><td>Tests credentials across network, executes commands via SMB/WinRM</td></tr>
+  <tr><td>Hashcat</td><td>Password cracking</td><td>GPU-accelerated dictionary, brute force, hybrid, rule-based attacks</td></tr>
+  <tr><td>Impacket</td><td>Protocol exploitation</td><td>Python library for SMB/Kerberos/LDAP attacks; GetUserSPNs (Kerberoasting)</td></tr>
+  <tr><td>Responder</td><td>Credential capture</td><td>LLMNR/NBT-NS/WPAD poisoning to capture NTLMv2 hashes</td></tr>
+</table>
+
+<h3>Comprehensive Defense Matrix</h3>
+<table>
+  <tr><th>Attack</th><th>Primary Controls</th><th>Detection Signals</th></tr>
+  <tr><td>Brute Force / Dictionary</td><td>Account lockout, MFA, complex password policy</td><td>Multiple failed logon events (4625/4771)</td></tr>
+  <tr><td>Password Spraying</td><td>Smart lockout (Azure AD), MFA, banned passwords list</td><td>Low-rate failures spread across many accounts from same IP</td></tr>
+  <tr><td>Credential Stuffing</td><td>MFA, IP reputation filtering, CAPTCHA</td><td>Successful logins from unusual geographies</td></tr>
+  <tr><td>Pass-the-Hash</td><td>Credential Guard, disable NTLM, PAW, Protected Users</td><td>NTLM auth events from unusual endpoints (4625 with NTLMv1)</td></tr>
+  <tr><td>Kerberoasting</td><td>Long/random gMSA passwords, monitor 4769</td><td>Excessive RC4 TGS requests (4769), SPN enumeration</td></tr>
+  <tr><td>Golden Ticket</td><td>Reset KRBTGT password twice, PAC validation</td><td>Tickets with abnormal lifetimes, non-DCs issuing TGTs</td></tr>
+  <tr><td>Privilege Escalation</td><td>Least privilege, PAM, regular access reviews</td><td>Unexpected privilege use, admin activity from non-admin accounts</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Credential Attack Types — "BDC-SR"</strong><br>
+  <strong>B</strong>rute force — every combo<br>
+  <strong>D</strong>ictionary — wordlist<br>
+  <strong>C</strong>redential stuffing — stolen pairs from other breaches<br>
+  <strong>S</strong>praying — one password, many accounts<br>
+  <strong>R</strong>ainbow tables — pre-computed hash lookup<br>
+  Reminder: only <strong>salting</strong> defeats rainbow tables
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Kerberos Attack Hierarchy — "AS-K-G-S"</strong><br>
+  <strong>AS</strong>-REP Roasting — pre-auth disabled, no creds needed<br>
+  <strong>K</strong>erberoasting — SPN ticket, offline crack, needs domain user<br>
+  <strong>G</strong>olden Ticket — KRBTGT hash, total domain control, highest risk<br>
+  <strong>S</strong>ilver Ticket — service hash, single service, stealthiest<br>
+  Privilege escalates: AS-REP &lt; Kerberoasting &lt; Silver &lt; Golden
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Pass-the-Hash vs. Pass-the-Ticket</strong><br>
+  <strong>H</strong>ash = NTLM (H for Hash)<br>
+  <strong>T</strong>icket = Kerberos (T for Ticket)<br>
+  Hash → horizontal move via NTLM auth<br>
+  Ticket → replay TGT without password
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Web Access Control Attacks — "IFP"</strong><br>
+  <strong>I</strong>DOR — object reference manipulation (changing IDs)<br>
+  <strong>F</strong>orced Browsing — going to hidden URLs directly<br>
+  <strong>P</strong>ath Traversal — using ../ to escape directories
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Rainbow tables defeated by</td><td>Salting (unique per-user random value added before hashing)</td></tr>
+  <tr><td>Password spraying evades</td><td>Per-account lockout thresholds (stays below trigger rate)</td></tr>
+  <tr><td>Credential stuffing relies on</td><td>Password reuse across sites; defeated by MFA + unique passwords</td></tr>
+  <tr><td>Pass-the-Hash protocol</td><td>NTLM; defense: Credential Guard, disable NTLM, Protected Users</td></tr>
+  <tr><td>Kerberoasting target</td><td>Service accounts with SPNs and weak passwords; gMSA prevents it</td></tr>
+  <tr><td>Golden Ticket requires</td><td>KRBTGT hash (needs Domain Admin first); resets KRBTGT twice to remediate</td></tr>
+  <tr><td>Silver Ticket is stealthier than Golden because</td><td>No KDC interaction — forged service ticket goes directly to service</td></tr>
+  <tr><td>IDOR vs. Path Traversal</td><td>IDOR: reference manipulation; Path Traversal: ../ directory escape</td></tr>
+  <tr><td>Phishing-resistant MFA</td><td>FIDO2/WebAuthn/passkeys only; TOTP and SMS are bypassable via AiTM</td></tr>
+  <tr><td>BloodHound used for</td><td>Visualizing AD attack paths, not directly attacking (recon tool)</td></tr>
+</table>
+<div class="exam-tip callout">
+  <strong>Top Exam Points:</strong>
+  <ul>
+    <li>Salt defeats rainbow tables — not encryption, not hashing algorithm choice alone</li>
+    <li>Kerberoasting is entirely offline after ticket acquisition — no lockout possible</li>
+    <li>Golden Ticket persists even after user password resets — must reset KRBTGT twice</li>
+    <li>Protected Users security group in AD: disables NTLM, DES/RC4, credential caching — prevents both PtH and PtT</li>
+    <li>Password spraying and credential stuffing trigger only 1–2 failures per account → evade standard lockout policies</li>
+  </ul>
+</div>
+</section>
+
+<div class="nav-footer">
+  <a href="day-080-theory.html" class="nav-btn">← Day 80: Directory Services</a>
+  <a href="day-082-theory.html" class="nav-btn">Day 82: Session &amp; Credential Management →</a>
+</div>
+</div>
+</body>
+</html>

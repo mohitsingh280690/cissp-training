@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 62 – VPN Technologies</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:var(--accent);text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:var(--accent);font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;text-align:center;font-family:'Courier New',monospace;font-size:.9rem;line-height:1.5;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:var(--primary);}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 62 – VPN Technologies</h1>
+  <div class="subtitle">Domain 4 – Communication and Network Security</div>
+  <div class="meta"><span>📅 Day 62 of 140</span><span>📚 Domain 4 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-061-theory.html">← Day 61: IDS/IPS</a> · Domain 4 · Day 62</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. VPN Fundamentals</a></li>
+  <li><a href="#s4">4. IPSec – Architecture &amp; Protocols</a></li>
+  <li><a href="#s5">5. IPSec Modes: Transport vs. Tunnel</a></li>
+  <li><a href="#s6">6. IKE – Internet Key Exchange</a></li>
+  <li><a href="#s7">7. SSL/TLS VPN</a></li>
+  <li><a href="#s8">8. Legacy VPN Protocols (L2TP, PPTP)</a></li>
+  <li><a href="#s9">9. Site-to-Site vs. Remote Access VPN</a></li>
+  <li><a href="#s10">10. Split Tunneling &amp; Always-On VPN</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<!-- ═════════════════ SECTION 1 ═════════════════ -->
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>4 – Communication and Network Security (13%)</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>VPNs are how organizations extend trusted network access over untrusted infrastructure (the internet). CISSP expects perfect command of IPSec (AH vs. ESP, transport vs. tunnel, IKE phases), SSL VPN vs. IPSec VPN trade-offs, and the security implications of split tunneling. Legacy protocols PPTP and L2TP appear specifically to test whether candidates know they are insecure.</td></tr>
+  <tr><td><strong>Typical Question Styles</strong></td><td>"Which IPSec protocol provides both confidentiality and integrity?"; "A remote worker must access internal resources — site-to-site or remote access VPN?"; "Which VPN protocol is deprecated due to MS-CHAPv2 weaknesses?"; "Which IPSec mode hides the original IP header?"</td></tr>
+  <tr><td><strong>Cross-Domain Links</strong></td><td>Day 48–49 (encryption and hashing algorithms used inside VPN tunnels); Day 50 (PKI certificates used in IKE authentication); Day 60 (firewalls — VPN traffic traversal); Domain 5 (remote access IAM); Domain 7 (VPN usage monitoring)</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>AH does NOT provide encryption — only authentication/integrity. ESP provides both. Tunnel mode hides the entire original IP header; Transport mode does not. PPTP is deprecated and insecure — never the correct answer as a "secure" VPN. Split tunneling is a policy trade-off: convenience vs. security risk.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 2 ═════════════════ -->
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Aspect</th><th>Organizational Impact</th></tr>
+  <tr><td><strong>Remote workforce</strong></td><td>COVID-19 forced near-universal VPN deployment. SSL VPNs (Pulse Secure, Cisco AnyConnect, Palo Alto GlobalProtect) are the de facto remote access standard. VPN infrastructure became the #1 external attack surface in 2020–2022 (critical vulnerabilities in Pulse Secure, Fortinet, Citrix)</td></tr>
+  <tr><td><strong>Branch connectivity</strong></td><td>Site-to-site IPSec VPNs link branch offices to HQ or cloud over commodity internet — replacing expensive MPLS circuits. SD-WAN extends this with multi-path optimization.</td></tr>
+  <tr><td><strong>Cloud access</strong></td><td>VPN peering (AWS Direct Connect + VPN backup; Azure VPN Gateway; GCP Cloud VPN) provides encrypted connectivity between on-premises and cloud VPCs. IPSec is the standard protocol.</td></tr>
+  <tr><td><strong>Compliance</strong></td><td>HIPAA requires encryption of PHI in transit — VPN satisfies this. PCI-DSS Requirement 4 mandates encryption of cardholder data over open networks — VPN or TLS.</td></tr>
+  <tr><td><strong>Growing alternative</strong></td><td>Zero Trust Network Access (ZTNA) is emerging as the modern replacement for traditional VPN for remote access, eliminating the "trusted internal network" assumption. CISSP Day 68 covers this in depth.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 3 ═════════════════ -->
+<section id="s3">
+<h2>3. VPN Fundamentals</h2>
+<div class="callout definition">
+  <strong>📖 VPN (Virtual Private Network):</strong> Creates an encrypted <em>tunnel</em> over a public (untrusted) network — typically the internet — so that two endpoints can communicate as if directly connected on a private network. The "virtual" private network emulates the security properties of a dedicated private leased line over shared infrastructure.
+</div>
+
+<table>
+  <tr><th>VPN Property</th><th>How Achieved</th><th>Purpose</th></tr>
+  <tr><td><strong>Confidentiality</strong></td><td>Symmetric encryption of tunnel payload (AES-256, ChaCha20)</td><td>Traffic cannot be read if intercepted on the public internet</td></tr>
+  <tr><td><strong>Integrity</strong></td><td>HMAC (HMAC-SHA256, HMAC-SHA512) on each packet</td><td>Tampering with tunnel packets is detected and rejected</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>PKI certificates, pre-shared keys (PSK), or user credentials (MFA) for IKE / TLS handshake</td><td>Ensures both ends of the tunnel are who they claim to be</td></tr>
+  <tr><td><strong>Non-repudiation</strong></td><td>Certificate-based authentication provides non-repudiation of VPN connections</td><td>Audit trail of who connected; supports forensic investigations</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 4 ═════════════════ -->
+<section id="s4">
+<h2>4. IPSec – Architecture &amp; Protocols</h2>
+<div class="callout definition">
+  <strong>📖 IPSec (Internet Protocol Security):</strong> A suite of protocols that provides security services at Layer 3 (Network). IPSec secures all IP traffic — not just specific applications — making it transparent to applications. It is defined by IETF RFCs 4301–4309 and is mandatory in IPv6 (required in the spec, though implementation is optional in practice).
+</div>
+
+<h3>AH vs. ESP</h3>
+<table>
+  <tr><th>Protocol</th><th>Full Name</th><th>Protocol #</th><th>Provides</th><th>Does NOT Provide</th></tr>
+  <tr><td><strong>AH</strong></td><td>Authentication Header</td><td>IP Protocol 51</td><td>Data origin authentication; integrity (via HMAC over packet including IP header); anti-replay (sequence numbers)</td><td><strong>Confidentiality (NO encryption)</strong> — payload is transmitted in cleartext. AH provides integrity/auth only.</td></tr>
+  <tr><td><strong>ESP</strong></td><td>Encapsulating Security Payload</td><td>IP Protocol 50</td><td>Confidentiality (encryption of payload); integrity; data origin authentication; anti-replay. <strong>The complete solution.</strong></td><td>Does NOT authenticate the outer IP header (in tunnel mode) — only the encapsulated payload + ESP header</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 AH Problem with NAT:</strong> AH signs the entire IP packet including the source IP address. NAT changes the source IP header — this breaks the AH integrity check. AH is therefore <strong>incompatible with NAT</strong>. ESP in tunnel mode does not have this problem because the original IP header is encapsulated and the outer header (subject to NAT) is not authenticated. This is why <strong>ESP is almost always used in practice</strong>, not AH.
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — AH vs. ESP:</strong><br>
+  "Which IPSec protocol provides encryption?" → <strong>ESP</strong> (NOT AH)<br>
+  "Which IPSec protocol only provides authentication/integrity without encryption?" → <strong>AH</strong><br>
+  "Which is incompatible with NAT?" → <strong>AH</strong><br>
+  "Which IPSec protocol should you always use for a VPN?" → <strong>ESP</strong> (provides everything AH provides plus encryption)
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 5 ═════════════════ -->
+<section id="s5">
+<h2>5. IPSec Modes: Transport vs. Tunnel</h2>
+<div class="diagram">
+TRANSPORT MODE (Host-to-Host):
+Original: [IP Header | TCP Header | Data]
+After ESP: [IP Header | ESP Header | TCP Header | Encrypted Data | ESP Trailer | ESP Auth]
+           ^                                                                             ^
+      Original IP header VISIBLE (not encrypted)                      Auth covers payload
+      Used for: host-to-host communication (e.g., server-to-server within data centre)
+      Original IP source/dest IP addresses remain in the packet headers.
+
+────────────────────────────────────────────────────────────────────────
+
+TUNNEL MODE (Gateway-to-Gateway / Site-to-Site):
+Original: [Original IP Header | TCP Header | Data]
+After ESP: [NEW IP Header | ESP Header | Original IP Header | TCP Header | Encrypted Data | ESP Trailer | ESP Auth]
+           ^-new outer header^           ^─────────────── fully encrypted ──────────────────────────────────────^
+      Entire original packet (including original IP header) is encrypted and encapsulated.
+      New IP header carries gateway-to-gateway addresses.
+      Used for: site-to-site VPN between firewalls/routers; remote access VPN.
+      Original source/dest IP addresses HIDDEN from eavesdroppers.
+</div>
+
+<table>
+  <tr><th>Attribute</th><th>Transport Mode</th><th>Tunnel Mode</th></tr>
+  <tr><td><strong>Original IP header</strong></td><td>Exposed (visible; not encrypted)</td><td>Encrypted within the new outer tunnel</td></tr>
+  <tr><td><strong>Typical use</strong></td><td>Host-to-host (server to server within same trusted network)</td><td>Gateway-to-gateway (site-to-site VPN); host-to-gateway (remote access)</td></tr>
+  <tr><td><strong>Overhead</strong></td><td>Lower overhead (no new IP header added)</td><td>Higher overhead (new outer IP header added per packet)</td></tr>
+  <tr><td><strong>Privacy</strong></td><td>Source and destination IPs visible</td><td>Source and destination IPs hidden — eavesdropper only sees gateway IPs</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 6 ═════════════════ -->
+<section id="s6">
+<h2>6. IKE – Internet Key Exchange</h2>
+<div class="callout definition">
+  <strong>📖 IKE (Internet Key Exchange):</strong> The protocol used to negotiate, establish, and manage Security Associations (SAs) for IPSec. IKE runs on UDP port 500 (and UDP 4500 when NAT traversal is needed). Without IKE, keys would have to be manually configured on every VPN endpoint — IKE automates this securely.
+</div>
+
+<h3>IKE Phase 1 vs. Phase 2</h3>
+<table>
+  <tr><th>Phase</th><th>Purpose</th><th>Output</th></tr>
+  <tr><td><strong>Phase 1 (IKE SA)</strong></td><td>Establishes a secure authenticated channel between the two VPN peers using Diffie-Hellman key exchange + mutual authentication (certificates or PSK). Protects Phase 2 negotiation.</td><td>IKE SA (bidirectional) — a secure management tunnel</td></tr>
+  <tr><td><strong>Phase 2 (IPSec SA)</strong></td><td>Uses the Phase 1 tunnel to negotiate IPSec SA parameters (encryption algorithm, HMAC, SA lifetime, protocol: AH or ESP) for actual data traffic. Creates two <em>unidirectional</em> SAs (one per direction).</td><td>Two IPSec SAs — one inbound, one outbound for data traffic</td></tr>
+</table>
+
+<h3>IKEv1 vs. IKEv2</h3>
+<table>
+  <tr><th>Attribute</th><th>IKEv1</th><th>IKEv2</th></tr>
+  <tr><td><strong>RFC</strong></td><td>RFC 2409 (1998)</td><td>RFC 7296 (2014)</td></tr>
+  <tr><td><strong>Phase 1 modes</strong></td><td>Main mode (6 messages) or Aggressive mode (3 messages — insecure)</td><td>Single IKE_SA_INIT + IKE_AUTH exchange — simpler and faster</td></tr>
+  <tr><td><strong>Aggressive mode</strong></td><td>Sends identity before encryption — vulnerable to off-line dictionary attacks on PSK</td><td>Removed — IKEv2 has no aggressive mode</td></tr>
+  <tr><td><strong>NAT traversal</strong></td><td>Requires extension (RFC 3947)</td><td>Built in natively</td></tr>
+  <tr><td><strong>MOBIKE</strong></td><td>Not supported</td><td>Supports MOBIKE (RFC 4555) — allows endpoint IP changes (mobile devices, roaming)</td></tr>
+  <tr><td><strong>Recommendation</strong></td><td>Legacy — IKEv1 aggressive mode is a known vulnerability</td><td>Preferred — more secure, efficient, and mobile-friendly</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ IKEv1 Aggressive Mode Security Risk:</strong> In aggressive mode, the initiator sends its identity hash before a secure channel is established. An attacker can capture this hash and perform an offline dictionary attack against the pre-shared key. Any organization still using IKEv1 aggressive mode with PSK authentication should migrate to IKEv2 with certificate-based authentication immediately.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 7 ═════════════════ -->
+<section id="s7">
+<h2>7. SSL/TLS VPN</h2>
+<div class="callout definition">
+  <strong>📖 SSL/TLS VPN:</strong> A VPN that uses the TLS protocol (commonly referred to as "SSL VPN" despite TLS being the current standard) to create an encrypted tunnel. Operates at Layer 5–7, typically over TCP 443. Because HTTPS is universally allowed through firewalls, SSL VPNs work where IPSec VPNs are blocked.
+</div>
+
+<table>
+  <tr><th>Attribute</th><th>IPSec VPN</th><th>SSL/TLS VPN</th></tr>
+  <tr><td><strong>Layer</strong></td><td>Layer 3 (Network) — transparent to all applications</td><td>Layer 5–7 — application-aware; may require client software or browser</td></tr>
+  <tr><td><strong>Firewall traversal</strong></td><td>Requires UDP 500, UDP 4500, ESP (IP protocol 50) — often blocked</td><td>TCP 443 (HTTPS) — universally permitted; works through NAT and restrictive firewalls</td></tr>
+  <tr><td><strong>Client requirement</strong></td><td>Dedicated VPN client software required on every device</td><td>Clientless option: browser-based for web apps. Full tunnel: thin client app required for all traffic.</td></tr>
+  <tr><td><strong>Traffic scope</strong></td><td>Full network-level tunnel — all IP traffic routed through VPN</td><td>Clientless: only browser sessions; Full tunnel: all traffic (same as IPSec)</td></tr>
+  <tr><td><strong>Use case</strong></td><td>Site-to-site VPNs; environments with full control over endpoint</td><td>Remote access from unmanaged devices, hotels, public Wi-Fi; clientless access to specific web apps</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>PSK, certificates (IKE)</td><td>Username/password, MFA, client certificates — integrated with web-based authentication flows</td></tr>
+  <tr><td><strong>Security</strong></td><td>Both are secure when properly configured. IPSec uses IKE for key management.</td><td>TLS 1.3 provides strong security. Clientless mode limits attack surface. Full tunnel equivalent to IPSec security level.</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 8 ═════════════════ -->
+<section id="s8">
+<h2>8. Legacy VPN Protocols (L2TP, PPTP)</h2>
+<table>
+  <tr><th>Protocol</th><th>Layer</th><th>Security</th><th>Status</th></tr>
+  <tr><td><strong>PPTP</strong><br>(Point-to-Point Tunneling Protocol)</td><td>L2</td><td><strong>Broken — do not use.</strong> Uses MS-CHAPv2 for authentication, which has a critical vulnerability allowing offline dictionary attacks against captured handshakes. Encryption via MPPE (RC4) is weak. NSA has been reported to decrypt PPTP in bulk. Port TCP 1723.</td><td>Deprecated; must never be selected as "secure" on CISSP exam</td></tr>
+  <tr><td><strong>L2TP</strong><br>(Layer 2 Tunneling Protocol)</td><td>L2</td><td>L2TP provides <em>tunneling only, no encryption</em>. It is always paired with IPSec (L2TP/IPSec) for security. L2TP/IPSec uses UDP 1701 (L2TP) + UDP 500/4500 (IKE). Without IPSec, L2TP is completely insecure.</td><td>Largely superseded by IKEv2/IPSec; still common on older VPN infrastructure</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>⚠️ PPTP on the CISSP Exam:</strong> PPTP is the "wrong answer" whenever a question asks about secure remote access. It appears on the exam specifically as a distractor — candidates who haven't studied recognize it as a "VPN protocol" and may select it. Any question mentioning PPTP as a good security choice is incorrect. The correct answer will be IPSec, SSL/TLS VPN, or IKEv2.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 9 ═════════════════ -->
+<section id="s9">
+<h2>9. Site-to-Site vs. Remote Access VPN</h2>
+<div class="diagram">
+SITE-TO-SITE VPN (Gateway-to-Gateway):
+
+ [HQ Network]─── [VPN Gateway/Firewall] ═══ INTERNET ═══ [VPN Gateway] ─── [Branch Network]
+  10.0.0.0/24                                                                  10.1.0.0/24
+
+- Both gateways act as IPSec tunnel endpoints
+- Traffic from HQ to Branch automatically encrypted through the tunnel
+- Individual hosts need no VPN client — they're unaware of the VPN
+- Always-on connection; typically site-to-site IPSec tunnel mode
+- Use case: connecting branch offices, data centres, cloud VPCs
+
+──────────────────────────────────────────────────────────────────────
+
+REMOTE ACCESS VPN (Client-to-Gateway):
+
+ [Laptop/Phone] ───── [VPN Client s/w] ═══ INTERNET ═══ [VPN Gateway] ─── [Corporate Network]
+  Remote worker                                           (SSL VPN or IPSec)
+
+- Individual device runs VPN client software
+- User authenticates (MFA recommended) before tunnel is established
+- After auth, device gets a corporate IP address (from VPN IP pool)
+- Traffic routed through tunnel to corporate network
+- Use case: remote workers, traveling employees, work-from-home
+</div>
+
+<table>
+  <tr><th>Attribute</th><th>Site-to-Site</th><th>Remote Access</th></tr>
+  <tr><td><strong>Endpoints</strong></td><td>Gateway to gateway (both sides are always-on network devices)</td><td>Individual client device to gateway</td></tr>
+  <tr><td><strong>Client software</strong></td><td>Not required on individual hosts</td><td>VPN client required on each device (or browser for SSL clientless)</td></tr>
+  <tr><td><strong>Connection</strong></td><td>Always-on, persistent (up as long as gateways are running)</td><td>On-demand; user connects when needed (or always-on policy)</td></tr>
+  <tr><td><strong>Authentication</strong></td><td>Gateway-level (certificates, PSK)</td><td>User-level plus device-level (MFA, certificate)</td></tr>
+  <tr><td><strong>Primary protocol</strong></td><td>IPSec (site-to-site is almost exclusively IPSec)</td><td>SSL/TLS VPN or IPSec; SSL preferred for firewall traversal</td></tr>
+</table>
+</section>
+
+<!-- ═════════════════ SECTION 10 ═════════════════ -->
+<section id="s10">
+<h2>10. Split Tunneling &amp; Always-On VPN</h2>
+<div class="callout definition">
+  <strong>📖 Split Tunneling:</strong> A VPN configuration where only traffic destined for the corporate network is routed through the encrypted VPN tunnel, while all other traffic (internet browsing, streaming) goes directly to the internet via the local gateway — bypassing the organization's security controls.
+</div>
+
+<table>
+  <tr><th>Configuration</th><th>How It Works</th><th>Security Implications</th></tr>
+  <tr><td><strong>Full Tunneling (No Split)</strong></td><td>ALL traffic from the remote device is routed through the corporate VPN tunnel, including internet traffic</td><td>Most secure — all traffic subject to corporate DLP, web filtering, IDS/IPS, and proxy policies. Higher bandwidth load on VPN gateway. Higher latency for remote users' internet browsing.</td></tr>
+  <tr><td><strong>Split Tunneling (Enabled)</strong></td><td>Only traffic for corporate subnets uses the VPN; internet traffic goes direct to local gateway</td><td>Security risk — if remote device is compromised (malware), the attacker has a foothold on the corporate network without restrictions. Internet malware C2 traffic bypasses corporate controls. Better performance and lower gateway load.</td></tr>
+  <tr><td><strong>Inverse Split</strong></td><td>All traffic through VPN <em>except</em> specified destniations (e.g., Microsoft 365, CDN traffic direct)</td><td>Hybrid approach — protects most traffic; specific trusted cloud services excluded for performance</td></tr>
+</table>
+
+<div class="callout definition">
+  <strong>📖 Always-On VPN:</strong> VPN client automatically establishes the tunnel before user login and maintains it continuously. The device never operates "off-VPN" regardless of network location. Used to ensure corporate security policies apply even when users forget to connect, and to protect devices that may be unattended.
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Split Tunneling Security:</strong> From a CISSP security perspective, split tunneling is a <strong>risk</strong>. It allows remote devices to access the internet without corporate visibility — a compromised device can introduce malware into the corporate network through the VPN tunnel while the malware's C2 communication goes undetected over the direct internet path. The secure default is <strong>full tunneling</strong> or inverse split with careful exclusions.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 11 ═════════════════ -->
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 AH vs. ESP — "AH proves who; ESP hides what":</strong><br>
+  <strong>AH</strong> = Authentication Header = proves authenticity (integrity + auth) but NO encryption<br>
+  <strong>ESP</strong> = Encapsulating Security Payload = encrypts AND authenticates (the full package)<br>
+  <em>"AH is the ID check at the door. ESP is the ID check AND the private room."</em>
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Tunnel vs. Transport Mode — "Tunnel buries the body":</strong><br>
+  <strong>Tunnel mode</strong> = buries the <em>entire original packet</em> (including original IP header) inside a new encrypted wrapper. Used for site-to-site VPN. Original IP addresses hidden.<br>
+  <strong>Transport mode</strong> = only the payload is encrypted; original IP header stays exposed. Used for host-to-host.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 PPTP = "Pretty Pathetically Terrible Protocol":</strong><br>
+  Never select PPTP for "secure remote access." MS-CHAPv2 + MPPE RC4 = broken. Always choose IPSec or SSL/TLS VPN.<br>
+  L2TP alone = no security. L2TP + IPSec = secured tunneling.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 IKE Phases — "Phase 1: Safe room; Phase 2: Business deal":</strong><br>
+  <strong>Phase 1</strong> = Build a secure, authenticated channel between peers (IKE SA)<br>
+  <strong>Phase 2</strong> = Inside that safe channel, negotiate the actual IPSec parameters (IPSec SA)<br>
+  IKEv2 is always preferred; IKEv1 aggressive mode = offline PSK attack risk.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>VPN purpose</td><td>Encrypted tunnel over untrusted network, providing confidentiality, integrity, and authentication</td></tr>
+  <tr><td>IPSec AH</td><td>Protocol 51; authentication + integrity only; NO encryption; incompatible with NAT</td></tr>
+  <tr><td>IPSec ESP</td><td>Protocol 50; encryption + authentication + integrity; the complete VPN solution; NAT-compatible</td></tr>
+  <tr><td>Transport mode</td><td>Host-to-host; original IP header exposed; lower overhead</td></tr>
+  <tr><td>Tunnel mode</td><td>Gateway-to-gateway; entire original packet encrypted + encapsulated in new header; original IPs hidden</td></tr>
+  <tr><td>IKE Phase 1</td><td>Establish secure management channel (IKE SA) via DH + authentication</td></tr>
+  <tr><td>IKE Phase 2</td><td>Negotiate IPSec SA parameters inside Phase 1 tunnel; creates two unidirectional SAs</td></tr>
+  <tr><td>IKEv2 vs. IKEv1</td><td>IKEv2 preferred; removes aggressive mode vulnerability; adds MOBIKE, better NAT traversal</td></tr>
+  <tr><td>SSL/TLS VPN</td><td>Uses TCP 443; traverses firewalls easily; clientless option; preferred for remote access</td></tr>
+  <tr><td>PPTP</td><td>Deprecated; broken (MS-CHAPv2 + RC4); never the secure answer on CISSP exam</td></tr>
+  <tr><td>L2TP</td><td>Layer 2 tunneling only; no encryption without IPSec; always deployed as L2TP/IPSec</td></tr>
+  <tr><td>Split tunneling</td><td>Security risk — bypasses corporate controls; compromised device is a threat; default should be full tunneling</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-061-theory.html" class="nav-btn">← Day 61: IDS/IPS</a>
+  <a href="day-063-theory.html" class="nav-btn">Day 63: Wireless Security →</a>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

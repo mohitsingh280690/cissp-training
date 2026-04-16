@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 101 – Investigations</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#006064,#00838f);color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.breadcrumb a{color:#00acc1;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}
+.toc h3{color:#006064;margin-bottom:12px;font-size:1.1rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;color:#00acc1;font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#006064;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00acc1;}
+section h3{color:#00838f;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f7fa;border-left:4px solid #00acc1;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#e0f2f1;border-left:4px solid #00897b;}
+.mnemonic strong{color:#00695c;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#006064;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:10px 24px;background:#00acc1;color:white;text-decoration:none;border-radius:6px;font-weight:600;}
+.nav-btn:hover{background:#006064;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 101 – Investigations</h1>
+  <div class="subtitle">Domain 7 – Security Operations (13%)</div>
+  <div class="meta">
+    <span>📅 Day 101 of 140</span>
+    <span>📚 Domain 7 of 8</span>
+    <span>⏱️ ~55 min read</span>
+    <span>🎯 Difficulty: Intermediate</span>
+  </div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-100-theory.html">← Day 100: Security Operations Concepts</a> · Domain 7 · Day 101</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. Investigation Types</a></li>
+  <li><a href="#s4">4. The Digital Investigation Process</a></li>
+  <li><a href="#s5">5. Due Care &amp; Due Diligence in Investigations</a></li>
+  <li><a href="#s6">6. Interview &amp; Interrogation</a></li>
+  <li><a href="#s7">7. Reporting Investigation Results</a></li>
+  <li><a href="#s8">8. Cooperation with Law Enforcement</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Domain</td><td>7 – Security Operations (13%)</td></tr>
+  <tr><td>Why Tested</td><td>A CISSP must understand the different types of investigations, the legal standards that govern them, and how to support investigations without destroying evidence or violating employee rights. Security professionals often serve as first responders before law enforcement or legal counsel arrives</td></tr>
+  <tr><td>Question Style</td><td>Scenario-based: "An employee is suspected of theft. Which type of investigation should be initiated FIRST?" (administrative). "When must law enforcement be contacted?" (when criminal activity is suspected and organizational policy requires it)</td></tr>
+  <tr><td>Cross-Domain Links</td><td>Domain 1 (legal, regulatory, compliance — investigation legal requirements); Domain 7 (incident response — investigations follow incidents); Domain 5 (IAM — access logs as investigation evidence)</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<h3>Organizational Ownership</h3>
+<p><strong>Legal department</strong> leads criminal and civil investigations. <strong>HR</strong> leads employee misconduct investigations. <strong>Security/IT</strong> provides technical evidence and digital forensics. <strong>Internal audit</strong> investigates fraud and policy violations. <strong>Outside counsel</strong> should be engaged early for privilege protection.</p>
+
+<h3>Business Impact</h3>
+<ul>
+  <li><strong>Evidence preservation failures</strong> can make cases unprosecutable and expose the organization to spoliation sanctions</li>
+  <li><strong>Privacy violations</strong> during investigations can result in lawsuits from employees (especially in EU jurisdictions under GDPR)</li>
+  <li><strong>Improper investigations</strong> can taint evidence and lead to wrongful termination lawsuits</li>
+  <li><strong>Failure to investigate</strong> can demonstrate lack of due care, increasing liability</li>
+</ul>
+
+<h3>Failure Modes</h3>
+<p>The Enron scandal showed how improper handling of investigations and evidence destruction (Arthur Andersen's document shredding) can result in criminal obstruction charges and firm dissolution. In digital terms, overwriting logs, reimaging systems prematurely, or failing to preserve email can constitute spoliation.</p>
+</section>
+
+<section id="s3">
+<h2>3. Investigation Types</h2>
+<table>
+  <tr><th>Investigation Type</th><th>Purpose</th><th>Burden of Proof</th><th>Led By</th><th>Outcome</th></tr>
+  <tr><td><strong>Administrative</strong></td><td>Determine policy violations; internal matters; employee misconduct</td><td>Preponderance of evidence (more likely than not; &gt;50%)</td><td>HR, internal audit, management</td><td>Disciplinary action, termination, policy changes</td></tr>
+  <tr><td><strong>Criminal</strong></td><td>Determine whether a crime was committed; prosecute the offender</td><td>Beyond a reasonable doubt (highest standard; ~99%)</td><td>Law enforcement (FBI, police, Secret Service)</td><td>Arrest, prosecution, imprisonment, fines</td></tr>
+  <tr><td><strong>Civil</strong></td><td>Resolve disputes between parties (breach of contract, negligence, IP theft)</td><td>Preponderance of evidence (&gt;50%)</td><td>Plaintiff's legal team; may involve private investigators</td><td>Monetary damages, injunctions, settlements</td></tr>
+  <tr><td><strong>Regulatory</strong></td><td>Determine compliance with regulations (HIPAA, PCI, SOX, GDPR)</td><td>Varies by regulation; typically substantial evidence or preponderance</td><td>Regulatory body (OCR, FTC, SEC, PCI Council)</td><td>Fines, sanctions, consent decrees, loss of certification</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Burden of Proof Hierarchy (Low to High):</strong><br>
+  1. <strong>Preponderance of evidence</strong> — civil/administrative ("more likely than not"; &gt;50%)<br>
+  2. <strong>Clear and convincing evidence</strong> — some civil cases (substantially more likely)<br>
+  3. <strong>Beyond a reasonable doubt</strong> — criminal cases (near certainty; ~99%)
+</div>
+
+<div class="warning callout">
+  ⚠️ <strong>Exam Trap — Administrative vs Criminal:</strong> Many incidents start as administrative investigations. If criminal activity is discovered, the investigation may transition to a criminal investigation — but the organization should NOT try to conduct a criminal investigation itself. Contact law enforcement. Do NOT alert the suspect, as this could constitute tipping off and impede the criminal case.
+</div>
+
+<h3>Investigation Transitions</h3>
+<div class="diagram">
+INVESTIGATION TRANSITION FLOW
+
+  Incident Detected
+       │
+       ▼
+  Administrative Investigation (internal — HR/Security)
+       │
+       ├── Policy violation only → Disciplinary action
+       │
+       ├── Criminal activity suspected
+       │        │
+       │        ▼
+       │   Contact Law Enforcement → Criminal Investigation
+       │   (preserve evidence; do NOT alert suspect)
+       │
+       └── Civil liability identified
+                │
+                ▼
+           Engage Legal Counsel → Civil Litigation
+           (attorney-client privilege; litigation hold)
+</div>
+</section>
+
+<section id="s4">
+<h2>4. The Digital Investigation Process</h2>
+<div class="definition callout">
+  <strong>Digital Investigation:</strong> A systematic process of identifying, preserving, collecting, examining, analyzing, and presenting digital evidence from computers, networks, mobile devices, and cloud services. The goal is to reconstruct events while maintaining evidence integrity and chain of custody.
+</div>
+
+<h3>Investigation Process Steps</h3>
+<table>
+  <tr><th>Step</th><th>Description</th><th>Key Actions</th></tr>
+  <tr><td>1. <strong>Identification</strong></td><td>Recognize that an incident occurred; determine scope and nature</td><td>Review alerts, logs, reports; identify affected systems; assess whether investigation is warranted</td></tr>
+  <tr><td>2. <strong>Preservation</strong></td><td>Protect evidence from alteration or destruction</td><td>Issue litigation hold; preserve logs; isolate affected systems; create forensic images BEFORE any analysis</td></tr>
+  <tr><td>3. <strong>Collection</strong></td><td>Gather evidence using forensically sound methods</td><td>Follow order of volatility; use write-blockers; hash all collected evidence; document everything</td></tr>
+  <tr><td>4. <strong>Examination</strong></td><td>Process collected data to extract relevant information</td><td>File carving; keyword searches; timeline reconstruction; artifact extraction</td></tr>
+  <tr><td>5. <strong>Analysis</strong></td><td>Interpret examined data to draw conclusions</td><td>Correlate events; establish timelines; determine cause; identify responsible parties</td></tr>
+  <tr><td>6. <strong>Reporting</strong></td><td>Document findings in a clear, defensible format</td><td>Write formal report; present to stakeholders; maintain for legal proceedings</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Exam Emphasis:</strong> The FIRST action when an incident is suspected is always to PRESERVE evidence. Do not begin analysis on the original evidence — create a forensic duplicate first. Analysis on original evidence risks modification and may render it inadmissible.
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Due Care &amp; Due Diligence in Investigations</h2>
+<table>
+  <tr><th>Concept</th><th>Definition</th><th>Investigation Application</th></tr>
+  <tr><td><strong>Due Care</strong></td><td>"Doing the right thing" — taking reasonable steps to act responsibly</td><td>Conducting investigations when incidents occur; preserving evidence; following established procedures; acting on findings</td></tr>
+  <tr><td><strong>Due Diligence</strong></td><td>"Doing things right" — verifying that reasonable care is actually being applied</td><td>Having investigation procedures BEFORE incidents; training investigators; auditing the investigation process; maintaining readiness</td></tr>
+</table>
+
+<div class="key-concept callout">
+  <strong>Legal Liability:</strong> Organizations that fail to investigate security incidents may be found negligent. Due care requires that you investigate. Due diligence requires that you have the capability to investigate properly BEFORE the incident happens. Together they demonstrate the organization acted as a "reasonable and prudent" entity.
+</div>
+
+<h3>Preparedness Measures (Due Diligence)</h3>
+<ul>
+  <li>Establish and maintain an investigation policy and procedures</li>
+  <li>Train staff on evidence handling and chain of custody</li>
+  <li>Deploy monitoring and logging systems capable of capturing relevant evidence</li>
+  <li>Establish relationships with law enforcement BEFORE incidents occur</li>
+  <li>Retain legal counsel familiar with digital investigations</li>
+  <li>Include investigation authority in employment agreements and acceptable use policies</li>
+</ul>
+</section>
+
+<section id="s6">
+<h2>6. Interview &amp; Interrogation</h2>
+<table>
+  <tr><th>Attribute</th><th>Interview</th><th>Interrogation</th></tr>
+  <tr><td><strong>Purpose</strong></td><td>Gather information from witnesses, users, and non-suspects</td><td>Obtain an admission or confession from a suspect</td></tr>
+  <tr><td><strong>Tone</strong></td><td>Conversational; non-accusatory; information-seeking</td><td>Confrontational; focused; accusatory (used carefully)</td></tr>
+  <tr><td><strong>Subject</strong></td><td>Witnesses, reporting parties, system administrators</td><td>Suspects or individuals believed to be responsible</td></tr>
+  <tr><td><strong>Who Conducts</strong></td><td>Security team, HR, investigators</td><td>Trained investigators, law enforcement, HR specialists</td></tr>
+  <tr><td><strong>Legal Considerations</strong></td><td>Voluntary participation; privacy protections; union representative rights (Weingarten rights in US)</td><td>Miranda rights (if in custody/criminal); employee rights; legal counsel; avoid coercion</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Critical Legal Boundaries:</strong>
+  <ul>
+    <li><strong>Weingarten Rights (US):</strong> Unionized employees have the right to have a union representative present during investigative interviews that may lead to discipline</li>
+    <li><strong>Miranda Rights:</strong> Only required when a suspect is in custody AND being questioned by law enforcement. Corporate investigators are NOT law enforcement — Miranda generally does not apply to internal investigations, but coerced confessions may be inadmissible</li>
+    <li><strong>EU/GDPR:</strong> Employee monitoring and investigation data collection must comply with data protection regulations; employees may have rights to access data collected about them</li>
+  </ul>
+</div>
+</section>
+
+<section id="s7">
+<h2>7. Reporting Investigation Results</h2>
+<h3>Investigation Report Components</h3>
+<table>
+  <tr><th>Section</th><th>Content</th></tr>
+  <tr><td>Executive Summary</td><td>High-level overview of the incident, investigation scope, key findings, and recommendations</td></tr>
+  <tr><td>Background</td><td>How the incident was discovered; initial reports; authorization for investigation</td></tr>
+  <tr><td>Scope &amp; Methodology</td><td>Systems examined; time period; tools used; forensic procedures followed</td></tr>
+  <tr><td>Findings of Fact</td><td>Objective chronological presentation of evidence discovered — no opinions, only facts</td></tr>
+  <tr><td>Analysis</td><td>Interpretation of findings; conclusions about what occurred, how, and by whom</td></tr>
+  <tr><td>Recommendations</td><td>Actions to prevent recurrence; policy changes; referral to law enforcement or legal</td></tr>
+  <tr><td>Appendices</td><td>Chain of custody records; hash values; tool output; evidence inventory</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>Report Objectivity:</strong> Investigation reports must present FACTS, not opinions or speculation. Conclusions must be supported by documented evidence. Use language like "the evidence indicates" rather than "the suspect definitely did X." Reports may be used in court — they must withstand scrutiny.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Cooperation with Law Enforcement</h2>
+<h3>When to Contact Law Enforcement</h3>
+<ul>
+  <li>When criminal activity is suspected (fraud, data theft, unauthorized access, ransomware)</li>
+  <li>When regulatory requirements mandate reporting (HIPAA breach notification, certain financial crimes)</li>
+  <li>When the organization cannot investigate effectively on its own (nation-state attacks, sophisticated intrusions)</li>
+  <li>When preservation of evidence requires legal authority (warrants for third-party data)</li>
+</ul>
+
+<h3>Key Considerations</h3>
+<table>
+  <tr><th>Issue</th><th>Guidance</th></tr>
+  <tr><td>Loss of control</td><td>Once law enforcement is involved, they control the criminal investigation; the organization may lose access to systems while evidence is collected</td></tr>
+  <tr><td>Publicity risk</td><td>Criminal investigations may become public through court filings, press releases, or leaks — consider reputational impact</td></tr>
+  <tr><td>Evidence standards</td><td>Law enforcement requires evidence collected to Fourth Amendment standards (no unreasonable search/seizure); private entities can search their own property but must not act as government agents</td></tr>
+  <tr><td>Parallel investigations</td><td>The organization may continue its internal (administrative) investigation simultaneously with the criminal investigation — but must coordinate with law enforcement to avoid interfering</td></tr>
+  <tr><td>Enticement vs Entrapment</td><td><strong>Enticement</strong> (legal): making resources available and monitoring usage (honeypots). <strong>Entrapment</strong> (illegal): inducing someone to commit a crime they would not otherwise commit. Only government agents can legally entrap — private entities engaging in enticement is generally permissible</td></tr>
+</table>
+
+<div class="warning callout">
+  ⚠️ <strong>Enticement vs Entrapment:</strong> A honeypot is enticement — it passively attracts attackers. Entrapment requires coercing/inducing someone to commit a crime they would NOT have committed otherwise. Entrapment is a defense available ONLY against government action. Private entities cannot "entrap" in the legal sense — but they should still avoid inducing employee misconduct.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Investigation Types — "ACCR"</strong><br>
+  <strong>A</strong>dministrative (internal policy — lowest burden)<br>
+  <strong>C</strong>ivil (disputes — preponderance)<br>
+  <strong>C</strong>riminal (crimes — beyond reasonable doubt — HIGHEST burden)<br>
+  <strong>R</strong>egulatory (compliance — varies)<br>
+  "All Clues Carry Risk"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Burden of Proof — "PCB" (like a circuit board)</strong><br>
+  <strong>P</strong>reponderance (&gt;50%) → <strong>C</strong>lear &amp; Convincing → <strong>B</strong>eyond Reasonable Doubt (~99%)<br>
+  Lowest → Middle → Highest
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Investigation Process — "IP-CEAR"</strong><br>
+  <strong>I</strong>dentify → <strong>P</strong>reserve → <strong>C</strong>ollect → <strong>E</strong>xamine → <strong>A</strong>nalyze → <strong>R</strong>eport<br>
+  "I Prefer Collecting Evidence And Reporting"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Due Care vs Due Diligence</strong><br>
+  Due <strong>Care</strong> = <strong>C</strong>arrying out the right actions (doing)<br>
+  Due <strong>Diligence</strong> = <strong>D</strong>ouble-checking it's being done right (verifying)<br>
+  Care = DO it. Diligence = CHECK it.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Enticement vs Entrapment</strong><br>
+  Enticement = "Come in if you want" (passive — honeypot = legal)<br>
+  Entrapment = "I'll make you do it" (coercion — illegal for government)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Administrative investigation</td><td>Internal policy violation; preponderance of evidence; HR/management-led</td></tr>
+  <tr><td>Criminal investigation</td><td>Beyond reasonable doubt (highest standard); law enforcement-led; do NOT investigate crimes yourself</td></tr>
+  <tr><td>Civil investigation</td><td>Disputes between parties; preponderance of evidence; results in monetary damages</td></tr>
+  <tr><td>Regulatory investigation</td><td>Compliance verification; led by regulatory bodies; can result in fines and sanctions</td></tr>
+  <tr><td>FIRST action</td><td>Preserve evidence — never analyze original evidence; create forensic duplicates first</td></tr>
+  <tr><td>Due care</td><td>Doing the right thing — conducting investigations when warranted</td></tr>
+  <tr><td>Due diligence</td><td>Having investigation capability ready BEFORE incidents; training; procedures; tools</td></tr>
+  <tr><td>Interview vs interrogation</td><td>Interview = information gathering from witnesses; Interrogation = seeking admission from suspect</td></tr>
+  <tr><td>Enticement</td><td>Legal — making resources available and monitoring (honeypots)</td></tr>
+  <tr><td>Entrapment</td><td>Illegal — inducing someone to commit a crime they wouldn't have committed; defense against government only</td></tr>
+  <tr><td>Law enforcement cooperation</td><td>Contact when criminal activity suspected; organization may lose control of investigation and systems</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-100-theory.html" class="nav-btn">← Day 100: Security Ops Concepts</a>
+  <a href="day-102-theory.html" class="nav-btn">Day 102: Digital Forensics – Evidence →</a>
+</div>
+</div>
+</body>
+</html>

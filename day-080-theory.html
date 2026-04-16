@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Day 80 – Directory Services</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,#004d40,#00695c);color:white;padding:40px 0;text-align:center;}.header h1{font-size:2rem;margin-bottom:8px;}.header .subtitle{font-size:1.1rem;opacity:.9;}.header .meta{margin-top:16px;display:flex;justify-content:center;gap:30px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:900px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}.breadcrumb a{color:#00897b;text-decoration:none;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:20px 28px;margin-bottom:30px;}.toc h3{color:#004d40;margin-bottom:12px;font-size:1.1rem;}.toc ul{list-style:none;padding:0;}.toc li{margin-bottom:6px;}.toc a{text-decoration:none;color:#00897b;font-weight:500;}.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:28px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:#004d40;font-size:1.4rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #00897b;}
+section h3{color:#00695c;font-size:1.15rem;margin:18px 0 10px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;}
+.definition{background:#e0f2f1;border-left:4px solid #00897b;}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;}
+th{background:#004d40;color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#fafafa;border:2px dashed var(--border);border-radius:8px;padding:24px;margin:20px 0;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8;white-space:pre;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}.nav-btn{display:inline-block;padding:10px 24px;background:#00897b;color:white;text-decoration:none;border-radius:6px;font-weight:600;}.nav-btn:hover{background:#004d40;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Day 80 – Directory Services</h1>
+  <div class="subtitle">Domain 5 – Identity and Access Management (13%)</div>
+  <div class="meta"><span>📅 Day 80 of 140</span><span>📚 Domain 5 of 8</span><span>⏱️ ~65 min read</span><span>🎯 Difficulty: Intermediate</span></div>
+</div>
+<div class="container">
+<div class="breadcrumb"><a href="day-079-theory.html">← Day 79: Privileged Access Management</a> · Domain 5 · Day 80</div>
+
+<div class="toc">
+<h3>📑 Table of Contents</h3>
+<ul>
+  <li><a href="#s1">1. Where This Fits in CISSP</a></li>
+  <li><a href="#s2">2. Real-World Organizational Relevance</a></li>
+  <li><a href="#s3">3. X.500 – The Directory Standard Foundation</a></li>
+  <li><a href="#s4">4. LDAP – Lightweight Directory Access Protocol</a></li>
+  <li><a href="#s5">5. Active Directory – Architecture Deep Dive</a></li>
+  <li><a href="#s6">6. Active Directory – Trusts, OUs, and GPOs</a></li>
+  <li><a href="#s7">7. RADIUS vs. TACACS+</a></li>
+  <li><a href="#s8">8. Diameter Protocol</a></li>
+  <li><a href="#s9">9. Cloud Directory Services</a></li>
+  <li><a href="#s10">10. Directory Service Security Risks</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
+</ul>
+</div>
+
+<section id="s1">
+<h2>1. Where This Fits in CISSP</h2>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Domain</strong></td><td>5 – Identity and Access Management (13%) — directory services are the infrastructure backbone of enterprise identity: they store identities, authenticate users, and serve as the source of truth for group membership and access policy.</td></tr>
+  <tr><td><strong>Why Tested</strong></td><td>LDAP, Active Directory, and AAA protocols (RADIUS/TACACS+) appear repeatedly on the CISSP exam. Candidates must understand their purpose, architecture, key security properties (what is encrypted, what is not), and proper use cases. Common trap questions compare RADIUS vs. TACACS+ attributes.</td></tr>
+  <tr><td><strong>RADIUS/TACACS+ Note</strong></td><td>These protocols were introduced in Day 71 in the authentication context. Day 80 places them in the directory services ecosystem — understanding how they relate to LDAP/AD as AAA back-ends for network access.</td></tr>
+  <tr><td><strong>Key Exam Traps</strong></td><td>LDAP default port 389 is unencrypted — LDAPS (port 636) or STARTTLS required for secure queries. Active Directory IS built on LDAP but adds Kerberos authentication, DNS, Group Policy, Replication. RADIUS encrypts only the password; TACACS+ encrypts the entire packet. Diameter is not "RADIUS + 1 letter" — it is a different protocol for mobile/broadband networks, not traditional enterprise AAA.</td></tr>
+</table>
+</section>
+
+<section id="s2">
+<h2>2. Real-World Organizational Relevance</h2>
+<table>
+  <tr><th>Service</th><th>Real-World Role</th></tr>
+  <tr><td><strong>Active Directory / LDAP</strong></td><td>The central identity store for ~90% of enterprise Windows environments. Every user account, computer account, group policy, trust relationship, and service principal name lives in AD. AD compromise = organization-wide compromise. AD is the most targeted enterprise system in modern attacks.</td></tr>
+  <tr><td><strong>RADIUS</strong></td><td>The backbone AAA protocol for Wi-Fi authentication (802.1X), VPN authentication, and dial-up. Enterprise Wi-Fi sends user credentials to RADIUS server which queries AD/LDAP to verify. Network Access Control (NAC) systems use RADIUS.</td></tr>
+  <tr><td><strong>TACACS+</strong></td><td>Preferred AAA for network device (router, switch, firewall) administration and management access. Provides per-command authorization — ability to permit a helpdesk role to run "show" commands but not "configure" commands on a Cisco router.</td></tr>
+  <tr><td><strong>Cloud directory (Azure AD / Entra ID / AWS IAM)</strong></td><td>Identity and access management for cloud-native workloads. Hybrid environments synchronize on-premises AD to cloud directory. SAML 2.0 / OIDC replace LDAP queries for cloud application authentication federation.</td></tr>
+</table>
+</section>
+
+<section id="s3">
+<h2>3. X.500 – The Directory Standard Foundation</h2>
+<div class="callout definition">
+  <strong>📖 X.500:</strong> An ITU-T family of standards defining directory services — how information about users, computers, and organizations can be stored and accessed in a hierarchical, distributed manner. Published 1988. The conceptual ancestor of LDAP and Active Directory. X.509 (TLS/SSL certificates used everywhere today) is part of the X.500 family.
+</div>
+<table>
+  <tr><th>X.500 Concept</th><th>Definition</th></tr>
+  <tr><td><strong>Directory Information Tree (DIT)</strong></td><td>The hierarchical tree structure of the directory. Root → Country → Organization → Organizational Unit → Objects (users, devices). Objects are identified by their position in this tree.</td></tr>
+  <tr><td><strong>Distinguished Name (DN)</strong></td><td>The full unique path to an object in the DIT. Uniquely identifies any directory object. Example: CN=Alice Brown,OU=HR,DC=corp,DC=example,DC=com — reads from specific to general.</td></tr>
+  <tr><td><strong>Relative Distinguished Name (RDN)</strong></td><td>The entry's identifier within its parent container (the leaf portion of the DN). CN=Alice Brown is the RDN within the OU=HR container.</td></tr>
+  <tr><td><strong>Schema</strong></td><td>Defines what object classes exist (user, group, computer, printer) and what attributes each class can have (givenName, sn, telephoneNumber, userPrincipalName). Enforces data structure. Can be extended (AD schema extensions for Exchange, Lync, etc.).</td></tr>
+  <tr><td><strong>DAP vs. LDAP</strong></td><td>X.500 originally required DAP (Directory Access Protocol) — complex, heavy. LDAP (Lightweight DAP) was developed as a slim TCP/IP-based access protocol for X.500 directories. LDAP became the practical standard; full X.500/DAP is rarely implemented.</td></tr>
+</table>
+</section>
+
+<section id="s4">
+<h2>4. LDAP – Lightweight Directory Access Protocol</h2>
+<div class="callout definition">
+  <strong>📖 LDAP:</strong> TCP/IP protocol for accessing and modifying directory services based on the X.500 model. Standards defined in RFC 4511. Used to query and manage directory information — authenticating to systems, looking up user attributes, checking group membership.
+</div>
+<table>
+  <tr><th>LDAP Property</th><th>Detail</th></tr>
+  <tr><td><strong>Ports</strong></td><td>LDAP: TCP/UDP port 389 (unencrypted). LDAPS (LDAP over SSL/TLS): TCP port 636. LDAP + STARTTLS: TCP 389 with TLS upgrade. Always use LDAPS or STARTTLS — plain LDAP on 389 transmits credentials in cleartext (LDAP bind password).</td></tr>
+  <tr><td><strong>LDAP Bind</strong></td><td>Authentication operation. Client sends DN + password (or SASL token) to prove identity. Anonymous bind (no credentials) — read-only access to some directory information without authentication. Simple bind over unencrypted LDAP = password in cleartext.</td></tr>
+  <tr><td><strong>LDAP Search</strong></td><td>Core read operation. Specifies: base DN (where to start), scope (base/one-level/subtree), filter (attribute conditions), and attributes to return. Powerful query language — can extract all users in an OU, all members of a group, all computers with specific attributes.</td></tr>
+  <tr><td><strong>LDAP Modify / Add / Delete</strong></td><td>Write operations. Modify: change attribute values (change password, update phone number). Add: create new entry. Delete: remove entry. These require appropriate directory write permissions.</td></tr>
+  <tr><td><strong>DN structure (reading)</strong></td><td>DN is read right-to-left for hierarchy: CN=Alice Brown, OU=HR, DC=corp, DC=example, DC=com → domain is example.com → corp subdomain → HR OU → Alice's CN. DC = Domain Component; OU = Organizational Unit; CN = Common Name.</td></tr>
+</table>
+
+<div class="diagram">LDAP Distinguished Name Example:
+──────────────────────────────────────────────────────────────────────────────────────
+DN: CN=Alice Brown,OU=HR,OU=Staff,DC=corp,DC=example,DC=com
+
+Reading left-to-right (most specific → least specific):
+  CN=Alice Brown          ← The person (Common Name) — the object
+  OU=HR                   ← She is in the HR Organizational Unit
+  OU=Staff                ← HR is inside the Staff OU
+  DC=corp                 ← In the "corp" subdomain
+  DC=example              ← Of the "example" domain
+  DC=com                  ← Top-level domain .com
+
+Full LDAP tree path (top to bottom):
+  DC=com
+    DC=example
+      DC=corp
+        OU=Staff
+          OU=HR
+            CN=Alice Brown    ← The entry
+
+Other DN components:
+  O  = Organization
+  L  = Locality (city)
+  C  = Country
+  UID = User ID
+  emailAddress = email
+──────────────────────────────────────────────────────────────────────────────────────</div>
+</section>
+
+<section id="s5">
+<h2>5. Active Directory – Architecture Deep Dive</h2>
+<div class="callout definition">
+  <strong>📖 Active Directory (AD):</strong> Microsoft's enterprise directory service, introduced in Windows Server 2000. Built on LDAP for data storage and querying, Kerberos (Day 73) for authentication, DNS for locating domain controllers, and Group Policy for centralized configuration management. The dominant enterprise identity and access management infrastructure.
+</div>
+<table>
+  <tr><th>AD Component</th><th>Definition</th><th>Key Security Notes</th></tr>
+  <tr><td><strong>Domain</strong></td><td>The fundamental unit of AD administration. A domain has one DNS namespace (corp.example.com), one centralized authentication database (NTDS.dit), and one set of policies. Objects (users, computers, groups) belong to a domain.</td><td>Domain controllers (DCs) hold the AD database. DC compromise = domain compromise. DCs must be highly protected physical and logical assets.</td></tr>
+  <tr><td><strong>Domain Controller (DC)</strong></td><td>A server running Active Directory Domain Services (AD DS). Handles authentication (Kerberos, NTLM), LDAP directory queries, Group Policy distribution, and replication with other DCs.</td><td>The most critical servers in an environment. Compromise allows creation of any user, modification of any policy, golden ticket attacks (Day 73). Require strict PAM controls (Day 79) and network isolation.</td></tr>
+  <tr><td><strong>NTDS.dit</strong></td><td>The Active Directory database file. Contains all domain objects: user accounts, password hashes, group memberships, computer accounts. Located on every DC at C:\Windows\NTDS\NTDS.dit.</td><td>Extracting NTDS.dit gives attacker all password hashes → offline cracking or pass-the-hash attacks. Protect with backup encryption, VSS shadow copy controls, and monitoring of Volume Shadow Copy creation by non-admins.</td></tr>
+  <tr><td><strong>Forest</strong></td><td>The highest-level container in AD. A forest is a collection of one or more domains that share a common schema, global catalog, and configuration. Forest root domain is the first domain created. The forest is the security boundary in AD.</td><td>The Security Boundary in AD is the FOREST, not the domain. Domain admins in one domain of a multi-domain forest can typically reach other domains. Forest-level compromise affects all domains in the forest.</td></tr>
+  <tr><td><strong>Tree</strong></td><td>A contiguous DNS namespace of domains within a forest. corp.example.com and subsidiary.corp.example.com form a tree — they share a contiguous namespace. A forest can contain multiple trees (different root DNS namespaces).</td><td>Trust relationships within a tree are automatic and bi-directional (transitive). Security considerations for cross-domain trust.</td></tr>
+  <tr><td><strong>Global Catalog (GC)</strong></td><td>A partial replica of ALL objects in ALL domains in the forest stored on designated GC servers. Used to look up objects across the forest without querying every domain. Required for universal group membership resolution and forest-wide searches.</td><td>GC servers are high-value targets — they have data from ALL domains. Compromising a GC server exposes forest-wide object information.</td></tr>
+</table>
+</section>
+
+<section id="s6">
+<h2>6. Active Directory – Trusts, OUs, and GPOs</h2>
+<h3>AD Trusts</h3>
+<table>
+  <tr><th>Trust Type</th><th>Description</th><th>Security Implication</th></tr>
+  <tr><td><strong>Internal (intra-forest) trust</strong></td><td>Automatically created, bi-directional, transitive trusts between all domains in a forest. Domain A trusts Domain B which trusts Domain C → Domain A implicitly trusts Domain C (transitive).</td><td>A compromised domain in a forest can be leveraged to attack other trusted domains (trust abuse, SID history attacks). Trusts must be audited and documented.</td></tr>
+  <tr><td><strong>External trust</strong></td><td>Manually created, non-transitive, one or two-way trust between specific domains in DIFFERENT forests. Only the explicitly trusted domain is trusted — transitivity does not flow.</td><td>Explicit, controlled trust relationship. Non-transitive limits blast radius. Requires careful scoping — trust grants use of Kerberos tickets for resource access across the trust boundary.</td></tr>
+  <tr><td><strong>Forest trust</strong></td><td>Transitive trust between two forest ROOT domains, enabling all domains in both forests to trust each other.</td><td>Highest-risk trust relationship — effectively merges the security boundary of two forests. Compromise of either forest can cascade. Used for M&amp;A integrations.</td></tr>
+  <tr><td><strong>SID filtering</strong></td><td>A security feature on external trusts that strips SID history from cross-trust Kerberos tickets, preventing an attacker in a trusted domain from injecting high-privilege SIDs into tickets to gain privileges in the trusting domain.</td><td>SID filtering SHOULD be enabled on external trusts to prevent SID history attacks. Enabled by default on external trusts since Windows Server 2003.</td></tr>
+</table>
+
+<h3>Organizational Units (OUs) and Group Policy Objects (GPOs)</h3>
+<table>
+  <tr><th>Component</th><th>Purpose</th><th>Security Use</th></tr>
+  <tr><td><strong>Organizational Unit (OU)</strong></td><td>A container within a domain used to organize objects (users, computers, groups). Allows delegation of administrative authority — you can grant a help desk team the ability to reset passwords ONLY for users in the Help Desk OU, without giving domain admin rights.</td><td>OU structure reflects both organizational and security policy zones. Sensitive objects (privileged admin accounts, PAM servers, domain controllers) should be in separate protected OUs with restricted modification rights.</td></tr>
+  <tr><td><strong>Group Policy Object (GPO)</strong></td><td>A collection of settings (security policies, software deployment, registry settings, script execution) applied to an OU, domain, or site. Settings apply automatically to all computer and user accounts within the GPO's scope.</td><td>GPOs enforce enterprise security baselines at scale: screensaver lock timeout, password complexity, audit policy, AppLocker rules, Windows Defender configuration, disabling legacy protocols (NTLM, LM hash), restricting local admin rights. Misconfigurations are a common lateral movement path (writable GPOs, GPO link order manipulation).</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 AD Security Boundary Reminder:</strong> The DOMAIN is NOT the security boundary in Active Directory — the FOREST is the security boundary. Domain Admins can gain access across domains in the same forest by default. For true isolation, separate forests are required.
+</div>
+</section>
+
+<section id="s7">
+<h2>7. RADIUS vs. TACACS+</h2>
+<div class="callout key-concept">
+  <strong>📌 Cross-Reference:</strong> RADIUS and TACACS+ were covered in depth in Day 71 (Authentication Methods) in the context of AAA protocols for network access. Here they are placed in the directory services architecture context — they serve as AAA back-ends consuming identities stored in LDAP/AD.
+</div>
+<table>
+  <tr><th>Feature</th><th>RADIUS</th><th>TACACS+</th></tr>
+  <tr><td><strong>Developer / Standard</strong></td><td>IETF RFC 2865/2866 — open standard</td><td>Cisco proprietary (though documented)</td></tr>
+  <tr><td><strong>Transport</strong></td><td>UDP — ports 1812 (auth/authz), 1813 (accounting)</td><td>TCP — port 49 (reliable). Full packet encryption.</td></tr>
+  <tr><td><strong>Encryption</strong></td><td>Encrypts password ONLY in Access-Request; rest of packet in cleartext</td><td>Encrypts ENTIRE packet (body) — full confidentiality including username, attributes, authorization data</td></tr>
+  <tr><td><strong>AAA separation</strong></td><td>Authentication and authorization combined in one transaction — cannot separate</td><td>Authentication, Authorization, and Accounting are SEPARATE processes — can authorize per command, per device type independently</td></tr>
+  <tr><td><strong>Command authorization</strong></td><td>Not supported — authorize access to the device or not; cannot control per-command</td><td>Supported — TACACS+ can authorize each command the admin types (show = permit; configure = deny for helpdesk role)</td></tr>
+  <tr><td><strong>Primary use case</strong></td><td>Network access authentication: 802.1X Wi-Fi, VPN authentication, dial-up, Network Access Control (NAC)</td><td>Network device management: router/switch/firewall CLI access and per-command authorization</td></tr>
+  <tr><td><strong>Multi-protocol support</strong></td><td>CHAP, PAP, EAP (802.1X); works with any NAS vendor</td><td>CHAP, PAP; primarily Cisco CLI administration</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 RADIUS vs. TACACS+ Classic Exam Question:</strong><br>
+  "Which protocol encrypts only the password?" → RADIUS.<br>
+  "Which protocol encrypts the entire payload?" → TACACS+.<br>
+  "Which protocol is best for per-command authorization on network devices?" → TACACS+.<br>
+  "Which protocol is used for Wi-Fi 802.1X authentication?" → RADIUS.
+</div>
+</section>
+
+<section id="s8">
+<h2>8. Diameter Protocol</h2>
+<div class="callout definition">
+  <strong>📖 Diameter:</strong> An AAA protocol designed as the successor to RADIUS for mobile networks, broadband subscriber management, and 4G/5G LTE core network authentication. Named "Diameter" as it is "twice RADIUS" (diameter = 2 × radius). Defined in IETF RFC 6733.
+</div>
+<table>
+  <tr><th>Feature</th><th>RADIUS</th><th>Diameter</th></tr>
+  <tr><td><strong>Transport</strong></td><td>UDP</td><td>TCP or SCTP — reliable, ordered delivery</td></tr>
+  <tr><td><strong>Failure handling</strong></td><td>No built-in failover</td><td>Peer negotiation, failover, and error notification built in</td></tr>
+  <tr><td><strong>Message model</strong></td><td>Request/Response</td><td>More complex peer exchange model; supports server-initiated messages</td></tr>
+  <tr><td><strong>Extensibility</strong></td><td>Limited AVP types</td><td>Using standard AVPs (Attribute Value Pairs) with well-defined extension mechanism; supports mobile network specific interfaces (Cx, Rx, Gx, S6a in LTE)</td></tr>
+  <tr><td><strong>Primary deployment</strong></td><td>Enterprise Wi-Fi, VPN, NAC</td><td>Mobile network (4G LTE core, 5G NR); not common in enterprise environments</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Diameter on the CISSP Exam:</strong> Diameter usually appears as a distractor in RADIUS/TACACS+ questions or as the correct answer when the scenario involves mobile networks, cellular carriers, or 4G/LTE network AAA. It is NOT used for standard enterprise Wi-Fi or device management.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Cloud Directory Services</h2>
+<table>
+  <tr><th>Service</th><th>Platform</th><th>Key Features &amp; Notes</th></tr>
+  <tr><td><strong>Microsoft Entra ID (formerly Azure AD)</strong></td><td>Microsoft Azure</td><td>Cloud-native identity platform for Microsoft 365, Azure, and integrated SaaS apps. Uses SAML 2.0, OIDC, OAuth 2.0 for federation (NOT LDAP for cloud apps — LDAP is legacy protocol). Supports hybrid sync with on-premises AD via Entra Connect. Conditional Access = cloud ABAC. MFA enforcement at scale.</td></tr>
+  <tr><td><strong>Azure AD DS (Domain Services)</strong></td><td>Microsoft Azure</td><td>Managed domain services (LDAP, Kerberos, NTLM) in Azure without managing domain controllers. Allows legacy applications that require LDAP or Kerberos to run in Azure without on-premises AD. Not the same as Entra ID.</td></tr>
+  <tr><td><strong>AWS IAM (Identity and Access Management)</strong></td><td>Amazon AWS</td><td>Identity and authorization for AWS resources. IAM users, roles, policies. IAM roles are ABAC-capable (condition keys = context-aware policies). AWS SSO / IAM Identity Center enables federated access across multiple accounts.</td></tr>
+  <tr><td><strong>AWS Directory Service / Managed AD</strong></td><td>Amazon AWS</td><td>Managed Microsoft AD in AWS. Full AD capabilities in a managed service. Also supports Simple AD (Samba-based LDAP for lightweight use cases) and AD Connector (proxy to on-premises AD).</td></tr>
+  <tr><td><strong>Google Cloud Identity / Workspace</strong></td><td>Google Cloud</td><td>Cloud identity provider for Google Workspace. SAML/OIDC federation. Directory for Google Workspace users and groups. Cloud Identity Free edition provides identity-only without workspace apps.</td></tr>
+  <tr><td><strong>Hybrid identity</strong></td><td>On-prem + Cloud</td><td>Most enterprises synchronize on-premises AD to cloud directory (Entra Connect for Microsoft). Enables single sign-on across on-prem and cloud apps from a single identity. Password hash sync or pass-through authentication or federation (ADFS). The on-prem AD remains the authoritative identity source in hybrid models.</td></tr>
+</table>
+</section>
+
+<section id="s10">
+<h2>10. Directory Service Security Risks</h2>
+<table>
+  <tr><th>Risk</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td><strong>LDAP injection</strong></td><td>Attackers inject LDAP filter syntax into application inputs to manipulate directory queries — bypassing authentication or extracting directory data. Similar to SQL injection but targeting LDAP query parser.</td><td>Input validation and encoding; use parameterized LDAP queries; least-privilege LDAP service account; restrict anonymous LDAP reads. LDAP special chars: *, (, ), \, NUL, /, ÿ.</td></tr>
+  <tr><td><strong>Unencrypted LDAP (port 389)</strong></td><td>LDAP operations on port 389 transmit bind credentials (username + password) in cleartext. An attacker on the same network segment can capture directory credentials via passive eavesdropping.</td><td>Require LDAPS (port 636) or STARTTLS on all LDAP connections. Enforce via Domain Controller security policy: "LDAP server signing requirements = Require signing." Block port 389 on internal firewalls where possible.</td></tr>
+  <tr><td><strong>DCSync attack</strong></td><td>An attacker with Domain Admin (or equivalent) permissions calls MS-DRSR replication APIs to request domain controller replication data — effectively pulling all password hashes from the DC without logging into it or touching NTDS.dit. Used to extract the krbtgt hash for Golden Ticket attacks.</td><td>Monitor for unusual replication requests from non-DC machines; restrict DCSync permissions (only Domain Controllers should have Replicating Directory Changes All); SIEM alerts on "4662 – Object was operated on" with sensitive permissions.</td></tr>
+  <tr><td><strong>AD attack surface (Kerberoasting, AS-REP Roasting, PtH)</strong></td><td>Covered in Day 73 (Kerberoasting, Silver/Golden tickets) — service account SPNs exposed to any domain user; AS-REP Roasting targets accounts without Kerberos pre-authentication; PtH uses stolen NTLM hashes for lateral movement without knowing cleartext password.</td><td>Strong service account passwords + regular rotation (PAM); disable accounts without pre-auth required; protect NTLM by enforcing Kerberos; LAPS for local admin accounts; MFA everywhere possible.</td></tr>
+  <tr><td><strong>GPO misconfigurations</strong></td><td>Overly permissive write access to GPOs enables privilege escalation. An attacker with "Modify" rights on a GPO linked to Domain Controllers can deploy malware to all DCs via Group Policy.</td><td>Audit GPO permissions regularly (BloodHound tool useful for this). Principle of least privilege on GPO management. SYSVOL permissions (where GPO templates are stored) must be tightly controlled.</td></tr>
+</table>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="callout mnemonic">
+  <strong>🧠 LDAP DN — "Most Specific on the Left":</strong><br>
+  DN: CN=Alice,OU=HR,DC=corp,DC=example,DC=com<br>
+  Read LEFT to RIGHT = most specific to least specific (like a street address reversed)<br>
+  CN = the person; OU = the floor; DC = the building; DC = the city<br>
+  The domain in DNS: corp.example.com maps to DC=corp,DC=example,DC=com (dots → DC= separated)
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 AD Security Boundary = FOREST (Not Domain):</strong><br>
+  "The FOREST is where the FENCE is."<br>
+  Domains within a forest automatically trust each other. The fence (security boundary) is at the FOREST edge.<br>
+  For true isolation: separate FORESTS, not separate domains.
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 RADIUS vs. TACACS+:</strong><br>
+  <strong>R</strong>ADIUS = <strong>R</strong>educed encryption (password only), <strong>R</strong>uns on <strong>U</strong>DP<br>
+  <strong>T</strong>ACACS+ = <strong>T</strong>otal encryption (full packet), <strong>T</strong>CP-based, fine-grained per-command authorization<br>
+  RADIUS → Wi-Fi and VPN (Access). TACACS+ → Cisco device CLI (Administration). "Access = RADIUS; Administration = TACACS+"
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 Diameter = Mobile/Cellular, NOT enterprise:</strong><br>
+  Diameter protocol belongs to the cellular/mobile world (4G LTE, 5G).<br>
+  Do NOT use it for Wi-Fi or enterprise AAA answers — that is RADIUS.<br>
+  "Diameter is for the cell tower, RADIUS is for the office."
+</div>
+<div class="callout mnemonic">
+  <strong>🧠 LDAP Ports — "389 is plain, 636 is secure":</strong><br>
+  389 = HTTP of LDAP (unencrypted, avoid for binds)<br>
+  636 = HTTPS of LDAP (LDAPS, encrypted)
+</div>
+</section>
+
+<section id="s12">
+<h2>12. Key Takeaways</h2>
+<table>
+  <tr><th>Topic</th><th>Essential Point</th></tr>
+  <tr><td>X.500</td><td>Foundational directory standard; defines DIT, DN, schema; parent of LDAP and X.509 certificates; DAP was the original protocol, LDAP is the lightweight successor</td></tr>
+  <tr><td>LDAP Distinguished Name</td><td>Full path to a directory object (CN=, OU=, DC=); left-to-right is most-to-least specific; DC components map to DNS domain name</td></tr>
+  <tr><td>LDAP security</td><td>Port 389 = unencrypted (avoid for binds); port 636 = LDAPS (encrypted); always use LDAPS or STARTTLS; LDAP injection is a web app vulnerability</td></tr>
+  <tr><td>Active Directory domain vs. forest</td><td>Domain = authentication/policy unit (one DNS namespace); Forest = security boundary (all domains in forest trust each other); for true isolation use separate forests</td></tr>
+  <tr><td>NTDS.dit</td><td>AD database file on every DC; contains all password hashes; extracting it enables offline hash cracking; protect aggressively</td></tr>
+  <tr><td>GPO</td><td>Group Policy Objects enforce security settings at scale across all computers/users in an OU/domain; misconfigurations enable privilege escalation</td></tr>
+  <tr><td>RADIUS</td><td>UDP; encrypts password only; AAA for network access (Wi-Fi 802.1X, VPN); open standard; no per-command authorization</td></tr>
+  <tr><td>TACACS+</td><td>TCP; encrypts entire packet; AAA for network device administration; per-command authorization; Cisco proprietary</td></tr>
+  <tr><td>Diameter</td><td>RADIUS successor for mobile/cellular networks (4G LTE, 5G); TCP/SCTP; NOT for enterprise Wi-Fi or device management</td></tr>
+  <tr><td>Cloud directories</td><td>Microsoft Entra ID (Azure)/AWS IAM/Google Cloud Identity; SAML + OIDC replace LDAP for cloud; hybrid sync connects on-prem AD to cloud; on-prem AD remains authoritative in hybrid</td></tr>
+</table>
+</section>
+
+<div class="nav-footer">
+  <a href="day-079-theory.html" class="nav-btn">← Day 79: Privileged Access Management</a>
+  <a href="day-081-theory.html" class="nav-btn">Day 81: Access Control Attacks →</a>
+</div>
+</div>
+</body>
+</html>
