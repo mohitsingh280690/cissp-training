@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Exam Traps &amp; Common Mistakes Consolidated</title>
+<style>
+:root {
+  --primary: #1a237e;
+  --secondary: #283593;
+  --accent: #448aff;
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text: #212121;
+  --text-light: #666;
+  --border: #e0e0e0;
+  --green: #2e7d32;
+  --orange: #ef6c00;
+  --red: #c62828;
+  --highlight: #fff8e1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+
+.header .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.header .meta {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  flex-wrap: wrap;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.intro {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 30px;
+  border-left: 4px solid var(--orange);
+}
+
+.intro p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.intro ul {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.intro li {
+  margin-bottom: 6px;
+}
+
+.toc {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 30px;
+}
+
+.toc h2 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.toc-list {
+  columns: 2;
+  gap: 30px;
+  list-style: none;
+}
+
+.toc-list li {
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+.toc-list a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.toc-list a:hover {
+  text-decoration: underline;
+}
+
+.domain-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.domain-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 20px 24px;
+  border-radius: 8px 8px 0 0;
+}
+
+.domain-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.domain-header .info {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.day-item {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.day-item:last-child {
+  border-bottom: none;
+}
+
+.day-title {
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin-bottom: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+}
+
+.item-content {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.warning {
+  background: #fce4ec;
+  border-left: 4px solid var(--red);
+}
+
+.key-item {
+  background: var(--highlight);
+  border-left: 4px solid var(--orange);
+}
+
+.mnemonic-item {
+  background: #f3e5f5;
+  border-left: 4px solid #7b1fa2;
+}
+
+.item-content strong {
+  font-weight: 600;
+}
+
+.item-content em {
+  font-style: italic;
+}
+
+.item-content p {
+  margin-bottom: 8px;
+}
+
+.item-content p:last-child {
+  margin-bottom: 0;
+}
+
+.item-content ul,
+.item-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.item-content li {
+  margin-bottom: 4px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  .domain-section {
+    page-break-inside: avoid;
+  }
+  .day-item {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚠️ CISSP Exam Traps &amp; Common Mistakes</h1>
+  <div class="subtitle">Comprehensive Exam Prep Reference</div>
+  <div class="meta">
+    <span>🎯 55 Days of Content</span>
+    <span>📋 All Domains</span>
+    <span>⏱️ Quick Reference</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="intro">
+  <p><strong>Purpose:</strong> This document consolidates all exam traps, common mistakes, and important concepts from each day's theory material. It's designed as a quick reference guide for final exam preparation.</p>
+  
+  <p><strong>What You'll Find:</strong></p>
+  <ul>
+    <li><strong>Exam Traps</strong> — Frequently misunderstood concepts and common errors</li>
+    <li><strong>Key Concepts</strong> — Important distinctions that often trip up candidates</li>
+    <li><strong>Mnemonics</strong> — Memory aids for complex topic areas</li>
+  </ul>
+  
+  <p><strong>How to Use:</strong> Review by domain. Each item is expandable and labeled by type. Pay special attention to the red "Exam Trap" boxes — these represent the highest-probability exam questions.</p>
+</div>
+
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul class="toc-list">
+    <li><a href="#domain-1">Domain 1: Security and Risk Management (20 days)</a></li>
+    <li><a href="#domain-2">Domain 2: Asset Security (13 days)</a></li>
+    <li><a href="#domain-3">Domain 3: Security Architecture and Engineering (0 days)</a></li>
+    <li><a href="#domain-4">Domain 4: Communication and Network Security (0 days)</a></li>
+  </ul>
+</div>
+
+
+<div class="domain-section" id="domain-1">
+  <div class="domain-header">
+    <h2>Domain 1: Security and Risk Management</h2>
+    <div class="info">20 days with identified traps &amp; concepts</div>
+  </div>
+
+  <div class="day-item">
+    <div class="day-title">Day 01: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam may ask which CIA property is <em>primarily</em> affected by a scenario. Read carefully — a ransomware attack violates <strong>all three</strong> (encrypted = confidentiality; tampered = integrity; locked out = availability), but the <strong>primary</strong> goal of ransomware is to attack <strong>Availability</strong> to extort payment.</div>
+    <div class="item-content warning"><strong>⚠️ Common Mistake:</strong> Many candidates over-index on Domains 3 (crypto) and 4 (networking) because those are the most technical. Domain 1 — the largest single domain at 15% — is often under-studied. Risk management and governance questions can be the margin between pass and fail.</div>
+    <div class="item-content warning"><strong>⚠️ Key Distinction — Threat vs. Vulnerability:</strong> A <em>threat</em> is what might happen (fire). A <em>vulnerability</em> is the weakness that lets it happen (no sprinklers). A <em>risk</em> is the combination. You can have a threat with no vulnerability (fire in a fireproof building = low risk), or a vulnerability with no credible threat (equally low risk). Risk requires both.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Residual vs. Total Risk:</strong><br>
+    <strong>Total Risk</strong> = risk before controls. <strong>Residual Risk</strong> = risk after controls. The goal is never to eliminate all risk (impossible) but to reduce residual risk to an acceptable level. The exam will test whether you know that residual risk always exists.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Mnemonic — DAD attacks CIA:</strong><br>
+    <strong>D</strong>isclosure attacks <strong>C</strong>onfidentiality → D→C<br>
+    <strong>A</strong>lteration attacks <strong>I</strong>ntegrity → A→I<br>
+    <strong>D</strong>estruction attacks <strong>A</strong>vailability → D→A<br><br>
+    Memory hook: <em>"DAD destroys CIA's work"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 CIA Triad:</strong><br>
+    <strong>C.I.A.</strong> — same as the intelligence agency: they keep <em>secrets</em> (Confidentiality), ensure <em>accurate intel</em> (Integrity), and must always be <em>reachable</em> (Availability).<br>
+    Or: <em>"Can I Always trust this data?"</em> — Can=Confidentiality, I=Integrity, Always=Availability</div>
+    <div class="item-content mnemonic-item"><strong>🧠 DAD Triad:</strong><br>
+    <strong>D.A.D.</strong> — Disclosure, Alteration, Destruction<br>
+    <em>"DAD destroys CIA's work"</em> — D→C, A→I, D→A<br>
+    (Disclosure attacks Confidentiality; Alteration attacks Integrity; Destruction attacks Availability)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Domain Weights (largest to smallest):</strong><br>
+    D1(15%) → D3/D4/D5/D7(13%) → D6(12%) → D8(11%) → D2(10%)<br>
+    Memory hook: <em>"Risk rules the room"</em> — Domain 1 (Risk Management) is always #1 by weight.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Defense in Depth — "The Castle":</strong><br>
+    Think of a medieval castle: moat → outer wall → drawbridge → inner wall → keep → throne room.<br>
+    Your modern equivalent: perimeter firewall → DMZ → internal segment → host firewall → application controls → data encryption.<br>
+    Each layer is a drawbridge an attacker must lower.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Non-repudiation memory anchor:</strong><br>
+    Non-repudiation = <em>"you can't deny you did it."</em> Think of a signed cheque — your signature is your private key. The bank (verifier) has your public signature on file. You cannot claim you didn't write it.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 02: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam distinguishes sharply between who <em>makes decisions</em> (senior management / data owner) and who <em>implements decisions</em> (IT custodian). Mixing these up is the most common error in Domain 1 governance questions.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Data Owner is NOT IT:</strong> The data owner is always a <em>business person</em> — a VP, department head, or senior manager. The IT department (custodian) holds and protects the data but does NOT decide who can access it or how sensitive it is. Never confuse these roles.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Who signs off on security policy?</strong><br>
+    Security policies must be signed off by <strong>senior management</strong>, not the CISO alone. The CISO develops and recommends; senior management (CEO, Board, or equivalent) approves. This grants the policy authority to be enforced.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — ISO 27001 vs. ISO 27002:</strong><br>
+    ISO 27001 is <strong>certifiable</strong> (you get audited against it). ISO 27002 is a <strong>guidance document</strong> (a list of controls to reference). The exam will test this distinction.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST CSF Functions:</strong> <strong>G</strong>overn → <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover<br>
+    Mnemonic: <em>"GI Protects Dangerous Roads Rapidly"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Due Care vs. Due Diligence:</strong><br>
+    Due <strong>Care</strong> = <strong>C</strong>ompletion of action — "I <em>cared</em> enough to do it"<br>
+    Due <strong>Diligence</strong> = <strong>D</strong>eep <strong>D</strong>ig to verify — "I dug deep to verify it works"<br><br>
+    Memory hook: <em>"Care = Act; Diligence = Check"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Governance vs. Management vs. Operations:</strong><br>
+    <strong>G</strong>overnance = <strong>G</strong>uides (sets direction, Board level)<br>
+    <strong>M</strong>anagement = <strong>M</strong>aps (plans how to get there, CISO/Managers)<br>
+    <strong>O</strong>perations = <strong>O</strong>perates (does the work, analysts/admins)<br>
+    <em>"Go Make Operations happen"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Data Owner vs. Custodian vs. Steward:</strong><br>
+    <strong>Owner</strong> = the <em>boss</em> — decides classification, approves access (a VP, not IT)<br>
+    <strong>Custodian</strong> = the <em>janitor</em> — keeps it clean and safe (IT sysadmin)<br>
+    <strong>Steward</strong> = the <em>librarian</em> — ensures data quality and accurate cataloguing<br>
+    Memory hook: <em>"Owner Decides, Custodian Guards, Steward Cleans"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Strategic / Tactical / Operational:</strong><br>
+    <strong>S</strong>trategic = <strong>S</strong>ky view (5 years, where are we going?)<br>
+    <strong>T</strong>actical = <strong>T</strong>reetop view (1 year, how do we get there?)<br>
+    <strong>O</strong>perational = <strong>O</strong>n the ground (today, doing the work)<br>
+    Memory hook: <em>"Sky, Treetop, Ground"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST CSF — I Protect Dangerous Roads Rarely:</strong><br>
+    <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 03: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam tests <em>which regulation applies</em> to a scenario, not the detailed technical requirements. Know: PCI-DSS = payment cards; HIPAA = healthcare data (US); SOX = financial reporting (public companies); GLBA = financial industry; FERPA = student education records. Mix-ups between these are extremely common.</div>
+    <div class="item-content warning"><strong>⚠️ Compliance ≠ Security:</strong><br>
+    The exam may present a scenario where an organisation is compliant but still breached. The correct answer in such cases will acknowledge that compliance is a floor, not a ceiling. <em>"What additional steps should be taken?"</em> — more rigorous controls beyond compliance minimums.</div>
+    <div class="item-content warning"><strong>⚠️ PCI-DSS is contractual, not statutory:</strong><br>
+    Non-compliance with PCI-DSS is enforced by card brands through merchant agreements — not by government prosecution. This distinguishes it from HIPAA, SOX, GDPR, and GLBA.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Regulation Applicability — Industry Anchors:</strong><br>
+    <strong>PCI</strong> = <strong>P</strong>ayment <strong>C</strong>ard <strong>I</strong>ndustry — anything with card transactions<br>
+    <strong>HIPAA</strong> = <strong>H</strong>ealth = <strong>H</strong>ospital / Healthcare<br>
+    <strong>SOX</strong> = <strong>S</strong>tock market / public company financial <strong>S</strong>candals<br>
+    <strong>GLBA</strong> = <strong>G</strong>ramm-<strong>L</strong>each-<strong>B</strong>liley = financial industry (Banks and insurance)<br>
+    <strong>FERPA</strong> = <strong>F</strong>amily <strong>E</strong>ducation = schools and universities<br>
+    Memory hook: <em>"Pay Healthy Stocks Going For Education"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 HIPAA Three Rules:</strong><br>
+    <strong>P</strong>rivacy Rule = who can <strong>P</strong>eek at PHI<br>
+    <strong>S</strong>ecurity Rule = how to <strong>S</strong>ecure ePHI<br>
+    <strong>B</strong>reach Notification = what to do when things go <strong>B</strong>ad<br>
+    Memory hook: <em>"</em>PSB — Privacy, Security, Breach"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR 72-Hour Rule:</strong><br>
+    <em>"GDPR gives you 3 days to tell the regulator"</em> — 72 hours to report a breach to the supervisory authority (e.g., ICO in UK). Customer notification depends on risk of harm — high risk = must notify; low risk = may not need to.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 04: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The CISSP is not a legal exam — you are not expected to know specific statutes in detail. You are expected to know: (1) which type of law applies in a scenario, (2) the distinction between criminal and civil liability, (3) what constitutes due care, and (4) basics of evidence admissibility.</div>
+    <div class="item-content warning"><strong>⚠️ Critical Distinction:</strong> A single incident can result in <em>all three</em> types simultaneously. A healthcare breach could trigger: (1) criminal prosecution of the attacker (criminal law), (2) a patient class action (civil law), and (3) an HHS OCR investigation and fine (administrative/regulatory law). These proceed <em>independently</em> of each other.</div>
+    <div class="item-content warning"><strong>⚠️ Hack-Back is Illegal:</strong><br>
+    No matter how certain you are of an attacker's identity, launching counter-attacks ("hack-back") is illegal under the CFAA and equivalent laws in most jurisdictions. The legally correct response is to: (1) contain the attack, (2) collect evidence forensically, (3) report to law enforcement. Advising "hack-back" on the exam is wrong.</div>
+    <div class="item-content warning"><strong>⚠️ Jurisdiction Doesn't Mean Prosecution:</strong><br>
+    Having jurisdiction to prosecute does not mean prosecution will happen. Political factors, resource constraints, evidence challenges, and lack of extradition treaties all limit practical enforcement — especially against nation-state actors.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Criminal vs. Civil: "The Government went Criminal; the Victim went Civil"</strong><br>
+    Criminal = Government acts → sends attacker to prison<br>
+    Civil = Victim acts → gets money damages<br>
+    Burden of proof: <em>"Criminal needs CERTAINTY (beyond reasonable doubt); Civil needs 51%"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Four Elements of Negligence: "D-B-C-D"</strong><br>
+    <strong>D</strong>uty → <strong>B</strong>reach → <strong>C</strong>ausation → <strong>D</strong>amages<br>
+    Memory hook: <em>"Duty Broken Causes Damage"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Four Legal System Types:</strong><br>
+    <strong>C</strong>ommon law (UK, US — <strong>C</strong>ourt precedent)<br>
+    <strong>C</strong>ivil/Code law (France, Germany — <strong>C</strong>omprehensive codes)<br>
+    <strong>R</strong>eligious law (Islamic, Jewish, Canon — <strong>R</strong>eligious texts)<br>
+    <strong>C</strong>ustomary law (traditions — <strong>C</strong>ommunity customs)<br>
+    Memory hook: <em>"Common Codes, Religious Customs"</em> or just <em>"3 C's + R"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Criminal vs. Civil vs. Administrative:</strong><br>
+    <strong>Criminal</strong> = Government puts you in <strong>jail</strong> — requires near certainty<br>
+    <strong>Civil</strong> = Victim takes your <strong>money</strong> — requires 51%<br>
+    <strong>Administrative</strong> = Regulator fines your <strong>company</strong> — regulatory action<br>
+    Memory hook: <em>"Jail, Money, Fine"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Negligence — "Duty Broken Causes Damage":</strong><br>
+    <ol>
+      <li><strong>D</strong>uty of care</li>
+      <li><strong>B</strong>reach of duty</li>
+      <li><strong>C</strong>ausation</li>
+      <li><strong>D</strong>amages</li>
+    </ol>
+    All four must be present for negligence to be established.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Evidence Admissibility — "R-R-L":</strong><br>
+    <strong>R</strong>elevant (to the case)<br>
+    <strong>R</strong>eliable (collected properly)<br>
+    <strong>L</strong>egally obtained (lawful process)<br>
+    Memory hook: <em>"Really Reliable and Legal"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 05: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>Copyright protects the <em>expression</em>, not the idea. The idea of a sorting algorithm is not copyrightable; the specific code implementing it is.</li>
+      <li>Trade secrets require active protection measures — simply keeping something secret without formal procedures does NOT give legal protection if you later claim misappropriation.</li>
+      <li>Trademarks need to be actively defended or they can be lost ("genericisation").</li>
+    </ul></div>
+    <div class="item-content warning"><strong>⚠️ Patent Trolls (Non-Practising Entities):</strong> Organisations that acquire patents not to use them but to sue others for licensing fees. This is a significant threat in the software industry. CISSPs advising on IP strategy should be aware of the risk and factor it into patent portfolio management.</div>
+    <div class="item-content warning"><strong>⚠️ Critical:</strong> If you do NOT take reasonable protective measures, you cannot later claim trade secret misappropriation. An organisation that leaves source code on a publicly accessible server, doesn't require NDAs, or shares details casually in meetings has essentially abandoned trade secret protection through its own negligence.</div>
+    <div class="item-content warning"><strong>⚠️ Copyright Expression vs. Idea:</strong><br>
+    The IDEA of building a to-do list app is NOT copyrightable.<br>
+    The SPECIFIC CODE you write to implement it IS copyrightable.<br>
+    The exam may present scenarios where an idea is "stolen" — copyright doesn't help there; it only protects the specific fixed expression.</div>
+    <div class="item-content warning"><strong>⚠️ Trade Secret vs. Patent Choice:</strong><br>
+    If you PATENT something, you MUST publicly disclose it — and protection expires in 20 years.<br>
+    If you keep it a TRADE SECRET, you disclose nothing — but if someone independently discovers or reverse-engineers it, you have NO protection. Patents give legal exclusivity even against independent discoverers; trade secrets do not.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Four IP Types: "Can't Take People's Stuff"</strong><br>
+    <strong>C</strong>opyright → Creative works (auto-protected on creation)<br>
+    <strong>T</strong>rademark → Trade identity (brand names, logos)<br>
+    <strong>P</strong>atent → Physical/process inventions (20 years)<br>
+    <strong>S</strong>ecret → Trade Secrets (unlimited if protected)<br>
+    Or alternatively: <em>"C-T-P-S" = "Clever Thinkers Patent Secrets"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Copyright Duration:</strong><br>
+    <em>"Life of the Author PLUS seventy"</em> → Life + 70 years (US post-1978)<br>
+    Works made for hire: 95 years from publication OR 120 years from creation, whichever is shorter</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Patent Duration — "2020 Utility, 15 Design":</strong><br>
+    <strong>Utility patent = 20 years</strong> from filing date<br>
+    <strong>Design patent = 15 years</strong> from grant date<br>
+    Memory hook: Utilities last <em>twenty</em>; Designs (like a fancy number) last <em>fifteen</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Trade Secret Requirements — "VAP":</strong><br>
+    <strong>V</strong>alue — must provide competitive advantage<br>
+    <strong>A</strong>ctive — must take reasonable active protective measures<br>
+    <strong>P</strong>rivate — must actually be kept confidential<br>
+    No VAP = No trade secret protection!</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Open Source License Risk Levels:</strong><br>
+    GPL = <strong>G</strong>ive back (copyleft — high risk for proprietary code)<br>
+    LGPL = <strong>L</strong>imited copyleft (use library, but share library changes)<br>
+    MIT/Apache/BSD = <strong>F</strong>ree for all (permissive — safe for commercial use)<br>
+    Memory: <em>"GPL = Gives, LGPL = Lends, MIT = Frees"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 06: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>GDPR breach notification = <strong>72 hours</strong> to supervisory authority; HIPAA = <strong>60 days</strong> to HHS. Do NOT swap these.</li>
+      <li>GDPR applies to ANY organisation processing <strong>EU resident data</strong> — regardless of where the organisation is located.</li>
+      <li>Privacy ≠ Security. Privacy is about appropriate data use and individual rights; security is about protecting data from unauthorised access. Privacy <em>requires</em> security but extends well beyond it.</li>
+    </ul></div>
+    <div class="item-content warning"><strong>⚠️ HIPAA vs. GDPR Breach Notification:</strong><br>
+    HIPAA breach notification to HHS = <strong>60 days</strong><br>
+    GDPR breach notification to supervisory authority = <strong>72 hours</strong><br>
+    This is a very common exam trap. GDPR is much stricter.</div>
+    <div class="item-content warning"><strong>⚠️ Privacy Shield History:</strong> The EU-US Privacy Shield was invalidated by the Court of Justice of the EU in <em>Data Protection Commissioner v. Facebook Ireland (Schrems II)</em> in July 2020, due to insufficient protection against US government surveillance. It was replaced by the EU-US Data Privacy Framework in 2023, though this too faces potential legal challenges.</div>
+    <div class="item-content warning"><strong>⚠️ Privacy ≠ Security:</strong><br>
+    Security without privacy = You protect data from hackers but still misuse it yourself (data brokers selling behavioural data).<br>
+    Privacy without security = You promise to be responsible with data but can't stop breaches.<br>
+    True compliance requires BOTH. GDPR Article 5(1)(f) — Integrity &amp; Confidentiality — explicitly ties security to privacy.</div>
+    <div class="item-content warning"><strong>⚠️ GDPR Extraterritorial Reach:</strong><br>
+    A US company with no EU offices that runs a website, sells products to EU users, or uses tracking cookies on EU visitors IS subject to GDPR. "We're not in the EU" is not a defence.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR 7 Principles: "Laughter Per Day Achieves Solid Integrating Accountability"</strong><br>
+    <strong>L</strong>awful → <strong>P</strong>urpose limited → <strong>D</strong>ata minimised → <strong>A</strong>ccurate → <strong>S</strong>torage limited → <strong>I</strong>ntegrity/Confidentiality → <strong>A</strong>ccountable</div>
+    <div class="item-content mnemonic-item"><strong>🧠 OECD 8 Principles: "Collection Quality, Purpose Use, Security Open, Individual Accountability"</strong><br>
+    Pairs: Collection + Quality | Purpose + Use | Security + Open | Individual + Accountability<br>
+    Or: <em>"CQ-PU-SO-IA"</em> — think: "See Queue — Push — Show — IA (intelligent agent)"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR 7 Principles: Acronym "LPDA-SIA"</strong><br>
+    <strong>L</strong>awful, fair, transparent → <strong>P</strong>urpose limitation → <strong>D</strong>ata minimisation → <strong>A</strong>ccuracy → <strong>S</strong>torage limitation → <strong>I</strong>ntegrity &amp; Confidentiality → <strong>A</strong>ccountability<br>
+    Memory hook: <em>"Lawyers Prefer Data About Stuff In Archives"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Breach Notification Timelines:</strong><br>
+    <strong>GDPR = 72 hours</strong> (to supervisory authority) — think: <em>"GD-PR = 72 hours = 3 days"</em><br>
+    <strong>HIPAA = 60 days</strong> (to HHS) — think: <em>"HIPAA = Healthcare = 60 days — give hospitals time"</em><br>
+    Visual: GDPR is much stricter (72 h vs 1,440 h)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR Data Subject Rights: "I-A-R-E-R-P-O-A"</strong><br>
+    <strong>I</strong>nformed → <strong>A</strong>ccess → <strong>R</strong>ectification → <strong>E</strong>rasure → <strong>R</strong>estriction → <strong>P</strong>ortability → <strong>O</strong>bject → <strong>A</strong>utomated decision rights<br>
+    Memory hook: <em>"I Always Request Everything, Rarely Paying Or Appealing"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 OECD 8 Principles in Pairs:</strong><br>
+    <em>Collect Carefully</em> → Collection Limitation + Data Quality<br>
+    <em>Purpose Properly</em> → Purpose Specification + Use Limitation<br>
+    <em>Secure Openly</em> → Security Safeguards + Openness<br>
+    <em>Individuals Are Accountable</em> → Individual Participation + Accountability</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 07: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The four (ISC)² canons are listed in a specific priority order. When canons conflict, the <em>first listed takes precedence</em>. The order is: Society → Client → Profession → Self. This order is tested!</div>
+    <div class="item-content warning"><strong>⚠️ "Obey your employer" is NOT a CISSP ethic:</strong><br>
+    The exam will present scenarios where following your employer's instruction conflicts with society's interest. Always choose to protect society first. "My boss told me to do it" is not a valid ethical defence.</div>
+    <div class="item-content warning"><strong>⚠️ CEI vs (ISC)² vs RFC 1087:</strong><br>
+    These are three DIFFERENT ethics documents from three different bodies:<br>
+    • (ISC)² Code = mandatory for CISSP certification holders; 4 canons<br>
+    • Computer Ethics Institute = 10 Commandments; academic/general use<br>
+    • RFC 1087 = IAB internet ethics statement; historical foundation<br>
+    Both CEI and RFC 1087 appear on the exam as knowledge references, but (ISC)² Code is the primary professional obligation.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Four Canons Priority Order: "Society, Client, Profession, Self"</strong><br>
+    <strong>S</strong>ociety first → <strong>C</strong>lient second → <strong>P</strong>rofession third → <strong>S</strong>elf last<br>
+    Memory hook: <em>"Some Citizens Prefer Service"</em> (Society / Citizens/Clients / Profession / Self)<br>
+    When in conflict, ALWAYS choose the higher-order canon.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 (ISC)² Four Canons — "SCPS" in Priority Order:</strong><br>
+    <strong>S</strong>ociety (Canon I — HIGHEST)<br>
+    <strong>C</strong>lient/Principals (Canon II — Honorably + III — Diligent service)<br>
+    <strong>P</strong>rofession (Canon IV — Advance the profession)<br>
+    <strong>S</strong>elf (implied — last in all cases)<br>
+    Memory hook: <em>"Super Cool Professionals Serve"</em> or <em>"Society Comes Practically Simultaneously"</em><br>
+    When in conflict: Society ALWAYS wins.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Which Canon Applies?</strong><br>
+    Public safety threatened? → Canon I<br>
+    Need to be honest or legal? → Canon II<br>
+    Need to serve client competently? → Canon III<br>
+    Need to support the profession? → Canon IV<br>
+    Two canons conflict? → Lower number wins (I beats II beats III beats IV)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Responsible Disclosure — "NVT-P"</strong><br>
+    <strong>N</strong>otify the vendor privately<br>
+    <strong>V</strong>endor gets time to patch (typically 90 days)<br>
+    <strong>T</strong>hen coordinate public disclosure<br>
+    <strong>P</strong>ublish if vendor fails to act<br>
+    Memory hook: <em>"Notify, Wait, Then Publish"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 08: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Traps:</strong>
+    <ul>
+      <li>Policies are the <strong>WHY</strong> — not the how. "The organisation will protect customer data" is a policy. Step-by-step backup instructions are a <em>procedure</em>.</li>
+      <li>ISO 27001 is <em>certifiable</em>; ISO 27002 is <em>guidance/controls catalogue</em>. You cannot be "ISO 27002 certified" — only ISO 27001.</li>
+      <li>NIST CSF is <strong>voluntary</strong> for the private sector but mandatory for US federal agencies under Executive Order 13800.</li>
+    </ul></div>
+    <div class="item-content warning"><strong>⚠️ ISO 27001 vs ISO 27002:</strong><br>
+    ISO 27001 = Requirements (SHALL statements) = Certifiable<br>
+    ISO 27002 = Guidelines (SHOULD statements) = Not certifiable<br>
+    "We are ISO 27002 certified" is an incorrect statement — no such certification exists.</div>
+    <div class="item-content warning"><strong>⚠️ Policies Must Be Enforced:</strong><br>
+    On the exam, "issue a policy" is never the complete answer. Policies must be: communicated, trained, monitored, audited, and enforced. A policy without enforcement is worse than no policy — it demonstrates knowing failure to act.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Policy Hierarchy — "Please Send Procedures Before Guidelines":</strong><br>
+    <strong>P</strong>olicy → <strong>S</strong>tandard → <strong>P</strong>rocedure → <strong>B</strong>aseline → <strong>G</strong>uideline<br>
+    Or the old standby: <em>"Policies, Standards, Procedures, Baselines, Guidelines"</em><br>
+    Mandatory: Policy, Standard, Procedure, Baseline | Optional: Guideline</div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST CSF 2.0 Functions: "GI-PD-RR"</strong><br>
+    <strong>G</strong>overn → <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover<br>
+    Memory hook: <em>"Good Investigators Protect Detective Results Reliably"</em><br>
+    CSF 1.1 (original): IPDRR; CSF 2.0 adds Govern at the start</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Policy Hierarchy: "Policies Should Probably Be Good"</strong><br>
+    <strong>P</strong>olicies (WHY — strategic, mandatory) <br>
+    <strong>S</strong>tandards (WHAT — specific requirements, mandatory)<br>
+    <strong>P</strong>rocedures (HOW — step-by-step, mandatory)<br>
+    <strong>B</strong>aselines (MINIMUM config — platform-specific, mandatory)<br>
+    <strong>G</strong>uidelines (SUGGESTIONS — optional best practices)<br>
+    Only guidelines are optional!</div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST CSF 2.0 Functions: "GIPDRR"</strong><br>
+    <strong>G</strong>overn → <strong>I</strong>dentify → <strong>P</strong>rotect → <strong>D</strong>etect → <strong>R</strong>espond → <strong>R</strong>ecover<br>
+    Think: <em>"Generally Intellectual People Don't Resist Recovery"</em><br>
+    Govern is NEW in v2.0!</div>
+    <div class="item-content mnemonic-item"><strong>🧠 ISO 27001 vs ISO 27002:</strong><br>
+    27001 ends in <strong>1</strong> = <strong>1</strong> stop certifiable standard<br>
+    27002 ends in <strong>2</strong> = <strong>2</strong>nd document (the "how-to" guidance)<br>
+    27001 = "ISMS Requirements" = requirements = CERTIFIABLE<br>
+    27002 = "Code of Practice" = guidance = NOT certifiable</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Framework Selection Memory Aid:</strong><br>
+    <strong>NIST CSF</strong> = US risk-based structure (any industry)<br>
+    <strong>ISO 27001</strong> = International certification (European preference)<br>
+    <strong>COBIT</strong> = IT Governance alignment (board/management/audit)<br>
+    Think: <em>"NIST for Structure, ISO for Cert, COBIT for Governance"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 09: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Most Important Exam Traps:</strong>
+    <ul>
+      <li><strong>Risk cannot be eliminated — only managed.</strong> The exam may offer "eliminate the risk" as an option — it is always wrong. The correct options are mitigate, transfer, accept, or avoid.</li>
+      <li><strong>Residual risk</strong> is the risk remaining AFTER controls are applied. It is always non-zero.</li>
+      <li><strong>Vulnerability is not the same as a threat.</strong> A vulnerability is a weakness; a threat exploits that weakness.</li>
+    </ul></div>
+    <div class="item-content warning"><strong>⚠️ Threat ≠ Vulnerability ≠ Risk:</strong><br>
+    Threat = the aggressor or event that could cause harm<br>
+    Vulnerability = the weakness that could be exploited<br>
+    Risk = the probability that the threat exploits the vulnerability × impact<br>
+    The exam tests this distinction repeatedly. A locked door (control) reduces risk but doesn't eliminate the threat.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Risk Relationship Chain: "TAV → Risk → Impact"</strong><br>
+    <strong>T</strong>hreat exploits <strong>V</strong>ulnerability in an <strong>A</strong>sset → Creates <strong>Risk</strong> → Risk materialises → <strong>Impact</strong><br>
+    Controls break any link in this chain to reduce risk.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST RMF 7 Steps: "PC-SIAAM"</strong><br>
+    <strong>P</strong>repare → <strong>C</strong>ategorise → <strong>S</strong>elect → <strong>I</strong>mplement → <strong>A</strong>ssess → <strong>A</strong>uthorise → <strong>M</strong>onitor<br>
+    Memory hook: <em>"Please Consider Security Is Always A Must"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Core Risk Terms Chain: "TAV-RIC"</strong><br>
+    <strong>T</strong>hreat exploits → <strong>A</strong>sset's → <strong>V</strong>ulnerability → <strong>R</strong>isk × <strong>I</strong>mpact = Harm → Reduce with <strong>C</strong>ontrols<br>
+    Or: <em>"Threats Attack Vulnerable things, creating Risks with Impacts, Countered by controls"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Risk Cannot Be Eliminated:</strong><br>
+    Zero risk is impossible in any real system. The correct goal is risk management (reduce to acceptable level), not risk elimination. Always choose: Mitigate / Transfer / Accept / Avoid — never "eliminate."</div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST RMF Steps: "Please Consider Security Is Always A Must"</strong><br>
+    <strong>P</strong>repare, <strong>C</strong>ategorise, <strong>S</strong>elect, <strong>I</strong>mplement, <strong>A</strong>ssess, <strong>A</strong>uthorise, <strong>M</strong>onitor</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Risk Appetite Hierarchy:</strong><br>
+    <strong>CAPACITY</strong> (maximum the org can survive) > <strong>TOLERANCE</strong> (acceptable variation) > <strong>APPETITE</strong> (desired level)<br>
+    Think of a glass of water: Capacity = size of the glass; Tolerance = how full before it's uncomfortable; Appetite = how full you want it.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 10: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Critical Exam Fact:</strong> You MUST memorise: <strong>SLE = AV × EF</strong> and <strong>ALE = SLE × ARO</strong>. These two formulas and their components are tested heavily. The exam will give you values and ask you to calculate SLE, ALE, residual ALE, or determine whether a control is worth purchasing.</div>
+    <div class="item-content warning"><strong>⚠️ CBA Doesn't Tell the Whole Story:</strong><br>
+    Some controls are required by law or regulation regardless of CBA. A negative CBA doesn't mean "skip the control" if compliance demands it. CBA is a financial tool, not the final word on whether to implement a control.</div>
+    <div class="item-content warning"><strong>⚠️ EF is a Decimal, Not a Whole Number:</strong><br>
+    EF = 50% should be entered as 0.50 in calculations, not as 50.<br>
+    SLE = $400,000 × 0.50 = $200,000 ✓<br>
+    SLE = $400,000 × 50 = $20,000,000 ✗ (wrong — 50× not 50%)<br>
+    Always convert percentages to decimals before multiplying!</div>
+    <div class="item-content warning"><strong>⚠️ ALE Is Annualised, Not Per-Event:</strong><br>
+    ALE is what you expect to LOSE PER YEAR on average. It's not what you'll lose in any single year — some years may see no events, others may see multiple. ALE is an actuarial average used for budget planning and control justification.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 The Quantitative Chain — memorise left to right:</strong><br>
+    <strong>AV × EF = SLE</strong><br>
+    <strong>SLE × ARO = ALE</strong><br>
+    Full chain: AV → (×EF) → SLE → (×ARO) → ALE<br>
+    Memory hook: <em>"Assets Exposed Suffer Losses Annually"</em><br>
+    AV × EF = SLE | SLE × ARO = ALE</div>
+    <div class="item-content mnemonic-item"><strong>🧠 The ALE Formula Chain — The Most Important CISSP Formulas:</strong><br>
+    Step 1: <strong>AV × EF = SLE</strong> (how bad is one hit?)<br>
+    Step 2: <strong>SLE × ARO = ALE</strong> (how often does it happen × how bad = yearly cost)<br>
+    <br>
+    Think of it as: <em>Asset × Exposure → Single Loss → × Annual Rate → Annual Loss</em><br>
+    Memory hook: <em>"Avoid Every Single Awful Risk Always" → AV × EF = SLE × ARO = ALE</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 CBA Decision Rule:</strong><br>
+    ALE(before) – ALE(after) = Annual Value of Control<br>
+    If Annual Value > Cost of Control → <strong>BUY THE CONTROL</strong><br>
+    If Annual Value &lt; Cost of Control → <strong>QUESTION the investment</strong> (unless legally required)<br>
+    Memory hook: <em>"Does the control SAVE more than it COSTS?"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 ARO Values to Know:</strong><br>
+    ARO = 1 → once per year<br>
+    ARO = 0.5 → once every 2 years<br>
+    ARO = 0.1 → once every 10 years<br>
+    ARO = 10 → 10 times per year<br>
+    ARO is always times/year — not a probability percentage!</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 11: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Qualitative Scores Are NOT Dollar Values:</strong><br>
+    A qualitative risk score of "4" does NOT mean $4 or $4 million. It means "high risk" on whatever scale your organisation uses. Organisations must define their scales clearly and consistently for qualitative analysis to be meaningful and comparable across assessments.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Delphi = "Anonymous Iterative Expert Consensus"</strong><br>
+    Key words: <strong>Anonymous</strong> (no one knows who said what) + <strong>Iterative</strong> (multiple rounds) + <strong>Expert</strong> (subject matter experts) + <strong>Consensus</strong> (goal is agreement)<br>
+    Memory hook: <em>"The Oracle at Delphi gave wisdom anonymously through repeated consultation"</em><br>
+    Exam trigger: "consensus without group influence" → always Delphi</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Risk Matrix Zones — "AMHC" (traffic light + one):</strong><br>
+    🟢 <strong>A</strong>ccept → Low scores (1–4)<br>
+    🟡 <strong>M</strong>onitor/Mitigate → Medium scores (5–10)<br>
+    🟠 <strong>H</strong>igh priority mitigate → High scores (11–16)<br>
+    🔴 <strong>C</strong>ritical immediate action → Critical scores (17–25)<br>
+    Memory: <em>"Always Monitor High-risk Critical items"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Qualitative vs. Quantitative Quick Decision:</strong><br>
+    Need <strong>DOLLARS</strong> → Use <strong>Quantitative</strong> (ALE formulas)<br>
+    Need <strong>PRIORITISATION</strong> quickly → Use <strong>Qualitative</strong> (matrix)<br>
+    Need <strong>CONSENSUS</strong> without bias → Use <strong>Delphi</strong><br>
+    Need <strong>INITIAL broad scan</strong> → Use <strong>Brainstorming</strong></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 12: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Top Exam Traps:</strong><br>
+    1. Risk Transfer does NOT eliminate risk or legal liability — you remain accountable<br>
+    2. Risk Acceptance requires FORMAL, DOCUMENTED management decision — not inaction or neglect<br>
+    3. "Risk Avoidance" means stopping the activity that creates the risk — not avoiding the risk by adding controls</div>
+    <div class="item-content warning"><strong>⚠️ Critical: Transfer ≠ Liability Elimination</strong><br>
+    Purchasing cyber insurance or outsourcing security does NOT remove legal and regulatory accountability. An insurance policy pays money — it doesn't prevent a regulatory fine, class-action lawsuit, or reputational damage. The organisation remains the responsible party under GDPR, HIPAA, PCI-DSS, etc. "You cannot outsource accountability."</div>
+    <div class="item-content warning"><strong>⚠️ Acceptance MUST Be Formal:</strong><br>
+    Risk acceptance should be formally documented with: (1) description of the risk, (2) why it's being accepted, (3) residual risk level, (4) signature of the accountable manager/executive, (5) review/expiry date. Informal acceptance = negligence risk.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 The Four Responses — "MATA":</strong><br>
+    <strong>M</strong>itigate → Reduce it<br>
+    <strong>A</strong>ccept → Live with it<br>
+    <strong>T</strong>ransfer → Pay someone to absorb the financial hit<br>
+    <strong>A</strong>void → Stop doing the thing that creates it<br>
+    Memory sentence: <em>"My Attitude Toward (risk) Actually (determines outcome)"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Control Functions — "PDCRDC":</strong><br>
+    <strong>P</strong>reventive → Stop it before<br>
+    <strong>D</strong>etective → Find it happening<br>
+    <strong>C</strong>orrective → Fix it after<br>
+    <strong>R</strong>ecovery → Restore after<br>
+    <strong>D</strong>eterrent → Discourage it<br>
+    <strong>C</strong>ompensating → Alternative when primary can't work<br>
+    Memory: <em>"Please Don't Cry — Rather Deter and Compensate"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Control Categories — "ATP":</strong><br>
+    <strong>A</strong>dministrative (people + policies)<br>
+    <strong>T</strong>echnical (logical / systems)<br>
+    <strong>P</strong>hysical (real-world barriers)<br>
+    Exam tiebreaker: If a control involves a policy or procedure → Administrative. If it's a device or software → Technical. If you can touch it → Physical.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Transfer vs. Accept Confusion:</strong><br>
+    Transfer = You STILL OWN the risk, you shared the FINANCIAL PAIN<br>
+    Accept = You KNOW the risk, you chose to DO NOTHING (but documented it)<br>
+    <em>"Transfer your wallet, not your guilt"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 13: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Top Exam Traps:</strong><br>
+    1. STRIDE is for identifying threats <em>to software/systems</em> — it is not a risk scoring method<br>
+    2. PASTA is business/attacker-centric — often described as the most complete methodology<br>
+    3. DREAD is largely deprecated in industry (Microsoft stopped using it ~2008) — but still occasionally tested<br>
+    4. MITRE ATT&amp;CK describes REAL attacker TTPs — it is not a design-time framework, it's used for detection and response</div>
+    <div class="item-content mnemonic-item"><strong>🧠 STRIDE — "STRIDE is what attackers do to violate security properties":</strong><br>
+    <strong>S</strong>poofing → violates Authentication<br>
+    <strong>T</strong>ampering → violates Integrity<br>
+    <strong>R</strong>epudiation → violates Non-repudiation<br>
+    <strong>I</strong>nformation Disclosure → violates Confidentiality<br>
+    <strong>D</strong>enial of Service → violates Availability<br>
+    <strong>E</strong>levation of Privilege → violates Authorisation<br>
+    Memory sentence: <em>"Six Threats Really Irritate Diligent Experts"</em><br>
+    Note: STRIDE maps almost perfectly to CIA Triad + Authentication + Authorisation + Non-repudiation</div>
+    <div class="item-content mnemonic-item"><strong>🧠 PASTA Stages — "DO TA VV AR":</strong><br>
+    <strong>D</strong>efine objectives → <strong>O</strong>bjective setting<br>
+    <strong>T</strong>echnical scope → <strong>A</strong>pplication decomposition<br>
+    <strong>V</strong>ulnerability analysis → <strong>V</strong>alue (threat) analysis<br>
+    <strong>A</strong>ttack modeling → <strong>R</strong>isk assessment<br>
+    Simpler: PASTA = <em>"Purpose: Align Technical Security to Attacker goals"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Framework Selection Quick Guide:</strong><br>
+    Software component threat identification → <strong>STRIDE</strong><br>
+    Business-risk-aligned comprehensive analysis → <strong>PASTA</strong><br>
+    Visualise compound attack paths → <strong>Attack Trees</strong><br>
+    Describe/detect real attacker TTPs → <strong>MITRE ATT&amp;CK</strong><br>
+    Privacy-specific threats → <strong>LINDDUN</strong><br>
+    Deprecated scoring but still tested → <strong>DREAD</strong></div>
+    <div class="item-content mnemonic-item"><strong>🧠 ATT&amp;CK Hierarchy — "Tactics Tell Techniques, Procedures Prove":</strong><br>
+    <strong>T</strong>actic = Why (goal) → <strong>T</strong>echnique = How (method) → <strong>P</strong>rocedure = Who did what specifically<br>
+    Think: Military analogy — Tactic is "capture the hill" / Technique is "flanking manoeuvre" / Procedure is "3rd platoon went left"</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 14: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Top Exam Traps:</strong><br>
+    1. Outsourcing security to a vendor does NOT transfer legal liability (same principle as Risk Transfer — Day 12)<br>
+    2. SOC 2 Type I describes controls at a point in time; SOC 2 Type II covers a period (6–12 months) — Type II is far stronger assurance<br>
+    3. Fourth-party risk = your vendor's vendor — most organisations significantly underestimate this exposure</div>
+    <div class="item-content warning"><strong>⚠️ Hardware Tampering Is Extremely Difficult to Detect:</strong> Unlike software, hardware-level implants are not easily removed, cannot be patched, and are not detected by traditional security tools. Mitigation relies on supply chain vetting, trusted hardware roots, and verified boot processes rather than post-deployment detection.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Vendor Due Diligence Options — "SPARR":</strong><br>
+    <strong>S</strong>ecurity questionnaire (self-attested)<br>
+    <strong>P</strong>enetration test results<br>
+    <strong>A</strong>udit (right-to-audit clause or third-party audit)<br>
+    <strong>R</strong>eport (SOC 2 Type II — strongest)<br>
+    <strong>R</strong>eputation / references<br>
+    Prioritise in reverse order: References → Reports → Audit → Pen Test → Questionnaire (questionnaire is weakest)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 SOC 2 Type I vs. II — Simple distinction:</strong><br>
+    Type <strong>I</strong> = <strong>I</strong>nstant snapshot (design only, one point in time)<br>
+    Type <strong>II</strong> = over a period of <strong>TI</strong>me (6–12 months of operational effectiveness)<br>
+    Exam rule: When asked "which provides stronger assurance?" → always Type II</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Vendor Lifecycle — "SAD OMT":</strong><br>
+    <strong>S</strong>election → <strong>A</strong>greement (contract) → <strong>D</strong>ue Diligence → <strong>O</strong>nboarding → <strong>M</strong>onitoring → <strong>T</strong>ermination<br>
+    Memory: <em>"Sadly All Deals Offer Marginal Transparency"</em> (reflects realistic vendor security challenges)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 SolarWinds Key Facts for Exam Context:</strong><br>
+    Year: 2020 | Vector: Build pipeline compromise<br>
+    Malware: SUNBURST | Impact: ~18,000 organisations<br>
+    Response: EO 14028 → SBOM mandate<br>
+    Lesson: Trusted software update = attacker vector when build system is compromised</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Third Party vs. Fourth Party:</strong><br>
+    Your vendor = Third party (1 degree away)<br>
+    Your vendor's vendor = Fourth party (2 degrees away)<br>
+    <em>"You can see your neighbour. You can't always see your neighbour's supplier."</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 15: Overview</div>
+    <div class="item-content warning"><strong>⚠️ Top Exam Traps:</strong><br>
+    1. BCP is NOT just about IT — it covers people, facilities, processes, AND technology<br>
+    2. MTD ≥ RTO + WRT (always — if RTO+WRT exceeds MTD, the business fails before it recovers)<br>
+    3. RPO determines backup frequency — it is NOT the same as RTO<br>
+    4. Full Interruption Testing is the most realistic but also most risky — used rarely and only for mature programmes<br>
+    5. Senior management must be the BCP Project Sponsor — IT cannot own this</div>
+    <div class="item-content warning"><strong>⚠️ Senior Management Must Sponsor BCP:</strong> The BCP must have executive sponsorship — it cannot be driven solely by IT. Senior management must: commit resources, demonstrate leadership commitment, and accept residual risk. An IT-only BCP will fail the CISSP exam as the correct answer.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 BCP vs. DRP — "BCP = Business Keeps Processing; DRP = Data and tech Recovered Properly":</strong><br>
+    BCP = keeps the WHOLE BUSINESS running (people, facilities, processes)<br>
+    DRP = restores IT SYSTEMS after the event<br>
+    DRP is a SUBSET of BCP — never the other way around</div>
+    <div class="item-content mnemonic-item"><strong>🧠 MTD vs. RTO vs. RPO — "The Three Clocks":</strong><br>
+    <strong>MTD</strong> = the DEADLINE clock — how long before the business dies (set by management)<br>
+    <strong>RTO</strong> = the RECOVERY clock — how fast IT must bring systems back (must beat MTD)<br>
+    <strong>RPO</strong> = the DATA LOSS clock — how far back in time can we roll (determines backup frequency)<br>
+    <strong>WRT</strong> = the VALIDATION clock — time to confirm systems work after restore<br>
+    Critical formula: <strong>MTD ≥ RTO + WRT</strong> — if violated, recovery plan is inadequate</div>
+    <div class="item-content mnemonic-item"><strong>🧠 BCP Lifecycle — "PI BRSD TM":</strong><br>
+    <strong>P</strong>roject initiation → <strong>I</strong>mpact analysis (BIA) → <strong>B</strong>usiness risk assessment → <strong>S</strong>trategy development → <strong>D</strong>evelopment of plans → <strong>T</strong>esting → <strong>M</strong>aintenance<br>
+    Simpler: <em>"Please Investigate Before Strategy — Document, Test, Maintain"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 BCP Test Types — In order: "Clean Tables Simulate Perfect Fires":</strong><br>
+    <strong>C</strong>hecklist → <strong>T</strong>abletop → <strong>S</strong>imulation → <strong>P</strong>arallel → <strong>F</strong>ull Interruption<br>
+    Each step is more disruptive AND more realistic than the last.<br>
+    Only run Full Interruption when you are confident in the plan — it intentionally takes production offline.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 RPO Drives Backup Frequency — easy anchor:</strong><br>
+    RPO = 24 hours → backup daily<br>
+    RPO = 4 hours → backup every 4 hours<br>
+    RPO = 0 → real-time synchronous replication (most expensive)<br>
+    <em>"RPO tells you how old your oldest acceptable data can be when disaster strikes"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 16: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> Candidates confuse RTO with MTD. RTO is the <em>target</em> recovery time (what you plan to achieve). MTD is the <em>limit</em> (how long the business can survive). RTO must always be less than MTD. Also: recovery is complete only when WRT finishes, so RTO + WRT ≤ MTD is the correct constraint.</div>
+    <div class="item-content warning"><strong>⚠️ Common Confusion:</strong> RPO is not "how often do we back up" — it's "how much data loss can the business tolerate." Backup frequency is the <em>mechanism</em> to achieve the RPO requirement. The RPO requirement comes first; the backup design follows.</div>
+    <div class="item-content warning"><strong>⚠️ Critical Risk:</strong> Single Points of Failure (SPOFs) are the most dangerous finding in a BIA. An SPOF is any person, process, system, or third party whose failure immediately impacts a critical function with no redundant path. Every SPOF identified in the BIA must be either eliminated through redundancy or explicitly accepted as residual risk by senior management.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — RPO Direction:</strong> RPO is the maximum data loss measured <em>backwards in time</em> from the recovery point. An RPO of 4 hours means you can lose at most 4 hours of data — so the last backup must be no older than 4 hours. Many candidates read this backwards.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 MTD vs RTO — The Bridge Analogy:</strong><br>
+    MTD = the bridge's weight limit (maximum before it collapses — the business cannot go beyond this).<br>
+    RTO = how fast your truck (IT recovery) must cross the bridge.<br>
+    Your truck (RTO) + unloading time (WRT) must finish before the bridge limit (MTD) is reached.<br>
+    <strong>RTO + WRT ≤ MTD</strong> — Always.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 BIA Metrics Order — "Mr. Wolf": M·R·R·W</strong><br>
+    <strong>M</strong>TD → maximum time the business can survive<br>
+    <strong>R</strong>TO → time target to restore the system<br>
+    <strong>R</strong>PO → oldest data acceptable on recovery<br>
+    <strong>W</strong>RT → time to reconcile after restore<br>
+    MRR·W = "Mr. Wolf" (he fixes things fast — just like your BCP should!)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 MTBF vs MTTR:</strong><br>
+    MTBF = "**B**reaks **B**etween **F**ailures" → Higher is Better (more time between breaks)<br>
+    MTTR = "**R**epair **R**apidly" → Lower is Better (fix it fast)<br>
+    <em>You WANT high MTBF and low MTTR.</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Availability = MTBF ÷ (MTBF + MTTR)</strong><br>
+    "Divide the good time by all the time" — uptime divided by (uptime + downtime)</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 17: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam often asks about the FIRST step when a disaster is declared. The answer is almost always: ensure the safety of personnel. Never start recovering systems before accounting for human safety.</div>
+    <div class="item-content warning"><strong>⚠️ Reciprocal Agreement Weakness:</strong> Reciprocal agreements sound attractive but are rarely reliable. Both organisations may be victims of the same regional disaster; the partner may not have sufficient spare capacity; the agreement may not be regularly tested. The exam often uses reciprocal agreements as a tempting-but-wrong answer when reliability is required.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Hot Site ≠ Always Correct:</strong> Hot sites are expensive. If the business's MTD is 72 hours, a cold site may be sufficient and more cost-effective. The correct recovery strategy is the CHEAPEST one that still satisfies the MTD, RTO, and RPO requirements. Don't automatically choose hot site just because it sounds more secure.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Recovery Site Temperatures: HOT→WARM→COLD = READY→SOON→LATER</strong><br>
+    Hot = Ready now (minutes/hours) — expensive<br>
+    Warm = Soon (hours/days) — medium cost<br>
+    Cold = Later (days/weeks) — cheap but slow<br>
+    Temperature matches urgency: hotter = faster = more expensive.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Plan Components — "BCDCO−I":</strong><br>
+    <strong>B</strong>CP (master plan) → <strong>D</strong>RP (IT recovery) → <strong>C</strong>risis Comms → <strong>O</strong>EP (building emergency) → <strong>C</strong>OOP (government ops) → <strong>I</strong>RP (cyber incidents)<br>
+    "Best Done Carefully — Otherwise Costly Indeed"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 BCP Testing Ladder (low to high risk):</strong><br>
+    Checklist → Tabletop → Simulation → Parallel → Full Interruption<br>
+    "Can This Stop Production? Full!"</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 18: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam frequently asks about the FIRST action when an employee is terminated or suspected of malicious activity. The answer almost always involves revoking access BEFORE any other action (before escorting out, before HR meeting in some models). Know the sequence.</div>
+    <div class="item-content warning"><strong>⚠️ Critical Sequence:</strong> When an employee exits (voluntary or involuntary), the FIRST security action is ALWAYS to disable/revoke all access (logical and physical). This must happen before or simultaneously with the HR exit meeting — not after.</div>
+    <div class="item-content warning"><strong>⚠️ Collusion Risk:</strong> SoD prevents single-person fraud but cannot prevent collusion — where two or more people cooperate to circumvent controls. Audit trails, monitoring, and job rotation help detect collusion over time. No single control eliminates all insider fraud risk.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Offboarding Sequence:</strong> The CISSP exam may ask about the FIRST action when a key employee resigns or is terminated. The correct answer is REVOKE ACCESS (logical and physical) — not "notify the HR department," not "conduct an exit interview," not "retrieve equipment." Access revocation is first, always.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Employment Lifecycle Controls — "HEAPS":</strong><br>
+    <strong>H</strong>ire (background screening before access)<br>
+    <strong>E</strong>mployment agreements (NDA, AUP, NCA)<br>
+    <strong>A</strong>ccess (least privilege, need to know, SoD from day one)<br>
+    <strong>P</strong>ractice (mandatory vacations, job rotation during employment)<br>
+    <strong>S</strong>eparation (revoke access immediately upon departure)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 SoD vs. Rotation vs. Vacation:</strong><br>
+    SoD = Prevents fraud by requiring TWO people for sensitive actions (simultaneous control)<br>
+    Job Rotation = Detects fraud by REPLACING the person periodically (eventual exposure)<br>
+    Mandatory Vacation = Detects fraud by REMOVING the person temporarily (absence-triggered exposure)<br>
+    All three are complementary — layered fraud detection.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Least Privilege vs. Need to Know:</strong><br>
+    Least Privilege = WHAT you can DO (permissions: read, write, execute, delete)<br>
+    Need to Know = WHAT you can SEE (information: this file, this project, this classification)<br>
+    LP = verbs; NtK = nouns</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 19: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The CISSP exam often asks what BEST addresses human error or social engineering. The correct answer is almost always <em>security awareness training</em> (not a technical control like email filtering). Training addresses root cause; technical controls are compensating. When the scenario involves user behaviour, lean toward training as the answer.</div>
+    <div class="item-content warning"><strong>⚠️ Ethical Consideration:</strong> Phishing simulations using highly distressing pretexts (e.g., impersonating HR to announce fake layoffs) can damage employee morale and organisational trust. The CISSP exam expects professional, ethically designed programmes. Effective awareness does not require emotional manipulation of employees.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Three Tiers — "ATE":</strong><br>
+    <strong>A</strong>wareness — recognition and behaviour change — EVERYONE<br>
+    <strong>T</strong>raining — skills for role-specific tasks — ROLE GROUPS<br>
+    <strong>E</strong>ducation — deep understanding — SECURITY PROFESSIONALS<br>
+    Everything escalates: A → T → E (broader audience → narrower, deeper expertise)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Best Measure of Effectiveness:</strong><br>
+    Completion rate = did they WATCH it? (activity measure)<br>
+    Click rate / report rate = did it CHANGE BEHAVIOUR? (outcome measure)<br>
+    CISSP = outcome measures beat activity measures every time</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Social Engineering Vectors — "PVSTB":</strong><br>
+    <strong>P</strong>hishing (email mass) / Pretexting (fabricated scenario)<br>
+    <strong>V</strong>ishing (voice) / Vishing variants (smishing = SMS)<br>
+    <strong>S</strong>pear (targeted email) / Whaling (spear for VIPs)<br>
+    <strong>T</strong>ailgating (physical follow-through)<br>
+    <strong>B</strong>aiting (USB drop)</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 20: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Remember:</strong> "Ignore" is not a valid risk response. Accepting risk is a conscious, documented decision made by management. Ignoring risk is a failure of governance. The CISSP exam will not accept "ignore" as an answer — the closest valid response is "accept" (with documented management sign-off).</div>
+    <div class="item-content warning"><strong>⚠️ Trap 1 — Ignore ≠ Accept:</strong> "Ignore" is not a valid risk response. The correct term is "Accept" — a documented management decision to bear the risk. Don't confuse the two.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 2 — Guideline vs. Standard:</strong> Guidelines are optional recommendations; Standards are mandatory requirements. "Best practice guidance documents" are guidelines; "You MUST use AES-256" is a standard.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 3 — Due Care vs. Due Diligence:</strong> Due Care = acting (implementing controls); Due Diligence = researching and monitoring. Confusion on these terms appears frequently.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 4 — RTO vs. MTD:</strong> RTO must be less than MTD. RTO + WRT ≤ MTD. If RTO equals MTD, there is zero tolerance for any data recovery delay (WRT = 0). This often trips up candidates.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 5 — Hot Site Speed:</strong> Hot sites can restore service in hours (or minutes for immediate failover). The exam sometimes implies they're "instantaneous" — in practice, some configuration, testing, and DNS changes are still needed, so "hours" not "seconds."</div>
+    <div class="item-content warning"><strong>⚠️ Trap 6 — First Action on Termination:</strong> Always revoke access first — before HR meeting, before exit interview, before equipment retrieval (especially for hostile terminations).</div>
+  </div>
+
+</div>
+
+
+<div class="domain-section" id="domain-2">
+  <div class="domain-header">
+    <h2>Domain 2: Asset Security</h2>
+    <div class="info">13 days with identified traps &amp; concepts</div>
+  </div>
+
+  <div class="day-item">
+    <div class="day-title">Day 21: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The data OWNER sets the classification — not the custodian, not the security team, not the user. The custodian implements the controls that the classification requires. This role confusion is one of the most common Domain 2 exam errors.</div>
+    <div class="item-content warning"><strong>⚠️ Remember:</strong> Only the data owner can approve reclassification or declassification. Custodians implement the resulting change in controls; they don't make the classification decision.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Classification Process — "I-O-E-A-L-I-R":</strong><br>
+    <strong>I</strong>dentify assets (build inventory)<br>
+    <strong>O</strong>wnership assigned (who is responsible?)<br>
+    <strong>E</strong>valuate sensitivity (what are the criteria?)<br>
+    <strong>A</strong>ssign classification level<br>
+    <strong>L</strong>abel and mark all copies<br>
+    <strong>I</strong>mplement required controls<br>
+    <strong>R</strong>eview and maintain periodically</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Owner vs. Custodian:</strong><br>
+    Owner = DECIDES (classification level, who gets access, retention period)<br>
+    Custodian = DOES IT (implements controls, runs backups, applies patches)<br>
+    Think: Business Owner of a building DECIDES what rooms need locks; Facility Manager INSTALLS the locks.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 22: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The CISSP exam mixes government and commercial classification questions within the same domain. You must understand BOTH schemes and be able to identify which context a question is using. Never assume a classification label from one scheme maps exactly to another by name.</div>
+    <div class="item-content warning"><strong>⚠️ Critical Trap — "Confidential" Means Different Things:</strong> In government classification, "Confidential" is the THIRD (lowest formal) tier — below Secret and Top Secret. In commercial classification, "Confidential" is typically the HIGHEST tier. The CISSP exam exploits this naming collision. Always determine which classification scheme applies before answering.</div>
+    <div class="item-content warning"><strong>⚠️ Never Forget:</strong> Government "Confidential" = LOW tier (3rd of 3 formal levels). Commercial "Confidential" = HIGH tier (1st of 4 levels). Same word; opposite ends of their respective scales.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Government Levels — "TS-S-C-SBU-U":</strong><br>
+    <strong>T</strong>op Secret → Exceptionally grave damage<br>
+    <strong>S</strong>ecret → Serious damage<br>
+    <strong>C</strong>onfidential → Damage<br>
+    <strong>SBU</strong> → Sensitive But Unclassified (protected but not formally classified)<br>
+    <strong>U</strong>nclassified → Free for public<br>
+    Memory: "The Secret Cipher Saves Unfinished Wars"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Commercial Levels — "C-P-S-P":</strong><br>
+    <strong>C</strong>onfidential/Restricted → TOP (trade secrets, M&amp;A plans)<br>
+    <strong>P</strong>rivate → HR records, salary, personal health<br>
+    <strong>S</strong>ensitive → Internal reports, budgets<br>
+    <strong>P</strong>ublic → Press releases, marketing<br>
+    Memory: "Can Pretty Sheep Pose?" (Confidential, Private, Sensitive, Public)</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 23: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Most Common Exam Trap:</strong> Candidates confuse the Data Owner and Data Custodian. Remember: <em>Owner Decides; Custodian Does</em>. Classification, access rights, and retention decisions belong to the owner. Implementation of controls belongs to the custodian.</div>
+    <div class="item-content warning"><strong>⚠️ Critical Point — Joint Controllers:</strong> When two or more organisations jointly determine the purposes and means of processing, they are Joint Controllers and both bear controller obligations. This is a frequent GDPR compliance question for organisations that share personal data for joint marketing or research.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Owner vs. Custodian — THE Big Distinction:</strong><br>
+    O = Owner = DECIDES: classification, access rights, retention, declassification<br>
+    C = Custodian = DOES IT: encryption, backups, patches, audit logs, destruction<br>
+    Think: O = "Originates policy"; C = "Carries it out"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 All Roles — "O-C-S-S-U":</strong><br>
+    <strong>O</strong>wner — sets classification and access policy (senior management)<br>
+    <strong>C</strong>ustodian — implements technical controls (IT ops)<br>
+    <strong>S</strong>teward — ensures data quality and governance (business analyst / data governance)<br>
+    <strong>S</strong>ystem owner — owns the system/platform (IT manager)<br>
+    <strong>U</strong>ser — follows policies; accesses only what is authorised</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR Controller vs. Processor:</strong><br>
+    Controller = Calls the shots (decides WHY and HOW data is processed)<br>
+    Processor = Processes per instructions (does what the controller says)<br>
+    Your cloud provider stores YOUR customer data → They are the Processor; YOU are the Controller</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 24: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> Different frameworks use different lifecycle models (some have 4 stages, some 6, some 7). CISSP most often uses the 6-stage model: Create → Store → Use → Share → Archive → Destroy. Some sources merge Share and Transmit into one stage.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> Standard OS deletion (Delete key / recycle bin emptying) does NOT destroy data — it only removes the file system pointer. The data remains on disk and is recoverable by forensic tools. Secure destruction requires overwriting, degaussing, or physical destruction.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 The Six Stages — "Can Somebody Use Some Archives Daily?"</strong><br>
+    <strong>C</strong>reate → <strong>S</strong>tore → <strong>U</strong>se → <strong>S</strong>hare → <strong>A</strong>rchive → <strong>D</strong>estroy</div>
+    <div class="item-content mnemonic-item"><strong>🧠 What Protects Data In Each State?</strong><br>
+    At REST → Encryption at rest (AES-256, FDE)<br>
+    In TRANSIT → TLS, IPSec, VPN<br>
+    In USE → Access controls, DLP, secure enclaves<br>
+    "REST needs a blanket (encryption), TRANSIT needs a tunnel (TLS), USE needs a guard (access control)"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR on Lifecycle:</strong><br>
+    Collect only what you need (minimisation)<br>
+    Use only for the purpose said (purpose limitation)<br>
+    Delete when done (storage limitation)</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 25: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> Stricter classification = stricter handling at every stage (transmission, storage, disposal). A common exam trap presents handling procedures that are appropriate for a lower classification applied to a higher classification — and asks you to identify the violation.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Marking Purpose:</strong><br>
+    "If it's not marked, it's not managed." — Unmarked sensitive data is a governance failure. Classification without marking is classification in name only.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Physical Handling Rules — "Clean, Clear, Lock, Shred":</strong><br>
+    <strong>Clean</strong> desk — nothing sensitive left in the open<br>
+    <strong>Clear</strong> screen — lock when away<br>
+    <strong>Lock</strong> cabinets — sensitive material secured when not in use<br>
+    <strong>Shred</strong> — all sensitive waste destroyed, not binned</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Media Rules — "No Random USB":</strong><br>
+    <strong>N</strong>o unmanaged USB drives with sensitive data<br>
+    <strong>R</strong>esidency requirements — know where data can and cannot be stored<br>
+    <strong>U</strong>se approved encrypted media only<br>
+    <strong>S</strong>anitise before reuse, disposal, or any reclassification<br>
+    <strong>B</strong>ackups encrypted at the same level as the source data</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 26: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ #1 Exam Trap:</strong> Anonymisation vs. Pseudonymisation. After true anonymisation, GDPR does NOT apply. After pseudonymisation, GDPR STILL applies — the data is still considered personal data because re-identification is theoretically possible.</div>
+    <div class="item-content warning"><strong>⚠️ Re-identification Risk:</strong> What is anonymised today may be re-identifiable tomorrow with new techniques or datasets. The Netflix Prize dataset (anonymised by removing names) was partially re-identified by researchers who combined it with public IMDB reviews. True anonymisation requires ongoing assessment.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Anonymisation vs. Pseudonymisation — The GDPR Test:</strong><br>
+    Anonymisation = NO identity link possible → GDPR does NOT apply<br>
+    Pseudonymisation = Identity COULD be restored → GDPR STILL applies<br>
+    "Anon = Gone. Pseudo = Still there (but hidden)."</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Masking vs. Tokenisation — "Format vs. Vault":</strong><br>
+    Masking = Visual hiding — show only partial data (****-1234) — original data unchanged in storage<br>
+    Tokenisation = Replacement — store random token, original value separated into vault<br>
+    "Masking hides the view; Tokenisation changes the value"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 PbD Principle 2 — Privacy as Default:</strong><br>
+    "Opt-IN to less privacy, opt-OUT of more privacy is wrong."<br>
+    The default is maximum protection. Users choose to share — not choose not to share.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 27: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> When litigation is "reasonably anticipated," the legal hold obligation activates — even before formal legal proceedings begin. Destroying data after this point is called spoliation and can result in severe legal sanctions including adverse inference instructions to a jury.</div>
+    <div class="item-content warning"><strong>⚠️ Spoliation:</strong> The intentional or negligent destruction, alteration, or withholding of evidence that is subject to a legal hold. Penalties include: adverse inference jury instructions (jury told to assume destroyed evidence was unfavourable), monetary sanctions, dismissal of claims, default judgement against the spoliating party, and potential criminal obstruction of justice charges.</div>
+    <div class="item-content warning"><strong>⚠️ Degaussing Limitation:</strong> Degaussing ONLY works on magnetic media. It has absolutely no effect on SSDs, USB flash drives, or optical discs (CDs/DVDs). A degaussed SSD may still contain all its data intact. This is a heavily tested CISSP exam point.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Regulatory Retention Numbers:</strong><br>
+    SOX = <strong>7</strong> years ("Seven-OX")<br>
+    HIPAA = <strong>6</strong> years ("HIPAA has 5 letters, +1 = 6")<br>
+    PCI audit logs = <strong>1</strong> year (3 months hot / 9 months warm)<br>
+    Remember: "SOX=7, HIPAA=6, PCI=1"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Legal Hold Trigger:</strong><br>
+    "Anticipated = Activated" — The hold activates when litigation is <em>reasonably anticipated</em>, not when the lawsuit is filed. Destroying data after the anticipation point = Spoliation.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Degaussing Limitation:</strong><br>
+    "Degaussing only DEMAGNETISES" — It only affects magnetic media (spinning HDDs, tapes).<br>
+    SSD = flash memory = no magnetism → Degaussing does NOTHING to an SSD.</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 28: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> DRM and IRM are often confused. DRM is the general concept of digital content rights management (used for media protection). IRM is the enterprise-focused version for business documents. Also: watermarking proves ownership and traces leaks — it does NOT prevent copying.</div>
+    <div class="item-content warning"><strong>⚠️ Important Distinction:</strong> Watermarking does NOT prevent unauthorised copying or distribution. It identifies the source after the fact. For preventing distribution, use DRM/IRM. For proving source after a breach, use watermarking. These are complementary controls used together.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Access Control Models — "DAC = Discretionary (owner), MAC = Mandatory (system), RBAC = Role, ABAC = Attributes":</strong><br>
+    D = Discretionary = Data owner decides (most flexible, least restriction)<br>
+    M = Mandatory = Military / government (system enforces labels; most restrictive)<br>
+    R = Role = Enterprise standard (group-based, admin assigns)<br>
+    A = Attributes = Advanced / cloud / zero-trust (policy engine evaluates multiple factors)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 DRM vs. Watermarking — "Rights vs. Reveals":</strong><br>
+    DRM/IRM = Controls RIGHTS — prevents unauthorised copying, forwarding, printing<br>
+    Watermarking = REVEALS the source — proves who leaked it, after the fact<br>
+    "DRM stops the leak; Watermark names the leaker"</div>
+    <div class="item-content mnemonic-item"><strong>🧠 CASB = The Cloud Security Sheriff:</strong><br>
+    Visibility (what cloud services are used?)<br>
+    Data security (DLP in the cloud)<br>
+    Threat protection (anomalous behaviour)<br>
+    Compliance enforcement (no unencrypted PII uploads)</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 29: Unknown</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ Exam Trap</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ Exam Trap</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ Data in Use: The Hardest State to Protect</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 30: Unknown</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ #1 Exam Trap on This Topic</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ Degaussed HDD = Permanently Destroyed Drive</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ SSDs Are Not Like Spinning Disks</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ The Most-Tested Point on Sanitization</div>
+    <div class="item-content mnemonic-item"><div class="callout-title">🧠 Degaussing mnemonic: "Degaussing only works on D-isks that D-rop (spinning drives) and D-AT tapes"</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 31: Unknown</div>
+    <div class="item-content warning"><div class="callout-title">⚠️ Exam Trap</div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 32: Unknown</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The exam will test whether you can distinguish <strong>controller</strong> from <strong>processor</strong>. The controller determines the <em>purposes and means</em> of processing. A company using a cloud CRM is the controller; Salesforce is the processor. If the processor starts using data for its own purposes, it becomes a controller — and liable.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The <strong>Right to Erasure is not absolute</strong>. It does not apply when processing is necessary for exercising freedom of expression, compliance with a legal obligation, public health, archiving in the public interest, or establishment/exercise/defence of legal claims.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — DPO Conflict of Interest:</strong> The DPO <strong>cannot simultaneously be</strong> the CISO, IT Director, CEO, CFO, Head of HR, or Head of Marketing — because these roles determine purposes/means of processing, creating a conflict of interest. A common exam distractor claims the CISO should serve as DPO.</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap — Schrems II:</strong> The 2020 Schrems II ruling (CJEU) <strong>invalidated Privacy Shield</strong> and required organizations using SCCs to conduct <strong>Transfer Impact Assessments (TIAs)</strong> to evaluate whether the recipient country's laws undermine the protections offered by SCCs. Simply having SCCs is no longer sufficient — supplementary measures may be needed.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR Roles — "C-P-S-D-S":</strong><br>
+    <strong>C</strong>ontroller decides purpose → <strong>P</strong>rocessor follows instructions → <strong>S</strong>ubject owns the data → <strong>D</strong>PO oversees compliance → <strong>S</strong>upervisory Authority enforces<br><br>
+    Memory hook: <em>"Controller Commands; Processor Processes; Subject owns; DPO watches; SA enforces"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 7 GDPR Principles — "L-P-D-A-S-I-A":</strong><br>
+    <strong>L</strong>awfulness, <strong>P</strong>urpose limitation, <strong>D</strong>ata minimisation, <strong>A</strong>ccuracy, <strong>S</strong>torage limitation, <strong>I</strong>ntegrity &amp; Confidentiality, <strong>A</strong>ccountability<br><br>
+    Memory hook: <em>"Lawyers Prefer Data Accuracy — Securely, Isn't that Accountable?"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Data Subject Rights — "I ACCESS DP":</strong><br>
+    <strong>I</strong>nformed, <strong>A</strong>ccess, <strong>C</strong>orrection (rectification), <strong>C</strong>urtail (restrict), <strong>E</strong>rasure, <strong>S</strong>witching (portability), <strong>S</strong>top (object), <strong>D</strong>ecision-making (automated), <strong>P</strong>rofiling<br><br>
+    Memory hook: <em>"I ACCESS My Data Protection"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Breach Notification — "72 → SA; High Risk → Subject":</strong><br>
+    Controller notifies <strong>Supervisory Authority within 72 hours</strong> of awareness<br>
+    Processor notifies <strong>Controller without undue delay</strong><br>
+    Controller notifies <strong>Data Subjects without undue delay</strong> if high risk to rights/freedoms<br><br>
+    Memory hook: <em>"72 to the SA, ASAP to the Subject (if high risk)"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Controller vs. Processor — "Purpose Test":</strong><br>
+    Ask: <em>"Who decides WHY this data is processed?"</em> → That's the controller<br>
+    Ask: <em>"Who only does WHAT they're told with the data?"</em> → That's the processor<br>
+    If the processor starts deciding WHY → they become a controller</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Transfer Mechanisms — "A-S-B-D":</strong><br>
+    <strong>A</strong>dequacy decisions, <strong>S</strong>CCs, <strong>B</strong>CRs, <strong>D</strong>erogations<br><br>
+    Memory hook: <em>"A Safe Bridge for Data"</em></div>
+  </div>
+
+
+  <div class="day-item">
+    <div class="day-title">Day 33: Asset Security</div>
+    <div class="item-content warning"><strong>⚠️ Exam Trap:</strong> The <strong>Data Owner</strong> (not the Custodian, not IT) is ultimately responsible for classification. "Who is accountable?" = Data Owner — always a business executive.</div>
+    <div class="item-content warning"><strong>⚠️ Degaussing ≠ SSD:</strong> Degaussing only works on <strong>magnetic media</strong> (HDDs, tapes). For SSDs/flash: use <strong>cryptographic erasure</strong> or <strong>physical destruction</strong>.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 1 — Owner vs. Custodian:</strong> Owner classifies; Custodian implements. Owner is always a business exec. "Who is accountable?" = Owner.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 2 — Pseudonymization ≠ Anonymization:</strong> Pseudonymized data is still personal data under GDPR. Only anonymized data is outside GDPR scope.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 3 — Degaussing SSDs:</strong> Degaussing only works on magnetic media. SSDs need crypto-erasure or physical destruction.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 4 — DPO Conflict:</strong> DPO cannot also be CISO, IT Director, CEO, Head of HR/Marketing — these roles determine processing purposes.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 5 — Right to Erasure:</strong> Not absolute — exceptions for legal claims, legal obligations, public health, freedom of expression, archiving.</div>
+    <div class="item-content warning"><strong>⚠️ Trap 6 — 72-Hour Clock:</strong> Runs from when the <em>controller</em> learns of the breach, not the processor's discovery.</div>
+    <div class="item-content mnemonic-item"><strong>🧠 Gov Classification — "TS-S-C-SBU-U":</strong> Top Secret → Secret → Confidential → SBU → Unclassified. <em>"Top Spies Carefully Secure Underground intel"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Data Roles:</strong> <em>"Owner Decides, Custodian Guards, Steward Cleans, User Uses"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Data Lifecycle — "C-SUSAD":</strong> Create, Store, Use, Share, Archive, Destroy. <em>"Can Students Usually Share Archived Documents?"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Data States — "RUT":</strong> at Rest, in Use, in Transit. <em>"Data is always in some RUT"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 NIST 800-88 — "CPD":</strong> Clear → Purge → Destroy (increasingly permanent)</div>
+    <div class="item-content mnemonic-item"><strong>🧠 GDPR Roles:</strong> <em>"Controller Commands; Processor Processes; Subject Owns; DPO Watches; SA Enforces"</em></div>
+    <div class="item-content mnemonic-item"><strong>🧠 Anon vs. Pseudo:</strong> <em>"Anon = gone forever; Pseudo = pseudonym that can be reversed"</em></div>
+  </div>
+
+</div>
+
+
+<div class="domain-section" id="domain-3">
+  <div class="domain-header">
+    <h2>Domain 3: Security Architecture and Engineering</h2>
+    <div class="info">0 days with identified traps &amp; concepts</div>
+  </div>
+
+</div>
+
+
+<div class="domain-section" id="domain-4">
+  <div class="domain-header">
+    <h2>Domain 4: Communication and Network Security</h2>
+    <div class="info">0 days with identified traps &amp; concepts</div>
+  </div>
+
+</div>
+
+
+<div class="footer">
+  <p><strong>Generated from CISSP 55-day theory materials</strong></p>
+  <p>Last updated: 4/29/2026</p>
+  <p>Use this as a supplement to active practice questions and full-length exams.</p>
+</div>
+
+</div>
+
+</body>
+</html>

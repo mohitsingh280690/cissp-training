@@ -43,6 +43,7 @@ tr:nth-child(even){background:#f9f9f9;}
 .nav-footer{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
 .nav-btn{display:inline-block;padding:10px 24px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;}
 .nav-btn:hover{background:var(--primary);}
+.nav-btn.disabled{background:#ccc;pointer-events:none;}
 code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 </style>
 </head>
@@ -52,7 +53,7 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   <h1>Day 5: Intellectual Property</h1>
   <div class="subtitle">Domain 1 – Security and Risk Management (15% of exam)</div>
   <div class="meta">
-    <span>📅 Day 5 of 140</span>
+    <span>📅 Day 5 of 137</span>
     <span>📚 Domain 1 of 8</span>
     <span>⏱️ ~40 min read</span>
     <span>🎯 Difficulty: Intermediate</span>
@@ -60,7 +61,7 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 </div>
 
 <div class="container">
-<div class="breadcrumb">Domain 1: Security and Risk Management → Day 5: Intellectual Property</div>
+<div class="breadcrumb"><a href="day-004-theory.html">← Day 4: Legal Systems &amp; Law Types</a> · Domain 1: Security and Risk Management · Day 5</div>
 
 <div class="toc">
   <h2>📑 Table of Contents</h2>
@@ -126,7 +127,7 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <tr><th>Type</th><th>What It Protects</th><th>Duration (US)</th><th>Key Law</th><th>Registration Required?</th></tr>
     <tr><td><strong>Copyright</strong></td><td>Original creative expression fixed in tangible form</td><td>Life of author + 70 years</td><td>Copyright Act of 1976; Berne Convention</td><td>Not required for protection; registration enhances remedies</td></tr>
     <tr><td><strong>Trademark</strong></td><td>Words, symbols, logos, slogans identifying source of goods/services</td><td>Unlimited if used and renewed every 10 years</td><td>Lanham Act (1946)</td><td>Not required but strongly recommended (® vs ™)</td></tr>
-    <tr><td><strong>Patent</strong></td><td>Novel, non-obvious, useful inventions and processes</td><td>20 years from filing (utility); 15 years (design)</td><td>US Patent Act; Patent Cooperation Treaty (PCT)</td><td>Required — cannot be patented without filing</td></tr>
+    <tr><td><strong>Patent</strong></td><td>Novel, non-obvious, useful inventions and processes</td><td>20 years from filing (utility); 15 years from grant (design)</td><td>US Patent Act; Patent Cooperation Treaty (PCT)</td><td>Required — cannot be patented without filing</td></tr>
     <tr><td><strong>Trade Secret</strong></td><td>Confidential business information providing competitive advantage</td><td>Unlimited as long as secrecy maintained</td><td>Defend Trade Secrets Act (2016); Economic Espionage Act (1996); Uniform Trade Secrets Act (UTSA)</td><td>Cannot register; must actively protect</td></tr>
   </table>
 </div>
@@ -222,10 +223,10 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 
   <h3>Types of Patents</h3>
   <table>
-    <tr><th>Type</th><th>Covers</th><th>Duration (from filing)</th><th>Example</th></tr>
-    <tr><td><strong>Utility Patent</strong></td><td>Processes, machines, manufactures, compositions of matter</td><td>20 years</td><td>New software method, cryptographic algorithm, hardware device</td></tr>
-    <tr><td><strong>Design Patent</strong></td><td>Ornamental design of a functional item</td><td>15 years</td><td>Unique appearance of a device, GUI icon design</td></tr>
-    <tr><td><strong>Plant Patent</strong></td><td>New asexually reproduced plant variety</td><td>20 years</td><td>Not relevant to CISSP</td></tr>
+    <tr><th>Type</th><th>Covers</th><th>Duration</th><th>Example</th></tr>
+    <tr><td><strong>Utility Patent</strong></td><td>Processes, machines, manufactures, compositions of matter</td><td>20 years from filing</td><td>New software method, cryptographic algorithm, hardware device</td></tr>
+    <tr><td><strong>Design Patent</strong></td><td>Ornamental design of a functional item</td><td>15 years from grant</td><td>Unique appearance of a device, GUI icon design</td></tr>
+    <tr><td><strong>Plant Patent</strong></td><td>New asexually reproduced plant variety</td><td>20 years from filing</td><td>Not relevant to CISSP</td></tr>
   </table>
 
   <div class="warning">
