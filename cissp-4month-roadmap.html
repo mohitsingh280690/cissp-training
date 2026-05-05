@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP 4-Month Study Roadmap</title>
+<style>
+:root{
+  --primary:#1a237e;--secondary:#283593;--accent:#448aff;
+  --bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;
+  --border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;
+  --highlight:#fff8e1;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:48px 0;text-align:center;}
+.header h1{font-size:2.2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:28px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:960px;margin:0 auto;padding:30px 20px;}
+.toc{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:30px;}
+.toc h2{font-size:1.1rem;margin-bottom:12px;color:var(--primary);}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:6px;}
+.toc a{color:var(--accent);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+.section{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:30px;margin-bottom:24px;}
+.section h2{font-size:1.5rem;color:var(--primary);border-bottom:3px solid var(--accent);padding-bottom:10px;margin-bottom:20px;}
+.section h3{font-size:1.15rem;color:var(--secondary);margin:22px 0 10px 0;}
+.section h4{font-size:1rem;color:var(--primary);margin:16px 0 8px 0;font-weight:700;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.definition strong{color:var(--primary);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.key-concept strong{color:var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.exam-tip strong{color:var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.warning strong{color:var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;padding:14px 18px;margin:16px 0;border-radius:0 6px 6px 0;}
+.mnemonic strong{color:#7b1fa2;}
+table{width:100%;border-collapse:collapse;margin:16px 0;}
+th,td{border:1px solid var(--border);padding:10px 14px;text-align:left;vertical-align:top;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+/* Month cards */
+.month-card{border-radius:8px;padding:28px;margin-bottom:20px;border:1px solid var(--border);}
+.month-1{background:linear-gradient(135deg,#e8f0fe,#f8fbff);border-left:6px solid #1565c0;}
+.month-2{background:linear-gradient(135deg,#e8f5e9,#f6ffef);border-left:6px solid #2e7d32;}
+.month-3{background:linear-gradient(135deg,#fff8e1,#fffdf0);border-left:6px solid #f9a825;}
+.month-4{background:linear-gradient(135deg,#fce4ec,#fff5f8);border-left:6px solid #c62828;}
+.month-card h3{font-size:1.3rem;margin-bottom:6px;}
+.month-1 h3{color:#1565c0;}
+.month-2 h3{color:#2e7d32;}
+.month-3 h3{color:#f9a825;}
+.month-4 h3{color:#c62828;}
+.month-card .month-meta{font-size:.88rem;color:var(--text-light);margin-bottom:16px;}
+/* Week rows */
+.week-row{background:rgba(255,255,255,.7);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin-bottom:10px;}
+.week-row .week-label{font-weight:700;font-size:.9rem;color:var(--secondary);margin-bottom:6px;}
+.week-row ul{margin-bottom:0;}
+/* Resource cards */
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:10px;}
+.resource-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.resource-card h4{color:var(--primary);margin-bottom:8px;font-size:1rem;}
+.resource-card .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:10px;}
+.badge-primary{background:#e3f2fd;color:#1565c0;}
+.badge-recommended{background:#e8f5e9;color:#2e7d32;}
+.badge-optional{background:#fff8e1;color:#e65100;}
+.badge-critical{background:#fce4ec;color:#c62828;}
+/* Verdict box */
+.verdict{background:linear-gradient(135deg,#1a237e,#283593);color:white;border-radius:8px;padding:28px;margin-bottom:24px;}
+.verdict h2{color:white;border-bottom:2px solid rgba(255,255,255,.3);padding-bottom:10px;margin-bottom:18px;font-size:1.4rem;}
+.verdict p,.verdict li{color:rgba(255,255,255,.92);}
+.verdict table th{background:rgba(255,255,255,.15);}
+.verdict table td{color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.2);}
+.verdict table tr:nth-child(even){background:rgba(255,255,255,.08);}
+/* Progress bar */
+.progress-container{margin:10px 0;}
+.progress-bar{height:10px;border-radius:5px;background:var(--border);overflow:hidden;}
+.progress-fill{height:100%;border-radius:5px;}
+.fill-d1{background:#1565c0;width:15%;}
+.fill-d2{background:#2e7d32;width:10%;}
+.fill-d3{background:#6a1b9a;width:13%;}
+.fill-d4{background:#e65100;width:13%;}
+.fill-d5{background:#c62828;width:13%;}
+.fill-d6{background:#00838f;width:12%;}
+.fill-d7{background:#4e342e;width:13%;}
+.fill-d8{background:#37474f;width:11%;}
+/* checklist styling */
+.checklist{list-style:none;padding-left:0;}
+.checklist li{padding:5px 0 5px 28px;position:relative;}
+.checklist li::before{content:'☐';position:absolute;left:0;color:var(--accent);}
+/* Timeline */
+.timeline{position:relative;padding-left:36px;margin:10px 0;}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border);}
+.timeline-item{position:relative;margin-bottom:20px;}
+.timeline-item::before{content:'';position:absolute;left:-30px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid white;outline:2px solid var(--accent);}
+.timeline-item h4{color:var(--primary);margin-bottom:4px;}
+.daily-schedule{background:#f8f9ff;border:1px solid #c5cae9;border-radius:8px;padding:20px;margin:16px 0;}
+.daily-schedule h4{color:var(--primary);margin-bottom:12px;}
+.time-block{display:flex;gap:14px;margin-bottom:8px;align-items:flex-start;}
+.time-label{background:var(--primary);color:white;padding:2px 10px;border-radius:4px;font-size:.82rem;font-weight:700;white-space:nowrap;min-width:90px;text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>CISSP 4-Month Study Roadmap</h1>
+  <div class="subtitle">2-Month Theory Blitz + 2-Month Mastery — A Complete Strategy</div>
+  <div class="meta">
+    <span>📅 Start: May 5, 2026</span>
+    <span>🎯 Target Exam: Early September 2026</span>
+    <span>📚 137 Theory Days + Practice</span>
+    <span>🏆 Goal: 700+ / 1000</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h2>📋 Contents</h2>
+    <ol>
+      <li><a href="#assessment">Assessment of This Training Course</a></li>
+      <li><a href="#books">Should You Read OSG or Destination Certification?</a></li>
+      <li><a href="#resources">Complete Resource Stack</a></li>
+      <li><a href="#roadmap">Roadmap: 2-Month Theory Blitz + 2-Month Mastery</a></li>
+      <li><a href="#daily">Recommended Daily Study Schedule</a></li>
+      <li><a href="#domains">Domain-by-Domain Exam Weight &amp; Strategy</a></li>
+      <li><a href="#practice">Practice Question Strategy</a></li>
+      <li><a href="#examday">Exam Day Strategy</a></li>
+      <li><a href="#milestones">Go / No-Go Milestones</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1: ASSESSMENT -->
+  <div class="section" id="assessment">
+    <h2>1. Assessment of This 137-Day Training Course</h2>
+
+    <p>This training is a custom-built 137-day HTML course covering all 8 CISSP domains. Each day is a standalone module of approximately <strong>1,500–3,500 words</strong> (~45–75 min read), totalling the equivalent of a ~400–450 page study guide. Here is what it delivers well and where its gaps are:</p>
+
+    <table>
+      <tr><th>Dimension</th><th>Verdict</th><th>Detail</th></tr>
+      <tr><td><strong>Domain Coverage</strong></td><td>✅ Complete</td><td>All 8 domains, proportional to exam weight</td></tr>
+      <tr><td><strong>Conceptual Depth</strong></td><td>✅ Strong</td><td>Mechanisms explained, not just definitions. "Why was this designed this way?" approach</td></tr>
+      <tr><td><strong>Exam Mindset Training</strong></td><td>✅ Good</td><td>Exam trap warnings, "think like a manager" callouts, and decision frameworks appear throughout — not just at the end. Day 135 has a formal manager decision framework. Destination CISSP deepens this further.</td></tr>
+      <tr><td><strong>Practice Questions</strong></td><td>⚠️ Limited</td><td>~10 MCQs/day in separate files = ~1,370 total. Need 3,000–5,000 for confidence</td></tr>
+      <tr><td><strong>Mnemonics</strong></td><td>✅ Excellent</td><td>Dedicated mnemonic section every day — a real differentiator</td></tr>
+      <tr><td><strong>Real-World Context</strong></td><td>✅ Strong</td><td>Breach examples, org relevance, CISO-level framing on most days</td></tr>
+      <tr><td><strong>Visual Aids</strong></td><td>✅ Good</td><td>ASCII diagrams, comparison tables, callout boxes</td></tr>
+      <tr><td><strong>Technical Depth (Crypto/Network)</strong></td><td>✅ Strong</td><td>Asymmetric crypto, DH math, ECC, wireless protocols, forensics — all covered at OSG-comparable depth. No need for parallel textbook.</td></tr>
+      <tr><td><strong>Standalone Completeness</strong></td><td>✅ Yes</td><td>Can pass from this alone if supplemented with enough practice questions</td></tr>
+    </table>
+
+    <div class="key-concept">
+      <strong>Bottom Line:</strong> This course is your <em>primary theory resource</em>. It is not a quick-reference sheet nor a 1,300-page textbook — it lives in the sweet spot of structured, exam-focused conceptual study. You do <strong>not</strong> need another full-length theory textbook on top of this. What you need is a mindset supplement and far more practice questions.
+    </div>
+  </div>
+
+  <!-- SECTION 2: BOOKS VERDICT -->
+  <div class="verdict" id="books">
+    <h2>2. Should You Read OSG or Destination Certification?</h2>
+    <table>
+      <tr><th>Book</th><th>Use It?</th><th>How?</th></tr>
+      <tr>
+        <td><strong>OSG — Official Study Guide</strong><br><em>Mike Chapple, James Stewart, Darril Gibson (~1,300 pp)</em></td>
+        <td>📌 Almost certainly unnecessary</td>
+        <td>Do <strong>NOT</strong> read it. After reviewing all 137 course days, every topic the OSG covers — crypto, PKI, protocols, security models, CPU architecture, ICS/SCADA, Zero Trust, AI/ML — is covered at equal or greater depth in this course, and more currently (OSG was last revised 2021; this course includes xz Utils 2024, EU AI Act, NIST AI RMF, OWASP LLM Top 10). Only rationale to open it: a specific concept from one theory day remains unclear after re-reading + watching a YouTube explanation — and you want a third written voice on that one topic.</td>
+      </tr>
+      <tr>
+        <td><strong>Destination CISSP</strong><br><em>Rob Witcher / Destination Certification (~280 pp)</em></td>
+        <td>✅ Read it completely</td>
+        <td>This is <strong>not</strong> a repeat of theory — it is a second voice on every concept and a managerial mindset training book. This course already has "think like a manager" woven into every day (Day 135 alone has a full 8-domain decision framework), but hearing the same concepts explained differently and in a deliberately exam-mindset frame is still valuable. Read this in Month 3 alongside Domain 5–6 study. ~2–3 hours per weekend is enough.</td>
+      </tr>
+      <tr>
+        <td><strong>CISSP Official Practice Tests</strong><br><em>Mike Chapple, David Seidl (1,000+ questions)</em></td>
+        <td>✅ Essential</td>
+        <td>Buy this. Not a theory book — a question bank. Use it from Month 2 onward, one chapter per domain after you finish that domain. Review every wrong answer against this course's content.</td>
+      </tr>
+    </table>
+
+    <p style="margin-top:14px;"><strong>Priority order:</strong> This course (primary) → Official Practice Tests (question bank) → Destination CISSP (second voice + mindset) → OSG (almost certainly never needed)</p>
+  </div>
+
+  <!-- SECTION 3: RESOURCE STACK -->
+  <div class="section" id="resources">
+    <h2>3. Complete Resource Stack</h2>
+
+    <div class="resource-grid">
+
+      <div class="resource-card">
+        <span class="badge badge-primary">PRIMARY THEORY</span>
+        <h4>This 137-Day HTML Course</h4>
+        <p>Your main theory engine. 137 structured days, all 8 domains, exam tips, mnemonics, comparison tables. Follow the day-by-day order. Do not skip days.</p>
+        <p><strong>Time:</strong> 45–75 min/day</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">HIGHLY RECOMMENDED</span>
+        <h4>Destination CISSP (Witcher)</h4>
+        <p>Teaches the managerial risk-based mindset that (ISC)² tests. Short, readable, uniquely fills the gap this course leaves on exam psychology. Pair with Month 3.</p>
+        <p><strong>Time:</strong> 2–3 hrs/weekend × 4 weeks</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-critical">ESSENTIAL — QUESTIONS</span>
+        <h4>CISSP Official Practice Tests</h4>
+        <p><em>Mike Chapple &amp; David Seidl.</em> 1,000+ high-quality domain-mapped questions. Review all wrong answers against theory. Use from Month 2 onward.</p>
+        <p><strong>Time:</strong> 50–100 questions/week</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-critical">ESSENTIAL — QUESTIONS</span>
+        <h4>Boson ExSim-Max for CISSP</h4>
+        <p>The gold standard for CISSP mock exams. Adaptive, CAT-style, with detailed explanations. Run 3–5 full mocks in Month 4. Target 75%+ before booking exam.</p>
+        <p><strong>Time:</strong> Month 4 intensive</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — FREE</span>
+        <h4>Prabh Nair "CISSP MindMap" YouTube</h4>
+        <p>Domain-by-domain visual mindmap videos (~30–60 min each). Exceptional for visual learners. Watch each domain's video before starting that domain in this course. Completely free.</p>
+        <p><strong>Time:</strong> 1 video per domain start</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — FREE</span>
+        <h4>Thor Pedersen CISSP (YouTube)</h4>
+        <p>Long-form free video course on YouTube covering all 8 domains. Great for reinforcing difficult topics — cryptography, PKI, network protocols. Watch specific videos when a theory day is unclear.</p>
+        <p><strong>Time:</strong> As needed per topic</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-optional">OPTIONAL — MOBILE</span>
+        <h4>Pocket Prep / LearnZapp App</h4>
+        <p>Mobile question-bank apps for CISSP. Use for 10–15 questions during commute or lunch. Not a replacement for Boson, but excellent for daily micro-practice and retention.</p>
+        <p><strong>Time:</strong> 10–15 min daily</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-optional">REFERENCE ONLY</span>
+        <h4>OSG — Official Study Guide</h4>
+        <p><em>Chapple, Stewart, Gibson.</em> Almost certainly unnecessary. After a complete review of all 137 course days, this 137-day course covers every OSG topic at equal or greater depth — and is more current (OSG is 2021; this course includes xz Utils 2024, EU AI Act, OMB M-22-09, NIST AI RMF, OWASP LLM Top 10). Only open it if a specific theory day concept remains unclear after re-reading it AND watching a YouTube explanation and you want a third written source. Probability you ever need it: low.</p>
+        <p><strong>Time:</strong> As needed (very rarely)</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-critical">WATCH DAY 1 — FREE</span>
+        <h4>Kelly Handerhan — "Why You Will Pass the CISSP" (YouTube)</h4>
+        <p>A legendary ~1-hour video by a career (ISC)² instructor. Nothing about content — entirely about the exam mindset. Watch this on your very first evening of study. It reframes how you read every question for the next 4 months. Search YouTube: "Kelly Handerhan why you will pass CISSP."</p>
+        <p><strong>Time:</strong> 1 hour, Day 1 evening</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-critical">ESSENTIAL HABIT</span>
+        <h4>Anki Flashcards (Spaced Repetition)</h4>
+        <p>As you read each theory day, add one Anki card per mnemonic from the Mnemonics section. By Month 3 you will have 150+ cards covering every formula, acronym, and model property — reviewed automatically via spaced repetition. Also install the community CISSP deck from AnkiWeb as a base.</p>
+        <p><strong>Time:</strong> 10 min/day to build, 30–40 min/day to review from Month 2</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — FREE</span>
+        <h4>CCCure.org Question Bank</h4>
+        <p>Larry Greenblatt's free CISSP question bank — thousands of questions, filterable by domain. Different framing and style from Boson and the Official Practice Tests, which means you build pattern recognition across multiple question styles. Use in Month 3 for 50 questions per day.</p>
+        <p><strong>Time:</strong> 50 questions/day in Month 3</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — MONTH 4</span>
+        <h4>11th Hour CISSP — Eric Conrad</h4>
+        <p>A 220-page high-density cram guide across all 8 domains. Not a primary study resource — read it in early Month 4 as a fast final-pass review before your last mock exams. Compresses the entire body of knowledge into a quick read. Think of it as the "rev before the exam."</p>
+        <p><strong>Time:</strong> 4–5 days in early Month 4</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — MONTH 3</span>
+        <h4>"How to Think Like a Manager" — Luke Ahmed</h4>
+        <p>A short guide (~100 pages) exclusively about CISSP exam question strategy — not content. Covers exactly how (ISC)² constructs questions and what decision framework leads to the "best" answer. Read in Month 3 alongside your first Boson mock results. Complements Destination CISSP.</p>
+        <p><strong>Time:</strong> 1–2 evenings in Month 3, Week 12</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-recommended">RECOMMENDED — FREE</span>
+        <h4>Larry Greenblatt CISSP (YouTube)</h4>
+        <p>Free and exhaustive domain-by-domain CISSP playlist. More detailed than Prabh Nair's MindMaps. Use when a specific theory day leaves a concept genuinely unclear — search for his video on that exact sub-topic. Particularly strong on Domain 1 (risk) and Domain 3 (architecture).</p>
+        <p><strong>Time:</strong> On-demand, per topic</p>
+      </div>
+
+      <div class="resource-card">
+        <span class="badge badge-optional">COMMUNITY — FREE</span>
+        <h4>Reddit r/cissp</h4>
+        <p>Read 10–15 recent "just passed!" posts before your exam week. Recent passers describe the exam experience, difficulty, and what mindset helped them succeed. Do NOT stress about specific question content people mention — absorb the strategy and confidence of people who just cleared it.</p>
+        <p><strong>Time:</strong> 1 hour in Week 14 (pre-exam)</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: ROADMAP -->
+  <div class="section" id="roadmap">
+    <h2>4. Roadmap: 2-Month Theory Blitz + 2-Month Mastery</h2>
+
+    <div class="key-concept">
+      <strong>The Right Structure:</strong> Finish all 137 theory days in the first 2 months. Then spend the final 2 months on Destination CISSP, heavy cross-domain practice, mocks, and the exam. You walk into your first Boson mock with every domain already mapped in your head — exactly as the actual exam requires.
+    </div>
+
+    <div class="warning">
+      <strong>Why NOT spread theory over all 4 months:</strong> The CISSP exam draws from all 8 domains simultaneously. If you are finishing Domain 8 theory in Month 4 while trying to run cross-domain mocks, you will always be practicing against content you haven't fully seen yet. Finish the whole map first — then practice everything together.
+    </div>
+
+    <h3 style="color:var(--primary);font-size:1.25rem;margin:24px 0 6px 0;">&#128218; Phase 1 &mdash; Theory Blitz (May 5 &ndash; July 4, 2026)</h3>
+    <p style="margin-bottom:16px;color:var(--text-light);"><strong>Pace: 2 theory days per weekday &middot; 3 theory days per weekend day</strong> &middot; 137 days in exactly 60 calendar days (43 weekdays &times; 2 + 17 weekend days &times; 3 = 137).</p>
+
+    <!-- MONTH 1 -->
+    <div class="month-card month-1">
+      <h3>Month 1 &mdash; Domains 1&ndash;4 (May 5 &ndash; June 4, 2026)</h3>
+      <div class="month-meta">&#128218; Theory Days 1&ndash;71 &nbsp;|&nbsp; D1: Security &amp; Risk &middot; D2: Asset Security &middot; D3: Architecture &middot; D4: Networks &nbsp;|&nbsp; Exam Weight: 51%</div>
+
+      <div class="week-row">
+        <div class="week-label">Week 1 (May 5&ndash;11) &mdash; Domain 1: Security &amp; Risk Management</div>
+        <ul>
+          <li>Theory Days 1&ndash;16: CIA Triad, Governance, Ethics, Legal Frameworks, Risk Management, Quantitative Risk (ALE/ARO/SLE), BCP Foundations, Personnel Security, Privacy Principles</li>
+          <li><strong>Day 1 evening:</strong> Watch Kelly Handerhan "Why You Will Pass the CISSP" (YouTube, ~1 hr) &mdash; before doing any other study. It reframes every question you will read for the next 4 months.</li>
+          <li>Watch Prabh Nair Domain 1 MindMap (YouTube, 30 min) before reading Day 1 theory</li>
+          <li>Complete each day&rsquo;s MCQ file (day-XXX-mcq.html) the same evening as the theory day</li>
+          <li>Pocket Prep app: 15 Domain 1 questions every morning from Day 2 onward</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 2 (May 12&ndash;18) &mdash; Domain 1 Finish + Domain 2 Start</div>
+        <ul>
+          <li>Theory Days 17&ndash;32: D1 finish (BCP Testing, DRP, Compliance, D1 Review) then D2 start (Asset Classification, Data Ownership, Data Lifecycle)</li>
+          <li>Watch Prabh Nair Domain 2 MindMap before starting Day 21</li>
+          <li><strong>Start Anki flashcards now:</strong> one card per mnemonic from each theory day&rsquo;s Mnemonics section. This becomes a 150+ card deck by Month 3. Do not skip this habit.</li>
+          <li>D1 self-check: recite the ALE formula, the 4 risk treatment options, and government/commercial classification levels from memory before moving on</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 3 (May 19&ndash;25) &mdash; Domain 2 Finish + Domain 3 Start</div>
+        <ul>
+          <li>Theory Days 33&ndash;48: D2 finish (Data States, Sanitization, Retention, Privacy by Design, D2 Review) then D3 start (Security Architecture concepts, Security Models)</li>
+          <li>Watch Prabh Nair Domain 3 MindMap before starting Day 36</li>
+          <li><strong>Security models are high-frequency exam material &mdash; do NOT rush Days 36&ndash;40.</strong> If Bell-LaPadula or Biba takes 90 min to absorb, take 90 min. This is one area where depth pays outsized returns.</li>
+          <li>Begin Official Practice Tests: Chapter 1 (Domain 1) &mdash; 50 questions, full wrong-answer review against the relevant theory day</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 4&ndash;5 (May 26 &ndash; June 4, 10 days) &mdash; Domain 3 Finish + Domain 4 Complete</div>
+        <ul>
+          <li>Theory Days 49&ndash;71: D3 finish (Cryptography, PKI, Physical Security controls, D3 Review) then D4 complete (OSI Model, TCP/IP, Firewalls, IDS/IPS, VPNs, Wireless Security, Network Attacks, Secure Protocols, D4 Review)</li>
+          <li>Watch Prabh Nair Domain 4 MindMap before starting Day 53</li>
+          <li>Official Practice Tests: Chapter 2 (Domain 2) over the weekend</li>
+          <li>Thor Pedersen or Larry Greenblatt YouTube: watch a specific episode only if a theory day leaves a concept genuinely unclear. Do not binge &mdash; stay on the theory pace.</li>
+        </ul>
+      </div>
+
+      <div class="exam-tip">
+        <strong>Month 1 Exit Check:</strong> Theory Days 1&ndash;71 complete. All 7 security models memorised. Risk formulas (ALE/SLE/ARO) recalled cold. &ge; 65% on D1&ndash;D2 practice questions. Anki deck active with 70+ cards. Kelly Handerhan video watched.
+      </div>
+    </div>
+
+    <!-- MONTH 2 -->
+    <div class="month-card month-2">
+      <h3>Month 2 &mdash; Domains 5&ndash;8 (June 5 &ndash; July 4, 2026)</h3>
+      <div class="month-meta">&#128218; Theory Days 72&ndash;137 &nbsp;|&nbsp; D5: IAM &middot; D6: Testing &middot; D7: Operations &middot; D8: Software Dev &middot; All Cross-Domain Reviews &nbsp;|&nbsp; Exam Weight: 49%</div>
+
+      <div class="week-row">
+        <div class="week-label">Week 5 (June 5&ndash;11) &mdash; Domain 5: Identity &amp; Access Management</div>
+        <ul>
+          <li>Theory Days 72&ndash;85: Authentication Factors, Biometrics (FAR/FRR/CER/EER), SSO, Federation, OAuth 2.0, SAML, OIDC, PAM, Access Control Models (MAC/DAC/RBAC/ABAC), Directory Services, Provisioning &amp; Deprovisioning, D5 Review</li>
+          <li>Watch Prabh Nair Domain 5 MindMap</li>
+          <li>Official Practice Tests: Chapter 3 (Domain 3) &mdash; architecture and crypto questions</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 6 (June 12&ndash;18) &mdash; Domain 6: Security Assessment &amp; Testing</div>
+        <ul>
+          <li>Theory Days 86&ndash;99: Vulnerability Assessment, Penetration Testing (phases + authorisation), Log Management, SIEM, Audit Frameworks (SOC 1 / SOC 2 Type I &amp; II), Security Metrics, Code Review, Domain 6 Review</li>
+          <li>Watch Prabh Nair Domain 6 MindMap</li>
+          <li>Official Practice Tests: Chapter 4 (Domain 4) + Chapter 5 (Domain 5)</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 7 (June 19&ndash;25) &mdash; Domain 7: Security Operations</div>
+        <ul>
+          <li>Theory Days 100&ndash;113: Security Operations Concepts, Incident Response (NIST SP 800-61 lifecycle), Evidence Handling, Digital Forensics (CEAR, order of volatility), Patch &amp; Change Management, BCP/DR Operations, Backup Strategies, RAID levels</li>
+          <li>Watch Prabh Nair Domain 7 MindMap</li>
+          <li>Official Practice Tests: Chapter 6 (Domain 6)</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 8&ndash;9 (June 26 &ndash; July 4, 9 days) &mdash; Domain 7 Finish + Domain 8 + All Reviews</div>
+        <ul>
+          <li>Theory Days 114&ndash;137: D7 finish (Physical Security, Personnel Safety, D7 Review), D8 complete (SDLC, Agile/DevSecOps, Secure Coding, OWASP Top 10, APIs &amp; Microservices, D8 Review), then all Cross-Domain Review days (Days 131&ndash;137)</li>
+          <li>Watch Prabh Nair Domain 8 MindMap before starting Day 118</li>
+          <li>Official Practice Tests: Chapter 7 (Domain 7 part 1)</li>
+          <li><strong>By July 4: all 137 theory days done. Every domain. Every concept. The full map is in your head. Phase 2 begins.</strong></li>
+        </ul>
+      </div>
+
+      <div class="exam-tip">
+        <strong>Month 2 Exit Check:</strong> ALL 137 theory days complete. Anki deck at 150+ cards with daily review habit. &ge; 68% on D3&ndash;D8 domain-specific questions. All 8 Prabh Nair MindMap videos watched. Destination CISSP and 11th Hour CISSP purchased and ready.
+      </div>
+    </div>
+
+    <h3 style="color:var(--primary);font-size:1.25rem;margin:24px 0 6px 0;">&#128257; Phase 2 &mdash; Consolidation &amp; Exam (July 5 &ndash; September 4, 2026)</h3>
+    <p style="margin-bottom:16px;color:var(--text-light);">No new theory. Everything from here is practice, revision, mindset deepening, and mocks. You are now burning theory into muscle memory, not adding new knowledge.</p>
+
+    <!-- MONTH 3 -->
+    <div class="month-card month-3">
+      <h3>Month 3 &mdash; Deep Practice &amp; Mindset (July 5 &ndash; August 4, 2026)</h3>
+      <div class="month-meta">&#128257; No new theory &nbsp;|&nbsp; Destination CISSP &middot; CCCure 50/day &middot; Official Practice Tests finish &middot; Boson Mocks #1 &amp; #2 &middot; Luke Ahmed &middot; Targeted re-reads</div>
+
+      <div class="week-row">
+        <div class="week-label">Week 9 (July 5&ndash;11) &mdash; Destination CISSP First Half + D1&ndash;D4 Heavy Practice</div>
+        <ul>
+          <li>Read Destination CISSP: first half (~140 pages, ~30&ndash;35 pages per evening)</li>
+          <li>Official Practice Tests: Chapter 7 finish + Chapter 8 (Domain 8) &mdash; complete all 8 domain chapters this week</li>
+          <li>CCCure.org: 50 mixed-domain questions per day. Free. Different framing from Boson broadens pattern recognition.</li>
+          <li>Anki review: 30 min daily &mdash; every card in your deck</li>
+          <li>Re-read any theory days from D1&ndash;D4 where you scored below 65% on Official Practice Tests</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 10 (July 12&ndash;18) &mdash; Destination CISSP Finish + Mixed Practice</div>
+        <ul>
+          <li>Finish Destination CISSP (second half). Read actively &mdash; every question style it teaches, apply to a real exam scenario in your head.</li>
+          <li>CCCure.org: 50 mixed questions daily, weighted toward your two weakest domains</li>
+          <li>Read the Final Revision Sheet (Final Revision Sheet.html) &mdash; first read-through. Note every item that surprises you or feels shaky.</li>
+          <li>Re-read flagged theory days for any weak areas surfaced this week</li>
+          <li>Pocket Prep: 15 questions every morning</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 11 (July 19&ndash;25) &mdash; Boson Mock #1 + Targeted Re-reads</div>
+        <ul>
+          <li><strong>Take Boson ExSim full mock #1 (125 questions, timed, no lookups).</strong> This is your baseline &mdash; do not expect 75% yet. The goal is to identify gaps.</li>
+          <li>Score by domain. Any domain below 65%: re-read all theory days for that domain this week.</li>
+          <li>For each wrong answer: write one sentence explaining why (ISC)&sup2; prefers the other option. Forces active reasoning, not passive re-reading.</li>
+          <li>CCCure.org: continue 50/day, concentrated on your weak domains</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 12 (July 26 &ndash; Aug 4, 10 days) &mdash; Luke Ahmed + Boson Mock #2</div>
+        <ul>
+          <li>Read "How to Think Like a Manager for the CISSP Exam" by Luke Ahmed (~100 pages, 1&ndash;2 evenings) &mdash; purely about exam question strategy, not content</li>
+          <li>Boson ExSim: Mock #2. Target &ge; 70%. Compare domain scores with Mock #1 &mdash; measure your improvement per domain.</li>
+          <li>Wrong-answer diagnosis: any question where you knew the content but still chose wrong &rarr; mindset gap &rarr; re-read the relevant Destination CISSP chapter for that domain</li>
+          <li>Anki: 40 min daily. Deck should be 150+ cards at this point.</li>
+        </ul>
+      </div>
+
+      <div class="exam-tip">
+        <strong>Month 3 Exit Check:</strong> Destination CISSP done. Luke Ahmed done. Boson Mocks #1 and #2 taken, trending toward 70%+. All 8 Official Practice Test chapters complete. 2,200+ total questions answered. Final Revision Sheet reviewed twice.
+      </div>
+    </div>
+
+    <!-- MONTH 4 -->
+    <div class="month-card month-4">
+      <h3>Month 4 &mdash; Mock Gauntlet &amp; Exam (August 5 &ndash; September 4, 2026)</h3>
+      <div class="month-meta">&#127945; Final push &nbsp;|&nbsp; Boson Mocks #3&ndash;#5 &middot; 11th Hour CISSP &middot; Final Revision Sheet daily &middot; Book exam &middot; Exam Day</div>
+
+      <div class="week-row">
+        <div class="week-label">Week 13 (Aug 5&ndash;11) &mdash; 11th Hour Cram + Boson Mock #3</div>
+        <ul>
+          <li>Read "11th Hour CISSP" by Eric Conrad (~220 pp, 4&ndash;5 days) &mdash; a dense rapid-review pass across all 8 domains. No new concepts &mdash; pure reinforcement and speed pattern-matching at exam pace.</li>
+          <li>Boson ExSim: Mock #3. Target &ge; 73%.</li>
+          <li>Wrong-answer review: for each wrong answer, identify whether the error was (a) knowledge gap, (b) mindset/framing, or (c) misread question stem &mdash; each requires different remediation.</li>
+          <li>Pocket Prep: 20 questions every morning to stay sharp</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 14 (Aug 12&ndash;18) &mdash; Boson Mock #4 + Go/No-Go Decision</div>
+        <ul>
+          <li>Boson ExSim: Mock #4. Target &ge; 75%. <strong>If you hit 75%, book your exam now for late August or early September.</strong></li>
+          <li>Final Revision Sheet: read every morning, 20 minutes. This is your daily anchor for the final stretch.</li>
+          <li>Reddit r/cissp: read 10&ndash;15 recent "just passed!" posts. Absorb the mindset and strategy of recent passers, not specific question content.</li>
+          <li>No new material from this point. Revision and practice only.</li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 15 (Aug 19&ndash;25) &mdash; Boson Mock #5 + Final Sharpening</div>
+        <ul>
+          <li>Boson ExSim: Mock #5. Confidence check only &mdash; not a study session. Target &ge; 75%.</li>
+          <li>Final Revision Sheet: 20-minute daily read</li>
+          <li>Pocket Prep: 15 morning questions to stay warm. No new domains.</li>
+          <li><strong>Days T-3 to T-1: Final Revision Sheet only. Sleep 8 hours. No new material. Your preparation is complete.</strong></li>
+        </ul>
+      </div>
+
+      <div class="week-row">
+        <div class="week-label">Week 16 (Aug 26 &ndash; Sep 4) &mdash; Exam</div>
+        <ul>
+          <li>Arrive 30 min early. Bring valid government-issued ID.</li>
+          <li>Read every question stem twice. Identify the action word: <strong>BEST, FIRST, MOST, LEAST.</strong></li>
+          <li>Think: "What would a senior security manager with legal obligations and risk awareness choose?" &mdash; not the most technically exhaustive option.</li>
+          <li>Trust your first instinct on questions you know well. The primary failure mode for prepared candidates is overthinking.</li>
+          <li>CAT reminder: the exam ends when the system is statistically confident about your ability. Whether that is 125 or 175 questions tells you nothing about pass or fail.</li>
+        </ul>
+      </div>
+
+      <div class="exam-tip">
+        <strong>Month 4 Goal:</strong> 5 Boson full mocks completed. 11th Hour CISSP read. Final Revision Sheet reviewed 10+ times. Scoring &ge; 75% on Boson consistently. Exam booked and sat. Mindset locked: risk-aware manager, not technician.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION 5: DAILY SCHEDULE -->
+  <div class="section" id="daily">
+    <h2>5. Recommended Daily Study Schedule</h2>
+
+    <h3>Phase 1 (Months 1&ndash;2): Theory Blitz Pace</h3>
+
+    <div class="daily-schedule">
+      <h4>Weekday (Mon&ndash;Fri) &mdash; ~3&ndash;3.5 hours total</h4>
+      <div class="time-block"><span class="time-label">Morning 15 min</span><span>Pocket Prep app &mdash; 15 questions. Review Anki cards added in the previous two days.</span></div>
+      <div class="time-block"><span class="time-label">Evening 65&ndash;75 min</span><span>Theory day #1 for the day. Read actively &mdash; note anything exam-exploitable or that contradicts your assumptions.</span></div>
+      <div class="time-block"><span class="time-label">Evening 20 min</span><span>Corresponding MCQ file (day-XXX-mcq.html). Review all wrong answers against the theory day inline.</span></div>
+      <div class="time-block"><span class="time-label">Evening 65&ndash;75 min</span><span>Theory day #2 for the day. Same active reading approach.</span></div>
+      <div class="time-block"><span class="time-label">Evening 10 min</span><span>Add today&rsquo;s new mnemonics to Anki. One card per mnemonic. Do not skip &mdash; the deck is built one card at a time.</span></div>
+    </div>
+
+    <div class="daily-schedule" style="border-color:#c8e6c9;">
+      <h4>Weekend (Sat&ndash;Sun) &mdash; ~4&ndash;5 hours per day</h4>
+      <div class="time-block"><span class="time-label">Morning 45 min</span><span>Anki review (all due cards) + Pocket Prep 20 questions.</span></div>
+      <div class="time-block"><span class="time-label">Morning 90 min</span><span>Three theory days. Review/summary days in the course are shorter and can be read two in 90 min. Do not skip domain review days &mdash; they consolidate the week.</span></div>
+      <div class="time-block"><span class="time-label">Afternoon 60 min</span><span>Official Practice Tests &mdash; 50 domain-specific questions for the domain you just completed. Score, analyse, map every wrong answer to the relevant theory day.</span></div>
+      <div class="time-block"><span class="time-label">Evening 30 min</span><span>Re-read the Key Takeaways table from any theory day that felt weak this week.</span></div>
+    </div>
+
+    <h3 style="margin-top:20px;">Phase 2 (Months 3&ndash;4): Practice &amp; Mastery Pace</h3>
+
+    <div class="daily-schedule" style="border-color:#e1bee7;">
+      <h4>Weekday (Mon&ndash;Fri) &mdash; ~2.5 hours total</h4>
+      <div class="time-block"><span class="time-label">Morning 20 min</span><span>Anki deck review (all due cards) + Pocket Prep 15 questions.</span></div>
+      <div class="time-block"><span class="time-label">Evening 50&ndash;60 min</span><span>CCCure.org &mdash; 50 mixed-domain questions. Weight toward your two weakest domains. Review all wrong answers.</span></div>
+      <div class="time-block"><span class="time-label">Evening 30 min</span><span>Destination CISSP reading (Month 3, first two weeks) or Final Revision Sheet (Month 4). These are your evening anchor texts.</span></div>
+      <div class="time-block"><span class="time-label">Evening 30 min</span><span>Re-read one theory day from your weakest domain (identified by Boson mock domain scores).</span></div>
+    </div>
+
+    <div class="daily-schedule" style="border-color:#ffccbc;">
+      <h4>Weekend (Sat&ndash;Sun) &mdash; ~5 hours (Month 3) / Boson mock days (Month 4)</h4>
+      <div class="time-block"><span class="time-label">Morning 20 min</span><span>Anki review + Final Revision Sheet (Month 4) or Destination CISSP progress (Month 3).</span></div>
+      <div class="time-block"><span class="time-label">Morning 3.5 hrs</span><span><strong>Month 3:</strong> Official Practice Tests chapter (50 q) then 2 hrs of weak-domain theory re-reads. &nbsp; <strong>Month 4:</strong> Full Boson ExSim mock (125 q, timed, no lookups), then 2 hrs wrong-answer deep-dive.</span></div>
+      <div class="time-block"><span class="time-label">Afternoon 60 min</span><span>Wrong-answer analysis: for each wrong answer, trace it to a theory day, identify the reasoning gap, write one sentence explaining why (ISC)&sup2; chose that answer over yours.</span></div>
+    </div>
+
+    <div class="key-concept">
+      <strong>The Most Important Habit (Both Phases):</strong> Every wrong practice question must be traced back to the theory day that covers it. Do not just move on &mdash; understand <em>why</em> (ISC)&sup2; considers one answer better than another. The distinction between "technically correct" and "what (ISC)&sup2; calls best" is what separates passers from re-takers.
+    </div>
+  </div>
+
+  <!-- SECTION 6: DOMAIN BREAKDOWN -->
+  <div class="section" id="domains">
+    <h2>6. Domain-by-Domain Strategy</h2>
+
+    <table>
+      <tr>
+        <th>Domain</th>
+        <th>Exam Weight</th>
+        <th>Theory Days</th>
+        <th>Key Focus for Exam</th>
+        <th>Common Traps</th>
+      </tr>
+      <tr>
+        <td><strong>D1 – Security &amp; Risk Mgmt</strong></td>
+        <td>15%</td>
+        <td>1–20</td>
+        <td>Risk formulas (ALE, ARO, SLE), policies vs standards, ethics, governance frameworks</td>
+        <td>Confusing risk treatment options; treating all risk as "mitigate"</td>
+      </tr>
+      <tr>
+        <td><strong>D2 – Asset Security</strong></td>
+        <td>10%</td>
+        <td>21–35</td>
+        <td>Data classification levels, ownership roles (Owner vs Custodian), sanitization vs destruction</td>
+        <td>Mixing up data owner vs custodian responsibilities</td>
+      </tr>
+      <tr>
+        <td><strong>D3 – Security Architecture</strong></td>
+        <td>13%</td>
+        <td>36–52</td>
+        <td>Security models (Bell-LaPadula properties), Common Criteria EALs, cryptography types, PKI trust</td>
+        <td>Bell-LaPadula "no read up / no write down" vs Biba's inverse; confusing EAL numbers</td>
+      </tr>
+      <tr>
+        <td><strong>D4 – Network Security</strong></td>
+        <td>13%</td>
+        <td>53–69</td>
+        <td>OSI layers and where each control operates, firewall types, protocol security (TLS vs SSL), wireless attacks</td>
+        <td>Stateful vs stateless firewalls; which OSI layer a device operates at</td>
+      </tr>
+      <tr>
+        <td><strong>D5 – IAM</strong></td>
+        <td>13%</td>
+        <td>70–85</td>
+        <td>Authentication factors (know/have/are), access control models (MAC vs DAC vs RBAC vs ABAC), federation protocols</td>
+        <td>Confusing authentication with authorization; mixing up SAML/OAuth/OpenID Connect roles</td>
+      </tr>
+      <tr>
+        <td><strong>D6 – Security Testing</strong></td>
+        <td>12%</td>
+        <td>86–99</td>
+        <td>Pen test phases, audit types, log retention, vulnerability scanning vs pen testing distinction</td>
+        <td>Scope vs boundary in pen testing; SIEM vs SEM vs SIM differences</td>
+      </tr>
+      <tr>
+        <td><strong>D7 – Security Operations</strong></td>
+        <td>13%</td>
+        <td>100–117</td>
+        <td>Incident response steps (in correct order), evidence handling (chain of custody), change management, BCP vs DRP timing</td>
+        <td>Treating containment as the first step (it's not — identification is); destroying evidence during containment</td>
+      </tr>
+      <tr>
+        <td><strong>D8 – Software Development</strong></td>
+        <td>11%</td>
+        <td>118–130</td>
+        <td>SDLC phases and when security is introduced, OWASP Top 10, static vs dynamic analysis, DevSecOps principles</td>
+        <td>Thinking "security at the end" is acceptable; confusing SAST/DAST timing in SDLC</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SECTION 7: PRACTICE QUESTIONS -->
+  <div class="section" id="practice">
+    <h2>7. Practice Question Strategy</h2>
+
+    <h3>Target Question Volume by Phase</h3>
+    <table>
+      <tr><th>Month</th><th>Phase Focus</th><th>Sources</th><th>Target</th><th>Cumulative</th></tr>
+      <tr><td><strong>Month 1</strong></td><td>Theory blitz + first practice</td><td>Day MCQ files (daily) + Official Practice Tests Ch 1&ndash;2 + Pocket Prep</td><td>~700</td><td>700</td></tr>
+      <tr><td><strong>Month 2</strong></td><td>Theory completion + catch-up practice</td><td>Day MCQ files (daily) + Official Practice Tests Ch 3&ndash;7 + Pocket Prep</td><td>~900</td><td>1,600</td></tr>
+      <tr><td><strong>Month 3</strong></td><td>Heavy mixed practice + first mocks</td><td>Official Practice Tests Ch 7&ndash;8 + CCCure.org 50/day + Boson Mocks #1&ndash;#2 + Pocket Prep</td><td>~1,400</td><td>3,000</td></tr>
+      <tr><td><strong>Month 4</strong></td><td>Mock gauntlet + final sharpening</td><td>Boson ExSim Mocks #3&ndash;#5 (3 &times; 125q) + Pocket Prep daily</td><td>~800</td><td>3,800</td></tr>
+    </table>
+
+    <div class="key-concept">
+      <strong>Quality over Quantity:</strong> 3,300 questions with deep review of every wrong answer beats 5,000 questions clicked through mindlessly. The review step — asking "why did (ISC)² reject my answer?" — is where 80% of the learning happens.
+    </div>
+
+    <h3>How to Review Wrong Answers (Critical Process)</h3>
+    <ol>
+      <li>Identify the domain and sub-topic of the question</li>
+      <li>Find the corresponding theory day in this course and re-read the relevant section</li>
+      <li>Identify whether you got it wrong due to: (a) knowledge gap, (b) mindset/framing, or (c) misreading the question stem</li>
+      <li>For (a): make a flashcard and revisit in 3 days</li>
+      <li>For (b): re-read the relevant chapter in Destination CISSP</li>
+      <li>For (c): practice reading question stems by identifying the key action word (BEST, FIRST, MOST, LEAST)</li>
+    </ol>
+
+    <div class="exam-tip">
+      <strong>CISSP Exam Answer Strategy:</strong> The exam almost always has two answers that are technically correct. The "right" answer is the one a security manager with budget authority and legal awareness would choose — not the most technically thorough option. When stuck: choose policy over technical, proactive over reactive, risk management over cure.
+    </div>
+  </div>
+
+  <!-- SECTION 8: EXAM DAY -->
+  <div class="section" id="examday">
+    <h2>8. Exam Day Strategy</h2>
+
+    <h3>The CISSP CAT (Computerized Adaptive Testing) Format</h3>
+    <div class="definition">
+      <strong>CAT Format:</strong> CISSP uses Computer Adaptive Testing. You get 125–175 questions. The system adapts based on your answers — harder questions mean the system thinks you're competent. Finishing at 125 questions does NOT indicate pass or fail. The exam ends when the system is statistically confident you're above or below the passing threshold.
+    </div>
+
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Questions</td><td>125–175 (CAT adaptive)</td></tr>
+      <tr><td>Time Limit</td><td>4 hours</td></tr>
+      <tr><td>Question Types</td><td>Multiple choice + drag-and-drop + hotspot</td></tr>
+      <tr><td>Passing Score</td><td>700 / 1000 (scaled)</td></tr>
+      <tr><td>Languages</td><td>English + others available</td></tr>
+      <tr><td>Pearson VUE</td><td>Book at pearsonvue.com/isc2</td></tr>
+    </table>
+
+    <h3>On Exam Day</h3>
+    <ul>
+      <li><strong>Read the stem twice</strong> — identify the key action word (BEST, FIRST, MOST important)</li>
+      <li><strong>Eliminate obviously wrong answers first</strong> — you're usually choosing between 2 plausible answers</li>
+      <li><strong>Think like a CISO, not a sysadmin</strong> — the exam rewards managerial, risk-aware thinking</li>
+      <li><strong>Do not overthink</strong> — your first instinct after proper preparation is usually correct. Second-guessing is how prepared candidates fail</li>
+      <li><strong>Budget time</strong> — 125 questions in 240 minutes = ~1.9 minutes per question. Do not spend more than 3 minutes on any single question; flag and return</li>
+      <li><strong>Hydrate and eat beforehand</strong> — the test centre allows breaks but the clock does not stop</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 9: MILESTONES -->
+  <div class="section" id="milestones">
+    <h2>9. Go / No-Go Milestones</h2>
+    <p>Use these checkpoints to decide whether to proceed, slow down, or adjust your plan.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <h4>End of Month 1 (June 4) &mdash; Half of All Theory Done</h4>
+        <ul>
+          <li>&#9989; Theory Days 1&ndash;71 complete (D1, D2, D3, D4 fully finished)</li>
+          <li>&#9989; Official Practice Tests Chapters 1&ndash;2 done</li>
+          <li>&#9989; &ge; 65% on D1&ndash;D2 domain questions</li>
+          <li>&#9989; Anki deck active with 70+ cards and daily review habit established</li>
+          <li>&#9989; Kelly Handerhan "Why You Will Pass" watched</li>
+          <li>&#9888;&#65039; If scoring below 60% on D1&ndash;D2: do not increase pace &mdash; re-read weak theory days before advancing to D3&ndash;D4</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>End of Month 2 (July 4) &mdash; ALL Theory Complete &#9989;</h4>
+        <ul>
+          <li>&#9989; <strong>All 137 theory days complete.</strong> Every domain. Every concept. The full map is in your head.</li>
+          <li>&#9989; Official Practice Tests Chapters 1&ndash;7 started (at least Chapters 1&ndash;5 done)</li>
+          <li>&#9989; &ge; 68% on D3&ndash;D8 domain questions</li>
+          <li>&#9989; Anki deck at 150+ cards, reviewed daily</li>
+          <li>&#9989; All 8 Prabh Nair MindMap videos watched</li>
+          <li>&#9888;&#65039; Any domain below 60%: flag for intensive practice in Month 3. Do not slow your theory pace &mdash; the plan is to finish now and drill later.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>End of Month 3 (August 4) &mdash; Practice Foundation Solid</h4>
+        <ul>
+          <li>&#9989; Destination CISSP fully read</li>
+          <li>&#9989; Luke Ahmed "How to Think Like a Manager" read</li>
+          <li>&#9989; Official Practice Tests all 8 chapters complete</li>
+          <li>&#9989; Boson Mocks #1 and #2 taken, analysed, and weak domains re-read</li>
+          <li>&#9989; Final Revision Sheet reviewed at least twice</li>
+          <li>&#9989; Boson scores trending &ge; 70%</li>
+          <li>&#9888;&#65039; If both Boson mocks below 65%: add a focused re-read week before entering the Month 4 mock gauntlet</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Pre-Exam Gate (August 12&ndash;18) &mdash; Go / No-Go Decision</h4>
+        <ul>
+          <li>&#9989; Boson Mocks #3 and #4 both &ge; 75%</li>
+          <li>&#9989; Final Revision Sheet reviewed 5+ times</li>
+          <li>&#9989; 3,500+ total questions answered and reviewed</li>
+          <li>&#128640; <strong>BOOK YOUR EXAM</strong> for late August or early September</li>
+          <li>&#9888;&#65039; If Boson mocks between 70&ndash;74%: book the exam but add one targeted revision week on your two weakest domains</li>
+          <li>&#128721; If Boson mocks consistently below 70%: delay exam 2&ndash;3 weeks. Identify your two weakest domains, re-read their full theory sections, run 200 more targeted questions, then rebook.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Exam Day (Target: Late August / Early September 2026)</h4>
+        <ul>
+          <li>You completed 137 days of theory, 5 Boson mocks, 3,800+ questions, Destination CISSP, 11th Hour CISSP. You have done the work.</li>
+          <li>Think like a risk-aware senior manager. Trust your instincts. You are ready.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mnemonic">
+      <strong>Final Mindset Anchor:</strong> CISSP is not a test of technical depth — it is a test of <em>security management judgment</em>. Every question can be answered with: "What would a senior security manager who prioritises risk, policy, and protection of the organisation choose?" When you feel uncertain between two answers, always choose the one that is more proactive, more policy-driven, and more aligned with risk management over immediate technical action.
+    </div>
+
+    <div class="exam-tip" style="margin-top:20px;">
+      <strong>What to use and when:</strong><br><br>
+      <strong>Day 1 evening:</strong> Kelly Handerhan "Why You Will Pass the CISSP" (YouTube, free, 1 hr) &mdash; do this before anything else<br>
+      <strong>Months 1&ndash;2 daily:</strong> This 137-day course (2/weekday &middot; 3/weekend) + MCQ files same evening + Pocket Prep every morning + Anki every evening<br>
+      <strong>Month 2 onwards:</strong> Official Practice Tests (1 domain chapter per domain completed, with full wrong-answer review)<br>
+      <strong>Month 3:</strong> Destination CISSP (full read) + Luke Ahmed (1&ndash;2 evenings) + CCCure.org 50/day + Boson Mocks #1&ndash;#2<br>
+      <strong>Month 4:</strong> 11th Hour CISSP (Week 13 rapid cram) + Boson Mocks #3&ndash;#5 + Final Revision Sheet every morning<br>
+      <strong>Week before exam:</strong> Final Revision Sheet only. Reddit r/cissp recent pass posts for mindset. Sleep. No new material.<br>
+      <strong>On-demand (any time):</strong> Thor Pedersen or Larry Greenblatt YouTube (topic-specific episodes). OSG: almost certainly never needed given the depth of this course.
+    </div>
+  </div>
+
+  <div class="section" style="text-align:center;padding:20px;">
+    <p style="color:var(--text-light);font-size:.9rem;">Generated: May 5, 2026 &nbsp;|&nbsp; Target Exam: September 2026 &nbsp;|&nbsp; CISSP 4-Month Roadmap</p>
+    <a href="day-001-theory.html" class="nav-btn" style="display:inline-block;padding:10px 28px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:600;margin-top:12px;">Start Day 1 →</a>
+  </div>
+
+</div>
+</body>
+</html>
