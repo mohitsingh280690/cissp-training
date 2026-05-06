@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Networking Deep Dive &ndash; Complete Study Guide</title>
+<style>
+:root{--primary:#1a237e;--secondary:#283593;--accent:#448aff;--bg:#f5f5f5;--card-bg:#ffffff;--text:#212121;--text-light:#666;--border:#e0e0e0;--green:#2e7d32;--orange:#ef6c00;--red:#c62828;--highlight:#fff8e1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:40px 0;text-align:center;}
+.header h1{font-size:2.2rem;margin-bottom:8px;}
+.header .subtitle{font-size:1.1rem;opacity:.9;}
+.header .meta{margin-top:16px;display:flex;justify-content:center;gap:24px;font-size:.9rem;opacity:.85;flex-wrap:wrap;}
+.container{max-width:960px;margin:0 auto;padding:30px 20px;}
+.breadcrumb{font-size:.85rem;color:var(--text-light);margin-bottom:24px;}
+.toc{background:var(--card-bg);border:2px solid var(--border);border-radius:10px;padding:22px 28px;margin-bottom:30px;}
+.toc h3{color:var(--primary);margin-bottom:14px;font-size:1.1rem;}
+.toc ol{padding-left:20px;}
+.toc li{margin-bottom:7px;}
+.toc a{text-decoration:none;color:var(--accent);font-weight:500;}
+.toc a:hover{text-decoration:underline;}
+section{background:var(--card-bg);border-radius:10px;padding:30px;margin-bottom:24px;border:1px solid var(--border);}
+section h2{color:var(--primary);font-size:1.45rem;margin-bottom:18px;padding-bottom:10px;border-bottom:3px solid var(--accent);}
+section h3{color:var(--secondary);font-size:1.15rem;margin:22px 0 10px;}
+section h4{color:#37474f;font-size:1rem;margin:14px 0 8px;font-weight:700;}
+p{margin-bottom:14px;}
+ul,ol{padding-left:24px;margin-bottom:14px;}
+li{margin-bottom:6px;}
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:.97rem;line-height:1.7;}
+.definition{background:#e3f2fd;border-left:4px solid var(--accent);}
+.key-concept{background:var(--highlight);border-left:4px solid var(--orange);}
+.exam-tip{background:#e8f5e9;border-left:4px solid var(--green);}
+.warning{background:#fce4ec;border-left:4px solid var(--red);}
+.mnemonic{background:#f3e5f5;border-left:4px solid #7b1fa2;}
+.trap-box{background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.93rem;}
+th,td{padding:10px 14px;border:1px solid var(--border);text-align:left;vertical-align:top;}
+th{background:var(--primary);color:white;font-weight:600;}
+tr:nth-child(even){background:#f9f9f9;}
+.diagram{background:#1a2332;color:#7ec8e3;padding:20px;border-radius:8px;font-family:'Courier New',monospace;font-size:.87rem;line-height:1.9;margin:18px 0;overflow-x:auto;white-space:pre;}
+code{background:#eceff1;padding:2px 7px;border-radius:3px;font-size:.9em;color:#c62828;}
+.port-tag{display:inline-block;background:var(--primary);color:white;padding:1px 8px;border-radius:4px;font-size:.8rem;font-weight:700;margin:0 2px;}
+.layer-chip{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.8rem;font-weight:700;}
+.l1{background:#ffcdd2;color:#b71c1c;}.l2{background:#ffe0b2;color:#e65100;}.l3{background:#fff9c4;color:#f57f17;}
+.l4{background:#c8e6c9;color:#1b5e20;}.l5{background:#b2dfdb;color:#004d40;}.l6{background:#bbdefb;color:#0d47a1;}.l7{background:#e1bee7;color:#4a148c;}
+.qa-block{border:2px solid var(--border);border-radius:10px;padding:22px 26px;margin:18px 0;}
+.qa-q{font-weight:700;color:var(--primary);font-size:1.02rem;margin-bottom:12px;}
+.qa-opts{list-style:none;padding:0;margin:0 0 12px 0;}
+.qa-opts li{padding:9px 14px;margin:5px 0;border:1px solid var(--border);border-radius:6px;}
+.qa-opts li.correct{background:#e8f5e9;border-color:var(--green);font-weight:700;color:#1b5e20;}
+.qa-opts li.wrong{background:#fce4ec;border-color:var(--red);color:#7f0000;}
+.qa-exp{background:#f1f8ff;border-left:4px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;font-size:.95rem;margin-top:10px;}
+.trap-number{display:inline-block;background:var(--red);color:white;width:26px;height:26px;border-radius:50%;text-align:center;line-height:26px;font-weight:700;font-size:.85rem;margin-right:8px;flex-shrink:0;}
+.trap-item{display:flex;align-items:flex-start;gap:4px;padding:12px 0;border-bottom:1px solid var(--border);}
+.trap-item:last-child{border-bottom:none;}
+.nav-footer{display:flex;justify-content:space-between;margin-top:40px;padding-top:20px;border-top:2px solid var(--border);flex-wrap:wrap;gap:10px;}
+.nav-btn{display:inline-block;padding:11px 26px;background:var(--accent);color:white;text-decoration:none;border-radius:6px;font-weight:700;font-size:.95rem;}
+.nav-btn:hover{background:var(--primary);}
+@media(max-width:680px){.header h1{font-size:1.5rem;}section{padding:18px;}table{font-size:.82rem;}th,td{padding:8px 10px;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#127760; CISSP Networking Deep Dive</h1>
+  <div class="subtitle">Domain 4 &mdash; Communication and Network Security &mdash; Complete Study Guide</div>
+  <div class="meta">
+    <span>&#128197; Domain 4 of 8</span>
+    <span>&#128202; Exam Weight: 13%</span>
+    <span>&#8987; ~3 hr read</span>
+    <span>&#127919; Beginner &rarr; Advanced</span>
+    <span>&#128270; 14 Sections &bull; 20 Practice Qs</span>
+  </div>
+</div>
+
+<div class="container">
+<div class="breadcrumb">CISSP Study Materials &rsaquo; Domain 4: Communication and Network Security &rsaquo; Complete Networking Guide</div>
+
+<div class="callout key-concept">
+  <strong>&#127919; Who This Is For:</strong> This guide assumes you are <em>not</em> a networking professional. Every concept is explained from first principles, then immediately connected to CISSP exam reality. Domain 4 is <strong>13% of the exam (~20 questions)</strong>. This domain tests both conceptual understanding AND practical application. You cannot afford to skip it.
+</div>
+
+<div class="toc">
+  <h3>&#128209; Table of Contents</h3>
+  <ol>
+    <li><a href="#s1">The OSI Model &mdash; 7 Layers Explained</a></li>
+    <li><a href="#s2">TCP/IP Model &amp; Data Encapsulation</a></li>
+    <li><a href="#s3">IP Addressing &mdash; IPv4, IPv6, Subnetting &amp; CIDR</a></li>
+    <li><a href="#s4">Core Network Protocols &amp; Port Numbers</a></li>
+    <li><a href="#s5">Network Devices &mdash; What Every Device Does</a></li>
+    <li><a href="#s6">Network Architecture &amp; Segmentation (DMZ, VLANs)</a></li>
+    <li><a href="#s7">Firewalls &mdash; Types, Functions &amp; Placement</a></li>
+    <li><a href="#s8">IDS &amp; IPS &mdash; Detection vs Prevention</a></li>
+    <li><a href="#s9">VPNs &amp; Tunneling (IPSec, SSL VPN)</a></li>
+    <li><a href="#s10">Wireless Network Security (WEP &rarr; WPA3)</a></li>
+    <li><a href="#s11">Network Attacks &mdash; Every Attack You Must Know</a></li>
+    <li><a href="#s12">Secure Network Protocols</a></li>
+    <li><a href="#s13">&#9888;&#65039; Exam Traps &mdash; Most Common CISSP Mistakes</a></li>
+    <li><a href="#s14">&#129514; 20 Practice Questions with Explanations</a></li>
+  </ol>
+</div>
+
+<!-- ===================================================== SECTION 1 -->
+<section id="s1">
+<h2>1. The OSI Model &mdash; 7 Layers Explained</h2>
+
+<div class="callout definition">
+  <strong>&#128214; OSI Model:</strong> The <strong>Open Systems Interconnection (OSI) model</strong> is a conceptual framework published by ISO in 1984 that standardises how network systems communicate. It divides communication into <strong>7 distinct layers</strong>, each with a specific job. Think of it like a postal system &mdash; each department handles one part of delivering your letter without needing to know what the other departments do.
+</div>
+
+<div class="callout mnemonic">
+  <strong>&#129504; Mnemonic Top&rarr;Bottom (Layer 7&rarr;1):</strong> <strong>&ldquo;All People Seem To Need Data Processing&rdquo;</strong><br>
+  Application &rarr; Presentation &rarr; Session &rarr; Transport &rarr; Network &rarr; Data Link &rarr; Physical<br><br>
+  <strong>Mnemonic Bottom&rarr;Top (Layer 1&rarr;7):</strong> <strong>&ldquo;Please Do Not Throw Sausage Pizza Away&rdquo;</strong><br>
+  Physical &rarr; Data Link &rarr; Network &rarr; Transport &rarr; Session &rarr; Presentation &rarr; Application
+</div>
+
+<div class="diagram">+-------------------------------------------------------------------+
+| Layer 7 | APPLICATION  | HTTP, FTP, SMTP, DNS, SSH, SNMP, RDP    |
+| Layer 6 | PRESENTATION | SSL/TLS, JPEG, MPEG, ASCII, Unicode      |
+| Layer 5 | SESSION      | NetBIOS, RPC, PPTP, NFS, SQL sessions   |
+| Layer 4 | TRANSPORT    | TCP, UDP                                 |
+| Layer 3 | NETWORK      | IP, ICMP, OSPF, BGP, RIP, IGMP          |
+| Layer 2 | DATA LINK    | Ethernet, ARP, 802.11, VLAN (802.1Q)    |
+| Layer 1 | PHYSICAL     | Cables, Hubs, Repeaters, Radio, Bits    |
++-------------------------------------------------------------------+
+Data flows DOWN (L7 to L1) on SENDER   -- each layer adds a HEADER
+Data flows UP   (L1 to L7) on RECEIVER -- each layer strips its HEADER</div>
+
+<h3>Layer 1 &mdash; Physical <span class="layer-chip l1">L1</span></h3>
+<p>The Physical layer deals with <strong>raw bits</strong> &mdash; 0s and 1s transmitted as electrical signals (copper cable), light pulses (fibre optic), or radio waves (wireless). It defines cables, connectors, voltage levels, pin layouts, and signal timing. This layer has <strong>no concept of addresses or intelligence</strong> &mdash; it simply moves bits from one point to another.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Transmit raw binary data over a physical medium</td></tr>
+  <tr><td>Standards</td><td>Ethernet physical specs (Cat5e/Cat6/fibre), USB, Bluetooth (radio), DSL, T1/E1, SONET/SDH, 802.11 (radio frequency)</td></tr>
+  <tr><td>Devices</td><td><strong>Hub, Repeater, Modem, Network cables, NIC (physical layer)</strong></td></tr>
+  <tr><td>PDU (data unit name)</td><td><strong>Bit</strong></td></tr>
+  <tr><td>Security threats</td><td>Physical wiretapping, signal interception/eavesdropping, jamming, cable cutting</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> A <strong>hub</strong> operates at Layer 1 and <strong>broadcasts all incoming frames to every single connected port</strong> regardless of the intended destination. All ports share one collision domain. A hub has zero intelligence. A <strong>switch</strong> (Layer 2) learns MAC addresses and sends frames only to the correct port &mdash; completely different behaviour.
+</div>
+
+<h3>Layer 2 &mdash; Data Link <span class="layer-chip l2">L2</span></h3>
+<p>The Data Link layer provides <strong>node-to-node delivery within the same network segment</strong>. It uses <strong>MAC addresses</strong> (48-bit hardware addresses burned into NICs at manufacture) for local addressing. It detects transmission errors using CRC (Cyclic Redundancy Check) but does <em>not</em> correct them &mdash; corrupted frames are simply discarded.</p>
+<p>Data Link has two sub-layers:</p>
+<ul>
+  <li><strong>LLC (Logical Link Control):</strong> Interfaces with Layer 3; handles flow control and error notification upward</li>
+  <li><strong>MAC (Media Access Control):</strong> Hardware addressing; controls how devices share access to the physical medium</li>
+</ul>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Frame data, MAC addressing, error detection (CRC), medium access control</td></tr>
+  <tr><td>Protocols</td><td>Ethernet (802.3), Wi-Fi (802.11), ARP, VLAN tagging (802.1Q), Spanning Tree (802.1D), PPP</td></tr>
+  <tr><td>Devices</td><td><strong>Switch, Bridge, NIC, Wireless Access Point</strong></td></tr>
+  <tr><td>PDU</td><td><strong>Frame</strong></td></tr>
+  <tr><td>Security threats</td><td>MAC spoofing, ARP poisoning, VLAN hopping, MAC flooding (CAM overflow), STP manipulation</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; Critical ARP Fact:</strong> <strong>ARP (Address Resolution Protocol)</strong> resolves IP addresses to MAC addresses. When device A wants to reach IP 192.168.1.10, it broadcasts &ldquo;Who has 192.168.1.10? Tell 192.168.1.5.&rdquo; The owner of that IP replies with its MAC address. ARP has <strong>zero authentication</strong> &mdash; any device can send a fake ARP reply claiming any IP. This is why <strong>ARP poisoning attacks</strong> work: an attacker poisons ARP caches so traffic gets redirected through the attacker&rsquo;s machine.
+</div>
+
+<h3>Layer 3 &mdash; Network <span class="layer-chip l3">L3</span></h3>
+<p>The Network layer handles <strong>end-to-end delivery across multiple different networks</strong>. It uses <strong>IP addresses</strong> (logical, software-assigned addresses &mdash; not burned into hardware) and makes <strong>routing decisions</strong> &mdash; choosing the best path for a packet to travel from source host to destination host, potentially crossing many networks along the way.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Logical (IP) addressing, routing between networks, path selection, packet fragmentation &amp; reassembly</td></tr>
+  <tr><td>Protocols</td><td><strong>IPv4, IPv6, ICMP, IGMP, OSPF, BGP, RIP, EIGRP</strong></td></tr>
+  <tr><td>Devices</td><td><strong>Router, Layer 3 Switch, Packet-filtering Firewall</strong></td></tr>
+  <tr><td>PDU</td><td><strong>Packet</strong></td></tr>
+  <tr><td>Security threats</td><td>IP spoofing, route hijacking, ICMP attacks (Ping of Death, Smurf), fragmentation attacks, TTL manipulation</td></tr>
+</table>
+
+<h3>Layer 4 &mdash; Transport <span class="layer-chip l4">L4</span></h3>
+<p>The Transport layer provides <strong>end-to-end communication between specific applications</strong> on different hosts. It uses <strong>port numbers</strong> to identify which application the data belongs to (port 80 = web, port 25 = email). The two dominant protocols are <strong>TCP</strong> (reliable, ordered) and <strong>UDP</strong> (fast, unreliable).</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Segmentation &amp; reassembly, port-based multiplexing, flow control, error recovery (TCP only)</td></tr>
+  <tr><td>Protocols</td><td><strong>TCP</strong> (connection-oriented, reliable, ordered) | <strong>UDP</strong> (connectionless, fast, no guarantee)</td></tr>
+  <tr><td>Devices</td><td>Stateful firewall, Load balancer, NAT device</td></tr>
+  <tr><td>PDU</td><td><strong>Segment</strong> (TCP) or <strong>Datagram</strong> (UDP)</td></tr>
+  <tr><td>Security threats</td><td>SYN flood, session hijacking, port scanning, UDP amplification, connection exhaustion</td></tr>
+</table>
+<div class="callout key-concept">
+  <strong>&#128272; TCP Three-Way Handshake (memorise this):</strong><br>
+  <strong>Step 1 &mdash; SYN:</strong> Client sends SYN with a random Initial Sequence Number (ISN-c)<br>
+  <strong>Step 2 &mdash; SYN-ACK:</strong> Server acknowledges (ACK = ISN-c + 1) and sends its own SYN with ISN-s<br>
+  <strong>Step 3 &mdash; ACK:</strong> Client acknowledges server&rsquo;s SYN (ACK = ISN-s + 1) &mdash; connection is established<br><br>
+  A <strong>SYN flood attack</strong> sends thousands of SYN packets with spoofed source IPs. The server sends SYN-ACK responses that are never answered, filling its connection table with half-open connections until it cannot accept legitimate connections. Defense: <strong>SYN cookies</strong>.
+</div>
+
+<h3>Layer 5 &mdash; Session <span class="layer-chip l5">L5</span></h3>
+<p>The Session layer <strong>establishes, manages, and terminates sessions</strong> (logical conversations) between applications. It provides synchronisation checkpoints for long data transfers &mdash; if a 2GB file transfer fails at 80%, a checkpoint allows resumption from that point rather than restarting from zero.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Session setup/teardown, dialogue control, synchronisation checkpoints, half-duplex vs full-duplex control</td></tr>
+  <tr><td>Protocols</td><td>NetBIOS, RPC, PPTP, L2TP (partly), NFS (partly), SQL session handling</td></tr>
+  <tr><td>PDU</td><td><strong>Data</strong></td></tr>
+  <tr><td>Security threats</td><td>Session hijacking, replay attacks, session fixation</td></tr>
+</table>
+
+<h3>Layer 6 &mdash; Presentation <span class="layer-chip l6">L6</span></h3>
+<p>The Presentation layer is the <strong>translator, encoder, and formatter</strong>. It ensures data from the sending application can be understood by the receiving application regardless of different internal formats. It handles character encoding conversion, data compression, and encryption/decryption.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Data format translation (ASCII &harr; EBCDIC), character encoding, compression, encryption/decryption</td></tr>
+  <tr><td>Protocols / Formats</td><td>SSL/TLS (encryption), JPEG, GIF, PNG, MPEG, ASCII, EBCDIC, Unicode, Base64</td></tr>
+  <tr><td>PDU</td><td><strong>Data</strong></td></tr>
+  <tr><td>Security threats</td><td>Encoding bypass attacks, malformed data attacks, format string vulnerabilities</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap &mdash; SSL/TLS Layer:</strong> CISSP questions using the OSI model typically place SSL/TLS at <strong>Layer 6 (Presentation)</strong>. In the TCP/IP model and in real-world practice, SSL/TLS operates between Transport and Application. Both are technically defensible. The exam usually specifies which model to use &mdash; follow that context.
+</div>
+
+<h3>Layer 7 &mdash; Application <span class="layer-chip l7">L7</span></h3>
+<p>The Application layer is where <strong>end-user applications interface directly with the network</strong>. This is the only layer users directly interact with. Web browsers (HTTP/HTTPS), email clients (SMTP/POP3/IMAP), and file transfer clients (FTP) all operate here.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Function</td><td>Provide network services directly to applications; user-facing protocols</td></tr>
+  <tr><td>Protocols</td><td>HTTP, HTTPS, FTP, SFTP, SMTP, POP3, IMAP, DNS, DHCP, SSH, Telnet, SNMP, LDAP, RDP, NTP</td></tr>
+  <tr><td>Devices</td><td>Web Application Firewall (WAF), Application-level proxy/gateway</td></tr>
+  <tr><td>PDU</td><td><strong>Message / Data</strong></td></tr>
+  <tr><td>Security threats</td><td>SQL injection, XSS, command injection, phishing via email protocols, malware delivery</td></tr>
+</table>
+
+<h3>OSI Master Reference Table</h3>
+<table>
+  <tr><th>#</th><th>Layer</th><th>PDU</th><th>Key Protocols</th><th>Key Devices</th><th>Primary Security Threats</th></tr>
+  <tr><td><strong>7</strong></td><td><span class="layer-chip l7">Application</span></td><td>Message</td><td>HTTP, FTP, DNS, SMTP, SSH, SNMP</td><td>WAF, App Proxy</td><td>App-layer attacks, malware</td></tr>
+  <tr><td><strong>6</strong></td><td><span class="layer-chip l6">Presentation</span></td><td>Data</td><td>SSL/TLS, JPEG, ASCII, Unicode</td><td>&mdash;</td><td>Encoding attacks, crypto flaws</td></tr>
+  <tr><td><strong>5</strong></td><td><span class="layer-chip l5">Session</span></td><td>Data</td><td>NetBIOS, RPC, PPTP</td><td>&mdash;</td><td>Session hijacking, replay</td></tr>
+  <tr><td><strong>4</strong></td><td><span class="layer-chip l4">Transport</span></td><td>Segment/Datagram</td><td>TCP, UDP</td><td>Stateful FW, LB</td><td>SYN flood, port scanning</td></tr>
+  <tr><td><strong>3</strong></td><td><span class="layer-chip l3">Network</span></td><td>Packet</td><td>IP, ICMP, OSPF, BGP, RIP</td><td>Router, L3 Switch</td><td>IP spoofing, routing attacks</td></tr>
+  <tr><td><strong>2</strong></td><td><span class="layer-chip l2">Data Link</span></td><td>Frame</td><td>Ethernet, ARP, 802.11, VLAN</td><td>Switch, Bridge</td><td>ARP poisoning, VLAN hopping</td></tr>
+  <tr><td><strong>1</strong></td><td><span class="layer-chip l1">Physical</span></td><td>Bit</td><td>Electrical/optical/radio signals</td><td>Hub, Repeater</td><td>Wiretapping, jamming</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>&#128161; CISSP Exam Strategy for OSI Questions:</strong>
+  <ul>
+    <li>&ldquo;Which layer does X operate at?&rdquo; &rarr; use the table above</li>
+    <li>&ldquo;A packet-filtering firewall works at which layers?&rdquo; &rarr; <strong>Layers 3 &amp; 4</strong> (stateless, inspects IP headers and port numbers)</li>
+    <li>&ldquo;A stateful inspection firewall works at which layers?&rdquo; &rarr; <strong>Layers 3, 4, and 5</strong> (tracks connection state)</li>
+    <li>&ldquo;An application proxy/gateway works at which layer?&rdquo; &rarr; <strong>Layer 7</strong> (inspects full application payload)</li>
+    <li>&ldquo;Which device separates broadcast domains?&rdquo; &rarr; <strong>Router</strong> (Layer 3)</li>
+    <li>&ldquo;Which device separates collision domains?&rdquo; &rarr; <strong>Switch</strong> (Layer 2, one collision domain per port)</li>
+  </ul>
+</div>
+</section>
+
+<!-- ===================================================== SECTION 2 -->
+<section id="s2">
+<h2>2. TCP/IP Model &amp; Data Encapsulation</h2>
+
+<div class="callout definition">
+  <strong>&#128214; TCP/IP Model (DoD Model):</strong> The <strong>TCP/IP model</strong>, also called the <strong>DoD (Department of Defense) model</strong>, is the <em>practical</em> framework that actually powers the Internet. Unlike the OSI model which is a conceptual reference, TCP/IP is what is actually implemented. It has <strong>4 layers</strong> that map to the OSI model&rsquo;s 7 layers.
+</div>
+
+<h3>TCP/IP vs OSI Comparison</h3>
+<table>
+  <tr><th>TCP/IP Layer</th><th>Corresponds to OSI</th><th>Key Protocols</th></tr>
+  <tr><td><strong>4. Application</strong></td><td>OSI Layers 5 + 6 + 7 (Session + Presentation + Application)</td><td>HTTP, HTTPS, FTP, SFTP, SMTP, POP3, IMAP, DNS, DHCP, SSH, Telnet, SNMP, RDP, NTP</td></tr>
+  <tr><td><strong>3. Transport</strong></td><td>OSI Layer 4 (Transport)</td><td>TCP, UDP</td></tr>
+  <tr><td><strong>2. Internet</strong></td><td>OSI Layer 3 (Network)</td><td>IPv4, IPv6, ICMP, OSPF, BGP, RIP</td></tr>
+  <tr><td><strong>1. Network Access</strong></td><td>OSI Layers 1 + 2 (Physical + Data Link)</td><td>Ethernet, Wi-Fi (802.11), ARP, MAC, PPP</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> CISSP uses <strong>both OSI and TCP/IP models</strong> and switches between them. OSI is used for conceptual discussions and protocol placement. TCP/IP is used for practical discussions. Know both models and be comfortable translating between them.
+</div>
+
+<h3>Data Encapsulation &mdash; How Data Actually Travels the Network</h3>
+<p>Encapsulation is the process of <strong>wrapping data with protocol-specific headers</strong> as it passes down the layers. Each layer adds its own header (and sometimes a trailer). On the receiving end, each layer strips its header &mdash; this is called <strong>de-encapsulation</strong>.</p>
+
+<div class="diagram">SENDER (Application layer down to Physical):
+
+  Application Data: "GET /index.html HTTP/1.1\r\nHost: example.com"
+         |
+         v  [ Layer 4: TCP adds header: src port, dst port, seq#, ack#, flags ]
+  TCP Segment:    [ TCP HDR | HTTP DATA ]
+         |
+         v  [ Layer 3: IP adds header: src IP, dst IP, TTL, protocol=6 ]
+  IP Packet:      [ IP HDR | TCP HDR | HTTP DATA ]
+         |
+         v  [ Layer 2: Ethernet adds header (src MAC, dst MAC) + CRC trailer ]
+  Ethernet Frame: [ ETH HDR | IP HDR | TCP HDR | HTTP DATA | CRC ]
+         |
+         v  [ Layer 1: converted to electrical/optical/radio signals ]
+  Bits: 01001011...
+
+RECEIVER (Physical up to Application): reverse process
+  Bits -> Strip ETH header -> Strip IP header -> Strip TCP header -> HTTP Data</div>
+
+<div class="callout key-concept">
+  <strong>&#128272; Critical Encapsulation Facts for CISSP:</strong>
+  <ul>
+    <li>Each layer&rsquo;s header is <em>only read/processed by the same layer</em> on the remote device</li>
+    <li>An Ethernet frame (L2) knows nothing about IP addresses &mdash; only MAC addresses</li>
+    <li>An IP packet (L3) knows nothing about port numbers &mdash; that is TCP/UDP&rsquo;s job</li>
+    <li>A <strong>router</strong> only reads up to the IP header. It does NOT open the TCP segment or application data</li>
+    <li>A <strong>stateful firewall</strong> reads up to the TCP header (L3+L4+L5 state)</li>
+    <li>An <strong>application proxy</strong> reads the full payload all the way to Layer 7</li>
+  </ul>
+</div>
+
+<h3>TCP vs UDP &mdash; Critical Comparison</h3>
+<table>
+  <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
+  <tr><td>Connection type</td><td><strong>Connection-oriented</strong> (3-way handshake required before any data)</td><td><strong>Connectionless</strong> (just send &mdash; no setup)</td></tr>
+  <tr><td>Reliability</td><td><strong>Reliable</strong> &mdash; guaranteed delivery via ACKs; retransmits lost packets</td><td><strong>Unreliable</strong> &mdash; no delivery guarantee; lost packets are NOT retransmitted</td></tr>
+  <tr><td>Ordering</td><td><strong>Ordered</strong> &mdash; sequence numbers ensure correct order on arrival</td><td><strong>Unordered</strong> &mdash; packets may arrive out of order; application must handle</td></tr>
+  <tr><td>Flow control</td><td>Yes &mdash; sliding window mechanism prevents overwhelming receiver</td><td>No &mdash; sender sends as fast as possible</td></tr>
+  <tr><td>Speed</td><td>Slower due to handshake, ACKs, and retransmission overhead</td><td><strong>Faster</strong> &mdash; minimal overhead, no waiting for ACKs</td></tr>
+  <tr><td>Header size</td><td>20 bytes minimum</td><td>8 bytes</td></tr>
+  <tr><td>Typical uses</td><td>HTTP(S), email (SMTP/IMAP/POP3), FTP, SSH, Telnet, LDAP, BGP</td><td>DNS queries, DHCP, VoIP, video streaming, NTP, SNMP, TFTP, RIP</td></tr>
+  <tr><td>Security risks</td><td>SYN flood, session hijacking, sequence number prediction</td><td>UDP amplification/reflection attacks, UDP flood</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>&#128161; TCP vs UDP Protocol Quick Reference (memorise these):</strong><br><br>
+  <strong>TCP only:</strong> HTTP (80), HTTPS (443), FTP-data (20) / FTP-control (21), SSH (22), Telnet (23), SMTP (25), POP3 (110), IMAP (143), LDAP (389), LDAPS (636), RDP (3389), BGP (179), TACACS+ (49)<br><br>
+  <strong>UDP only:</strong> DHCP server (67) / DHCP client (68), TFTP (69), NTP (123), SNMP queries (161) / traps (162), Syslog (514), RIP (520)<br><br>
+  <strong>Both TCP &amp; UDP:</strong> DNS (53) &mdash; UDP for standard queries, TCP for zone transfers and responses &gt;512 bytes | Kerberos (88) | RADIUS (1812/1813)
+</div>
+
+<h3>Port Number Ranges</h3>
+<table>
+  <tr><th>Range</th><th>Name</th><th>Description</th></tr>
+  <tr><td><strong>0 &ndash; 1023</strong></td><td>Well-Known Ports</td><td>Reserved for standard well-known services (HTTP=80, SSH=22, etc.). Require root/admin privileges to bind. Assigned by IANA.</td></tr>
+  <tr><td><strong>1024 &ndash; 49151</strong></td><td>Registered Ports</td><td>Registered by vendors for specific applications (RDP=3389, MySQL=3306, RADIUS=1812). Less strictly controlled.</td></tr>
+  <tr><td><strong>49152 &ndash; 65535</strong></td><td>Dynamic / Ephemeral Ports</td><td>Temporarily assigned by the OS for outgoing client connections. Cannot be permanently reserved.</td></tr>
+</table>
+</section>
+
+
+<!-- ===================================================== SECTION 3 -->
+<section id="s3">
+<h2>3. IP Addressing &mdash; IPv4, IPv6, Subnetting &amp; CIDR</h2>
+
+<div class="callout definition">
+  <strong>&#128214; IP Address:</strong> An IP address is a <strong>logical (software-assigned) address</strong> used to identify a device on a network. Unlike MAC addresses (hardware-burned), IP addresses can be changed and are assigned administratively. They operate at <strong>Layer 3</strong>.
+</div>
+
+<h3>IPv4 &mdash; The Most Common Version</h3>
+<p>IPv4 uses <strong>32-bit addresses</strong> written in dotted-decimal notation (e.g., <code>192.168.1.100</code>). Each group is called an <strong>octet</strong> (8 bits, value 0&ndash;255). There are approximately 4.3 billion possible IPv4 addresses &mdash; a number the world has exhausted, which is why <strong>NAT</strong> and <strong>IPv6</strong> exist.</p>
+
+<h4>IPv4 Address Classes (Legacy &mdash; Still Tested on CISSP)</h4>
+<table>
+  <tr><th>Class</th><th>First Octet Range</th><th>Default Subnet Mask</th><th>Purpose</th><th>Example</th></tr>
+  <tr><td><strong>A</strong></td><td>1 &ndash; 126</td><td>255.0.0.0 (/8)</td><td>Large networks (16M hosts per network)</td><td>10.0.0.0</td></tr>
+  <tr><td><strong>B</strong></td><td>128 &ndash; 191</td><td>255.255.0.0 (/16)</td><td>Medium networks (65K hosts per network)</td><td>172.16.0.0</td></tr>
+  <tr><td><strong>C</strong></td><td>192 &ndash; 223</td><td>255.255.255.0 (/24)</td><td>Small networks (254 hosts per network)</td><td>192.168.1.0</td></tr>
+  <tr><td><strong>D</strong></td><td>224 &ndash; 239</td><td>N/A</td><td><strong>Multicast</strong> (one-to-many delivery)</td><td>224.0.0.1</td></tr>
+  <tr><td><strong>E</strong></td><td>240 &ndash; 255</td><td>N/A</td><td>Experimental / Reserved (not used)</td><td>240.0.0.0</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> The range <strong>127.x.x.x</strong> is <em>not</em> Class A in practice &mdash; it is reserved for the <strong>loopback address</strong>. The well-known loopback is <code>127.0.0.1</code> (localhost). Sending to any 127.x.x.x address loops back to the same machine without hitting the network.
+</div>
+
+<h4>Special / Reserved IPv4 Addresses</h4>
+<table>
+  <tr><th>Address / Range</th><th>Purpose</th><th>CISSP Relevance</th></tr>
+  <tr><td><strong>127.0.0.0/8</strong></td><td>Loopback (localhost) &mdash; 127.0.0.1 is most common</td><td>Used for testing the TCP/IP stack on a local machine without network</td></tr>
+  <tr><td><strong>10.0.0.0/8</strong></td><td>Private Class A range</td><td>Never routed on public internet; used inside organisations; requires NAT to reach internet</td></tr>
+  <tr><td><strong>172.16.0.0 &ndash; 172.31.255.255 (/12)</strong></td><td>Private Class B range</td><td>16 Class B networks (172.16 through 172.31)</td></tr>
+  <tr><td><strong>192.168.0.0/16</strong></td><td>Private Class C range</td><td>Most common home/SOHO network range</td></tr>
+  <tr><td><strong>169.254.0.0/16</strong></td><td>APIPA (Automatic Private IP Addressing) / Link-local</td><td>Windows assigns this automatically when DHCP fails. A device with a 169.254.x.x address <strong>cannot reach the internet</strong> &mdash; it means DHCP is broken.</td></tr>
+  <tr><td><strong>0.0.0.0</strong></td><td>Default route / unspecified address</td><td>Used in routing tables to mean &ldquo;any network&rdquo;; also means &ldquo;this host&rdquo; when a device has no IP yet</td></tr>
+  <tr><td><strong>255.255.255.255</strong></td><td>Limited broadcast</td><td>Sends to all hosts on local network segment; not forwarded by routers</td></tr>
+</table>
+
+<h3>CIDR Notation and Subnetting</h3>
+<div class="callout definition">
+  <strong>&#128214; CIDR (Classless Inter-Domain Routing):</strong> A way to express IP address ranges using a <strong>prefix length</strong> (e.g., <code>/24</code>) instead of class-based masks. The prefix length tells you how many bits are the <em>network portion</em> &mdash; remaining bits are the host portion.
+</div>
+<table>
+  <tr><th>CIDR</th><th>Subnet Mask</th><th>Hosts Available</th><th>Common Use</th></tr>
+  <tr><td>/8</td><td>255.0.0.0</td><td>16,777,214</td><td>Class A private networks (10.x.x.x)</td></tr>
+  <tr><td>/16</td><td>255.255.0.0</td><td>65,534</td><td>Class B private, larger campus networks</td></tr>
+  <tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>Typical office LAN segment</td></tr>
+  <tr><td>/25</td><td>255.255.255.128</td><td>126</td><td>Splitting a /24 into 2</td></tr>
+  <tr><td>/28</td><td>255.255.255.240</td><td>14</td><td>Small segments (server DMZs)</td></tr>
+  <tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>Point-to-point links between routers</td></tr>
+  <tr><td>/32</td><td>255.255.255.255</td><td>1 (host only)</td><td>Single host routes, firewall rules</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; Subnetting Logic:</strong> Usable hosts = 2<sup>n</sup> &minus; 2, where n = number of host bits. You subtract 2 because the <strong>network address</strong> (all host bits = 0) and <strong>broadcast address</strong> (all host bits = 1) cannot be assigned to hosts. For CISSP, you rarely need to calculate subnets &mdash; just understand the concepts and recognise common masks.
+</div>
+
+<h3>NAT &mdash; Network Address Translation</h3>
+<p>NAT translates private (internal) IP addresses to public (external) IP addresses, allowing many internal devices to share a single public IP. <strong>PAT (Port Address Translation)</strong>, also called NAT Overload, additionally maps unique port numbers to each internal session, enabling hundreds of devices to share one public IP simultaneously.</p>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Critical CISSP Trap:</strong> NAT is <strong>NOT a security control</strong>. It is an addressing mechanism that provides some incidental obscurity of internal addresses, but it does not provide authentication, authorisation, or access control. Do not select NAT as a <em>security</em> solution on the exam. Also: NAT breaks end-to-end IP connectivity and can interfere with IPSec.
+</div>
+
+<h3>IPv6 &mdash; The Next Generation</h3>
+<table>
+  <tr><th>Feature</th><th>IPv4</th><th>IPv6</th></tr>
+  <tr><td>Address size</td><td>32 bits (4 bytes)</td><td><strong>128 bits (16 bytes)</strong></td></tr>
+  <tr><td>Notation</td><td>Dotted decimal: 192.168.1.1</td><td>Colon-separated hex: 2001:0db8:85a3::8a2e:0370:7334</td></tr>
+  <tr><td>Total addresses</td><td>~4.3 billion</td><td>~340 undecillion (3.4 &times; 10<sup>38</sup>)</td></tr>
+  <tr><td>Broadcast</td><td>Yes (limited + directed broadcast)</td><td><strong>No broadcast</strong> &mdash; uses multicast and anycast instead</td></tr>
+  <tr><td>Address assignment</td><td>Manual or DHCP</td><td>SLAAC (Stateless Address Autoconfiguration) or DHCPv6</td></tr>
+  <tr><td>IPSec</td><td>Optional</td><td>IPSec is part of the IPv6 standard (mandatory support)</td></tr>
+  <tr><td>Header</td><td>Variable length (20+ bytes)</td><td>Fixed 40-byte header (simpler, faster routing)</td></tr>
+</table>
+
+<h4>IPv6 Address Types</h4>
+<table>
+  <tr><th>Type</th><th>Prefix</th><th>Description</th></tr>
+  <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>Publicly routable; equivalent to public IPv4 addresses</td></tr>
+  <tr><td><strong>Link-Local</strong></td><td>FE80::/10</td><td>Automatically configured; only valid on the local link segment; not routed</td></tr>
+  <tr><td><strong>Unique Local</strong></td><td>FC00::/7</td><td>Private use (equivalent to 192.168.x.x / 10.x.x.x) &mdash; not internet-routable</td></tr>
+  <tr><td><strong>Loopback</strong></td><td>::1/128</td><td>Equivalent to 127.0.0.1 in IPv4</td></tr>
+  <tr><td><strong>Multicast</strong></td><td>FF00::/8</td><td>One-to-many delivery; replaces IPv4 broadcast</td></tr>
+  <tr><td><strong>Anycast</strong></td><td>Same as unicast</td><td>One address assigned to multiple nodes; nearest node responds</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> IPv6 has <strong>NO broadcast</strong>. This is frequently tested. IPv6 uses <strong>multicast</strong> (one-to-many) and <strong>anycast</strong> (one-to-nearest) instead. If you see a question about IPv6 broadcast, the correct answer is that it does not exist.
+</div>
+</section>
+
+<!-- ===================================================== SECTION 4 -->
+<section id="s4">
+<h2>4. Core Network Protocols &amp; Port Numbers</h2>
+
+<div class="callout key-concept">
+  <strong>&#128272; Why Ports Matter for CISSP:</strong> Firewalls filter traffic by port number. Knowing which protocol uses which port tells you what a firewall rule is doing. Security scans identify open ports to find attack surfaces. Protocol-specific vulnerabilities are tied to specific ports.
+</div>
+
+<h3>The Master Protocol &amp; Port Reference Table</h3>
+<table>
+  <tr><th>Protocol</th><th>Port(s)</th><th>Transport</th><th>Purpose</th><th>Security Notes</th></tr>
+  <tr><td><strong>FTP</strong></td><td>20 (data), 21 (control)</td><td>TCP</td><td>File Transfer Protocol &mdash; transfers files between client and server</td><td><strong>Cleartext</strong> &mdash; credentials and data transmitted in plaintext. Replace with SFTP or FTPS.</td></tr>
+  <tr><td><strong>SSH</strong></td><td>22</td><td>TCP</td><td>Secure Shell &mdash; encrypted remote login, tunnelling, SFTP</td><td>Encrypted. Replaces Telnet &amp; insecure FTP. Use key-based auth over passwords.</td></tr>
+  <tr><td><strong>Telnet</strong></td><td>23</td><td>TCP</td><td>Remote terminal login (legacy)</td><td><strong>Cleartext</strong> &mdash; everything including passwords visible on wire. Never use. Replace with SSH.</td></tr>
+  <tr><td><strong>SMTP</strong></td><td>25</td><td>TCP</td><td>Simple Mail Transfer Protocol &mdash; sending email (server-to-server &amp; client-to-server)</td><td>Originally cleartext. Use SMTPS (465) or STARTTLS (587) for encryption.</td></tr>
+  <tr><td><strong>DNS</strong></td><td>53</td><td><strong>UDP &amp; TCP</strong></td><td>Domain Name System &mdash; resolves hostnames to IP addresses</td><td>UDP for standard queries; TCP for zone transfers and large (&gt;512 byte) responses. Vulnerable to poisoning. Secure with DNSSEC.</td></tr>
+  <tr><td><strong>DHCP</strong></td><td>67 (server), 68 (client)</td><td><strong>UDP</strong></td><td>Dynamic Host Configuration Protocol &mdash; automatically assigns IP addresses to clients</td><td>No authentication &mdash; DHCP starvation and rogue DHCP server attacks possible. Mitigate with DHCP snooping.</td></tr>
+  <tr><td><strong>TFTP</strong></td><td>69</td><td>UDP</td><td>Trivial FTP &mdash; simple file transfer (no auth, no directory listing)</td><td><strong>No authentication, no encryption.</strong> Used for router config backups, PXE booting. Never expose to internet.</td></tr>
+  <tr><td><strong>HTTP</strong></td><td>80</td><td>TCP</td><td>HyperText Transfer Protocol &mdash; web browsing</td><td><strong>Cleartext.</strong> Replace with HTTPS (443).</td></tr>
+  <tr><td><strong>POP3</strong></td><td>110</td><td>TCP</td><td>Post Office Protocol v3 &mdash; download email from server (deletes from server by default)</td><td>Cleartext credentials. Use POP3S (995) or STARTTLS.</td></tr>
+  <tr><td><strong>NTP</strong></td><td>123</td><td><strong>UDP</strong></td><td>Network Time Protocol &mdash; synchronises clocks across network</td><td>Critical for Kerberos (tickets expire), log correlation, certificate validity. NTP amplification used in DDoS. Use NTPv4 with authentication.</td></tr>
+  <tr><td><strong>IMAP</strong></td><td>143</td><td>TCP</td><td>Internet Message Access Protocol &mdash; read email on server (keeps on server, supports folders)</td><td>Cleartext credentials. Use IMAPS (993) or STARTTLS. More feature-rich than POP3.</td></tr>
+  <tr><td><strong>SNMP</strong></td><td>161 (queries), 162 (traps)</td><td><strong>UDP</strong></td><td>Simple Network Management Protocol &mdash; monitor and manage network devices</td><td><strong>v1 and v2c: community strings sent in cleartext = INSECURE.</strong> Always use <strong>SNMPv3</strong> which adds authentication (HMAC) and encryption (AES).</td></tr>
+  <tr><td><strong>LDAP</strong></td><td>389</td><td>TCP &amp; UDP</td><td>Lightweight Directory Access Protocol &mdash; query directory services (Active Directory)</td><td>Cleartext. Use <strong>LDAPS</strong> (636) or LDAP over STARTTLS for encryption.</td></tr>
+  <tr><td><strong>HTTPS</strong></td><td>443</td><td>TCP</td><td>HTTP over TLS &mdash; encrypted web browsing</td><td>Encrypted with TLS. Standard for all web traffic. Verify certificate validity to prevent MITM.</td></tr>
+  <tr><td><strong>SMTPS / SMTP Secure</strong></td><td>465 (implicit TLS), 587 (STARTTLS)</td><td>TCP</td><td>Encrypted email submission</td><td>Port 587 with STARTTLS is the modern standard for email client-to-server submission.</td></tr>
+  <tr><td><strong>Syslog</strong></td><td>514</td><td>UDP (standard), TCP (reliable)</td><td>System log forwarding to central log server</td><td>UDP syslog has no delivery guarantee. Use TCP syslog or TLS (6514) for integrity. Critical for SIEM.</td></tr>
+  <tr><td><strong>LDAPS</strong></td><td>636</td><td>TCP</td><td>LDAP over SSL/TLS &mdash; encrypted directory queries</td><td>Use instead of plain LDAP (389).</td></tr>
+  <tr><td><strong>IMAPS</strong></td><td>993</td><td>TCP</td><td>IMAP over SSL/TLS</td><td>Encrypted email access.</td></tr>
+  <tr><td><strong>POP3S</strong></td><td>995</td><td>TCP</td><td>POP3 over SSL/TLS</td><td>Encrypted email download.</td></tr>
+  <tr><td><strong>RADIUS</strong></td><td>1812 (auth), 1813 (accounting)</td><td><strong>UDP</strong></td><td>Remote Authentication Dial-In User Service &mdash; AAA for network access</td><td>Encrypts only the password field in the packet, not the entire payload. Used with 802.1X.</td></tr>
+  <tr><td><strong>RDP</strong></td><td>3389</td><td>TCP</td><td>Remote Desktop Protocol &mdash; Windows remote desktop</td><td>Frequently attacked (BlueKeep, credential brute-force). Use MFA, VPN, and firewall rules. Never expose directly to internet.</td></tr>
+  <tr><td><strong>FTPS</strong></td><td>990 (implicit), 21 (explicit)</td><td>TCP</td><td>FTP over SSL/TLS &mdash; encrypted file transfer</td><td>Implicit mode: always encrypted from start. Explicit mode (FTPS/STARTTLS): negotiates TLS after connecting on port 21.</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>&#9888;&#65039; SFTP vs FTPS &mdash; A Common CISSP Trap:</strong><br>
+  <strong>SFTP (SSH File Transfer Protocol):</strong> Runs over SSH on <strong>port 22</strong>. NOT related to FTP at all despite the name. Completely separate protocol, fully encrypted.<br>
+  <strong>FTPS (FTP Secure):</strong> FTP with SSL/TLS added on top. Implicit FTPS uses port 990. Explicit FTPS uses port 21 and upgrades to TLS.<br>
+  <strong>FTP (plain):</strong> Cleartext. Do not use. Credentials visible on the wire.
+</div>
+
+<h3>Authentication Protocols</h3>
+<table>
+  <tr><th>Protocol</th><th>Port</th><th>Transport</th><th>Description</th><th>Key Facts</th></tr>
+  <tr><td><strong>Kerberos</strong></td><td>88</td><td>TCP &amp; UDP</td><td>Ticket-based authentication protocol used by Active Directory</td><td>Uses a KDC (Key Distribution Center) with AS + TGS components. Tickets expire (prevents replay). Provides mutual authentication. Vulnerable to Pass-the-Ticket, Golden Ticket, Kerberoasting attacks.</td></tr>
+  <tr><td><strong>RADIUS</strong></td><td>1812/1813</td><td>UDP</td><td>Centralised AAA server for network access (dial-up, VPN, 802.1X)</td><td>Encrypts only the password. Client/server model. Widely used with 802.1X for wireless/wired NAC.</td></tr>
+  <tr><td><strong>TACACS+</strong></td><td>49</td><td><strong>TCP</strong></td><td>Cisco&rsquo;s enhanced AAA protocol for device administration</td><td>Encrypts the <strong>entire payload</strong> (not just password). TCP for reliability. Separates authentication, authorisation, and accounting. Preferred for managing network devices.</td></tr>
+  <tr><td><strong>LDAP / AD</strong></td><td>389 / 636</td><td>TCP</td><td>Directory protocol used to query user accounts and groups</td><td>Active Directory uses LDAP. Always use LDAPS (636) or LDAP+STARTTLS in production.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; TACACS+ vs RADIUS &mdash; Know the Difference:</strong><br>
+  &bull; TACACS+ uses <strong>TCP</strong> (reliable); RADIUS uses <strong>UDP</strong><br>
+  &bull; TACACS+ encrypts <strong>entire payload</strong>; RADIUS encrypts only the password<br>
+  &bull; TACACS+ separates AAA functions cleanly; RADIUS combines auth &amp; authorisation<br>
+  &bull; TACACS+ is preferred for <strong>managing network devices</strong> (routers, switches)<br>
+  &bull; RADIUS is preferred for <strong>network access control</strong> (wireless, VPN, 802.1X)
+</div>
+
+<h3>Routing Protocols</h3>
+<table>
+  <tr><th>Protocol</th><th>Type</th><th>Category</th><th>Key Characteristics</th><th>CISSP Notes</th></tr>
+  <tr><td><strong>RIP</strong></td><td>Distance Vector</td><td>IGP (Interior)</td><td>Hop count metric (max 15 hops). Slow convergence. UDP port 520.</td><td>Legacy protocol. Max 15 hops limits use in large networks. Susceptible to routing loops. RIPv2 adds authentication.</td></tr>
+  <tr><td><strong>OSPF</strong></td><td>Link State</td><td>IGP (Interior)</td><td>Uses Dijkstra&rsquo;s algorithm. Fast convergence. No hop limit. Cost metric.</td><td>Most common interior routing protocol. Supports authentication. Used within an organisation&rsquo;s network.</td></tr>
+  <tr><td><strong>EIGRP</strong></td><td>Hybrid (Distance Vector + Link State)</td><td>IGP (Interior)</td><td>Cisco proprietary. Fast convergence. Bandwidth + delay metric.</td><td>Cisco-only. Supports authentication. Efficient bandwidth use.</td></tr>
+  <tr><td><strong>BGP</strong></td><td>Path Vector</td><td><strong>EGP (Exterior)</strong></td><td>TCP port 179. Routes between Autonomous Systems (AS). The routing protocol of the internet.</td><td>Used between ISPs and large enterprises. BGP hijacking is a real threat (attackers announce false routes). Vulnerable to route injection without proper filtering and RPKI.</td></tr>
+  <tr><td><strong>IS-IS</strong></td><td>Link State</td><td>IGP (Interior)</td><td>Similar to OSPF. Used by large ISPs internally.</td><td>Less common in enterprise, but tested occasionally.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; Interior vs Exterior Routing:</strong><br>
+  <strong>IGP (Interior Gateway Protocol):</strong> Routes within a single organisation&rsquo;s Autonomous System (AS). Examples: RIP, OSPF, EIGRP, IS-IS<br>
+  <strong>EGP (Exterior Gateway Protocol):</strong> Routes <em>between</em> different organisations&rsquo; Autonomous Systems. Example: <strong>BGP</strong> (the only EGP in practical use today)<br>
+  An <strong>Autonomous System (AS)</strong> is a network or group of networks under a single administrative control (e.g., an ISP, a large company).
+</div>
+
+<h3>ICMP &mdash; The Network&rsquo;s Diagnostic Tool</h3>
+<p>ICMP (Internet Control Message Protocol) operates at <strong>Layer 3</strong> and is used for network diagnostics and error reporting. It is <strong>not</strong> a transport protocol &mdash; it does not carry application data. The <code>ping</code> command uses ICMP Echo Request/Reply. The <code>traceroute</code> command uses ICMP TTL-exceeded messages.</p>
+<table>
+  <tr><th>ICMP Message Type</th><th>Use</th><th>Security Relevance</th></tr>
+  <tr><td>Echo Request / Echo Reply (Type 8/0)</td><td>Ping &mdash; test reachability and measure latency</td><td>Ping sweep used in reconnaissance. Can be blocked to reduce attack surface (but breaks diagnostics).</td></tr>
+  <tr><td>Destination Unreachable (Type 3)</td><td>Inform sender that destination is unreachable</td><td>Can reveal network topology to attackers.</td></tr>
+  <tr><td>Time Exceeded (Type 11)</td><td>TTL expired in transit (used by traceroute)</td><td>Reveals routing path and hops &mdash; recon value.</td></tr>
+  <tr><td>Redirect (Type 5)</td><td>Tell host to use a different router</td><td>Historically used in MITM attacks &mdash; block ICMP redirects on routers.</td></tr>
+</table>
+</section>
+
+<!-- ===================================================== SECTION 5 -->
+<section id="s5">
+<h2>5. Network Devices &mdash; What Every Device Does</h2>
+
+<div class="callout definition">
+  <strong>&#128214; Why This Matters for CISSP:</strong> The exam tests which device operates at which OSI layer, what function it performs, and what security vulnerabilities it has. This is non-negotiable content.
+</div>
+
+<h3>Complete Device Reference</h3>
+<table>
+  <tr><th>Device</th><th>OSI Layer</th><th>Function</th><th>Key Characteristics</th><th>Security Notes</th></tr>
+  <tr><td><strong>Hub</strong></td><td><span class="layer-chip l1">L1</span></td><td>Connects multiple devices; broadcasts all frames to all ports</td><td>One collision domain for all ports. No intelligence. All devices share bandwidth. Legacy device &mdash; rarely used today.</td><td>Passive eavesdropping easy &mdash; any connected device sees all traffic. Never use in security-sensitive environments.</td></tr>
+  <tr><td><strong>Repeater</strong></td><td><span class="layer-chip l1">L1</span></td><td>Amplifies and regenerates signals to extend cable distance</td><td>No intelligence. Just boosts the signal. Does not filter traffic.</td><td>Extends the collision domain. Same security exposure as a hub segment it connects.</td></tr>
+  <tr><td><strong>Bridge</strong></td><td><span class="layer-chip l2">L2</span></td><td>Connects two network segments; learns MAC addresses and filters traffic between them</td><td>Predecessor to the switch. Only 2 ports typically. Creates separate collision domains on each side.</td><td>Reduces collision domains. Cannot separate broadcast domains. Can be exploited if STP is not properly secured.</td></tr>
+  <tr><td><strong>Switch</strong></td><td><span class="layer-chip l2">L2</span></td><td>Connects multiple devices; learns MAC addresses in a CAM (Content Addressable Memory) table and forwards frames only to the correct port</td><td>One collision domain per port. One broadcast domain per VLAN. Supports VLANs (802.1Q). Trunk ports carry multiple VLANs.</td><td>CAM table overflow (MAC flooding) &mdash; attacker fills CAM table forcing switch to behave like a hub. VLAN hopping. STP manipulation. Counter: port security, DHCP snooping, Dynamic ARP Inspection (DAI).</td></tr>
+  <tr><td><strong>Layer 3 Switch</strong></td><td><span class="layer-chip l3">L3</span></td><td>Switch that can also route IP packets between VLANs (inter-VLAN routing) at hardware speed</td><td>Combines switching and routing. Used in enterprise core/distribution layers for fast inter-VLAN routing.</td><td>Same vulnerabilities as switch plus routing table manipulation. Must be hardened like a router.</td></tr>
+  <tr><td><strong>Router</strong></td><td><span class="layer-chip l3">L3</span></td><td>Routes IP packets between different networks; makes forwarding decisions based on IP routing tables</td><td>Separates broadcast domains (critical security feature). Connects different network segments/subnets. Uses routing protocols (OSPF, BGP, RIP).</td><td>Route hijacking via injection of false routes. Default route attacks. Router misconfiguration. ACLs on router interfaces provide basic packet filtering. Always change default passwords.</td></tr>
+  <tr><td><strong>Firewall</strong></td><td>L3&ndash;L7 (varies by type)</td><td>Enforces network access control by filtering traffic based on rules</td><td>Core network security device. Types vary significantly (see Section 7). Can be hardware appliance or software.</td><td>Misconfiguration is the #1 firewall failure. Implicit deny (deny all not explicitly permitted) is best practice. Regularly audit rules to remove stale entries.</td></tr>
+  <tr><td><strong>Proxy Server</strong></td><td><span class="layer-chip l7">L7</span></td><td>Acts as an intermediary between clients and servers; clients connect to proxy, proxy connects to destination</td><td><strong>Forward proxy:</strong> sits in front of clients, used for internet access control and caching. <strong>Reverse proxy:</strong> sits in front of servers, used for load balancing, SSL termination, and WAF. <strong>Transparent proxy:</strong> intercepts traffic without client configuration.</td><td>Can inspect, log, and filter content. Can enforce URL filtering and DLP. Breaks direct client-server connections, hiding internal IP. SSL inspection (HTTPS inspection) decrypts and re-encrypts traffic &mdash; privacy implications.</td></tr>
+  <tr><td><strong>Load Balancer</strong></td><td>L4 or L7</td><td>Distributes incoming traffic across multiple servers to improve performance and availability</td><td>L4 LB distributes based on port/IP (TCP/UDP). L7 LB distributes based on content (URL, headers). Provides high availability via health checks.</td><td>Single point of failure if not redundant. SSL termination at LB exposes cleartext in the backend &mdash; mitigate with end-to-end encryption or re-encryption.</td></tr>
+  <tr><td><strong>Gateway</strong></td><td><span class="layer-chip l7">L7</span></td><td>Protocol translator between two different network types or architectures</td><td>Can translate between entirely different protocols (e.g., email gateway converting formats). Often used loosely to mean &ldquo;default router&rdquo; in home networking contexts.</td><td>Email gateways scan for malware and spam. VPN gateways terminate VPN tunnels. Security gateway = specialised security appliance.</td></tr>
+  <tr><td><strong>IDS / IPS</strong></td><td>L3&ndash;L7</td><td>Monitors network traffic for suspicious activity (IDS) or blocks it (IPS)</td><td>IDS = passive, out-of-band. IPS = active, inline. See Section 8 for full detail.</td><td>See Section 8.</td></tr>
+  <tr><td><strong>WAF</strong></td><td><span class="layer-chip l7">L7</span></td><td>Web Application Firewall &mdash; inspects HTTP/HTTPS traffic to protect web applications</td><td>Understands HTTP methods, URLs, headers, cookies. Can block SQL injection, XSS, CSRF. Often deployed as reverse proxy.</td><td>Complements but does not replace secure coding. Can be bypassed by encoding attacks. Requires tuning to reduce false positives.</td></tr>
+  <tr><td><strong>Modem</strong></td><td><span class="layer-chip l1">L1</span></td><td>Modulates/demodulates signals to convert digital data to analogue signals for transmission over telephone lines</td><td>Used for DSL, cable, and dial-up internet connections.</td><td>War dialing targets modems (see Section 11).</td></tr>
+</table>
+
+<div class="callout mnemonic">
+  <strong>&#129504; Device Layer Summary Mnemonic:</strong><br>
+  <strong>Hub/Repeater &rarr; Layer 1</strong> (physical only, no intelligence)<br>
+  <strong>Switch/Bridge &rarr; Layer 2</strong> (MAC addresses, frames)<br>
+  <strong>Router &rarr; Layer 3</strong> (IP addresses, packets, separates broadcast domains)<br>
+  <strong>Proxy/WAF &rarr; Layer 7</strong> (full application inspection)
+</div>
+
+<h3>Collision Domains vs Broadcast Domains</h3>
+<table>
+  <tr><th>Concept</th><th>Definition</th><th>What Segments It</th><th>CISSP Significance</th></tr>
+  <tr><td><strong>Collision Domain</strong></td><td>A network segment where two devices can simultaneously transmit and cause a collision (signal interference)</td><td><strong>Switch</strong> (one collision domain per port) and <strong>Bridge</strong> create separate collision domains. A Hub shares one collision domain.</td><td>In modern switched networks, collisions are nearly eliminated because each port is its own collision domain. Hubs create collision domains &mdash; this is why hubs are insecure (all traffic visible).</td></tr>
+  <tr><td><strong>Broadcast Domain</strong></td><td>All devices that receive a broadcast frame. Broadcast traffic (e.g., ARP requests, DHCP discovery) reaches every device in the same broadcast domain.</td><td><strong>Router</strong> separates broadcast domains. <strong>VLANs</strong> on a switch also create separate broadcast domains at Layer 2.</td><td>Large broadcast domains reduce performance and increase attack surface (broadcast storms, ARP flooding). Segmenting with routers or VLANs is a key security practice.</td></tr>
+</table>
+</section>
+
+<!-- ===================================================== SECTION 6 -->
+<section id="s6">
+<h2>6. Network Architecture &amp; Segmentation</h2>
+
+<div class="callout key-concept">
+  <strong>&#128272; Security Principle:</strong> Proper network segmentation limits the <strong>blast radius</strong> of a breach. If an attacker compromises one segment, segmentation prevents them from freely accessing other segments. This is a fundamental security architecture principle tested heavily on CISSP.
+</div>
+
+<h3>DMZ &mdash; Demilitarized Zone (Screened Subnet)</h3>
+<div class="callout definition">
+  <strong>&#128214; DMZ / Screened Subnet:</strong> A <strong>DMZ (Demilitarized Zone)</strong>, also called a <strong>Screened Subnet</strong>, is a network segment that sits between the untrusted external network (internet) and the trusted internal network. It hosts services that must be accessible from the internet (web servers, email servers, DNS servers, FTP servers) while protecting the internal network.
+</div>
+
+<div class="diagram">INTERNET (untrusted)
+       |
+  [External Firewall]    &lt;-- filters inbound internet traffic
+       |
+  [ D M Z ]              &lt;-- Web Server, Mail Server, DNS Server, Proxy
+       |
+  [Internal Firewall]    &lt;-- much stricter rules; only allows necessary traffic
+       |
+  INTERNAL NETWORK (trusted)  &lt;-- databases, workstations, internal servers</div>
+
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td>Purpose</td><td>Allow public access to certain services without exposing the internal trusted network</td></tr>
+  <tr><td>Traffic rules (example)</td><td>Internet &rarr; DMZ: HTTP/HTTPS only | DMZ &rarr; Internet: blocked or very restricted | DMZ &rarr; Internal: only specific database queries | Internal &rarr; DMZ: management traffic only</td></tr>
+  <tr><td>Dual firewall (preferred)</td><td>Two separate firewalls from different vendors. Even if one vendor has a vulnerability, the other may not. Stronger defence-in-depth.</td></tr>
+  <tr><td>Single firewall (3-leg)</td><td>One firewall with 3 interfaces: external, DMZ, internal. Less secure (single point of failure) but more common due to cost.</td></tr>
+  <tr><td>What goes in the DMZ</td><td>Web servers, email servers (MX), DNS servers, reverse proxies, VPN concentrators, bastion hosts</td></tr>
+  <tr><td>What does NOT go in the DMZ</td><td>Domain controllers, databases with sensitive data, internal file servers, authentication servers</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> A DMZ requires <strong>two firewalls</strong> in the ideal design (one facing internet, one facing internal). A single firewall with three interfaces (external, DMZ, internal) is sometimes called a &ldquo;screened subnet&rdquo; but is less secure because a single firewall compromise exposes everything. The exam may ask which is the &ldquo;most secure&rdquo; design &mdash; answer is <strong>dual firewalls, ideally from different vendors</strong>.
+</div>
+
+<h3>VLANs &mdash; Virtual Local Area Networks</h3>
+<div class="callout definition">
+  <strong>&#128214; VLAN:</strong> A <strong>VLAN (Virtual LAN)</strong> is a logical grouping of network devices regardless of their physical location. VLANs partition a single physical switch into multiple isolated Layer 2 broadcast domains. Defined by <strong>IEEE 802.1Q</strong> standard.
+</div>
+<table>
+  <tr><th>VLAN Concept</th><th>Explanation</th></tr>
+  <tr><td><strong>VLAN ID</strong></td><td>A number (1&ndash;4094) identifying the VLAN. VLAN 1 is the default VLAN on Cisco switches &mdash; best practice is to <strong>not use VLAN 1</strong> for production traffic and change the native VLAN.</td></tr>
+  <tr><td><strong>Access Port</strong></td><td>A switch port assigned to exactly one VLAN. End devices (PCs, printers) connect to access ports. Frames on access ports have NO VLAN tag &mdash; the switch adds/removes the tag.</td></tr>
+  <tr><td><strong>Trunk Port</strong></td><td>A switch port that carries traffic for multiple VLANs simultaneously. Tagged frames use 802.1Q headers. Used between switches and between switches and routers.</td></tr>
+  <tr><td><strong>802.1Q Tagging</strong></td><td>The standard for VLAN tagging. Inserts a 4-byte tag into the Ethernet frame header containing the VLAN ID.</td></tr>
+  <tr><td><strong>Native VLAN</strong></td><td>The VLAN whose traffic is sent untagged on a trunk port. Default is VLAN 1. Must be changed for security &mdash; used in VLAN hopping attacks.</td></tr>
+  <tr><td><strong>Inter-VLAN routing</strong></td><td>VLANs are isolated by default &mdash; to route traffic between VLANs you need a Layer 3 device (router or L3 switch). This is intentional &mdash; it allows controlled, firewall-inspected traffic between VLANs.</td></tr>
+</table>
+
+<h4>VLAN Hopping Attacks</h4>
+<table>
+  <tr><th>Attack Method</th><th>How It Works</th><th>Defense</th></tr>
+  <tr><td><strong>Double Tagging</strong></td><td>Attacker (on native VLAN) sends frames with TWO 802.1Q tags. First switch strips the outer tag (native VLAN) and forwards the frame with the inner tag to the target VLAN. The attack is <strong>one-way</strong> (attacker can send to target VLAN but not receive responses).</td><td>Change the native VLAN to an unused VLAN that no device is ever placed on. Use VLAN 999 (or any unused VLAN) as native.</td></tr>
+  <tr><td><strong>Switch Spoofing</strong></td><td>Attacker configures their NIC to pretend to be a trunk port by using DTP (Dynamic Trunking Protocol). If the switch port has DTP enabled, it may negotiate a trunk link, giving attacker access to all VLANs.</td><td>Disable DTP on all access ports: <code>switchport nonegotiate</code>. Explicitly configure ports as access: <code>switchport mode access</code>.</td></tr>
+</table>
+
+<h3>Air Gap</h3>
+<p>An <strong>air gap</strong> is a security measure where a computer or network is <strong>physically isolated</strong> from unsecured networks (including the internet). There is literally an air gap &mdash; no wired or wireless connection. Used for the most sensitive systems (nuclear control, classified military networks, industrial control systems).</p>
+<div class="callout exam-tip">
+  <strong>&#128161; Air Gap Limitations:</strong> Even air-gapped systems have been compromised. The Stuxnet worm (discovered 2010) infected Iranian nuclear centrifuge control systems that were air-gapped &mdash; delivered via USB drives. Air gaps require strict physical security AND removable media controls.
+</div>
+
+<h3>Network Segmentation Security Benefits</h3>
+<table>
+  <tr><th>Benefit</th><th>How Segmentation Achieves It</th></tr>
+  <tr><td>Limits lateral movement</td><td>An attacker who compromises a workstation in one VLAN cannot directly reach servers in another VLAN without going through a firewall/router that can be monitored and filtered</td></tr>
+  <tr><td>Contains breach impact</td><td>Malware infection in one segment does not automatically spread to all segments</td></tr>
+  <tr><td>Enables targeted monitoring</td><td>Traffic between segments crosses chokepoints where IDS/IPS and logging can be applied</td></tr>
+  <tr><td>Supports principle of least privilege</td><td>Users only have network access to the segments their role requires</td></tr>
+  <tr><td>Simplifies compliance</td><td>Cardholder data environment (PCI-DSS), PHI systems (HIPAA), and classified networks can be isolated with documented controls</td></tr>
+</table>
+
+<h3>Other Network Architecture Concepts</h3>
+<table>
+  <tr><th>Concept</th><th>Description</th><th>CISSP Relevance</th></tr>
+  <tr><td><strong>Bastion Host</strong></td><td>A hardened server exposed to the internet, typically in the DMZ, configured to withstand attacks. Often used as a jump server.</td><td>All unnecessary services removed. Heavily patched. Heavily logged. Minimal software installed.</td></tr>
+  <tr><td><strong>Jump Server / Jump Box</strong></td><td>A hardened, monitored server used as an intermediary to access systems in a secured network segment. Admins log into the jump server first, then connect to internal systems.</td><td>Provides a controlled, logged access point. Reduces exposure of internal systems. Should use MFA.</td></tr>
+  <tr><td><strong>MPLS</strong></td><td>Multiprotocol Label Switching &mdash; a high-performance routing technique that uses labels instead of IP addresses for fast packet forwarding. Used by ISPs and enterprises for WAN connectivity.</td><td>More secure than public internet VPNs (traffic is label-switched in the provider network). Not inherently encrypted &mdash; still need encryption for sensitive data.</td></tr>
+  <tr><td><strong>SD-WAN</strong></td><td>Software-Defined WAN &mdash; uses software to manage WAN connections (MPLS, internet, LTE) dynamically, optimising for performance and cost.</td><td>Security concern: SD-WAN may route sensitive traffic over public internet. Requires encryption overlay (IPSec). Centralised management plane is an attack target.</td></tr>
+  <tr><td><strong>Zero Trust Architecture</strong></td><td>Security model: &ldquo;never trust, always verify.&rdquo; No device or user is trusted by default, even inside the network perimeter. Every access request is authenticated, authorised, and encrypted.</td><td>Modern replacement for perimeter-focused security. Assumes breach. Requires strong identity, device health checks, and micro-segmentation.</td></tr>
+</table>
+</section>
+
+<!-- ===================================================== SECTION 7 -->
+<section id="s7">
+<h2>7. Firewalls &mdash; Types, Functions &amp; Placement</h2>
+
+<div class="callout definition">
+  <strong>&#128214; Firewall:</strong> A firewall is a network security device (hardware, software, or both) that <strong>monitors and controls incoming and outgoing network traffic</strong> based on predetermined security rules. The fundamental principle is <strong>implicit deny</strong>: everything not explicitly permitted is blocked.
+</div>
+
+<h3>Firewall Types &mdash; Ordered by Sophistication</h3>
+
+<h4>1. Packet-Filtering Firewall (Stateless)</h4>
+<p>The simplest type. Inspects each packet <strong>in isolation</strong> looking only at header information. It has no memory of previous packets &mdash; it does not track connection state.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>OSI Layer</td><td><strong>Layer 3 and Layer 4</strong> (IP headers and port numbers)</td></tr>
+  <tr><td>What it inspects</td><td>Source IP, destination IP, source port, destination port, protocol (TCP/UDP/ICMP)</td></tr>
+  <tr><td>What it does NOT inspect</td><td>Connection state, payload content, application-layer data</td></tr>
+  <tr><td>Advantages</td><td>Very fast, low overhead, works at wire speed</td></tr>
+  <tr><td>Disadvantages</td><td>Cannot detect fragmentation attacks, IP spoofing, SYN flood (can&rsquo;t distinguish half-open connections), cannot block split DNS or other app-layer attacks</td></tr>
+  <tr><td>Typical use</td><td>Router ACLs (Access Control Lists), basic network perimeter filtering</td></tr>
+</table>
+
+<h4>2. Stateful Inspection Firewall</h4>
+<p>The most common type of firewall today. It tracks the <strong>state of network connections</strong> in a state table. A packet is only allowed through if it is part of a known, established, legitimate connection.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>OSI Layer</td><td><strong>Layers 3, 4, and 5</strong> (inspects state across session)</td></tr>
+  <tr><td>What it inspects</td><td>All packet-filter attributes PLUS connection state (new, established, related, invalid)</td></tr>
+  <tr><td>State table</td><td>Records each connection: source/dest IP, source/dest port, protocol, state (SYN_SENT, ESTABLISHED, etc.)</td></tr>
+  <tr><td>Advantages</td><td>Understands whether a return packet is legitimate (part of established session) vs. unsolicited. Blocks SYN flood more effectively. Blocks IP spoofing of return traffic.</td></tr>
+  <tr><td>Disadvantages</td><td>Does not inspect application payload. Cannot stop attacks that use legitimate ports (e.g., malware over port 443).</td></tr>
+  <tr><td>Typical use</td><td>Enterprise network firewalls, perimeter defence</td></tr>
+</table>
+
+<h4>3. Circuit-Level Gateway</h4>
+<p>Operates at the <strong>Session layer (Layer 5)</strong>. It monitors TCP handshakes to verify that sessions are legitimate before allowing traffic. Once a session is established, it forwards packets without further inspection.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>OSI Layer</td><td><strong>Layer 5 (Session)</strong></td></tr>
+  <tr><td>What it does</td><td>Validates TCP handshake. Creates a &ldquo;circuit&rdquo; between client and server. Does <strong>NOT inspect payload content</strong>.</td></tr>
+  <tr><td>Key characteristic</td><td>Hides internal network topology (internal client IP is hidden behind the gateway&rsquo;s IP)</td></tr>
+  <tr><td>Example</td><td>SOCKS proxy</td></tr>
+  <tr><td>Limitation</td><td>Does not inspect application data &mdash; malware in allowed sessions passes through</td></tr>
+</table>
+
+<h4>4. Application-Level Gateway (Application Proxy Firewall)</h4>
+<p>The most thorough and most resource-intensive type. It acts as a <strong>full proxy</strong> &mdash; the client connects to the proxy, the proxy connects to the destination server. The proxy inspects the <strong>full application-layer payload</strong> in both directions.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>OSI Layer</td><td><strong>Layer 7 (Application)</strong></td></tr>
+  <tr><td>What it inspects</td><td>Complete application payload: HTTP headers, URLs, cookies, email content, file contents</td></tr>
+  <tr><td>Advantages</td><td>Can detect malware, policy violations, data exfiltration in application content. Can enforce application-specific policies (e.g., block HTTP PUT but allow GET). Completely hides internal network. Deep inspection of commands.</td></tr>
+  <tr><td>Disadvantages</td><td>Slowest type (must fully process every packet). Each protocol needs its own proxy (HTTP proxy, FTP proxy, etc.). Can be a bottleneck.</td></tr>
+  <tr><td>Example services</td><td>Web proxy (Squid), email security gateway, DNS firewall</td></tr>
+</table>
+
+<h4>5. Next-Generation Firewall (NGFW)</h4>
+<p>Combines stateful inspection with <strong>deep packet inspection (DPI)</strong>, integrated IPS, application awareness, user identity awareness, and threat intelligence. This is the modern enterprise standard.</p>
+<table>
+  <tr><th>Feature</th><th>Description</th></tr>
+  <tr><td>Deep Packet Inspection (DPI)</td><td>Reads application payload to identify applications regardless of port (e.g., identifies BitTorrent even if running on port 80)</td></tr>
+  <tr><td>Application Awareness</td><td>Creates rules based on application identity, not just port (e.g., &ldquo;block Facebook but allow LinkedIn&rdquo;)</td></tr>
+  <tr><td>User Identity Awareness</td><td>Integrates with Active Directory &mdash; rules can reference user accounts, not just IP addresses</td></tr>
+  <tr><td>Integrated IPS</td><td>Built-in intrusion prevention, no need for separate IPS appliance</td></tr>
+  <tr><td>SSL/TLS Inspection</td><td>Decrypts, inspects, and re-encrypts HTTPS traffic (requires certificate management)</td></tr>
+  <tr><td>Threat Intelligence</td><td>Integrates reputation feeds to block known malicious IPs/domains</td></tr>
+</table>
+
+<h4>6. Web Application Firewall (WAF)</h4>
+<p>A WAF specifically protects <strong>web applications</strong> by filtering HTTP/HTTPS traffic. It understands web-specific attacks that generic firewalls cannot detect.</p>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>What it protects against</td><td>SQL injection, Cross-Site Scripting (XSS), CSRF, path traversal, command injection, HTTP flood</td></tr>
+  <tr><td>Deployment mode</td><td>Typically deployed as a <strong>reverse proxy</strong> in front of web servers</td></tr>
+  <tr><td>OWASP compliance</td><td>Can be configured to enforce OWASP Top 10 protections</td></tr>
+  <tr><td>Limitation</td><td>Not a substitute for secure application development. Can be bypassed with encoding tricks. Requires tuning to balance security and false positives.</td></tr>
+</table>
+
+<h3>Firewall Types Comparison Summary</h3>
+<table>
+  <tr><th>Type</th><th>OSI Layer</th><th>Inspects State?</th><th>Inspects Content?</th><th>Speed</th><th>Protection Level</th></tr>
+  <tr><td>Packet Filter</td><td>L3/L4</td><td>No (stateless)</td><td>No</td><td>Fastest</td><td>Basic</td></tr>
+  <tr><td>Stateful Inspection</td><td>L3/L4/L5</td><td><strong>Yes</strong></td><td>No</td><td>Fast</td><td>Good</td></tr>
+  <tr><td>Circuit-Level Gateway</td><td>L5</td><td>TCP handshake only</td><td>No</td><td>Fast</td><td>Moderate</td></tr>
+  <tr><td>Application Proxy</td><td>L7</td><td>Yes</td><td><strong>Full payload</strong></td><td>Slowest</td><td>Best</td></tr>
+  <tr><td>NGFW</td><td>L3&ndash;L7</td><td>Yes</td><td>DPI</td><td>Moderate</td><td>Comprehensive</td></tr>
+  <tr><td>WAF</td><td>L7</td><td>Yes</td><td>HTTP/HTTPS only</td><td>Moderate</td><td>Best for web apps</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>&#128161; Firewall Best Practices (CISSP loves these):</strong>
+  <ul>
+    <li><strong>Implicit deny / default deny:</strong> Block everything not explicitly permitted</li>
+    <li><strong>Least privilege:</strong> Only open ports/protocols that are absolutely necessary</li>
+    <li><strong>Dual firewall DMZ:</strong> Use two firewalls from different vendors for defence-in-depth</li>
+    <li><strong>Regularly audit rules:</strong> Remove stale, overly permissive, or undocumented rules</li>
+    <li><strong>Egress filtering:</strong> Filter outbound traffic too &mdash; prevents C&amp;C communication and data exfiltration</li>
+    <li><strong>Log everything:</strong> Firewall logs are critical for incident detection and forensics</li>
+  </ul>
+</div>
+</section>
+
+<!-- ===================================================== SECTION 8 -->
+<section id="s8">
+<h2>8. IDS &amp; IPS &mdash; Detection vs Prevention</h2>
+
+<div class="callout definition">
+  <strong>&#128214; IDS vs IPS:</strong><br>
+  <strong>IDS (Intrusion Detection System):</strong> <em>Passive</em> monitoring system that detects suspicious activity and generates alerts. It does <strong>NOT block</strong> traffic. Think of it as a security camera &mdash; it records and alerts but does not physically stop the intruder.<br><br>
+  <strong>IPS (Intrusion Prevention System):</strong> <em>Active, inline</em> system that detects AND can <strong>automatically block</strong> malicious traffic in real time. It sits directly in the traffic path and can drop packets, reset connections, or block IPs.
+</div>
+
+<h3>IDS vs IPS Comparison</h3>
+<table>
+  <tr><th>Feature</th><th>IDS</th><th>IPS</th></tr>
+  <tr><td>Role</td><td>Detect and alert</td><td>Detect, alert, AND block</td></tr>
+  <tr><td>Placement</td><td><strong>Out-of-band</strong> (passive tap or SPAN/mirror port &mdash; sees a copy of traffic)</td><td><strong>Inline</strong> (physically sits in the traffic path &mdash; traffic must pass through it)</td></tr>
+  <tr><td>Impact on traffic flow</td><td>None (passive) &mdash; cannot slow network</td><td>Adds latency (traffic must be inspected before forwarding)</td></tr>
+  <tr><td>Response to attack</td><td>Alert/log only. Security team must respond manually.</td><td>Automatically drops/resets/blocks malicious traffic</td></tr>
+  <tr><td>False positive risk</td><td>Low impact (just extra alerts)</td><td><strong>High impact</strong> &mdash; a false positive blocks legitimate traffic, causing outage</td></tr>
+  <tr><td>Typical deployment</td><td>Initial deployment to tune baselines without risking false-positive outages</td><td>Production deployment after IDS tuning; mature environments with well-defined baselines</td></tr>
+</table>
+
+<h3>Deployment Types</h3>
+<table>
+  <tr><th>Type</th><th>Where It Runs</th><th>What It Monitors</th><th>Advantages</th><th>Disadvantages</th></tr>
+  <tr><td><strong>NIDS</strong> (Network-based IDS)</td><td>On the network, watching traffic at a choke point via SPAN/mirror port or network tap</td><td>Network packets &mdash; can see all traffic passing the monitoring point</td><td>Monitors many hosts at once; no agent install needed on hosts</td><td>Cannot see encrypted traffic (without SSL inspection); cannot see activity on endpoints; blind to host-level events</td></tr>
+  <tr><td><strong>HIDS</strong> (Host-based IDS)</td><td>On an individual endpoint (server or workstation)</td><td>Local system events: file changes, log events, running processes, registry changes, system calls</td><td>Can detect insider threats; sees actions even in encrypted sessions; monitors local file integrity</td><td>Requires agent on every monitored host; overhead per host; cannot see network-level attacks across hosts</td></tr>
+  <tr><td><strong>NIPS</strong> (Network-based IPS)</td><td>Inline on the network &mdash; traffic must pass through it</td><td>All network traffic at the inspection point</td><td>Automated blocking; protects all downstream hosts</td><td>Single point of failure if it goes down (use fail-open vs fail-closed decision); latency; false positives block legitimate traffic</td></tr>
+  <tr><td><strong>HIPS</strong> (Host-based IPS)</td><td>On an individual endpoint, inline with process execution</td><td>Application behaviour, system calls, memory operations</td><td>Very granular control; can block malicious activity at process level</td><td>Agent management overhead; potential compatibility issues</td></tr>
+</table>
+
+<h3>Detection Methods</h3>
+<table>
+  <tr><th>Method</th><th>How It Works</th><th>Advantage</th><th>Disadvantage</th></tr>
+  <tr><td><strong>Signature-based</strong> (Knowledge-based)</td><td>Compares traffic/behaviour against a database of known attack signatures (patterns). Like antivirus scanning for malware signatures.</td><td>Very accurate for known attacks. Low false positive rate. Easy to understand alerts.</td><td><strong>Cannot detect zero-day attacks</strong> (unknown/new attacks without a signature). Requires frequent signature updates. Attackers can evade by modifying attack slightly.</td></tr>
+  <tr><td><strong>Anomaly-based</strong> (Behaviour-based / Heuristic)</td><td>Establishes a <strong>baseline</strong> of normal network/system behaviour. Alerts when activity deviates significantly from baseline (statistical anomaly).</td><td>Can detect <strong>zero-day attacks</strong> and unknown threats. Catches insider threats that have no known signature.</td><td>Higher false positive rate. Requires a tuning period to establish accurate baseline. &ldquo;Normal&rdquo; changes over time require re-baselining.</td></tr>
+  <tr><td><strong>Rule-based / Policy-based</strong></td><td>Alerts when traffic violates explicitly defined policy rules (e.g., &ldquo;no FTP traffic allowed&rdquo;).</td><td>Clear, auditable, deterministic rules. No learning period.</td><td>Requires manual rule creation and maintenance. Only catches what the rules explicitly define.</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>&#128272; False Positives vs False Negatives &mdash; Critical Concept:</strong><br><br>
+  <strong>False Positive (FP):</strong> The IDS/IPS generates an alert for <em>legitimate, benign traffic</em>. A false alarm. Security staff investigate and waste time. If IPS, legitimate traffic is blocked causing service disruption. Annoying and costly, but not a security breach.<br><br>
+  <strong>False Negative (FN):</strong> The IDS/IPS <em>does not alert</em> when a <strong>real attack</strong> is occurring. The attack passes through undetected. This is the <strong>most dangerous outcome</strong> &mdash; you believe you are safe when you are not.<br><br>
+  <strong>CISSP Exam Rule:</strong> When asked which is more dangerous or more critical to minimise &mdash; <strong>False Negatives</strong>. An undetected attack is more dangerous than a false alarm.
+</div>
+
+<h3>Honeypots and Honeynets</h3>
+<table>
+  <tr><th>Concept</th><th>Description</th><th>Purpose</th></tr>
+  <tr><td><strong>Honeypot</strong></td><td>A decoy system intentionally made to look like a real, valuable target (server, workstation, database). It has no legitimate users and no real production value.</td><td>(1) Attract attackers to study their tactics, techniques, and tools. (2) Detect reconnaissance and intrusion attempts early. (3) Slow down attackers while defenders respond. (4) Collect threat intelligence.</td></tr>
+  <tr><td><strong>Honeynet</strong></td><td>A network of honeypots creating an entire fake network environment to study more complex attack campaigns.</td><td>Study advanced persistent threats (APTs), multi-stage attacks, and lateral movement techniques.</td></tr>
+  <tr><td><strong>Pseudo-flaw</strong></td><td>An intentional apparent vulnerability inserted into a production system to lure and detect attackers probing the system.</td><td>Act as a tripwire &mdash; if the pseudo-flaw is triggered, it indicates likely attacker activity.</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Honeypot Legal Consideration:</strong> Honeypots raise <strong>entrapment</strong> concerns. For CISSP, understand that honeypots are generally legal (you are luring attackers to your own systems) but must be carefully designed so that attackers cannot use the honeypot to attack third parties. A poorly designed honeypot that allows attackers to pivot to external systems creates significant legal and ethical liability.
+</div>
+
+<h3>Fail-Open vs Fail-Closed (IPS Critical Decision)</h3>
+<table>
+  <tr><th>Mode</th><th>Behaviour if IPS Fails</th><th>When to Use</th></tr>
+  <tr><td><strong>Fail-Open</strong> (fail-safe)</td><td>Traffic flows through uninspected if IPS crashes/fails. Network stays up.</td><td>When availability is the priority (e.g., hospital emergency system, financial trading). Chosen when downtime is more costly than security gap.</td></tr>
+  <tr><td><strong>Fail-Closed</strong> (fail-secure)</td><td>All traffic is blocked if IPS crashes/fails. Network goes down.</td><td>When security is the priority (e.g., protecting classified data, payment systems). Chosen when a security breach is more costly than downtime.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; Fail-Safe vs Fail-Secure (CISSP Distinction):</strong><br>
+  &bull; <strong>Fail-safe</strong> = system fails in a way that preserves life/safety (doors unlock in a fire &mdash; favours <em>availability</em>)<br>
+  &bull; <strong>Fail-secure</strong> = system fails in a way that maintains security (doors lock on power failure &mdash; favours <em>security/confidentiality</em>)<br>
+  These terms appear in both physical security and network security contexts on CISSP. Context determines which is correct.
+</div>
+</section>
+
+<!-- ===================================================== SECTION 9 -->
+<section id="s9">
+<h2>9. VPNs &amp; Tunneling Protocols</h2>
+
+<div class="callout definition">
+  <strong>&#128214; VPN (Virtual Private Network):</strong> A VPN creates an <strong>encrypted tunnel</strong> over a public or untrusted network (such as the internet), allowing private data to be transmitted securely as if the two endpoints were directly connected on a private network.
+</div>
+
+<h3>VPN Types</h3>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
+  <tr><td><strong>Site-to-Site VPN</strong></td><td>Permanent encrypted tunnel between two networks (e.g., headquarters and branch office). VPN gateways (routers/firewalls) on both ends handle encryption/decryption transparently. End users do not need VPN clients.</td><td>Connecting branch offices to headquarters. Replacing dedicated WAN circuits (MPLS) with encrypted internet connections.</td></tr>
+  <tr><td><strong>Remote Access VPN</strong></td><td>Individual users connect from remote locations (home, hotel) to the corporate network using a VPN client. The client establishes an encrypted tunnel to a VPN concentrator/gateway.</td><td>Work-from-home employees. Travelling employees accessing internal resources. Third-party vendor access.</td></tr>
+  <tr><td><strong>Client-to-Site VPN</strong></td><td>Same as remote access VPN &mdash; just another name used in some CISSP materials.</td><td>Same as remote access VPN.</td></tr>
+</table>
+
+<h3>IPSec &mdash; The Gold Standard VPN Protocol</h3>
+<div class="callout definition">
+  <strong>&#128214; IPSec (Internet Protocol Security):</strong> A suite of protocols that provides security at <strong>Layer 3 (Network layer)</strong> for IP communications. It provides authentication, integrity, confidentiality, and anti-replay protection. It has two core sub-protocols: <strong>AH</strong> and <strong>ESP</strong>.
+</div>
+
+<h4>AH vs ESP &mdash; The Most Tested IPSec Distinction</h4>
+<table>
+  <tr><th>Feature</th><th>AH (Authentication Header) &mdash; Protocol 51</th><th>ESP (Encapsulating Security Payload) &mdash; Protocol 50</th></tr>
+  <tr><td>Encryption</td><td><strong>NO encryption</strong></td><td><strong>YES &mdash; encrypts payload</strong></td></tr>
+  <tr><td>Authentication</td><td><strong>YES &mdash; authenticates entire packet</strong> (including original IP header)</td><td><strong>YES &mdash; authenticates ESP payload</strong> (not the outer IP header in tunnel mode)</td></tr>
+  <tr><td>Integrity</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Anti-replay</td><td>Yes (sequence numbers)</td><td>Yes (sequence numbers)</td></tr>
+  <tr><td>NAT compatibility</td><td><strong>Broken by NAT</strong> &mdash; NAT changes the IP header, which invalidates AH authentication</td><td><strong>Works with NAT</strong> (when using NAT-T &mdash; UDP port 4500)</td></tr>
+  <tr><td>What it protects</td><td>Integrity and source authentication only</td><td>Confidentiality + integrity + source authentication</td></tr>
+  <tr><td>Practical use</td><td>Rarely used alone &mdash; mainly when confidentiality is not needed but full packet integrity is required</td><td><strong>The standard choice</strong> for VPNs &mdash; provides both encryption and authentication</td></tr>
+</table>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> <strong>AH does NOT provide encryption.</strong> If a question asks which IPSec protocol provides confidentiality (encryption), the answer is <strong>ESP</strong>. AH provides authentication and integrity only. AH also breaks with NAT because it authenticates the original IP header, which NAT modifies.
+</div>
+
+<h4>IPSec Modes &mdash; Tunnel vs Transport</h4>
+<table>
+  <tr><th>Mode</th><th>How It Works</th><th>Original IP Header</th><th>Use Case</th></tr>
+  <tr><td><strong>Transport Mode</strong></td><td>Only the IP payload (TCP/UDP + data) is encrypted/authenticated. The <strong>original IP header is retained</strong> in plaintext.</td><td>Visible to network (original src/dst IPs exposed)</td><td><strong>Host-to-host</strong> communication. Both endpoints are the actual communicating devices. Example: two servers communicating securely.</td></tr>
+  <tr><td><strong>Tunnel Mode</strong></td><td>The <strong>entire original IP packet</strong> (including original header) is encrypted/authenticated and encapsulated inside a <strong>new IP packet</strong> with a new outer IP header pointing to the VPN gateway.</td><td>Protected inside the tunnel (original IPs hidden)</td><td><strong>Site-to-site VPNs and remote access VPNs</strong>. The VPN gateways have the outer IP addresses. Internal network topology is hidden. Most common VPN deployment.</td></tr>
+</table>
+<div class="callout mnemonic">
+  <strong>&#129504; Easy Way to Remember:</strong><br>
+  <strong>Transport Mode</strong> = &ldquo;transport the payload&rdquo; &mdash; only the payload is protected, header stays visible<br>
+  <strong>Tunnel Mode</strong> = &ldquo;entire packet goes into a tunnel&rdquo; &mdash; original packet completely wrapped in new packet<br>
+  <strong>Tunnel mode is far more common</strong> in practice and most VPN deployments use tunnel mode.
+</div>
+
+<h4>IKE &mdash; Internet Key Exchange</h4>
+<p>IKE is the protocol used by IPSec to <strong>negotiate security associations (SAs)</strong> and exchange cryptographic keys before any IPSec-protected communication begins.</p>
+<table>
+  <tr><th>Phase</th><th>What Happens</th></tr>
+  <tr><td><strong>IKE Phase 1</strong></td><td>Establishes an encrypted, authenticated channel (ISAKMP SA) between the two peers. Negotiates encryption algorithm, hash algorithm, authentication method, and Diffie-Hellman group. Main Mode (6 messages, more secure) or Aggressive Mode (3 messages, faster but less secure).</td></tr>
+  <tr><td><strong>IKE Phase 2</strong></td><td>Negotiates the actual IPSec SAs (one for each direction of traffic). Negotiates AH/ESP parameters. Uses the secure channel established in Phase 1. Quick Mode (3 messages).</td></tr>
+</table>
+
+<h3>SSL/TLS VPN</h3>
+<p>SSL/TLS VPNs use the <strong>TLS protocol</strong> (port 443) to create the VPN tunnel. Because port 443 is HTTPS, SSL VPN traffic is virtually indistinguishable from normal web browsing and passes through nearly all firewalls and proxies.</p>
+<table>
+  <tr><th>Feature</th><th>IPSec VPN</th><th>SSL/TLS VPN</th></tr>
+  <tr><td>Protocol</td><td>IPSec (Layer 3)</td><td>TLS over TCP port 443</td></tr>
+  <tr><td>Client requirement</td><td>Dedicated IPSec VPN client software required</td><td>Clientless (browser-based) or lightweight client</td></tr>
+  <tr><td>Firewall friendliness</td><td>May be blocked (requires ports 500/4500 UDP for IKE)</td><td>Rarely blocked &mdash; uses port 443 (HTTPS)</td></tr>
+  <tr><td>Network-level access</td><td>Full Layer 3 network access (like being on the LAN)</td><td>Can be limited to specific web apps (clientless) or full network access (with client)</td></tr>
+  <tr><td>Use case</td><td>Site-to-site VPNs, enterprise remote access requiring full network access</td><td>BYOD remote access, partner access, clientless portal access</td></tr>
+</table>
+
+<h3>Split Tunneling</h3>
+<div class="callout warning">
+  <strong>&#9888;&#65039; Split Tunneling &mdash; A Security Risk:</strong><br>
+  <strong>Split tunneling</strong> is a VPN configuration where only traffic <em>destined for the corporate network</em> goes through the encrypted VPN tunnel. Internet-bound traffic goes directly through the user&rsquo;s local ISP connection, bypassing the corporate network entirely.<br><br>
+  <strong>Security Risk:</strong> If a user&rsquo;s machine is compromised while split tunneling, malware can reach the corporate VPN while also communicating with its C&amp;C server over the direct internet connection &mdash; bypassing all corporate security controls (filtering, monitoring, DLP).<br><br>
+  <strong>Secure alternative:</strong> Force all traffic through the VPN tunnel (&ldquo;full tunnel&rdquo; or &ldquo;tunnel all traffic&rdquo;). This allows corporate security controls to inspect all traffic.<br><br>
+  <strong>CISSP Exam:</strong> Split tunneling is generally presented as a <strong>security risk</strong>. The exam will typically favour disabling it.
+</div>
+</section>
+
+<!-- ===================================================== SECTION 10 -->
+<section id="s10">
+<h2>10. Wireless Network Security (WEP &rarr; WPA3)</h2>
+
+<div class="callout definition">
+  <strong>&#128214; Wireless Security Fundamentals:</strong> Wireless networks are inherently more exposed than wired networks because radio signals can be received by any device within range &mdash; there is no physical access control. Wireless security protocols provide encryption, authentication, and integrity protection for over-the-air communications.
+</div>
+
+<h3>Wireless Security Protocol Evolution</h3>
+
+<h4>WEP &mdash; Wired Equivalent Privacy (Broken &mdash; Do Not Use)</h4>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Year introduced</td><td>1997 (original 802.11)</td></tr>
+  <tr><td>Encryption</td><td>RC4 stream cipher with a 24-bit Initialisation Vector (IV)</td></tr>
+  <tr><td>Why it is broken</td><td>The 24-bit IV is too short &mdash; IVs repeat after collecting enough traffic (on a busy network, within minutes). Attackers capture enough packets to statistically determine the key. Tools like Aircrack-ng can crack WEP in minutes regardless of key length.</td></tr>
+  <tr><td>Authentication</td><td>Open System (no auth) or Shared Key (challenge-response &mdash; actually LESS secure because it reveals keystream)</td></tr>
+  <tr><td>Status</td><td><strong>Completely broken and deprecated.</strong> Never use.</td></tr>
+</table>
+
+<h4>WPA &mdash; Wi-Fi Protected Access (Interim Fix)</h4>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Year introduced</td><td>2003 (interim replacement for WEP)</td></tr>
+  <tr><td>Encryption</td><td><strong>TKIP</strong> (Temporal Key Integrity Protocol) &mdash; still uses RC4 but with a 48-bit IV (improved from WEP&rsquo;s 24-bit) and per-packet key mixing</td></tr>
+  <tr><td>Authentication</td><td>PSK (Pre-Shared Key) or 802.1X Enterprise</td></tr>
+  <tr><td>Status</td><td>Significantly better than WEP but still vulnerable (TKIP-specific attacks). <strong>Deprecated</strong>. Do not use.</td></tr>
+</table>
+
+<h4>WPA2 &mdash; Wi-Fi Protected Access 2 (Current Minimum Standard)</h4>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Year introduced</td><td>2004 (IEEE 802.11i standard)</td></tr>
+  <tr><td>Encryption</td><td><strong>AES with CCMP</strong> (Counter Mode with CBC-MAC Protocol). AES is mandatory (no more RC4).</td></tr>
+  <tr><td>Authentication modes</td><td><strong>Personal (PSK):</strong> Pre-shared key/passphrase. Simple but vulnerable to offline dictionary attacks if weak passphrase. | <strong>Enterprise (802.1X/EAP):</strong> Uses RADIUS authentication server. Each user has unique credentials. Much stronger.</td></tr>
+  <tr><td>Known vulnerability</td><td><strong>KRACK (Key Reinstallation Attack, 2017):</strong> Forces nonce reuse by replaying handshake messages. Mitigated by patches. Also vulnerable to offline dictionary attacks in Personal mode.</td></tr>
+  <tr><td>Status</td><td><strong>Current acceptable minimum.</strong> Use Enterprise mode for corporate deployments.</td></tr>
+</table>
+
+<h4>WPA3 &mdash; The Current Best Standard</h4>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Year introduced</td><td>2018</td></tr>
+  <tr><td>Encryption</td><td><strong>AES-GCMP-256</strong> (stronger than WPA2&rsquo;s AES-CCMP-128)</td></tr>
+  <tr><td>Key exchange (Personal)</td><td><strong>SAE (Simultaneous Authentication of Equals)</strong> &mdash; replaces PSK. Provides <strong>forward secrecy</strong> (compromising one session doesn&rsquo;t compromise past sessions). Resistant to offline dictionary attacks (each authentication attempt requires real-time interaction).</td></tr>
+  <tr><td>Key exchange (Enterprise)</td><td>192-bit security suite for sensitive environments</td></tr>
+  <tr><td>Open networks</td><td><strong>OWE (Opportunistic Wireless Encryption):</strong> Encrypts open network traffic automatically without requiring a password. Protects against passive eavesdropping on open Wi-Fi.</td></tr>
+  <tr><td>Status</td><td><strong>Current best practice.</strong> Strongly recommended for all new deployments.</td></tr>
+</table>
+
+<div class="callout mnemonic">
+  <strong>&#129504; Wireless Protocol Timeline:</strong><br>
+  <strong>WEP</strong> (broken, RC4 weak IV) &rarr; <strong>WPA</strong> (TKIP, improved IV, still RC4) &rarr; <strong>WPA2</strong> (AES/CCMP, 802.11i, KRACK vuln) &rarr; <strong>WPA3</strong> (SAE, forward secrecy, OWE, strongest)<br><br>
+  For CISSP: <strong>WEP = never use. WPA = deprecated. WPA2 = acceptable minimum. WPA3 = best practice.</strong>
+</div>
+
+<h3>802.1X &mdash; Port-Based Network Access Control</h3>
+<div class="callout definition">
+  <strong>&#128214; 802.1X:</strong> IEEE 802.1X is a standard for <strong>port-based Network Access Control (NAC)</strong>. It requires devices to authenticate before being granted access to the network &mdash; wired or wireless. Without successful authentication, the switch/AP only allows authentication traffic through.
+</div>
+<table>
+  <tr><th>Component</th><th>Role</th><th>Examples</th></tr>
+  <tr><td><strong>Supplicant</strong></td><td>The client device requesting network access</td><td>Laptop, smartphone, IP phone</td></tr>
+  <tr><td><strong>Authenticator</strong></td><td>The network device that enforces access control &mdash; passes authentication messages between supplicant and server</td><td>Wireless Access Point, Network Switch</td></tr>
+  <tr><td><strong>Authentication Server</strong></td><td>The backend server that validates credentials and makes the accept/reject decision</td><td><strong>RADIUS server</strong> (e.g., Microsoft NPS, FreeRADIUS, Cisco ISE)</td></tr>
+</table>
+<p>The authentication method used within 802.1X is <strong>EAP (Extensible Authentication Protocol)</strong>. Multiple EAP types exist, differing in security and complexity:</p>
+<table>
+  <tr><th>EAP Type</th><th>Client Certificate Required</th><th>Server Certificate Required</th><th>Security Level</th><th>Notes</th></tr>
+  <tr><td><strong>EAP-TLS</strong></td><td><strong>Yes</strong></td><td>Yes</td><td>Highest</td><td>Mutual TLS certificate authentication. Most secure but requires PKI infrastructure and certificates on every client device. Gold standard for high-security environments.</td></tr>
+  <tr><td><strong>PEAP</strong> (Protected EAP)</td><td><strong>No</strong></td><td>Yes</td><td>High</td><td>Client authenticates using credentials (username/password) inside an encrypted TLS tunnel. Only server cert required. Most common enterprise wireless method. Microsoft PEAP-MSCHAPv2 is widely deployed.</td></tr>
+  <tr><td><strong>EAP-TTLS</strong></td><td>No</td><td>Yes</td><td>High</td><td>Similar to PEAP but more flexible inner authentication methods. Uses TLS tunnel to protect credentials.</td></tr>
+  <tr><td><strong>EAP-FAST</strong></td><td>No (uses PAC)</td><td>Optional</td><td>Moderate-High</td><td>Cisco-developed. Uses PAC (Protected Access Credential) files instead of certificates. Designed for environments where issuing certificates is difficult.</td></tr>
+  <tr><td><strong>LEAP</strong></td><td>No</td><td>No</td><td><strong>Low (broken)</strong></td><td>Cisco legacy. Vulnerable to dictionary attacks. Deprecated &mdash; never use.</td></tr>
+</table>
+
+<h3>Common Wireless Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defense</th></tr>
+  <tr><td><strong>War Driving</strong></td><td>Driving or walking around with a wireless scanner (laptop, phone) to discover and map wireless networks. Used for reconnaissance.</td><td>Use strong encryption (WPA3). Monitor for rogue APs. Reduce AP signal power where possible.</td></tr>
+  <tr><td><strong>Evil Twin Attack</strong></td><td>Attacker sets up a rogue AP with the <strong>same SSID</strong> as a legitimate AP, typically with stronger signal. Clients connect to the attacker&rsquo;s AP instead. Attacker captures all traffic (MITM).</td><td>Use 802.1X enterprise authentication (server certificate validates the real AP). Users should verify certificate validity. Wireless IDS can detect duplicate SSIDs.</td></tr>
+  <tr><td><strong>Deauthentication Attack</strong></td><td>Attacker sends forged <strong>802.11 deauthentication frames</strong> to disconnect clients from their AP. 802.11 management frames were originally unauthenticated. Used to force clients off legitimate APs (enabling evil twin) or as DoS.</td><td><strong>802.11w (Management Frame Protection)</strong> authenticates management frames and prevents forged deauth. WPA3 mandates 802.11w.</td></tr>
+  <tr><td><strong>WPS PIN Attack</strong></td><td>Wi-Fi Protected Setup (WPS) has an 8-digit PIN authentication method. Due to a design flaw, the PIN can be brute-forced in about 11,000 attempts (not 100 million) because the AP confirms the first 4 digits separately from the last 4 digits.</td><td><strong>Disable WPS</strong> on all access points. No exception &mdash; WPS is a well-known, easily exploited vulnerability.</td></tr>
+  <tr><td><strong>Replay Attack</strong></td><td>Attacker captures valid authentication packets and retransmits them to gain access.</td><td>Use protocols with replay protection (nonces, timestamps). WPA2/WPA3 include replay counter mechanisms.</td></tr>
+  <tr><td><strong>SSID Hiding</strong></td><td>Not an attack &mdash; a misguided &ldquo;security&rdquo; measure. Hiding the SSID does NOT provide security. SSIDs are broadcast in probe requests from clients scanning for their network and are easily discovered with passive scanners.</td><td>Do not rely on SSID hiding as a security control. Use proper encryption and authentication instead.</td></tr>
+  <tr><td><strong>MAC Address Filtering</strong></td><td>Not an attack &mdash; another misguided control. Whitelisting MAC addresses on the AP does NOT provide security. MAC addresses are broadcast in cleartext in every frame and can be trivially spoofed.</td><td>Do not rely on MAC filtering as a security control. Use proper 802.1X authentication instead.</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>&#9888;&#65039; Exam Trap:</strong> SSID hiding and MAC address filtering are <strong>security theatre</strong>. They are not security controls. CISSP questions that offer these as options when asking for the &ldquo;best&rdquo; security measure are distractors. Always choose <strong>strong encryption (WPA3)</strong> and <strong>authentication (802.1X)</strong> over these cosmetic measures.
+</div>
+</section>
+
+<!-- ===================================================== SECTION 11 -->
+<section id="s11">
+<h2>11. Network Attacks &mdash; Every Attack You Must Know</h2>
+
+<h3>Denial of Service (DoS) and Distributed DoS (DDoS)</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Target</th><th>Defense</th></tr>
+  <tr><td><strong>DoS</strong></td><td>A single attacker overwhelms a target system with traffic or requests, making it unavailable to legitimate users. Attacks <strong>Availability</strong>.</td><td>Servers, network devices, services</td><td>Rate limiting, firewall rules, upstream filtering</td></tr>
+  <tr><td><strong>DDoS</strong></td><td>Same goal as DoS but uses <strong>hundreds or thousands of compromised systems</strong> (botnet) simultaneously. Much harder to mitigate because traffic comes from many legitimate-looking sources.</td><td>Same as DoS but at massive scale</td><td>CDN/scrubbing centres, ISP-level filtering, anycast routing, cloud-based DDoS protection</td></tr>
+  <tr><td><strong>SYN Flood</strong></td><td>Sends thousands of TCP SYN packets with <strong>spoofed source IPs</strong>. Server sends SYN-ACK to each spoofed IP and waits. Server&rsquo;s half-open connection table fills up. Legitimate connections refused.</td><td>TCP services (web, email, SSH)</td><td><strong>SYN cookies</strong> (server cryptographically encodes state in the SYN-ACK instead of allocating table entry); rate limiting; firewall SYN threshold</td></tr>
+  <tr><td><strong>Ping Flood / ICMP Flood</strong></td><td>Overwhelms target with ICMP Echo Request packets faster than it can process them, consuming bandwidth and CPU.</td><td>Any IP-connected device</td><td>Block ICMP at perimeter; rate limit ICMP; upstream filtering</td></tr>
+  <tr><td><strong>UDP Flood</strong></td><td>Sends large volumes of UDP datagrams to random ports. Target checks for listening applications, sends ICMP unreachable replies if none found, consuming resources.</td><td>Bandwidth and CPU</td><td>Rate limiting; firewall UDP rate limits; upstream scrubbing</td></tr>
+  <tr><td><strong>DNS Amplification</strong></td><td>Attacker sends DNS queries with <strong>spoofed victim IP</strong> to open DNS resolvers, requesting records with large responses (ANY record type). Small query (~60 bytes) generates large response (~3000 bytes) &mdash; amplification factor of 50x. All responses flood the victim.</td><td>Victim IP address; internet bandwidth</td><td>Configure DNS servers to refuse recursive queries from internet. Implement BCP38 (egress filtering). Use response rate limiting (RRL) on DNS servers.</td></tr>
+</table>
+
+<h3>Amplification / Reflection Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Layer</th><th>How It Works</th><th>Amplification Factor</th><th>Defense</th></tr>
+  <tr><td><strong>Smurf Attack</strong></td><td>L3 (ICMP)</td><td>Attacker sends ICMP Echo Request to a <strong>network broadcast address</strong> with the victim&rsquo;s IP as the spoofed source. Every host on that network replies to the victim, overwhelming them with ICMP Echo Replies.</td><td>Up to the number of hosts on target network (100s-1000s x)</td><td>Block directed broadcast forwarding on routers. Implement egress filtering (BCP38) to prevent IP spoofing. Mostly mitigated on modern networks.</td></tr>
+  <tr><td><strong>Fraggle Attack</strong></td><td>L3/L4 (UDP)</td><td>Same concept as Smurf but uses <strong>UDP</strong> to broadcast address. Sends UDP packets to port 7 (echo) or port 19 (chargen) with spoofed victim source IP.</td><td>Similar to Smurf</td><td>Same as Smurf defenses. Also disable UDP small services (echo, chargen) on all devices.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>&#128161; Smurf vs Fraggle:</strong> Smurf uses <strong>ICMP</strong>. Fraggle uses <strong>UDP</strong>. Both use directed broadcast amplification. Both are largely historical attacks (network-level defenses are well established) but still appear on CISSP exams.
+</div>
+
+<h3>Fragmentation Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Defense</th></tr>
+  <tr><td><strong>Ping of Death</strong></td><td>Sends an ICMP Echo Request that is <strong>larger than the maximum IP packet size of 65,535 bytes</strong>. The oversized packet is fragmented and reassembled at the destination, causing buffer overflow and system crash.</td><td>Patching (fixed in modern OSes). Stateful firewalls that reassemble fragments before forwarding. Block fragments at perimeter.</td></tr>
+  <tr><td><strong>Teardrop Attack</strong></td><td>Sends IP <strong>fragments with overlapping offset values</strong>. When the target OS attempts to reassemble the fragments, the overlapping offsets cause a crash or memory corruption.</td><td>Patching (fixed in modern OSes). Fragment reassembly in firewalls.</td></tr>
+</table>
+
+<h3>Spoofing Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Defense</th></tr>
+  <tr><td><strong>IP Spoofing</strong></td><td>Forging the <strong>source IP address</strong> in IP packet headers to impersonate another host or hide the attacker&rsquo;s identity. Used in DoS attacks, Smurf attacks, and bypassing IP-based access controls.</td><td><strong>BCP38 / Egress filtering:</strong> ISPs and border routers should block packets with source IPs that do not belong to the network they arrived on. IP spoofing does not work for two-way communication because replies go to the spoofed IP, not the attacker.</td></tr>
+  <tr><td><strong>ARP Poisoning / ARP Spoofing</strong></td><td>Attacker sends <strong>unsolicited (gratuitous) ARP replies</strong> claiming that their MAC address corresponds to the IP of a victim (e.g., the default gateway). Other devices update their ARP cache. Traffic intended for the real IP now flows to the attacker (MITM).</td><td><strong>Dynamic ARP Inspection (DAI)</strong> on switches &mdash; validates ARP packets against DHCP snooping table. Static ARP entries (impractical at scale). Encrypted communications (even if MITM intercepts, they cannot read TLS-encrypted traffic).</td></tr>
+  <tr><td><strong>MAC Spoofing</strong></td><td>Changing the MAC address of a NIC to impersonate another device. Used to bypass MAC-based access controls or to bypass port security.</td><td>802.1X port authentication (relies on credentials, not MAC addresses). DHCP snooping + DAI. Monitor for MAC address changes.</td></tr>
+</table>
+
+<h3>Poisoning and Hijacking Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Defense</th></tr>
+  <tr><td><strong>DNS Cache Poisoning</strong></td><td>Attacker injects <strong>malicious DNS records</strong> into a DNS resolver&rsquo;s cache. Future queries for the poisoned domain return the attacker&rsquo;s IP instead of the real one. Victims are silently redirected to attacker-controlled servers. The Kaminsky attack (2008) demonstrated a practical method.</td><td><strong>DNSSEC</strong> &mdash; adds cryptographic signatures to DNS records so clients can verify authenticity. Randomise DNS query source ports and transaction IDs (makes prediction harder).</td></tr>
+  <tr><td><strong>DNS Hijacking</strong></td><td>Malware or a compromised router changes the DNS server settings on a victim&rsquo;s device to point to a rogue DNS server controlled by the attacker. All DNS lookups are then controlled by the attacker.</td><td>Use trusted DNS servers (hardcode if necessary). Monitor DNS configuration changes. DNSSEC does not protect against this &mdash; the lookup goes to the rogue server first.</td></tr>
+  <tr><td><strong>Session Hijacking</strong></td><td>Attacker steals a valid <strong>session token/cookie</strong> from an authenticated user and uses it to take over their session without knowing their credentials. Common against web applications that use predictable session IDs or transmit cookies over HTTP.</td><td>HTTPS (encrypts cookie in transit). HttpOnly and Secure cookie flags. Strong, random session tokens. Short session timeouts. Re-authentication for sensitive actions.</td></tr>
+  <tr><td><strong>BGP Hijacking</strong></td><td>Attacker (or malicious/misconfigured router) advertises <strong>false BGP route announcements</strong>, claiming to have routes to IP address blocks they do not own. Internet traffic for those IPs gets redirected through the attacker&rsquo;s network.</td><td><strong>RPKI (Resource Public Key Infrastructure)</strong> &mdash; cryptographically validates that an AS is authorised to announce a prefix. BGP filtering and prefix validation by ISPs. Route monitoring services.</td></tr>
+</table>
+
+<h3>Man-in-the-Middle (MITM) Attacks</h3>
+<p>In a MITM attack, the attacker <strong>secretly intercepts communications between two parties</strong>, either passively (eavesdropping) or actively (reading and potentially modifying messages). Both parties believe they are communicating directly with each other.</p>
+<table>
+  <tr><th>MITM Method</th><th>Description</th></tr>
+  <tr><td>ARP Poisoning MITM</td><td>As described above &mdash; poison ARP cache of both parties to redirect traffic through attacker</td></tr>
+  <tr><td>SSL Stripping</td><td>Attacker proxies between client and server, serving HTTP to client while maintaining HTTPS to server. Client sends credentials over cleartext without realising. Mitigated by HSTS (HTTP Strict Transport Security).</td></tr>
+  <tr><td>Evil Twin (Wireless)</td><td>As described in Section 10 &mdash; rogue AP captures all wireless traffic</td></tr>
+  <tr><td>DNS MITM</td><td>DNS poisoning redirects victim to attacker-controlled server</td></tr>
+</table>
+
+<h3>Scanning and Reconnaissance Attacks</h3>
+<table>
+  <tr><th>Technique</th><th>Description</th><th>Tool Examples</th></tr>
+  <tr><td><strong>Port Scanning</strong></td><td>Systematically probing a target host&rsquo;s TCP/UDP ports to identify which are open and listening (revealing running services and potential attack surfaces)</td><td>Nmap, Masscan</td></tr>
+  <tr><td><strong>Ping Sweep</strong></td><td>Sending ICMP Echo Requests to a range of IP addresses to identify live hosts in a network</td><td>Nmap, fping</td></tr>
+  <tr><td><strong>War Dialing</strong></td><td>Automatically dialling phone numbers to find modems, fax machines, or PBX systems connected to phone lines. Used to find back-door access to organisations.</td><td>THC-SCAN, ToneLoc (historical)</td></tr>
+  <tr><td><strong>War Driving</strong></td><td>Driving or walking to discover wireless networks (covered in Section 10)</td><td>Kismet, NetStumbler, Wi-Fi Analyzer</td></tr>
+</table>
+
+<h3>Other Notable Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Defense</th></tr>
+  <tr><td><strong>ICMP Redirect</strong></td><td>An ICMP Redirect message (Type 5) tells a host to use a different, &ldquo;better&rdquo; router for a specific destination. Attackers can send forged ICMP redirects to divert traffic through themselves.</td><td>Block ICMP Type 5 at perimeter. Configure hosts to ignore ICMP redirects.</td></tr>
+  <tr><td><strong>Replay Attack</strong></td><td>Attacker captures a valid data transmission (e.g., authentication packet) and re-transmits it later to achieve the same authenticated effect without knowing the actual credentials.</td><td>Timestamps, nonces (numbers used once), sequence numbers. Kerberos tickets have expiry times precisely to prevent this.</td></tr>
+  <tr><td><strong>VLAN Hopping</strong></td><td>Attacker gains access to traffic in other VLANs via double-tagging or switch spoofing (see Section 6)</td><td>Disable DTP; change native VLAN to unused VLAN; restrict trunk ports</td></tr>
+  <tr><td><strong>Botnet / C2 Traffic</strong></td><td>Compromised machines (bots) communicate with a Command-and-Control (C2) server for instructions. Used for DDoS, spam, ransomware distribution.</td><td>Egress filtering, DNS sinkholes, threat intelligence feeds, endpoint security, network monitoring (anomaly-based IDS catches unusual outbound connections)</td></tr>
+</table>
+</section>
+
+<!-- ===================================================== SECTION 12 -->
+<section id="s12">
+<h2>12. Secure Network Protocols</h2>
+
+<h3>IPSec (Detailed)</h3>
+<p>Already covered in Section 9 &mdash; key summary: <strong>AH (Protocol 51) = auth/integrity, no encryption</strong>. <strong>ESP (Protocol 50) = encryption + auth/integrity</strong>. <strong>Tunnel mode</strong> for site-to-site VPNs, <strong>Transport mode</strong> for host-to-host. IKE on UDP port 500 (NAT-T on UDP port 4500).</p>
+
+<h3>TLS &mdash; Transport Layer Security</h3>
+<div class="callout definition">
+  <strong>&#128214; TLS:</strong> TLS is the primary protocol for securing data in transit over the internet. It provides <strong>confidentiality</strong> (encryption), <strong>integrity</strong> (HMAC), and <strong>authentication</strong> (certificates). HTTPS = HTTP over TLS.
+</div>
+<table>
+  <tr><th>Version</th><th>Status</th><th>Notes</th></tr>
+  <tr><td>SSL 2.0</td><td><strong>Deprecated/Broken</strong></td><td>Multiple critical vulnerabilities. Never use.</td></tr>
+  <tr><td>SSL 3.0</td><td><strong>Deprecated/Broken</strong></td><td>POODLE attack (Padding Oracle On Downgraded Legacy Encryption, 2014). CBC padding oracle. Never use.</td></tr>
+  <tr><td>TLS 1.0</td><td><strong>Deprecated</strong></td><td>Vulnerable to BEAST and POODLE-TLS attacks. Deprecated by RFC 8996 (2021). PCI-DSS requires disabling TLS 1.0.</td></tr>
+  <tr><td>TLS 1.1</td><td><strong>Deprecated</strong></td><td>Minor improvements over 1.0 but still deprecated by RFC 8996. Disable in all environments.</td></tr>
+  <tr><td><strong>TLS 1.2</strong></td><td><strong>Acceptable / Widely used</strong></td><td>Strong when configured correctly (use AEAD cipher suites like AES-GCM). Supports perfect forward secrecy (PFS) with ECDHE. Current minimum acceptable standard.</td></tr>
+  <tr><td><strong>TLS 1.3</strong></td><td><strong>Best practice / Recommended</strong></td><td>Removed weak cipher suites. Mandatory AEAD. Mandatory perfect forward secrecy. Faster handshake (1-RTT vs 2-RTT). Strongly recommended for all new deployments.</td></tr>
+</table>
+
+<h4>TLS Handshake Overview (TLS 1.2)</h4>
+<div class="diagram">Client                                    Server
+  |--- ClientHello (TLS version, cipher suites, random) --->|
+  |<-- ServerHello (chosen cipher suite, random) -----------|
+  |<-- Certificate (server's X.509 cert) -------------------|
+  |<-- ServerHelloDone ------------------------------------ |
+  |--- ClientKeyExchange (pre-master secret, encrypted) --->|
+  |--- ChangeCipherSpec + Finished -----------------------> |
+  |<-- ChangeCipherSpec + Finished ------------------------ |
+  |======= Encrypted Application Data ==================== |</div>
+
+<h3>SSH &mdash; Secure Shell</h3>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Port</td><td>22 (TCP)</td></tr>
+  <tr><td>What it replaces</td><td>Telnet (remote login), rlogin, rsh, rcp, and insecure FTP</td></tr>
+  <tr><td>What it provides</td><td>Encrypted remote terminal access, encrypted file transfer (SFTP/SCP), port forwarding/tunnelling</td></tr>
+  <tr><td>Authentication methods</td><td>Password authentication (vulnerable to brute force) or <strong>public key authentication</strong> (preferred &mdash; much stronger)</td></tr>
+  <tr><td>Public key auth</td><td>Client generates key pair. Public key stored on server. Client proves possession of private key during authentication. No password transmitted.</td></tr>
+  <tr><td>Common misuse</td><td>SSH tunnelling can be used to bypass firewall rules by wrapping other protocols inside SSH. Must be monitored.</td></tr>
+</table>
+
+<h3>DNSSEC &mdash; DNS Security Extensions</h3>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>What it does</td><td>Adds <strong>digital signatures</strong> to DNS records. Resolvers can verify that DNS records are authentic and have not been tampered with.</td></tr>
+  <tr><td>What it protects against</td><td>DNS cache poisoning, DNS record tampering in transit</td></tr>
+  <tr><td>What it does NOT do</td><td><strong>Does NOT encrypt DNS queries</strong>. DNS queries are still visible to eavesdroppers. For DNS privacy, use <strong>DoH (DNS over HTTPS, port 443)</strong> or <strong>DoT (DNS over TLS, port 853)</strong>.</td></tr>
+  <tr><td>Trust chain</td><td>DNSSEC uses a chain of trust from the DNS root zone down through TLD zones to individual domain zones, all signed with asymmetric key pairs.</td></tr>
+</table>
+
+<h3>SNMPv3 &mdash; Secure Network Management</h3>
+<table>
+  <tr><th>Version</th><th>Security</th><th>Status</th></tr>
+  <tr><td>SNMPv1</td><td>Community strings sent in <strong>cleartext</strong>. No authentication. No encryption.</td><td>Insecure. Never use on production networks.</td></tr>
+  <tr><td>SNMPv2c</td><td>Community strings still in <strong>cleartext</strong>. Improved performance and capabilities but no security improvement over v1.</td><td>Still insecure. Avoid.</td></tr>
+  <tr><td><strong>SNMPv3</strong></td><td>Three security modes:<br><strong>noAuthNoPriv:</strong> No auth, no encryption<br><strong>authNoPriv:</strong> Authentication (HMAC-MD5 or HMAC-SHA) but no encryption<br><strong>authPriv:</strong> Authentication + encryption (AES or DES) &mdash; <strong>USE THIS</strong></td><td>Required for all production deployments. Use authPriv mode with AES.</td></tr>
+</table>
+
+<h3>Kerberos &mdash; Ticket-Based Authentication</h3>
+<table>
+  <tr><th>Attribute</th><th>Detail</th></tr>
+  <tr><td>Port</td><td>88 (TCP and UDP)</td></tr>
+  <tr><td>Used by</td><td>Microsoft Active Directory, Unix Kerberos realms</td></tr>
+  <tr><td>Core components</td><td><strong>KDC (Key Distribution Center):</strong> Contains two services: <br>&bull; <strong>AS (Authentication Service):</strong> Validates user identity, issues TGT<br>&bull; <strong>TGS (Ticket Granting Service):</strong> Issues service tickets when presented with valid TGT</td></tr>
+  <tr><td>How it works</td><td>1. User authenticates to AS, receives TGT (Ticket Granting Ticket). 2. User presents TGT to TGS to request a service ticket for a specific service. 3. User presents service ticket to the target service for access.</td></tr>
+  <tr><td>Security features</td><td>Mutual authentication (both client and server are verified). Tickets have expiry timestamps (prevents replay attacks). Passwords never transmitted over the network.</td></tr>
+  <tr><td>Vulnerabilities</td><td><strong>Pass-the-Ticket:</strong> Steal and reuse a valid Kerberos ticket. <strong>Golden Ticket attack:</strong> Forge TGTs using the KRBTGT account&rsquo;s password hash. <strong>Kerberoasting:</strong> Request service tickets for SPNs and crack them offline. <strong>Overpass-the-Hash:</strong> Use NTLM hash to get Kerberos ticket.</td></tr>
+  <tr><td>CISSP key fact</td><td>Kerberos is susceptible to replay attacks if clocks are not synchronised &mdash; this is why <strong>NTP (time synchronisation) is critical</strong> for Kerberos-based environments. Default tolerance is 5 minutes clock skew.</td></tr>
+</table>
+
+<h3>Cleartext vs Encrypted Protocol Quick Reference</h3>
+<table>
+  <tr><th>Insecure (Cleartext)</th><th>Secure Replacement</th><th>What Changed</th></tr>
+  <tr><td>HTTP (80)</td><td>HTTPS (443)</td><td>HTTP over TLS</td></tr>
+  <tr><td>FTP (20/21)</td><td>SFTP (22) or FTPS (990/21)</td><td>SSH-based or TLS-based file transfer</td></tr>
+  <tr><td>Telnet (23)</td><td>SSH (22)</td><td>Encrypted remote terminal</td></tr>
+  <tr><td>SMTP (25)</td><td>SMTPS (465) / SMTP+STARTTLS (587)</td><td>TLS-encrypted email</td></tr>
+  <tr><td>POP3 (110)</td><td>POP3S (995)</td><td>TLS-encrypted email retrieval</td></tr>
+  <tr><td>IMAP (143)</td><td>IMAPS (993)</td><td>TLS-encrypted email access</td></tr>
+  <tr><td>LDAP (389)</td><td>LDAPS (636)</td><td>TLS-encrypted directory queries</td></tr>
+  <tr><td>SNMPv1/v2c</td><td>SNMPv3 (authPriv)</td><td>Authenticated + encrypted NM</td></tr>
+  <tr><td>RIP (no auth)</td><td>OSPFv3 with IPSec or RIPv2 with auth</td><td>Authenticated routing updates</td></tr>
+  <tr><td>DNS (53, unauthenticated)</td><td>DNSSEC (authenticated) / DoH / DoT</td><td>Signed records and/or encrypted queries</td></tr>
+</table>
+</section>
+
+<!-- ===================================================== SECTION 13 -->
+<section id="s13">
+<h2>13. &#9888;&#65039; Exam Traps &mdash; The Most Common CISSP Networking Mistakes</h2>
+<div class="callout warning">
+  <strong>&#9888;&#65039; How CISSP Traps Work:</strong> CISSP networking questions almost always have two plausible-looking answers. The trap is usually the answer that is <em>technically correct but not the best choice</em>, or a concept that sounds similar but is subtly different.
+</div>
+<div class="trap-item"><span class="trap-number">1</span><div><strong>Hub vs Switch behaviour:</strong> A hub (L1) <strong>broadcasts</strong> all frames to ALL ports always. A switch (L2) <strong>unicasts</strong> frames to the correct port after learning MAC addresses. Hub = zero intelligence, shared collision domain, all traffic visible to all ports. Switch = intelligent, one collision domain per port.</div></div>
+<div class="trap-item"><span class="trap-number">2</span><div><strong>Routers separate broadcast domains; Switches separate collision domains:</strong> A <strong>router</strong> blocks broadcasts (ARP, DHCP, ICMP). A <strong>switch</strong> creates separate collision domains per port but passes broadcasts. VLANs on a switch also separate broadcast domains at Layer 2, but require a router/L3 switch for inter-VLAN routing.</div></div>
+<div class="trap-item"><span class="trap-number">3</span><div><strong>ARP operates at the Layer 2/3 boundary, NOT purely Layer 3:</strong> ARP resolves IP addresses (L3) to MAC addresses (L2). It has no authentication whatsoever. This is the root cause of ARP poisoning attacks. ARP requests are broadcast; responses can be forged by any device on the segment.</div></div>
+<div class="trap-item"><span class="trap-number">4</span><div><strong>Packet filter = stateless; Stateful inspection = connection tracking:</strong> A packet-filtering firewall inspects each packet independently (L3/L4 headers only, no connection memory). A stateful inspection firewall maintains a connection state table and knows whether a packet is part of an established session. Stateless cannot block asymmetric attacks; stateful can.</div></div>
+<div class="trap-item"><span class="trap-number">5</span><div><strong>Circuit-level gateway validates TCP handshake but does NOT inspect payload:</strong> It operates at Layer 5, confirms the TCP session is legitimate, then relays packets without reading content. An <strong>application proxy (Layer 7)</strong> inspects full payload. If a question asks what can stop application-layer attacks (SQL injection, etc.), circuit-level gateway is wrong; application proxy is right.</div></div>
+<div class="trap-item"><span class="trap-number">6</span><div><strong>IDS detects and alerts (passive, out-of-band); IPS blocks (active, inline):</strong> IDS cannot prevent an attack in progress &mdash; it only alerts so humans can respond. IPS is inline and can drop packets automatically. False positives in an IPS cause outages; in an IDS they cause alert fatigue. Deploy IDS first to tune, then switch to IPS.</div></div>
+<div class="trap-item"><span class="trap-number">7</span><div><strong>False Negatives are MORE dangerous than False Positives:</strong> False positive = alert on legitimate traffic (annoying). False negative = miss a real attack (dangerous). CISSP will ask which is more critical to minimise &mdash; always <strong>false negatives</strong>. An undetected breach is far worse than a nuisance alert.</div></div>
+<div class="trap-item"><span class="trap-number">8</span><div><strong>AH provides NO encryption; ESP provides both encryption and authentication:</strong> AH (Protocol 51) = auth + integrity, zero confidentiality. ESP (Protocol 50) = encryption + auth + integrity. If you need a VPN that encrypts data, you need ESP. Also: AH is broken by NAT (NAT changes the IP header that AH authenticates). ESP works with NAT via NAT-T (UDP 4500).</div></div>
+<div class="trap-item"><span class="trap-number">9</span><div><strong>Tunnel mode wraps entire original packet; Transport mode only wraps payload:</strong> Tunnel mode (site-to-site VPNs) = new outer IP header + encrypted original packet. Transport mode (host-to-host) = original IP header stays visible, only payload encrypted. For any VPN connecting networks or remote users, <strong>Tunnel mode with ESP</strong> is the standard answer.</div></div>
+<div class="trap-item"><span class="trap-number">10</span><div><strong>WPA3 uses SAE (not PSK); WPA2 uses PSK:</strong> WPA2 Personal uses a pre-shared passphrase vulnerable to offline dictionary attacks (capture 4-way handshake, brute-force offline). WPA3 Personal uses SAE (Simultaneous Authentication of Equals) which provides forward secrecy and resists offline cracking. WPA3 = current best practice.</div></div>
+<div class="trap-item"><span class="trap-number">11</span><div><strong>EAP-TLS requires client certificates; PEAP requires only server certificate:</strong> EAP-TLS = most secure, mutual TLS authentication with certificates on both client and server. Requires PKI infrastructure. PEAP = tunnel using server cert only, client credentials (username/password) sent inside the tunnel. If no PKI for clients, choose PEAP. If maximum security, choose EAP-TLS.</div></div>
+<div class="trap-item"><span class="trap-number">12</span><div><strong>SSID hiding and MAC filtering are NOT real security controls:</strong> SSID: visible in probe requests, discoverable in seconds with Wireshark. MAC address: transmitted in cleartext in every 802.11 frame, trivially spoofed. Neither protects data. Use WPA3 encryption and 802.1X authentication instead. Selecting SSID hiding or MAC filtering as a security answer on CISSP is wrong.</div></div>
+<div class="trap-item"><span class="trap-number">13</span><div><strong>DNS port 53 uses UDP for queries, TCP for zone transfers:</strong> Standard queries use UDP (fast, small). Zone transfers and large responses (DNSSEC) use TCP. A firewall rule blocking all TCP port 53 would break DNS zone transfers. Both need to be considered in firewall rules for DNS infrastructure.</div></div>
+<div class="trap-item"><span class="trap-number">14</span><div><strong>DHCP uses UDP: server port 67, client port 68:</strong> DHCP is fully UDP-based. Client broadcasts DHCP Discover from port 68 to 255.255.255.255:67. Server responds to port 68. Firewall rules for DHCP must allow UDP 67 and 68. DHCP starvation (flooding DHCP with fake requests) and rogue DHCP servers are common attacks; defend with DHCP snooping on switches.</div></div>
+<div class="trap-item"><span class="trap-number">15</span><div><strong>SNMPv1 and v2c send community strings in cleartext:</strong> Community strings are essentially passwords. They are transmitted in plaintext in v1 and v2c. Any network sniffer can capture them. This is not a subtle vulnerability &mdash; it is a fundamental design flaw. Always use <strong>SNMPv3 with authPriv</strong> mode (authentication + AES encryption). There is no acceptable reason to use v1 or v2c in production.</div></div>
+<div class="trap-item"><span class="trap-number">16</span><div><strong>SFTP (port 22) is NOT FTP with SSL; FTPS is FTP with SSL:</strong> SFTP = SSH File Transfer Protocol. Runs over SSH. Port 22. Completely separate from FTP. FTPS = FTP + TLS. Implicit FTPS port 990, Explicit FTPS port 21 (upgrades to TLS). If a question mentions SFTP and asks for the port, answer is 22. If it asks about FTP over SSL, that is FTPS.</div></div>
+<div class="trap-item"><span class="trap-number">17</span><div><strong>NAT is NOT a security control:</strong> NAT translates private-to-public IPs. It incidentally obscures internal addresses but provides no authentication, access control, confidentiality, or integrity. It is an addressing mechanism. NAT also breaks IPSec AH and can break end-to-end protocols. Do not select NAT as the answer when a security control is asked for.</div></div>
+<div class="trap-item"><span class="trap-number">18</span><div><strong>SSL 3.0 and TLS 1.0/1.1 are all broken/deprecated:</strong> SSL 3.0 = POODLE attack. TLS 1.0 = BEAST, POODLE-TLS. TLS 1.1 = deprecated per RFC 8996. Minimum acceptable = <strong>TLS 1.2</strong>. Current best = <strong>TLS 1.3</strong> (removes legacy cipher suites, mandatory forward secrecy, faster handshake). PCI-DSS requires TLS 1.2 minimum.</div></div>
+<div class="trap-item"><span class="trap-number">19</span><div><strong>TACACS+ uses TCP and encrypts entire payload; RADIUS uses UDP and encrypts only the password:</strong> TACACS+ (port 49/TCP) separates auth, authorisation, and accounting; encrypts everything. RADIUS (ports 1812/1813/UDP) combines auth+authorisation; only encrypts the password field. TACACS+ preferred for device administration; RADIUS preferred for network access control (wireless, VPN).</div></div>
+<div class="trap-item"><span class="trap-number">20</span><div><strong>Smurf = ICMP amplification; Fraggle = UDP amplification:</strong> Both send packets to a broadcast address with a spoofed victim source IP so all hosts on the network reply to the victim. Smurf uses ICMP Echo Request. Fraggle uses UDP (ports 7/19). Both are largely historical but tested. The key differentiator on the exam is the protocol used.</div></div>
+<div class="trap-item"><span class="trap-number">21</span><div><strong>IPv6 has NO broadcast:</strong> IPv6 replaced broadcast with multicast (devices opt in to groups) and anycast (nearest node responds). There is no broadcast address in IPv6. Any question describing IPv6 broadcast traffic or broadcast addresses is describing something that does not exist. Also: IPv6 loopback is ::1 (not 127.0.0.1).</div></div>
+<div class="trap-item"><span class="trap-number">22</span><div><strong>BGP is exterior (between Autonomous Systems); OSPF/RIP/EIGRP are interior (within AS):</strong> BGP = the internet routing protocol; routes between ISPs and large enterprises. OSPF, RIP, EIGRP = interior routing within one organisation. BGP hijacking (advertising false routes) is a real, nation-state-level attack. RPKI provides cryptographic route origin validation.</div></div>
+<div class="trap-item"><span class="trap-number">23</span><div><strong>Ideal DMZ uses TWO firewalls; one firewall with 3 interfaces is a compromise:</strong> Dual-firewall DMZ = external firewall faces internet, internal firewall protects internal network, DMZ is sandwiched between them. If the external firewall vendor has a zero-day vulnerability, the internal firewall (ideally different vendor) still protects. Single 3-legged firewall = single point of failure. Exam: choose dual firewalls for highest security.</div></div>
+<div class="trap-item"><span class="trap-number">24</span><div><strong>VLAN hopping defence: change the native VLAN and disable DTP:</strong> Double-tagging exploits native VLAN (default: VLAN 1). Fix: change native VLAN to an unused VLAN that no hosts are assigned to. Switch spoofing exploits DTP (Dynamic Trunking Protocol). Fix: disable DTP on all access ports, explicitly configure them as access ports. Never put production hosts on the native VLAN.</div></div>
+<div class="trap-item"><span class="trap-number">25</span><div><strong>Kerberos clock skew tolerance is 5 minutes:</strong> Kerberos uses ticket timestamps as anti-replay protection. If client and KDC clocks differ by more than 5 minutes (default), authentication fails. The solution is NTP synchronisation. This is intentional design. If CISSP describes Kerberos intermittently failing, the answer involves time synchronisation (NTP), not certificates or routing.</div></div>
+<div class="trap-item"><span class="trap-number">26</span><div><strong>Split tunneling = security risk (bypass of corporate controls):</strong> Split tunneling sends only corporate-bound traffic through the VPN; internet traffic goes direct. Risk: compromised endpoint can reach C&amp;C servers over direct internet while connected to corporate VPN, bypassing all corporate security controls. CISSP favours disabling split tunneling and routing all traffic through the VPN (full tunnel/force-tunnel).</div></div>
+<div class="trap-item"><span class="trap-number">27</span><div><strong>169.254.x.x APIPA means DHCP failed:</strong> APIPA (Automatic Private IP Addressing) is self-assigned when a Windows device gets no DHCP response. Range: 169.254.0.0/16. An APIPA host can talk to other APIPA hosts on the same local segment but cannot reach any other network, cannot get to the internet, and cannot contact domain services. Seeing 169.254.x.x = check DHCP server, check network connectivity.</div></div>
+<div class="trap-item"><span class="trap-number">28</span><div><strong>Packet filter cannot stop application-layer attacks; WAF/App proxy required:</strong> A packet filter sees port 80 and passes HTTP traffic through regardless of content. SQL injection, XSS, and command injection all travel over port 80/443. Only an application proxy or WAF (Layer 7) that reads the HTTP payload can detect and block these. If asked what stops SQL injection at the network level, the answer is WAF, not firewall.</div></div>
+</section>
+
+<!-- ===================================================== SECTION 14 -->
+<section id="s14">
+<h2>14. &#129514; 20 Practice Questions with Explanations</h2>
+<div class="callout key-concept">
+  <strong>&#127919; Instructions:</strong> Read every option before selecting an answer. Understand WHY each wrong option is wrong. That reasoning is what the exam tests.
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q1. A packet-filtering firewall provides security at which OSI layers?</div>
+  <ul class="qa-opts"><li class="wrong">A. Layers 2 and 3 only</li><li class="correct">B. Layers 3 and 4</li><li class="wrong">C. Layers 5 through 7</li><li class="wrong">D. Layer 7 only</li></ul>
+  <div class="qa-exp"><strong>B.</strong> Packet filters inspect IP headers (Layer 3: src/dst IP, protocol) and TCP/UDP port numbers (Layer 4). They do not track connection state or inspect application content. Stateful adds L5 state tracking; application proxy adds L7.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q2. Which IPSec protocol provides BOTH confidentiality AND authentication?</div>
+  <ul class="qa-opts"><li class="wrong">A. AH (Authentication Header)</li><li class="correct">B. ESP (Encapsulating Security Payload)</li><li class="wrong">C. IKE</li><li class="wrong">D. AH combined with HMAC</li></ul>
+  <div class="qa-exp"><strong>B.</strong> ESP (Protocol 50) encrypts the payload (confidentiality) and authenticates it (integrity/origin). AH (Protocol 51) provides authentication and integrity ONLY &mdash; zero encryption. IKE is the key negotiation protocol. AH is also broken by NAT. For VPN encryption, always ESP.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q3. A company needs to connect two geographically separated office networks via an encrypted tunnel over the internet. Which combination is MOST appropriate?</div>
+  <ul class="qa-opts"><li class="wrong">A. IPSec Transport mode with AH</li><li class="correct">B. IPSec Tunnel mode with ESP</li><li class="wrong">C. IPSec Transport mode with ESP</li><li class="wrong">D. SSL VPN in clientless mode</li></ul>
+  <div class="qa-exp"><strong>B.</strong> Site-to-site VPN between offices requires Tunnel mode (wraps entire original packet, hides internal IPs) and ESP (encryption + authentication). Transport mode is for host-to-host, not network-to-network. AH provides no encryption. Clientless SSL VPN is for individual user browser access, not network-to-network connectivity.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q4. WPA2 Personal is specifically vulnerable to which attack when a weak passphrase is used?</div>
+  <ul class="qa-opts"><li class="wrong">A. KRACK attack against the passphrase directly</li><li class="correct">B. Offline dictionary attack against a captured 4-way handshake</li><li class="wrong">C. ARP poisoning of the access point</li><li class="wrong">D. SSL stripping on the wireless link</li></ul>
+  <div class="qa-exp"><strong>B.</strong> An attacker captures the WPA2 4-way handshake (forced by deauthentication or waited for). They then run offline dictionary/brute-force tools (like Hashcat) against the captured handshake, requiring no further contact with the AP. WPA3 SAE prevents offline attacks. KRACK is a nonce reuse vulnerability unrelated to passphrase cracking. ARP and SSL stripping are not wireless protocol attacks.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q5. What is the PRIMARY security risk of enabling split tunneling on a corporate VPN?</div>
+  <ul class="qa-opts"><li class="wrong">A. It increases latency for all network traffic</li><li class="wrong">B. It prevents access to internal resources</li><li class="correct">C. A compromised endpoint could bridge the corporate network with malicious internet connections, bypassing security controls</li><li class="wrong">D. It is not supported by modern VPN protocols</li></ul>
+  <div class="qa-exp"><strong>C.</strong> With split tunneling, only corporate-bound traffic goes through the VPN. Internet traffic bypasses all corporate security controls. If the endpoint is malware-infected, the malware can communicate freely with its C&amp;C over direct internet while the VPN simultaneously provides access to internal corporate resources &mdash; the endpoint becomes a pivot point.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q6. Which device operates at Layer 2 and makes forwarding decisions using MAC addresses?</div>
+  <ul class="qa-opts"><li class="wrong">A. Router</li><li class="wrong">B. Hub</li><li class="correct">C. Switch</li><li class="wrong">D. Gateway</li></ul>
+  <div class="qa-exp"><strong>C.</strong> A switch operates at Layer 2, learns MAC addresses in its CAM table, and forwards frames to specific ports. Router = Layer 3, uses IP addresses. Hub = Layer 1, broadcasts to ALL ports with no intelligence. Gateway = Layer 7, translates between protocols.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q7. An organisation wants 802.1X enterprise wireless but cannot deploy client certificates to employee devices. Which EAP method is BEST?</div>
+  <ul class="qa-opts"><li class="wrong">A. EAP-TLS (requires client and server certificates)</li><li class="correct">B. PEAP (requires server certificate only)</li><li class="wrong">C. LEAP (deprecated, vulnerable)</li><li class="wrong">D. WEP with RADIUS</li></ul>
+  <div class="qa-exp"><strong>B.</strong> PEAP requires only a server-side certificate. Clients authenticate via username/password inside an encrypted TLS tunnel. EAP-TLS is more secure but requires client certificates (the given constraint). LEAP is deprecated and vulnerable to dictionary attacks. WEP is broken regardless of what authentication is added to it.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q8. An attacker sends ICMP Echo Requests to a network broadcast address with the victim's IP as the spoofed source address. What is this attack?</div>
+  <ul class="qa-opts"><li class="correct">A. Smurf attack</li><li class="wrong">B. Fraggle attack</li><li class="wrong">C. Ping of Death</li><li class="wrong">D. Teardrop attack</li></ul>
+  <div class="qa-exp"><strong>A.</strong> Smurf = ICMP Echo Request to broadcast address with spoofed victim source IP, causing all hosts to reply to the victim (amplification DoS). Fraggle = same concept but uses UDP. Ping of Death = single oversized ICMP packet. Teardrop = fragmented packets with overlapping offsets. ICMP + broadcast amplification = Smurf.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q9. Which SNMP configuration provides BOTH authentication and encrypted management traffic?</div>
+  <ul class="qa-opts"><li class="wrong">A. SNMPv1 with strong community strings</li><li class="wrong">B. SNMPv2c with ACLs</li><li class="wrong">C. SNMPv3 with authNoPriv</li><li class="correct">D. SNMPv3 with authPriv</li></ul>
+  <div class="qa-exp"><strong>D.</strong> SNMPv3 authPriv provides authentication (HMAC) AND privacy/encryption (AES). authNoPriv provides authentication only, no encryption. v1 and v2c send community strings in cleartext regardless of how complex they are &mdash; a sniffer captures them. ACLs restrict who can query but don't encrypt the data in transit. Only authPriv is acceptable for production.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q10. A user visiting their bank website is redirected to a convincing phishing site because a DNS resolver's cache was corrupted. What attack occurred?</div>
+  <ul class="qa-opts"><li class="wrong">A. DNS hijacking</li><li class="correct">B. DNS cache poisoning</li><li class="wrong">C. BGP hijacking</li><li class="wrong">D. MITM via ARP poisoning</li></ul>
+  <div class="qa-exp"><strong>B.</strong> DNS cache poisoning injects false records into a resolver's cache, causing all users of that resolver to receive incorrect IP addresses. DNS hijacking changes the DNS server configured on a device/router (different attack vector). BGP hijacking affects internet routing (different layer). ARP poisoning is local Layer 2 redirection. The clue is "DNS resolver's cache was corrupted."</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q11. A security analyst needs to monitor ALL traffic on a network segment without affecting performance or traffic flow. What is the best approach?</div>
+  <ul class="qa-opts"><li class="wrong">A. Deploy an IPS inline on the segment</li><li class="correct">B. Connect a NIDS to a SPAN/mirror port on the switch</li><li class="wrong">C. Replace all switches with hubs for visibility</li><li class="wrong">D. Enable SNMPv1 polling on all devices</li></ul>
+  <div class="qa-exp"><strong>B.</strong> A NIDS on a SPAN (mirror) port receives a passive copy of all traffic without any impact on the production path (out-of-band). IPS inline adds latency and is a single point of failure. Replacing switches with hubs degrades performance catastrophically (shared collision domains). SNMP polling collects device statistics, not actual packet content.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q12. Which BEST describes a false negative in an IDS?</div>
+  <ul class="qa-opts"><li class="wrong">A. IDS alerts on legitimate web browsing traffic</li><li class="wrong">B. IDS generates duplicate alerts for one event</li><li class="correct">C. IDS fails to generate an alert when a real attack occurs</li><li class="wrong">D. IDS misclassifies the attack type</li></ul>
+  <div class="qa-exp"><strong>C.</strong> A false negative = IDS misses a real attack; it does not fire an alert. This is the most dangerous outcome. False positive = alerts on legitimate traffic. B = duplicate alerting. D = misclassification. For CISSP, false negatives are always presented as the more dangerous of the two error types.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q13. Which architecture BEST protects an internal network while allowing internet users to access a public web server?</div>
+  <ul class="qa-opts"><li class="wrong">A. Place the web server on the internal network and open port 443 inbound through the firewall</li><li class="correct">B. Place the web server in a DMZ between an external firewall and an internal firewall</li><li class="wrong">C. Use NAT to hide the web server's real IP address from the internet</li><li class="wrong">D. Deploy WPA3 encryption on the web server's network segment</li></ul>
+  <div class="qa-exp"><strong>B.</strong> A DMZ (screened subnet) places public-facing servers between two firewalls. If the web server is compromised, an attacker faces the internal firewall before reaching the trusted network. A places the server on the internal network (breach = full internal access). NAT is an addressing mechanism, not a security architecture. WPA3 is wireless encryption, irrelevant here.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q14. Which protocol directly replaces Telnet for secure interactive remote administration?</div>
+  <ul class="qa-opts"><li class="wrong">A. HTTPS</li><li class="wrong">B. SNMPv3</li><li class="correct">C. SSH</li><li class="wrong">D. SFTP</li></ul>
+  <div class="qa-exp"><strong>C.</strong> SSH (port 22) is the direct, exact replacement for Telnet. It provides encrypted interactive terminal sessions. Telnet sends everything including passwords in cleartext. HTTPS is for web interfaces. SNMPv3 is for network monitoring/management queries. SFTP provides encrypted file transfer via SSH, not interactive terminal sessions.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q15. An attacker poisons the ARP cache of hosts on a LAN to associate the attacker's MAC with the default gateway's IP. What is the PRIMARY resulting threat?</div>
+  <ul class="qa-opts"><li class="wrong">A. MAC flooding causing broadcast storm</li><li class="correct">B. Man-in-the-middle interception of all traffic leaving the LAN</li><li class="wrong">C. VLAN hopping to adjacent network segments</li><li class="wrong">D. Denial of service via bandwidth exhaustion</li></ul>
+  <div class="qa-exp"><strong>B.</strong> When hosts believe the gateway's IP maps to the attacker's MAC, all outbound traffic flows through the attacker's machine (MITM). The attacker can eavesdrop on or modify all unencrypted traffic. MAC flooding exhausts the CAM table (different attack). VLAN hopping is a different Layer 2 attack. DoS via bandwidth exhaustion is not what ARP poisoning achieves.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q16. Which is the MOST secure wireless configuration for a corporate environment?</div>
+  <ul class="qa-opts"><li class="wrong">A. WPA2 Personal with a 20-character passphrase and hidden SSID</li><li class="correct">B. WPA3 Enterprise with 802.1X and EAP-TLS</li><li class="wrong">C. WPA2 Enterprise with MAC address filtering</li><li class="wrong">D. WEP with 256-bit keys</li></ul>
+  <div class="qa-exp"><strong>B.</strong> WPA3 Enterprise + EAP-TLS = strongest available: AES-GCMP-256 encryption, per-user certificate-based mutual authentication, 802.1X access control. Hidden SSID is security theatre. MAC filtering is security theatre (MAC addresses are trivially spoofed). WEP is broken regardless of key length. WPA2 Enterprise is acceptable but inferior to WPA3 Enterprise.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q17. DNSSEC protects against which specific threat?</div>
+  <ul class="qa-opts"><li class="wrong">A. Encrypting DNS queries to prevent eavesdropping</li><li class="wrong">B. Hiding the contents of DNS responses from ISPs</li><li class="correct">C. Providing cryptographic proof that DNS records are authentic and untampered</li><li class="wrong">D. Encrypting DNS zone transfers between authoritative servers</li></ul>
+  <div class="qa-exp"><strong>C.</strong> DNSSEC adds digital signatures to DNS records, allowing resolvers to verify their authenticity &mdash; this prevents DNS cache poisoning. DNSSEC does NOT encrypt queries (use DoH or DoT for privacy). It does not hide responses from intermediaries. Zone transfer security uses TSIG or TLS separately. The key word is "authenticate records," not "encrypt queries."</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q18. A server is becoming unresponsive because its TCP connection table is flooded with thousands of half-open connections from spoofed source IPs. What attack is this?</div>
+  <ul class="qa-opts"><li class="correct">A. SYN flood</li><li class="wrong">B. Smurf attack</li><li class="wrong">C. Teardrop attack</li><li class="wrong">D. Session hijacking</li></ul>
+  <div class="qa-exp"><strong>A.</strong> SYN flood = sends SYN packets with spoofed source IPs, server sends SYN-ACK to spoofed IPs which never respond, filling the half-open connection table until no new connections can be accepted. Defense: SYN cookies. Smurf uses ICMP broadcast amplification. Teardrop uses fragmented packets with bad offsets. Session hijacking steals authenticated sessions.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q19. A penetration tester demonstrates VLAN hopping via double-tagging. Which change BEST mitigates this?</div>
+  <ul class="qa-opts"><li class="wrong">A. Enable VLAN 1 on all trunk ports as the default</li><li class="wrong">B. Increase the number of VLANs deployed</li><li class="correct">C. Change the native VLAN on trunk ports to an unused, dedicated VLAN with no hosts assigned</li><li class="wrong">D. Enable DTP negotiation on access ports</li></ul>
+  <div class="qa-exp"><strong>C.</strong> Double-tagging exploits the native VLAN (default: VLAN 1). Changing the native VLAN to an unused VLAN that no devices belong to neutralises this attack. A perpetuates the vulnerability (VLAN 1 as native is the problem). B is irrelevant to double-tagging. D (enabling DTP on access ports) makes switch-spoofing VLAN hopping easier &mdash; DTP should be disabled on all access ports.</div>
+</div>
+
+<div class="qa-block">
+  <div class="qa-q">Q20. Kerberos authentication in a specific office is failing intermittently with "clock skew too great" errors. What is the MOST likely cause and fix?</div>
+  <ul class="qa-opts"><li class="wrong">A. Expired user certificates &mdash; renew PKI certificates</li><li class="wrong">B. RADIUS server unreachable &mdash; restore the RADIUS service</li><li class="correct">C. NTP failure &mdash; resynchronise clocks so the difference between clients and the KDC is within 5 minutes</li><li class="wrong">D. BGP routing failure &mdash; restore routing tables</li></ul>
+  <div class="qa-exp"><strong>C.</strong> Kerberos uses ticket timestamps as anti-replay protection. If client clocks differ from the KDC by more than 5 minutes (default skew limit), tickets are rejected. The fix is repairing NTP synchronisation. "Clock skew too great" is a definitive Kerberos error message. Kerberos uses shared secret keys, not PKI certificates. RADIUS is for 802.1X, not Kerberos. BGP is routing, not authentication.</div>
+</div>
+
+</section>
+
+<div class="nav-footer">
+  <a href="exam-traps-consolidated.html" class="nav-btn">&#8592; Exam Traps Reference</a>
+  <a href="cissp-mcq.html" class="nav-btn">&#129514; Full MCQ Quiz</a>
+</div>
+
+</div><!-- end .container -->
+</body>
+</html>
