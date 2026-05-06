@@ -92,7 +92,12 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 <tr><td>System Owner</td><td>Business unit manager</td><td>Responsible for the system processing the data</td></tr>
 <tr><td>Data Controller (GDPR)</td><td>Organization</td><td>Determines purposes and means — primary GDPR liability</td></tr>
 <tr><td>Data Processor (GDPR)</td><td>Third party</td><td>Processes on behalf of controller — follows instructions only</td></tr></table>
-<div class="warning"><strong>⚠️ Exam Trap:</strong> The <strong>Data Owner</strong> (not the Custodian, not IT) is ultimately responsible for classification. "Who is accountable?" = Data Owner — always a business executive.</div>
+<h3>Asset Inventory &amp; Asset Management (Syllabus 2.3)</h3>
+<table><tr><th>Asset Type</th><th>Examples</th><th>Key Point</th></tr>
+<tr><td>Tangible</td><td>Servers, laptops, USB drives, printers</td><td>Physical controls + lifecycle tracking required</td></tr>
+<tr><td>Intangible</td><td>IP, software licences, source code, AI model weights, trade secrets</td><td>Often overlooked; must be classified and protected</td></tr></table>
+<div class="exam-tip"><strong>💡 Exam Tip:</strong> The <strong>first step</strong> in any security programme is establishing an asset inventory. You cannot protect what you have not identified. Asset management tracks assets through the full lifecycle from acquisition to disposal.</div>
+<div class="warning"><strong>⚠️ Exam Trap:</strong> The <strong>Data Owner</strong> (not the Custodian, not IT) is ultimately responsible for classification. &ldquo;Who is accountable?&rdquo; = Data Owner — always a business executive.</div>
 </div>
 
 <div class="section" id="s4"><h2>4. Data Lifecycle &amp; Handling (Days 24–25)</h2>
@@ -106,6 +111,10 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 <tr><td>Share/Transmit</td><td>Encryption in transit (TLS, IPSec); DLP; classification labels</td></tr>
 <tr><td>Archive</td><td>Long-term storage with integrity checks; retention schedule compliance</td></tr>
 <tr><td>Destroy</td><td>NIST 800-88 (Clear, Purge, Destroy); certificate of destruction</td></tr></table>
+<h3>Data Location (Syllabus 2.4)</h3>
+<p>Data location = where data physically or logically resides. Security controls must follow the data regardless of where it is stored. Key concerns: <strong>data residency</strong> (contractual/regulatory requirement to remain in a geographic boundary) and <strong>data sovereignty</strong> (data is subject to the laws of the country it resides in). All copies of data — primary, backup, replica — must receive classification-appropriate controls.</p>
+<h3>Data Maintenance (Syllabus 2.4)</h3>
+<p>Active management of data during its lifecycle: access rights reviews (remove access on role change/termination), reclassification reviews, backup verification (restore testing), audit log review, and media refresh for long-term archives. <strong>Access rights review after employee role change</strong> is a high-frequency exam scenario.</p>
 </div>
 
 <div class="section" id="s5"><h2>5. Privacy Protection Techniques (Day 26)</h2>
@@ -127,6 +136,12 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 <div class="warning"><strong>⚠️ Degaussing ≠ SSD:</strong> Degaussing only works on <strong>magnetic media</strong> (HDDs, tapes). For SSDs/flash: use <strong>cryptographic erasure</strong> or <strong>physical destruction</strong>.</div>
 <p><strong>Data remanence</strong> = residual data remaining after deletion attempts. Standard deletion removes pointers, not data. Magnetic media retains ghost images. Flash wear-levelling preserves data in spare cells.</p>
 <p><strong>Litigation hold / legal hold</strong> overrides normal retention schedules — data must be preserved when litigation is reasonably anticipated, even if the retention period has expired.</p>
+<h3>End of Life (EOL) &amp; End of Support (EOS) — Syllabus 2.5</h3>
+<table><tr><th>Term</th><th>Meaning</th><th>Security Impact</th></tr>
+<tr><td>EOL (End of Life)</td><td>Vendor signals product is in final phase; no longer sold</td><td>Begin migration planning</td></tr>
+<tr><td>EOS (End of Support)</td><td>Vendor permanently stops security patches and support</td><td>Every new CVE is forever unpatched — permanent risk</td></tr></table>
+<p>When EOS is reached, options: <strong>Replace</strong> (preferred) | <strong>Extended support contract</strong> (paid extension) | <strong>Isolate &amp; monitor</strong> with compensating controls (segmentation, host-IDS, firewall) | <strong>Decommission</strong> (sanitise per NIST 800-88, update asset inventory). EOS does not waive data retention obligations — migrate data before decommissioning.</p>
+<div class="exam-tip"><strong>💡 Exam Tip:</strong> Running EOS software with no compensating controls = failure of <strong>due care</strong>. The compensating control approach is tested: isolation + monitoring + documented risk acceptance is an acceptable interim measure.</div>
 </div>
 
 <div class="section" id="s7"><h2>7. Data Security Controls &amp; States (Days 28–29)</h2>
@@ -134,7 +149,19 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 <tr><td>At Rest</td><td>Disk, DB, backup</td><td>AES-256, BitLocker, FileVault, TDE</td><td>ACLs, key management, HSM</td></tr>
 <tr><td>In Transit</td><td>Network, VPN</td><td>TLS 1.3, IPSec, SSH, SFTP</td><td>VPNs, cert pinning, network DLP</td></tr>
 <tr><td>In Use</td><td>Memory, CPU</td><td>Homomorphic encryption, Intel SGX, ARM TrustZone</td><td>TEEs, memory encryption, process isolation</td></tr></table>
-<div class="exam-tip"><strong>💡 Exam Tip:</strong> "Data in use" is the <strong>hardest state to protect</strong> and the most likely topic for newer exam concepts. Homomorphic encryption allows computation on encrypted data — FHE is ideal but computationally expensive.</div>
+<div class="exam-tip"><strong>💡 Exam Tip:</strong> &ldquo;Data in use&rdquo; is the <strong>hardest state to protect</strong> and the most likely topic for newer exam concepts. Homomorphic encryption allows computation on encrypted data — FHE is ideal but computationally expensive.</div>
+<h3>Scoping &amp; Tailoring (Syllabus 2.6)</h3>
+<p><strong>Scoping</strong> = determining WHICH controls from a baseline apply to the environment (excluding irrelevant controls with justification). <strong>Tailoring</strong> = adjusting HOW applicable controls are implemented to fit the specific environment, mission, or risk profile. Both require documentation and risk acceptance. Removing a control due to cost alone is <em>not</em> scoping — it requires formal risk acceptance and compensating controls.</p>
+<h3>Standards Selection (Syllabus 2.6)</h3>
+<table><tr><th>Standard</th><th>Applies When</th></tr>
+<tr><td>NIST SP 800-53</td><td>US federal systems; comprehensive baseline for any org</td></tr>
+<tr><td>ISO/IEC 27001</td><td>International ISMS certification; multinationals</td></tr>
+<tr><td>PCI DSS</td><td>Storing/processing/transmitting payment card data</td></tr>
+<tr><td>HIPAA Security Rule</td><td>US healthcare — PHI (Protected Health Information)</td></tr>
+<tr><td>GDPR</td><td>Processing personal data of EU/EEA residents</td></tr>
+<tr><td>SOC 2</td><td>SaaS/cloud providers demonstrating security to customers</td></tr>
+<tr><td>CIS Controls</td><td>Any org; prioritised, practical implementation guidance</td></tr></table>
+<p>Multiple standards may apply simultaneously. Identify mandatory requirements first (PCI, HIPAA), then international/contractual (ISO 27001, SOC 2), then supplement based on risk profile.</p>
 </div>
 
 <div class="section" id="s8"><h2>8. DLP &amp; CASB (Day 31)</h2>
@@ -163,6 +190,9 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 <div class="warning"><strong>⚠️ Trap 4 — DPO Conflict:</strong> DPO cannot also be CISO, IT Director, CEO, Head of HR/Marketing — these roles determine processing purposes.</div>
 <div class="warning"><strong>⚠️ Trap 5 — Right to Erasure:</strong> Not absolute — exceptions for legal claims, legal obligations, public health, freedom of expression, archiving.</div>
 <div class="warning"><strong>⚠️ Trap 6 — 72-Hour Clock:</strong> Runs from when the <em>controller</em> learns of the breach, not the processor's discovery.</div>
+<div class="warning"><strong>⚠️ Trap 7 — EOL vs. EOS:</strong> EOL = vendor stops selling/development. EOS = vendor stops security patches. EOS is the hard security line — any new CVE after EOS is a permanent unpatched vulnerability.</div>
+<div class="warning"><strong>⚠️ Trap 8 — Scoping vs. Risk Acceptance:</strong> Scoping removes inapplicable controls (technology not present). Dropping a control because it is expensive is NOT scoping — it is risk acceptance and requires documentation, not just exclusion.</div>
+<div class="warning"><strong>⚠️ Trap 9 — Data Residency vs. Data Sovereignty:</strong> Residency = WHERE data must be stored (contractual/regulatory). Sovereignty = WHICH COUNTRY'S LAWS apply to it. A cloud "EU region" satisfies residency but data may still be subject to US law via the CLOUD Act if the CSP is US-based.</div>
 </div>
 
 <div class="section" id="s11"><h2>11. Memory Tricks &amp; Mnemonics</h2>
@@ -178,9 +208,15 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 
 <div class="section" id="s12"><h2>12. Key Takeaways</h2>
 <table><tr><th>Topic</th><th>Essential Point</th></tr>
+<tr><td>Asset Inventory</td><td>First step in security; tangible (physical) + intangible (IP, software, AI models); must include owner, classification, location</td></tr>
 <tr><td>Classification</td><td>Owner (business exec) classifies; classification drives all controls</td></tr>
 <tr><td>Data Lifecycle</td><td>Create → Store → Use → Share → Archive → Destroy; controls at every stage</td></tr>
+<tr><td>Data Location</td><td>Data residency (where stored) + data sovereignty (which laws apply); all copies protected at same level</td></tr>
+<tr><td>Data Maintenance</td><td>Access reviews, reclassification, backup verification, media refresh; access rights reviewed on role change</td></tr>
 <tr><td>Data States</td><td>At Rest (AES), In Transit (TLS), In Use (SGX/TEE); in-use is hardest</td></tr>
+<tr><td>EOL / EOS</td><td>EOS = no more patches = permanent risk; compensating controls required if can't replace immediately; decommission per NIST 800-88</td></tr>
+<tr><td>Scoping &amp; Tailoring</td><td>Scoping = which controls apply; Tailoring = how to implement them; both require documentation</td></tr>
+<tr><td>Standards Selection</td><td>PCI DSS (cards), HIPAA (PHI), GDPR (EU personal data), ISO 27001 (ISMS), NIST 800-53 (federal/baseline)</td></tr>
 <tr><td>Privacy</td><td>Anonymization (irreversible, outside GDPR) vs. Pseudonymization (reversible, still GDPR)</td></tr>
 <tr><td>Sanitization</td><td>NIST 800-88: Clear → Purge → Destroy; degaussing fails on SSDs</td></tr>
 <tr><td>DLP</td><td>Network + Endpoint + Cloud; CASB for cloud visibility</td></tr>

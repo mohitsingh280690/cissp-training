@@ -71,9 +71,11 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s7">Stage 4: Share / Transmit</a></li>
     <li><a href="#s8">Stage 5: Archive</a></li>
     <li><a href="#s9">Stage 6: Destroy</a></li>
-    <li><a href="#s10">GDPR Lifecycle Alignment</a></li>
-    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s12">Key Takeaways</a></li>
+    <li><a href="#s10">Data Location</a></li>
+    <li><a href="#s11">Data Maintenance</a></li>
+    <li><a href="#s12">GDPR Lifecycle Alignment</a></li>
+    <li><a href="#s13">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s14">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -197,7 +199,51 @@ tr:nth-child(even){background:#f9f9f9;}
 </div>
 
 <div class="section" id="s10">
-  <h2>10. GDPR Lifecycle Alignment</h2>
+  <h2>10. Data Location</h2>
+  <div class="definition">
+    <strong>Data Location:</strong> Where data physically or logically resides at any point in time. Knowing data location is essential for applying appropriate controls, meeting regulatory requirements (data sovereignty / data residency), and ensuring data is accessible when needed.
+  </div>
+  <p>Data location categories:</p>
+  <table>
+    <tr><th>Location Type</th><th>Description</th><th>Key Security Considerations</th></tr>
+    <tr><td><strong>On-premises storage</strong></td><td>Data resides on organisation-owned or leased hardware within the organisation's physical facilities</td><td>Organisation has full control; physical security responsibility is internal; no third-party data sharing</td></tr>
+    <tr><td><strong>Cloud storage</strong></td><td>Data resides on infrastructure owned and operated by a Cloud Service Provider (CSP)</td><td>Shared responsibility model applies; data residency clauses required in contracts; verify region/jurisdiction; encryption with customer-managed keys (CMK) recommended</td></tr>
+    <tr><td><strong>Distributed / replicated</strong></td><td>Data is replicated across multiple geographic locations for availability or disaster recovery</td><td>All copies must receive the same classification-level controls; replication locations must comply with data residency requirements</td></tr>
+    <tr><td><strong>Removable media</strong></td><td>Data is stored on portable devices (USB drives, tapes, laptops)</td><td>High loss/theft risk; encryption mandatory for classified data; media tracking required in the asset inventory</td></tr>
+    <tr><td><strong>Third-party / vendor</strong></td><td>Data shared with or stored by a supplier, partner, or service provider</td><td>Contractual controls (DPA / Data Processing Agreement) required; right to audit; supplier security assessment</td></tr>
+  </table>
+  <h3>Data Residency and Data Sovereignty</h3>
+  <ul>
+    <li><strong>Data Residency:</strong> A contractual or regulatory requirement that data must remain within a specified geographic boundary (country, region). Example: GDPR restricts personal data transfers outside the EEA without adequate safeguards.</li>
+    <li><strong>Data Sovereignty:</strong> The concept that data is subject to the laws of the country in which it is stored or processed. Data stored in a US cloud region is subject to US law (e.g., CLOUD Act); data in the EU is subject to GDPR.</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> CISSP questions on data location often combine with data sovereignty. Key point: you cannot assume a cloud provider's "EU region" satisfies data residency automatically — verify contractually. Also: all copies of data, including backups and replicas, must be protected at the level of the primary data.
+  </div>
+</div>
+
+<div class="section" id="s11">
+  <h2>11. Data Maintenance</h2>
+  <div class="definition">
+    <strong>Data Maintenance:</strong> The ongoing processes and activities that keep data accurate, current, complete, accessible, and secure throughout its active lifecycle. Without maintenance, data quality degrades, compliance requirements are missed, and security controls become misaligned with the actual data.
+  </div>
+  <p>Data maintenance activities:</p>
+  <ul>
+    <li><strong>Data quality management:</strong> Identify and correct inaccurate, incomplete, duplicate, or outdated data. Supports the GDPR Accuracy principle. Tools: data profiling, deduplication, data cleansing.</li>
+    <li><strong>Access rights review:</strong> Periodically review and recertify who has access to what data. Remove access for users who have transferred roles or left the organisation (prevents privilege creep).</li>
+    <li><strong>Reclassification:</strong> Data that was classified at a higher sensitivity level may be downgraded over time (e.g., a trade secret that is now publicly known). Classification must be reviewed at defined intervals.</li>
+    <li><strong>Patch and update management:</strong> Systems storing data must be kept patched and updated; unpatched systems holding sensitive data represent a direct risk to data confidentiality and integrity.</li>
+    <li><strong>Backup verification:</strong> Regular testing of backups (restore tests) confirms data integrity and recoverability — untested backups are not reliable protection.</li>
+    <li><strong>Audit log review:</strong> Reviewing access and change logs for sensitive data detects unauthorised access or modification, supporting integrity and accountability.</li>
+    <li><strong>Media refresh:</strong> Storage media degrades over time (bit rot, tape degradation). Long-term archives must be migrated to new media at defined intervals to prevent data loss.</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The CISSP syllabus (2.4) explicitly lists Data Maintenance as a lifecycle management activity. It is frequently tested in scenarios around access reviews and reclassification: &ldquo;An employee transfers to a new department — what should happen to their data access?&rdquo; — answer: access rights should be reviewed and inappropriate access removed (principle of least privilege).
+  </div>
+</div>
+
+<div class="section" id="s12">
+  <h2>12. GDPR Lifecycle Alignment</h2>
   <p>GDPR's data protection principles map directly onto the data lifecycle:</p>
   <table>
     <tr><th>GDPR Principle</th><th>Lifecycle Stage</th><th>Requirement</th></tr>
@@ -209,8 +255,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </table>
 </div>
 
-<div class="section" id="s11">
-  <h2>11. Memory Tricks &amp; Mnemonics</h2>
+<div class="section" id="s13">
+  <h2>13. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 The Six Stages — "Can Somebody Use Some Archives Daily?"</strong><br>
     <strong>C</strong>reate → <strong>S</strong>tore → <strong>U</strong>se → <strong>S</strong>hare → <strong>A</strong>rchive → <strong>D</strong>estroy
@@ -230,8 +276,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s12">
-  <h2>12. Key Takeaways</h2>
+<div class="section" id="s14">
+  <h2>14. Key Takeaways</h2>
   <table>
     <tr><th>Lifecycle Stage</th><th>Key Control(s)</th><th>Key Risk if Control Fails</th></tr>
     <tr><td>Create / Collect</td><td>Classification, data minimisation, labelling</td><td>Over-collection of data; unclassified sensitive data lacks protection</td></tr>

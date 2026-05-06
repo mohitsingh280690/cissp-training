@@ -70,10 +70,11 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s4">Data Custodian</a></li>
     <li><a href="#s5">Data Steward</a></li>
     <li><a href="#s6">System Owner</a></li>
-    <li><a href="#s7">Data Controller vs. Data Processor (GDPR)</a></li>
-    <li><a href="#s8">User / Data Subject Responsibilities</a></li>
-    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s10">Key Takeaways</a></li>
+    <li><a href="#s7">Asset Inventory &amp; Asset Management</a></li>
+    <li><a href="#s8">Data Controller vs. Data Processor (GDPR)</a></li>
+    <li><a href="#s9">User / Data Subject Responsibilities</a></li>
+    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s11">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -171,7 +172,46 @@ tr:nth-child(even){background:#f9f9f9;}
 </div>
 
 <div class="section" id="s7">
-  <h2>7. Data Controller vs. Data Processor (GDPR)</h2>
+  <h2>7. Asset Inventory &amp; Asset Management</h2>
+  <p>CISSP syllabus 2.3 requires candidates to understand how organisations provision and track assets securely. Asset inventory and management are the operational foundation that makes all other security controls possible — you cannot protect what you do not know you have.</p>
+  <h3>Asset Inventory</h3>
+  <div class="definition">
+    <strong>Asset Inventory:</strong> A comprehensive, maintained register of all organisational assets — both tangible and intangible — that records enough information to support lifecycle management, risk assessment, and security control application.
+  </div>
+  <table>
+    <tr><th>Asset Type</th><th>Definition</th><th>Examples</th></tr>
+    <tr><td><strong>Tangible Assets</strong></td><td>Physical, touchable items with measurable value</td><td>Servers, laptops, mobile devices, network hardware, removable media (USB drives, tapes), physical documents, printers</td></tr>
+    <tr><td><strong>Intangible Assets</strong></td><td>Non-physical items of value that do not have a physical form</td><td>Intellectual property, software licences, source code, proprietary algorithms, trade secrets, customer databases, brand value, AI training datasets, pre-trained model weights</td></tr>
+  </table>
+  <p>Each entry in the asset inventory should include:</p>
+  <ul>
+    <li><strong>Asset ID / Serial number</strong> — unique identifier</li>
+    <li><strong>Asset owner</strong> — accountable business role</li>
+    <li><strong>Asset classification</strong> — sensitivity / criticality level</li>
+    <li><strong>Location</strong> — physical location or logical location (data centre, cloud region, endpoint)</li>
+    <li><strong>Custodian / assigned user</strong> — who currently has the asset</li>
+    <li><strong>Purchase date / EOL date</strong> — for lifecycle tracking</li>
+    <li><strong>Applicable security controls</strong> — encryption, patching, access policy</li>
+  </ul>
+  <h3>Asset Management</h3>
+  <div class="definition">
+    <strong>Asset Management:</strong> The disciplined process of governing assets across their full lifecycle — from acquisition and deployment through operation, maintenance, and secure disposal — to ensure security controls remain appropriate at every stage.
+  </div>
+  <p>Asset management encompasses:</p>
+  <ul>
+    <li><strong>Procurement security:</strong> Verify hardware/software supply chain integrity before deployment; validate vendor security posture</li>
+    <li><strong>Configuration baseline:</strong> Apply a secure baseline configuration before deploying any asset; record the baseline in the asset inventory</li>
+    <li><strong>Change tracking:</strong> Any change to an asset (hardware, software, location) must be recorded in the inventory and approved through change management</li>
+    <li><strong>Periodic reconciliation:</strong> Regularly compare the asset inventory against what is physically or logically present; identify ghost assets (decommissioned but still registered) and shadow assets (present but unregistered)</li>
+    <li><strong>Secure disposal:</strong> Assets removed from service must be sanitised per the data classification of data they held, and records updated in the inventory</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> The CISSP exam tests that you know the difference between tangible and intangible assets, and that you understand asset management is not just an IT function — it includes data, IP, and software. Questions may ask: &ldquo;What is the FIRST step in implementing a data security programme?&rdquo; — the correct answer is always establishing an asset inventory (you cannot protect what you have not identified).
+  </div>
+</div>
+
+<div class="section" id="s8">
+  <h2>8. Data Controller vs. Data Processor (GDPR)</h2>
   <p>GDPR (General Data Protection Regulation) introduced two key roles that apply to organisations handling personal data of EU/EEA residents:</p>
   <table>
     <tr><th>Role</th><th>Definition (GDPR Art. 4)</th><th>Example</th><th>Primary Obligations</th></tr>
@@ -186,8 +226,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s8">
-  <h2>8. User / Data Subject Responsibilities</h2>
+<div class="section" id="s9">
+  <h2>9. User / Data Subject Responsibilities</h2>
   <p>End users who access and handle data also have security responsibilities — they are not passive participants:</p>
   <ul>
     <li>Access only data they are authorised to access (least privilege, need-to-know)</li>
@@ -199,8 +239,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </ul>
 </div>
 
-<div class="section" id="s9">
-  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="section" id="s10">
+  <h2>10. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 Owner vs. Custodian — THE Big Distinction:</strong><br>
     O = Owner = DECIDES: classification, access rights, retention, declassification<br>
@@ -223,8 +263,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s10">
-  <h2>10. Key Takeaways</h2>
+<div class="section" id="s11">
+  <h2>11. Key Takeaways</h2>
   <table>
     <tr><th>Role</th><th>Type</th><th>Primary Responsibility</th></tr>
     <tr><td>Data Owner</td><td>Business / Senior Management</td><td>DECIDES: classification, access, retention, risk acceptance</td></tr>

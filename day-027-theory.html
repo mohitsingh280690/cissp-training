@@ -66,8 +66,9 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s5">Litigation Hold / Legal Hold</a></li>
     <li><a href="#s6">Data Destruction Methods</a></li>
     <li><a href="#s7">Certificate of Destruction</a></li>
-    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s9">Key Takeaways</a></li>
+    <li><a href="#s8">End of Life (EOL) &amp; End of Support (EOS)</a></li>
+    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s10">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -185,7 +186,31 @@ tr:nth-child(even){background:#f9f9f9;}
 </div>
 
 <div class="section" id="s8">
-  <h2>8. Memory Tricks &amp; Mnemonics</h2>
+  <h2>8. End of Life (EOL) &amp; End of Support (EOS)</h2>
+  <p>CISSP syllabus 2.5 requires candidates to understand asset retention decisions specifically in the context of End-of-Life and End-of-Support timelines. These are distinct events with significant security implications.</p>
+  <table>
+    <tr><th>Term</th><th>Definition</th><th>Security Impact</th></tr>
+    <tr><td><strong>End of Life (EOL)</strong></td><td>The vendor announces the product will no longer be sold or its lifecycle is ending. Existing installations may still function, but the vendor signals the product is in its final phase.</td><td>Organisations should begin planning migration or replacement. New vulnerabilities discovered after EOL will not be patched.</td></tr>
+    <tr><td><strong>End of Support (EOS) / End of Extended Support</strong></td><td>The vendor permanently ceases providing security patches, bug fixes, and technical support for the product. This is the hard cutoff date.</td><td>Any vulnerability discovered after EOS will NEVER be patched — the asset becomes a permanent, growing security liability. Operating EOS software in production is a critical risk.</td></tr>
+    <tr><td><strong>End of Security Updates (EOSU)</strong></td><td>A subset of EOS: specifically the date after which no security patches will be released (some vendors separate feature updates from security updates).</td><td>Running assets past EOSU without compensating controls (isolation, network segmentation, monitoring) violates due care obligations.</td></tr>
+  </table>
+  <h3>Appropriate Asset Retention Decisions</h3>
+  <p>When an asset approaches EOL/EOS, the organisation must make a formal, documented retention decision:</p>
+  <ul>
+    <li><strong>Replace:</strong> Migrate to a supported product before EOS date. Preferred option for internet-facing or sensitive-data-handling systems.</li>
+    <li><strong>Extended support contract:</strong> Some vendors offer paid Extended Security Updates (ESU) beyond the standard EOS date (e.g., Microsoft ESU for Windows Server). Provides additional time for migration but is not a permanent solution.</li>
+    <li><strong>Isolate and monitor:</strong> If replacement is not immediately possible, isolate the EOS asset from the rest of the network (network segmentation / air-gap), apply compensating controls (host-based IDS, strict firewall rules), and increase monitoring. Document the risk acceptance decision.</li>
+    <li><strong>Decommission:</strong> If the asset is no longer needed, securely decommission it: sanitise storage media per NIST SP 800-88, revoke all access credentials, remove from DNS/DHCP/Active Directory, and update the asset inventory.</li>
+  </ul>
+  <h3>EOL vs. Data Retention</h3>
+  <p>EOL/EOS of a system does not automatically override data retention obligations. If the system holds data that must be retained under legal or regulatory requirements (SOX 7 years, HIPAA 6 years), the <strong>data</strong> must be migrated to a supported platform before the old system is decommissioned. Decommissioning an EOS system without migrating required data can constitute a data retention violation.</p>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> CISSP 2024 syllabus explicitly added EOL/EOS to 2.5 — &ldquo;Ensure appropriate asset retention (e.g., End of Life (EOL), End of Support).&rdquo; Exam questions will test: (1) the difference between EOL and EOS; (2) the risk of running EOS software; (3) compensating controls when immediate replacement is not possible. Key point: <em>running EOS software with no compensating controls = failure of due care</em>.
+  </div>
+</div>
+
+<div class="section" id="s9">
+  <h2>9. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 Regulatory Retention Numbers:</strong><br>
     SOX = <strong>7</strong> years ("Seven-OX")<br>
@@ -204,8 +229,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s9">
-  <h2>9. Key Takeaways</h2>
+<div class="section" id="s10">
+  <h2>10. Key Takeaways</h2>
   <table>
     <tr><th>Topic</th><th>Key Fact</th></tr>
     <tr><td>SOX retention</td><td>7 years for financial records / audit work papers</td></tr>

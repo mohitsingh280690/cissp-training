@@ -67,8 +67,10 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s6">Digital Watermarking</a></li>
     <li><a href="#s7">Database Security Controls</a></li>
     <li><a href="#s8">Cloud Data Security</a></li>
-    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s10">Key Takeaways</a></li>
+    <li><a href="#s9">Scoping &amp; Tailoring</a></li>
+    <li><a href="#s10">Standards Selection</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -197,7 +199,64 @@ tr:nth-child(even){background:#f9f9f9;}
 </div>
 
 <div class="section" id="s9">
-  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <h2>9. Scoping &amp; Tailoring</h2>
+  <p>CISSP syllabus 2.6 lists scoping and tailoring as explicit methods for determining appropriate data security controls. These concepts come from NIST SP 800-53 and the NIST Risk Management Framework (RMF) but apply broadly to any control framework.</p>
+  <div class="definition">
+    <strong>Scoping:</strong> The process of identifying which security controls from a baseline are applicable to a specific system, environment, or organisation — and <em>excluding</em> controls that are not relevant. Scoping narrows the control set to only what applies.
+  </div>
+  <div class="definition">
+    <strong>Tailoring:</strong> The process of modifying applicable controls to better fit the specific operational environment, mission, or risk profile of an organisation. Tailoring adjusts <em>how</em> a control is implemented — not whether it applies.
+  </div>
+  <table>
+    <tr><th>Concept</th><th>Question It Answers</th><th>Example</th></tr>
+    <tr><td><strong>Scoping</strong></td><td>&ldquo;Does this control apply to us at all?&rdquo;</td><td>A purely cloud-native organisation may scope out physical media controls that assume on-premises tape libraries. A SaaS provider with no mobile workforce may scope out mobile device management controls.</td></tr>
+    <tr><td><strong>Tailoring</strong></td><td>&ldquo;How should we implement this control in our context?&rdquo;</td><td>The baseline says &ldquo;encrypt data in transit.&rdquo; Tailoring specifies: &ldquo;Use TLS 1.3 minimum; TLS 1.1 and 1.0 are prohibited in our environment.&rdquo; Or: &ldquo;Increase password minimum length from 12 to 16 characters for privileged accounts.&rdquo;</td></tr>
+  </table>
+  <h3>Scoping Considerations</h3>
+  <ul>
+    <li><strong>Technology applicability:</strong> If a control is designed for a technology type not present in the environment (e.g., mainframe controls in a cloud-only org), it may be scoped out with documented justification.</li>
+    <li><strong>Common controls:</strong> If a control is fully provided by a central organisational service (e.g., enterprise firewall managed by the central IT team), an individual system may inherit it rather than implementing it independently.</li>
+    <li><strong>Risk-based decisions:</strong> Controls may be scoped out if a formal risk assessment demonstrates the threat they address does not apply and the residual risk is acceptable.</li>
+  </ul>
+  <h3>Tailoring Considerations</h3>
+  <ul>
+    <li><strong>Supplementing:</strong> Adding controls beyond the baseline to address organisation-specific risks (e.g., adding DLP controls not in the baseline because the organisation handles large volumes of PII)</li>
+    <li><strong>Compensating controls:</strong> When a baseline control cannot be implemented as specified, a compensating control provides equivalent protection (e.g., physical access logs instead of electronic badge readers in a legacy facility)</li>
+    <li><strong>Parameter setting:</strong> Many controls have adjustable parameters (password length, session timeout, audit log retention). Tailoring sets these parameters to match the organisation's risk profile.</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Scoping = deciding WHICH controls apply. Tailoring = deciding HOW to implement the applicable controls. Both require formal documentation and risk acceptance. A common exam trap: &ldquo;removing a control because it is too expensive&rdquo; is not scoping — it requires a formal risk acceptance decision and compensating control.
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Standards Selection</h2>
+  <p>Once data is classified and the control environment is scoped and tailored, the organisation must select the appropriate security standards and frameworks that define the required controls. Standards selection is driven by the organisation's industry, regulatory obligations, contractual requirements, and risk appetite.</p>
+  <table>
+    <tr><th>Standard / Framework</th><th>Primary Focus</th><th>Who Must / Should Use It</th></tr>
+    <tr><td><strong>NIST SP 800-53</strong></td><td>Comprehensive security and privacy controls catalogue for federal information systems; widely adopted by non-government organisations as a baseline</td><td>US federal agencies (mandatory); any organisation wanting a comprehensive control baseline</td></tr>
+    <tr><td><strong>ISO/IEC 27001</strong></td><td>International standard for Information Security Management Systems (ISMS); specifies requirements for establishing, implementing, maintaining, and improving an ISMS</td><td>Organisations seeking international certification; multinationals; any industry</td></tr>
+    <tr><td><strong>PCI DSS</strong></td><td>Payment Card Industry Data Security Standard; 12 requirements protecting cardholder data</td><td>Any organisation that stores, processes, or transmits payment card data</td></tr>
+    <tr><td><strong>HIPAA Security Rule</strong></td><td>Technical, physical, and administrative safeguards for Protected Health Information (PHI)</td><td>US healthcare covered entities and their business associates</td></tr>
+    <tr><td><strong>GDPR</strong></td><td>Privacy regulation requiring appropriate technical and organisational measures to protect personal data of EU/EEA residents</td><td>Any organisation processing personal data of EU/EEA residents, regardless of where the organisation is based</td></tr>
+    <tr><td><strong>SOC 2 (AICPA)</strong></td><td>Service Organisation Controls; assesses security, availability, processing integrity, confidentiality, and privacy</td><td>SaaS providers and cloud services organisations demonstrating security to customers</td></tr>
+    <tr><td><strong>CIS Controls</strong></td><td>Prioritised set of 18 safeguards (formerly 20) developed by the Center for Internet Security; practical, implementation-focused</td><td>Any organisation; particularly useful for SMEs building security programmes</td></tr>
+  </table>
+  <h3>How to Select the Right Standard</h3>
+  <ol>
+    <li><strong>Identify mandatory requirements:</strong> Start with legally or contractually required standards (e.g., PCI DSS if you process cards; HIPAA if you handle PHI)</li>
+    <li><strong>Assess regulatory jurisdiction:</strong> GDPR applies if you handle EU personal data; local privacy laws may impose additional requirements</li>
+    <li><strong>Evaluate industry norms:</strong> What standards do your customers, partners, and auditors expect? ISO 27001 is widely recognised internationally</li>
+    <li><strong>Map to risk profile:</strong> Select controls that address your specific threat landscape; a financial institution needs stronger fraud controls than a manufacturing plant</li>
+    <li><strong>Avoid framework duplication:</strong> Use a primary framework and supplement; avoid implementing three competing frameworks without rationalisation — this creates compliance overhead without proportional security benefit</li>
+  </ol>
+  <div class="exam-tip">
+    <strong>✅ Exam Tip:</strong> Standards selection questions often appear as: &ldquo;An organisation processes credit cards and stores health records in the EU — which standards apply?&rdquo; Answer: PCI DSS (card data) + HIPAA (if US health records) + GDPR (EU personal data). Multiple standards can apply simultaneously; controls from different standards must all be met.
+  </div>
+</div>
+
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 Access Control Models — "DAC = Discretionary (owner), MAC = Mandatory (system), RBAC = Role, ABAC = Attributes":</strong><br>
     D = Discretionary = Data owner decides (most flexible, least restriction)<br>
@@ -220,8 +279,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s10">
-  <h2>10. Key Takeaways</h2>
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Control</th><th>Purpose</th><th>Key Fact</th></tr>
     <tr><td>FDE / TDE</td><td>Encryption at rest</td><td>Whole disk (FDE) vs. database engine (TDE)</td></tr>
