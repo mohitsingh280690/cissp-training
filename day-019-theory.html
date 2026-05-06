@@ -72,8 +72,10 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s6">Phishing Simulations</a></li>
     <li><a href="#s7">Measuring Programme Effectiveness</a></li>
     <li><a href="#s8">NIST SP 800-50 Framework</a></li>
-    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s10">Key Takeaways</a></li>
+    <li><a href="#s9">Security Champions &amp; Gamification</a></li>
+    <li><a href="#s10">Emerging Technology Awareness</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -208,8 +210,59 @@ tr:nth-child(even){background:#f9f9f9;}
   </table>
 </div>
 
+
 <div class="section" id="s9">
-  <h2>9. Memory Tricks &amp; Mnemonics</h2>
+  <h2>9. Security Champions &amp; Gamification</h2>
+  <p>The official CISSP exam outline (1.12) explicitly names <strong>security champions</strong> and <strong>gamification</strong> as methods to increase security awareness and training effectiveness. These are modern programme delivery techniques that go beyond traditional classroom training.</p>
+
+  <h3>Security Champions Programme</h3>
+  <p>A Security Champion is an employee (not from the security team) in a development team, business unit, or department who serves as the security advocate for that group. The Security Champions programme bridges the gap between the central security team and the wider organisation.</p>
+  <table>
+    <tr><th>Aspect</th><th>Detail</th></tr>
+    <tr><td><strong>Role</strong></td><td>Peer-to-peer security advocacy; security conscience of their team; first point of contact for security questions</td></tr>
+    <tr><td><strong>Selection</strong></td><td>Volunteers or nominated; typically developers, engineers, or business analysts with an interest in security</td></tr>
+    <tr><td><strong>Training Received</strong></td><td>Additional targeted security training beyond the general awareness programme; often includes secure coding, threat modelling, or OWASP training</td></tr>
+    <tr><td><strong>Benefits</strong></td><td>Scales security across the organisation without scaling the security team proportionally; creates security culture at team level; provides faster security feedback loops</td></tr>
+    <tr><td><strong>Governance</strong></td><td>Regular meetings; shared resources; recognition programme; metrics on team security posture</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip:</strong> If a question asks about scaling security culture across a large organisation without hiring many more security staff, or about embedding security knowledge within development teams, the answer is likely <strong>Security Champions</strong> programme.
+  </div>
+
+  <h3>Gamification</h3>
+  <p>Gamification applies game design elements to non-game contexts (security training) to increase engagement, motivation, and knowledge retention. Security training is notoriously disengaging; gamification is a proven countermeasure.</p>
+  <table>
+    <tr><th>Gamification Element</th><th>Security Training Application</th><th>Benefit</th></tr>
+    <tr><td><strong>Points / Scoring</strong></td><td>Earn points for completing modules, reporting phishing, or passing quizzes</td><td>Motivates participation; quantifies engagement</td></tr>
+    <tr><td><strong>Leaderboards</strong></td><td>Ranking employees/teams by security score</td><td>Creates positive competitive pressure; peer visibility</td></tr>
+    <tr><td><strong>Badges / Achievements</strong></td><td>Digital badges for completing certifications or specific behaviours</td><td>Social recognition; career signal</td></tr>
+    <tr><td><strong>Scenarios / Simulation Games</strong></td><td>Capture-the-flag (CTF), tabletop exercises, interactive incident simulations</td><td>Experiential learning; better retention than passive training</td></tr>
+    <tr><td><strong>Progression / Levels</strong></td><td>Unlock advanced training after completing basic modules</td><td>Structured learning path; mastery orientation</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — Programme Effectiveness Evaluation (Exam Outline 1.12):</strong> Gamification provides inherent metrics for programme effectiveness — participation rates, scores, time-to-complete, phishing simulation click rates before/after training. The exam outline requires that effectiveness be <em>measured</em>. Gamification makes measurement natural.
+  </div>
+</div>
+
+<div class="section" id="s10">
+  <h2>10. Emerging Technology Awareness</h2>
+  <p>The CISSP exam outline (1.12) requires that security awareness programmes include periodic content reviews to cover <strong>emerging technologies and trends</strong>, specifically citing cryptocurrency, artificial intelligence (AI), and blockchain.</p>
+  <table>
+    <tr><th>Technology</th><th>Key Security Awareness Topics</th><th>Employee Risk</th></tr>
+    <tr><td><strong>Cryptocurrency</strong></td><td>Cryptojacking (mining malware), ransomware payments, crypto wallet theft, exchange scams, regulatory compliance for financial institutions</td><td>Employees targeted by cryptojacking; finance teams handling ransom decisions; insider trading risks with early-access info</td></tr>
+    <tr><td><strong>Artificial Intelligence (AI)</strong></td><td>Deepfakes and AI-generated phishing (highly personalised spear phishing), voice cloning for vishing, AI-assisted social engineering, data poisoning risks, AI tool data leakage (entering sensitive data into AI chatbots)</td><td>CEO fraud via voice-cloned AI; sensitive IP submitted to public AI tools; AI-generated malware evading detection</td></tr>
+    <tr><td><strong>Blockchain</strong></td><td>Smart contract vulnerabilities, DeFi exploits, NFT scams, supply chain provenance claims, regulatory uncertainty</td><td>Investment fraud; employees deceived by blockchain-based scams; supply chain audit manipulation</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>💡 AI-Specific Risk — Data Leakage via AI Tools:</strong> A major emerging risk is employees entering confidential data (customer PII, financial projections, source code) into public AI chatbots (e.g., ChatGPT). Security awareness training must cover acceptable use policies for AI tools and the risk that inputs may be used to train public models.
+  </div>
+  <div class="key-concept">
+    <strong>Programme Currency:</strong> The exam outline requires <em>periodic content reviews</em> — awareness content must be updated when new threats emerge. A static annual training module is insufficient. Trigger reviews when: new threat intelligence identifies employee-facing attack vectors; major incidents occur (e.g., first widely-publicised deepfake fraud); regulatory guidance changes.
+  </div>
+</div>
+
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 Three Tiers — "ATE":</strong><br>
     <strong>A</strong>wareness — recognition and behaviour change — EVERYONE<br>
@@ -233,8 +286,8 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<div class="section" id="s10">
-  <h2>10. Key Takeaways</h2>
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Concept</th><th>Key Point</th></tr>
     <tr><td>Awareness</td><td>Shallow, all-staff, behaviour change — recognise and avoid</td></tr>

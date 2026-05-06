@@ -76,8 +76,9 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s7">Hardware Supply Chain Threats</a></li>
     <li><a href="#s8">Software Supply Chain &amp; SBOM</a></li>
     <li><a href="#s9">NIST SP 800-161 and Four-Party Risk</a></li>
-    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s11">Key Takeaways</a></li>
+    <li><a href="#s10">Silicon Root of Trust &amp; PUF</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -273,7 +274,51 @@ tr:nth-child(even){background:#f9f9f9;}
 
 <!-- S10 -->
 <div class="section" id="s10">
-  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+  <h2>10. Silicon Root of Trust &amp; Physically Unclonable Functions (PUF)</h2>
+  <p>The official CISSP exam outline (1.11) explicitly lists <em>silicon root of trust</em> and <em>physically unclonable function</em> as risk mitigations in Supply Chain Risk Management. These are hardware-level security controls that protect against hardware tampering in the supply chain.</p>
+
+  <h3>Silicon Root of Trust (SRoT)</h3>
+  <p>A Silicon Root of Trust is a set of implicitly trusted hardware functions that form the foundation of a secure system. It establishes a chain of trust from the lowest hardware layer upward — ensuring that each layer (firmware → OS → applications) is verified before executing.</p>
+  <table>
+    <tr><th>Concept</th><th>Description</th><th>Supply Chain Relevance</th></tr>
+    <tr><td><strong>Root of Trust</strong></td><td>Hardware component (e.g., secure enclave, TPM) that is trusted by definition — it verifies everything above it</td><td>If hardware is compromised during manufacture, the RoT detects tampering before the system boots</td></tr>
+    <tr><td><strong>Secure Boot</strong></td><td>Uses RoT to verify firmware integrity before booting; each stage verifies the next (UEFI → bootloader → OS kernel)</td><td>Prevents supply-chain-implanted malware from surviving firmware flash or reboot</td></tr>
+    <tr><td><strong>TPM (Trusted Platform Module)</strong></td><td>Hardware chip implementing cryptographic functions, key storage, and platform attestation</td><td>TPM seals encryption keys to a specific hardware configuration — if hardware is swapped, keys become inaccessible</td></tr>
+    <tr><td><strong>Remote Attestation</strong></td><td>System proves to a remote verifier that its hardware and software are in a known-good state (using signed measurements stored in TPM PCR registers)</td><td>Allows an organisation to verify a third-party supplier's systems have not been compromised before granting access</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — Chain of Trust:</strong> The silicon root of trust creates a cryptographically verified chain: Hardware (immutable RoT) → Firmware (verified by RoT) → OS (verified by firmware) → Applications (verified by OS). Breaking the chain at any point is detectable. This is why supply chain attacks targeting firmware (e.g., Equation Group's HDD firmware exploit) are so powerful — they undermine the trust chain below the OS.
+  </div>
+
+  <h3>Physically Unclonable Function (PUF)</h3>
+  <p>A Physically Unclonable Function is a hardware circuit that exploits manufacturing variations to produce a unique, unclonable "fingerprint" for each chip. No two chips, even from the same manufacturing batch, produce the same PUF response to the same challenge.</p>
+  <table>
+    <tr><th>PUF Property</th><th>Explanation</th></tr>
+    <tr><td><strong>Uniqueness</strong></td><td>Each PUF instance produces a different response — even identical chips differ due to atomic-level manufacturing variations</td></tr>
+    <tr><td><strong>Unclonability</strong></td><td>Cannot be replicated — even the chip manufacturer cannot reproduce an identical PUF, because the variations are random and uncontrolled</td></tr>
+    <tr><td><strong>Unextractability</strong></td><td>The "key" is never stored — it is regenerated on-demand from the physical structure. There is no key to steal.</td></tr>
+    <tr><td><strong>Challenge-Response</strong></td><td>A challenge (input) is sent to the PUF; the response is determined by the physical structure. The same challenge always yields the same response on the same chip.</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Supply Chain Use Case:</strong> PUFs are used to authenticate hardware components during the supply chain. A manufacturer registers each chip's PUF challenge-response pairs. When a chip is received, its responses are verified against the registered values. A counterfeit or tampered chip cannot replicate the correct responses — detecting hardware substitution.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — PUF vs. TPM:</strong><br>
+    • <strong>TPM</strong> is a complete security chip that stores keys, performs crypto operations, and performs platform attestation. Keys are stored (and could theoretically be extracted with sophisticated attacks).<br>
+    • <strong>PUF</strong> is simpler — it is a key generation mechanism only. Keys are never stored; they are derived from physics. A PUF cannot be cloned; a TPM potentially could be.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Scenario:</strong> "An organisation is procuring semiconductors from an overseas supplier and is worried about counterfeit components being inserted into the supply chain. Which technology best authenticates the identity of individual chips?" → <strong>Physically Unclonable Function (PUF)</strong>
+  </div>
+  <div class="trap-box">
+    <strong>🪤 Exam Trap:</strong> Students confuse <em>silicon root of trust</em> (a security architecture concept — the hardware trust anchor) with <em>PUF</em> (a specific technology for chip authentication). They are related but distinct. The exam outline lists both separately as SCRM risk mitigations.
+  </div>
+</div>
+
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
 
   <div class="mnemonic">
     <strong>🧠 Vendor Due Diligence Options — "SPARR":</strong><br>
@@ -314,9 +359,9 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<!-- S11 -->
-<div class="section" id="s11">
-  <h2>11. Key Takeaways</h2>
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Concept</th><th>One-Line Summary</th></tr>
     <tr><td>SCRM Purpose</td><td>Manage risk introduced by third-party technology, hardware, software, and services — supply chain is a major attack surface</td></tr>

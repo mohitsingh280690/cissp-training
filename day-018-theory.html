@@ -75,8 +75,9 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s7">Job Rotation and Mandatory Vacations</a></li>
     <li><a href="#s8">Least Privilege and Need to Know</a></li>
     <li><a href="#s9">Insider Threat</a></li>
-    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s11">Key Takeaways</a></li>
+    <li><a href="#s10">Vendor, Consultant &amp; Contractor Controls</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -230,8 +231,48 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   </ul>
 </div>
 
+
 <div class="section" id="s10">
-  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+  <h2>10. Vendor, Consultant &amp; Contractor Controls</h2>
+  <p>The CISSP exam outline (1.8) explicitly includes <strong>vendor, consultant, and contractor agreements and controls</strong> as part of personnel security policies. Third-party personnel represent a significant and often under-managed insider threat vector.</p>
+
+  <h3>Why Third Parties Are a Personnel Security Risk</h3>
+  <p>Contractors, consultants, and vendors often have privileged access to systems, data, or facilities — sometimes with less rigorous vetting or oversight than permanent employees. Supply chain attacks (e.g., SolarWinds) frequently exploit trusted third-party access.</p>
+
+  <h3>Key Controls for Third-Party Personnel</h3>
+  <table>
+    <tr><th>Control</th><th>Description</th><th>Exam Relevance</th></tr>
+    <tr><td><strong>Background Checks</strong></td><td>Criminal record, identity verification, reference checks — should be equivalent to checks on permanent employees for equivalent access levels. Some contracts (e.g., US federal) require specific clearance levels.</td><td>Third parties with privileged access require the same (or stricter) vetting as employees in equivalent roles</td></tr>
+    <tr><td><strong>Non-Disclosure Agreements (NDAs)</strong></td><td>Legal agreement binding the contractor to confidentiality of company information. Must be signed before any access is granted.</td><td>NDAs are preventive controls. Violating an NDA is a civil (not criminal) matter unless other laws apply.</td></tr>
+    <tr><td><strong>Vendor Agreements (MSA / SOW)</strong></td><td>Master Service Agreement and Statement of Work define the scope of access, security requirements, right-to-audit clauses, and security obligations of the third party.</td><td>Right-to-audit is critical — without it, you cannot verify the vendor's security posture</td></tr>
+    <tr><td><strong>Least Privilege for Third Parties</strong></td><td>Contractors should receive only the minimum access required for their specific task. Time-limited accounts. No persistent access when not actively working.</td><td>Privileged Access Management (PAM) applies to third parties; third-party accounts should expire automatically</td></tr>
+    <tr><td><strong>Access Monitoring and Logging</strong></td><td>All third-party access should be logged and monitored. Privileged third-party sessions should be recorded (session recording). Alerts on after-hours or anomalous access.</td><td>Monitoring third-party access is a detective control; key for insider threat detection</td></tr>
+    <tr><td><strong>Onboarding/Offboarding for Contractors</strong></td><td>Formal process to provision and de-provision access at contract start and end. Immediate revocation on contract termination — no grace period like employees may receive.</td><td>Contractor accounts left active after project end = a significant and common vulnerability</td></tr>
+    <tr><td><strong>Security Awareness Training</strong></td><td>Third parties who access company systems should complete the organisation's security awareness training before access is granted.</td><td>Many breaches begin with contractors who receive less security training than employees</td></tr>
+    <tr><td><strong>Escorted Access</strong></td><td>For physical access, contractors in sensitive areas should be escorted by employees. Unescorted access is a higher-risk option requiring additional physical security controls.</td><td>Physical security control for contractors; relevant to facility security and clean desk policies</td></tr>
+  </table>
+
+  <h3>Contract Security Requirements</h3>
+  <div class="key-concept">
+    <strong>Essential Contract Clauses for Security:</strong>
+    <ul>
+      <li><strong>Right-to-Audit:</strong> Organisation may audit the vendor's security practices, systems, or processes at any time with reasonable notice. Without this clause, you cannot independently verify vendor security claims.</li>
+      <li><strong>Breach Notification:</strong> Vendor must notify the organisation within a specified timeframe (e.g., 72 hours) if they experience a breach that may affect the organisation's data.</li>
+      <li><strong>Data Return/Destruction:</strong> Upon contract termination, vendor must return or certifiably destroy all organisation data.</li>
+      <li><strong>Subcontractor Flow-Down:</strong> Security requirements must flow down to sub-contractors the vendor uses — prevents security erosion through tiered outsourcing.</li>
+      <li><strong>Insurance Requirements:</strong> Vendor must carry adequate cyber liability insurance with the organisation named as an additional insured.</li>
+    </ul>
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — "Right-to-Audit" is a Critical Control:</strong> If an exam question asks what single contractual clause best provides ongoing assurance of a vendor's security posture, the answer is <strong>right-to-audit</strong>. SLAs measure performance; right-to-audit enables verification of security controls.
+  </div>
+  <div class="trap-box">
+    <strong>🪤 Exam Trap — Outsourcing and Liability:</strong> Outsourcing to a third party does NOT transfer legal liability. If a vendor mishandles your customers' PII and violates GDPR, the <em>data controller</em> (your organisation) remains liable. You can seek indemnification from the vendor through contract, but the regulatory fine falls on you. "You can outsource the work but not the accountability."
+  </div>
+</div>
+
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
   <div class="mnemonic">
     <strong>🧠 Employment Lifecycle Controls — "HEAPS":</strong><br>
     <strong>H</strong>ire (background screening before access)<br>
@@ -258,8 +299,8 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   </div>
 </div>
 
-<div class="section" id="s11">
-  <h2>11. Key Takeaways</h2>
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Control</th><th>Purpose</th><th>Type</th></tr>
     <tr><td>Background screening</td><td>Reduce risk of hiring insider threats; verify claimed credentials</td><td>Preventive — Administrative</td></tr>

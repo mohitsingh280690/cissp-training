@@ -76,8 +76,9 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s7">ISO 27001 &amp; ISO 27002</a></li>
     <li><a href="#s8">COBIT</a></li>
     <li><a href="#s9">Comparing Frameworks</a></li>
-    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s11">Key Takeaways</a></li>
+    <li><a href="#s10">SABSA &amp; FedRAMP Frameworks</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -317,7 +318,61 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 
 <!-- S10 -->
 <div class="section" id="s10">
-  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+  <h2>10. SABSA &amp; FedRAMP Frameworks</h2>
+  <p>The official CISSP exam outline (1.3) explicitly lists SABSA and FedRAMP alongside ISO, NIST, COBIT, and PCI as security control frameworks. These two are frequently tested because they fill distinct niches.</p>
+
+  <h3>SABSA — Sherwood Applied Business Security Architecture</h3>
+  <p>SABSA is an enterprise security architecture framework (not just a controls list). It is risk-driven and business-aligned, tracing security requirements all the way from the business context down to technical implementation. It is analogous to TOGAF but specifically for security.</p>
+  <table>
+    <tr><th>SABSA Layer</th><th>Question Answered</th><th>Perspective</th></tr>
+    <tr><td>Contextual (Business)</td><td>What? Why? Who? When? Where? How?</td><td>Executive/Business Owners</td></tr>
+    <tr><td>Conceptual</td><td>What is the security concept?</td><td>Architects</td></tr>
+    <tr><td>Logical</td><td>What services and controls are needed?</td><td>Designers</td></tr>
+    <tr><td>Physical</td><td>What products and mechanisms implement them?</td><td>Engineers</td></tr>
+    <tr><td>Component</td><td>What is the technical specification?</td><td>Builders</td></tr>
+    <tr><td>Operational</td><td>How is it managed day-to-day?</td><td>Operations</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>SABSA Key Point:</strong> SABSA starts with business attributes — what the business needs security to enable — and derives controls from those needs. This is the opposite of starting with a controls list. SABSA is the answer when an exam question asks for a framework that <em>traces security requirements to business objectives</em> or <em>justifies security spend in business terms</em>.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 SABSA vs. TOGAF:</strong> TOGAF is a general enterprise architecture framework. SABSA is TOGAF's security equivalent. SABSA and TOGAF are often used together. If a question describes "enterprise architecture with a security overlay", think SABSA.
+  </div>
+
+  <h3>FedRAMP — Federal Risk and Authorization Management Program</h3>
+  <p>FedRAMP is a US government programme that provides a standardised approach to security assessment, authorisation, and continuous monitoring for cloud products and services used by US federal agencies.</p>
+  <table>
+    <tr><th>Attribute</th><th>Detail</th></tr>
+    <tr><td>Purpose</td><td>Standardise cloud security for US federal agencies — "authorise once, use many"</td></tr>
+    <tr><td>Basis</td><td>NIST SP 800-53 security controls, adapted for cloud</td></tr>
+    <tr><td>Impact Levels</td><td>Low / Moderate / High (based on data sensitivity; most SaaS = Moderate)</td></tr>
+    <tr><td>Authorisation Path</td><td>Agency ATO (Authority to Operate) or JAB (Joint Authorization Board) P-ATO</td></tr>
+    <tr><td>Ongoing Requirement</td><td>Continuous monitoring — monthly vulnerability scans, annual penetration testing, significant change reporting</td></tr>
+    <tr><td>Who Needs It</td><td>Any cloud service provider (CSP) selling to US federal agencies</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>💡 FedRAMP Exam Triggers:</strong> Questions about US federal cloud security, "authorise once use many", or cloud providers needing government ATO point to FedRAMP. FedRAMP = federal cloud authorisation; it is not a general risk framework for all organisations.
+  </div>
+  <div class="definition">
+    <strong>ATO (Authority to Operate):</strong> The formal approval granted by an Authorising Official (AO) that allows an information system to operate at an acceptable level of risk. Under FedRAMP, a JAB P-ATO is a provisional authorisation by the three JAB members (DoD, DHS, GSA) that agencies can then leverage for their own ATO.
+  </div>
+
+  <div class="trap-box">
+    <strong>🪤 Exam Trap — Framework Selection:</strong><br>
+    The exam tests whether you can match the right framework to the scenario:<br>
+    • <em>Business risk justification, tracing controls to business goals</em> → <strong>SABSA</strong><br>
+    • <em>US federal cloud service authorisation</em> → <strong>FedRAMP</strong><br>
+    • <em>Global governance + risk + compliance</em> → <strong>COBIT</strong><br>
+    • <em>Detailed security controls catalogue</em> → <strong>NIST SP 800-53</strong><br>
+    • <em>Framework + maturity model</em> → <strong>NIST CSF</strong><br>
+    • <em>International ISMS certification</em> → <strong>ISO 27001</strong>
+  </div>
+</div>
+
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
 
   <div class="mnemonic">
     <strong>🧠 Policy Hierarchy: "Policies Should Probably Be Good"</strong><br>
@@ -359,8 +414,8 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 </div>
 
 <!-- S11 -->
-<div class="section" id="s11">
-  <h2>11. Key Takeaways</h2>
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Concept</th><th>One-Line Summary</th></tr>
     <tr><td>Policy</td><td>High-level strategic WHY; signed by management; compliance mandatory; changes rarely</td></tr>

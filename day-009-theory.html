@@ -76,8 +76,9 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s8">ISO 31000</a></li>
     <li><a href="#s9">OCTAVE and FAIR</a></li>
     <li><a href="#s10">Types of Risk</a></li>
-    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s12">Key Takeaways</a></li>
+    <li><a href="#s11">Risk Maturity &amp; Continuous Improvement</a></li>
+    <li><a href="#s12">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s13">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -307,8 +308,44 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 </div>
 
 <!-- S11 -->
+
 <div class="section" id="s11">
-  <h2>11. Memory Tricks &amp; Mnemonics</h2>
+  <h2>11. Risk Maturity &amp; Continuous Improvement</h2>
+  <p>The CISSP exam outline (1.9) includes <strong>continuous improvement</strong> and <strong>risk maturity modelling</strong> as components of risk management. This reflects the shift from point-in-time risk assessments to a continuous, improving risk programme.</p>
+
+  <h3>Risk Maturity Models</h3>
+  <p>Risk maturity models assess how sophisticated and repeatable an organisation's risk management processes are. Higher maturity means risk management is systematic, measured, and continuously improving.</p>
+  <table>
+    <tr><th>Maturity Level</th><th>Risk Management Capability</th><th>Characteristics</th></tr>
+    <tr><td><strong>Level 1 — Ad Hoc / Initial</strong></td><td>Unpredictable, reactive</td><td>No formal risk process; risk decisions made intuitively; no documentation; crises drive response</td></tr>
+    <tr><td><strong>Level 2 — Repeatable</strong></td><td>Risk awareness exists</td><td>Basic risk identification; some documentation; depends on individuals; inconsistent across organisation</td></tr>
+    <tr><td><strong>Level 3 — Defined</strong></td><td>Standardised process</td><td>Formal risk management policy; documented methodology; risk register maintained; roles defined</td></tr>
+    <tr><td><strong>Level 4 — Managed</strong></td><td>Measured and controlled</td><td>Risk metrics and KRIs tracked; quantitative analysis; management dashboards; exceptions tracked</td></tr>
+    <tr><td><strong>Level 5 — Optimising</strong></td><td>Continuous improvement</td><td>Risk process itself is improved based on performance data; predictive risk analytics; integrated with strategic planning</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>NIST CSF Implementation Tiers as a Maturity Indicator:</strong><br>
+    The NIST Cybersecurity Framework's four Implementation Tiers (Partial → Risk-Informed → Repeatable → Adaptive) serve as a practical risk maturity scale. Tier 4 (Adaptive) organisations continuously improve their risk practices based on lessons learned and threat intelligence.
+  </div>
+
+  <h3>Continuous Monitoring and Continuous Improvement</h3>
+  <table>
+    <tr><th>Concept</th><th>Description</th><th>Exam Relevance</th></tr>
+    <tr><td><strong>Continuous Monitoring</strong></td><td>Ongoing awareness of information security, vulnerabilities, and threats to support risk management decisions. NIST SP 800-137 provides guidance. Feeds into ongoing ATO in federal systems.</td><td>Preferred over point-in-time assessments for dynamic environments; required for FedRAMP</td></tr>
+    <tr><td><strong>Key Risk Indicators (KRIs)</strong></td><td>Metrics that provide early warning of increasing risk exposure (e.g., patch latency, failed login attempts, vendor assessment overdue count)</td><td>KRIs are predictive; KPIs are descriptive. CISSPs design KRI dashboards for executive reporting.</td></tr>
+    <tr><td><strong>Risk Reporting</strong></td><td>Internal (board/executive risk committee) and external (regulators, auditors) reporting on risk posture</td><td>CISSPs must communicate risk in business terms, not technical jargon</td></tr>
+    <tr><td><strong>Lessons Learned</strong></td><td>Post-incident or post-assessment review to improve the risk process</td><td>Closing the continuous improvement loop; drives maturity progression</td></tr>
+  </table>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — Continuous vs. Point-in-Time:</strong> When an exam question asks about the best approach for a "dynamic cloud environment" or "rapidly changing threat landscape," the answer typically involves <em>continuous monitoring</em> rather than annual assessments. Continuous monitoring ≠ real-time monitoring — it means ongoing (not one-time) assessment.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — Cybersecurity Insurance as Risk Response:</strong> The 2024 exam outline (1.9) explicitly mentions cybersecurity insurance as a risk response/treatment mechanism. Cyber insurance transfers (a portion of) financial risk to the insurer. Key exam points: insurance does NOT transfer legal liability; policy exclusions (war, unpatched systems, nation-state attacks) are critical; insurance is a <em>compensating control</em>, not a primary control.
+  </div>
+</div>
+
+<div class="section" id="s12">
+  <h2>12. Memory Tricks &amp; Mnemonics</h2>
 
   <div class="mnemonic">
     <strong>🧠 Core Risk Terms Chain: "TAV-RIC"</strong><br>
@@ -342,8 +379,8 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 </div>
 
 <!-- S12 -->
-<div class="section" id="s12">
-  <h2>12. Key Takeaways</h2>
+<div class="section" id="s13">
+  <h2>13. Key Takeaways</h2>
   <table>
     <tr><th>Concept</th><th>One-Line Summary</th></tr>
     <tr><td>Risk Formula</td><td>Risk = Threat × Vulnerability × Impact; controls reduce probability or impact</td></tr>

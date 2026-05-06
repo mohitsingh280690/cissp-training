@@ -75,8 +75,10 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s7">Computer Crime Laws</a></li>
     <li><a href="#s8">Jurisdiction Issues in Cybersecurity</a></li>
     <li><a href="#s9">Evidence and Legal Admissibility</a></li>
-    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
-    <li><a href="#s11">Key Takeaways</a></li>
+    <li><a href="#s10">Investigation Types (1.5)</a></li>
+    <li><a href="#s10b">Import/Export Controls</a></li>
+    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
+    <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
 
@@ -300,7 +302,54 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 
 <!-- S10 -->
 <div class="section" id="s10">
-  <h2>10. Memory Tricks &amp; Mnemonics</h2>
+  <h2>10. Investigation Types — CISSP Exam Outline 1.5</h2>
+  <p>The CISSP exam outline explicitly lists five investigation types that a CISSP must understand. Understanding which type of investigation applies determines evidence standards, who conducts it, and what the outcome can be.</p>
+  <table>
+    <tr><th>Investigation Type</th><th>Conducted By</th><th>Evidence Standard</th><th>Possible Outcome</th><th>Trigger Example</th></tr>
+    <tr><td><strong>Administrative</strong></td><td>Internal HR / management / compliance team</td><td>Preponderance (balance of probabilities)</td><td>Termination, demotion, policy change, mandatory training</td><td>Employee suspected of policy violation (accessing inappropriate sites)</td></tr>
+    <tr><td><strong>Criminal</strong></td><td>Law enforcement (FBI, police, prosecutors)</td><td>Beyond reasonable doubt (highest standard)</td><td>Imprisonment, criminal record, fines</td><td>Hacker arrested for unauthorised access under CFAA</td></tr>
+    <tr><td><strong>Civil</strong></td><td>Attorneys / courts (plaintiff-driven)</td><td>Preponderance of the evidence (&gt;50%)</td><td>Monetary damages, injunctions, settlements</td><td>Customer sues company after breach causes financial harm</td></tr>
+    <tr><td><strong>Regulatory</strong></td><td>Government agency (HHS-OCR, FTC, SEC, FCA)</td><td>Substantial evidence (administrative standard)</td><td>Fines, licence revocation, mandatory corrective action, consent decrees</td><td>HIPAA OCR investigates breach; GDPR regulator issues penalty</td></tr>
+    <tr><td><strong>Industry Standards</strong></td><td>Industry body / card brand (PCI DSS, SWIFT)</td><td>Contractual — standards body's own rules</td><td>Fines, loss of certification, loss of processing rights</td><td>PCI forensic investigator (PFI) investigates card data breach; merchant loses Visa/MC privileges</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Concept — Parallel Investigations:</strong> A single security incident can trigger <em>all five investigation types simultaneously</em>. A hospital ransomware attack could result in: (1) internal administrative HR investigation of the employee who clicked the phishing link, (2) FBI criminal investigation of the attackers, (3) patient class-action civil lawsuit, (4) HHS-OCR regulatory investigation and HIPAA fine, and (5) a PCI-DSS industry standards investigation if payment card data was exposed.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — Regulatory vs. Administrative:</strong> Regulatory investigations are conducted by government agencies <em>outside</em> the organisation. Administrative investigations are conducted <em>inside</em> the organisation. This distinction matters in exam scenarios.
+  </div>
+  <div class="definition">
+    <strong>Locard's Exchange Principle:</strong> Foundational forensic concept — "every contact leaves a trace." When an attacker accesses a system, they inevitably leave digital evidence. This justifies extensive logging and evidence collection in all investigation types.
+  </div>
+</div>
+
+<div class="section" id="s10b">
+  <h2>10b. Import/Export Controls on Cryptography</h2>
+  <p>The CISSP exam outline (1.4) specifically includes import/export controls. For security professionals, this primarily concerns cryptographic technology, which many countries regulate as a dual-use item (both commercial and military application).</p>
+
+  <h3>Wassenaar Arrangement</h3>
+  <p>The Wassenaar Arrangement on Export Controls for Conventional Arms and Dual-Use Goods and Technologies is a multilateral export control regime with 42 member states (including US, UK, EU members, Australia). It governs the export of military and dual-use technologies, including cryptographic software and hardware.</p>
+  <table>
+    <tr><th>Framework</th><th>Jurisdiction</th><th>Scope for Security</th></tr>
+    <tr><td><strong>Wassenaar Arrangement</strong></td><td>42 member nations</td><td>Dual-use goods including encryption products; requires export licences for strong crypto exports to non-member nations</td></tr>
+    <tr><td><strong>EAR (Export Administration Regulations)</strong></td><td>US — Bureau of Industry and Security (BIS)</td><td>Controls export of commercial encryption. Items on the Commerce Control List (CCL) may require a licence. Strong encryption (&gt;64-bit) historically required a licence; now largely liberalised for mass-market products.</td></tr>
+    <tr><td><strong>ITAR (International Traffic in Arms Regulations)</strong></td><td>US — Dept of State (DDTC)</td><td>Controls export of defence-related items on the US Munitions List (USML). Crypto specifically designed for military use falls under ITAR. Far stricter than EAR.</td></tr>
+  </table>
+  <div class="key-concept">
+    <strong>Key Distinction — EAR vs. ITAR:</strong> EAR covers commercial dual-use items (most commercial encryption). ITAR covers military/defence items. A mistake in classification (treating ITAR-controlled crypto as EAR) is a serious violation. Security architects must understand this when deploying encryption in government or defence contracts.
+  </div>
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — Cryptographic Regulations:</strong> The CISSP exam may present a scenario where a multinational company wants to deploy strong encryption globally. The correct answer considers that some countries have import restrictions on cryptography (e.g., Russia, China require government-approved encryption algorithms). The company cannot simply deploy AES-256 everywhere without considering local import laws.
+  </div>
+  <div class="warning">
+    <strong>⚠️ Country-Specific Import Restrictions:</strong> Some countries restrict importing certain encryption technologies or mandate use of domestic algorithms. Examples: China mandates SM series algorithms for certain applications; Russia requires FSB-certified encryption for government use. Security professionals must perform jurisdictional analysis before deploying encryption internationally.
+  </div>
+</div>
+
+
+<!-- S11 -->
+<div class="section" id="s11">
+  <h2>11. Memory Tricks &amp; Mnemonics</h2>
 
   <div class="mnemonic">
     <strong>🧠 Four Legal System Types:</strong><br>
@@ -349,9 +398,9 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   </div>
 </div>
 
-<!-- S11 -->
-<div class="section" id="s11">
-  <h2>11. Key Takeaways</h2>
+<!-- S12 -->
+<div class="section" id="s12">
+  <h2>12. Key Takeaways</h2>
   <table>
     <tr><th>Concept</th><th>One-Line Summary</th></tr>
     <tr><td>Common Law</td><td>Precedent-based (UK, US); judges interpret; prior rulings bind future decisions</td></tr>
