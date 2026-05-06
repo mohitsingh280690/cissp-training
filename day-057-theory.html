@@ -53,7 +53,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. DHCP Attacks &amp; Defences</a></li>
   <li><a href="#s9">9. NTP – Network Time Protocol</a></li>
   <li><a href="#s10">10. SNMP – Simple Network Management Protocol</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
@@ -342,36 +341,6 @@ e.g., OID 1.3.6.1.2.1.1.1 = sysDescr (system description)
 </section>
 
 <!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
-<section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 DHCP DORA:</strong><br>
-  <strong>D</strong>iscover → <strong>O</strong>ffer → <strong>R</strong>equest → <strong>A</strong>cknowledge<br>
-  Memory phrase: <em>"Dogs Often Run Away"</em> — always in this exact order, no exceptions.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 DNS Record Types — "AAAA MX NS PTR SOA TXT":</strong><br>
-  Memory phrase: <em>"All Amazing Mail Never Prevents Stalking Online Targets Thoroughly"</em><br>
-  Focus pairs: A = IP address | MX = mail | NS = name server | PTR = reverse | SOA = zone admin | TXT = SPF/DKIM/DMARC
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 DNSSEC vs. DoH/DoT:</strong><br>
-  <strong>DNSSEC</strong> = signs records → <strong>integrity + authenticity</strong> (no encryption of traffic)<br>
-  <strong>DoH/DoT</strong> = encrypts the query/response → <strong>confidentiality</strong> (no signing of records)<br>
-  <em>"DNSSEC signs; DoH/DoT hides. You need both for full DNS protection."</em>
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 SNMP Version Security — "1 and 2c = Clear; 3 = Care":</strong><br>
-  v1 and v2c = community strings in cleartext = NO security<br>
-  v3 = authentication (HMAC) + privacy (AES) = YES security<br>
-  Always choose v3 authPriv for managed environments.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 NTP Kerberos 5-Minute Rule:</strong><br>
-  <em>"Kerberos dies at 5 minutes of clock drift."</em><br>
-  If your clock is off by more than 5 minutes from the KDC, all Kerberos authentication fails. NTP is not optional in Active Directory environments.
-</div>
-</section>
 
 <!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
 <section id="s12">

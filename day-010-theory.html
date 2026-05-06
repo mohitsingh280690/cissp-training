@@ -75,7 +75,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s6">Worked Example 2 — Cost-Benefit Analysis</a></li>
     <li><a href="#s7">Return on Security Investment (ROSI)</a></li>
     <li><a href="#s8">Formula Reference Card</a></li>
-    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
     <li><a href="#s10">Key Takeaways</a></li>
   </ol>
 </div>
@@ -152,14 +151,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   <div class="formula">ALE = SLE × ARO</div>
   <p>ALE represents the expected annual dollar loss from a specific threat. This is the primary number used to justify security spending. A control is financially justified if it costs less than the ALE reduction it produces.</p>
 
-  <div class="mnemonic">
-    <strong>🧠 The Quantitative Chain — memorise left to right:</strong><br>
-    <strong>AV × EF = SLE</strong><br>
-    <strong>SLE × ARO = ALE</strong><br>
-    Full chain: AV → (×EF) → SLE → (×ARO) → ALE<br>
-    Memory hook: <em>"Assets Exposed Suffer Losses Annually"</em><br>
-    AV × EF = SLE | SLE × ARO = ALE
-  </div>
 </div>
 
 <!-- S5 -->
@@ -267,41 +258,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   </table>
 </div>
 
-<!-- S9 -->
-<div class="section" id="s9">
-  <h2>9. Memory Tricks &amp; Mnemonics</h2>
-
-  <div class="mnemonic">
-    <strong>🧠 The ALE Formula Chain — The Most Important CISSP Formulas:</strong><br>
-    Step 1: <strong>AV × EF = SLE</strong> (how bad is one hit?)<br>
-    Step 2: <strong>SLE × ARO = ALE</strong> (how often does it happen × how bad = yearly cost)<br>
-    <br>
-    Think of it as: <em>Asset × Exposure → Single Loss → × Annual Rate → Annual Loss</em><br>
-    Memory hook: <em>"Avoid Every Single Awful Risk Always" → AV × EF = SLE × ARO = ALE</em>
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 CBA Decision Rule:</strong><br>
-    ALE(before) – ALE(after) = Annual Value of Control<br>
-    If Annual Value > Cost of Control → <strong>BUY THE CONTROL</strong><br>
-    If Annual Value &lt; Cost of Control → <strong>QUESTION the investment</strong> (unless legally required)<br>
-    Memory hook: <em>"Does the control SAVE more than it COSTS?"</em>
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 ARO Values to Know:</strong><br>
-    ARO = 1 → once per year<br>
-    ARO = 0.5 → once every 2 years<br>
-    ARO = 0.1 → once every 10 years<br>
-    ARO = 10 → 10 times per year<br>
-    ARO is always times/year — not a probability percentage!
-  </div>
-
-  <div class="warning">
-    <strong>⚠️ ALE Is Annualised, Not Per-Event:</strong><br>
-    ALE is what you expect to LOSE PER YEAR on average. It's not what you'll lose in any single year — some years may see no events, others may see multiple. ALE is an actuarial average used for budget planning and control justification.
-  </div>
-</div>
 
 <!-- S10 -->
 <div class="section" id="s10">

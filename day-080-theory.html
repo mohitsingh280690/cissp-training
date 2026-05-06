@@ -53,7 +53,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. Diameter Protocol</a></li>
   <li><a href="#s9">9. Cloud Directory Services</a></li>
   <li><a href="#s10">10. Directory Service Security Risks</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
@@ -243,28 +242,6 @@ Other DN components:
 </table>
 </section>
 
-<section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 LDAP DN — "Most Specific on the Left":</strong><br>
-  DN: CN=Alice,OU=HR,DC=corp,DC=example,DC=com<br>
-  Read LEFT to RIGHT = most specific to least specific (like a street address reversed)<br>
-  CN = the person; OU = the floor; DC = the building; DC = the city<br>
-  The domain in DNS: corp.example.com maps to DC=corp,DC=example,DC=com (dots → DC= separated)
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 AD Security Boundary = FOREST (Not Domain):</strong><br>
-  "The FOREST is where the FENCE is."<br>
-  Domains within a forest automatically trust each other. The fence (security boundary) is at the FOREST edge.<br>
-  For true isolation: separate FORESTS, not separate domains.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Diameter = Mobile/Cellular, NOT enterprise:</strong><br>
-  Diameter protocol belongs to the cellular/mobile world (4G LTE, 5G).<br>
-  Do NOT use it for Wi-Fi or enterprise AAA answers — that is RADIUS.<br>
-  "Diameter is for the cell tower, RADIUS is for the office."
-</div>
-</section>
 
 <section id="s12">
 <h2>12. Key Takeaways</h2>

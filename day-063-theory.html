@@ -55,7 +55,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s10">10. Enterprise Wireless: RADIUS &amp; 802.1X</a></li>
   <li><a href="#s11">11. Cellular &amp; Mobile Network Security (4G/5G)</a></li>
   <li><a href="#s12">12. Bluetooth, NFC &amp; RFID Security</a></li>
-  <li><a href="#s13">13. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s14">14. Key Takeaways</a></li>
 </ul>
 </div>
@@ -332,27 +331,6 @@ Per-user session key (PMK) derived from successful EAP auth → WPA2/3 4-way han
 </section>
 
 <!-- ═════════════════ SECTION 13 ═════════════════ -->
-<section id="s13">
-<h2>13. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 WEP → WPA → WPA2 → WPA3 — "WEP Breaks, WPA Transitions, WPA2 Advances, WPA3 Secures":</strong><br>
-  <strong>WEP</strong> = RC4 + 24-bit IV = BROKEN (aircrack recovers key in minutes)<br>
-  <strong>WPA</strong> = TKIP (RC4 improved) = DEPRECATED 2012<br>
-  <strong>WPA2</strong> = AES-CCMP = strong encryption; PSK vuln. to offline dict attack (KRACK 2017)<br>
-  <strong>WPA3</strong> = AES-CCMP + SAE = forward secrecy; offline attack eliminated; PMF mandatory
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 SAE Advantage — "SAE = Online Only":</strong><br>
-  WPA2 PSK: attacker captures handshake → runs offline dictionary for days/months → no interaction with AP needed.<br>
-  WPA3 SAE: each guess requires a live interaction with the AP → rate-limiting defeats dictionary attacks.<br>
-  <em>"SAE puts the AP as the bouncer — you have to prove yourself in person, not with a forged ID."</em>
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 MAC Filtering + SSID Hiding = Security Theatre:</strong><br>
-  <em>"A thief who can see your house number despite your blind isn't stopped by the blind."</em><br>
-  Both are visible in wireless frames. Neither prevents a motivated attacker. Don't even mention these as controls on the CISSP exam — choose 802.1X/RADIUS instead.
-</div>
-</section>
 
 <!-- ═════════════════ SECTION 14 ═════════════════ -->
 <section id="s14">

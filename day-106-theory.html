@@ -69,7 +69,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. Threat Hunting</a></li>
   <li><a href="#s9">9. Network Traffic Analysis</a></li>
   <li><a href="#s10">10. SIEM Alerting &amp; Tuning Best Practices</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
@@ -262,24 +261,6 @@ SIEM ARCHITECTURE
 </table>
 </section>
 
-<section id="s10">
-<h2>10. Memory Tricks &amp; Mnemonics</h2>
-<div class="mnemonic callout">
-  <strong>🧠 SIEM Pipeline — "CNECA"</strong><br>
-  <strong>C</strong>ollect → <strong>N</strong>ormalize → <strong>E</strong>nrich → <strong>C</strong>orrelate → <strong>A</strong>lert<br>
-  "Can Never Evade Correlation Alerts"
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 SIEM Detects, SOAR Responds</strong><br>
-  SIEM = "What happened?" (visibility)<br>
-  SOAR = "What do we do about it?" (action)<br>
-  "SIEM is your eyes; SOAR is your hands"
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 Threat Hunting Assumption</strong><br>
-  "They're already in." Threat hunting assumes compromise has already occurred and seeks to find what automated tools missed.
-</div>
-</section>
 
 <section id="s11">
 <h2>11. Key Takeaways</h2>
@@ -334,28 +315,6 @@ SIEM ARCHITECTURE
 </div>
 </section>
 
-<section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
-<div class="mnemonic callout">
-  <strong>🧠 SIEM Core Functions — "CCCA"</strong><br>
-  <strong>C</strong>ollect logs from all sources<br>
-  <strong>C</strong>orrelate events across systems<br>
-  <strong>C</strong>ontext enrichment (threat intel, asset inventory)<br>
-  <strong>A</strong>lert on suspicious patterns
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 NetFlow vs PCAP</strong><br>
-  NetFlow = who called whom (metadata) – lightweight, high-volume capture<br>
-  PCAP = full conversation (content) – heavy, detailed, forensic-grade
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 Alert Tuning Progression — "BBT E"</strong><br>
-  <strong>B</strong>aseline (observe behavior 2-4 weeks)<br>
-  <strong>B</strong>enchmark (identify noise vs signal)<br>
-  <strong>T</strong>hreshold adjust (calibrate rules)<br>
-  <strong>E</strong>ngage (enable alerting; monitor false positive rate)
-</div>
-</section>
 
 <section id="s12">
 <h2>12. Key Takeaways</h2>

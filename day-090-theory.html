@@ -67,7 +67,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s6">6. Log Retention Policies</a></li>
   <li><a href="#s7">7. Log Integrity &amp; Tamper-Proofing</a></li>
   <li><a href="#s8">8. Continuous Monitoring</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s10">10. Key Takeaways</a></li>
 </ul>
 </div>
@@ -269,28 +268,6 @@ CONTINUOUS MONITORING ARCHITECTURE (NIST SP 800-137)
 </ul>
 </section>
 
-<section id="s9">
-<h2>9. Memory Tricks &amp; Mnemonics</h2>
-<div class="mnemonic callout">
-  <strong>🧠 Log Integrity — "SAVE Logs"</strong><br>
-  <strong>S</strong>eparate log server (remote — attacker can't reach it)<br>
-  <strong>A</strong>uthenticate logs (digital signatures)<br>
-  <strong>V</strong>erify hashes (SHA-256 of each entry/file)<br>
-  <strong>E</strong>nsure write-once media (WORM for archival)
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 SIEM — "SIM + SEM"</strong><br>
-  <strong>SIM</strong> = Security Information Management (historical storage, compliance reports)<br>
-  <strong>SEM</strong> = Security Event Management (real-time detection, alerting)<br>
-  SIEM = SIM + SEM = both historical AND real-time
-</div>
-<div class="mnemonic callout">
-  <strong>🧠 Continuous Monitoring vs. Periodic Assessment</strong><br>
-  Periodic assessment = snapshot (what did it look like at point in time)<br>
-  Continuous monitoring = movie (what is happening RIGHT NOW and over time)<br>
-  Continuous &gt; periodic for detecting evolving threats and configuration drift
-</div>
-</section>
 
 <section id="s10">
 <h2>10. Key Takeaways</h2>

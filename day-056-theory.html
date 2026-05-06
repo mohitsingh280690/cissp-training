@@ -53,7 +53,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. ARP – Address Resolution Protocol</a></li>
   <li><a href="#s9">9. Port Numbers</a></li>
   <li><a href="#s10">10. Attacks Exploiting Core Protocols</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
@@ -392,35 +391,6 @@ Host A (10.0.0.1)                               Host B (10.0.0.2)
 </section>
 
 <!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
-<section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 TCP vs. UDP — "Reliable Taxicab vs. Unreliable Bus":</strong><br>
-  <strong>TCP</strong> = Taxicab: calls ahead (handshake), guarantees you'll arrive, acknowledges receipt<br>
-  <strong>UDP</strong> = Bus: departs on schedule, doesn't wait for you, no confirmation you boarded<br>
-  Use TCP when delivery matters; use UDP when speed matters more than guarantee.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 TCP Three-Way Handshake — "SYN SYN-ACK ACK":</strong><br>
-  "Sam Said Aye" (SYN → SYN-ACK → ACK) or<br>
-  "I Synchronize → I Synchronize-Acknowledge → I Acknowledge" — always exactly 3 messages, always in this order.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 ICMP Has No Ports:</strong><br>
-  <em>"ICMP doesn't knock — it shouts"</em> — ICMP is Layer 3, operates at the IP level, has no port concept. When filtering ICMP, use type and code, not port numbers.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Critical Secure Port Pairs — "Just Remember Secure Sockets":</strong><br>
-  HTTP(80) → HTTPS(443) | Telnet(23) → SSH(22) | FTP(21) → SFTP(22)<br>
-  LDAP(389) → LDAPS(636) | IMAP(143) → IMAPS(993) | POP3(110) → POP3S(995)<br>
-  Pattern: each has a TLS/encrypted counterpart — always choose the encrypted version.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 ARP Poisoning Defence — "DAI + DHCP Snooping":</strong><br>
-  Dynamic ARP Inspection checks ARP packets against the DHCP snooping binding table.<br>
-  <em>"DHCP Snoops; DAI Inspects; Together they block ARP lies."</em>
-</div>
-</section>
 
 <!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
 <section id="s12">

@@ -55,7 +55,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s10">10. ARP Poisoning</a></li>
   <li><a href="#s11">11. Botnet &amp; C2 Infrastructure</a></li>
   <li><a href="#s12">12. DDoS Mitigation Strategies</a></li>
-  <li><a href="#s13">13. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s14">14. Key Takeaways</a></li>
 </ul>
 </div>
@@ -291,20 +290,6 @@ After ARP Poisoning by Attacker (10.0.0.100):
 </section>
 
 <!-- ═════════════════ SECTION 13 ═════════════════ -->
-<section id="s13">
-<h2>13. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 DoS vs. DDoS — "Solo vs. Swarm":</strong><br>
-  <strong>DoS</strong> = one attacker, one victim (solo attacker; scalable via amplification)<br>
-  <strong>DDoS</strong> = botnet swarm of thousands → victim flooded from every direction simultaneously<br>
-  DDoS at Tbps scale requires cloud scrubbing — no single on-premise device can handle it.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Smurf Attack — "Smurf Hides Behind the Crowd":</strong><br>
-  Smurf = spoof victim's IP + send ICMP to <em>broadcast</em> address → entire network replies to victim.<br>
-  Fixed by: disabling directed broadcasts on routers. Historical attack — mostly irrelevant on modern networks. Still on exams.
-</div>
-</section>
 
 <!-- ═════════════════ SECTION 14 ═════════════════ -->
 <section id="s14">

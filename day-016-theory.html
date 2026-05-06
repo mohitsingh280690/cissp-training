@@ -74,7 +74,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s6">MTBF and MTTR — Reliability Metrics</a></li>
     <li><a href="#s7">Prioritising Critical Business Functions</a></li>
     <li><a href="#s8">Interdependencies and Cascading Failures</a></li>
-    <li><a href="#s9">Memory Tricks &amp; Mnemonics</a></li>
     <li><a href="#s10">Key Takeaways</a></li>
   </ol>
 </div>
@@ -257,23 +256,6 @@ DISASTER
 
 <div class="section" id="s9">
   <h2>9. Memory Tricks &amp; Mnemonics</h2>
-  <div class="mnemonic">
-    <strong>🧠 MTD vs RTO — The Bridge Analogy:</strong><br>
-    MTD = the bridge's weight limit (maximum before it collapses — the business cannot go beyond this).<br>
-    RTO = how fast your truck (IT recovery) must cross the bridge.<br>
-    Your truck (RTO) + unloading time (WRT) must finish before the bridge limit (MTD) is reached.<br>
-    <strong>RTO + WRT ≤ MTD</strong> — Always.
-  </div>
-  <div class="mnemonic">
-    <strong>🧠 MTBF vs MTTR:</strong><br>
-    MTBF = "**B**reaks **B**etween **F**ailures" → Higher is Better (more time between breaks)<br>
-    MTTR = "**R**epair **R**apidly" → Lower is Better (fix it fast)<br>
-    <em>You WANT high MTBF and low MTTR.</em>
-  </div>
-  <div class="mnemonic">
-    <strong>🧠 Availability = MTBF ÷ (MTBF + MTTR)</strong><br>
-    "Divide the good time by all the time" — uptime divided by (uptime + downtime)
-  </div>
 </div>
 
 <div class="section" id="s10">

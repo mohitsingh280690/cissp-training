@@ -54,7 +54,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s9">9. SPF + DKIM + DMARC Working Together</a></li>
   <li><a href="#s10">10. Email Gateway Security</a></li>
   <li><a href="#s11">11. Phishing &amp; Spear Phishing Defence</a></li>
-  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s13">13. Key Takeaways</a></li>
 </ul>
 </div>
@@ -331,28 +330,6 @@ Forwarded email (legitimate, sent through forwarder):
 </section>
 
 <!-- ═════════════════ SECTION 12 ═════════════════ -->
-<section id="s12">
-<h2>12. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 SPF, DKIM, DMARC — "Sends, Digitally signs, Defines policy":</strong><br>
-  <strong>SPF</strong> = who is authorized to <em>Send</em> email for a domain (IP allowlist in DNS)<br>
-  <strong>DKIM</strong> = <em>Digitally signs</em> the message (private key signs; public key in DNS verifies)<br>
-  <strong>DMARC</strong> = <em>Defines the policy</em> if SPF/DKIM don't align with From: header (none/quarantine/reject)<br>
-  All three are DNS TXT records. DMARC is the policy enforcer that ties SPF and DKIM together.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 S/MIME Encryption Direction — "Lock with their key, open with yours":</strong><br>
-  Encrypt to send: use <em>recipient's public key</em> to lock → only recipient's private key can open.<br>
-  Sign to prove identity: use your <em>private key</em> to sign → anyone with your public key can verify.<br>
-  PGP/GPG: same cryptographic operations, different trust model (Web of Trust vs. PKI hierarchy).
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 DMARC Policy Progression — "None, Quarantine, Reject" = "Monitor, Warn, Block":</strong><br>
-  Start with <strong>p=none</strong> (monitor only; read rua= reports; find all legitimate senders)<br>
-  Move to <strong>p=quarantine</strong> (failures go to spam; limited impact while tuning)<br>
-  End goal: <strong>p=reject</strong> (spoofed emails blocked completely at receiving MTA)
-</div>
-</section>
 
 <!-- ═════════════════ SECTION 13 ═════════════════ -->
 <section id="s13">

@@ -52,7 +52,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s7">7. BGP – Border Gateway Protocol</a></li>
   <li><a href="#s8">8. Routing Security Threats</a></li>
   <li><a href="#s9">9. Route Filtering &amp; Security Controls</a></li>
-  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s11">11. Key Takeaways</a></li>
 </ul>
 </div>
@@ -317,28 +316,6 @@ ASBR = AS Boundary Router (imports external routes into OSPF)
 </section>
 
 <!-- ═══════════════════════════════════════ SECTION 10 ═══ -->
-<section id="s10">
-<h2>10. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 Routing Protocol Types — "DV Sees Rumours; LS Sees the Map":</strong><br>
-  <strong>Distance-Vector</strong> = "routing by rumour" — only knows what neighbours say; RIP, IGRP<br>
-  <strong>Link-State</strong> = "routing by map" — knows entire topology; runs Dijkstra SPF; OSPF, IS-IS<br>
-  <strong>Hybrid</strong> (EIGRP) = best of both — distance-vector with fast convergence and topology table
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Administrative Distance — "Static Wins Almost Everything":</strong><br>
-  Connected=0 → Static=1 → eBGP=20 → EIGRP internal=90 → OSPF=110 → RIP=120 → iBGP=200<br>
-  Memory: <em>"Clearly Stated, Eric's OSPF Rather Ignores Borders"</em><br>
-  (Connected, Static, eBGP, EIGRP, OSPF, RIP, iBGP)
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 BGP Security =  RPKI + MD5 + Prefix Lists:</strong><br>
-  <strong>RPKI</strong> = proves ownership of IP space (Route Origin Authorization)<br>
-  <strong>MD5</strong> = authenticates the BGP TCP session<br>
-  <strong>Prefix Lists</strong> = filters what routes are accepted/advertised<br>
-  <em>"RPki Manages Prefixes safely."</em>
-</div>
-</section>
 
 <!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
 <section id="s11">

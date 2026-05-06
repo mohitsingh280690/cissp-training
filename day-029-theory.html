@@ -79,7 +79,6 @@ tr:nth-child(even)td{background:#f9f4ff;}
     <li><a href="#s5">Data in Transit</a></li>
     <li><a href="#s6">Data in Use</a></li>
     <li><a href="#s7">Matching Controls to States</a></li>
-    <li><a href="#s8">Memory Tricks &amp; Mnemonics</a></li>
     <li><a href="#s9">Key Takeaways</a></li>
   </ol>
 </div>
@@ -338,29 +337,9 @@ tr:nth-child(even)td{background:#f9f4ff;}
 <div class="section" id="s8">
   <h2>8. Memory Tricks &amp; Mnemonics</h2>
 
-  <div class="mnemonic">
-    <div class="callout-title">🧠 Mnemonic: "RAT" — The Three States</div>
-    <strong>R</strong>est → <strong>A</strong>t Rest = disk encryption (AES/FDE)<br>
-    <strong>A</strong>ir → in trAnsit = TLS/IPSec/VPN<br>
-    <strong>T</strong>hinking → in Use = TEE/SGX/Homomorphic<br><br>
-    The data is either <strong>R</strong>esting on disk, flying through the <strong>A</strong>ir (network), or being <strong>T</strong>hought about (processed in CPU).
-  </div>
 
-  <div class="mnemonic">
-    <div class="callout-title">🧠 IPSec Modes: "Tunnel Buries the Body"</div>
-    <strong>Tunnel Mode</strong> = buries the entire original packet inside a new envelope — the original IP header is hidden. Used between gateways.<br><br>
-    <strong>Transport Mode</strong> = only the payload is protected, the original IP header is exposed. Used host-to-host.
-  </div>
 
-  <div class="mnemonic">
-    <div class="callout-title">🧠 "SGX = Security Guard on the eXit"</div>
-    Intel SGX creates a <em>guard</em> at the CPU level — even the OS and hypervisor are locked <em>out</em>. The "eXit" from normal OS memory space leads to an encrypted enclave that only the CPU can access.
-  </div>
 
-  <div class="mnemonic">
-    <div class="callout-title">🧠 Homomorphic = "Homework on encrypted paper"</div>
-    You hand a tutor your homework in a sealed, opaque envelope. The tutor solves the problems <em>through the envelope</em> and hands back an equally sealed result envelope. When you open it, the answers are correct — but the tutor <em>never read your work</em>. That's homomorphic encryption.
-  </div>
 </div>
 
 <!-- SECTION 9 -->

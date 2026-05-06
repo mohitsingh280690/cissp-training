@@ -76,7 +76,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <li><a href="#s8">Least Privilege and Need to Know</a></li>
     <li><a href="#s9">Insider Threat</a></li>
     <li><a href="#s10">Vendor, Consultant &amp; Contractor Controls</a></li>
-    <li><a href="#s11">Memory Tricks &amp; Mnemonics</a></li>
     <li><a href="#s12">Key Takeaways</a></li>
   </ol>
 </div>
@@ -273,27 +272,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
 
 <div class="section" id="s11">
   <h2>11. Memory Tricks &amp; Mnemonics</h2>
-  <div class="mnemonic">
-    <strong>🧠 Employment Lifecycle Controls — "HEAPS":</strong><br>
-    <strong>H</strong>ire (background screening before access)<br>
-    <strong>E</strong>mployment agreements (NDA, AUP, NCA)<br>
-    <strong>A</strong>ccess (least privilege, need to know, SoD from day one)<br>
-    <strong>P</strong>ractice (mandatory vacations, job rotation during employment)<br>
-    <strong>S</strong>eparation (revoke access immediately upon departure)
-  </div>
-  <div class="mnemonic">
-    <strong>🧠 SoD vs. Rotation vs. Vacation:</strong><br>
-    SoD = Prevents fraud by requiring TWO people for sensitive actions (simultaneous control)<br>
-    Job Rotation = Detects fraud by REPLACING the person periodically (eventual exposure)<br>
-    Mandatory Vacation = Detects fraud by REMOVING the person temporarily (absence-triggered exposure)<br>
-    All three are complementary — layered fraud detection.
-  </div>
-  <div class="mnemonic">
-    <strong>🧠 Least Privilege vs. Need to Know:</strong><br>
-    Least Privilege = WHAT you can DO (permissions: read, write, execute, delete)<br>
-    Need to Know = WHAT you can SEE (information: this file, this project, this classification)<br>
-    LP = verbs; NtK = nouns
-  </div>
   <div class="warning">
     <strong>⚠️ Exam Trap — Offboarding Sequence:</strong> The CISSP exam may ask about the FIRST action when a key employee resigns or is terminated. The correct answer is REVOKE ACCESS (logical and physical) — not "notify the HR department," not "conduct an exit interview," not "retrieve equipment." Access revocation is first, always.
   </div>

@@ -53,7 +53,6 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. Port Security &amp; Switch Hardening</a></li>
   <li><a href="#s9">9. Private VLANs (PVLANs)</a></li>
   <li><a href="#s10">10. Layer 2 Attack Summary</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
   <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
@@ -357,37 +356,6 @@ This is a one-way attack — useful for DoS or sending unsolicited frames, not f
 </section>
 
 <!-- ═══════════════════════════════════════ SECTION 11 ═══ -->
-<section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
-<div class="callout mnemonic">
-  <strong>🧠 VLAN Hopping Defences — "Native is Nasty; DTP is Dangerous":</strong><br>
-  <strong>Double Tagging</strong> exploits the NATIVE VLAN → Change native VLAN to unused ID, tag native<br>
-  <strong>Switch Spoofing</strong> exploits DTP → Disable DTP on all access ports (<code>nonegotiate</code>)<br>
-  Remember: "Both attacks target the trunk. Harden the trunk and the access port."
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 STP Defence Pair — "Guard the Bridge, Guard the BPDU":</strong><br>
-  <strong>BPDU Guard</strong> = protects the <em>access port</em> from receiving BPDUs (shuts down if it does)<br>
-  <strong>Root Guard</strong> = protects a <em>trunk/uplink port</em> from accepting a new Root Bridge<br>
-  BPDU Guard = end-device ports; Root Guard = uplink/distribution ports.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Port Security Violation Actions — "SRP":</strong><br>
-  <strong>S</strong>hutdown = err-disable (most secure; raises alarm by going down)<br>
-  <strong>R</strong>estrict = drops + logs (security + no disruption)<br>
-  <strong>P</strong>rotect = drops silently (worst choice — no visibility)<br>
-  Default is Shutdown in most implementations.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Layer 2 Security Tech Stack — "PS DAI DHCP BPDU 802":</strong><br>
-  <strong>P</strong>ort Security → prevents CAM overflow / unauthorized MACs<br>
-  <strong>D</strong>AI → prevents ARP poisoning<br>
-  <strong>DHCP</strong> Snooping → prevents rogue DHCP; feeds DAI<br>
-  <strong>BPDU</strong> Guard → prevents STP hijack<br>
-  <strong>802.1X</strong> → authenticates devices before network access<br>
-  Deploy all five for a hardened Layer 2 environment.
-</div>
-</section>
 
 <!-- ═══════════════════════════════════════ SECTION 12 ═══ -->
 <section id="s12">

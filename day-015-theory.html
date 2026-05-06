@@ -82,7 +82,6 @@ tr:nth-child(even){background:#f9f9f9;}
     <li><a href="#s7">BCP Team and Roles</a></li>
     <li><a href="#s8">BCP Testing Types</a></li>
     <li><a href="#s9">Standards and Frameworks</a></li>
-    <li><a href="#s10">Memory Tricks &amp; Mnemonics</a></li>
     <li><a href="#s11">Key Takeaways</a></li>
   </ol>
 </div>
@@ -309,41 +308,6 @@ tr:nth-child(even){background:#f9f9f9;}
   </div>
 </div>
 
-<!-- S10 -->
-<div class="section" id="s10">
-  <h2>10. Memory Tricks &amp; Mnemonics</h2>
-
-  <div class="mnemonic">
-    <strong>🧠 BCP vs. DRP — "BCP = Business Keeps Processing; DRP = Data and tech Recovered Properly":</strong><br>
-    BCP = keeps the WHOLE BUSINESS running (people, facilities, processes)<br>
-    DRP = restores IT SYSTEMS after the event<br>
-    DRP is a SUBSET of BCP — never the other way around
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 MTD vs. RTO vs. RPO — "The Three Clocks":</strong><br>
-    <strong>MTD</strong> = the DEADLINE clock — how long before the business dies (set by management)<br>
-    <strong>RTO</strong> = the RECOVERY clock — how fast IT must bring systems back (must beat MTD)<br>
-    <strong>RPO</strong> = the DATA LOSS clock — how far back in time can we roll (determines backup frequency)<br>
-    <strong>WRT</strong> = the VALIDATION clock — time to confirm systems work after restore<br>
-    Critical formula: <strong>MTD ≥ RTO + WRT</strong> — if violated, recovery plan is inadequate
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 BCP Test Types — In order: "Clean Tables Simulate Perfect Fires":</strong><br>
-    <strong>C</strong>hecklist → <strong>T</strong>abletop → <strong>S</strong>imulation → <strong>P</strong>arallel → <strong>F</strong>ull Interruption<br>
-    Each step is more disruptive AND more realistic than the last.<br>
-    Only run Full Interruption when you are confident in the plan — it intentionally takes production offline.
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 RPO Drives Backup Frequency — easy anchor:</strong><br>
-    RPO = 24 hours → backup daily<br>
-    RPO = 4 hours → backup every 4 hours<br>
-    RPO = 0 → real-time synchronous replication (most expensive)<br>
-    <em>"RPO tells you how old your oldest acceptable data can be when disaster strikes"</em>
-  </div>
-</div>
 
 <!-- S11 -->
 <div class="section" id="s11">

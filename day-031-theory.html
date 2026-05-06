@@ -68,7 +68,6 @@ tr:nth-child(even) td{background:#f9f4ff;}
     <li><a href="#s6">DLP Architecture & Modes</a></li>
     <li><a href="#s7">DLP Policy Design & False Positives</a></li>
     <li><a href="#s8">CASB Integration</a></li>
-    <li><a href="#s9">Memory Tricks</a></li>
     <li><a href="#s10">Key Takeaways</a></li>
   </ol>
 </div>
@@ -236,21 +235,6 @@ tr:nth-child(even) td{background:#f9f4ff;}
 
 <div class="section" id="s9">
   <h2>9. Memory Tricks &amp; Mnemonics</h2>
-  <div class="mnemonic">
-    <div class="callout-title">🧠 DLP Three Types — "NEC"</div>
-    <strong>N</strong>etwork DLP → data in transit (at the gateway)<br>
-    <strong>E</strong>ndpoint DLP → data at rest &amp; in use (on the device)<br>
-    <strong>C</strong>loud DLP → data at rest (in SaaS/cloud storage)
-  </div>
-  <div class="mnemonic">
-    <div class="callout-title">🧠 DLP Deployment Sequence — "MAB"</div>
-    <strong>M</strong>onitor → <strong>A</strong>lert → <strong>B</strong>lock<br>
-    Never deploy in block mode before tuning. Always start with Monitor.
-  </div>
-  <div class="mnemonic">
-    <div class="callout-title">🧠 CASB Deployment Modes — "ARF"</div>
-    <strong>A</strong>PI mode (discovery, at-rest) → <strong>R</strong>everse proxy (real-time SaaS blocking) → <strong>F</strong>orward proxy (all cloud traffic)
-  </div>
 </div>
 
 <div class="section" id="s10">
