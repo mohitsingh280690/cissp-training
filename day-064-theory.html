@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -293,16 +293,6 @@ After ARP Poisoning by Attacker (10.0.0.100):
   <strong>🧠 Smurf Attack — "Smurf Hides Behind the Crowd":</strong><br>
   Smurf = spoof victim's IP + send ICMP to <em>broadcast</em> address → entire network replies to victim.<br>
   Fixed by: disabling directed broadcasts on routers. Historical attack — mostly irrelevant on modern networks. Still on exams.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Replay vs. Session Hijacking:</strong><br>
-  <strong>Replay</strong> = record-and-playback of a previously captured auth/transaction token. The session may no longer be active. Defence: nonce, timestamp, sequence number.<br>
-  <strong>Session Hijacking</strong> = steal a <em>currently active</em> session token and impersonate the active user in real time. Defence: HTTPOnly/Secure cookie, HTTPS everywhere, session regeneration.
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 ARP Poisoning Defence — "DAI Stands Guard":</strong><br>
-  <strong>DAI</strong> (Dynamic ARP Inspection) = switch checks every ARP reply against DHCP snooping binding table; rejects unauthorized IP→MAC claims.<br>
-  DHCP Snooping (trusted/untrusted port config) is a prerequisite for DAI → both are deployed together.
 </div>
 </section>
 

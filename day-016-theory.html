@@ -265,14 +265,6 @@ DISASTER
     <strong>RTO + WRT ≤ MTD</strong> — Always.
   </div>
   <div class="mnemonic">
-    <strong>🧠 BIA Metrics Order — "Mr. Wolf": M·R·R·W</strong><br>
-    <strong>M</strong>TD → maximum time the business can survive<br>
-    <strong>R</strong>TO → time target to restore the system<br>
-    <strong>R</strong>PO → oldest data acceptable on recovery<br>
-    <strong>W</strong>RT → time to reconcile after restore<br>
-    MRR·W = "Mr. Wolf" (he fixes things fast — just like your BCP should!)
-  </div>
-  <div class="mnemonic">
     <strong>🧠 MTBF vs MTTR:</strong><br>
     MTBF = "**B**reaks **B**etween **F**ailures" → Higher is Better (more time between breaks)<br>
     MTTR = "**R**epair **R**apidly" → Lower is Better (fix it fast)<br>
@@ -281,9 +273,6 @@ DISASTER
   <div class="mnemonic">
     <strong>🧠 Availability = MTBF ÷ (MTBF + MTTR)</strong><br>
     "Divide the good time by all the time" — uptime divided by (uptime + downtime)
-  </div>
-  <div class="warning">
-    <strong>⚠️ Exam Trap — RPO Direction:</strong> RPO is the maximum data loss measured <em>backwards in time</em> from the recovery point. An RPO of 4 hours means you can lose at most 4 hours of data — so the last backup must be no older than 4 hours. Many candidates read this backwards.
   </div>
 </div>
 

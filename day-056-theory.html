@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -406,11 +406,6 @@ Host A (10.0.0.1)                               Host B (10.0.0.2)
   "I Synchronize → I Synchronize-Acknowledge → I Acknowledge" — always exactly 3 messages, always in this order.
 </div>
 <div class="callout mnemonic">
-  <strong>🧠 TCP Flags — "UAPRSF":</strong><br>
-  <strong>U</strong>rgent <strong>A</strong>cknowledge <strong>P</strong>ush <strong>R</strong>eset <strong>S</strong>ynchronize <strong>F</strong>in<br>
-  Memory phrase: <em>"Unapologetically Axing Poisonous Rabbits Since Forever"</em>
-</div>
-<div class="callout mnemonic">
   <strong>🧠 ICMP Has No Ports:</strong><br>
   <em>"ICMP doesn't knock — it shouts"</em> — ICMP is Layer 3, operates at the IP level, has no port concept. When filtering ICMP, use type and code, not port numbers.
 </div>
@@ -424,11 +419,6 @@ Host A (10.0.0.1)                               Host B (10.0.0.2)
   <strong>🧠 ARP Poisoning Defence — "DAI + DHCP Snooping":</strong><br>
   Dynamic ARP Inspection checks ARP packets against the DHCP snooping binding table.<br>
   <em>"DHCP Snoops; DAI Inspects; Together they block ARP lies."</em>
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 SYN Flood Solution — "Cookie Not State":</strong><br>
-  SYN cookies eliminate the half-open connection table. The server encodes state in the ISN.<br>
-  <em>"Can't fill a table that doesn't exist."</em>
 </div>
 </section>
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -306,14 +306,6 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
     <tr><td><strong>D</strong>estruction</td><td>Availability</td><td>Ransomware encrypting all files; DDoS taking down a website; physical destruction of a data centre</td></tr>
   </table>
 
-  <div class="mnemonic">
-    <strong>🧠 Mnemonic — DAD attacks CIA:</strong><br>
-    <strong>D</strong>isclosure attacks <strong>C</strong>onfidentiality → D→C<br>
-    <strong>A</strong>lteration attacks <strong>I</strong>ntegrity → A→I<br>
-    <strong>D</strong>estruction attacks <strong>A</strong>vailability → D→A<br><br>
-    Memory hook: <em>"DAD destroys CIA's work"</em>
-  </div>
-
   <div class="key-concept">
     <strong>Important:</strong> Many real attacks violate all three simultaneously. Ransomware <em>discloses</em> your files to attackers (C), <em>alters</em> them by encrypting (I), and <em>destroys</em> your access to them (A). The exam may ask which property is the <em>primary</em> goal — for ransomware, it is Availability (to extort) or Confidentiality (if data is exfiltrated before encryption).
   </div>
@@ -429,28 +421,10 @@ code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:.9em;}
   </div>
 
   <div class="mnemonic">
-    <strong>🧠 DAD Triad:</strong><br>
-    <strong>D.A.D.</strong> — Disclosure, Alteration, Destruction<br>
-    <em>"DAD destroys CIA's work"</em> — D→C, A→I, D→A<br>
-    (Disclosure attacks Confidentiality; Alteration attacks Integrity; Destruction attacks Availability)
-  </div>
-
-  <div class="mnemonic">
-    <strong>🧠 Domain Weights (largest to smallest):</strong><br>
-    D1(15%) → D3/D4/D5/D7(13%) → D6(12%) → D8(11%) → D2(10%)<br>
-    Memory hook: <em>"Risk rules the room"</em> — Domain 1 (Risk Management) is always #1 by weight.
-  </div>
-
-  <div class="mnemonic">
     <strong>🧠 Defense in Depth — "The Castle":</strong><br>
     Think of a medieval castle: moat → outer wall → drawbridge → inner wall → keep → throne room.<br>
     Your modern equivalent: perimeter firewall → DMZ → internal segment → host firewall → application controls → data encryption.<br>
     Each layer is a drawbridge an attacker must lower.
-  </div>
-
-  <div class="warning">
-    <strong>⚠️ Exam Trap — Residual vs. Total Risk:</strong><br>
-    <strong>Total Risk</strong> = risk before controls. <strong>Residual Risk</strong> = risk after controls. The goal is never to eliminate all risk (impossible) but to reduce residual risk to an acceptable level. The exam will test whether you know that residual risk always exists.
   </div>
 
   <div class="mnemonic">

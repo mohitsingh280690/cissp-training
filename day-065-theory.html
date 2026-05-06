@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -345,13 +345,6 @@ Forwarded email (legitimate, sent through forwarder):
   Encrypt to send: use <em>recipient's public key</em> to lock → only recipient's private key can open.<br>
   Sign to prove identity: use your <em>private key</em> to sign → anyone with your public key can verify.<br>
   PGP/GPG: same cryptographic operations, different trust model (Web of Trust vs. PKI hierarchy).
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 Email Protocol Ports — "25 relay, 587 submit, 993 IMAP secure, 995 POP secure":</strong><br>
-  25 = MTA-to-MTA relay (block at ISP for end users)<br>
-  587 = authenticated client submission (STARTTLS)<br>
-  143 = IMAP plain | 993 = IMAP SSL/TLS<br>
-  110 = POP3 plain | 995 = POP3 SSL/TLS
 </div>
 <div class="callout mnemonic">
   <strong>🧠 DMARC Policy Progression — "None, Quarantine, Reject" = "Monitor, Warn, Block":</strong><br>

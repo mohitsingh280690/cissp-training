@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -259,21 +259,10 @@ Other DN components:
   For true isolation: separate FORESTS, not separate domains.
 </div>
 <div class="callout mnemonic">
-  <strong>🧠 RADIUS vs. TACACS+:</strong><br>
-  <strong>R</strong>ADIUS = <strong>R</strong>educed encryption (password only), <strong>R</strong>uns on <strong>U</strong>DP<br>
-  <strong>T</strong>ACACS+ = <strong>T</strong>otal encryption (full packet), <strong>T</strong>CP-based, fine-grained per-command authorization<br>
-  RADIUS → Wi-Fi and VPN (Access). TACACS+ → Cisco device CLI (Administration). "Access = RADIUS; Administration = TACACS+"
-</div>
-<div class="callout mnemonic">
   <strong>🧠 Diameter = Mobile/Cellular, NOT enterprise:</strong><br>
   Diameter protocol belongs to the cellular/mobile world (4G LTE, 5G).<br>
   Do NOT use it for Wi-Fi or enterprise AAA answers — that is RADIUS.<br>
   "Diameter is for the cell tower, RADIUS is for the office."
-</div>
-<div class="callout mnemonic">
-  <strong>🧠 LDAP Ports — "389 is plain, 636 is secure":</strong><br>
-  389 = HTTP of LDAP (unencrypted, avoid for binds)<br>
-  636 = HTTPS of LDAP (LDAPS, encrypted)
 </div>
 </section>
 
