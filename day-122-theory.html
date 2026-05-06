@@ -230,8 +230,55 @@ tr:nth-child(even){background:#f9f9f9;}
 
 <section id="s10">
 <h2>10. Key Takeaways</h2>
+<section id="s8">
+<h2>8. Concurrency Control &amp; Database Locking</h2>
+<p>In multi-user databases, concurrent transactions can interfere with each other, violating ACID properties. Concurrency control mechanisms prevent these issues:</p>
 <table>
-  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><th>Lock Type</th><th>Description</th><th>Use Case</th></tr>
+  <tr><td><strong>Shared (Read) Lock</strong></td><td>Multiple readers can hold simultaneously; prevents writers from modifying</td><td>SELECT queries; allows concurrent reads</td></tr>
+  <tr><td><strong>Exclusive (Write) Lock</strong></td><td>Only one transaction can hold; blocks all other transactions (read and write)</td><td>INSERT/UPDATE/DELETE; ensures exclusive access</td></tr>
+  <tr><td><strong>Intent Lock</strong></td><td>Signals intention to acquire finer-grained lock later; prevents incompatible transactions</td><td>Protecting upper levels of hierarchy (table-level intent before row-level lock)</td></tr>
+</table>
+
+<h3>Isolation Levels &amp; Consistency Problems</h3>
+<table>
+  <tr><th>Problem</th><th>Description</th><th>Isolation Level That Prevents It</th></tr>
+  <tr><td><strong>Dirty Read</strong></td><td>Reading uncommitted changes from another transaction (changes may be rolled back)</td><td>READ COMMITTED or higher</td></tr>
+  <tr><td><strong>Non-repeatable Read</strong></td><td>Reading same data twice within a transaction yields different results (another transaction modified it)</td><td>REPEATABLE READ or higher</td></tr>
+  <tr><td><strong>Phantom Read</strong></td><td>Query returns different rows on second execution (another transaction inserted/deleted rows matching WHERE clause)</td><td>SERIALIZABLE</td></tr>
+</table>
+<table>
+  <tr><th>Isolation Level</th><th>Allows Dirty Reads?</th><th>Allows Non-repeatable Reads?</th><th>Allows Phantom Reads?</th><th>Performance</th></tr>
+  <tr><td>READ UNCOMMITTED</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Fastest (least locking)</td></tr>
+  <tr><td>READ COMMITTED</td><td>No</td><td>Yes</td><td>Yes</td><td>Good (balanced)</td></tr>
+  <tr><td>REPEATABLE READ</td><td>No</td><td>No</td><td>Yes</td><td>Slower</td></tr>
+  <tr><td>SERIALIZABLE</td><td>No</td><td>No</td><td>No</td><td>Slowest (most locking)</td></tr>
+</table>
+<p><strong>Security Implication:</strong> Lower isolation levels (READ UNCOMMITTED, READ COMMITTED) introduce consistency risks. Financial transactions and sensitive operations should use REPEATABLE READ or SERIALIZABLE, even if performance suffers.</p>
+
+<h3>Deadlock Prevention &amp; Detection</h3>
+<p><strong>Deadlock:</strong> Two or more transactions each hold locks that others need, creating a circular wait. Neither can proceed.</p>
+<table>
+  <tr><th>Strategy</th><th>Approach</th></tr>
+  <tr><td><strong>Prevention</strong></td><td>Establish lock ordering — transactions acquire locks in consistent order; prevents circular dependencies</td></tr>
+  <tr><td><strong>Detection</strong></td><td>DBMS periodically checks for circular lock dependencies; rolls back one transaction (victim) to break cycle</td></tr>
+  <tr><td><strong>Timeout</strong></td><td>If transaction waits for lock > timeout period, DBMS assumes deadlock and rolls it back</td></tr>
+</table>
+</section>
+
+<section id="s8b">
+<h2>8b. Formal Database Security Models</h2>
+<p>Formal security models from Domain 1-2 apply to databases, particularly in multilevel security (MLS) environments:</p>
+<table>
+  <tr><th>Model</th><th>Database Application</th></tr>
+  <tr><td><strong>Bell-LaPadula (Confidentiality)</strong></td><td>Protects data confidentiality in MLS systems. Rules: No read-up (can't read higher classification), no write-down (can't write to lower classification). Prevents information flowing from high to low classification.</td></tr>
+  <tr><td><strong>Biba (Integrity)</strong></td><td>Protects data integrity in MLS systems. Rules: No read-down (can't read lower integrity), no write-up (can't write higher integrity). Prevents untrusted data from corrupting trusted data.</td></tr>
+  <tr><td><strong>Clark-Wilson (Commercial)</strong></td><td>Combines Bell-LaPadula and Biba for commercial integrity. Uses "transformation procedures" (certified change programs) and "access control lists". Best for financial/commercial systems where both confidentiality and integrity matter.</td></tr>
+  <tr><td><strong>Chinese Wall (Conflict of Interest)</strong></td><td>Prevents information from conflicting parties from being accessed by same user. Applied in consulting firms, investment banks. User can access data from company A or company B, but not both.</td></tr>
+</table>
+<p><strong>Database + Model Example:</strong> A defense contractor with SECRET and TOP SECRET data uses Bell-LaPadula to prevent SECRET users from reading TOP SECRET. Using polyinstantiation, the same row can have different content based on the user's clearance level.</p>
+</section>
+
   <tr><td>ACID</td><td>Atomicity (all-or-nothing), Consistency (valid states), Isolation (independent), Durability (permanent)</td></tr>
   <tr><td>BASE</td><td>Basically Available, Soft state, Eventually consistent — NoSQL trade-off for availability over consistency</td></tr>
   <tr><td>Primary key</td><td>Unique identifier; ensures entity integrity; cannot be NULL</td></tr>

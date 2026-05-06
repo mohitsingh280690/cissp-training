@@ -161,7 +161,22 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td><strong>Stack overflow</strong></td><td>Overflow in stack memory (local variables, return addresses); most common type; can redirect execution flow</td></tr>
   <tr><td><strong>Heap overflow</strong></td><td>Overflow in heap memory (dynamically allocated); can corrupt data structures; harder to exploit but possible</td></tr>
   <tr><td><strong>Integer overflow</strong></td><td>Arithmetic result exceeds variable's maximum value; wraps around; can lead to buffer overflow if result used for memory allocation size</td></tr>
+  <tr><td><strong>Format string</strong></td><td>Attacker manipulates printf-style format strings (e.g., <code>printf(user_input)</code>) to read/write memory; each %x reads 4 bytes from stack; %n writes to memory address</td></tr>
 </table>
+
+<h3>Format String Vulnerabilities</h3>
+<p><strong>How it works:</strong> A program uses user-controlled input as a format string without validation:</p>
+<p><code>printf(user_input);</code> instead of <code>printf(\"%s\", user_input);</code></p>
+<p>Attacker enters: <code>%x %x %x %n</code><br>
+Result: Each %x reads a 4-byte value from the stack; %n writes to a memory address. Attacker can read sensitive data (passwords, keys) or write to memory to gain code execution.</p>
+<table>
+  <tr><th>Format Specifier</th><th>Effect</th></tr>
+  <tr><td><code>%x</code></td><td>Read 4 bytes from stack (32-bit); <code>%lx</code> for 64-bit</td></tr>
+  <tr><td><code>%s</code></td><td>Read string from memory address on stack; can crash if address invalid</td></tr>
+  <tr><td><code>%n</code></td><td>Write to memory address; extremely dangerous (code execution possible)</td></tr>
+  <tr><td><code>%p</code></td><td>Print pointer value (architecture-dependent size)</td></tr>
+</table>
+<p><strong>Defense:</strong> Never use user input directly as format string. Always use literal format string: <code>printf(\"%s\", user_input);</code> Modern compilers (with -Wformat warnings) and static analysis tools catch this pattern.</p>
 
 <h3>Buffer Overflow Defenses</h3>
 <table>

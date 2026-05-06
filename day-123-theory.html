@@ -73,6 +73,41 @@ tr:nth-child(even){background:#f9f9f9;}
 
 <section id="s1">
 <h2>1. Where This Fits in CISSP</h2>
+<section id="s9">
+<h2>9. API-Specific Security Weaknesses</h2>
+<p>While OWASP Top 10 covers traditional web apps, <strong>OWASP API Security Top 10</strong> identifies unique risks in REST/GraphQL/gRPC APIs:</p>
+<table>
+  <tr><th>API Risk</th><th>Description</th><th>Example</th><th>OWASP Web App Equivalent</th></tr>
+  <tr><td><strong>Broken Object Level Authorization (BOLA / IDOR)</strong></td><td>Access control checks missing at object level; attacker modifies ID parameter to access other users' data</td><td>GET /api/users/123/profile → change ID to /users/456 to view another user's data</td><td>A01 (Broken Access Control)</td></tr>
+  <tr><td><strong>Broken Function Level Authorization</strong></td><td>Authorization not enforced for sensitive operations; attacker can call admin endpoints without permission</td><td>DELETE /api/admin/users/123 allowed without checking if caller is admin</td><td>A01 (Broken Access Control)</td></tr>
+  <tr><td><strong>Excessive Data Exposure</strong></td><td>API returns more data than client needs; includes sensitive fields not requested</td><td>GET /api/users/123 returns password_hash, SSN, internal_id in response (not needed by client)</td><td>A04 (Insecure Design)</td></tr>
+  <tr><td><strong>Mass Assignment (Insecure Direct Object References + Parameter Pollution)</strong></td><td>Attacker modifies request parameters to set fields intended to be read-only</td><td>POST /api/users with body {name: "attacker", is_admin: true} — malicious is_admin value processed</td><td>A04 (Insecure Design)</td></tr>
+  <tr><td><strong>Rate Limiting / DoS</strong></td><td>No rate limiting on API endpoints; attacker sends massive requests to crash service or brute-force credentials</td><td>POST /api/login with 10,000 requests/second → no throttling, system overwhelmed</td><td>A02 (Cryptographic Failures) / DoS</td></tr>
+  <tr><td><strong>Unvalidated Redirects in API</strong></td><td>API returns redirect URLs without validation; attacker crafts phishing redirects</td><td>GET /api/auth/callback?next=https://evil.com — app redirects user to attacker site</td><td>A01 (Broken Access Control)</td></tr>
+</table>
+
+<h3>API Security Best Practices</h3>
+<table>
+  <tr><th>Practice</th><th>Protects Against</th></tr>
+  <tr><td><strong>Require authentication on ALL endpoints</strong></td><td>Unauthorized access</td></tr>
+  <tr><td><strong>Check authorization for EVERY resource access</strong></td><td>BOLA / IDOR</td></tr>
+  <tr><td><strong>Validate object IDs are owned by requesting user</strong></td><td>BOLA</td></tr>
+  <tr><td><strong>Filter response to return ONLY needed fields</strong></td><td>Excessive data exposure</td></tr>
+  <tr><td><strong>Whitelist allowed input parameters; reject unknown fields</strong></td><td>Mass assignment</td></tr>
+  <tr><td><strong>Implement rate limiting per user/IP</strong></td><td>Brute force, DoS</td></tr>
+  <tr><td><strong>Use versioning (v1, v2) for backward compatibility without breaking clients</strong></td><td>API change impact</td></tr>
+  <tr><td><strong>Validate all input (JSON schema validation)</strong></td><td>Injection, malformed data</td></tr>
+  <tr><td><strong>Return generic error messages; log detailed errors internally</strong></td><td>Information disclosure</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>🎯 Exam Tip — API vs Web App Security:</strong><br>
+  Web apps: Focus on DOM, sessions, cookies, browser-based attacks (XSS, CSRF)<br>
+  APIs: Focus on authentication tokens, authorization per request, data filtering, rate limiting<br>
+  CISSP increasingly tests API-specific risks, especially BOLA (Broken Object-Level Authorization) and excessive data exposure.
+</div>
+</section>
+
 <table>
   <tr><th>Aspect</th><th>Detail</th></tr>
   <tr><td>Domain</td><td>8 – Software Development Security</td></tr>

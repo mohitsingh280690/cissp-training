@@ -157,6 +157,40 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td><strong>Attack Trees</strong></td><td>Visual tree structure showing attack goals and paths; root = goal, branches = methods</td></tr>
   <tr><td><strong>VAST</strong></td><td>Visual, Agile, Simple Threat modeling — scales for Agile/DevOps environments</td></tr>
 </table>
+
+<h3>DREAD Risk Ranking In Detail</h3>
+<p><strong>DREAD</strong> is a risk ranking methodology that assigns numerical scores (1-3 or 1-10) to each threat, enabling comparison and prioritization:</p>
+<table>
+  <tr><th>Factor</th><th>Definition</th><th>Scoring Guidance</th></tr>
+  <tr><td><strong>Damage</strong></td><td>How severe would an attack be if successful? Loss of confidentiality/integrity/availability?</td><td>Low (data unavailable)=1; Medium (some data exposed)=2; High (critical data loss/system down)=3</td></tr>
+  <tr><td><strong>Reproducibility</strong></td><td>How easy is it for attacker to reliably exploit the vulnerability?</td><td>Low (requires specific conditions)=1; Medium (sometimes works)=2; High (always works)=3</td></tr>
+  <tr><td><strong>Exploitability</strong></td><td>How much skill/effort is required to exploit? Is there public exploit code?</td><td>Low (requires expertise)=1; Medium (tools needed)=2; High (trivial, public exploits)=3</td></tr>
+  <tr><td><strong>Affected Users</strong></td><td>How many users are impacted if exploited?</td><td>Low (few/isolated users)=1; Medium (subset of user base)=2; High (all users/critical systems)=3</td></tr>
+  <tr><td><strong>Discoverability</strong></td><td>How easily can an attacker find this vulnerability?</td><td>Low (hidden, obscure)=1; Medium (can be found with effort)=2; High (obvious, published)=3</td></tr>
+</table>
+<p><strong>DREAD vs STRIDE:</strong> STRIDE identifies WHAT can happen (threat enumeration); DREAD quantifies the risk of each threat (risk ranking). Use STRIDE first to discover all threats, then DREAD to prioritize which ones to fix first.</p>
+
+<h3>PASTA (Risk-Centric) Threat Modeling</h3>
+<p><strong>PASTA</strong> (Process for Attack Simulation and Threat Analysis) is a 7-stage model that focuses on attacker capabilities, business impact, and likelihood. It's more comprehensive but also more complex than STRIDE:</p>
+<table>
+  <tr><th>Stage</th><th>Activity</th><th>Question Answered</th></tr>
+  <tr><td><strong>1. Stakeholder engagement</strong></td><td>Define business objectives, critical assets, and risk tolerance</td><td>What is most important to protect?</td></tr>
+  <tr><td><strong>2. Define technical scope</strong></td><td>System architecture, data flows, dependencies</td><td>What are the system boundaries?</td></tr>
+  <tr><td><strong>3. Application decomposition</strong></td><td>Break system into components; identify trust boundaries</td><td>Where do components interact and what data flows between them?</td></tr>
+  <tr><td><strong>4. Threat analysis</strong></td><td>Enumerate potential attacks; research known attack patterns</td><td>What attacks are possible against this system?</td></tr>
+  <tr><td><strong>5. Vulnerability analysis</strong></td><td>Map weaknesses to application components</td><td>What vulnerabilities enable the attacks?</td></tr>
+  <tr><td><strong>6. Attack simulation</strong></td><td>Model attacker behavior; simulate attack chains and exploit patterns</td><td>How would an attacker actually compromise this system?</td></tr>
+  <tr><td><strong>7. Risk/impact analysis</strong></td><td>Calculate business impact and likelihood; quantify risk</td><td>What is the financial/operational impact of each attack?</td></tr>
+</table>
+<p><strong>PASTA Key Advantage:</strong> Unlike STRIDE (which is asset-centric), PASTA is risk-centric — it explicitly models attacker capabilities, business impact, and likelihood. Best for: complex systems with high stakes, regulated industries, risk quantification for executive reporting.</p>
+
+<div class="exam-tip callout">
+  <strong>🎯 Exam Tip — Choosing a Threat Model:</strong><br>
+  • STRIDE if you need quick threat enumeration ("What can go wrong?")<br>
+  • DREAD if you need to prioritize by risk ("Which threats are most dangerous?")<br>
+  • PASTA if you need holistic risk assessment with business context ("What's the actual business impact?")<br>
+  CISSP often tests: "Which model quantifies risk using numerical scoring?" → Answer: DREAD
+</div>
 </section>
 
 <section id="s6">
