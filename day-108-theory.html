@@ -66,8 +66,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s6">6. Application Whitelisting / Allowlisting</a></li>
   <li><a href="#s7">7. Host-Based Firewalls &amp; IPS</a></li>
   <li><a href="#s8">8. Hardening &amp; Least Functionality</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s10">10. Key Takeaways</a></li>
+  <li><a href="#s9">9. Insider Threat Detection &amp; Prevention Program</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -239,6 +240,84 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>Host firewalls</td><td>Essential for defense in depth; protect hosts even when perimeter is bypassed</td></tr>
   <tr><td>Hardening</td><td>Remove unnecessary services, ports, accounts; apply baselines; disable defaults</td></tr>
   <tr><td>Least functionality</td><td>Systems should be configured with ONLY what is needed for their designated purpose</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Insider Threat Detection &amp; Prevention Program</h2>
+<h3>Insider Threat Program Framework</h3>
+<p>Insider threats are employees, contractors, or partners with legitimate access who misuse it. Detection requires a multi-faceted program combining personnel security, monitoring, and investigation:</p>
+<table>
+  <tr><th>Program Component</th><th>Focus</th><th>Tools/Methods</th></tr>
+  <tr><td><strong>Threat Assessment</strong></td><td>Identify at-risk individuals; profiles; motivation patterns</td><td>HR intel (discipline, termination plans), behavioral analysis, UEBA baselines</td></tr>
+  <tr><td><strong>Behavioral Monitoring</strong></td><td>Detect deviations from normal activity; unusual access patterns</td><td>UEBA, DLP, file access logs, email monitoring, USB activity logging</td></tr>
+  <tr><td><strong>Technical Controls</strong></td><td>Prevent exfiltration of sensitive data</td><td>DLP policies, USB restrictions, file integrity monitoring, egress filtering</td></tr>
+  <tr><td><strong>Personnel Security</strong></td><td>Vetting, access controls, job rotation, mandatory vacation</td><td>Background checks, SoD, access reviews, job rotation (no consecutive access to critical functions)</td></tr>
+  <tr><td><strong>Reporting &amp; Investigation</strong></td><td>Detect suspicious activity; conduct thorough investigation</td><td>Anonymous reporting channel, forensic investigation team, security briefings</td></tr>
+</table>
+
+<h3>Red Flags for Insider Threat</h3>
+<table>
+  <tr><th>Category</th><th>Red Flags</th></tr>
+  <tr><td><strong>Behavioral</strong></td><td>Unusual working hours (after-hours access when not typical); excessive sick leave; personality changes; financial stress signs; fascination with security systems or bypass methods</td></tr>
+  <tr><td><strong>Technical</strong></td><td>Excessive file access (downloading beyond job scope); mass data transfer; access to unrelated systems; clearing logs; attempting privilege escalation; unusual USB activity</td></tr>
+  <tr><td><strong>Situational</strong></td><td>Pending termination or demotion; job dissatisfaction complaints; competitor employment contact; foreign travel to sensitive countries; divorce or financial hardship</td></tr>
+  <tr><td><strong>Access Pattern Changes</strong></td><td>Accessing data outside normal business hours or from unusual locations; VPN from new geography; accessing data they previously didn't use</td></tr>
+</table>
+
+<h3>Investigation & Response</h3>
+<ul>
+  <li><strong>Initial Report:</strong> Anonymous tip (ethics hotline) or alert from monitoring. DO NOT immediately confront the suspect; preserve evidence.</li>
+  <li><strong>Triage:</strong> Is this a real threat (data actually exfiltrated)? Assess immediacy; does suspect still have access?</li>
+  <li><strong>Evidence Preservation:</strong> Engage IT to pull logs, create forensic images of systems used by suspect, preserve email, file access history, USB history.</li>
+  <li><strong>Legal Engagement:</strong> Notify HR and legal counsel; determine what can be disclosed to suspect vs. kept confidential for investigation.</li>
+  <li><strong>Suspension/Restrictions:</strong> May revoke access, restrict to monitored workstation, or conduct monitored interview (with legal present).</li>
+  <li><strong>Root Cause Analysis:</strong> Post-investigation, determine how insider got access to what data, where data went, and control failures that allowed it.</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>💡 Exam Tip:</strong> Insider threat scenarios on CISSP often test whether you know the difference between suspicion and proof. You suspect theft (technical monitoring shows unusual access) but need evidence (DLP logs showing data was copied to USB, or email showing exfiltration). The scenario might ask: "An analyst accessed 100 HR records last night. Is this insider threat?" Answer: Not yet — you have suspicious access, but you need to investigate: Was data copied? Where did it go? Does the analyst have a business reason (payroll batch job)? This is why UEBA + DLP together are powerful; behavioral (UEBA) + data movement (DLP) = confirmation.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Baseline Security Controls — "PATCH"</strong><br>
+  <strong>P</strong>atches (keep systems current)<br>
+  <strong>A</strong>llowlisting (prevent unauthorized software)<br>
+  <strong>T</strong>esting (test baselines, validate configs)<br>
+  <strong>C</strong>onfiguration baseline (document expected state)<br>
+  <strong>H</strong>ardening (minimize attack surface)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Insider Threat Red Flags — "FBI"</strong><br>
+  <strong>F</strong>inancial stress (motive)<br>
+  <strong>B</strong>ehavioral anomalies (unusual access, off-hours)<br>
+  <strong>I</strong>nformation access deviation (accessing outside job scope)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Endpoint Hardening — "LAM"</strong><br>
+  <strong>L</strong>east privilege (minimum permissions)<br>
+  <strong>A</strong>pplication allowlisting (deny-by-default)<br>
+  <strong>M</strong>onitoring/Malware protection (EDR, antivirus)
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Security baseline</td><td>Documented, minimum-security configuration applied consistently across systems</td></tr>
+  <tr><td>CIS Benchmarks</td><td>Industry-standard hardening guides for operating systems, applications, cloud platforms</td></tr>
+  <tr><td>Patch management</td><td>Lifecycle: Discover → Assess → Test → Deploy; risk-based prioritization by severity + exploitability</td></tr>
+  <tr><td>Anti-malware</td><td>Signature-based (known malware) + heuristic/behavioral (unknown); essential but not sufficient alone</td></tr>
+  <tr><td>EDR (Endpoint Detection &amp; Response)</td><td>Advanced monitoring; detects post-compromise behavior; enables forensics</td></tr>
+  <tr><td>Application allowlisting</td><td>Deny-by-default approach; most effective against zero-days; requires good operational overhead</td></tr>
+  <tr><td>Host-based firewall</td><td>Controls inbound/outbound traffic at endpoint; defense in depth when perimeter is bypassed</td></tr>
+  <tr><td>Hardening</td><td>Remove unnecessary services, ports, accounts; disable defaults; apply CIS benchmarks</td></tr>
+  <tr><td>Insider threat program</td><td>Multi-faceted: vetting + monitoring (UEBA/DLP) + investigation + response</td></tr>
+  <tr><td>Insider threat detection</td><td>Technical (unusual access, data movement) + behavioral (anomalies) + situational (life events, financial stress)</td></tr>
 </table>
 </section>
 

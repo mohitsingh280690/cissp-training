@@ -201,6 +201,16 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td><strong>Cryptographic authentication</strong></td><td>Use TLS, IPSec, or application-level authentication — validates identity cryptographically rather than relying on IP address. IP spoofing is irrelevant if credentials are cryptographically verified.</td></tr>
   <tr><td><strong>Unicast Reverse Path Forwarding (uRPF)</strong></td><td>Router checks that the source IP of an arriving packet is reachable via the same interface it arrived on. If not, the packet is rejected (asymmetric routing complicates this).</td></tr>
 </table>
+
+<h3>IPv6-Specific Network Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Mitigation</th></tr>
+  <tr><td>Router Advertisement (RA) Spoofing</td><td>Rogue RA messages advertise attacker-controlled gateway</td><td>RA Guard on edge switch ports; permit RAs only from trusted uplinks</td></tr>
+  <tr><td>Neighbor Discovery (NDP) Poisoning</td><td>Poison IPv6 neighbor cache to redirect traffic (IPv6 analog of ARP poisoning)</td><td>NDP inspection/monitoring, segmentation, and strong L2 controls</td></tr>
+  <tr><td>DHCPv6 Rogue Server</td><td>Unauthorized DHCPv6 responder pushes malicious DNS/gateway settings</td><td>DHCPv6 Guard and trusted-port policy</td></tr>
+  <tr><td>Transition Tunnel Abuse</td><td>Teredo/6to4/ISATAP used to bypass IPv4-only inspection</td><td>Disable unused transition mechanisms; enforce explicit IPv6 firewall policy</td></tr>
+  <tr><td>IPv6 Extension Header Evasion</td><td>Abnormal extension header chains or fragments evade weak filters</td><td>Use IPv6-aware firewalls/IDS with reassembly and normalization</td></tr>
+</table>
 </section>
 
 <!-- ═════════════════ SECTION 9 ═════════════════ -->
@@ -310,6 +320,7 @@ After ARP Poisoning by Attacker (10.0.0.100):
   <tr><td>Replay Attack</td><td>Reuse of captured valid tokens/credentials; defeated by nonce, timestamp, sequence numbers</td></tr>
   <tr><td>Session Hijacking</td><td>Steal active session token; defeated by HTTPS everywhere, HttpOnly/Secure cookies, session regeneration after auth</td></tr>
   <tr><td>IP Spoofing</td><td>Forge source IP; defeated by BCP38 / ingress filtering; cryptographic authentication is the proper fix</td></tr>
+  <tr><td>IPv6 Attack Surface</td><td>RA spoofing, NDP poisoning, DHCPv6 abuse, and tunnel bypasses require IPv6-specific controls</td></tr>
   <tr><td>ARP Poisoning</td><td>Forge ARP replies to redirect traffic; defeated by Dynamic ARP Inspection (DAI) + DHCP snooping</td></tr>
   <tr><td>DNS Cache Poisoning</td><td>Inject false DNS records into resolver cache; defeated by DNSSEC</td></tr>
   <tr><td>Botnet / C2</td><td>Compromised devices receive commands via HTTP/DNS/P2P; detection via outbound connection monitoring, DNS analytics, threat intelligence</td></tr>

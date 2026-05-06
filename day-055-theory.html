@@ -241,6 +241,16 @@ Borrowing 2 bits from host portion:
     <li><strong>Large address space:</strong> Traditional scanning is impractical, but this makes asset discovery harder for defenders too</li>
   </ul>
 </div>
+
+<h3>IPv6 Attack &amp; Defense Matrix</h3>
+<table>
+  <tr><th>Attack</th><th>Mechanism</th><th>Primary Defense</th></tr>
+  <tr><td>RA Spoofing</td><td>Rogue Router Advertisement becomes default gateway for hosts</td><td>RA Guard on access switches; permit RAs only from trusted ports</td></tr>
+  <tr><td>NDP Poisoning</td><td>IPv6 neighbor cache manipulation (similar to ARP poisoning)</td><td>Neighbor Discovery inspection, SEND where feasible, L2 segmentation and monitoring</td></tr>
+  <tr><td>DHCPv6 Rogue/Starvation</td><td>Unauthorized DHCPv6 server or exhaustion of available leases</td><td>DHCPv6 Guard/Snooping, rate limiting, trusted-port design</td></tr>
+  <tr><td>Extension Header Evasion</td><td>Abusing extension header chains/fragments to evade simple filtering</td><td>Stateful IPv6-aware firewalls and IDS normalization/reassembly</td></tr>
+  <tr><td>Transition Tunnel Bypass</td><td>Teredo/6to4/ISATAP traffic bypasses IPv4-only controls</td><td>Disable unused transition protocols and enforce explicit IPv6 policy</td></tr>
+</table>
 </section>
 
 <section id="s9">
@@ -265,6 +275,15 @@ Borrowing 2 bits from host portion:
     <li><strong>PAT is most common:</strong> Home routers and most corporate internet gateways use PAT to share one public IP among many internal hosts</li>
   </ul>
 </div>
+
+<h3>NAT/PAT Operational Security Notes</h3>
+<table>
+  <tr><th>Topic</th><th>Security Relevance</th></tr>
+  <tr><td>NAT-T (IPSec NAT Traversal)</td><td>Encapsulates IPSec ESP in UDP 4500 when NAT exists between peers; otherwise VPNs may fail</td></tr>
+  <tr><td>PAT Port Exhaustion</td><td>High connection volumes can exhaust translation ports, causing denial of service for legitimate users</td></tr>
+  <tr><td>Hairpin NAT</td><td>Internal clients access internal services via public address; misconfiguration can expose unexpected internal reachability</td></tr>
+  <tr><td>Audit Correlation</td><td>NAT obscures original internal hosts unless translation logs are retained and synchronized with time sources</td></tr>
+</table>
 
 <div class="callout exam-tip">
   <strong>💡 Exam Tip:</strong> The CISSP exam does NOT consider NAT a security control — it's an address conservation mechanism. If a question asks "which control hides internal IP addresses from external attackers?", the answer is typically NAT, but remember it provides obscurity, not security. Always pair NAT with proper firewall rules.
@@ -308,8 +327,8 @@ Borrowing 2 bits from host portion:
   <tr><td>CIDR</td><td>Classless addressing with variable prefix lengths; usable hosts = 2^(32−prefix) − 2</td></tr>
   <tr><td>Subnetting (Security)</td><td>Divides networks for segmentation, access control, monitoring, and blast-radius reduction</td></tr>
   <tr><td>IPv6</td><td>128 bits, hex:colon notation, IPSec mandatory in spec, SLAAC, no broadcast, multicast/anycast</td></tr>
-  <tr><td>IPv6 Risks</td><td>Dual-stack attack surfaces, tunneling bypasses, RA spoofing</td></tr>
-  <tr><td>NAT / PAT</td><td>NAT = address translation (not a security control); PAT = many-to-one using ports; breaks IPSec AH</td></tr>
+  <tr><td>IPv6 Risks</td><td>Dual-stack attack surfaces, tunneling bypasses, RA spoofing, NDP/DHCPv6 abuse</td></tr>
+  <tr><td>NAT / PAT</td><td>NAT = address translation (not a security control); PAT = many-to-one using ports; breaks IPSec AH and may require NAT-T for ESP</td></tr>
 </table>
 </section>
 

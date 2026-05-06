@@ -67,8 +67,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s6">6. Incident Categories &amp; Severity Classification</a></li>
   <li><a href="#s7">7. Incident Response Policy &amp; Plan</a></li>
   <li><a href="#s8">8. Communication Plans &amp; Stakeholder Management</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s10">10. Key Takeaways</a></li>
+  <li><a href="#s9">9. Incident Playbooks &amp; Automation</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -291,6 +292,92 @@ Millions of Events (logs, network traffic, system activity)
   <tr><td>Legal privilege</td><td>Attorney-client privilege may protect investigation findings; engage legal counsel early</td></tr>
   <tr><td>Out-of-band comms</td><td>During incidents, use separate channels — assume attacker may have access to normal communication systems</td></tr>
   <tr><td>Regulatory notification</td><td>Know the timelines: GDPR 72 hrs; HIPAA 60 days; SEC 4 business days; PCI DSS required</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Incident Playbooks &amp; Automation</h2>
+<h3>Runbook vs Playbook</h3>
+<table>
+  <tr><th>Document Type</th><th>Scope</th><th>Audience</th><th>Level of Detail</th></tr>
+  <tr><td><strong>Runbook</strong></td><td>Single, specific procedure (e.g., "How to image a compromised laptop")</td><td>Technical ops (SOC Tier 2/3)</td><td>Step-by-step; assumes technical knowledge; includes commands, tools, expected outputs</td></tr>
+  <tr><td><strong>Playbook</strong></td><td>Entire incident scenario (e.g., "Ransomware Attack Response") with decision trees</td><td>Entire IR team (Tier 1 → CISO)</td><td>Decision logic, escalation criteria, communication templates, multiple runbooks linked</td></tr>
+</table>
+
+<h3>Anatomy of an Incident Playbook</h3>
+<p>A well-structured playbook for a specific incident category includes:</p>
+<ul>
+  <li><strong>Detection triggers:</strong> What alert/indicator warrants activating this playbook? (e.g., "Multiple failed RDP attempts from external IP" → Brute force playbook)</li>
+  <li><strong>Initial triage:</strong> Severity assessment checklist; who should respond; escalation path</li>
+  <li><strong>Containment steps:</strong> Specific actions in order (e.g., "Isolate affected system from network", "Preserve logs", "Notify data protection officer if PII involved")</li>
+  <li><strong>Forensic preservation:</strong> Evidence collection steps; chain of custody; tools required</li>
+  <li><strong>Communication template:</strong> Who to notify, timeline, messaging (internal vs external)</li>
+  <li><strong>Linked runbooks:</strong> "Go to Runbook 3.2 for disk imaging"; "See Runbook 5.1 for GDPR notification"</li>
+  <li><strong>Recovery steps:</strong> Patching, reimaging, password reset procedures</li>
+  <li><strong>Post-incident:</strong> Root cause analysis template; metrics to capture; lessons learned review date</li>
+</ul>
+
+<h3>Playbook Automation with SOAR</h3>
+<p><strong>Security Orchestration, Automation &amp; Response (SOAR)</strong> platforms automate playbook execution:</p>
+<table>
+  <tr><th>Automation Capability</th><th>Example</th><th>Benefit</th></tr>
+  <tr><td><strong>Alert ingestion &amp; parsing</strong></td><td>SIEM sends alert → SOAR parses fields (user, IP, time) and enriches with context</td><td>Faster triage; less manual data entry</td></tr>
+  <tr><td><strong>Decision trees</strong></td><td>"If severity = High AND user = domain admin, then escalate to CISO AND isolate endpoint"</td><td>Consistent decision logic; reduced human error</td></tr>
+  <tr><td><strong>Automated response</strong></td><td>Block IP in firewall, disable account, revoke VPN access, pull logs from 3 systems — all within 30 seconds</td><td>Containment minutes vs hours</td></tr>
+  <tr><td><strong>Manual approval gates</strong></td><td>Automation pauses for "Take system offline?" → analyst clicks Yes/No → continues</td><td>Prevents dangerous auto-actions; keeps humans in loop</td></tr>
+  <tr><td><strong>Notification workflows</strong></td><td>Create Jira ticket → send Slack to team lead → email customer — all triggered automatically</td><td>No notification delays or missed stakeholders</td></tr>
+  <tr><td><strong>Metrics &amp; logging</strong></td><td>Record automation decision, actions taken, outcomes, time to respond</td><td>Compliance audit trail; MTTR measurement</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>💡 Exam Tip:</strong> A CISSP scenario: "An incident is detected at 2 AM. The playbook says 'Isolate the system, notify the CISO, preserve logs, and initiate forensics.' Which of these should be automated vs. require human approval?" Answer: Isolation and log preservation CAN be auto-executed (minutes matter); CISO notification MUST happen but can be auto-sent (human confirms receipt); forensics initiation SHOULD require approval (to prevent over-collection/privacy violation). Automation ≠ unattended; it means "execute fast, but maintain governance."
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 NIST 800-61 — "PPCE"</strong><br>
+  <strong>P</strong>reparation<br>
+  <strong>P</strong>reparation (duplicate intentional — this is the prep phase)<br>
+  Actually, use: <strong>P</strong>rep → <strong>D</strong>etection → <strong>C</strong>ontainment → <strong>E</strong>radication (+ Recovery) → <strong>L</strong>essons learned (PDCEL)<br>
+  Or simpler: <strong>I.R.T.</strong> = Identify → Respond → Track
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Event vs Incident</strong><br>
+  <strong>Event</strong> = something happened (log entry, alert)<br>
+  <strong>Incident</strong> = event + confirmed breach/impact (requires investigation)<br>
+  "Not every event is an incident, but every incident starts as an event."
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Playbook vs Runbook</strong><br>
+  <strong>Playbook</strong> = full scenario (ransomware response) — "the game plan"<br>
+  <strong>Runbook</strong> = single procedure (disk imaging) — "the play call"<br>
+  Playbook REFERENCES runbooks; runbooks are INSIDE playbooks.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Incident Severity Levels — "LMHC"</strong><br>
+  <strong>L</strong>ow = Minor, no data loss, contained<br>
+  <strong>M</strong>edium = Limited impact, some data, contained in time<br>
+  <strong>H</strong>igh = Significant impact, escalated response<br>
+  <strong>C</strong>ritical = Business-threatening, executive response, public disclosure likely
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Event vs Incident</td><td>Event = detected; Incident = confirmed compromise/impact</td></tr>
+  <tr><td>NIST 800-61</td><td>Standard IR framework: Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned</td></tr>
+  <tr><td>IR team structure</td><td>Incident commander, subject matter experts by domain, legal, communications, management escalation path</td></tr>
+  <tr><td>Playbook</td><td>Scenario-specific response plan with decision logic, communication templates, linked runbooks</td></tr>
+  <tr><td>Runbook</td><td>Detailed step-by-step procedure for a single technical task</td></tr>
+  <tr><td>Automation (SOAR)</td><td>Accelerates detection-to-response; maintains human approval gates for critical decisions</td></tr>
+  <tr><td>Severity classification</td><td>Low/Medium/High/Critical; determines response level and escalation path</td></tr>
+  <tr><td>Communication plan</td><td>Pre-defined templates for internal, customer, regulatory, and media notification</td></tr>
+  <tr><td>Legal engagement</td><td>Early involvement to ensure attorney-client privilege; shape disclosure strategy</td></tr>
+  <tr><td>Lessons learned</td><td>Post-incident review within 2 weeks; document root cause, improvements, assign follow-up actions</td></tr>
 </table>
 </section>
 

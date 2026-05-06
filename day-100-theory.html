@@ -67,8 +67,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s6">6. Privileged Account Management (PAM)</a></li>
   <li><a href="#s7">7. Service Level Agreements (SLAs)</a></li>
   <li><a href="#s8">8. SOC Structure &amp; Tiers</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s10">10. Key Takeaways</a></li>
+  <li><a href="#s9">9. Personnel Vetting &amp; Background Checks</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -371,6 +372,110 @@ SOC OPERATIONAL FLOW
   <tr><td>SLAs</td><td>Define measurable expectations; include security requirements; must have penalties for non-compliance</td></tr>
   <tr><td>SOC Tiers</td><td>Tier 1 (triage) → Tier 2 (investigate) → Tier 3 (hunt/expert); manager oversees all</td></tr>
   <tr><td>Hybrid SOC</td><td>Most common model — internal core team + MSSP for extended coverage</td></tr>
+</table>
+</section>
+
+<section id="s9">
+<h2>9. Personnel Vetting &amp; Background Checks</h2>
+<h3>Pre-Employment Background Screening</h3>
+<p>Personnel security begins before hire. Baseline controls required for positions with security responsibility or access to sensitive data:</p>
+<table>
+  <tr><th>Check Type</th><th>Scope</th><th>Timeframe</th><th>Risk Addressed</th></tr>
+  <tr><td><strong>Criminal History</strong></td><td>Local, state, federal; international if applying</td><td>7 years typical (or per regulation)</td><td>Theft, violence, fraud history</td></tr>
+  <tr><td><strong>Credit Report</strong></td><td>Full credit history; debt, bankruptcy, late payments</td><td>Full history</td><td>Financial stress leading to embezzlement/bribery</td></tr>
+  <tr><td><strong>Employment Verification</strong></td><td>Prior employers, dates, positions, performance</td><td>5-10 years</td><td>False credentials, unstable work history</td></tr>
+  <tr><td><strong>Education Verification</strong></td><td>Degrees, certifications claimed</td><td>N/A</td><td>Misrepresentation of qualifications</td></tr>
+  <tr><td><strong>Reference Checks</strong></td><td>Direct contacts from prior roles</td><td>N/A</td><td>Character, capability, reliability assessment</td></tr>
+  <tr><td><strong>Drug Screening</strong></td><td>Full panel (federally regulated; varies by industry)</td><td>As prescribed (DOT, defense contractors)</td><td>Safety, reliability, judgment impairment</td></tr>
+  <tr><td><strong>Social Media Vetting</strong></td><td>Public profiles for concerning behavior/affiliations</td><td>Current</td><td>Extremism, discriminatory views, poor judgment</td></tr>
+</table>
+
+<h3>Ongoing Personnel Security & Re-Vetting</h3>
+<table>
+  <tr><th>Activity</th><th>Frequency</th><th>Purpose</th></tr>
+  <tr><td><strong>Annual security training</strong></td><td>Every 12 months</td><td>Awareness of threats, policies, incident reporting</td></tr>
+  <tr><td><strong>Periodic re-vetting</strong></td><td>Every 3-5 years (or per policy)</td><td>Identify new legal, financial, or behavioral concerns</td></tr>
+  <tr><td><strong>Drug/alcohol testing</strong></td><td>Random or targeted (safety-sensitive roles)</td><td>Ongoing fitness for duty</td></tr>
+  <tr><td><strong>Conflict-of-interest review</strong></td><td>Annual + when role changes</td><td>Prevent divided loyalties, insider threats</td></tr>
+  <tr><td><strong>Access certification</strong></td><td>Quarterly or semi-annual</td><td>Verify that actual access matches assigned role</td></tr>
+</table>
+
+<h3>Termination & Off-boarding</h3>
+<ul>
+  <li><strong>Immediate access revocation:</strong> Disable accounts, retrieve badges, equipment on last day or immediately upon notice</li>
+  <li><strong>Data return &amp; verification:</strong> Ensure all company data, devices, and materials are returned and documented</li>
+  <li><strong>Knowledge transfer protocol:</strong> Document critical processes; handoff to successor; remove personal notes/passwords from systems</li>
+  <li><strong>Reference checks for departure:</strong> HR should conduct exit interview and note reason for departure (voluntary, termination, retirement)</li>
+  <li><strong>Post-termination monitoring:</strong> Monitor former employee's accounts for 30-90 days; watch for credential reuse; block re-access</li>
+  <li><strong>NDA &amp; non-compete enforcement:</strong> Ensure departing employee understands legal obligations; document in exit paperwork</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>💡 Exam Tip:</strong> CISSP questions on personnel security often test the difference between onboarding (vetting) and offboarding. Know that immediate, complete access revocation is mandatory, not optional. A common trap: "Can the terminated employee keep access for 2 weeks for knowledge transfer?" Answer: NO — access must be revoked immediately, with documented knowledge transfer happening under supervision with valid credentials.
+</div>
+
+<div class="key-concept callout">
+  <strong>Least Privilege & Need-to-Know Extension:</strong> Personnel vetting ensures you hire trustworthy people. Ongoing monitoring ensures they STAY trustworthy. Even good hires can become threats through financial stress, addiction, coercion, or ideological radicalization. Continuous monitoring (not one-time vetting) is the modern expectation.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Background Check Types — "CREEDS"</strong><br>
+  <strong>C</strong>riminal history<br>
+  <strong>R</strong>eference checks<br>
+  <strong>E</strong>ducation verification<br>
+  <strong>E</strong>mployment history<br>
+  <strong>D</strong>rug screening<br>
+  <strong>S</strong>ocial media vetting<br>
+  "CREEDS = Comprehensive Review Ensures Employee Dependability &amp; Suitability"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Need-to-Know = "What DATA can I see?" (information access)<br>
+  Least Privilege = "What can I DO?" (system permissions)<br>
+  Both say "only what's necessary" — but one is about seeing, the other about doing
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 SoD Purpose — "No Lone Wolf"</strong><br>
+  No single person should be able to complete a critical task alone. If one person can initiate, approve, AND execute — there's no SoD.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Mandatory Vacations — "Vacation = Verification"</strong><br>
+  The vacation isn't for the employee's benefit (though it helps) — it's for the ORGANIZATION to verify what happens when someone else does the job. Consecutive days required.
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 PAM Controls — "VJSPC"</strong><br>
+  <strong>V</strong>ault (password vaulting)<br>
+  <strong>J</strong>IT (just-in-time access)<br>
+  <strong>S</strong>ession recording<br>
+  <strong>P</strong>rivilege escalation approval<br>
+  <strong>C</strong>redential rotation<br>
+  "Very Justified Security Protects Credentials"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Off-boarding — "DRIP"</strong><br>
+  <strong>D</strong>isable accounts immediately<br>
+  <strong>R</strong>etrieve badge, devices, materials<br>
+  <strong>I</strong>nform dependent systems (HR, payroll, facilities)<br>
+  <strong>P</strong>erform exit interview &amp; document departure reason
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Need-to-Know</td><td>Information access control — user sees only data relevant to their role</td></tr>
+  <tr><td>Least Privilege</td><td>System permission control — user can perform only actions necessary for their role</td></tr>
+  <tr><td>SoD</td><td>Critical tasks require multiple people; no one person initiates, approves, and executes alone</td></tr>
+  <tr><td>Mandatory vacation</td><td>Consecutive days off to detect unauthorized activity or hidden fraud when employee is absent</td></tr>
+  <tr><td>PAM</td><td>Control privileged accounts via vault, JIT access, session recording, approval workflows, and credential rotation</td></tr>
+  <tr><td>SLA</td><td>Define measurable security service expectations with specific metrics and penalties</td></tr>
+  <tr><td>SOC Tiers</td><td>Tier 1 (alerts) → Tier 2 (investigation) → Tier 3 (hunt/expert); escalation by severity</td></tr>
+  <tr><td>Background checks</td><td>Pre-hire vetting is foundational; ongoing monitoring and periodic re-vetting are essential</td></tr>
+  <tr><td>Off-boarding</td><td>Immediate, complete access revocation is mandatory; documentation critical for audit/compliance</td></tr>
+  <tr><td>Personnel security</td><td>Vetting before hire, monitoring during employment, complete revocation upon departure</td></tr>
 </table>
 </section>
 

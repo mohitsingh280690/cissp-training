@@ -50,8 +50,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s7">7. NIST Enterprise Architecture</a></li>
   <li><a href="#s8">8. DoDAF &amp; MODAF</a></li>
   <li><a href="#s9">9. Framework Comparison</a></li>
-  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s11">11. Key Takeaways</a></li>
+  <li><a href="#s10">10. Capability Maturity Models (CMM/CMMI)</a></li>
+  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s12">12. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -268,7 +269,35 @@ tr:nth-child(even){background:#f9f9f9;}
 </section>
 
 <section id="s10">
-<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<h2>10. Capability Maturity Models (CMM/CMMI)</h2>
+<div class="callout definition">
+  <strong>📖 Capability Maturity Models:</strong> Process maturity frameworks used to assess how well an organization's engineering and management processes are defined, repeatable, measured, and continuously improved.
+</div>
+
+<h3>CMMI Maturity Levels (1-5)</h3>
+<table>
+  <tr><th>Level</th><th>Name</th><th>Security Engineering Meaning</th></tr>
+  <tr><td>1</td><td>Initial</td><td>Ad-hoc, unpredictable processes; security depends on individual effort</td></tr>
+  <tr><td>2</td><td>Managed</td><td>Basic project discipline exists; repeatable controls in teams</td></tr>
+  <tr><td>3</td><td>Defined</td><td>Organization-wide standard processes are documented and institutionalized</td></tr>
+  <tr><td>4</td><td>Quantitatively Managed</td><td>Processes are measured with metrics and statistical controls</td></tr>
+  <tr><td>5</td><td>Optimizing</td><td>Continuous improvement with root-cause analysis and proactive refinement</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Why CISSP cares:</strong><br>
+  • Mature processes produce predictable security outcomes<br>
+  • Capability maturity helps justify architecture governance decisions<br>
+  • Higher maturity reduces dependency on heroic individuals and improves auditability
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> If a question asks which model measures process maturity and drives continuous improvement, think CMM/CMMI.
+</div>
+</section>
+
+<section id="s11">
+<h2>11. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 "Zachman = Zoo Matrix":</strong> Zachman is a 6×6 grid — a "zoo" of artifacts organized in a matrix. It classifies but doesn't tell you what to do (not a methodology).
 </div>
@@ -284,10 +313,13 @@ tr:nth-child(even){background:#f9f9f9;}
 <div class="callout mnemonic">
   <strong>🧠 "DoDAF = DoD, MODAF = MoD":</strong> U.S. DoD uses DoDAF. UK MoD uses MODAF. Both are military architecture frameworks with viewpoints.
 </div>
+<div class="callout mnemonic">
+  <strong>🧠 "I Manage Data Quantitatively, Optimizing":</strong> CMMI levels = Initial, Managed, Defined, Quantitatively Managed, Optimizing (1→5).
+</div>
 </section>
 
-<section id="s11">
-<h2>11. Key Takeaways</h2>
+<section id="s12">
+<h2>12. Key Takeaways</h2>
 <table>
   <tr><th>Concept</th><th>Key Point</th></tr>
   <tr><td>Zachman</td><td>6×6 classification matrix — describes architecture, not a process</td></tr>
@@ -297,6 +329,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>NIST EA</td><td>5 reference models for U.S. federal agencies</td></tr>
   <tr><td>DoDAF</td><td>U.S. DoD architecture framework — 8 viewpoints</td></tr>
   <tr><td>MODAF</td><td>UK MoD adaptation of DoDAF for NATO interoperability</td></tr>
+  <tr><td>CMM/CMMI</td><td>Measures and improves process maturity from ad-hoc (Level 1) to optimizing (Level 5)</td></tr>
   <tr><td>Exam Strategy</td><td>Match keyword to framework: 6×6 = Zachman, ADM = TOGAF, business-risk-security = SABSA, military = DoDAF/MODAF</td></tr>
 </table>
 </section>

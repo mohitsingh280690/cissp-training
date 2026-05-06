@@ -125,6 +125,20 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>Physical destruction</td><td>Cutting cables, damaging hardware</td><td>Redundant paths, physical security, cable plant protection</td></tr>
 </table>
 
+<h3>Transmission Media Security Considerations</h3>
+<table>
+  <tr><th>Media Type</th><th>Security Characteristics</th><th>CISSP Design Implication</th></tr>
+  <tr><td>UTP (Unshielded Twisted Pair)</td><td>Low cost and common; more susceptible to EMI/crosstalk and easier physical tapping than fiber</td><td>Use in controlled office runs; protect pathways and telecom closets</td></tr>
+  <tr><td>STP (Shielded Twisted Pair)</td><td>Better resistance to interference when properly grounded</td><td>Prefer in high-noise environments (industrial floors, dense cable routes)</td></tr>
+  <tr><td>Coaxial</td><td>More resistant to interference than UTP; still physically tappable</td><td>Less common in LAN edge, still seen in specialized links and legacy infrastructure</td></tr>
+  <tr><td>Fiber Optic</td><td>No electromagnetic radiation leakage and difficult to tap without noticeable signal loss</td><td>Preferred for high-security backbone links and long-distance segments</td></tr>
+  <tr><td>Wireless RF</td><td>No physical boundary; signals may extend outside facility perimeter</td><td>Requires strong crypto, directional design, and RF/site surveys</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Practical Rule:</strong> Media choice is a security decision, not just a bandwidth decision. For sensitive links, favor fiber, protected conduits, and controlled physical pathways to reduce interception and disruption risk.
+</div>
+
 <div class="callout exam-tip">
   <strong>💡 Exam Tip:</strong> A <strong>hub</strong> operates at Layer 1 — it repeats signals to all ports (no intelligence). A <strong>switch</strong> operates at Layer 2 — it uses MAC addresses to forward frames only to the correct port. Know this distinction.
 </div>
@@ -271,6 +285,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><th>Concept</th><th>Key Point</th></tr>
   <tr><td>OSI Model</td><td>7-layer framework: Physical → Data Link → Network → Transport → Session → Presentation → Application</td></tr>
   <tr><td>Layer 1 (Physical)</td><td>Bits; hubs, cables; TEMPEST, wiretapping threats</td></tr>
+  <tr><td>Transmission Media Security</td><td>Fiber offers stronger interception resistance; cable pathway and shielding choices materially affect risk</td></tr>
   <tr><td>Layer 2 (Data Link)</td><td>Frames; switches; MAC addresses; ARP spoofing, VLAN hopping, MAC flooding</td></tr>
   <tr><td>Layer 3 (Network)</td><td>Packets; routers; IP addresses; IP spoofing, ICMP attacks, IPSec operates here</td></tr>
   <tr><td>Layer 4 (Transport)</td><td>Segments/datagrams; TCP (reliable) vs UDP (fast); port numbers; SYN flood</td></tr>

@@ -64,7 +64,7 @@ tr:nth-child(even){background:#f9f9f9;}
 <h2>1. Domain 4 Scope &amp; Coverage (Days 53–69)</h2>
 <table>
   <tr><th>Day</th><th>Topic</th><th>Key Concepts</th></tr>
-  <tr><td>53</td><td>OSI Layers 1–4</td><td>Physical, Data Link, Network, Transport; MAC, IP, TCP/UDP, ARP, ICMP</td></tr>
+  <tr><td>53</td><td>OSI Layers 1–4</td><td>Physical, Data Link, Network, Transport; MAC, IP, TCP/UDP, ARP, ICMP; transmission media security (UTP/STP/fiber, EMI/TEMPEST)</td></tr>
   <tr><td>54</td><td>OSI Layers 5–7</td><td>Session, Presentation, Application; TLS, encryption at L6; DNS, HTTP, FTP at L7</td></tr>
   <tr><td>55</td><td>TCP/IP Protocols</td><td>TCP 3-way handshake (SYN/SYN-ACK/ACK); UDP connectionless; ICMP types 0/3/5/8/11</td></tr>
   <tr><td>56</td><td>Network Addressing</td><td>IPv4 CIDR, subnetting, RFC 1918; IPv6 128-bit, link-local (FE80::), NDP replaces ARP</td></tr>
@@ -75,7 +75,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>61</td><td>IDS/IPS</td><td>NIDS/NIPS (network), HIDS/HIPS (host); sig/anomaly/heuristic; FPs vs. FNs; Snort/Suricata</td></tr>
   <tr><td>62</td><td>VPN Technologies</td><td>IPSec (AH/ESP), IKEv1/v2, Transport/Tunnel mode, SSL VPN, L2TP; split tunneling risk</td></tr>
   <tr><td>63</td><td>Wireless Security</td><td>WEP (broken) → WPA (TKIP) → WPA2 (AES-CCMP) → WPA3 (SAE); 802.1X+RADIUS+EAP</td></tr>
-  <tr><td>64</td><td>Network Attacks</td><td>DoS/DDoS; Smurf; SYN flood; amplification; MitM; replay; session hijacking; ARP poisoning; DNS attacks; botnet/C2</td></tr>
+  <tr><td>64</td><td>Network Attacks</td><td>DoS/DDoS; Smurf; SYN flood; amplification; MitM; replay; session hijacking; ARP poisoning; IPv6 attacks (RA/NDP/DHCPv6); DNS attacks; botnet/C2</td></tr>
   <tr><td>65</td><td>Email Security</td><td>SMTP/POP3/IMAP ports; S/MIME; PGP; SPF; DKIM; DMARC; SEG; phishing/BEC</td></tr>
   <tr><td>66</td><td>Secure Communications</td><td>TLS 1.3 (forward secrecy mandatory); HTTPS/HSTS; SSH; SFTP vs FTPS vs SCP; SIP/SRTP; Signal Protocol</td></tr>
   <tr><td>67</td><td>CDN &amp; Network Optimization</td><td>CDN (anycast, DDoS absorption); L4 vs L7 LB; reverse proxy; caching; SD-WAN; SASE</td></tr>
@@ -173,6 +173,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>Replay Attack</td><td>Capture and retransmit valid auth/transaction token</td><td>Nonce; timestamp; sequence numbers</td></tr>
   <tr><td>Session Hijacking (Cookie)</td><td>Steal session cookie via XSS or sniffing</td><td>HttpOnly + Secure cookie flags; HTTPS everywhere; session regeneration on auth</td></tr>
   <tr><td>IP Spoofing</td><td>Forge source IP in packet headers</td><td>BCP38; uRPF; cryptographic authentication</td></tr>
+  <tr><td>IPv6 RA/NDP Attacks</td><td>Rogue router advertisements and neighbor-cache poisoning redirect traffic</td><td>RA Guard; NDP inspection/monitoring; trusted IPv6 infrastructure ports</td></tr>
   <tr><td>DNS Tunneling</td><td>Encode C2/exfil data in DNS queries/responses</td><td>DNS query monitoring; anomaly detection; internal DNS resolver only</td></tr>
 </table>
 </section>
@@ -295,6 +296,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>Protocol 50 / 51</td><td>IPSec ESP (50) / AH (51)</td></tr>
   <tr><td>UDP 500 / 4500</td><td>IKE key exchange (500) / NAT-T for IPSec (4500)</td></tr>
   <tr><td>UDP 1812, 1813</td><td>RADIUS auth (1812) / accounting (1813)</td></tr>
+  <tr><td>40-byte header</td><td>Fixed base IPv6 header size (extension headers optional)</td></tr>
   <tr><td>BCP38</td><td>IETF Best Current Practice — ingress filtering to prevent IP spoofing at ISP level</td></tr>
 </table>
 </section>

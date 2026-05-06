@@ -50,8 +50,9 @@ pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:a
   <li><a href="#s6">6. Trusted Platform Module (TPM)</a></li>
   <li><a href="#s7">7. Hardware Security Module (HSM)</a></li>
   <li><a href="#s8">8. Trusted Paths &amp; Trusted Channels</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s10">10. Key Takeaways</a></li>
+  <li><a href="#s9">9. Secure Site &amp; Facility Design Principles</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s11">11. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -250,7 +251,36 @@ pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:a
 </section>
 
 <section id="s9">
-<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<h2>9. Secure Site &amp; Facility Design Principles</h2>
+<div class="callout definition">
+  <strong>📖 Secure Site/Facility Design:</strong> Applying security engineering to the physical environment so systems remain available, safe, and resilient against physical and environmental threats.
+</div>
+
+<table>
+  <tr><th>Control Area</th><th>What to Implement</th><th>CISSP Architecture Rationale</th></tr>
+  <tr><td>Perimeter Security</td><td>Fencing, barriers, bollards, security lighting, guarded entrances</td><td>Creates a layered boundary before attackers reach critical assets</td></tr>
+  <tr><td>Controlled Entry</td><td>Badges, mantraps, turnstiles, anti-tailgating controls, visitor logs</td><td>Implements physical access control and accountability</td></tr>
+  <tr><td>Surveillance & Detection</td><td>CCTV, motion sensors, door contacts, alarms integrated with SOC</td><td>Provides deterrence, detection, and forensic evidence</td></tr>
+  <tr><td>Environmental Controls</td><td>HVAC, humidity monitoring, leak detection, temperature alarms</td><td>Protects hardware reliability and service availability</td></tr>
+  <tr><td>Power Resilience</td><td>UPS, generators, conditioned power, redundant feeds</td><td>Maintains availability during utility disruption</td></tr>
+  <tr><td>Fire Safety</td><td>Early smoke detection, clean-agent suppression, zoned shutdown</td><td>Reduces facility damage while protecting people and equipment</td></tr>
+  <tr><td>Life Safety</td><td>Emergency exits, muster plans, safety training, clear signage</td><td>People safety always takes priority over asset protection</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Design Approach:</strong><br>
+  • Use defense in depth physically just like you do logically<br>
+  • Prioritize life safety first, then availability, then asset protection<br>
+  • Treat facility controls as part of the system security architecture baseline
+</div>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> In scenario questions, the best answer usually applies layered controls and addresses life safety before equipment recovery.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 "TCB = Trusted Core Building":</strong> The TCB is the core building of security — if any brick in the foundation fails, the whole building collapses. Keep it as small as possible.
 </div>
@@ -266,10 +296,13 @@ pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:a
   • TPM is a chip IN your PC (motherboard)<br>
   • HSM is a separate machine for high-security crypto operations
 </div>
+<div class="callout mnemonic">
+  <strong>🧠 "P-C-S-E-P-F-L":</strong> Perimeter, Controlled entry, Surveillance, Environmental, Power, Fire, Life safety.
+</div>
 </section>
 
-<section id="s10">
-<h2>10. Key Takeaways</h2>
+<section id="s11">
+<h2>11. Key Takeaways</h2>
 <table>
   <tr><th>Concept</th><th>Key Point</th></tr>
   <tr><td>TCB</td><td>Total protection mechanisms (HW + FW + SW) enforcing security policy; keep small</td></tr>
@@ -280,6 +313,7 @@ pre{background:#263238;color:#eeffff;padding:18px;border-radius:8px;overflow-x:a
   <tr><td>HSM</td><td>Standalone device; high-value key management; PKI, payments; FIPS 140-2/3</td></tr>
   <tr><td>Trusted Path</td><td>User ↔ TCB secure channel (e.g., Ctrl+Alt+Del)</td></tr>
   <tr><td>Covert Channel</td><td>Unauthorized info transfer bypassing security policy (storage or timing)</td></tr>
+  <tr><td>Site/Facility Design</td><td>Layer perimeter, entry, surveillance, environmental, and power/fire controls; prioritize life safety</td></tr>
 </table>
 </section>
 
