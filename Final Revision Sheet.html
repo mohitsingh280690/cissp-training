@@ -69,8 +69,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .exam-tip strong{color:var(--green);}
 .warning{background:#fce4ec;border-left:4px solid var(--red);padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-size:.92rem;}
 .warning strong{color:var(--red);}
-.mnemonic{background:#f3e5f5;border-left:4px solid var(--purple);padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-size:.92rem;}
-.mnemonic strong{color:var(--purple);}
 .formula{background:#e8eaf6;border:2px solid var(--primary);border-radius:6px;padding:12px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:1rem;}
 
 /* === Tables === */
@@ -108,7 +106,7 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
   .domain-section:first-of-type{page-break-before:avoid;}
   .domain-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .sub-section{page-break-inside:avoid;}
-  .definition,.key-concept,.exam-tip,.warning,.mnemonic,.formula{page-break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .definition,.key-concept,.exam-tip,.warning,.formula{page-break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   table{page-break-inside:avoid;font-size:9pt;}
   th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .no-print{display:none;}
@@ -132,7 +130,7 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
   /* Allow large sub-sections to break across pages naturally */
   .sub-section{page-break-inside:auto;break-inside:auto;}
   /* Only avoid mid-element breaks for small callout boxes */
-  .exam-tip,.warning,.key-concept,.definition,.mnemonic,.formula{page-break-inside:avoid;break-inside:avoid;}
+  .exam-tip,.warning,.key-concept,.definition,.formula{page-break-inside:avoid;break-inside:avoid;}
   /* Keep table rows together */
   tr{page-break-inside:avoid;break-inside:avoid;}
   /* Keep headings with the content that follows */
@@ -198,7 +196,7 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td><strong>Thursday</strong></td><td>D5</td><td>13%</td><td>Authentication, Biometrics, SSO, Kerberos, SAML/OAuth, Authorization</td></tr>
     <tr><td><strong>Friday</strong></td><td>D6 + D8</td><td>22%</td><td>Pen Testing, Audits, SOC Reports, SDLC, Secure Coding, OWASP</td></tr>
     <tr><td><strong>Saturday</strong></td><td>D7</td><td>13%</td><td>Incident Response, Forensics, SIEM, DRP, Backup, Physical Security</td></tr>
-    <tr><td><strong>Sunday</strong></td><td>Cross-Review</td><td>100%</td><td>Formulas, Mnemonics, Exam Traps, Weak Areas, Brain Dump Practice</td></tr>
+    <tr><td><strong>Sunday</strong></td><td>Cross-Review</td><td>100%</td><td>Formulas, Exam Traps, Weak Areas, Concept Contrasts, Brain Dump Practice</td></tr>
   </table>
 </div>
 
@@ -223,7 +221,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d1-12">1.12 Personnel Security Policies</a></li>
         <li><a href="#d1-13">1.13 Security Awareness, Education &amp; Training</a></li>
         <li><a href="#d1-formulas">Domain 1 Formulas</a></li>
-        <li><a href="#d1-mnemonics">Domain 1 Mnemonics Master List</a></li>
         <li><a href="#d1-traps">Domain 1 Exam Traps</a></li>
       </ul>
     </li>
@@ -239,7 +236,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d2-7">2.7 Data Security Controls</a></li>
         <li><a href="#d2-8">2.8 Data Loss Prevention (DLP)</a></li>
         <li><a href="#d2-9">2.9 GDPR Framework</a></li>
-        <li><a href="#d2-mnemonics">Domain 2 Mnemonics</a></li>
         <li><a href="#d2-traps">Domain 2 Exam Traps</a></li>
       </ul>
     </li>
@@ -267,7 +263,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d3-18">3.18 Memory Types &amp; Architecture</a></li>
         <li><a href="#d3-19">3.19 Cloud Deployment Models</a></li>
         <li><a href="#d3-formulas">Domain 3 Formulas &amp; Key Numbers</a></li>
-        <li><a href="#d3-mnemonics">Domain 3 Mnemonics</a></li>
         <li><a href="#d3-traps">Domain 3 Exam Traps</a></li>
       </ul>
     </li>
@@ -284,7 +279,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d4-8">4.8 Email Security (SPF/DKIM/DMARC)</a></li>
         <li><a href="#d4-9">4.9 Modern Architectures (Zero Trust, SASE)</a></li>
         <li><a href="#d4-formulas">Domain 4 Key Ports &amp; Numeric Facts</a></li>
-        <li><a href="#d4-mnemonics">Domain 4 Mnemonics</a></li>
         <li><a href="#d4-traps">Domain 4 Exam Traps</a></li>
       </ul>
     </li>
@@ -298,7 +292,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d5-5">5.5 Privileged Access Management (PAM)</a></li>
         <li><a href="#d5-6">5.6 Access Review &amp; Federation</a></li>
         <li><a href="#d5-formulas">Domain 5 Formulas &amp; Key Numbers</a></li>
-        <li><a href="#d5-mnemonics">Domain 5 Mnemonics</a></li>
         <li><a href="#d5-traps">Domain 5 Exam Traps</a></li>
       </ul>
     </li>
@@ -312,7 +305,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d6-5">6.5 Software Testing Methods</a></li>
         <li><a href="#d6-6">6.6 Security Metrics, KPIs &amp; KRIs</a></li>
         <li><a href="#d6-formulas">Domain 6 Formulas &amp; Key Numbers</a></li>
-        <li><a href="#d6-mnemonics">Domain 6 Mnemonics</a></li>
         <li><a href="#d6-traps">Domain 6 Exam Traps</a></li>
       </ul>
     </li>
@@ -329,7 +321,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d7-7">7.7 Patch, Vulnerability &amp; Threat Management</a></li>
         <li><a href="#d7-8">7.8 AI/ML Operational Threats</a></li>
         <li><a href="#d7-formulas">Domain 7 Formulas &amp; Key Numbers</a></li>
-        <li><a href="#d7-mnemonics">Domain 7 Mnemonics</a></li>
         <li><a href="#d7-traps">Domain 7 Exam Traps</a></li>
       </ul>
     </li>
@@ -343,7 +334,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
         <li><a href="#d8-4">8.4 Software Supply Chain &amp; Maturity Models</a></li>
         <li><a href="#d8-5">8.5 AI/ML Security Considerations</a></li>
         <li><a href="#d8-formulas">Domain 8 Key Reference Values</a></li>
-        <li><a href="#d8-mnemonics">Domain 8 Mnemonics</a></li>
         <li><a href="#d8-traps">Domain 8 Exam Traps</a></li>
       </ul>
     </li>
@@ -372,8 +362,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td>3</td><td><strong>Provide Diligent Service</strong></td><td>Competent service to principals</td><td>Don't practice outside your competence</td></tr>
     <tr><td>4</td><td><strong>Advance the Profession</strong></td><td>Personal development, professional integrity</td><td>Self-interest is ALWAYS last</td></tr>
   </table>
-  <div class="mnemonic"><strong>🧠 Mnemonic — "SAPA":</strong> Society → Act honourably → Provide service → Advance profession. <em>"Society Always Precedes Ambition."</em></div>
-
   <h4>Ethical Frameworks</h4>
   <ul>
     <li><strong>Computer Ethics Institute 10 Commandments:</strong> No harm, no interference, no snooping, no theft, no false testimony, pay for software, respect IP, think of social consequences</li>
@@ -604,8 +592,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <li><strong>Informative:</strong> Educational, no enforcement (security awareness newsletter)</li>
   </ul>
 
-  <div class="mnemonic"><strong>🧠 Hierarchy Mnemonic — "Please Stop Playing Basketball, Gary":</strong> Policy → Standard → Procedure → Baseline → Guideline (most to least authoritative).</div>
-
   <div class="warning"><strong>⚠️ Exam Trap:</strong> Policy = WHY (strategic, rarely changes). Standard = mandatory WHAT. Guideline = optional HOW. Procedure = mandatory step-by-step HOW. The exam LOVES testing this hierarchy.</div>
 </div>
 
@@ -666,8 +652,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td><strong>Avoid</strong></td><td>Eliminate the risky activity</td><td><strong>Zero</strong> (only response = 0)</td><td>Discontinue CC storage</td></tr>
   </table>
 
-  <div class="mnemonic"><strong>🧠 "MATA" — Risk kills you if you don't respond.</strong> Mitigate · Accept · Transfer · Avoid. Only <strong>Avoid</strong> eliminates risk entirely.</div>
-
   <h4>Control Types Matrix</h4>
   <table>
     <tr><th>Function ↓ / Category →</th><th>Administrative</th><th>Technical</th><th>Physical</th></tr>
@@ -682,8 +666,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
   <div class="warning"><strong>⚠️ Exam Trap:</strong> "Ignore" is NOT a valid risk response. The correct term is <strong>Accept</strong> (documented, conscious management decision). Transfer shifts <strong>financial burden</strong> but NOT legal accountability.</div>
 
   <h4>NIST RMF 7 Steps</h4>
-  <div class="mnemonic"><strong>🧠 "Please Can Sally Implement All Authorised Monitoring":</strong> Prepare → Categorise → Select → Implement → Assess → Authorise → Monitor</div>
-
   <h4>Continuous Improvement &amp; Risk Maturity</h4>
   <div class="key-concept"><strong>Risk Maturity Levels:</strong> Ad Hoc (1) → Repeatable (2) → Defined (3) → Managed (4) → Optimised (5). Higher maturity = consistent, measured, continuously improving risk practices.<br>
   <strong>Continuous improvement</strong> requires: regular risk reassessment, updated threat landscape analysis, control effectiveness reviews, KRI/KPI tracking, and lessons learned integration.</div>
@@ -806,8 +788,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td><strong>Mobile</strong></td><td>Hours</td><td>Medium</td><td>Variable</td><td>Portable pre-configured container</td></tr>
     <tr><td><strong>Reciprocal</strong></td><td>Variable</td><td>Low</td><td>Variable</td><td>Peer agreement — unreliable</td></tr>
   </table>
-  <div class="mnemonic"><strong>🧠 HOT → WARM → COLD = READY → SOON → LATER.</strong> Temperature = urgency = expense.</div>
-
   <h4>BCP Testing Types (Least → Most Disruptive)</h4>
   <table>
     <tr><th>Test Type</th><th>Disruption</th><th>Description</th></tr>
@@ -817,8 +797,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td>4. Parallel Test</td><td>Medium</td><td>Activate recovery site while primary runs</td></tr>
     <tr><td>5. Full Interruption</td><td>High</td><td>Shut down primary, switch to backup (most realistic)</td></tr>
   </table>
-  <div class="mnemonic"><strong>🧠 "Can This Walk? Simulate Parallel Full!"</strong> Checklist → Tabletop → Walkthrough → Simulation → Parallel → Full Interruption</div>
-
   <h4>Vital Records &amp; Plan Components</h4>
   <ul>
     <li><strong>Vital Records:</strong> Legal, operational, emergency documents — store offsite in multiple copies</li>
@@ -878,8 +856,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <tr><td><strong>Training</strong></td><td>Role-specific groups</td><td>Skills-based — measurable</td><td>Secure coding for devs, BEC for finance</td></tr>
     <tr><td><strong>Education</strong></td><td>Security professionals</td><td>Deep — conceptual</td><td>CISSP, university programmes, SANS</td></tr>
   </table>
-  <div class="mnemonic"><strong>🧠 "ATE":</strong> Awareness (Everyone) → Training (Role groups) → Education (Experts). Broader audience = shallower depth.</div>
-
   <h4>Social Engineering Vectors</h4>
   <table>
     <tr><th>Vector</th><th>Method</th><th>Defence</th></tr>
@@ -926,30 +902,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
     <strong>Risk Equation:</strong><br>
     Risk = Threat × Vulnerability × Impact
   </div>
-</div>
-
-<!-- ===== Domain 1 Mnemonics ===== -->
-<div class="sub-section" id="d1-mnemonics">
-  <h3>Domain 1 — Mnemonics Master List</h3>
-
-  <table>
-    <tr><th>Topic</th><th>Mnemonic</th><th>Expands To</th></tr>
-    <tr><td>Ethics Canons</td><td><strong>SAPA</strong></td><td>Society → Act honourably → Provide service → Advance profession</td></tr>
-    <tr><td>Policy Hierarchy</td><td><strong>"Please Stop Playing Basketball, Gary"</strong></td><td>Policy → Standard → Procedure → Baseline → Guideline</td></tr>
-    <tr><td>Risk Response</td><td><strong>MATA</strong></td><td>Mitigate → Accept → Transfer → Avoid</td></tr>
-    <tr><td>BIA Metrics</td><td><strong>"The Four Clocks"</strong></td><td>MTD → RTO → RPO → WRT</td></tr>
-    <tr><td>NIST CSF 2.0</td><td><strong>GI-PD-RR</strong></td><td>Govern → Identify → Protect → Detect → Respond → Recover</td></tr>
-    <tr><td>NIST RMF</td><td><strong>"Please Can Sally Implement All Authorised Monitoring"</strong></td><td>Prepare → Categorise → Select → Implement → Assess → Authorise → Monitor</td></tr>
-    <tr><td>STRIDE</td><td><strong>S-T-R-I-D-E</strong></td><td>Spoofing · Tampering · Repudiation · Information Disclosure · DoS · Elevation</td></tr>
-    <tr><td>BCP Testing</td><td><strong>"Can This Walk? Simulate Parallel Full!"</strong></td><td>Checklist → Tabletop → Walkthrough → Simulation → Parallel → Full Interruption</td></tr>
-    <tr><td>Recovery Sites</td><td><strong>HOT→WARM→COLD</strong></td><td>Ready → Soon → Later (temp = urgency = cost)</td></tr>
-    <tr><td>Employment Lifecycle</td><td><strong>HEAPS</strong></td><td>Hire → Employ (agreements) → Access → Practice → Separation</td></tr>
-    <tr><td>Awareness Tiers</td><td><strong>ATE</strong></td><td>Awareness → Training → Education (wider = shallower)</td></tr>
-    <tr><td>Due Care vs Diligence</td><td><strong>Care=Act, Diligence=Check</strong></td><td>Due Care = doing right; Due Diligence = verifying</td></tr>
-    <tr><td>GDPR Principles</td><td><strong>LPDA-SIA</strong></td><td>Lawfulness · Purpose · Data min · Accuracy · Storage · Integrity · Accountability</td></tr>
-    <tr><td>Negligence</td><td><strong>D-B-C-D</strong></td><td>Duty → Breach → Causation → Damages</td></tr>
-    <tr><td>OECD Privacy</td><td><strong>8 principles</strong></td><td>Collection · Quality · Purpose · Use · Security · Openness · Participation · Accountability</td></tr>
-  </table>
 </div>
 
 <!-- ===== Domain 1 Exam Traps ===== -->
@@ -1048,7 +1000,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <tr><td><strong>5. Archive</strong></td><td>Long-term compliant storage, retention schedules, encryption key preservation</td></tr>
 <tr><td><strong>6. Destroy</strong></td><td>NIST 800-88 sanitisation (Clear/Purge/Destroy), Certificate of Destruction</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 Mnemonic: "Create Store Use Share Archive Destroy" = CSUSAD → "Cats Sleep Under Soft Autumn Duvets"</strong></div>
 </div>
 
 <!-- D2-4: Data Handling & Marking -->
@@ -1100,8 +1051,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <tr><td><strong>Purge</strong></td><td>Degaussing, ATA Secure Erase, crypto-erase</td><td>Defeats forensic lab</td><td>Usually</td></tr>
 <tr><td><strong>Destroy</strong></td><td>Shredding, incineration, disintegration</td><td>Media non-functional</td><td>No</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "CPD — Can Parrots Dance?"</strong> — Clear → Purge → Destroy (escalating permanence)</div>
-
 <h4>Critical Degaussing Rules</h4>
 <div class="key-concept"><strong>Degaussing works on:</strong> ✅ Spinning HDDs, ✅ Magnetic tape<br>
 <strong>Degaussing has NO effect on:</strong> ❌ SSDs, ❌ Flash drives, ❌ NVMe, ❌ Optical (CD/DVD), ❌ Smartphones, ❌ SD cards</div>
@@ -1138,8 +1087,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <tr><td><strong>In Transit</strong></td><td>Network, Internet, VPN</td><td>TLS 1.3, IPSec, SSH, HTTPS</td></tr>
 <tr><td><strong>In Use</strong></td><td>CPU, RAM, registers</td><td>TEE (SGX, TrustZone), homomorphic encryption</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "RAT":</strong> Rest (AES/FDE), Air/transit (TLS/IPSec), Thinking/use (TEE/SGX)</div>
-
 <h4>Key Security Technologies</h4>
 <table>
 <tr><th>Technology</th><th>Purpose</th></tr>
@@ -1173,8 +1120,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <div class="key-concept"><strong>L-P-D-A-S-I-A:</strong> Lawfulness · Purpose limitation · Data minimisation · Accuracy · Storage limitation · Integrity &amp; Confidentiality · Accountability</div>
 
 <h4>Data Subject Rights (8 Rights)</h4>
-<div class="mnemonic"><strong>🧠 "I ACCESS DP":</strong> Informed · Access · Correction · Curtail (restrict) · Erasure · Switching (portability) · Stop (object) · Decision-making · Profiling</div>
-
 <h4>Key GDPR Rules</h4>
 <table>
 <tr><th>Topic</th><th>Rule</th></tr>
@@ -1195,24 +1140,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 </table>
 <div class="warning"><strong>⚠ Schrems II (2020):</strong> Invalidated Privacy Shield. SCCs now require Transfer Impact Assessments (TIAs).<br>
 <strong>⚠ DPO Conflict Trap:</strong> DPO cannot simultaneously be CISO, IT Director, CEO, or any role determining processing purposes.</div>
-</div>
-
-<!-- D2 Mnemonics Collection -->
-<div class="sub-section" id="d2-mnemonics">
-<h3>Domain 2 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"Cats Sleep Under Soft Autumn Duvets"</strong></td><td>Data Lifecycle: Create, Store, Use, Share, Archive, Destroy</td></tr>
-<tr><td>2</td><td><strong>"CPD — Can Parrots Dance?"</strong></td><td>Sanitisation: Clear → Purge → Destroy</td></tr>
-<tr><td>3</td><td><strong>"RAT"</strong></td><td>Data states: Rest, Air/transit, Thinking/use</td></tr>
-<tr><td>4</td><td><strong>"NEC"</strong></td><td>DLP types: Network, Endpoint, Cloud/CASB</td></tr>
-<tr><td>5</td><td><strong>"MAB"</strong></td><td>DLP sequence: Monitor, Alert, Block</td></tr>
-<tr><td>6</td><td><strong>"SSD = Sad, Stubborn Data"</strong></td><td>Overwriting doesn't work, degaussing worthless; use crypto-erase</td></tr>
-<tr><td>7</td><td><strong>"Cloud Key = Cloud Bye"</strong></td><td>Destroy encryption key = destroy all cloud copies</td></tr>
-<tr><td>8</td><td><strong>"I ACCESS DP"</strong></td><td>GDPR data subject rights</td></tr>
-<tr><td>9</td><td><strong>"L-P-D-A-S-I-A"</strong></td><td>GDPR 7 principles</td></tr>
-<tr><td>10</td><td><strong>"72 → SA; High Risk → Subject"</strong></td><td>GDPR breach notification timeline</td></tr>
-</table>
 </div>
 
 <!-- D2 Exam Traps -->
@@ -1268,7 +1195,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <tr><td><strong>Psychological Acceptability</strong></td><td>Security must not make system unusable</td></tr>
 <tr><td><strong>Fail-Safe Defaults</strong></td><td>Default = deny access; explicitly grant</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "LESS COPS":</strong> Least privilege · Economy · Separation (privilege) · Separation (duties) · Complete mediation · Open design · Psychological acceptability · Safe defaults</div>
 </div>
 
 <!-- D3-2: Security Models -->
@@ -1280,8 +1206,6 @@ code{background:#f0f0f0;padding:2px 5px;border-radius:3px;font-size:.85em;}
 <strong>Simple Security (ss):</strong> No Read Up — subject cannot read object at higher clearance<br>
 <strong>Star Property (*-property):</strong> No Write Down — subject cannot write to object at lower clearance<br>
 <strong>Strong Star:</strong> Read + Write only at own level</div>
-<div class="mnemonic"><strong>🧠 "WURD":</strong> Write Up, Read Down (what BLP allows) — OR "No Read Up, No Write Down"</div>
-
 <h4>Biba — Integrity</h4>
 <div class="definition"><strong>Purpose:</strong> Protects INTEGRITY (opposite of BLP).<br>
 <strong>Simple Integrity:</strong> No Read Down — don't read from lower integrity (no contamination)<br>
@@ -1333,8 +1257,6 @@ Enforces <strong>well-formed transactions</strong> and <strong>separation of dut
 <div class="key-concept"><strong>PP (Protection Profile):</strong> Customer requirements ("what the community needs")<br>
 <strong>ST (Security Target):</strong> Vendor's claims ("what the product does")<br>
 <strong>TOE (Target of Evaluation):</strong> The actual product being evaluated</div>
-<div class="mnemonic"><strong>🧠 "PP = People Profile; ST = Seller Target; TOE = Thing Evaluated"</strong></div>
-
 <h4>EAL Levels Quick Reference</h4>
 <table>
 <tr><th>EAL</th><th>Name</th><th>Key Point</th></tr>
@@ -1521,7 +1443,6 @@ Enforces <strong>well-formed transactions</strong> and <strong>separation of dut
 <tr><td><strong>GCM</strong></td><td>Nonce</td><td>✅</td><td>✅</td><td>Both</td></tr>
 </table>
 <div class="warning"><strong>⚠ ECB penguin:</strong> Identical plaintext blocks → identical ciphertext blocks (patterns leak). NEVER use ECB.</div>
-<div class="mnemonic"><strong>🧠 "GCM = Gets both Confidentiality &amp; Message auth"</strong> / <strong>"DES = 56-64-16"</strong> / <strong>"AES block = 128 ALWAYS"</strong></div>
 </div>
 
 <!-- D3-11: Asymmetric Encryption -->
@@ -1685,7 +1606,6 @@ Archive encryption keys (old data). NEVER archive signing keys. Use CSPRNG + FIP
 <tr><td><strong>Compartmented</strong></td><td>ALL users cleared to HIGHEST level</td><td>NtK + formal approval for compartments</td><td>Compartment-based</td><td>Adds compartment approval beyond clearance + NtK</td></tr>
 <tr><td><strong>Multilevel</strong></td><td>NOT all users cleared to highest</td><td>NtK required</td><td>Label-based (MAC)</td><td>Users at different clearance levels; BLP/Biba enforced by system; MOST complex</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "Does She Cook Meals?"</strong> — Dedicated → System High → Compartmented → Multilevel (increasing complexity, decreasing trust assumptions)</div>
 <div class="warning"><strong>⚠️ Exam Trap:</strong> Dedicated = simplest (everyone cleared for everything). Multilevel = most complex (different clearances coexist). System High vs Compartmented: both require full clearance, but compartmented adds formal compartment approval.</div>
 </div>
 
@@ -1783,31 +1703,6 @@ EAL 5–7: require semi-formal or formal proofs — rarely achieved outside gove
 </div>
 </div>
 
-<!-- D3 Mnemonics Collection -->
-<div class="sub-section" id="d3-mnemonics">
-<h3>Domain 3 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"LESS COPS"</strong></td><td>Saltzer &amp; Schroeder 8 principles</td></tr>
-<tr><td>2</td><td><strong>"WURD" (Write Up Read Down)</strong></td><td>What BLP allows (opposite = what it blocks)</td></tr>
-<tr><td>3</td><td><strong>"PP = People Profile; ST = Seller Target; TOE = Thing Evaluated"</strong></td><td>Common Criteria components</td></tr>
-<tr><td>4</td><td><strong>"GCM = Gets Confidentiality &amp; Message auth"</strong></td><td>Only AEAD mode on the exam</td></tr>
-<tr><td>5</td><td><strong>"DES = 56-64-16"</strong></td><td>DES key-block-rounds</td></tr>
-<tr><td>6</td><td><strong>"AES block = 128 ALWAYS"</strong></td><td>Key varies (128/192/256) but block never changes</td></tr>
-<tr><td>7</td><td><strong>"RSA Does It All (E/D/K)"</strong></td><td>Encrypt, Digital sign, Key exchange</td></tr>
-<tr><td>8</td><td><strong>"ECC Punches Above Its Weight"</strong></td><td>ECC-256 ≈ RSA-3072</td></tr>
-<tr><td>9</td><td><strong>"Sym = n(n−1)/2; Asym = 2n"</strong></td><td>Key count formulas</td></tr>
-<tr><td>10</td><td><strong>"MD5 &amp; SHA-1 are DEAD; SHA-2 = standard; SHA-3 = spare"</strong></td><td>Hash algorithm status</td></tr>
-<tr><td>11</td><td><strong>"Salt Pepper Stretch"</strong></td><td>Password hashing best practices</td></tr>
-<tr><td>12</td><td><strong>"Never escrow signatures"</strong></td><td>Key escrow rule</td></tr>
-<tr><td>13</td><td><strong>"CPTED = See Naturally"</strong></td><td>Natural Surveillance, Natural Access, Territorial Reinforcement</td></tr>
-<tr><td>14</td><td><strong>"Blackout = Both (UPS + Gen)"</strong></td><td>Total loss needs short-term + long-term power</td></tr>
-<tr><td>15</td><td><strong>"Does She Cook Meals?"</strong></td><td>Security modes: Dedicated → System High → Compartmented → Multilevel</td></tr>
-<tr><td>16</td><td><strong>"Storage = Stuff; Timing = Tempo"</strong></td><td>Covert channel types</td></tr>
-<tr><td>17</td><td><strong>"ROM → PROM → EPROM → EEPROM → Flash"</strong></td><td>Memory permanence evolution (fixed → reprogrammable)</td></tr>
-</table>
-</div>
-
 <!-- D3 Exam Traps -->
 <div class="sub-section" id="d3-traps">
 <h3>Domain 3 — Exam Traps 🚨</h3>
@@ -1872,8 +1767,6 @@ EAL 5–7: require semi-formal or formal proofs — rarely achieved outside gove
 <tr><td>2</td><td>Data Link</td><td rowspan="2">Network Access</td><td>Ethernet, ARP, switches, bridges, MAC addresses</td><td>Frame</td></tr>
 <tr><td>1</td><td>Physical</td><td>Cables, hubs, repeaters, connectors, electrical signals</td><td>Bits</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "Please Do Not Throw Sausage Pizza Away"</strong> (L1→L7) / <strong>"All People Seem To Need Data Processing"</strong> (L7→L1)</div>
-
 <h4>Converged &amp; Multilayer Protocols</h4>
 <table>
 <tr><th>Protocol</th><th>Description</th><th>Security Concern</th></tr>
@@ -2019,7 +1912,6 @@ EAL 5–7: require semi-formal or formal proofs — rarely achieved outside gove
 <tr><td><strong>Transport</strong></td><td>Payload only (original IP header visible)</td><td>Host-to-host</td></tr>
 <tr><td><strong>Tunnel</strong></td><td>Entire packet (new IP header added)</td><td>Gateway-to-gateway (site VPN)</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "Tunnel Buries the Body":</strong> Tunnel mode = entire packet hidden. Transport = payload only.</div>
 <div class="warning"><strong>⚠ AH provides NO encryption.</strong> If you need confidentiality, use ESP. AH is broken by NAT (NAT modifies the IP header, which invalidates AH's integrity check).</div>
 
 <h4>Other VPN Protocols</h4>
@@ -2139,20 +2031,6 @@ SSL 2.0 / 3.0 = broken (POODLE) · TLS 1.0 / 1.1 = deprecated<br>
 TLS 1.2 = acceptable (requires care with cipher suite selection)<br>
 TLS 1.3 = current standard: 1-RTT · PFS mandatory (DHE/ECDHE) · AEAD only · no RSA key exchange
 </div>
-</div>
-
-<!-- D4 Mnemonics -->
-<div class="sub-section" id="d4-mnemonics">
-<h3>Domain 4 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"Please Do Not Throw Sausage Pizza Away"</strong></td><td>OSI layers L1→L7</td></tr>
-<tr><td>2</td><td><strong>"Tunnel Buries the Body"</strong></td><td>IPSec Tunnel = entire packet; Transport = payload</td></tr>
-<tr><td>3</td><td><strong>"AH = no confidentiality; ESP = everything"</strong></td><td>IPSec protocols</td></tr>
-<tr><td>4</td><td><strong>"WEP = Wrecked Encryption Protocol"</strong></td><td>WEP is broken</td></tr>
-<tr><td>5</td><td><strong>"SYN cookies solve SYN floods"</strong></td><td>DoS mitigation</td></tr>
-<tr><td>6</td><td><strong>"SPF = who can Send, DKIM = Digital Key, DMARC = Decision Maker"</strong></td><td>Email security stack</td></tr>
-</table>
 </div>
 
 <!-- D4 Exam Traps -->
@@ -2386,22 +2264,6 @@ NIST SP 800-63 IAL 1: self-asserted · IAL 2: remote/in-person proofing · IAL 3
 NIST SP 800-63 AAL 1: single-factor · AAL 2: MFA required · AAL 3: hardware crypto authenticator<br>
 SAML assertion validity: typically 5 minutes (short window to prevent replay)
 </div>
-</div>
-
-<!-- D5 Mnemonics -->
-<div class="sub-section" id="d5-mnemonics">
-<h3>Domain 5 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"I Am, I Prove, I Can"</strong></td><td>Identification → Authentication → Authorisation</td></tr>
-<tr><td>2</td><td><strong>"Know Have Are"</strong></td><td>Authentication factor types 1-2-3</td></tr>
-<tr><td>3</td><td><strong>"FAR is worse than FRR" (letting intruder IN)</strong></td><td>False Acceptance more dangerous</td></tr>
-<tr><td>4</td><td><strong>"CER = sweet spot"</strong></td><td>Where FRR=FAR; lower CER = better biometric</td></tr>
-<tr><td>5</td><td><strong>"Kerberos needs a clock"</strong></td><td>5-min clock skew tolerance</td></tr>
-<tr><td>6</td><td><strong>"OAuth = Authorisation; OIDC = Authentication"</strong></td><td>OAuth alone is NOT authentication</td></tr>
-<tr><td>7</td><td><strong>"RADIUS = Remote; TACACS+ = Terminal"</strong></td><td>RADIUS for network access; TACACS+ for device admin</td></tr>
-<tr><td>8</td><td><strong>"DAC = Owner; MAC = System; RBAC = Role; ABAC = Attribute"</strong></td><td>Access control models</td></tr>
-</table>
 </div>
 
 <!-- D5 Exam Traps -->
@@ -2656,19 +2518,6 @@ Type I = at a point in time · <strong>Type II = over 6–12 months (strongest a
 </div>
 </div>
 
-<!-- D6 Mnemonics & Traps -->
-<div class="sub-section" id="d6-mnemonics">
-<h3>Domain 6 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"VA = breadth; Pentest = depth"</strong></td><td>Vulnerability assessment vs penetration test</td></tr>
-<tr><td>2</td><td><strong>"Black = blind; White = wide open; Grey = glimpse"</strong></td><td>Pentest knowledge levels</td></tr>
-<tr><td>3</td><td><strong>"SOC 1 = $; SOC 2 = Security; SOC 3 = Summary"</strong></td><td>SOC report types</td></tr>
-<tr><td>4</td><td><strong>"Type I = snapshot; Type II = movie"</strong></td><td>Point-in-time vs over time</td></tr>
-<tr><td>5</td><td><strong>"DAST = Dynamic = running app; SAST = Static = source code"</strong></td><td>App testing types</td></tr>
-</table>
-</div>
-
 <div class="sub-section" id="d6-traps">
 <h3>Domain 6 — Exam Traps 🚨</h3>
 <table>
@@ -2740,8 +2589,6 @@ Type I = at a point in time · <strong>Type II = over 6–12 months (strongest a
 <h3>7.2 Digital Forensics</h3>
 <h4>Order of Volatility (most → least volatile)</h4>
 <div class="key-concept"><strong>1. Registers/Cache</strong> → <strong>2. RAM</strong> → <strong>3. Swap/Pagefile</strong> → <strong>4. Running Processes/Network</strong> → <strong>5. Disk</strong> → <strong>6. Remote Logs</strong> → <strong>7. Backup Tapes/Archives</strong></div>
-<div class="mnemonic"><strong>🧠 "Real Rascals Swap Places, Detectives Lag Behind"</strong> — Registers, RAM, Swap/Pagefile, Processes, Disk, Logs, Backups</div>
-
 <h4>Evidence Handling</h4>
 <table>
 <tr><th>Concept</th><th>Definition</th></tr>
@@ -2816,8 +2663,6 @@ Type I = at a point in time · <strong>Type II = over 6–12 months (strongest a
 <tr><td><strong>Incremental</strong></td><td>Changed since LAST backup</td><td>Clears</td><td>Full + ALL incrementals</td></tr>
 <tr><td><strong>Differential</strong></td><td>Changed since last FULL</td><td>Does NOT clear</td><td>Full + LAST differential</td></tr>
 </table>
-<div class="mnemonic"><strong>🧠 "Incremental = each increment; Differential = difference from full"</strong></div>
-
 <h4>Media Management &amp; Protection (CBK 7.3)</h4>
 <table>
 <tr><th>Control</th><th>Description</th></tr>
@@ -3060,24 +2905,6 @@ PCI-DSS → Card brands + acquirer: <strong>immediately</strong> / as soon as pr
 </div>
 </div>
 
-<!-- D7 Mnemonics & Traps -->
-<div class="sub-section" id="d7-mnemonics">
-<h3>Domain 7 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"Prepare Detect Contain Learn"</strong></td><td>NIST IR phases</td></tr>
-<tr><td>2</td><td><strong>"Real Rascals Swap Places, Detectives"</strong></td><td>Order of volatility (Registers, RAM, Swap, Processes, Disk…)</td></tr>
-<tr><td>3</td><td><strong>"RAID 0 = ZERO protection"</strong></td><td>RAID 0 has no redundancy</td></tr>
-<tr><td>4</td><td><strong>"Hot = Hours; Warm = Wait; Cold = Construct"</strong></td><td>Recovery site readiness</td></tr>
-<tr><td>5</td><td><strong>"Incremental = each step; Differential = from Full"</strong></td><td>Backup types restore complexity</td></tr>
-<tr><td>6</td><td><strong>"CO₂ = Coffin; FM-200 = Friendly"</strong></td><td>Fire suppression safety</td></tr>
-<tr><td>7</td><td><strong>"Virus needs a ride; Worm drives itself"</strong></td><td>Virus = host + user; Worm = self-propagating</td></tr>
-<tr><td>8</td><td><strong>"A-B-C-D-K" fire classes</strong></td><td>Ash (ordinary), Boil (liquids/gases), Current (electrical), Dynamite (combustible metals), Kitchen (cooking oils)</td></tr>
-<tr><td>9</td><td><strong>"CPTED = See-Access-Territory"</strong></td><td>Natural surveillance, access control, territorial</td></tr>
-<tr><td>10</td><td><strong>"Duress = Silent SOS"</strong></td><td>Covert distress signal, reverse PIN, panic button</td></tr>
-</table>
-</div>
-
 <div class="sub-section" id="d7-traps">
 <h3>Domain 7 — Exam Traps 🚨</h3>
 <table>
@@ -3277,7 +3104,6 @@ PCI-DSS → Card brands + acquirer: <strong>immediately</strong> / as soon as pr
 <tr><td><strong>3NF</strong></td><td>2NF + no transitive dependencies (non-key attributes don't depend on other non-key attributes)</td><td>Transitive dependencies</td></tr>
 </table>
 <div class="key-concept"><strong>Why Normalization Matters for Security:</strong> Reduces data redundancy → fewer places to protect → referential integrity maintained → prevents update/insertion/deletion anomalies. <strong>Denormalization</strong> (intentionally adding redundancy) improves read performance but increases data inconsistency risk.</div>
-<div class="mnemonic"><strong>🧠 "The Key, the Whole Key, and Nothing but the Key (so help me Codd)"</strong> — 1NF = the key; 2NF = the whole key; 3NF = nothing but the key</div>
 
 <h4>Software Escrow</h4>
 <div class="definition"><strong>Software Escrow:</strong> Source code and documentation deposited with a neutral third-party escrow agent. Released to the customer ONLY if specific trigger conditions are met (vendor bankruptcy, failure to maintain, breach of contract). Protects against vendor lock-in and ensures business continuity for critical applications.</div>
@@ -3337,22 +3163,6 @@ Build: SCA (dependency vulns) → IaC security scan<br>
 Test: DAST → integration security tests → fuzz testing<br>
 Deploy: CSPM checks → runtime protection activation → SBOM generation
 </div>
-</div>
-
-<!-- D8 Mnemonics & Traps -->
-<div class="sub-section" id="d8-mnemonics">
-<h3>Domain 8 — Mnemonics</h3>
-<table>
-<tr><th>#</th><th>Mnemonic</th><th>Helps Remember</th></tr>
-<tr><td>1</td><td><strong>"Waterfall = Water flows down only"</strong></td><td>Can't go back in Waterfall</td></tr>
-<tr><td>2</td><td><strong>"Shift Left = Security Sooner"</strong></td><td>Test security early in SDLC</td></tr>
-<tr><td>3</td><td><strong>"ACID = All Consistent Isolated Durable"</strong></td><td>Database transaction properties</td></tr>
-<tr><td>4</td><td><strong>"CMMI 1-5: I Must Define, Quantify, Optimise"</strong></td><td>CMM maturity levels</td></tr>
-<tr><td>5</td><td><strong>"Parameterised = Protected (from SQLi)"</strong></td><td>SQL injection prevention</td></tr>
-<tr><td>6</td><td><strong>"The Key, the Whole Key, Nothing but the Key"</strong></td><td>Normalization: 1NF, 2NF, 3NF</td></tr>
-<tr><td>7</td><td><strong>"Loose Coupling + High Cohesion = Secure Code"</strong></td><td>OOP design quality</td></tr>
-<tr><td>8</td><td><strong>"Encapsulation = Envelope (hide internals)"</strong></td><td>Best OOP security feature</td></tr>
-</table>
 </div>
 
 <div class="sub-section" id="d8-traps">
