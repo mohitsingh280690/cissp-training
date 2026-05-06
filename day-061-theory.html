@@ -53,8 +53,10 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. IDS/IPS Deployment Modes</a></li>
   <li><a href="#s9">9. Evasion Techniques</a></li>
   <li><a href="#s10">10. Open-Source Engines: Snort &amp; Suricata</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s12">12. Key Takeaways</a></li>
+  <li><a href="#s11">11. Honeypots &amp; Network Deception</a></li>
+  <li><a href="#s12">12. NetFlow &amp; Network Traffic Analysis</a></li>
+  <li><a href="#s13">13. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s14">14. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -300,7 +302,60 @@ Key Metrics:
 
 <!-- ═════════════════ SECTION 11 ═════════════════ -->
 <section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<h2>11. Honeypots &amp; Network Deception</h2>
+<div class="callout definition">
+  <strong>📖 Honeypot:</strong> A decoy system intentionally designed to look like a legitimate target to attract attackers, observe their techniques, and detect intrusion. No legitimate user has any reason to access a honeypot — any connection is, by definition, suspicious.
+</div>
+<table>
+  <tr><th>Type</th><th>Description</th><th>CISSP Context</th></tr>
+  <tr><td><strong>Low-Interaction Honeypot</strong></td><td>Simulates only a small number of services (e.g., open ports). No real OS. Minimal attacker engagement.</td><td>Easy to deploy; limited intelligence value; examples: Honeyd, OpenCanary</td></tr>
+  <tr><td><strong>High-Interaction Honeypot</strong></td><td>Full real OS and applications exposed. Attacker can fully interact. Rich intelligence.</td><td>High operational risk — attacker may pivot; must be isolated; requires legal consideration</td></tr>
+  <tr><td><strong>Honeynet</strong></td><td>Network of multiple honeypots simulating an entire network segment.</td><td>Most realistic deception; maximum intelligence; complex to manage</td></tr>
+  <tr><td><strong>Honeytoken</strong></td><td>Fake sensitive file, credential, or database record with no legitimate use. Alerts when accessed.</td><td>Detects insider threats and lateral movement; low cost; zero false positives on access</td></tr>
+</table>
+<h3>Key CISSP Points on Honeypots</h3>
+<table>
+  <tr><th>Aspect</th><th>Detail</th></tr>
+  <tr><td><strong>Enticement vs. Entrapment</strong></td><td>Honeypots are <strong>enticement</strong> (legal — attacker chose to attack). Entrapment is a criminal law concept where law enforcement induces a crime — not applicable here. CISSP will specifically test this distinction.</td></tr>
+  <tr><td><strong>Isolation requirement</strong></td><td>Honeypots must be isolated from production networks via firewalls, separate VLANs, or air gaps. If compromised, an isolated honeypot cannot be used to pivot into real systems.</td></tr>
+  <tr><td><strong>Detection value</strong></td><td>Any traffic to a honeypot = malicious by definition. Zero false positives for access-based detection. Provides attacker TTPs (tactics, techniques, procedures) for threat intelligence.</td></tr>
+  <tr><td><strong>Pseudo-flaw</strong></td><td>A deliberate vulnerability left in a system to attract attackers and observe behavior — functionally similar to a honeypot.</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — Honeypot = Enticement, NOT Entrapment:</strong> This is one of the most tested honeypot facts. Enticement = providing an opportunity (legal). Entrapment = coercing someone to commit a crime they otherwise wouldn't (illegal, criminal law only). Deploying a honeypot is always enticement.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. NetFlow &amp; Network Traffic Analysis</h2>
+<div class="callout definition">
+  <strong>📖 NetFlow:</strong> A Cisco-developed protocol that collects metadata about IP traffic flows passing through network devices. A <em>flow</em> = a one-directional series of packets sharing the same source/destination IP, ports, and protocol. NetFlow does NOT capture packet payload — only flow metadata.
+</div>
+<table>
+  <tr><th>Technology</th><th>Standard</th><th>What It Captures</th><th>CISSP Use Case</th></tr>
+  <tr><td><strong>NetFlow v5/v9</strong></td><td>Cisco (de facto standard)</td><td>Src/dst IP, ports, protocol, bytes, packets, timestamps, interface</td><td>Anomaly detection, incident investigation without full PCAP storage overhead</td></tr>
+  <tr><td><strong>IPFIX</strong></td><td>IETF RFC 7011 (based on NetFlow v9)</td><td>Same as NetFlow v9; extensible with custom fields</td><td>Vendor-neutral; preferred in multi-vendor environments</td></tr>
+  <tr><td><strong>sFlow</strong></td><td>RFC 3176</td><td>Sampled packets (1-in-N) + interface counters</td><td>High-throughput environments where full NetFlow is too resource-intensive</td></tr>
+  <tr><td><strong>Full Packet Capture (PCAP)</strong></td><td>Wireshark / tcpdump</td><td>Complete headers AND payload</td><td>Forensic investigation, malware analysis — highest storage cost</td></tr>
+</table>
+<h3>Security Uses of Network Traffic Analysis (NTA)</h3>
+<table>
+  <tr><th>Use Case</th><th>How NTA Helps</th></tr>
+  <tr><td><strong>C2 (Command &amp; Control) detection</strong></td><td>Beaconing traffic — regular, periodic connections to external IPs — visible as flow anomalies even if payload is encrypted</td></tr>
+  <tr><td><strong>Data exfiltration detection</strong></td><td>Unusually large outbound flows or flows to unexpected destinations detected via volume and direction analysis</td></tr>
+  <tr><td><strong>Lateral movement detection</strong></td><td>East-west flow patterns between internal hosts that don't normally communicate; internal port scanning</td></tr>
+  <tr><td><strong>DDoS detection</strong></td><td>Volume spike from many sources to one destination; amplification patterns visible in flow data</td></tr>
+  <tr><td><strong>Incident timeline reconstruction</strong></td><td>Flow records provide "who talked to whom, when, how much" without needing full PCAPs — lower storage for long retention</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip — NetFlow ≠ Packet Capture:</strong> NetFlow captures flow metadata (who, when, how much). PCAP captures full content (what). NetFlow cannot show packet contents but can reveal that a suspicious session happened. When asked what can detect C2 beaconing without full packet capture, the answer is NetFlow/NTA.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 13 ═════════════════ -->
+<section id="s13">
+<h2>13. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 IDS vs. IPS — "Detect = Doorbell; Prevent = Door Lock":</strong><br>
   <strong>IDS</strong> = Doorbell — it rings (alerts) when someone arrives; you still have to open the door. Traffic flows through unimpeded.<br>
@@ -327,9 +382,9 @@ Key Metrics:
 </div>
 </section>
 
-<!-- ═════════════════ SECTION 12 ═════════════════ -->
-<section id="s12">
-<h2>12. Key Takeaways</h2>
+<!-- ═════════════════ SECTION 14 ═════════════════ -->
+<section id="s14">
+<h2>14. Key Takeaways</h2>
 <table>
   <tr><th>Topic</th><th>Essential Point</th></tr>
   <tr><td>IDS vs. IPS</td><td>IDS = passive alerting (out-of-band); IPS = inline blocking. IDS cannot block traffic. IPS false positives cause outages.</td></tr>

@@ -52,8 +52,10 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s7">7. Software-Defined Networking (SDN)</a></li>
   <li><a href="#s8">8. Network Function Virtualization (NFV)</a></li>
   <li><a href="#s9">9. East-West vs. North-South Traffic</a></li>
-  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s11">11. Key Takeaways</a></li>
+  <li><a href="#s10">10. Network Access Control (NAC)</a></li>
+  <li><a href="#s11">11. Out-of-Band Management &amp; Device Hardening</a></li>
+  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s13">13. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -240,7 +242,71 @@ NOTE: Two firewalls from DIFFERENT vendors = defence in depth
 
 <!-- S10 -->
 <section id="s10">
-<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<h2>10. Network Access Control (NAC)</h2>
+<div class="callout definition">
+  <strong>📖 NAC (Network Access Control):</strong> A security framework that enforces policy-based access to network resources by verifying the identity and security posture of a device before granting network access. NAC combines authentication, posture assessment, and automated remediation.
+</div>
+<table>
+  <tr><th>NAC Component</th><th>Function</th></tr>
+  <tr><td><strong>Authentication</strong></td><td>Who is the device and user? Verified via 802.1X (certificate or credential), MAC-based authentication (fallback for devices that cannot run 802.1X supplicant), or captive portal (guest users)</td></tr>
+  <tr><td><strong>Posture Assessment</strong></td><td>Is the device compliant? Checks: OS patch level, antivirus signature currency, disk encryption status, approved software inventory, domain membership. Performed by a NAC agent installed on the endpoint, or agentless via network scanning.</td></tr>
+  <tr><td><strong>Authorization</strong></td><td>What access is granted based on identity + posture result? Outcomes: full corporate VLAN, restricted VLAN, quarantine VLAN, or guest VLAN.</td></tr>
+  <tr><td><strong>Remediation</strong></td><td>Non-compliant device placed in quarantine VLAN with access only to patch servers/update services. Device is remediated automatically or by user action, then re-assessed before being granted corporate access.</td></tr>
+</table>
+<h3>NAC VLAN Architecture</h3>
+<table>
+  <tr><th>VLAN</th><th>Who Gets It</th><th>Access Granted</th></tr>
+  <tr><td><strong>Corporate VLAN</strong></td><td>Authenticated, fully compliant managed device</td><td>Full internal network access per role-based policy</td></tr>
+  <tr><td><strong>Quarantine VLAN</strong></td><td>Authenticated but non-compliant device (missing patches, outdated AV, not encrypted)</td><td>Patch servers and remediation resources only — isolated from all corporate resources</td></tr>
+  <tr><td><strong>Guest VLAN</strong></td><td>Unmanaged devices, personal devices, visitors</td><td>Internet access only — fully isolated from corporate resources</td></tr>
+  <tr><td><strong>Voice VLAN</strong></td><td>VoIP phones (auto-detected by CDP/LLDP or MAC OUI prefix)</td><td>Voice infrastructure only; QoS prioritization</td></tr>
+</table>
+<h3>802.1X Port-Based NAC Components</h3>
+<table>
+  <tr><th>Component</th><th>Role</th><th>Example</th></tr>
+  <tr><td><strong>Supplicant</strong></td><td>Device requesting network access; runs EAP client software; presents credentials to authenticator</td><td>Windows 10/11 built-in 802.1X supplicant; Cisco AnyConnect NAC agent</td></tr>
+  <tr><td><strong>Authenticator</strong></td><td>Network switch port or wireless access point; enforces authentication requirement before forwarding any traffic beyond the port</td><td>Cisco Catalyst switch (port-based), Wi-Fi access point</td></tr>
+  <tr><td><strong>Authentication Server</strong></td><td>RADIUS server that validates credentials, checks posture data, and returns dynamic VLAN assignment + access policy</td><td>Microsoft NPS, FreeRADIUS, Cisco ISE, Aruba ClearPass</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> CISSP questions on NAC most commonly test: (1) quarantine VLAN for non-compliant devices; (2) 802.1X as the protocol implementing port-based NAC; (3) posture assessment checking patch level and AV status. The answer to "which control ensures only patched, corporate-managed devices connect to the network?" is NAC with posture assessment.
+</div>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+<h2>11. Out-of-Band Management &amp; Network Device Hardening</h2>
+<div class="callout definition">
+  <strong>📖 Out-of-Band Management (OOBM):</strong> Managing network devices via a separate, dedicated management network that is physically isolated from the production data network. If the production network is down or compromised, administrators can still access and manage all devices via the OOB path.
+</div>
+<table>
+  <tr><th>OOBM Approach</th><th>Description</th><th>Security Benefit</th></tr>
+  <tr><td><strong>Dedicated Management Network</strong></td><td>Separate physical or logically isolated network for all device management (SSH, HTTPS, SNMP). Management interfaces connected to this network only, not accessible from production.</td><td>Attackers on the production network cannot reach management interfaces; management traffic is invisible to production-side sniffers</td></tr>
+  <tr><td><strong>Console Server</strong></td><td>A device (e.g., Opengear, Lantronix) providing serial console port access to all network devices over a separate path (cellular modem, dedicated DSL line, separate Ethernet).</td><td>Physical-level access even when the device's production network interface is completely unreachable; critical for disaster recovery</td></tr>
+  <tr><td><strong>Jump Server / Bastion Host</strong></td><td>A hardened, single-purpose server that administrators must connect through before accessing any production systems. All admin sessions originate from the jump server.</td><td>Centralized audit logging and session recording of all admin activity; reduces attack surface by limiting SSH/RDP exposure; single point for MFA enforcement</td></tr>
+  <tr><td><strong>Management VLAN</strong></td><td>A dedicated VLAN for in-band management traffic (SSH, HTTPS, SNMP) — separated from user data VLANs but sharing the same physical infrastructure. More common than full physical OOB; less secure.</td><td>Isolates management traffic at Layer 2; restrict management VLAN access with strict ACLs; never use VLAN 1 for management</td></tr>
+</table>
+<h3>Network Device Hardening — CISSP Key Controls</h3>
+<table>
+  <tr><th>Hardening Control</th><th>Purpose &amp; Detail</th></tr>
+  <tr><td><strong>Change default credentials immediately</strong></td><td>Factory default username/password combinations are public knowledge and exploited by automated tools within minutes of deployment</td></tr>
+  <tr><td><strong>Disable Telnet; use SSH v2</strong></td><td>Telnet transmits all data including passwords in cleartext; SSH encrypts the entire session. SSHv1 has known vulnerabilities — require SSHv2 only.</td></tr>
+  <tr><td><strong>Replace SNMPv1/v2c with SNMPv3 authPriv</strong></td><td>v1 and v2c community strings are transmitted in cleartext and capturable by any sniffer. SNMPv3 authPriv = HMAC authentication + AES encryption.</td></tr>
+  <tr><td><strong>Disable unused services and interfaces</strong></td><td>HTTP (use HTTPS), CDP/LLDP on untrusted interfaces, unused physical ports, proxy ARP, directed broadcasts — disable everything not explicitly required</td></tr>
+  <tr><td><strong>ACLs on management access</strong></td><td>Restrict SSH/HTTPS/SNMP access to specific management IP address ranges; deny all other sources; implement per-protocol ACLs</td></tr>
+  <tr><td><strong>Centralized AAA via TACACS+</strong></td><td>Authenticate all admin logins through TACACS+ for per-command authorization, granular privilege control, and complete audit logging of every command executed</td></tr>
+  <tr><td><strong>NTP synchronization</strong></td><td>Accurate timestamps on all logs; required for forensic timeline correlation; required for Kerberos ticket validation (5-minute clock skew tolerance)</td></tr>
+  <tr><td><strong>Centralized Syslog to SIEM</strong></td><td>Forward all logs to external SIEM via syslog; prevents log tampering on a compromised device; enables correlation across all devices</td></tr>
+  <tr><td><strong>Firmware patching</strong></td><td>Subscribe to vendor security advisories (Cisco PSIRT, Juniper SIRT); apply patches within organizational SLA; track CVEs for deployed firmware versions</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> CISSP device hardening questions most commonly test: (1) Telnet must be replaced with SSH; (2) SNMPv1/v2c must be replaced with SNMPv3 authPriv; (3) TACACS+ for device administration (not RADIUS); (4) jump server / bastion host for secure administrative access. When asked "how should administrators securely access network devices without exposing SSH to the internet?" — the answer is a jump server (bastion host) in the management network.
+</div>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+<h2>12. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 DMZ — "Public servers in no man's land":</strong><br>
   The DMZ is between two firewalls — outer firewall faces internet, inner firewall faces internal network.<br>
@@ -262,9 +328,9 @@ NOTE: Two firewalls from DIFFERENT vendors = defence in depth
 </div>
 </section>
 
-<!-- S11 -->
-<section id="s11">
-<h2>11. Key Takeaways</h2>
+<!-- S13 -->
+<section id="s13">
+<h2>13. Key Takeaways</h2>
 <table>
   <tr><th>Topic</th><th>Essential Point</th></tr>
   <tr><td>DMZ</td><td>Semi-trusted zone between internet and internal network; screened subnet (dual firewall) is the most secure design; hosts public-facing servers</td></tr>

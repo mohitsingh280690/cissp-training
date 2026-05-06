@@ -53,8 +53,10 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. Wireless Attacks</a></li>
   <li><a href="#s9">9. Wireless Security Controls</a></li>
   <li><a href="#s10">10. Enterprise Wireless: RADIUS &amp; 802.1X</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s12">12. Key Takeaways</a></li>
+  <li><a href="#s11">11. Cellular &amp; Mobile Network Security (4G/5G)</a></li>
+  <li><a href="#s12">12. Bluetooth, NFC &amp; RFID Security</a></li>
+  <li><a href="#s13">13. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s14">14. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -266,7 +268,72 @@ Per-user session key (PMK) derived from successful EAP auth → WPA2/3 4-way han
 
 <!-- ═════════════════ SECTION 11 ═════════════════ -->
 <section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<h2>11. Cellular &amp; Mobile Network Security (4G/5G)</h2>
+<div class="callout definition">
+  <strong>📖 Cellular Networks:</strong> Wireless communications using licensed radio spectrum divided into geographic cells. Each cell is served by a base station (eNodeB in 4G LTE, gNodeB in 5G NR). Devices authenticate via SIM to the mobile network operator (MNO).
+</div>
+<table>
+  <tr><th>Generation</th><th>Standard</th><th>Encryption</th><th>Key Security Notes</th></tr>
+  <tr><td><strong>2G (GSM)</strong></td><td>GSM/GPRS</td><td>A5/1 (weak RC4 variant)</td><td>One-way authentication only — network authenticates device but device does NOT authenticate network. Vulnerable to IMSI catchers (stingrays). A5/2 is completely broken.</td></tr>
+  <tr><td><strong>3G (UMTS)</strong></td><td>UMTS/HSPA</td><td>KASUMI (128-bit)</td><td>Mutual authentication introduced. Still vulnerable to downgrade attacks forcing fallback to 2G.</td></tr>
+  <tr><td><strong>4G (LTE)</strong></td><td>LTE/LTE-A</td><td>AES-128 (EEA2)</td><td>All-IP network; mutual authentication; separate encryption for control and user planes. SS7 signaling protocol still vulnerable in backend carrier interconnects.</td></tr>
+  <tr><td><strong>5G NR</strong></td><td>5G New Radio</td><td>AES-256 / SNOW 3G / ZUC</td><td>SUPI encrypted as SUCI — prevents IMSI exposure to IMSI catchers. Strengthened mutual auth. Network slicing with security isolation. Reduced downgrade attack surface.</td></tr>
+</table>
+<h3>Cellular Security Threats</h3>
+<table>
+  <tr><th>Attack</th><th>How It Works</th><th>Mitigation</th></tr>
+  <tr><td><strong>IMSI Catcher (Stingray)</strong></td><td>Fake base station forces devices to connect at 2G (no mutual auth). Captures IMSI identifier; enables location tracking and call interception.</td><td>5G SUCI protects IMSI; some devices allow disabling 2G fallback; use VPN over cellular</td></tr>
+  <tr><td><strong>SS7 Attacks</strong></td><td>Signaling System 7 (the global carrier interconnect protocol) has no authentication — any carrier on the SS7 network can query subscriber location, intercept calls/SMS. SMS-based 2FA is vulnerable.</td><td>SS7 firewalls at carrier level; migrate from SMS OTP to TOTP authenticator apps or hardware tokens</td></tr>
+  <tr><td><strong>SIM Swapping</strong></td><td>Attacker social-engineers carrier to transfer victim's number to attacker's SIM. Intercepts all SMS including 2FA codes.</td><td>Carrier PIN/port-out protection; use authenticator apps instead of SMS 2FA</td></tr>
+  <tr><td><strong>Downgrade Attack</strong></td><td>Attacker jams 4G/5G signal; device falls back to 2G with weaker security.</td><td>Disable 2G on device where possible; use VPN over all cellular connections</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 CISSP Key Point — SMS OTP is NOT secure 2FA:</strong> SS7 vulnerabilities and SIM swapping mean SMS-based one-time passwords can be intercepted or redirected. NIST SP 800-63B classifies SMS OTP as "RESTRICTED" (not recommended for high-assurance authentication). CISSP favors TOTP apps or hardware tokens over SMS 2FA.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. Bluetooth, NFC &amp; RFID Security</h2>
+<table>
+  <tr><th>Technology</th><th>Range</th><th>Frequency</th><th>Primary Use Cases</th></tr>
+  <tr><td><strong>Bluetooth Classic</strong></td><td>~10–100 m</td><td>2.4 GHz ISM</td><td>Audio (headsets, speakers), data transfer, HID (keyboards, mice)</td></tr>
+  <tr><td><strong>Bluetooth Low Energy (BLE)</strong></td><td>~10–50 m</td><td>2.4 GHz ISM</td><td>IoT sensors, beacons, fitness trackers, proximity marketing</td></tr>
+  <tr><td><strong>NFC</strong></td><td>&lt;10 cm</td><td>13.56 MHz</td><td>Contactless payments (Apple Pay, Google Pay), access cards, device pairing</td></tr>
+  <tr><td><strong>RFID Low Freq (LF)</strong></td><td>~10 cm</td><td>125 kHz</td><td>Legacy access cards, animal tracking — no encryption, easily cloned</td></tr>
+  <tr><td><strong>RFID High Freq (HF)</strong></td><td>~1 m</td><td>13.56 MHz</td><td>Smart access cards (MIFARE), contactless payment cards — supports cryptography</td></tr>
+  <tr><td><strong>RFID Ultra High Freq (UHF)</strong></td><td>up to 100 m</td><td>860–960 MHz</td><td>Asset tracking, supply chain, toll collection</td></tr>
+</table>
+<h3>Bluetooth Attacks</h3>
+<table>
+  <tr><th>Attack</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td><strong>Bluejacking</strong></td><td>Sending unsolicited messages to discoverable Bluetooth devices. Annoying but <em>no data theft</em>.</td><td>Set device to non-discoverable mode when not pairing</td></tr>
+  <tr><td><strong>Bluesnarfing</strong></td><td>Unauthorized access to data (contacts, calendar, files) on a Bluetooth device by exploiting pairing vulnerabilities.</td><td>Keep Bluetooth firmware updated; use non-discoverable mode; disable Bluetooth when not in use</td></tr>
+  <tr><td><strong>Bluebugging</strong></td><td>Full remote control of a device including making calls, sending SMS, eavesdropping — exploits RFCOMM channel access vulnerabilities.</td><td>Firmware updates; disable Bluetooth when not needed</td></tr>
+  <tr><td><strong>BIAS Attack</strong></td><td>Bluetooth Impersonation Attack — bypasses Secure Simple Pairing mutual authentication; allows impersonation of a previously paired trusted device without knowing the long-term key.</td><td>Apply Bluetooth 5.1+ patches; use BLE with LE Secure Connections</td></tr>
+</table>
+<h3>RFID &amp; NFC Security Concerns</h3>
+<table>
+  <tr><th>Threat</th><th>Description</th><th>Mitigation</th></tr>
+  <tr><td><strong>RFID Cloning</strong></td><td>Legacy 125 kHz RFID access cards transmit a fixed ID with no cryptography — readable and cloneable with a &lt;$20 device in seconds.</td><td>Upgrade to smart cards with cryptographic challenge-response (MIFARE DESFire, HID iCLASS SE)</td></tr>
+  <tr><td><strong>RFID Eavesdropping</strong></td><td>Passive interception of RFID communications at distances beyond the intended read range.</td><td>Use shielded credentials (RFID-blocking wallets); deploy encrypted smart cards</td></tr>
+  <tr><td><strong>NFC Relay Attack</strong></td><td>Two devices relay NFC communication between a legitimate card and reader — the real card "thinks" it is talking to its legitimate reader while actually talking to an attacker's device.</td><td>Limit NFC transaction time; cryptographic challenge-response; distance validation</td></tr>
+  <tr><td><strong>Evil Twin NFC Tag</strong></td><td>Fraudulent NFC tag placed over legitimate tag (e.g., a sticker on a payment terminal) redirects users to malicious URLs or rogue payment destinations.</td><td>Inspect NFC tags before scanning; use NFC apps that validate URL destination before action</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Key CISSP Points — Bluetooth &amp; RFID:</strong><br>
+  &bull; <strong>Bluejacking</strong> = annoying spam, no data stolen<br>
+  &bull; <strong>Bluesnarfing</strong> = data exfiltrated (contacts, files)<br>
+  &bull; <strong>Bluebugging</strong> = full device control<br>
+  &bull; Legacy RFID 125 kHz = no crypto = trivially cloneable in seconds<br>
+  &bull; Smart card RFID 13.56 MHz (MIFARE DESFire) = cryptographic authentication = secure<br>
+  &bull; NFC range is &lt;10 cm — relay attacks artificially extend this range
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 13 ═════════════════ -->
+<section id="s13">
+<h2>13. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 WEP → WPA → WPA2 → WPA3 — "WEP Breaks, WPA Transitions, WPA2 Advances, WPA3 Secures":</strong><br>
   <strong>WEP</strong> = RC4 + 24-bit IV = BROKEN (aircrack recovers key in minutes)<br>
@@ -293,9 +360,9 @@ Per-user session key (PMK) derived from successful EAP auth → WPA2/3 4-way han
 </div>
 </section>
 
-<!-- ═════════════════ SECTION 12 ═════════════════ -->
-<section id="s12">
-<h2>12. Key Takeaways</h2>
+<!-- ═════════════════ SECTION 14 ═════════════════ -->
+<section id="s14">
+<h2>14. Key Takeaways</h2>
 <table>
   <tr><th>Topic</th><th>Essential Point</th></tr>
   <tr><td>WEP</td><td>RC4 + 24-bit IV = completely broken; recoverable in minutes; never use</td></tr>

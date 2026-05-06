@@ -53,8 +53,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s8">8. Legacy VPN Protocols (L2TP, PPTP)</a></li>
   <li><a href="#s9">9. Site-to-Site vs. Remote Access VPN</a></li>
   <li><a href="#s10">10. Split Tunneling &amp; Always-On VPN</a></li>
-  <li><a href="#s11">11. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s12">12. Key Takeaways</a></li>
+  <li><a href="#s11">11. AAA Protocols – RADIUS vs. TACACS+</a></li>
+  <li><a href="#s12">12. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s13">13. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -287,7 +288,37 @@ REMOTE ACCESS VPN (Client-to-Gateway):
 
 <!-- ═════════════════ SECTION 11 ═════════════════ -->
 <section id="s11">
-<h2>11. Memory Tricks &amp; Mnemonics</h2>
+<h2>11. AAA Protocols – RADIUS vs. TACACS+</h2>
+<div class="callout definition">
+  <strong>📖 AAA (Authentication, Authorization, Accounting):</strong> The three-function framework for network access control. Authentication = who are you? Authorization = what are you allowed to do? Accounting = what did you do and when? Both RADIUS and TACACS+ implement AAA but in fundamentally different ways tested heavily by CISSP.
+</div>
+<table>
+  <tr><th>Attribute</th><th>RADIUS</th><th>TACACS+</th></tr>
+  <tr><td><strong>Transport</strong></td><td>UDP — ports 1812 (auth/authz) and 1813 (accounting)</td><td>TCP — port 49</td></tr>
+  <tr><td><strong>Encryption</strong></td><td>Encrypts the <strong>password field only</strong>; all other attributes (username, authorization data) sent in cleartext</td><td>Encrypts the <strong>entire packet body</strong> (full payload encryption)</td></tr>
+  <tr><td><strong>AAA separation</strong></td><td>Combines Authentication and Authorization in one response; Accounting is separate</td><td>Fully separates Authentication, Authorization, and Accounting — each can use different servers</td></tr>
+  <tr><td><strong>Protocol ownership</strong></td><td>Open standard (RFC 2865, 2866)</td><td>Cisco proprietary (with IETF RFC; implementations vary)</td></tr>
+  <tr><td><strong>Primary use case</strong></td><td>Network access authentication (802.1X wireless, VPN, dial-up)</td><td>Device administration (SSH to routers, switches, firewalls — command-level authorization)</td></tr>
+  <tr><td><strong>Command authorization</strong></td><td>Cannot authorize individual commands — coarse-grained (permit/deny network access only)</td><td>Can authorize individual CLI commands — granular ("allow show commands, deny config commands")</td></tr>
+  <tr><td><strong>Reliability</strong></td><td>UDP = no guaranteed delivery; clients must implement retransmit logic</td><td>TCP = reliable delivery guaranteed by transport layer</td></tr>
+</table>
+<h3>When to Use Which — CISSP Decision Framework</h3>
+<table>
+  <tr><th>Scenario</th><th>Best Choice</th><th>Reason</th></tr>
+  <tr><td>Enterprise wireless (802.1X) authentication</td><td>RADIUS</td><td>Industry standard for 802.1X; all APs and NPS servers support it natively</td></tr>
+  <tr><td>VPN remote access authentication</td><td>RADIUS</td><td>Standard for network access authentication; VPN concentrators support RADIUS</td></tr>
+  <tr><td>Network device (router/switch) admin login</td><td>TACACS+</td><td>Full payload encryption; per-command authorization; granular audit logging</td></tr>
+  <tr><td>Firewall admin with command-level audit trail</td><td>TACACS+</td><td>Only TACACS+ can restrict and log individual CLI commands</td></tr>
+  <tr><td>Cloud/SaaS identity federation</td><td>Neither — use SAML/OIDC</td><td>RADIUS/TACACS+ are network protocols, not web identity federation protocols</td></tr>
+</table>
+<div class="callout exam-tip">
+  <strong>💡 Exam Trap — RADIUS = UDP, TACACS+ = TCP:</strong> One of the most tested distinctions in Domain 4. RADIUS: UDP 1812/1813, encrypts password only. TACACS+: TCP 49, encrypts entire payload. When a question mentions "granular command authorization for network device administration" — answer is TACACS+. When it mentions "wireless or VPN user authentication" — answer is RADIUS.
+</div>
+</section>
+
+<!-- ═════════════════ SECTION 12 ═════════════════ -->
+<section id="s12">
+<h2>12. Memory Tricks &amp; Mnemonics</h2>
 <div class="callout mnemonic">
   <strong>🧠 AH vs. ESP — "AH proves who; ESP hides what":</strong><br>
   <strong>AH</strong> = Authentication Header = proves authenticity (integrity + auth) but NO encryption<br>
@@ -312,9 +343,9 @@ REMOTE ACCESS VPN (Client-to-Gateway):
 </div>
 </section>
 
-<!-- ═════════════════ SECTION 12 ═════════════════ -->
-<section id="s12">
-<h2>12. Key Takeaways</h2>
+<!-- ═════════════════ SECTION 13 ═════════════════ -->
+<section id="s13">
+<h2>13. Key Takeaways</h2>
 <table>
   <tr><th>Topic</th><th>Essential Point</th></tr>
   <tr><td>VPN purpose</td><td>Encrypted tunnel over untrusted network, providing confidentiality, integrity, and authentication</td></tr>
