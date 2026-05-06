@@ -67,8 +67,8 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s6">6. Rules of Engagement</a></li>
   <li><a href="#s7">7. Assessment Frequency &amp; Drivers</a></li>
   <li><a href="#s8">8. Reporting &amp; Documentation</a></li>
-  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s10">10. Key Takeaways</a></li>
+  <li><a href="#s9">9. Risk Assessment Frameworks (FAIR &amp; CORAS)</a></li>
+  <li><a href="#s10">10. Memory Tricks &amp; Mnemonics</a></li>
 </ul>
 </div>
 
@@ -286,6 +286,65 @@ Assessment Planning Process
     <li>Rules of Engagement protect both the organization and the testing team legally</li>
     <li>The executive summary must be in business terms — it's what the CISO presents to the board</li>
   </ul>
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Risk Assessment Frameworks (FAIR &amp; CORAS)</h2>
+<h3>FAIR (Factor Analysis of Information Risk)</h3>
+<p><strong>FAIR</strong> is a quantitative risk assessment framework widely used in enterprise risk management. Unlike qualitative matrices (High/Medium/Low), FAIR decomposes risk into measurable factors:</p>
+<table>
+  <tr><th>FAIR Element</th><th>Definition</th><th>Example for Assessment Finding</th></tr>
+  <tr><td><strong>Asset Value (AV)</strong></td><td>Financial or operational impact if compromised</td><td>Unpatched database = $500K revenue if breached</td></tr>
+  <tr><td><strong>Threat Event Frequency (TEF)</strong></td><td>How often an attacker would attempt exploitation (per year)</td><td>Similar unpatched systems = 10 attack attempts/year (based on dark web scans)</td></tr>
+  <tr><td><strong>Threat Capability (TC)</strong></td><td>Probability attacker has skills/tools to exploit</td><td>Unauthenticated RCE = 95% (widely available exploits)</td></tr>
+  <tr><td><strong>Control Strength (CS)</strong></td><td>Probability security controls prevent or limit loss</td><td>WAF + rate-limiting = 70% effective against automated attacks</td></tr>
+  <tr><td><strong>Loss Event Frequency (LEF)</strong></td><td>TEF × TC × (1 − CS) = actual risk frequency</td><td>10 × 0.95 × 0.30 = 2.85 exploitations/year</td></tr>
+  <tr><td><strong>Loss Magnitude (LM)</strong></td><td>Estimated financial loss per incident</td><td>$500K asset × 80% exposure (partial breach) = $400K/incident</td></tr>
+  <tr><td><strong>Annual Loss Expectancy (ALE)</strong></td><td>LEF × LM = quantified annual risk in dollars</td><td>2.85 × $400K = <strong>$1.14M/year</strong> unmitigated risk</td></tr>
+</table>
+<p><strong>Why FAIR for Assessments?</strong> Assessment findings can be quantified: if a pen test proves a vulnerability can be exploited in 2 minutes, TCis high. If mitigating controls cost $50K/year but reduce risk by $500K/year, the decision is mathematically clear.</p>
+
+<h3>CORAS (Conceptual Modeling &amp; Analysis of Risk and Safety)</h3>
+<p><strong>CORAS</strong> is a semi-formal method for risk analysis, combining graphical notation with structured interviews. It's particularly useful for mapping assessment findings to business processes:</p>
+<table>
+  <tr><th>CORAS Element</th><th>Purpose</th><th>Example in Assessment Context</th></tr>
+  <tr><td><strong>Asset Diagram</strong></td><td>Visually identifies assets, stakeholders, and dependencies</td><td>Show that database is critical to three business processes</td></tr>
+  <tr><td><strong>Threat Diagram</strong></td><td>Maps threats to assets and the vulnerabilities they exploit</td><td>SQL injection threat → unpatched database → no input validation</td></tr>
+  <tr><td><strong>Risk Diagram</strong></td><td>Shows threats, vulnerabilities, risks, and treatment options</td><td>SQL injection (threat) → data exfiltration (risk) → WAF + parameterized queries (treatment)</td></tr>
+  <tr><td><strong>Treatment Diagram</strong></td><td>Details remediation roadmap with timelines and ownership</td><td>WAF (30 days, $50K), Parameterized queries (90 days, dev effort), Training (immediate, $5K)</td></tr>
+</table>
+<p><strong>Why CORAS for Assessments?</strong> It bridges technical findings and business context. A pen tester's "Remote Code Execution" becomes "Process X halts for Y hours" — the language executives understand.</p>
+
+<div class="exam-tip callout">
+  <strong>ðŸ'¡ Exam Tip:</strong> CISSP assessments often ask whether a finding is "material" to business risk. FAIR and CORAS formalize this judgment. Know that FAIR is quantitative (dollars), CORAS is visual/narrative (stakeholder alignment), and together they justify remediation prioritization to the board.
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Assessment vs. Audit — "FACER"</strong><br>
+  <strong>F</strong>indings-focused → Assessment (find gaps)<br>
+  <strong>A</strong>udit = Compliance check (did you comply?)<br>
+  <strong>C</strong>ompliance reports need <strong>E</strong>xternal, independent auditor<br>
+  <strong>R</strong>ules of Engagement required for all testing
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Assessment Planning Steps — "DOSARE"</strong><br>
+  <strong>D</strong>efine objectives<br>
+  <strong>O</strong>btain scope<br>
+  <strong>S</strong>ign authorization<br>
+  <strong>A</strong>gree on Rules of Engagement<br>
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 FAIR Risk Quantification — "ATE-CLM"</strong><br>
+  <strong>A</strong>sset value<br>
+  <strong>T</strong>hreat event frequency<br>
+  <strong>E</strong>xploitability (threat capability)<br>
+  <strong>C</strong>ontrol strength (what you're doing to mitigate)<br>
+  <strong>L</strong>oss magnitude per incident<br>
+  <strong>M</strong>ultiply LEF × LM = ALE (risk in dollars)
 </div>
 </section>
 

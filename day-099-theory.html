@@ -68,6 +68,7 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s7">7. Top Exam Traps &amp; Distractors</a></li>
   <li><a href="#s8">8. All Mnemonics Collected</a></li>
   <li><a href="#s9">9. Self-Assessment Checklist</a></li>
+  <li><a href="#s10">10. Compliance Framework &amp; Assessment Mapping</a></li>
 </ul>
 </div>
 
@@ -222,6 +223,44 @@ tr:nth-child(even){background:#f9f9f9;}
   <tr><td>14</td><td>What is dwell time and why is it the most critical detection metric?</td><td>Day 96</td></tr>
   <tr><td>15</td><td>Why is a parallel test considered the best balance of assurance and safety?</td><td>Day 97</td></tr>
 </table>
+</section>
+
+<section id="s10">
+<h2>10. Compliance Framework &amp; Assessment Mapping</h2>
+<p>Different regulations prescribe different assessment types and frequencies. Understanding the mapping helps prioritize assessment roadmap and budget allocation:</p>
+<table>
+  <tr><th>Regulation / Standard</th><th>Assessment Type(s) Required</th><th>Frequency</th><th>Scope Emphasis</th><th>Key Metric</th></tr>
+  <tr><td><strong>PCI DSS v4.0</strong></td><td>Vulnerability Assessment (external), Penetration Test (annual), Network Segmentation Test</td><td>Quarterly VA; Annual pen test</td><td>Payment card environment (network, systems, processes)</td><td>No critical vulns open > 30 days</td></tr>
+  <tr><td><strong>ISO/IEC 27001:2022</strong></td><td>Internal Audits, Management Review, Surveillance Audits, Certification Audit</td><td>Planned intervals (min. 1/year); Surveillance yearly; Recert every 3 years</td><td>All ISMS controls, processes, documented requirements</td><td>Audit finding remediation within agreed SLA</td></tr>
+  <tr><td><strong>HIPAA Security Rule (45 CFR 164.308)</strong></td><td>Risk Assessment (annual), Technical Evaluation (periodic), Workforce security evaluation</td><td>At least annually when changes occur</td><td>PHI systems, administrative/physical/technical safeguards</td><td>Identified vulnerabilities remediated per SLA</td></tr>
+  <tr><td><strong>SOC 2 Type II</strong></td><td>Third-party audit (against Trust Services Criteria: Security, Availability, Processing Integrity, Confidentiality, Privacy)</td><td>Annual (min. 6-month observation period preferred)</td><td>Organization-wide; applies to systems relevant to engagement</td><td>Zero material control deficiencies; no "needs improvement" opinions</td></tr>
+  <tr><td><strong>NIST RMF / FedRAMP</strong></td><td>Security Assessment (controls evaluation), Continuous Monitoring (system and environment)</td><td>Annual minimum; continuous monitoring ongoing</td><td>All security control families (NIST SP 800-53); federal info systems</td><td>Residual risk acceptable to AO (Authorizing Official)</td></tr>
+  <tr><td><strong>GDPR (Supervisory Authority Inspection)</strong></td><td>Data Protection Impact Assessment (DPIA), Technical/Organizational Measures Evaluation, Data Processing Agreement Review</td><td>For high-risk processing (DPIA mandatory); No standard audit cycle (supervisory authority-driven)</td><td>Data subject rights, processor responsibilities, cross-border transfers</td><td>No unauthorized data access incidents; remediation <= 30 days</td></tr>
+</table>
+
+<h3>Assessment Roadmap Planning (Multi-Year Example)</h3>
+<table>
+  <tr><th>Year 1: Foundation</th><th>Year 2: Compliance</th><th>Year 3: Optimization</th></tr>
+  <tr><td>Baseline VA (identify scope)</td><td>Pen test (prove impact)</td><td>Targeted pen test (focus on changes)</td></tr>
+  <tr><td>Internal audit (ad-hoc)</td><td>ISO 27001 cert audit</td><td>Surveillance audit #1</td></tr>
+  <tr><td>HIPAA risk assessment (checklist)</td><td>HIPAA formal evaluation</td><td>Remediation verification</td></tr>
+  <tr><td>—</td><td>SOC 2 Type II scoping</td><td>SOC 2 Type II year 2 / Cert renewal</td></tr>
+  <tr><td colspan="3"><strong>Ongoing:</strong> PCI quarterly VAs, annual pen test; NIST continuous monitoring; GDPR DPIAs for new processing</td></tr>
+</table>
+
+<h3>Key Assessment Takeaways by Regulation</h3>
+<ul>
+  <li><strong>PCI:</strong> Frequency over depth — quarterly scans catch new issues fast</li>
+  <li><strong>ISO 27001:</strong> Systematic, documented approach — auditor looks for evidence of process, not just results</li>
+  <li><strong>HIPAA:</strong> Risk-based, but "periodic" is vague — best practice is annual + when systems change</li>
+  <li><strong>SOC 2:</strong> Comprehensive control testing — auditor will test design AND operating effectiveness</li>
+  <li><strong>NIST RMF:</strong> Continuous monitoring philosophy — no single point-in-time assessment suffices for federal systems</li>
+  <li><strong>GDPR:</strong> Privacy-first; assessments focus on data subject rights and processor accountability, not just tech controls</li>
+</ul>
+
+<div class="exam-tip callout">
+  <strong>ðŸ'¡ Exam Tip:</strong> Scenario: "Your company is PCI-compliant, ISO 27001-certified, and processes HIPAA data. You have a limited budget for assessments. What do you prioritize?" Answer: (1) PCI quarterly VA (mandatory, regulatory fine risk), (2) ISO surveillance audit (maintain cert status), (3) HIPAA when environment changes (more flexible). Sequence by regulatory enforcement risk.
+</div>
 </section>
 
 <div class="nav-footer">

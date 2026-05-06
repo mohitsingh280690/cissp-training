@@ -66,8 +66,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s5">5. Security Metrics Framework</a></li>
   <li><a href="#s6">6. Dashboard Design &amp; Reporting</a></li>
   <li><a href="#s7">7. Metrics Maturity &amp; Common Pitfalls</a></li>
-  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s9">9. Key Takeaways</a></li>
+  <li><a href="#s8">8. NIST SP 800-55 Measurement Framework</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -270,6 +271,90 @@ EXECUTIVE SECURITY DASHBOARD STRUCTURE
   <tr><td>Vanity metrics</td><td>Look impressive but provide no actionable insight (e.g., "blocked 2M attacks")</td></tr>
   <tr><td>NIST SP 800-55</td><td>Framework for security metrics: Implementation → Effectiveness → Impact measures</td></tr>
   <tr><td>Dashboard design</td><td>Audience-appropriate; context over raw numbers; 5-8 key metrics; RAG status; actionable</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. NIST SP 800-55 Measurement Framework</h2>
+<h3>Three Levels of Security Measurement</h3>
+<p><strong>NIST Special Publication 800-55</strong> defines a maturity model for security metrics programs. Unlike ad-hoc metrics, NIST 800-55 aligns measurement with security outcomes and compliance requirements:</p>
+<table>
+  <tr><th>Measure Type</th><th>Focus</th><th>Timing</th><th>Example</th></tr>
+  <tr><td><strong>Implementation Measures</strong></td><td>"Are we doing it?" (Control execution)</td><td>Real-time / Daily</td><td>"85% of systems have latest patch" (control implementation percentage)</td></tr>
+  <tr><td><strong>Effectiveness Measures</strong></td><td>"Is it working?" (Control performance)</td><td>Weekly / Monthly</td><td>"Patch compliance rate trending up to 92% in 60 days" (control achieving goal)</td></tr>
+  <tr><td><strong>Impact Measures</strong></td><td>"Does it matter?" (Business risk reduction)</td><td>Quarterly / Annually</td><td>"Patching reduced exploitable vulnerabilities by 60%, estimated risk reduction: $2.1M/year" (security outcome)</td></tr>
+</table>
+
+<h3>Building a NIST-Aligned Metrics Program</h3>
+<table>
+  <tr><th>Step</th><th>Owner</th><th>Deliverable</th></tr>
+  <tr><td><strong>1. Define Security Goals</strong></td><td>CISO, Board</td><td>Aligned with business objectives (e.g., "Reduce dwell time to <24 hours")</td></tr>
+  <tr><td><strong>2. Map to Controls</strong></td><td>GRC Team</td><td>Which controls support each goal? (e.g., "EDR + SIEM + SOC process → dwell time reduction")</td></tr>
+  <tr><td><strong>3. Select Metrics Hierarchy</strong></td><td>Security Ops</td><td>Implementation metrics (is tool deployed?) → Effectiveness (is it detecting?) → Impact (how much risk reduced?)</td></tr>
+  <tr><td><strong>4. Set Targets &amp; Baselines</strong></td><td>Risk Officer</td><td>Current state vs. desired state (e.g., "Baseline dwell time: 45 days → Target: 24 days by Q4")</td></tr>
+  <tr><td><strong>5. Automate Collection</strong></td><td>SOC / GRC</td><td>Data pipeline; no manual reporting overhead (use APIs, SIEM, risk tools)</td></tr>
+  <tr><td><strong>6. Review &amp; Adjust</strong></td><td>CISO, Board</td><td>Monthly ops reviews, quarterly board reporting, annual metrics strategy refresh</td></tr>
+</table>
+
+<h3>Common Challenges &amp; NIST 800-55 Solutions</h3>
+<table>
+  <tr><th>Challenge</th><th>NIST 800-55 Approach</th></tr>
+  <tr><td>"We measure 200 metrics but don't know what they mean"</td><td>Move from Implementation → Effectiveness → Impact hierarchy (not all metrics are created equal)</td></tr>
+  <tr><td>"The board asks 'How much did security spending reduce risk?'" (can't answer)</td><td>Quantify IMPACT measures: link metrics to dollars (FAIR model); estimate avoided losses</td></tr>
+  <tr><td>"We report metrics but never act on them"</td><td>Use effectiveness & impact measures to drive decisions; tie KRIs to incident response escalation</td></tr>
+  <tr><td>"Metrics contradict each other" (e.g., faster response but more false positives)</td><td>Align metrics with security strategy; use balanced scorecards (not just one metric wins)</td></tr>
+</table>
+
+<div class="exam-tip callout">
+  <strong>ðŸ'¡ Exam Tip:</strong> CISSP scenario: "Your new EDR tool is 100% deployed (implementation), detecting 200 attacks/month (effectiveness), but the board wants to know: Should we keep it?" Answer: "Our dwell time dropped from 45 days to 18 days (impact). Estimated risk reduction: $5.2M/year (business language). That's worth the $300K investment." This is NIST 800-55 thinking.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 KPI vs KRI</strong><br>
+  <strong>KPI</strong> = <strong>P</strong>erformance = "How did we <strong>P</strong>erform?" (looking back)<br>
+  <strong>KRI</strong> = <strong>R</strong>isk = "What <strong>R</strong>isks are emerging?" (looking forward)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 MTTx Family</strong><br>
+  MTT<strong>D</strong> = Time to <strong>D</strong>etect (find it)<br>
+  MTT<strong>C</strong> = Time to <strong>C</strong>ontain (stop the spread)<br>
+  MTT<strong>R</strong> = Time to <strong>R</strong>emediate/Respond (fix it)<br>
+  All three should go ↓ DOWN — lower is always better
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 NIST 800-55 Measure Types — "I.E.I."</strong><br>
+  <strong>I</strong>mplementation = "Are we doing it?"<br>
+  <strong>E</strong>ffectiveness = "Is it working?"<br>
+  <strong>I</strong>mpact = "Does it matter?"<br>
+  Progress from doing → working → mattering
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Dashboard Audiences: "BOC"</strong><br>
+  <strong>B</strong>oard = Big picture (strategic; RAG status)<br>
+  <strong>O</strong>fficers (CISO) = Operational targets (tactical; KPIs/KRIs)<br>
+  <strong>C</strong>rew (SOC analysts) = Current alerts (operational; real-time)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>KPIs</td><td>Measure performance against objectives; lagging/backward-looking</td></tr>
+  <tr><td>KRIs</td><td>Warn of emerging risks; leading/forward-looking indicators</td></tr>
+  <tr><td>MTTD</td><td>Mean Time to Detect — measures detection capability; lower is better</td></tr>
+  <tr><td>MTTR</td><td>Mean Time to Respond/Remediate — measures response effectiveness; lower is better</td></tr>
+  <tr><td>Dwell Time</td><td>Time attacker remains undetected; most critical detection metric; industry median ~10-16 days</td></tr>
+  <tr><td>Patch Compliance Rate</td><td>Percentage of systems patched within SLA; target ≥ 95%</td></tr>
+  <tr><td>SMART metrics</td><td>Specific, Measurable, Achievable, Relevant, Time-bound</td></tr>
+  <tr><td>Vanity metrics</td><td>Look impressive but provide no actionable insight (e.g., "blocked 2M attacks")</td></tr>
+  <tr><td>Implementation measures</td><td>Assess control deployment; "Are we doing it?"; foundational layer</td></tr>
+  <tr><td>Effectiveness measures</td><td>Assess control performance; "Is it working?"; intermediate layer</td></tr>
+  <tr><td>Impact measures</td><td>Assess business risk reduction; "Does it matter?"; strategic layer (NIST 800-55)</td></tr>
+  <tr><td>NIST SP 800-55</td><td>Framework for security metrics maturity; aligns measurement to business outcomes; drives investment decisions</td></tr>
 </table>
 </section>
 

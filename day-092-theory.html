@@ -66,8 +66,9 @@ tr:nth-child(even){background:#f9f9f9;}
   <li><a href="#s5">5. Performance Testing (Load, Stress, Volume)</a></li>
   <li><a href="#s6">6. Test-Driven Development (TDD)</a></li>
   <li><a href="#s7">7. Complete Testing Comparison</a></li>
-  <li><a href="#s8">8. Memory Tricks &amp; Mnemonics</a></li>
-  <li><a href="#s9">9. Key Takeaways</a></li>
+  <li><a href="#s8">8. Test Data &amp; Environment Management</a></li>
+  <li><a href="#s9">9. Memory Tricks &amp; Mnemonics</a></li>
+  <li><a href="#s10">10. Key Takeaways</a></li>
 </ul>
 </div>
 
@@ -275,6 +276,105 @@ failing test        ──► GREEN: Write      │
   <tr><td>Volume testing</td><td>Performance with large data volumes; validates database and storage handling</td></tr>
   <tr><td>TDD</td><td>Write test BEFORE code; Red-Green-Refactor cycle; builds security tests into test suite from start</td></tr>
   <tr><td>V-Model</td><td>Maps each development phase to a corresponding test level (Requirements↔UAT, Design↔System/Integration, Code↔Unit)</td></tr>
+</table>
+</section>
+
+<section id="s8">
+<h2>8. Test Data &amp; Environment Management</h2>
+<h3>Data Masking &amp; Anonymization</h3>
+<p>Using production data for testing creates compliance and privacy risks. <strong>Data masking</strong> preserves data structure (format, relationships) while obfuscating sensitive values:</p>
+<table>
+  <tr><th>Technique</th><th>Use Case</th><th>Example</th><th>Reversible?</th></tr>
+  <tr><td><strong>Redaction</strong></td><td>Remove entirely</td><td>SSN: 123-45-6789 → SSN: XXX-XX-6789</td><td>No</td></tr>
+  <tr><td><strong>Encryption (Tokenization)</strong></td><td>Protect PII while keeping relationship</td><td>Email: user@example.com → Token: T47382 (reversible with key)</td><td>Yes</td></tr>
+  <tr><td><strong>Shuffling</strong></td><td>Randomize within category</td><td>Assign real credit card numbers to different accounts (structure preserved, no real mappings)</td><td>No</td></tr>
+  <tr><td><strong>Realistic Substitution</strong></td><td>Replace with realistic but fake data</td><td>Phone: 555-0101 (US non-working range)</td><td>No</td></tr>
+  <tr><td><strong>Hashing</strong></td><td>One-way cryptographic transformation</td><td>Password: sha256("secret") → a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3</td><td>No</td></tr>
+</table>
+
+<h3>Test Environment Tiers</h3>
+<table>
+  <tr><th>Environment</th><th>Purpose</th><th>Data</th><th>Risk Level</th></tr>
+  <tr><td><strong>Dev</strong></td><td>Unit testing, rapid iteration</td><td>Fake/minimal; no PII</td><td>Lowest</td></tr>
+  <tr><td><strong>Integration</strong></td><td>Module interactions; early security tests</td><td>Masked production-like data</td><td>Low</td></tr>
+  <tr><td><strong>Staging</strong></td><td>Mirror production; comprehensive testing</td><td>Fully masked; schema identical</td><td>Medium</td></tr>
+  <tr><td><strong>Pre-Prod</strong></td><td>Final validation before release</td><td>Masked recent data (if compliance allows)</td><td>Medium-High</td></tr>
+  <tr><td><strong>Production</strong></td><td>Live customer environment</td><td>Real customer data</td><td>Highest — NO testing here</td></tr>
+</table>
+
+<h3>Data Retention &amp; Cleanup in Test Environments</h3>
+<ul>
+  <li><strong>Minimize collection:</strong> Use only the test data needed (GDPR/CCPA principle of data minimization)</li>
+  <li><strong>Segregate PII:</strong> Store masked and unmasked data on separate systems; audit access logs</li>
+  <li><strong>Automatic purge:</strong> Delete test data after testing completes (don't leave sensitive masks lying around)</li>
+  <li><strong>Backup isolation:</strong> Backups of test environments should not be usable as restore points for production</li>
+  <li><strong>Access restrictions:</strong> Only authorized testers can access staging; developers cannot see unmasked PII</li>
+</ul>
+
+<div class="key-concept callout">
+  <strong>PII Classification Reminder:</strong> Under GDPR, CCPA, and most regulations, even masked data with auxiliary information (like a mapping table) can be re-identified — it's still PII. Truly anonymous data is irreversibly de-identified such that re-identification is not possible even with auxiliary data.
+</div>
+
+<div class="exam-tip callout">
+  <strong>ðŸ'¡ Exam Tip:</strong> A CISSP scenario: "You need to test a new authentication module against 100K customer accounts, but your security policy forbids production data in non-prod. What do you do?" Answer: Tokenized data masking in staging (realistic volume, structure preserved, PII protected) plus a small set of synthetic accounts for edge cases.
+</div>
+</section>
+
+<section id="s9">
+<h2>9. Memory Tricks &amp; Mnemonics</h2>
+<div class="mnemonic callout">
+  <strong>🧠 Testing Levels — "U-I-S-A"</strong><br>
+  <strong>U</strong>nit → <strong>I</strong>ntegration → <strong>S</strong>ystem → <strong>A</strong>cceptance<br>
+  "USA-I" — scope increases from smallest (unit) to largest (acceptance)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Load vs. Stress vs. Volume</strong><br>
+  <strong>Load</strong> = expected USERS (how many people can use it?)<br>
+  <strong>Stress</strong> = BEYOND limits (what breaks it?)<br>
+  <strong>Volume</strong> = DATA size (how much data can it handle?)<br>
+  "LSV: Load=Users, Stress=Limits, Volume=Data"
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 TDD = "Red-Green-Refactor"</strong><br>
+  <strong>Red</strong> = test fails (you haven't written the code yet)<br>
+  <strong>Green</strong> = test passes (you wrote minimal code)<br>
+  <strong>Refactor</strong> = clean up (improve code quality, tests still pass)<br>
+  Test FIRST, then code — the opposite of traditional development
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Smoke vs. Regression</strong><br>
+  <strong>Smoke</strong> = "Can it turn on without catching fire?" (quick, basic check)<br>
+  <strong>Regression</strong> = "Did we accidentally break something that was working?" (comprehensive recheck)
+</div>
+<div class="mnemonic callout">
+  <strong>🧠 Data Masking Types — "TRSHAE"</strong><br>
+  <strong>T</strong>okenization (reversible, keeps structure)<br>
+  <strong>R</strong>edaction (remove, irreversible)<br>
+  <strong>S</strong>huffling (randomize within category)<br>
+  <strong>H</strong>ashing (one-way crypto)<br>
+  <strong>A</strong>nonymization (irreversible de-identification)<br>
+  <strong>E</strong>ncryption (reversible with key)
+</div>
+</section>
+
+<section id="s10">
+<h2>10. Key Takeaways</h2>
+<table>
+  <tr><th>Concept</th><th>Key Point</th></tr>
+  <tr><td>Unit testing</td><td>Tests smallest code units (functions/methods); written by developers; first testing level</td></tr>
+  <tr><td>Integration testing</td><td>Tests module-to-module interactions; validates interfaces and data flow between components</td></tr>
+  <tr><td>System testing</td><td>Tests complete system against requirements; independent QA team; production-like environment</td></tr>
+  <tr><td>UAT</td><td>End users validate business requirements; last gate before production; alpha (dev site) / beta (user site)</td></tr>
+  <tr><td>Regression testing</td><td>Ensures existing functionality not broken by changes; run after EVERY change; automated</td></tr>
+  <tr><td>Smoke testing</td><td>Quick basic functionality check of new build; "does it turn on?"; precedes full testing</td></tr>
+  <tr><td>Load testing</td><td>Performance at expected peak users; validates capacity planning</td></tr>
+  <tr><td>Stress testing</td><td>Pushed beyond capacity to find breaking point; validates failure mode and recovery</td></tr>
+  <tr><td>Volume testing</td><td>Performance with large data volumes; validates database and storage handling</td></tr>
+  <tr><td>TDD</td><td>Write test BEFORE code; Red-Green-Refactor cycle; builds security tests into test suite from start</td></tr>
+  <tr><td>V-Model</td><td>Maps each development phase to a corresponding test level (Requirements↔UAT, Design↔System/Integration, Code↔Unit)</td></tr>
+  <tr><td>Data masking</td><td>Preserves structure while obfuscating PII; essential for compliance in test environments</td></tr>
+  <tr><td>Tokenization</td><td>Reversible masking using tokens; allows joins/relationships while protecting real values</td></tr>
+  <tr><td>Test data purge</td><td>Delete test data after testing; audit access; maintain data minimization principle</td></tr>
 </table>
 </section>
 
