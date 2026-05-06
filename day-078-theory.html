@@ -208,6 +208,19 @@ All Systems Provisioned Automatically — Consistent, Audited, Least-Privilege</
   <tr><td><strong>IGA</strong> (Identity Governance and Administration)</td><td>Platform (e.g., SailPoint IdentityNow, Saviynt, Microsoft Entra Identity Governance) for holistic identity lifecycle management: provisioning, recertification campaigns, SoD policy enforcement, role management, audit reporting.</td><td>Connects to HR, Active Directory, LDAP, hundreds of SaaS apps. Automates joiner/mover/leaver workflows. Runs automated access reviews. Generates compliance-ready reports for SOX/PCI/HIPAA. Detects SoD violations automatically.</td></tr>
   <tr><td><strong>Joiner-Mover-Leaver (JML) Workflow</strong></td><td>Structured automated process triggered by HR events. Joiner: new employee start → provision required roles. Mover: transfer/promotion → remove old role + add new role. Leaver: termination → suspend + revoke + offboard within hours.</td><td>HR system is the trigger. IGA is the orchestrator. AD/LDAP and downstream apps are the targets. The entire lifecycle is governed by policy without manual IT tickets.</td></tr>
 </table>
+
+<h3>IAM Governance Framework Mapping</h3>
+<table>
+  <tr><th>Framework</th><th>Lifecycle Relevance</th><th>What Auditors Usually Expect</th></tr>
+  <tr><td>NIST SP 800-53 (AC family)</td><td>Formal account management controls across provisioning, modification, and removal</td><td>Documented JML process, timely disablement, and periodic review evidence</td></tr>
+  <tr><td>ISO/IEC 27001 (A.9)</td><td>User access provisioning, review, and revocation governance</td><td>Role-based approvals, least privilege, and recertification artifacts</td></tr>
+  <tr><td>COBIT (governance/assurance lens)</td><td>Control objectives and ownership for IAM processes</td><td>Defined accountability, control design, and measurable IAM performance</td></tr>
+  <tr><td>ITIL (service management lens)</td><td>Operational workflow discipline for request, change, and incident ties to IAM</td><td>Ticketed approvals, SLA adherence, and change traceability</td></tr>
+</table>
+
+<div class="callout key-concept">
+  <strong>🔑 Governance Principle:</strong> Good IAM is not only technical automation. It also requires clear owners, approval authority, review cadence, and measurable control performance.
+</div>
 </section>
 
 <section id="s11">

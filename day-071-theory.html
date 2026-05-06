@@ -219,6 +219,24 @@ TOTP (Time-Based) — RFC 6238 (extends HOTP)
   <tr><td><strong>SIM swapping</strong></td><td>Attacker socially engineers telco to port victim's phone number to attacker's SIM; intercepts SMS OTPs</td><td>Don't use SMS OTP for high-value accounts; use authenticator app or FIDO2</td></tr>
   <tr><td><strong>SS7 exploitation</strong></td><td>Attacker exploits SS7 protocol weaknesses in the global telephone signaling system to intercept SMS messages</td><td>Same as above — avoid SMS OTP</td></tr>
 </table>
+
+<h3>NIST SP 800-63 Assurance Levels (IAL/AAL/FAL)</h3>
+<table>
+  <tr><th>Level Type</th><th>Level</th><th>Meaning</th><th>Practical IAM Interpretation</th></tr>
+  <tr><td>IAL (Identity Assurance)</td><td>IAL1</td><td>No strict identity proofing required</td><td>Low-risk consumer scenarios</td></tr>
+  <tr><td>IAL (Identity Assurance)</td><td>IAL2</td><td>Stronger identity proofing; real-world identity confidence</td><td>Most enterprise workforce identities</td></tr>
+  <tr><td>IAL (Identity Assurance)</td><td>IAL3</td><td>Very high confidence identity proofing with strict validation</td><td>High-impact government/regulatory contexts</td></tr>
+  <tr><td>AAL (Authenticator Assurance)</td><td>AAL1</td><td>Single-factor allowed</td><td>Baseline protection for low-risk resources</td></tr>
+  <tr><td>AAL (Authenticator Assurance)</td><td>AAL2</td><td>MFA required</td><td>Common enterprise target for user access</td></tr>
+  <tr><td>AAL (Authenticator Assurance)</td><td>AAL3</td><td>Hardware-bound, phishing-resistant authenticators with strict controls</td><td>Privileged and highly sensitive access</td></tr>
+  <tr><td>FAL (Federation Assurance)</td><td>FAL1</td><td>Basic federation assertion handling</td><td>Standard federation deployments</td></tr>
+  <tr><td>FAL (Federation Assurance)</td><td>FAL2</td><td>Stronger assertion protection and validation</td><td>Higher assurance federated SSO</td></tr>
+  <tr><td>FAL (Federation Assurance)</td><td>FAL3</td><td>Highest federation assurance, strongest token protections</td><td>Mission-critical federation trust models</td></tr>
+</table>
+
+<div class="callout exam-tip">
+  <strong>💡 Exam Tip:</strong> IAL proves WHO the user is, AAL proves HOW strongly they authenticate, and FAL proves HOW strongly federated assertions/tokens are protected.
+</div>
 </section>
 
 <!-- S9 -->
