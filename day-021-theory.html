@@ -126,9 +126,27 @@ tr:nth-child(even){background:#f9f9f9;}
 
   <div class="definition">
     <strong>Labels vs. Markings — Key Distinction:</strong><br>
-    <strong>Markings</strong> are applied to <em>digital content</em> — headers, footers, watermarks, and metadata embedded in documents, emails, or files. They travel with the data wherever it goes.<br>
-    <strong>Labels</strong> are applied to <em>physical objects</em> — stickers, stamps, or tags affixed to hardware, removable media, printed documents, or storage devices. They stay with the physical container, not the data itself.<br><br>
-    Example: A printed report has a <em>marking</em> ("CONFIDENTIAL") in the page footer <em>and</em> a <em>label</em> (red stamp) on the physical cover page. The USB drive carrying the same file has a <em>label</em> (sticker) on the device; the file itself carries the <em>marking</em> in its metadata.
+    <strong>Markings</strong> are applied to <em>content</em> — headers, footers, watermarks, and metadata embedded in documents, emails, or files. They travel with the data wherever it goes.<br>
+    <strong>Labels</strong> are applied to <em>physical containers</em> — stickers, stamps, or tags affixed to hardware, removable media, or storage devices. They stay with the physical object, not the data itself.<br><br>
+    Example: A USB drive carrying a confidential file has a <em>label</em> (sticker) on the device; the file itself carries the <em>marking</em> in its footer and metadata.
+  </div>
+
+  <table>
+    <tr><th></th><th>Marking</th><th>Label</th></tr>
+    <tr><td><strong>Applied to</strong></td><td>The content itself (document, file, email)</td><td>The physical container or equipment</td></tr>
+    <tr><td><strong>Form</strong></td><td>Header, footer, watermark, metadata tag, sensitivity label (MIP/Purview)</td><td>Sticker, stamp, colour-coded tape, tag</td></tr>
+    <tr><td><strong>Travels with data?</strong></td><td>Yes — embedded in the file, moves wherever the data goes</td><td>No — stays on the device/media, not the data</td></tr>
+    <tr><td><strong>Audience</strong></td><td>User or system handling the <em>content</em> (knows what protection the data needs)</td><td>Person handling the <em>physical object</em> (facilities staff, courier, data centre tech)</td></tr>
+    <tr><td><strong>Examples</strong></td><td>"CONFIDENTIAL" in every page footer; watermark on a PDF; metadata classification tag; MIP sensitivity label on an email</td><td>Red sticker on a USB drive; "SECRET" tape on a server rack; colour band on a backup tape</td></tr>
+    <tr><td><strong>Microsoft naming note</strong></td><td>Microsoft Purview calls digital classification indicators "sensitivity labels" — this is Microsoft-specific terminology. In CISSP, digital indicators = <em>markings</em>.</td><td>Physical only in CISSP context.</td></tr>
+  </table>
+
+  <div class="exam-tip">
+    <strong>💡 Exam Tip — Unmarked ≠ Unprotected:</strong> An asset that is inherently sensitive but has no marking or label applied is still a handling failure. The purpose of marking and labelling is to allow <em>any person or automated system</em> encountering the asset to immediately know its protection requirements <strong>without reading the contents</strong>. Unmarked sensitive data creates risk because handlers cannot apply appropriate controls.
+  </div>
+
+  <div class="trap-box">
+    <strong>🪤 Exam Trap — "Label" in Microsoft vs. CISSP:</strong> Microsoft Purview/MIP uses the word "label" for digital classification tags. In CISSP, a "label" is always physical (sticker on a device). A "marking" is what Microsoft calls a "label." Do not let Microsoft terminology override CISSP definitions on exam day.
   </div>
 </div>
 
