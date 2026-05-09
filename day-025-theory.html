@@ -93,8 +93,23 @@ tr:nth-child(even){background:#f9f9f9;}
 <div class="section" id="s3">
   <h2>3. Marking and Labelling</h2>
   <div class="definition">
-    <strong>Marking:</strong> The application of visual or digital indicators to data assets indicating their classification level, enabling users and systems to handle them appropriately.
+    <strong>Marking:</strong> The application of visual or digital indicators to the <em>content itself</em> — headers, footers, watermarks, metadata tags — indicating its classification level. Markings travel with the data wherever it goes.<br><br>
+    <strong>Labelling:</strong> The application of physical indicators (stickers, stamps, colour-coded tape, tags) to the <em>container or medium</em> holding the data — the device, server, cabinet, or physical media. Labels identify the highest classification level stored on that container and stay with the physical object, not the data.
   </div>
+
+  <table>
+    <tr><th></th><th>Marking</th><th>Label</th></tr>
+    <tr><td><strong>Applied to</strong></td><td>The content itself (document, file, email)</td><td>The physical container or equipment</td></tr>
+    <tr><td><strong>Form</strong></td><td>Header, footer, watermark, metadata tag, sensitivity label (MIP/Purview)</td><td>Sticker, stamp, colour-coded tape, tag</td></tr>
+    <tr><td><strong>Travels with data?</strong></td><td>Yes — embedded in the file, moves wherever the data goes</td><td>No — stays on the device/media, not the data</td></tr>
+    <tr><td><strong>Audience</strong></td><td>User or system handling the <em>content</em> (knows what protection the data needs)</td><td>Person handling the <em>physical object</em> (facilities staff, courier, data centre tech)</td></tr>
+    <tr><td><strong>Microsoft naming note</strong></td><td>Microsoft Purview calls digital classification indicators "sensitivity labels" — Microsoft-specific terminology. In CISSP, digital indicators = <em>markings</em>.</td><td>Physical only in CISSP context.</td></tr>
+  </table>
+
+  <div class="trap-box">
+    <strong>🪤 Exam Trap — "Label" in Microsoft vs. CISSP:</strong> Microsoft Purview/MIP uses the word "label" for digital classification tags (e.g., "sensitivity labels"). In CISSP, a "label" is always <em>physical</em> — a sticker on a device. What Microsoft calls a "label" is what CISSP calls a "marking." Do not let Microsoft terminology override CISSP definitions on exam day.
+  </div>
+
   <h3>Physical Document Marking</h3>
   <ul>
     <li>Headers and footers on every page bearing the classification label (e.g., "CONFIDENTIAL – INTERNAL USE ONLY")</li>
