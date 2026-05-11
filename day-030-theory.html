@@ -314,6 +314,14 @@ tr:nth-child(even)td{background:#f9f4ff;}
     The sanitization methods designed for traditional magnetic hard drives are <strong>unreliable or completely ineffective</strong> on solid-state drives. SSDs require purpose-built sanitization approaches.
   </div>
 
+  <h3>Why the Multi-Pass Overwrite Logic Doesn't Apply to SSDs</h3>
+  <div class="key-concept">
+    <div class="callout-title">💡 Different Physics, Different Problem</div>
+    <p>The entire rationale for 3-pass (DoD 5220.22-M) and 35-pass (Gutmann) overwriting is based on <strong>magnetic remanence</strong> — the faint residual magnetic signal left in a spinning disk's platter after a bit is flipped. SSDs store data as <strong>electrical charge in NAND flash cells</strong>, not as magnetic orientation. There is no magnetic residual signal to worry about.</p>
+    <p>So why doesn't writing zeros once work on an SSD? The problem is completely different: it's <strong>not about recovering the previous state of a cell</strong> — it's about the fact that <em>the OS write command may never even reach the physical cell that holds the old data</em>. The SSD's wear-leveling controller silently redirects writes to different physical locations, leaving stale copies behind that software overwrites never touch.</p>
+    <p>Passes don't help because the problem isn't signal depth — it's <em>physical address misdirection</em>.</p>
+  </div>
+
   <h3>Why Overwriting Fails on SSDs: Wear Leveling</h3>
   <div class="definition">
     <div class="callout-title">📖 Definition: Wear Leveling</div>
