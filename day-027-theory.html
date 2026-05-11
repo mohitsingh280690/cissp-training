@@ -186,23 +186,27 @@ tr:nth-child(even){background:#f9f9f9;}
 
 <div class="section" id="s8">
   <h2>8. End of Life (EOL) &amp; End of Support (EOS)</h2>
-  <p>CISSP syllabus 2.5 requires candidates to understand asset retention decisions specifically in the context of End-of-Life and End-of-Support timelines. These are distinct, <em>sequential</em> events — EOL happens first and starts a countdown clock; EOS is the hard stop.</p>
+  <p>CISSP syllabus 2.5 requires candidates to understand asset retention decisions specifically in the context of End-of-Life and End-of-Support timelines. These are distinct, <em>sequential</em> concepts — EOL is the phase/announcement where the product winds down; EOS is the hard stop when patches permanently cease.</p>
+
+  <div class="warning">
+    <strong>⚠️ Terminology is vendor-specific:</strong> Not all vendors use these terms identically. Some (Cisco, Red Hat) have explicit separate EOL and EOS milestone dates. Others (Microsoft consumer products) use a single "End of Support" date. The CISSP exam treats them as conceptually distinct — know the <em>concept</em>, not just a vendor's label.
+  </div>
 
   <div class="key-concept">
-    <strong>Real-world example — Windows 10:</strong> Microsoft announced EOL (End of Sale / end of new licenses) years before EOS. During the EOL period, security patches <em>continued</em> to ship monthly. The EOS date (14 October 2025) was when patches permanently stopped. If a vulnerability is discovered on 15 October 2025, Microsoft will never patch it.
+    <strong>Real-world example — Windows 10:</strong> In 2021, Microsoft announced that October 14, 2025 would be the End of Support date for Windows 10. During the entire period between that announcement and October 14, 2025, monthly security patches continued to ship. After that date, no patches were released. <em>The period between the vendor's announcement and the EOS date is the EOL phase</em> — the product is winding down but you are not yet exposed to unpatched vulnerabilities. Once EOS hits, every new CVE is permanent.
   </div>
 
   <table>
     <tr><th>Term</th><th>Definition</th><th>Patching status</th><th>Security Impact</th></tr>
     <tr>
       <td><strong>End of Life (EOL)</strong></td>
-      <td>The vendor announces the product will no longer be sold or developed. Existing installations continue to function and the vendor <em>still ships patches</em> — but the organisation is on notice that a hard deadline is coming.</td>
-      <td>✅ Patches still released (for now)</td>
-      <td>Start planning migration. The risk is <em>future</em> — you still have a window. Failure to plan here violates due diligence.</td>
+      <td>The vendor announces the product is in its final lifecycle phase — no longer actively developed, may no longer be sold. A defined EOS date is typically set at this point. Existing installations continue to receive patches until EOS.</td>
+      <td>✅ Patches still released (until EOS date)</td>
+      <td>Start planning migration. The risk is <em>future</em> — you still have a patched window. Failure to plan here violates due diligence.</td>
     </tr>
     <tr>
       <td><strong>End of Support (EOS) / End of Extended Support</strong></td>
-      <td>The vendor permanently ceases providing security patches, bug fixes, and technical support. This is the hard cutoff date — the countdown that started at EOL reaches zero here.</td>
+      <td>The vendor permanently ceases providing security patches, bug fixes, and technical support. This is the hard cutoff date that was announced at EOL.</td>
       <td>❌ Patches permanently stopped</td>
       <td>Any vulnerability discovered after EOS will <em>never</em> be patched. The asset becomes a permanent, growing liability. Operating EOS software in production without compensating controls is a critical risk and failure of due care.</td>
     </tr>
@@ -215,7 +219,7 @@ tr:nth-child(even){background:#f9f9f9;}
   </table>
 
   <div class="exam-tip">
-    <strong>✅ Key distinction:</strong> EOL = vendor signals the end is coming, patches still flow. EOS = patches stop forever. The sequence is always EOL → EOS, never simultaneous. CISSP questions often test whether you know that EOL software is still being patched, while EOS software is not.
+    <strong>✅ Key distinction for the exam:</strong> EOL = vendor signals the end is coming, a support deadline is set, but patches still flow until that date. EOS = patches stop forever. The question the exam tests: which phase creates <em>immediate unpatched risk</em>? Answer: EOS. EOL is a planning failure if ignored; EOS running without compensating controls is a due care failure.
   </div>
   <h3>Appropriate Asset Retention Decisions</h3>
   <p>When an asset approaches EOL/EOS, the organisation must make a formal, documented retention decision:</p>
