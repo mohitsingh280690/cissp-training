@@ -178,11 +178,46 @@ tr:nth-child(even)td{background:#f9f4ff;}
     <p>Clear applies logical techniques to sanitize data in all addressable storage locations using the standard read/write commands of the device. It provides protection against simple recovery using software file-recovery utilities.</p>
   </div>
 
+  <h3>Why Can't You Just Write Zeros Once?</h3>
+  <div class="key-concept">
+    <div class="callout-title">💡 The Physics of Magnetic Remanence</div>
+    <p>On a spinning HDD, data is stored by magnetising tiny regions of the disk platter in different orientations — one direction = 1, the other = 0. When the write head overwrites a 1 with a 0, the magnetic particles in that region <em>flip</em> — but not to a perfect, clean zero state. They carry a faint residual signal from their previous orientation. This ghost signal is called <strong>magnetic remanence</strong>.</p>
+    <p>Using <strong>Magnetic Force Microscopy (MFM)</strong> — an electron-microscope-level technique — a sophisticated attacker can scan the platter surface and detect whether a cell that currently reads as 0 was previously a 1 (vs. a 0 that was simply re-written as 0). The two cases leave subtly different magnetic signatures.</p>
+    <p><strong>Why not just write zeros?</strong> Writing all zeros is deterministic. The residual signal left behind is entirely shaped by the <em>previous</em> bit pattern — which for structured data (like a document) has meaningful patterns. Writing alternating passes (0s → 1s → random) progressively smears the residual into noise:</p>
+    <ul>
+      <li><strong>Pass 1 (0x00):</strong> Reduces the 1→0 residual signal but still leaves a systematic ghost shaped by the original data</li>
+      <li><strong>Pass 2 (0xFF):</strong> Flips everything again, "balancing" the magnetic stress on the domain and disrupting the ghost from pass 1</li>
+      <li><strong>Pass 3 (random + verify):</strong> Introduces random noise, making any remaining signal indistinguishable from background magnetic variation — no systematic pattern is detectable</li>
+    </ul>
+    <p>Each pass degrades the signal-to-noise ratio of the previous state until recovery is not practically possible.</p>
+  </div>
+
+  <h3>Why 35 Passes (Gutmann Method)?</h3>
+  <div class="key-concept">
+    <div class="callout-title">💡 Gutmann 1996 — Covering Every Drive Encoding Scheme</div>
+    <p>Peter Gutmann's 1996 paper analysed the different <strong>encoding schemes</strong> used by magnetic drives at the time — MFM (Modified Frequency Modulation), RLL (Run-Length Limited), and others. Each encoding scheme had different residual signal characteristics. Gutmann designed 35 specific overwrite patterns, where each sub-set of patterns targeted the residual signature of a particular encoding scheme.</p>
+    <p>The 35 passes were not 35 passes for a <em>single</em> drive — they were patterns combined to cover uncertainty across <em>all drive types available in 1996</em>. For any single drive, only a handful of patterns were relevant.</p>
+    <p><strong>Gutmann's own 2001 update note:</strong> "If you're using a drive which uses a modern encoding technique, you only need a few passes of random scrubbing to make the data unrecoverable. The precise choice of method doesn't matter much for modern drives."</p>
+  </div>
+
+  <h3>The Modern Reality (Why 1 Pass Is Now Sufficient)</h3>
+  <p>NIST SP 800-88 (and subsequent research) concluded that for modern high-density drives (>15 GB capacity):</p>
+  <ul>
+    <li>Track widths are now so narrow and bit density so high that MFM cannot practically distinguish the residual magnetic signal from background noise after even <em>one</em> pass of random data</li>
+    <li>The practical economics of MFM recovery on a modern 1 TB drive make it infeasible outside a nation-state intelligence operation</li>
+    <li>NIST SP 800-88 explicitly states: <em>"For ATA disk drives manufactured after 2001 (over 15 GB) the terms of the ATA standard make it more difficult to recover data using MFM after a single overwrite."</em> A single pass is sufficient for Clearing.</li>
+  </ul>
+
+  <div class="warning">
+    <div class="callout-title">⚠️ Key Insight</div>
+    The 3-pass and 35-pass methods were designed for <strong>1990s era drives</strong> with wide tracks and low bit density. They are not wrong — they are simply over-engineered for modern hardware. NIST 800-88 is the current authoritative standard and it says: one pass of random data is sufficient for modern magnetic HDDs at the Clear level. For classified data, skip overwriting entirely and go straight to Purge (ATA Secure Erase / degauss) or Destroy.
+  </div>
+
   <h3>Methods</h3>
   <ul>
-    <li><strong>Single-pass overwrite:</strong> Write all zeros (0x00), all ones (0xFF), or a random bit pattern to every sector. NIST 800-88 states a single pass is sufficient for most media — the "35-pass Gutmann method" (designed for older MFM disks) is unnecessary for modern HDDs.</li>
-    <li><strong>DoD 5220.22-M (3-pass):</strong> US Department of Defense standard — pass 1: write 0x00; pass 2: write 0xFF; pass 3: write a random pattern, then verify. Historically considered the industry standard for clearing.</li>
-    <li><strong>Multiple-pass overwriting:</strong> More passes provide marginally higher confidence but NIST 800-88 found no practical benefit beyond a single pass on modern drives.</li>
+    <li><strong>Single-pass overwrite (random):</strong> Write a random bit pattern to every sector. NIST 800-88 states this is sufficient for modern magnetic HDDs. The random pattern maximally disrupts the residual signal of the previous data.</li>
+    <li><strong>DoD 5220.22-M (3-pass):</strong> Pass 1: write 0x00; Pass 2: write 0xFF; Pass 3: write a random pattern, then verify. Designed for 1990s drives — still valid but not required for modern hardware by NIST 800-88.</li>
+    <li><strong>Gutmann 35-pass:</strong> Designed in 1996 to cover every encoding scheme of that era's drives. Unnecessary for modern drives — Gutmann himself said so. Still used in some tools for legacy compliance reasons.</li>
   </ul>
 
   <h3>Limitations of Clearing</h3>
