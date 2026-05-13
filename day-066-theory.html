@@ -88,6 +88,7 @@ tr:nth-child(even){background:#f9f9f9;}
 <h2>3. TLS 1.3 – Transport Layer Security</h2>
 <div class="callout definition">
   <strong>📖 TLS (Transport Layer Security):</strong> The dominant protocol for securing point-to-point communications over the internet. Provides confidentiality (encryption), integrity (MAC/AEAD), and server authentication (PKI certificate). TLS 1.3 (RFC 8446, 2018) is the current version — significantly simplified and hardened versus TLS 1.2.
+  <br><br><strong>⚠️ OSI Layer Placement:</strong> TLS doesn't fit cleanly into one OSI layer — it spans L4–L7: sits on top of TCP (L4), manages session setup via handshake (L5), handles encryption/encoding (L6), and serves application protocols like HTTPS (L7). <strong>CISSP exam answer: Layer 5 (Session)</strong> — but know it's a simplification.
 </div>
 
 <h3>TLS 1.3 Handshake (Simplified)</h3>
