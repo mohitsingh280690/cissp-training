@@ -108,6 +108,20 @@ th.d8{background:#33691e;}
   a{color:inherit;text-decoration:none;}
 }
 @page{margin:1.2cm 1cm;size:A4;}
+
+/* ── Pre-Mock Cheatsheet ── */
+.cs-card{margin-bottom:28px;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12);border:2px solid #bf360c;}
+.cs-hdr{background:linear-gradient(135deg,#1a0a00 0%,#4a1500 60%,#bf360c 100%);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.cs-hdr h2{font-size:1.2rem;font-weight:800;letter-spacing:.3px;}
+.cs-badge-top{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:4px 14px;font-size:.78rem;white-space:nowrap;}
+.cs-body{background:#fff8f0;padding:20px 24px;}
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;}
+.cs-h3{font-size:.86rem;font-weight:700;color:#bf360c;margin:14px 0 5px;padding-left:8px;border-left:3px solid #bf360c;text-transform:uppercase;letter-spacing:.4px;}
+.cs-h3:first-child{margin-top:0;}
+.cs-ul{padding-left:16px;margin:0 0 2px;}
+.cs-ul li{margin-bottom:4px;font-size:.84rem;line-height:1.45;}
+@media(max-width:700px){.cs-grid{grid-template-columns:1fr;}}
+@media print{.cs-card{border-color:#000;break-after:page;}.cs-hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
 </style>
 </head>
 <body>
@@ -128,6 +142,129 @@ th.d8{background:#33691e;}
 </div>
 
 <div class="container">
+
+<!-- PRE-MOCK CHEATSHEET -->
+<div class="cs-card" id="cheatsheet">
+  <div class="cs-hdr">
+    <h2>&#9889; Pre-Mock 15-Minute Cheatsheet</h2>
+    <span class="cs-badge-top">Scan this first &middot; Jump to TOC only if shaky on a specific domain</span>
+  </div>
+  <div class="cs-body">
+    <div class="cs-grid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <p class="cs-h3">Always Pick This &mdash; Exam Decision Rules</p>
+        <ul class="cs-ul">
+          <li><strong>Non-repudiation</strong> &rarr; digital signature with private key only &mdash; HMAC does NOT provide non-repudiation (shared secret)</li>
+          <li><strong>Ransomware first action</strong> &rarr; ISOLATE from network first (contain &rarr; image &rarr; eradicate &rarr; recover)</li>
+          <li><strong>Hostile termination</strong> &rarr; disable access BEFORE notifying employee</li>
+          <li><strong>Any security test</strong> &rarr; written authorisation required FIRST, no exceptions</li>
+          <li><strong>Legal hold triggered</strong> &rarr; stop ALL data destruction immediately regardless of retention schedule</li>
+          <li><strong>BCP project starts with</strong> &rarr; BIA (not policy, not team, not plan)</li>
+          <li><strong>IR order</strong> &rarr; contain BEFORE eradicate; forensic image BEFORE cleaning</li>
+          <li><strong>Vendor assurance</strong> &rarr; SOC 2 Type II + right-to-audit clause (Type I = design only, not effectiveness)</li>
+          <li><strong>&ldquo;Most comprehensive&rdquo; threat model</strong> &rarr; PASTA</li>
+          <li><strong>&ldquo;Design-time / DFD-level&rdquo; threat model</strong> &rarr; STRIDE</li>
+          <li><strong>&ldquo;Insider threat / anomaly detection&rdquo;</strong> &rarr; UEBA</li>
+          <li><strong>&ldquo;Hardware key storage, highest assurance&rdquo;</strong> &rarr; HSM &mdash; TPM = platform attestation / BitLocker</li>
+          <li><strong>&ldquo;SSD / flash / cloud sanitisation&rdquo;</strong> &rarr; cryptographic erasure or physical destroy &mdash; NOT degaussing</li>
+          <li><strong>&ldquo;Cross-org / internet SSO&rdquo;</strong> &rarr; SAML 2.0 or OIDC &mdash; NOT Kerberos (single realm only)</li>
+          <li><strong>&ldquo;Sign in with Google&rdquo;</strong> &rarr; OIDC &mdash; OAuth 2.0 alone = authorisation only, NOT authentication</li>
+          <li><strong>&ldquo;Enterprise Wi-Fi&rdquo;</strong> &rarr; WPA2/WPA3 Enterprise 802.1X &mdash; NOT PSK (offline dictionary attack risk)</li>
+          <li><strong>&ldquo;Strongest EAP&rdquo;</strong> &rarr; EAP-TLS (mutual certificate authentication)</li>
+          <li><strong>&ldquo;Most granular access control&rdquo;</strong> &rarr; ABAC &mdash; RBAC = most common enterprise &mdash; MAC = government/military</li>
+          <li><strong>&ldquo;Data owner&rdquo;</strong> &rarr; business executive (VP, Director) &mdash; IT = custodian</li>
+          <li><strong>&ldquo;Bank wants best biometrics&rdquo;</strong> &rarr; lowest FAR (Type II error = unauthorised person accepted = security risk)</li>
+          <li><strong>&ldquo;GDPR privacy exemption&rdquo;</strong> &rarr; anonymisation only &mdash; tokenisation and pseudonymisation = GDPR still applies</li>
+          <li><strong>Cloud: customer ALWAYS owns</strong> &rarr; data classification + user access management regardless of IaaS/PaaS/SaaS</li>
+          <li><strong>&ldquo;Compliance vs security&rdquo;</strong> &rarr; implement compliance AND exceed it &mdash; compliance = minimum baseline only</li>
+          <li><strong>&ldquo;Most important audit characteristic&rdquo;</strong> &rarr; independence</li>
+          <li><strong>&ldquo;Cryptographic goal for &lsquo;prove who sent it&rsquo;&rdquo;</strong> &rarr; non-repudiation (asymmetric private key signature)</li>
+        </ul>
+
+        <p class="cs-h3">First Action Rules</p>
+        <ul class="cs-ul">
+          <li>Ransomware discovered &rarr; <strong>ISOLATE</strong></li>
+          <li>Incident containment &rarr; <strong>FORENSIC IMAGE</strong> before cleaning</li>
+          <li>About to pen test &rarr; <strong>WRITTEN AUTHORISATION</strong></li>
+          <li>Firing hostile employee &rarr; <strong>DISABLE ACCESS</strong></li>
+          <li>Litigation anticipated &rarr; <strong>LEGAL HOLD</strong> (all destruction stops)</li>
+          <li>Starting BCP &rarr; <strong>BIA</strong></li>
+          <li>Attacker detected in system &rarr; <strong>CONTAIN</strong> before eradicate</li>
+        </ul>
+
+        <p class="cs-h3">Never Use &mdash; Instant Elimination</p>
+        <ul class="cs-ul">
+          <li><strong>Algorithms:</strong> DES &middot; 3DES &middot; RC4 &middot; MD5 &middot; SHA-1 &middot; PPTP</li>
+          <li><strong>Wireless:</strong> WEP &middot; WPA-TKIP &middot; WPA2-PSK for enterprise environments</li>
+          <li><strong>Block mode:</strong> ECB &mdash; same plaintext = same ciphertext, patterns visible</li>
+          <li><strong>Protocols:</strong> Telnet &middot; FTP &middot; SNMPv1/v2c &middot; HTTP for sensitive data</li>
+          <li><strong>Myths:</strong> SSID hiding &middot; MAC filtering &mdash; both are security theatre</li>
+          <li><strong>Validation:</strong> client-side input validation alone (always validate server-side)</li>
+          <li><strong>Code:</strong> hardcoded credentials, API keys, or secrets in source code</li>
+        </ul>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <p class="cs-h3">Key Numbers &mdash; Pure Memorisation</p>
+        <ul class="cs-ul">
+          <li><strong>CISSP exam:</strong> 700/1000 pass &middot; 4 hours &middot; 125&ndash;175 questions &middot; CAT format &middot; $749</li>
+          <li><strong>GDPR:</strong> 72h to supervisory authority (notifiable breaches only) &middot; &euro;20M or 4% global revenue &middot; 6 lawful bases</li>
+          <li><strong>Retention:</strong> SOX 7yr &middot; HIPAA 6yr &middot; PCI-DSS logs 1yr (90 days immediately accessible)</li>
+          <li><strong>Kerberos:</strong> 5-min clock skew &middot; 10-hr TGT default &middot; Port 88 &middot; KRBTGT hash = Golden Ticket</li>
+          <li><strong>CVSS:</strong> Critical 9.0&ndash;10.0 &middot; High 7.0&ndash;8.9 &middot; Medium 4.0&ndash;6.9 &middot; Low 0.1&ndash;3.9</li>
+          <li><strong>Fences:</strong> 3&ndash;4 ft = casual deterrent &middot; 6&ndash;7 ft = serious &middot; 8+ ft + razor = determined attacker</li>
+          <li><strong>Crypto key sizes:</strong> AES-256 (128-bit block) &middot; RSA 2048+ minimum &middot; ECC 256-bit &asymp; RSA 3072-bit</li>
+          <li><strong>BIA:</strong> RTO + WRT &le; MTD &middot; RPO = data loss tolerance &middot; Hot site = hours &middot; Cold site = days/weeks</li>
+          <li><strong>WEP:</strong> 24-bit IV + RC4 = completely broken (crack in minutes)</li>
+          <li><strong>Fire suppression:</strong> Water = Class A only &middot; CO&#8322; = evacuate first &middot; FM-200/Novec 1230 = data centre &middot; Halon = banned</li>
+          <li><strong>Data centre environment:</strong> 18&ndash;27&deg;C &middot; 40&ndash;60% relative humidity</li>
+          <li><strong>NIST CSF 2.0:</strong> 6 functions: Govern &rarr; Identify &rarr; Protect &rarr; Detect &rarr; Respond &rarr; Recover</li>
+          <li><strong>SOC 2:</strong> Type I = design (point-in-time) &middot; Type II = effectiveness over time (prefer this)</li>
+          <li><strong>RAID:</strong> 0 = stripe (no fault tolerance) &middot; 1 = mirror &middot; 5 = stripe+parity (min 3 disks) &middot; 6 = 2-disk fault tolerance &middot; 10 = mirror+stripe</li>
+        </ul>
+
+        <p class="cs-h3">Security Models (10 words each)</p>
+        <ul class="cs-ul">
+          <li><strong>Bell-LaPadula:</strong> No Read Up, No Write Down &rarr; confidentiality; data flows up</li>
+          <li><strong>Biba:</strong> No Read Down, No Write Up &rarr; integrity; data flows down (BLP exact opposite)</li>
+          <li><strong>Clark-Wilson:</strong> Well-formed transactions + SoD &rarr; commercial integrity (replaces Biba in practice)</li>
+          <li><strong>Brewer-Nash (Chinese Wall):</strong> Access company A &rarr; competitor B locked out forever</li>
+          <li><strong>Graham-Denning:</strong> Defines secure transfer of access rights between subjects/objects</li>
+        </ul>
+
+        <p class="cs-h3">Mnemonics</p>
+        <ul class="cs-ul">
+          <li><strong>OSI 7&rarr;1:</strong> <em>All People Seem To Need Data Processing</em> (App &middot; Presentation &middot; Session &middot; Transport &middot; Network &middot; Data Link &middot; Physical)</li>
+          <li><strong>Ethics canons (priority order):</strong> <em>S-H-D-A</em> &mdash; Society &middot; Honourable &middot; Diligent &middot; Advance profession</li>
+          <li><strong>BCP test order (safest &rarr; riskiest):</strong> <em>C-T-S-P-F</em> &mdash; Checklist &middot; Tabletop &middot; Simulation &middot; Parallel &middot; Full interruption</li>
+          <li><strong>Risk responses:</strong> <em>MATA</em> &mdash; Mitigate &middot; Accept &middot; Transfer &middot; Avoid</li>
+          <li><strong>STRIDE:</strong> Spoofing &middot; Tampering &middot; Repudiation &middot; Info Disclosure &middot; DoS &middot; Elevation of Privilege</li>
+          <li><strong>NIST IR lifecycle (4 official phases):</strong> Prepare &rarr; Detect &amp; Analyse &rarr; Contain / Eradicate / Recover &rarr; Post-Incident</li>
+          <li><strong>Order of volatility (most &rarr; least):</strong> CPU Registers &middot; RAM &middot; Swap/Page &middot; HDD/SSD &middot; Remote logs &middot; Backups</li>
+          <li><strong>Evidence types:</strong> <em>RDTD</em> &mdash; Real &middot; Documentary &middot; Testimonial &middot; Demonstrative</li>
+          <li><strong>Data lifecycle:</strong> Create &rarr; Store &rarr; Use &rarr; Share/Transmit &rarr; Archive &rarr; Destroy</li>
+          <li><strong>GDPR lawful bases:</strong> <em>C-C-L-V-P-L</em> &mdash; Consent &middot; Contract &middot; Legal obligation &middot; Vital interests &middot; Public task &middot; Legitimate interests</li>
+          <li><strong>CIA attacks (DAD):</strong> Disclosure (vs Confidentiality) &middot; Alteration (vs Integrity) &middot; Destruction (vs Availability)</li>
+          <li><strong>Kerberos attacks:</strong> Golden (KRBTGT) &middot; Silver (service acct) &middot; Kerberoasting (SPN offline crack) &middot; Pass-the-Ticket &middot; AS-REP Roasting</li>
+        </ul>
+
+        <p class="cs-h3">Federation &amp; Crypto Quick-Fire</p>
+        <ul class="cs-ul">
+          <li>SAML 2.0 = authentication (XML) &middot; OAuth 2.0 = authorisation only &middot; OIDC = auth + authz (built on OAuth)</li>
+          <li>Encrypt with <strong>PUBLIC key</strong> = confidentiality &middot; Encrypt with <strong>PRIVATE key</strong> = digital signature</li>
+          <li>Symmetric = fast bulk encryption &middot; Asymmetric = key exchange + signatures &middot; Hybrid = both</li>
+          <li>GCM = preferred block mode (AEAD: encryption + integrity) &middot; ECB = never &middot; CTR = parallelisable</li>
+          <li>PFS = ephemeral keys per session; past recordings safe even if long-term key later compromised</li>
+          <li>SHA-3 sponge = inherently length-extension resistant &middot; SHA-2 (Merkle-Damg&aring;rd) = use HMAC instead</li>
+        </ul>
+      </div>
+
+    </div><!-- /cs-grid -->
+  </div><!-- /cs-body -->
+</div><!-- /cheatsheet -->
 
 <!-- TOC -->
 <div class="toc-card">
