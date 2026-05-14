@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP Master Summary — All 8 Domains</title>
+<style>
+:root{
+  --d1:#1565c0;--d2:#2e7d32;--d3:#6a1b9a;--d4:#e65100;
+  --d5:#00838f;--d6:#c62828;--d7:#4527a0;--d8:#558b2f;
+  --bg:#f4f5f7;--card:#ffffff;--text:#1a1a2e;--muted:#555;
+  --border:#dde1e7;--accent:#1a237e;
+  --tip-bg:#e8f5e9;--tip-border:#2e7d32;
+  --warn-bg:#fff3e0;--warn-border:#e65100;
+  --def-bg:#e3f2fd;--def-border:#1565c0;
+  --key-bg:#f3e5f5;--key-border:#6a1b9a;
+  --form-bg:#e8eaf6;--form-border:#3949ab;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:13.5px;}
+
+/* ── Header ── */
+.site-header{background:linear-gradient(135deg,#0d1b4e 0%,#1a237e 60%,#283593 100%);color:#fff;padding:36px 24px 28px;text-align:center;}
+.site-header h1{font-size:2rem;font-weight:800;letter-spacing:.5px;margin-bottom:6px;}
+.site-header .sub{font-size:1.05rem;opacity:.88;margin-bottom:14px;}
+.badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.82rem;}
+
+/* ── Layout ── */
+.container{max-width:960px;margin:0 auto;padding:24px 16px 60px;}
+
+/* ── TOC ── */
+.toc-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:28px;}
+.toc-card h2{font-size:1.15rem;color:var(--accent);margin-bottom:14px;border-bottom:2px solid var(--accent);padding-bottom:6px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 20px;}
+.toc-grid a{color:var(--accent);text-decoration:none;font-size:.9rem;font-weight:500;}
+.toc-grid a:hover{text-decoration:underline;}
+
+/* ── Domain section ── */
+.domain{margin-bottom:44px;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.domain-hdr{color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.domain-hdr h2{font-size:1.35rem;font-weight:700;}
+.domain-hdr .wt{background:rgba(255,255,255,.2);border-radius:16px;padding:4px 14px;font-size:.85rem;font-weight:600;}
+.domain-body{background:var(--card);border:1px solid var(--border);border-top:none;padding:20px 24px;}
+
+/* ── Topic blocks ── */
+.topic{margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed var(--border);}
+.topic:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.topic h3{font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:10px;padding-left:8px;border-left:3px solid var(--accent);}
+.topic h4{font-size:.9rem;font-weight:600;color:var(--muted);margin:10px 0 5px;}
+
+/* ── Callouts ── */
+.tip{background:var(--tip-bg);border-left:4px solid var(--tip-border);padding:8px 12px;border-radius:0 5px 5px 0;margin:8px 0;font-size:.88rem;}
+.tip strong{color:var(--tip-border);}
+.warn{background:var(--warn-bg);border-left:4px solid var(--warn-border);padding:8px 12px;border-radius:0 5px 5px 0;margin:8px 0;font-size:.88rem;}
+.warn strong{color:var(--warn-border);}
+.def{background:var(--def-bg);border-left:4px solid var(--def-border);padding:8px 12px;border-radius:0 5px 5px 0;margin:8px 0;font-size:.88rem;}
+.def strong{color:var(--def-border);}
+.key{background:var(--key-bg);border-left:4px solid var(--key-border);padding:8px 12px;border-radius:0 5px 5px 0;margin:8px 0;font-size:.88rem;}
+.key strong{color:var(--key-border);}
+.formula{background:var(--form-bg);border:2px solid var(--form-border);border-radius:6px;padding:10px 14px;margin:8px 0;font-family:'Courier New',monospace;font-size:.9rem;font-weight:700;}
+
+/* ── Tables ── */
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.87rem;}
+th{background:var(--accent);color:#fff;padding:7px 10px;text-align:left;font-size:.82rem;}
+td{border:1px solid var(--border);padding:6px 10px;vertical-align:top;}
+tr:nth-child(even) td{background:#f8f9fb;}
+
+/* ── Lists ── */
+ul,ol{padding-left:20px;margin:6px 0;}
+li{margin-bottom:3px;font-size:.89rem;}
+p{margin-bottom:8px;font-size:.9rem;}
+
+/* ── Two-col grid ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0;}
+.two-col>div{min-width:0;}
+
+/* ── Domain colour vars ── */
+.d1 .domain-hdr{background:linear-gradient(135deg,#1565c0,#1976d2);}
+.d2 .domain-hdr{background:linear-gradient(135deg,#2e7d32,#388e3c);}
+.d3 .domain-hdr{background:linear-gradient(135deg,#6a1b9a,#7b1fa2);}
+.d4 .domain-hdr{background:linear-gradient(135deg,#bf360c,#d84315);}
+.d5 .domain-hdr{background:linear-gradient(135deg,#00695c,#00796b);}
+.d6 .domain-hdr{background:linear-gradient(135deg,#b71c1c,#c62828);}
+.d7 .domain-hdr{background:linear-gradient(135deg,#311b92,#4527a0);}
+.d8 .domain-hdr{background:linear-gradient(135deg,#33691e,#558b2f);}
+
+th.d1{background:#1565c0;}
+th.d2{background:#2e7d32;}
+th.d3{background:#6a1b9a;}
+th.d4{background:#bf360c;}
+th.d5{background:#00695c;}
+th.d6{background:#b71c1c;}
+th.d7{background:#311b92;}
+th.d8{background:#33691e;}
+
+/* ── Print ── */
+@media print{
+  body{background:#fff;font-size:10pt;line-height:1.5;}
+  .site-header{padding:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .container{max-width:100%;padding:8px;}
+  .domain{page-break-before:always;box-shadow:none;}
+  .domain:first-of-type{page-break-before:avoid;}
+  .domain-hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .tip,.warn,.def,.key,.formula{page-break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .toc-card{page-break-after:always;}
+  a{color:inherit;text-decoration:none;}
+}
+@page{margin:1.2cm 1cm;size:A4;}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>CISSP Master Summary</h1>
+  <div class="sub">All 8 Domains · Comprehensive Quick Reference · Domain-Organised</div>
+  <div class="badges">
+    <span class="badge">D1: Security &amp; Risk Mgmt — 15%</span>
+    <span class="badge">D2: Asset Security — 10%</span>
+    <span class="badge">D3: Architecture &amp; Engineering — 13%</span>
+    <span class="badge">D4: Network Security — 13%</span>
+    <span class="badge">D5: IAM — 13%</span>
+    <span class="badge">D6: Assessment &amp; Testing — 12%</span>
+    <span class="badge">D7: Security Operations — 13%</span>
+    <span class="badge">D8: Software Dev Security — 10%</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc-card">
+  <h2>Quick Navigation</h2>
+  <div class="toc-grid">
+    <a href="#d1">D1 · Security &amp; Risk Management</a>
+    <a href="#d1-cia">CIA Triad &amp; Foundations</a>
+    <a href="#d1-gov">Governance &amp; Roles</a>
+    <a href="#d1-compliance">Compliance &amp; Legal</a>
+    <a href="#d1-risk">Risk Analysis &amp; Response</a>
+    <a href="#d1-bcp">BCP &amp; BIA</a>
+    <a href="#d2">D2 · Asset Security</a>
+    <a href="#d2-class">Classification</a>
+    <a href="#d2-lifecycle">Data Lifecycle &amp; States</a>
+    <a href="#d2-destruction">Retention &amp; Destruction</a>
+    <a href="#d3">D3 · Architecture &amp; Engineering</a>
+    <a href="#d3-models">Security Models</a>
+    <a href="#d3-crypto">Cryptography</a>
+    <a href="#d3-pki">PKI &amp; Key Management</a>
+    <a href="#d4">D4 · Network Security</a>
+    <a href="#d4-osi">OSI &amp; Protocols</a>
+    <a href="#d4-fw">Firewalls &amp; IDS/IPS</a>
+    <a href="#d4-vpn">VPN &amp; Wireless</a>
+    <a href="#d5">D5 · IAM</a>
+    <a href="#d5-auth">Authentication &amp; Biometrics</a>
+    <a href="#d5-authz">Authorization Models</a>
+    <a href="#d5-fed">Federation &amp; ZTA</a>
+    <a href="#d6">D6 · Assessment &amp; Testing</a>
+    <a href="#d6-va">Vulnerability &amp; Pen Testing</a>
+    <a href="#d6-audit">Audits &amp; SOC Reports</a>
+    <a href="#d7">D7 · Security Operations</a>
+    <a href="#d7-ir">Incident Response</a>
+    <a href="#d7-dr">Disaster Recovery</a>
+    <a href="#d7-phys">Physical &amp; Personnel</a>
+    <a href="#d8">D8 · Software Dev Security</a>
+    <a href="#d8-sdlc">SDLC &amp; Methodologies</a>
+    <a href="#d8-web">Web &amp; DB Security</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DOMAIN 1 – SECURITY AND RISK MANAGEMENT
+════════════════════════════════════════════ -->
+<div class="domain d1" id="d1">
+  <div class="domain-hdr">
+    <h2>Domain 1 — Security and Risk Management</h2>
+    <span class="wt">15% of exam · ~22 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- CIA TRIAD -->
+    <div class="topic" id="d1-cia">
+      <h3>CIA Triad &amp; Core Concepts</h3>
+      <table>
+        <tr><th class="d1">Property</th><th class="d1">Goal</th><th class="d1">Controls</th><th class="d1">Attack (DAD)</th></tr>
+        <tr><td><strong>Confidentiality</strong></td><td>Prevent unauthorised disclosure</td><td>Encryption, access control, classification, steganography</td><td>Disclosure — eavesdropping, data exfiltration</td></tr>
+        <tr><td><strong>Integrity</strong></td><td>Prevent unauthorised modification</td><td>Hashing, digital signatures, HMAC, version control, input validation</td><td>Alteration — MitM tampering, SQL injection</td></tr>
+        <tr><td><strong>Availability</strong></td><td>Ensure reliable access</td><td>Redundancy, clustering, backups, DDoS mitigation, BCP/DRP</td><td>Destruction — DoS/DDoS, ransomware</td></tr>
+      </table>
+      <div class="tip"><strong>Exam Tip:</strong> Non-repudiation, Authenticity, and Accountability extend CIA. Non-repudiation requires <em>asymmetric crypto only</em>. HMAC provides integrity + authentication but NOT non-repudiation (shared key = either party could have created it).</div>
+      <div class="warn"><strong>Ransomware trap:</strong> Ransomware violates all three CIA properties, but its <em>primary</em> goal is Availability (to extort) or Confidentiality (if data is exfiltrated).</div>
+
+      <h4>Defense in Depth (Layered Security)</h4>
+      <p>Multiple independent controls arranged in layers: Policies/Awareness → Physical → Perimeter → Network → Host → Application → Data. Control <em>diversity</em> across layers is essential — same technology at every layer = single failure defeats all.</p>
+
+      <h4>Security Concepts Glossary</h4>
+      <table>
+        <tr><th class="d1">Term</th><th class="d1">Definition</th></tr>
+        <tr><td><strong>Asset</strong></td><td>Anything of value: data, systems, people, reputation</td></tr>
+        <tr><td><strong>Threat</strong></td><td>Potential event that could harm an asset (natural or man-made, intentional or accidental)</td></tr>
+        <tr><td><strong>Threat Agent</strong></td><td>Entity that carries out the threat: hacker, insider, hurricane, software bug</td></tr>
+        <tr><td><strong>Vulnerability</strong></td><td>Weakness in a system or process exploitable by a threat</td></tr>
+        <tr><td><strong>Risk</strong></td><td>Probability a threat exploits a vulnerability causing loss: Risk = Threat × Vulnerability × Impact</td></tr>
+        <tr><td><strong>Residual Risk</strong></td><td>Risk remaining after controls applied; never zero</td></tr>
+        <tr><td><strong>Total Risk</strong></td><td>Risk before any controls; baseline starting point</td></tr>
+      </table>
+    </div>
+
+    <!-- GOVERNANCE & ROLES -->
+    <div class="topic" id="d1-gov">
+      <h3>Security Governance, Roles &amp; Responsibilities</h3>
+      <table>
+        <tr><th class="d1">Level</th><th class="d1">Who</th><th class="d1">Focus</th><th class="d1">Example</th></tr>
+        <tr><td><strong>Governance</strong></td><td>Board, CEO, CISO</td><td>Direction &amp; risk appetite — what to achieve</td><td>Approve security strategy; set 15% breach risk tolerance</td></tr>
+        <tr><td><strong>Management</strong></td><td>Security Manager, CISO</td><td>Planning &amp; control — how to achieve it</td><td>Develop policy; manage budget; track KPIs</td></tr>
+        <tr><td><strong>Operations</strong></td><td>Analysts, Admins, SOC</td><td>Execution — doing it day-to-day</td><td>Apply patches; respond to alerts; manage accounts</td></tr>
+      </table>
+
+      <h4>Data Roles (Most Tested)</h4>
+      <table>
+        <tr><th class="d1">Role</th><th class="d1">Who</th><th class="d1">Key Responsibility</th></tr>
+        <tr><td><strong>Data Owner</strong></td><td>Business executive (VP, Director) — NOT IT</td><td>Determines classification; approves access; accepts residual risk</td></tr>
+        <tr><td><strong>Data Custodian</strong></td><td>IT / sysadmin</td><td>Implements controls specified by owner; backs up; patches</td></tr>
+        <tr><td><strong>Data Steward</strong></td><td>Business analyst / data governance team</td><td>Maintains data quality, accuracy, metadata governance</td></tr>
+        <tr><td><strong>System Owner</strong></td><td>IT manager for a specific system</td><td>Responsible for CIA of a specific system; works with data owner</td></tr>
+      </table>
+      <div class="warn"><strong>Exam Trap:</strong> Data Owner = business person (VP Finance, CMO, etc.). IT is the Custodian — they implement but do NOT decide who can access or how sensitive it is.</div>
+
+      <h4>Security Planning Horizons</h4>
+      <table>
+        <tr><th class="d1">Level</th><th class="d1">Horizon</th><th class="d1">Owner</th><th class="d1">Example</th></tr>
+        <tr><td>Strategic</td><td>3–5 years</td><td>CISO / Board</td><td>"Achieve ISO 27001 certification and Zero Trust by 2028"</td></tr>
+        <tr><td>Tactical</td><td>6–18 months</td><td>Security Manager</td><td>"Deploy MFA to all 12,000 employees in Q1"</td></tr>
+        <tr><td>Operational</td><td>Day-to-day</td><td>Analysts / IT Staff</td><td>Daily vulnerability scan review; phishing alert response</td></tr>
+      </table>
+
+      <h4>Due Care vs. Due Diligence</h4>
+      <div class="two-col">
+        <div class="def"><strong>Due Care</strong> — Doing the right thing (action). Patching known vulnerabilities, encrypting customer data. Failure = negligence.</div>
+        <div class="def"><strong>Due Diligence</strong> — Verifying it's working (ongoing investigation). Running vulnerability scans to confirm patching; auditing encryption; reviewing logs.</div>
+      </div>
+
+      <h4>Key Governance Frameworks</h4>
+      <table>
+        <tr><th class="d1">Framework</th><th class="d1">By</th><th class="d1">Purpose / Key Point</th></tr>
+        <tr><td><strong>COBIT 2019</strong></td><td>ISACA</td><td>IT governance &amp; management; aligns IT goals to business goals; used for SOX audits</td></tr>
+        <tr><td><strong>ISO 27001</strong></td><td>ISO/IEC</td><td>Certifiable ISMS standard — auditors verify conformance</td></tr>
+        <tr><td><strong>ISO 27002</strong></td><td>ISO/IEC</td><td>Guidance controls catalogue (93 controls, 4 themes) — NOT certifiable; reference only</td></tr>
+        <tr><td><strong>NIST CSF 2.0</strong></td><td>NIST</td><td>6 functions: Govern → Identify → Protect → Detect → Respond → Recover</td></tr>
+        <tr><td><strong>SABSA</strong></td><td>SABSA Institute</td><td>Business-attribute-driven security architecture; answer when question asks for "traces security to business needs"</td></tr>
+        <tr><td><strong>FedRAMP</strong></td><td>US Federal</td><td>Cloud service authorisation for US federal agencies; "authorise once, use many"</td></tr>
+      </table>
+      <div class="tip"><strong>ISO 27001 vs 27002:</strong> 27001 = certifiable (you pass/fail); 27002 = guidance (you use as reference). You <em>comply</em> with 27001; you <em>implement</em> 27002.</div>
+
+      <h4>Policy Hierarchy</h4>
+      <p><strong>Policy</strong> (mandatory, senior mgmt signed) → <strong>Standard</strong> (specific mandatory requirements) → <strong>Procedure</strong> (step-by-step instructions) → <strong>Guideline</strong> (recommended, optional). Acceptable Use Policy (AUP) must be signed before granting access.</p>
+
+      <h4>(ISC)² Code of Professional Ethics — 4 Canons (in priority order)</h4>
+      <ol>
+        <li>Protect society, the common good, necessary public trust and confidence, and the infrastructure</li>
+        <li>Act honourably, honestly, justly, responsibly, and legally</li>
+        <li>Provide diligent and competent service to principals</li>
+        <li>Advance and protect the profession</li>
+      </ol>
+      <div class="tip"><strong>Priority:</strong> Canon 1 (public/society) always beats Canon 4 (profession). When legal and ethical conflict — ethics wins. When employer asks you to do something unethical — refuse and report.</div>
+    </div>
+
+    <!-- COMPLIANCE & LEGAL -->
+    <div class="topic" id="d1-compliance">
+      <h3>Compliance, Legal &amp; Privacy</h3>
+
+      <h4>Key Regulations</h4>
+      <table>
+        <tr><th class="d1">Regulation</th><th class="d1">Applies To</th><th class="d1">Key Requirements</th><th class="d1">Exam Points</th></tr>
+        <tr><td><strong>PCI-DSS</strong></td><td>Any entity that stores/processes/transmits cardholder data</td><td>12 high-level requirements; quarterly ASV scans; annual pen test; segmentation of CDE</td><td>NOT a law — contractual obligation; violation = fines from card brands, not prosecution</td></tr>
+        <tr><td><strong>SOX</strong></td><td>Publicly traded US companies</td><td>Financial data integrity; internal controls; CEO/CFO sign off on financials</td><td>7-year record retention; audited against COBIT/ITGC controls</td></tr>
+        <tr><td><strong>HIPAA</strong></td><td>US healthcare covered entities &amp; BAs</td><td>Privacy Rule (PHI handling); Security Rule (ePHI); Breach Notification Rule</td><td>6-year record retention; encryption of ePHI is <em>addressable</em> (not required if compensating controls documented); "Required" vs "Addressable" specifications</td></tr>
+        <tr><td><strong>GLBA</strong></td><td>US financial institutions</td><td>Safeguards Rule; Financial Privacy Rule; Pretexting protections</td><td>Requires written information security plan; applies to customer NPI (Non-Public Information)</td></tr>
+        <tr><td><strong>GDPR</strong></td><td>Any org processing EU residents' personal data regardless of location</td><td>72-hour breach notification; data subject rights (access, erasure, portability); DPO role; lawful basis for processing; data minimisation</td><td>Fines up to €20M or 4% global annual revenue; 6 lawful bases: Consent, Contract, Legal Obligation, Vital Interests, Public Task, Legitimate Interests</td></tr>
+        <tr><td><strong>CCPA/CPRA</strong></td><td>For-profit businesses in California meeting thresholds</td><td>Consumer rights: know, delete, opt-out; data broker restrictions</td><td>Thresholds: $25M revenue OR 100K+ consumers/year OR 50%+ revenue from selling data</td></tr>
+      </table>
+      <div class="key"><strong>Compliance ≠ Security:</strong> Meeting compliance requirements sets a minimum baseline only. TJX was PCI-DSS compliant during their breach. Always go beyond compliance.</div>
+
+      <h4>Legal Concepts</h4>
+      <table>
+        <tr><th class="d1">Concept</th><th class="d1">Key Points</th></tr>
+        <tr><td><strong>Criminal Law</strong></td><td>State vs. individual; beyond reasonable doubt standard; imprisonment; CFAA (Computer Fraud and Abuse Act)</td></tr>
+        <tr><td><strong>Civil Law</strong></td><td>Individual vs. individual; preponderance of evidence standard; monetary damages; negligence suits</td></tr>
+        <tr><td><strong>Administrative/Regulatory</strong></td><td>Government agency action; HIPAA, GDPR enforcement; civil penalties</td></tr>
+        <tr><td><strong>CFAA</strong></td><td>US federal computer crime law; applies to any internet-connected "protected computer"; civil and criminal remedies available</td></tr>
+        <tr><td><strong>Evidence Admissibility</strong></td><td>Must be: Relevant, Reliable, Legally obtained (no 4th Amendment violation), Authentic, Not hearsay (or exception applies); System logs qualify as business records exception</td></tr>
+      </table>
+
+      <h4>Intellectual Property</h4>
+      <table>
+        <tr><th class="d1">Type</th><th class="d1">Protects</th><th class="d1">Duration</th><th class="d1">Registration</th></tr>
+        <tr><td><strong>Copyright</strong></td><td>Creative expression (books, software, art)</td><td>Life + 70 years</td><td>Automatic at creation; registration strengthens rights</td></tr>
+        <tr><td><strong>Trademark</strong></td><td>Brand identifiers (logos, names, slogans)</td><td>Indefinite (while in use)</td><td>Required (® registered, ™ unregistered)</td></tr>
+        <tr><td><strong>Patent</strong></td><td>Inventions, novel processes</td><td>20 years from filing</td><td>Required; must be novel, useful, non-obvious</td></tr>
+        <tr><td><strong>Trade Secret</strong></td><td>Confidential business information providing competitive advantage</td><td>Indefinite (while kept secret)</td><td>None — secrecy = protection; NDAs, access controls</td></tr>
+      </table>
+      <div class="tip"><strong>GPL Copyleft:</strong> If proprietary software statically links to GPL code, entire product may need to be open-sourced. Use Software Composition Analysis (SCA) to audit open source licenses.</div>
+
+      <h4>Investigation Types</h4>
+      <table>
+        <tr><th class="d1">Type</th><th class="d1">Who Conducts</th><th class="d1">Standard</th></tr>
+        <tr><td>Administrative</td><td>Internal HR/management</td><td>Preponderance of evidence</td></tr>
+        <tr><td>Criminal</td><td>Law enforcement</td><td>Beyond reasonable doubt</td></tr>
+        <tr><td>Civil</td><td>Legal counsel / courts</td><td>Preponderance of evidence</td></tr>
+        <tr><td>Regulatory</td><td>Government agency (outside org)</td><td>Agency-specific</td></tr>
+        <tr><td>Industry</td><td>Sector bodies (PCI SSC, etc.)</td><td>Contractual requirements</td></tr>
+      </table>
+      <div class="tip"><strong>Parallel investigations:</strong> A single incident can trigger all five types simultaneously. A hospital ransomware attack = internal HR + FBI criminal + civil lawsuit + HHS regulatory + PCI inquiry.</div>
+    </div>
+
+    <!-- RISK ANALYSIS -->
+    <div class="topic" id="d1-risk">
+      <h3>Risk Management &amp; Analysis</h3>
+
+      <h4>Quantitative Risk Formulas (Must Memorise)</h4>
+      <div class="formula">SLE = AV × EF</div>
+      <div class="formula">ALE = SLE × ARO</div>
+      <div class="formula">CBA = ALE(before) − ALE(after) − Annual Control Cost &nbsp;[positive = justified]</div>
+      <div class="formula">ROSI = (ALE Reduction − Control Cost) / Control Cost × 100%</div>
+      <div class="formula">Availability = MTBF ÷ (MTBF + MTTR)</div>
+      <table>
+        <tr><th class="d1">Variable</th><th class="d1">Meaning</th><th class="d1">Note</th></tr>
+        <tr><td>AV</td><td>Asset Value (dollars)</td><td>Total value including data, revenue generation, replacement cost</td></tr>
+        <tr><td>EF</td><td>Exposure Factor (0–1 decimal)</td><td>% of AV lost per event: 50% = 0.50</td></tr>
+        <tr><td>SLE</td><td>Single Loss Expectancy = AV × EF</td><td>Dollar loss per single event occurrence</td></tr>
+        <tr><td>ARO</td><td>Annual Rate of Occurrence</td><td>Expected frequency per year; ARO = 0.1 = once per 10 years</td></tr>
+        <tr><td>ALE</td><td>Annualised Loss Expectancy = SLE × ARO</td><td>Expected annual dollar loss — justify control costs against this</td></tr>
+        <tr><td>MTBF</td><td>Mean Time Between Failures</td><td>Higher = more reliable; measures reliability</td></tr>
+        <tr><td>MTTR</td><td>Mean Time To Repair</td><td>Lower = better; measures recovery speed</td></tr>
+      </table>
+
+      <h4>Qualitative Analysis</h4>
+      <p>Uses expert judgment: High/Medium/Low or 1–5 scales. <strong>Risk Matrix (Heat Map)</strong>: Likelihood × Impact. <strong>Delphi Technique</strong>: anonymous iterative expert consensus — eliminates groupthink and dominant-person bias.</p>
+
+      <h4>Risk Responses (MATA)</h4>
+      <table>
+        <tr><th class="d1">Response</th><th class="d1">Also Called</th><th class="d1">When to Use</th><th class="d1">Key Point</th></tr>
+        <tr><td><strong>Mitigate</strong></td><td>Reduce</td><td>Cost of control &lt; ALE reduction; risk above appetite</td><td>Most common response; implements controls to reduce probability or impact</td></tr>
+        <tr><td><strong>Transfer</strong></td><td>Share</td><td>Risk is better managed by a third party</td><td>Cyber insurance, outsourcing; transfers financial risk ONLY — legal liability stays with you</td></tr>
+        <tr><td><strong>Accept</strong></td><td>Tolerate</td><td>Cost &gt; benefit; risk within tolerance</td><td>MUST be documented and approved by management; active ≠ passive acceptance</td></tr>
+        <tr><td><strong>Avoid</strong></td><td>Eliminate</td><td>Risk too high and elimination feasible</td><td>Stop the risky activity entirely; has business opportunity cost</td></tr>
+      </table>
+      <div class="tip"><strong>Control Types:</strong> By Function: Preventive (stop it), Detective (identify it), Corrective (fix it), Deterrent (discourage it), Compensating (alternative when primary control not feasible), Recovery (restore). By Category: Technical, Administrative (Managerial), Physical. A security camera = Physical + Detective + Deterrent simultaneously.</div>
+
+      <h4>Threat Modeling</h4>
+      <table>
+        <tr><th class="d1">Framework</th><th class="d1">Focus</th><th class="d1">CISSP Exam Use Case</th></tr>
+        <tr><td><strong>STRIDE</strong></td><td>Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege</td><td>Technical design-time threat analysis; applied at Data Flow Diagram level</td></tr>
+        <tr><td><strong>PASTA</strong></td><td>Process for Attack Simulation &amp; Threat Analysis — 7 stages</td><td>"Most comprehensive" or "business-aligned" threat modeling answer</td></tr>
+        <tr><td><strong>MITRE ATT&amp;CK</strong></td><td>Adversary tactics, techniques, and procedures</td><td>Threat intelligence and detection rule mapping</td></tr>
+        <tr><td><strong>Attack Trees</strong></td><td>Hierarchical decomposition of attack paths</td><td>AND nodes (all conditions needed) vs. OR nodes (any path = success)</td></tr>
+      </table>
+
+      <h4>Supply Chain Risk</h4>
+      <ul>
+        <li><strong>SBOM</strong> (Software Bill of Materials): Lists all components in a software product; required by EO 14028; enables vulnerability tracking</li>
+        <li><strong>SOC 2 Type II</strong>: Preferred vendor assurance — operating effectiveness over a period (not just "design exists" like Type I)</li>
+        <li><strong>Right-to-audit clause</strong>: Single most important contractual clause for ongoing vendor security assurance</li>
+        <li><strong>PUF</strong> (Physically Unclonable Function): Hardware-level chip authentication; uses physics — keys are never stored, cannot be cloned; use for supply chain hardware authentication</li>
+        <li><strong>Silicon Root of Trust</strong>: Hardware → Firmware → OS → Applications; breaking any link is detectable</li>
+      </ul>
+    </div>
+
+    <!-- BCP & BIA -->
+    <div class="topic" id="d1-bcp">
+      <h3>Business Continuity Planning (BCP) &amp; Business Impact Analysis (BIA)</h3>
+      <div class="two-col">
+        <div class="def"><strong>BCP</strong>: How to keep the business running during disruption — proactive and concurrent. Broader scope.</div>
+        <div class="def"><strong>DRP</strong>: How to restore IT systems after a disaster — reactive and sequential. IT focus. BCP drives DRP.</div>
+      </div>
+
+      <h4>BIA Metrics — Must Know Relationships</h4>
+      <table>
+        <tr><th class="d1">Metric</th><th class="d1">Full Name</th><th class="d1">Meaning</th><th class="d1">Who Sets It</th></tr>
+        <tr><td><strong>MTD</strong></td><td>Maximum Tolerable Downtime</td><td>Absolute maximum time a business function can be unavailable before irreversible harm</td><td>Business (data owner) via BIA</td></tr>
+        <tr><td><strong>RTO</strong></td><td>Recovery Time Objective</td><td>Target time for IT to restore the system after disruption</td><td>IT, based on MTD constraint</td></tr>
+        <tr><td><strong>RPO</strong></td><td>Recovery Point Objective</td><td>Maximum data loss acceptable; determines backup frequency</td><td>Business via BIA</td></tr>
+        <tr><td><strong>WRT</strong></td><td>Work Recovery Time</td><td>Time to validate, reconcile, and return business to full operation after system is restored</td><td>Business operations</td></tr>
+      </table>
+      <div class="formula">RTO + WRT ≤ MTD &nbsp;[if RTO + WRT &gt; MTD → recovery plan is inadequate]</div>
+      <div class="tip"><strong>RPO and backup frequency:</strong> RPO = 4 hours → backup every 4 hours or less. RPO drives backup schedule. RTO drives site selection (hot/warm/cold).</div>
+
+      <h4>Recovery Sites</h4>
+      <table>
+        <tr><th class="d1">Site Type</th><th class="d1">Readiness</th><th class="d1">Cost</th><th class="d1">Activation Time</th><th class="d1">RTO Fit</th></tr>
+        <tr><td><strong>Hot Site</strong></td><td>Fully operational, real-time data sync</td><td>Highest</td><td>Minutes to hours</td><td>RTO &lt; a few hours</td></tr>
+        <tr><td><strong>Warm Site</strong></td><td>Hardware ready, needs data restoration</td><td>Medium</td><td>Hours to days</td><td>RTO hours to days</td></tr>
+        <tr><td><strong>Cold Site</strong></td><td>Space and power only; no hardware</td><td>Lowest</td><td>Days to weeks</td><td>RTO &gt; 1 week</td></tr>
+        <tr><td><strong>Mobile Site</strong></td><td>Portable, deployable to location</td><td>Medium-high</td><td>Hours</td><td>Geographic disaster scenarios</td></tr>
+        <tr><td><strong>Cloud/Virtual</strong></td><td>On-demand spin-up</td><td>Pay-as-you-go</td><td>Minutes</td><td>Rapid spin-up; modern preference</td></tr>
+      </table>
+
+      <h4>BCP/DR Test Types (Least → Most Disruptive)</h4>
+      <table>
+        <tr><th class="d1">Test Type</th><th class="d1">How It Works</th><th class="d1">Risk</th><th class="d1">Realism</th></tr>
+        <tr><td>1. Checklist (Desk Check)</td><td>Review plan documents; verify currency</td><td>None</td><td>Very Low</td></tr>
+        <tr><td>2. Tabletop Exercise</td><td>Team discusses scenario; no systems moved</td><td>Minimal</td><td>Low</td></tr>
+        <tr><td>3. Simulation (Walkthrough)</td><td>Practice specific tasks without moving to alternate site</td><td>Low</td><td>Medium</td></tr>
+        <tr><td>4. Parallel Test</td><td>Alternate site brought online while primary continues</td><td>Medium</td><td>High</td></tr>
+        <tr><td>5. Full Interruption</td><td>Primary site shut down; full failover to alternate</td><td>Highest</td><td>Highest</td></tr>
+      </table>
+
+      <h4>Personnel Security Controls</h4>
+      <table>
+        <tr><th class="d1">Control</th><th class="d1">Purpose</th><th class="d1">Exam Distinction</th></tr>
+        <tr><td>Separation of Duties (SoD)</td><td>Prevent fraud by requiring &gt;1 person to complete critical tasks</td><td>Preventive; requires collusion to bypass</td></tr>
+        <tr><td>Mandatory Vacation</td><td>Detect fraud — substitute discovers discrepancies</td><td>Detective; focused on fraud detection</td></tr>
+        <tr><td>Job Rotation</td><td>Detect fraud AND build organisational resilience</td><td>Detective + resilience; eliminates single points of knowledge</td></tr>
+        <tr><td>Least Privilege</td><td>Minimum access needed to perform job function</td><td>Preventive; access review required periodically</td></tr>
+        <tr><td>Background Checks</td><td>Pre-employment screening; point-in-time</td><td>Periodic re-screening for privileged roles is best practice</td></tr>
+      </table>
+      <div class="warn"><strong>Hostile termination:</strong> Revoke access BEFORE notifying the employee of termination. Never give hostile employee a window to exfiltrate data.</div>
+    </div>
+
+  </div><!-- /domain-body -->
+</div><!-- /d1 -->
+
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 2 – ASSET SECURITY
+════════════════════════════════════════ -->
+<div class="domain d2" id="d2">
+  <div class="domain-hdr">
+    <h2>Domain 2 — Asset Security</h2>
+    <span class="wt">10% of exam · ~15 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- CLASSIFICATION -->
+    <div class="topic" id="d2-class">
+      <h3>Data Classification &amp; Roles</h3>
+      <div class="two-col">
+        <div>
+          <h4>Government Classification (Highest → Lowest)</h4>
+          <ol>
+            <li><strong>Top Secret</strong> — Exceptionally grave damage to national security</li>
+            <li><strong>Secret</strong> — Serious damage to national security</li>
+            <li><strong>Confidential</strong> — Damage to national security</li>
+            <li><strong>Unclassified</strong> — No damage</li>
+          </ol>
+          <p style="margin-top:6px;font-size:.83rem;"><strong>SCI</strong> (Sensitive Compartmented Information): Above Top Secret; clearance + specific compartment; <strong>SAP</strong> (Special Access Programme): Most restricted; code-word access.</p>
+        </div>
+        <div>
+          <h4>Commercial Classification (Highest → Lowest)</h4>
+          <ol>
+            <li><strong>Confidential</strong> (or Restricted) — Trade secrets, M&amp;A data</li>
+            <li><strong>Private</strong> — Employee HR records, medical</li>
+            <li><strong>Sensitive</strong> — Internal financial data, strategic plans</li>
+            <li><strong>Public</strong> — Press releases, marketing materials</li>
+          </ol>
+        </div>
+      </div>
+      <div class="warn"><strong>Exam Trap:</strong> Government "Confidential" ≠ Corporate "Confidential". Government Confidential is the lowest classified level. Corporate Confidential is the highest commercial level.</div>
+
+      <h4>Classification Principles</h4>
+      <ul>
+        <li>Classification is determined by the <strong>Data Owner</strong> (business executive, not IT)</li>
+        <li><strong>Declassification</strong> requires Data Owner approval — not custodian's decision</li>
+        <li>Data should be labelled/marked at the highest classification of any element it contains</li>
+        <li>Aggregation: Combining unclassified data items can create a higher classification</li>
+      </ul>
+
+      <h4>GDPR Data Roles</h4>
+      <table>
+        <tr><th class="d2">Role</th><th class="d2">Who</th><th class="d2">Responsibility</th><th class="d2">Liability</th></tr>
+        <tr><td><strong>Data Subject</strong></td><td>EU individual</td><td>Holder of rights (access, erasure, portability)</td><td>N/A</td></tr>
+        <tr><td><strong>Data Controller</strong></td><td>Decides WHY and HOW data is processed</td><td>Determines lawful basis; ensures compliance; appoints DPO if needed</td><td>Primary — directly liable for GDPR fines</td></tr>
+        <tr><td><strong>Data Processor</strong></td><td>Processes on Controller's behalf</td><td>Must have Data Processing Agreement (DPA); only process as instructed</td><td>Secondary — also directly liable under GDPR Art. 82</td></tr>
+        <tr><td><strong>DPO</strong> (Data Protection Officer)</td><td>Internal or external specialist</td><td>Monitors GDPR compliance; independent; cannot receive instructions</td><td>Required if: public authority, large-scale processing, or sensitive data at scale</td></tr>
+      </table>
+    </div>
+
+    <!-- DATA LIFECYCLE -->
+    <div class="topic" id="d2-lifecycle">
+      <h3>Data Lifecycle, States &amp; Privacy Techniques</h3>
+
+      <h4>Data Lifecycle (6 Stages)</h4>
+      <table>
+        <tr><th class="d2">Stage</th><th class="d2">Security Controls</th></tr>
+        <tr><td>1. Create/Collect</td><td>Classification; consent (GDPR lawful basis); data minimisation</td></tr>
+        <tr><td>2. Store</td><td>Encryption at rest (AES-256); access control; integrity hashing</td></tr>
+        <tr><td>3. Use / Process</td><td>Least privilege; DLP monitoring; audit logging</td></tr>
+        <tr><td>4. Share / Transmit</td><td>TLS/HTTPS; S/MIME; secure file transfer; data sharing agreements</td></tr>
+        <tr><td>5. Archive</td><td>Retention labels; write-once media (WORM); cryptographic integrity; legal holds</td></tr>
+        <tr><td>6. Destroy</td><td>NIST SP 800-88 sanitisation; certificates of destruction</td></tr>
+      </table>
+
+      <h4>Data States</h4>
+      <table>
+        <tr><th class="d2">State</th><th class="d2">Definition</th><th class="d2">Primary Protection</th></tr>
+        <tr><td><strong>Data at Rest</strong></td><td>Stored on disk, database, backup media</td><td>AES-256 encryption; full-disk encryption (BitLocker, FileVault); database encryption; key management</td></tr>
+        <tr><td><strong>Data in Transit</strong></td><td>Moving across a network</td><td>TLS 1.3; HTTPS; IPSec; SFTP/FTPS; VPN</td></tr>
+        <tr><td><strong>Data in Use</strong></td><td>Actively being processed in memory (RAM)</td><td>Hardest to protect; Trusted Execution Environments; Homomorphic Encryption (HE) allows computation on encrypted data without decryption</td></tr>
+      </table>
+
+      <h4>Privacy-Preserving Techniques</h4>
+      <table>
+        <tr><th class="d2">Technique</th><th class="d2">How It Works</th><th class="d2">Reversible?</th><th class="d2">GDPR Status</th><th class="d2">Use Case</th></tr>
+        <tr><td><strong>Anonymisation</strong></td><td>Permanently removes all identifying information</td><td>No</td><td>GDPR no longer applies</td><td>Research datasets; analytics</td></tr>
+        <tr><td><strong>Pseudonymisation</strong></td><td>Replaces identifiers with pseudonyms; re-identification key kept separate</td><td>Yes (with key)</td><td>GDPR still applies (mitigating factor)</td><td>Healthcare research; analytics with linkage option</td></tr>
+        <tr><td><strong>Data Masking</strong></td><td>Replaces real data with realistic but fictional data</td><td>No (unless mapping stored)</td><td>GDPR still applies</td><td>Test/dev environments with production data</td></tr>
+        <tr><td><strong>Tokenisation</strong></td><td>Replaces sensitive data with non-sensitive token; original in secure vault</td><td>Yes (vault lookup)</td><td>GDPR may not apply (if no reidentification)</td><td>Payment card data; PCI scope reduction</td></tr>
+        <tr><td><strong>Encryption</strong></td><td>Transforms data using key; key needed to decrypt</td><td>Yes (with key)</td><td>GDPR still applies</td><td>Data protection at rest and in transit</td></tr>
+      </table>
+      <div class="tip"><strong>Apple Pay / Google Pay:</strong> Uses tokenisation — your card number never leaves your device; token is presented to merchant.</div>
+
+      <h4>Data Loss Prevention (DLP)</h4>
+      <ul>
+        <li><strong>Network DLP</strong>: Monitors traffic at gateway; blocks sensitive data leaving network</li>
+        <li><strong>Endpoint DLP</strong>: Agent on workstation; controls USB, printing, screenshots, copy-paste</li>
+        <li><strong>Cloud/CASB DLP</strong>: Cloud Access Security Broker; enforces policy for cloud app usage; four modes: API, proxy, agent, out-of-band</li>
+      </ul>
+      <div class="def"><strong>IRM/DRM</strong> (Information Rights Management / Digital Rights Management): Persistent protection embedded in the content itself — travels with the document; enforces who can read/edit/print/forward regardless of where the file resides.</div>
+    </div>
+
+    <!-- RETENTION & DESTRUCTION -->
+    <div class="topic" id="d2-destruction">
+      <h3>Retention, Sanitisation &amp; Destruction</h3>
+
+      <h4>Retention Periods</h4>
+      <table>
+        <tr><th class="d2">Regulation / Requirement</th><th class="d2">Retention Period</th><th class="d2">What Is Retained</th></tr>
+        <tr><td>SOX</td><td>7 years</td><td>Financial records; audit working papers</td></tr>
+        <tr><td>HIPAA</td><td>6 years from creation (or last effective date)</td><td>Medical records; PHI; security documentation</td></tr>
+        <tr><td>PCI-DSS</td><td>1 year (3 months immediately accessible)</td><td>Audit logs; transaction records</td></tr>
+        <tr><td>GDPR</td><td>No fixed period — "no longer than necessary" for stated purpose</td><td>Personal data; processing records</td></tr>
+      </table>
+      <div class="warn"><strong>Legal Hold / Litigation Hold:</strong> When litigation is reasonably anticipated, ALL routine destruction must STOP immediately regardless of retention schedule. Failure = spoliation — adverse inference in court.</div>
+      <div class="warn"><strong>EOL vs EOS:</strong> EOL (End of Life) = vendor announces timeline, patches still flowing. EOS (End of Support) = patches STOP immediately — running EOS without compensating controls = due care failure.</div>
+
+      <h4>NIST SP 800-88 Sanitisation (Must Know)</h4>
+      <table>
+        <tr><th class="d2">Method</th><th class="d2">How</th><th class="d2">Use When</th><th class="d2">Remaining Sensitivity</th></tr>
+        <tr><td><strong>Clear</strong></td><td>Overwrite with zeros/ones; logical</td><td>Reuse within same security domain</td><td>Still recoverable by lab tools</td></tr>
+        <tr><td><strong>Purge</strong></td><td>Degaussing (HDD); cryptographic erasure; ATA Secure Erase</td><td>Releasing/transferring media; cross-domain reuse</td><td>Resistant to lab recovery</td></tr>
+        <tr><td><strong>Destroy</strong></td><td>Physical shredding, incineration, disintegration, pulverisation</td><td>Top Secret media; media not being reused</td><td>None — media is destroyed</td></tr>
+      </table>
+      <div class="key"><strong>SSD Critical Difference:</strong> Wear levelling causes overwrites to go to different blocks — simple overwriting does NOT erase all data from SSDs. Use <strong>cryptographic erasure</strong> (destroy the encryption key) or <strong>physical destruction</strong> for SSDs. <strong>Degaussing</strong> = magnetic field — ONLY works on magnetic media (HDDs, tape). Will NOT work on SSDs, flash, or optical media.</div>
+      <div class="tip"><strong>Cloud data destruction:</strong> You cannot physically destroy cloud media. Only option is <strong>cryptographic erasure</strong> — ensure all data was encrypted, then destroy the keys.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 3 – SECURITY ARCHITECTURE & ENGINEERING
+════════════════════════════════════════ -->
+<div class="domain d3" id="d3">
+  <div class="domain-hdr">
+    <h2>Domain 3 — Security Architecture &amp; Engineering</h2>
+    <span class="wt">13% of exam · ~20 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- SECURITY MODELS -->
+    <div class="topic" id="d3-models">
+      <h3>Secure Design Principles &amp; Security Models</h3>
+
+      <h4>Saltzer &amp; Schroeder's Principles (8 Principles)</h4>
+      <table>
+        <tr><th class="d3">Principle</th><th class="d3">Meaning / Exam Tip</th></tr>
+        <tr><td><strong>Economy of Mechanism</strong></td><td>Keep it simple — complexity breeds vulnerabilities</td></tr>
+        <tr><td><strong>Fail-Safe Defaults</strong></td><td>Default = deny; only grant access explicitly; access denied unless permitted</td></tr>
+        <tr><td><strong>Complete Mediation</strong></td><td>Check EVERY access request, every time — no cached permission bypass</td></tr>
+        <tr><td><strong>Open Design</strong></td><td>Security must not rely on the attacker not knowing how the system works (= Kerckhoffs' principle)</td></tr>
+        <tr><td><strong>Separation of Privilege</strong></td><td>Require multiple conditions to grant access; dual-key nuclear launch = example</td></tr>
+        <tr><td><strong>Least Privilege</strong></td><td>Minimum access required for the task; access reviews mandatory</td></tr>
+        <tr><td><strong>Least Common Mechanism</strong></td><td>Minimise shared resources between users — shared = potential side-channel or covert channel</td></tr>
+        <tr><td><strong>Psychological Acceptability</strong></td><td>Security mechanisms must not make system harder to use than without them — or users will bypass them</td></tr>
+      </table>
+
+      <h4>Mandatory Access Control Security Models</h4>
+      <table>
+        <tr><th class="d3">Model</th><th class="d3">Focus</th><th class="d3">Key Rules</th><th class="d3">Example Use</th></tr>
+        <tr><td><strong>Bell-LaPadula</strong></td><td>Confidentiality (no leakage UP)</td><td>No Read Up (Simple Security) · No Write Down (*-Property) · Data flows UP only</td><td>US military classification; data stays at its level or goes higher</td></tr>
+        <tr><td><strong>Biba</strong></td><td>Integrity (no corruption from BELOW)</td><td>No Read Down (Simple Integrity) · No Write Up (*-Integrity) · Data flows DOWN only</td><td>Financial systems; don't taint high-integrity data with low-integrity input</td></tr>
+        <tr><td><strong>Clark-Wilson</strong></td><td>Integrity via well-formed transactions</td><td>CDI (Constrained Data Items); UDI (Unconstrained Data Items); IVP (verify); TP (transformation); Separation of Duties enforced</td><td>Commercial financial systems; accounting (debit must equal credit)</td></tr>
+        <tr><td><strong>Brewer-Nash (Chinese Wall)</strong></td><td>Conflict of interest prevention</td><td>Once consultant accesses Firm A data, blocked from accessing Firm A's competitors; dynamic walls</td><td>Investment banks; consulting firms with competing clients</td></tr>
+        <tr><td><strong>Graham-Denning</strong></td><td>Access rights management</td><td>8 primitive protection operations; defines how subjects/objects/rights are created and deleted</td><td>Operating system access control design</td></tr>
+      </table>
+      <div class="tip"><strong>BLP vs Biba — Critical Comparison:</strong><br>
+        BLP: Confidentiality | No Read UP, No Write Down | Data flows up<br>
+        Biba: Integrity | No Read Down, No Write Up | Data flows down<br>
+        They are exact OPPOSITES. A system enforcing BOTH would prevent all information flow = useless → use Clark-Wilson for integrity in practice.
+      </div>
+
+      <h4>Evaluation Criteria</h4>
+      <table>
+        <tr><th class="d3">Framework</th><th class="d3">Levels</th><th class="d3">Key Points</th></tr>
+        <tr><td><strong>TCSEC (Orange Book)</strong></td><td>D, C1, C2, B1, B2, B3, A1</td><td>US DoD legacy; C2 = most common commercial; B = mandatory access; A = formal verification</td></tr>
+        <tr><td><strong>Common Criteria (ISO 15408)</strong></td><td>EAL1 (lowest) – EAL7 (highest)</td><td>EAL4 = most common commercial; EAL7 = formal mathematical proof; uses Protection Profile (PP) and Security Target (ST)</td></tr>
+        <tr><td><strong>ITSEC</strong></td><td>E0 – E6</td><td>European predecessor to Common Criteria; separate F and E ratings for functionality and assurance</td></tr>
+      </table>
+
+      <h4>Key Architecture Concepts</h4>
+      <table>
+        <tr><th class="d3">Concept</th><th class="d3">Definition / Exam Answer</th></tr>
+        <tr><td><strong>TCB (Trusted Computing Base)</strong></td><td>All hardware, software, and firmware that enforces the security policy — the sum of all protection mechanisms</td></tr>
+        <tr><td><strong>Reference Monitor</strong></td><td>Abstract concept: mediates ALL access between subjects and objects; must be tamper-proof, always invoked, verifiable</td></tr>
+        <tr><td><strong>Security Kernel</strong></td><td>Hardware/software implementation of the Reference Monitor concept</td></tr>
+        <tr><td><strong>Trusted Path</strong></td><td>Secure channel between user and TCB preventing spoofing (e.g., Windows Secure Attention Sequence Ctrl+Alt+Del)</td></tr>
+        <tr><td><strong>Protection Rings</strong></td><td>Ring 0 (OS kernel, highest privilege) → Ring 3 (user apps, lowest privilege); Hypervisor runs at Ring -1 (Type 1)</td></tr>
+        <tr><td><strong>ASLR</strong></td><td>Address Space Layout Randomization — randomly arranges memory addresses; prevents buffer overflow exploitation</td></tr>
+        <tr><td><strong>DEP/NX</strong></td><td>Data Execution Prevention / No-eXecute — marks memory regions as non-executable; prevents shellcode execution in data area</td></tr>
+        <tr><td><strong>TPM</strong></td><td>Trusted Platform Module — hardware chip; stores keys; provides platform attestation; enables BitLocker (bound to hardware)</td></tr>
+        <tr><td><strong>HSM</strong></td><td>Hardware Security Module — dedicated device for crypto operations; keys never leave HSM in plaintext; highest assurance key storage</td></tr>
+      </table>
+
+      <h4>OS Security Modes (High-Clearance to Low)</h4>
+      <table>
+        <tr><th class="d3">Mode</th><th class="d3">Users Have</th><th class="d3">Need-to-Know?</th></tr>
+        <tr><td><strong>Dedicated</strong></td><td>Same clearance level &amp; same classification</td><td>All must have need-to-know for all data</td></tr>
+        <tr><td><strong>System High</strong></td><td>Same clearance level</td><td>NOT required — may see all; highest-sensitivity label applies to ALL data</td></tr>
+        <tr><td><strong>Compartmented</strong></td><td>Different clearances</td><td>Required for each compartment; formal access approval per compartment</td></tr>
+        <tr><td><strong>Multilevel</strong></td><td>Different clearances and need-to-know</td><td>Bell-LaPadula enforced per label; most complex; highest security</td></tr>
+      </table>
+
+      <h4>Virtualisation &amp; Cloud</h4>
+      <table>
+        <tr><th class="d3">Topic</th><th class="d3">Key Facts</th></tr>
+        <tr><td>Type 1 Hypervisor</td><td>Bare metal; runs directly on hardware (VMware ESXi, Hyper-V, Xen, KVM); Ring -1; most secure</td></tr>
+        <tr><td>Type 2 Hypervisor</td><td>Runs on top of host OS (VMware Workstation, VirtualBox, Parallels); less isolated; attacker can target host OS</td></tr>
+        <tr><td>VM Escape</td><td>Breaking out of VM boundary to host or other VMs — most severe VM security risk</td></tr>
+        <tr><td>VM Sprawl</td><td>Uncontrolled proliferation of VMs — unpatched, unmanaged, forgotten VMs expand attack surface</td></tr>
+        <tr><td>Container (Docker)</td><td>Shares host kernel — less isolation than VMs; namespace separation only; scan images; run as non-root; read-only filesystem</td></tr>
+      </table>
+      <table>
+        <tr><th class="d3">Cloud Model</th><th class="d3">Provider Manages</th><th class="d3">Customer Manages</th><th class="d3">Example</th></tr>
+        <tr><td><strong>IaaS</strong></td><td>Hardware, network, hypervisor, storage</td><td>OS, runtime, middleware, application, data, access</td><td>AWS EC2, Azure VM</td></tr>
+        <tr><td><strong>PaaS</strong></td><td>Everything up to runtime/middleware</td><td>Application, data, access management</td><td>AWS Elastic Beanstalk, Azure App Service</td></tr>
+        <tr><td><strong>SaaS</strong></td><td>Everything including application</td><td>Data content, access permissions, user configuration</td><td>Office 365, Salesforce, Gmail</td></tr>
+      </table>
+      <div class="tip"><strong>Shared Responsibility — Always:</strong> Customer ALWAYS owns data classification and user access management regardless of cloud model. Provider's security responsibility shrinks from IaaS to SaaS.</div>
+    </div>
+
+    <!-- CRYPTOGRAPHY -->
+    <div class="topic" id="d3-crypto">
+      <h3>Cryptography</h3>
+
+      <h4>Cryptographic Goals</h4>
+      <table>
+        <tr><th class="d3">Goal</th><th class="d3">Mechanism</th><th class="d3">Key Exam Points</th></tr>
+        <tr><td><strong>Confidentiality</strong></td><td>Symmetric encryption (AES) + Asymmetric (RSA)</td><td>Encryption hides data from unauthorised parties</td></tr>
+        <tr><td><strong>Integrity</strong></td><td>Hashing (SHA-256), HMAC, Digital Signatures</td><td>Detects modification; hash comparison confirms unchanged</td></tr>
+        <tr><td><strong>Authentication</strong></td><td>Digital certificates, HMAC, Digital Signatures</td><td>Proves identity; "is this really from who it claims?"</td></tr>
+        <tr><td><strong>Non-repudiation</strong></td><td>Digital Signatures ONLY (asymmetric private key)</td><td>Only the private key owner could have signed → cannot deny; HMAC does NOT provide non-repudiation</td></tr>
+      </table>
+      <div class="key"><strong>Kerckhoffs' Principle:</strong> Security of a cryptosystem must rely ONLY on the secrecy of the key, never on the secrecy of the algorithm. AES, RSA, SHA are all publicly published — security comes from key strength, not algorithm secrecy.</div>
+
+      <h4>Symmetric Encryption</h4>
+      <table>
+        <tr><th class="d3">Algorithm</th><th class="d3">Key Size</th><th class="d3">Block Size</th><th class="d3">Status</th></tr>
+        <tr><td><strong>DES</strong></td><td>56-bit effective</td><td>64-bit</td><td>BROKEN — crack in &lt;1 day; never use</td></tr>
+        <tr><td><strong>3DES (TDEA)</strong></td><td>112 or 168-bit effective</td><td>64-bit</td><td>DEPRECATED (NIST 2023) — 64-bit block = Sweet32 attack risk</td></tr>
+        <tr><td><strong>AES (Rijndael)</strong></td><td>128, 192, or 256-bit</td><td>128-bit</td><td>CURRENT STANDARD — AES-256 for long-term/quantum resistance</td></tr>
+        <tr><td><strong>Blowfish</strong></td><td>32–448-bit variable</td><td>64-bit</td><td>Older; 64-bit block limits large data encryption</td></tr>
+        <tr><td><strong>RC4</strong></td><td>Variable</td><td>Stream cipher</td><td>BROKEN — biases in key scheduling; never use (RFC 7465 bans in TLS)</td></tr>
+        <tr><td><strong>ChaCha20</strong></td><td>256-bit</td><td>Stream cipher</td><td>Modern secure stream cipher; used in TLS 1.3, WireGuard</td></tr>
+      </table>
+
+      <h4>Block Cipher Modes (Critical)</h4>
+      <table>
+        <tr><th class="d3">Mode</th><th class="d3">How</th><th class="d3">Exam Verdict</th></tr>
+        <tr><td><strong>ECB</strong> (Electronic Codebook)</td><td>Each block encrypted independently with same key</td><td>NEVER USE — same plaintext → same ciphertext; patterns visible (ECB penguin image)</td></tr>
+        <tr><td><strong>CBC</strong> (Cipher Block Chaining)</td><td>XOR plaintext with previous ciphertext block before encrypting; requires IV</td><td>Common; IV must be random and unpredictable; no parallel encryption</td></tr>
+        <tr><td><strong>CTR</strong> (Counter)</td><td>Encrypts incrementing counter; XOR with plaintext</td><td>Parallelisable; random access possible; no padding needed; IV/nonce must be unique</td></tr>
+        <tr><td><strong>GCM</strong> (Galois/Counter Mode)</td><td>CTR + GHASH authentication tag</td><td>PREFERRED — provides both encryption AND integrity (AEAD); used in TLS 1.3, AES-GCM</td></tr>
+      </table>
+      <div class="formula">Confusion = Substitution (S-boxes) — makes key-ciphertext relationship complex
+Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits across ciphertext</div>
+
+      <h4>Asymmetric Encryption</h4>
+      <table>
+        <tr><th class="d3">Algorithm</th><th class="d3">Based On</th><th class="d3">Key Size</th><th class="d3">Use</th></tr>
+        <tr><td><strong>RSA</strong></td><td>Difficulty of factoring large primes</td><td>2048-bit minimum; 4096-bit for long-term</td><td>Encrypting small data; signing; key exchange</td></tr>
+        <tr><td><strong>Diffie-Hellman</strong></td><td>Discrete logarithm</td><td>2048-bit min</td><td>Key EXCHANGE only — not encryption; ephemeral DH = Perfect Forward Secrecy</td></tr>
+        <tr><td><strong>ECC</strong></td><td>Elliptic curve discrete logarithm</td><td>256-bit ≈ 3072-bit RSA security</td><td>Mobile/IoT; smaller keys = less computational overhead; TLS 1.3 default</td></tr>
+        <tr><td><strong>ElGamal</strong></td><td>Discrete logarithm</td><td>Variable</td><td>Encryption and signing; foundation of DSA; used in PGP</td></tr>
+      </table>
+      <div class="tip"><strong>Hybrid Cryptosystem:</strong> Asymmetric to securely exchange a session key → Symmetric (AES) for bulk data encryption. Combines speed of symmetric with key exchange security of asymmetric. Used in TLS, PGP, S/MIME.</div>
+      <div class="def"><strong>Perfect Forward Secrecy (PFS):</strong> Ephemeral key pairs generated per session — if long-term private key is later compromised, past session recordings CANNOT be decrypted. TLS 1.3 mandates PFS.</div>
+
+      <h4>Hashing Algorithms</h4>
+      <table>
+        <tr><th class="d3">Algorithm</th><th class="d3">Output</th><th class="d3">Status</th></tr>
+        <tr><td>MD5</td><td>128-bit</td><td>BROKEN — collision attacks practical; never use for security</td></tr>
+        <tr><td>SHA-1</td><td>160-bit</td><td>BROKEN — SHAttered collision demonstrated 2017; deprecated by NIST</td></tr>
+        <tr><td><strong>SHA-256</strong></td><td>256-bit</td><td>CURRENT STANDARD — part of SHA-2 family</td></tr>
+        <tr><td><strong>SHA-384 / SHA-512</strong></td><td>384 / 512-bit</td><td>Higher security margin; SHA-512 resistant to length-extension attacks</td></tr>
+        <tr><td><strong>SHA-3 (Keccak)</strong></td><td>224/256/384/512-bit</td><td>NIST standard 2015; completely different construction from SHA-2; quantum-resistant</td></tr>
+        <tr><td>HMAC</td><td>Same as underlying hash</td><td>Hash + shared secret key = message authentication; provides integrity + authenticity but NOT non-repudiation</td></tr>
+      </table>
+      <div class="key"><strong>Digital Signature Process:</strong> (1) Hash the message with SHA-256 → (2) Encrypt the hash with sender's PRIVATE key → (3) Recipient decrypts hash with sender's PUBLIC key → (4) Compare to hash of received message. Provides: Integrity + Authenticity + Non-repudiation. Encrypted with PUBLIC key = confidentiality (only private key holder can decrypt). Encrypted with PRIVATE key = signature (anyone with public key can verify).</div>
+
+      <h4>Password Hashing (Secure Storage)</h4>
+      <ul>
+        <li><strong>Salting:</strong> Unique random value per password prepended before hashing → prevents rainbow table attacks (same password = different hash for each user)</li>
+        <li><strong>Key Stretching:</strong> Deliberately slow hashing algorithms → bcrypt, Argon2, scrypt, PBKDF2 — makes brute-force computationally expensive</li>
+        <li>NEVER store passwords as plain MD5 or SHA-1 (even salted) — use bcrypt or Argon2 minimum</li>
+      </ul>
+
+      <h4>Cryptographic Attacks</h4>
+      <table>
+        <tr><th class="d3">Attack</th><th class="d3">What the Attacker Has/Does</th><th class="d3">Mitigation</th></tr>
+        <tr><td>Brute Force</td><td>Tries all possible keys</td><td>Long keys (AES-256); account lockout; rate limiting</td></tr>
+        <tr><td>Birthday Attack</td><td>Exploits collision probability (50% collision at √(2ⁿ) values) — attacks hash functions</td><td>Use SHA-256+ (128-bit collision resistance)</td></tr>
+        <tr><td>Rainbow Table</td><td>Pre-computed hash lookup table</td><td>Salting destroys rainbow table effectiveness</td></tr>
+        <tr><td>Meet-in-the-Middle</td><td>Attacks double-encryption (2DES) by encrypting from one end + decrypting from the other</td><td>Why 3DES was chosen over 2DES</td></tr>
+        <tr><td>Replay Attack</td><td>Captures and re-submits valid authentication data</td><td>Nonces; timestamps; sequence numbers; Kerberos ticket validity window</td></tr>
+        <tr><td>Known Plaintext</td><td>Has plaintext + ciphertext pairs; tries to deduce key</td><td>Strong modern algorithms resist this</td></tr>
+        <tr><td>Chosen Plaintext</td><td>Can choose plaintexts to encrypt; observes ciphertext</td><td>Modern algorithms (AES) designed to resist this</td></tr>
+        <tr><td>Side Channel</td><td>Exploits physical implementation: timing, power consumption, EM emissions, cache</td><td>Constant-time implementations; hardware countermeasures; electromagnetic shielding (TEMPEST)</td></tr>
+      </table>
+
+      <h4>Quantum Computing Threat</h4>
+      <ul>
+        <li><strong>Shor's Algorithm:</strong> Breaks RSA, ECC, DH (asymmetric) — renders current public-key crypto obsolete</li>
+        <li><strong>Grover's Algorithm:</strong> Halves effective key length of symmetric ciphers → AES-256 effectively becomes AES-128</li>
+        <li><strong>Post-Quantum Cryptography (PQC):</strong> NIST selected standards in 2024: CRYSTALS-Kyber (key encapsulation), CRYSTALS-Dilithium (signatures); lattice-based</li>
+        <li><strong>Harvest Now, Decrypt Later:</strong> Adversaries storing encrypted traffic today to decrypt once quantum computers available — classified/long-lived data must be PQC-protected now</li>
+      </ul>
+    </div>
+
+    <!-- PKI -->
+    <div class="topic" id="d3-pki">
+      <h3>PKI &amp; Key Management</h3>
+
+      <h4>PKI Components</h4>
+      <table>
+        <tr><th class="d3">Component</th><th class="d3">Role</th></tr>
+        <tr><td><strong>CA (Certificate Authority)</strong></td><td>Signs and issues X.509 digital certificates; ROOT CA = trust anchor; Intermediate CA = issues end-entity certs</td></tr>
+        <tr><td><strong>RA (Registration Authority)</strong></td><td>Verifies identity of certificate requestor BEFORE CA issues cert; offloads CA verification workload</td></tr>
+        <tr><td><strong>CRL (Certificate Revocation List)</strong></td><td>Published list of revoked certificate serial numbers; downloaded by clients; can be stale (pull model)</td></tr>
+        <tr><td><strong>OCSP</strong></td><td>Online Certificate Status Protocol; real-time revocation check (push/query model); must staple OCSP response to avoid privacy leak</td></tr>
+        <tr><td><strong>Certificate Pinning</strong></td><td>Client pre-configured to only accept a specific certificate or public key; prevents rogue CA attacks</td></tr>
+        <tr><td><strong>X.509</strong></td><td>Standard certificate format; contains: Subject, Issuer, Public Key, Validity Period, Serial Number, Signature, Extensions</td></tr>
+        <tr><td><strong>Key Escrow</strong></td><td>Third party holds a copy of decryption keys for lawful access; government agencies use for law enforcement; risk = key escrow becomes an attack target</td></tr>
+      </table>
+
+      <h4>PKI Trust Models</h4>
+      <ul>
+        <li><strong>Hierarchical:</strong> Single Root CA → Intermediate CAs → End-entity certificates; most common; trust Root = trust all below</li>
+        <li><strong>Web of Trust:</strong> PGP model; peers sign each other's keys; no central authority; trust graph-based</li>
+        <li><strong>Bridge CA:</strong> Links separate PKI hierarchies; used for cross-organisational trust (US Federal Bridge CA)</li>
+        <li><strong>Cross-Certification:</strong> Two CAs mutually sign each other's certificates; peer trust</li>
+      </ul>
+
+      <h4>Key Management Lifecycle</h4>
+      <p>Generation → Distribution → Storage → Use → Rotation/Renewal → Revocation → Destruction. Keys must NEVER leave HSMs in plaintext. Key custodians use M-of-N split knowledge to reconstruct keys — no single person has full key.</p>
+      <div class="tip"><strong>Exam tip:</strong> M-of-N control (also called split knowledge or secret sharing) — 3-of-5 key custodians must be present to reconstruct the master key. Prevents single-person key compromise.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 4 – COMMUNICATION & NETWORK SECURITY
+════════════════════════════════════════ -->
+<div class="domain d4" id="d4">
+  <div class="domain-hdr">
+    <h2>Domain 4 — Communication &amp; Network Security</h2>
+    <span class="wt">13% of exam · ~20 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- OSI & PROTOCOLS -->
+    <div class="topic" id="d4-osi">
+      <h3>OSI Model, TCP/IP &amp; Core Protocols</h3>
+      <table>
+        <tr><th class="d4">OSI Layer</th><th class="d4">Name</th><th class="d4">PDU</th><th class="d4">Protocols / Devices</th><th class="d4">Security Controls</th></tr>
+        <tr><td>7</td><td>Application</td><td>Data</td><td>HTTP, HTTPS, FTP, SMTP, DNS, SNMP, SSH, POP3, IMAP</td><td>WAF, application proxy, content filtering</td></tr>
+        <tr><td>6</td><td>Presentation</td><td>Data</td><td>SSL/TLS (conceptually), ASCII/Unicode, JPEG, MPEG</td><td>Encryption/decryption, data format validation</td></tr>
+        <tr><td>5</td><td>Session</td><td>Data</td><td>NetBIOS, RPC, PPTP, L2TP (control channel)</td><td>Session management, re-authentication</td></tr>
+        <tr><td>4</td><td>Transport</td><td>Segment</td><td>TCP, UDP; port numbers</td><td>Stateful firewall (tracks TCP state), port filtering, TLS</td></tr>
+        <tr><td>3</td><td>Network</td><td>Packet</td><td>IP, ICMP, IGMP; Routers, L3 switches</td><td>ACL/packet filter firewall, IPSec, NAT, routing security</td></tr>
+        <tr><td>2</td><td>Data Link</td><td>Frame</td><td>Ethernet 802.3, 802.11 Wi-Fi, MAC addresses; Switches, APs</td><td>802.1X port auth, VLAN, DHCP snooping, DAI, port security</td></tr>
+        <tr><td>1</td><td>Physical</td><td>Bits</td><td>Cables, hubs, repeaters, physical media</td><td>Secure cabling, physical access control, TEMPEST shielding</td></tr>
+      </table>
+      <div class="tip"><strong>OSI Mnemonic (top→bottom):</strong> "All People Seem To Need Data Processing" — Application, Presentation, Session, Transport, Network, Data Link, Physical.</div>
+      <div class="tip"><strong>TCP/IP 4-layer model:</strong> Network Access (L1+L2) → Internet (L3) → Transport (L4) → Application (L5-L7). DoD model = same as TCP/IP model.</div>
+
+      <h4>TCP vs UDP vs ICMP</h4>
+      <table>
+        <tr><th class="d4">Protocol</th><th class="d4">Connection</th><th class="d4">Reliability</th><th class="d4">Use Cases</th><th class="d4">Security Notes</th></tr>
+        <tr><td><strong>TCP</strong></td><td>Connection-oriented; 3-way handshake (SYN→SYN-ACK→ACK)</td><td>Guaranteed delivery; retransmission; ordering</td><td>HTTP, HTTPS, SSH, FTP, SMTP, LDAP</td><td>SYN flood exploits handshake; stateful firewall tracks TCP state</td></tr>
+        <tr><td><strong>UDP</strong></td><td>Connectionless; no handshake</td><td>Best-effort; no guarantee or ordering</td><td>DNS, DHCP, VoIP, streaming, SNMP, NTP</td><td>Amplification attacks (DNS, NTP amplification); DHCP starvation</td></tr>
+        <tr><td><strong>ICMP</strong></td><td>No ports; control/error messages</td><td>N/A — diagnostic</td><td>Ping, traceroute, error reporting</td><td>Smurf attack (ICMP broadcast); Ping of Death; covert channel risk; often blocked at perimeter</td></tr>
+      </table>
+
+      <h4>Critical Port Numbers</h4>
+      <table>
+        <tr><th class="d4">Port</th><th class="d4">Protocol</th><th class="d4">Notes</th></tr>
+        <tr><td>20/21</td><td>FTP (data/control)</td><td>Unencrypted; use SFTP (22) or FTPS (989/990) instead</td></tr>
+        <tr><td>22</td><td>SSH / SFTP / SCP</td><td>Encrypted remote admin; SFTP runs over SSH (NOT the same as FTPS)</td></tr>
+        <tr><td>23</td><td>Telnet</td><td>NEVER use — cleartext; replace with SSH</td></tr>
+        <tr><td>25</td><td>SMTP</td><td>Email relay; unauthenticated by default; use TLS for transit encryption</td></tr>
+        <tr><td>53</td><td>DNS</td><td>UDP (queries); TCP (zone transfers); DNSSEC adds cryptographic signing</td></tr>
+        <tr><td>67/68</td><td>DHCP server/client</td><td>UDP; DORA process; vulnerable to starvation and rogue DHCP</td></tr>
+        <tr><td>80</td><td>HTTP</td><td>Unencrypted; redirect to HTTPS</td></tr>
+        <tr><td>110 / 143</td><td>POP3 / IMAP</td><td>Use IMAPS (993) or POP3S (995) for encrypted email retrieval</td></tr>
+        <tr><td>161/162</td><td>SNMP (query/trap)</td><td>v1/v2c = cleartext community strings; SNMPv3 = authentication + encryption</td></tr>
+        <tr><td>389 / 636</td><td>LDAP / LDAPS</td><td>Directory services; 389 = unencrypted; 636 = TLS; always use 636 or STARTTLS</td></tr>
+        <tr><td>443</td><td>HTTPS</td><td>HTTP over TLS; HSTS prevents downgrade to HTTP</td></tr>
+        <tr><td>445</td><td>SMB (Windows)</td><td>File sharing; target of EternalBlue (WannaCry); block at perimeter</td></tr>
+        <tr><td>1433</td><td>MS SQL Server</td><td>Should not be exposed to internet</td></tr>
+        <tr><td>3306</td><td>MySQL</td><td>Should not be exposed to internet</td></tr>
+        <tr><td>3389</td><td>RDP</td><td>Remote Desktop; frequently targeted; restrict to VPN only</td></tr>
+      </table>
+
+      <h4>DNS Security</h4>
+      <ul>
+        <li><strong>DNS Cache Poisoning (Kaminsky Attack):</strong> Injecting false DNS records into recursive resolver cache; clients receive fraudulent IP → DNSSEC mitigates</li>
+        <li><strong>DNS Hijacking:</strong> Compromising the DNS server itself or DNS registrar account → changes propagate globally</li>
+        <li><strong>DNSSEC:</strong> Cryptographically signs DNS records; resolvers validate signatures; does NOT encrypt queries (DNS over HTTPS/TLS for privacy)</li>
+        <li><strong>DNS Sinkhole:</strong> Redirect malicious domain lookups to controlled server; detects infected hosts trying to reach C2</li>
+      </ul>
+    </div>
+
+    <!-- FIREWALLS & IDS/IPS -->
+    <div class="topic" id="d4-fw">
+      <h3>Firewalls, IDS/IPS &amp; Network Architecture</h3>
+
+      <h4>Firewall Types</h4>
+      <table>
+        <tr><th class="d4">Type</th><th class="d4">OSI Layer</th><th class="d4">How It Works</th><th class="d4">Exam Distinguisher</th></tr>
+        <tr><td><strong>Packet Filtering</strong></td><td>L3/L4</td><td>Inspects IP/port/protocol headers; stateless</td><td>No state tracking; easily spoofed; fast but weak</td></tr>
+        <tr><td><strong>Stateful Inspection</strong></td><td>L3/L4</td><td>Tracks TCP state table; knows if packet belongs to legitimate connection</td><td>Most common legacy firewall; blocks packets that don't belong to valid sessions</td></tr>
+        <tr><td><strong>Circuit-Level Gateway</strong></td><td>L5</td><td>Validates TCP 3-way handshake; no application-layer inspection</td><td>SOCKS proxy; validates session establishment only; transparent to applications</td></tr>
+        <tr><td><strong>Application Proxy / Gateway</strong></td><td>L7</td><td>Full proxy — terminates connection; deep inspection; understands application protocols</td><td>Most secure; breaks direct client-server connection; content filtering</td></tr>
+        <tr><td><strong>NGFW</strong></td><td>L3–L7</td><td>Stateful + application identity + IPS + SSL inspection + user/device identity</td><td>Best answer for "most capable firewall"; integrates IPS, URL filtering, app control</td></tr>
+        <tr><td><strong>WAF</strong></td><td>L7</td><td>HTTP/HTTPS specific; detects/blocks SQLi, XSS, CSRF, SSRF</td><td>Protects web applications only; can be in-line or reverse-proxy mode</td></tr>
+      </table>
+
+      <h4>IDS vs IPS</h4>
+      <table>
+        <tr><th class="d4">Feature</th><th class="d4">IDS (Intrusion Detection)</th><th class="d4">IPS (Intrusion Prevention)</th></tr>
+        <tr><td>Mode</td><td>Passive — out-of-band; tap or SPAN port</td><td>Active — inline; sits in traffic path</td></tr>
+        <tr><td>Action</td><td>Detect and ALERT only — does NOT block</td><td>Detect AND BLOCK traffic inline</td></tr>
+        <tr><td>Risk</td><td>Missed attack (false negative) is dangerous</td><td>False positive blocks legitimate traffic → availability impact</td></tr>
+        <tr><td>Placement</td><td>Promiscuous mode; no traffic impact</td><td>Must be highly available; inline failure = network down</td></tr>
+      </table>
+      <table>
+        <tr><th class="d4">Detection Method</th><th class="d4">How</th><th class="d4">Strengths</th><th class="d4">Weaknesses</th></tr>
+        <tr><td><strong>Signature-Based</strong></td><td>Matches against known attack signatures</td><td>Low false positive; precise; fast</td><td>Cannot detect zero-days; signature DB must stay current</td></tr>
+        <tr><td><strong>Anomaly/Behaviour-Based</strong></td><td>Learns normal baseline; alerts on deviation</td><td>Detects zero-days and novel attacks</td><td>Higher false positive rate; baseline must be clean; expensive to train</td></tr>
+        <tr><td><strong>Heuristic / Rule-Based</strong></td><td>Expert rules about suspicious behaviour patterns</td><td>Catches known bad patterns without exact signatures</td><td>Requires rule maintenance; can miss novel variations</td></tr>
+      </table>
+      <div class="tip"><strong>Error Rates:</strong> False Positive = Alert on legitimate traffic ("cry wolf" — erodes analyst trust). False Negative = Miss real attack ("silent failure" — most dangerous). Tune IDS to reduce false positives without introducing false negatives. CER (Crossover Error Rate) is where FP = FN — used for biometrics but same concept applies.</div>
+
+      <h4>Network Architecture &amp; DMZ</h4>
+      <table>
+        <tr><th class="d4">Concept</th><th class="d4">Description</th></tr>
+        <tr><td><strong>DMZ (Demilitarised Zone)</strong></td><td>Screened subnet between two firewalls; public-facing servers (web, email, DNS) sit here; internal network shielded from direct internet exposure; preferred = two separate physical firewalls from different vendors</td></tr>
+        <tr><td><strong>Bastion Host</strong></td><td>Hardened single-purpose host directly exposed to internet; minimal services; heavily audited and monitored</td></tr>
+        <tr><td><strong>Microsegmentation</strong></td><td>Fine-grained East-West L7 segmentation within data centre; limits lateral movement; typically software-defined; pairs with Zero Trust</td></tr>
+        <tr><td><strong>SDN (Software-Defined Networking)</strong></td><td>Separates control plane (intelligence) from data plane (packet forwarding); centralised controller; enables dynamic policy; controller = single point of failure/attack</td></tr>
+        <tr><td><strong>SASE</strong></td><td>Secure Access Service Edge: converges SD-WAN with cloud security stack (ZTNA, CASB, SWG, FWaaS); identity-centric; cloud-native; branch offices access cloud security instead of backhauling to HQ</td></tr>
+        <tr><td><strong>ZTNA</strong></td><td>Zero Trust Network Access; users get application-level access only (not network access); application hidden from internet until identity verified</td></tr>
+        <tr><td><strong>NAC</strong></td><td>Network Access Control; posture check before network admission (is endpoint patched? Is AV running?); 802.1X + RADIUS architecture</td></tr>
+        <tr><td><strong>Honeypot</strong></td><td>Decoy system with no legitimate traffic; ANY connection = attacker; high-value intelligence; legal in own network; entrapment risk if used actively</td></tr>
+      </table>
+    </div>
+
+    <!-- VPN & WIRELESS -->
+    <div class="topic" id="d4-vpn">
+      <h3>VPN, Wireless Security &amp; Email</h3>
+
+      <h4>IPSec VPN</h4>
+      <table>
+        <tr><th class="d4">Component</th><th class="d4">What It Does</th><th class="d4">Exam Key</th></tr>
+        <tr><td><strong>AH (Authentication Header)</strong></td><td>Authentication + integrity; signs packet headers and payload</td><td>NO encryption — confidentiality not provided by AH alone</td></tr>
+        <tr><td><strong>ESP (Encapsulating Security Payload)</strong></td><td>Confidentiality (encryption) + optional authentication + integrity</td><td>Most commonly used IPSec protocol; provides full protection</td></tr>
+        <tr><td><strong>Transport Mode</strong></td><td>Protects payload only; original IP header remains visible</td><td>Host-to-host communication; original source/destination IPs exposed</td></tr>
+        <tr><td><strong>Tunnel Mode</strong></td><td>Encrypts entire original packet; new IP header added</td><td>Site-to-site VPN; hides original IP addresses; preferred for gateway-to-gateway</td></tr>
+        <tr><td><strong>IKE (Internet Key Exchange)</strong></td><td>Phase 1: ISAKMP SA for key exchange; Phase 2: IPSec SA for data encryption</td><td>IKEv2 adds MOBIKE (mobile device support) and EAP authentication</td></tr>
+      </table>
+
+      <h4>VPN Protocol Comparison</h4>
+      <table>
+        <tr><th class="d4">Protocol</th><th class="d4">Security</th><th class="d4">Status</th></tr>
+        <tr><td><strong>SSL/TLS VPN</strong></td><td>Works through firewalls; browser-based or client; L7; no special client needed for clientless mode</td><td>Preferred for remote access; HTTPS port 443</td></tr>
+        <tr><td><strong>IPSec VPN</strong></td><td>Strong; standardised; site-to-site primary use case</td><td>Current standard for site-to-site</td></tr>
+        <tr><td><strong>PPTP</strong></td><td>BROKEN — MS-CHAPv2 vulnerability allows offline dictionary attack</td><td>NEVER select as secure answer on exam</td></tr>
+        <tr><td><strong>L2TP</strong></td><td>No encryption on its own; must be paired with IPSec (L2TP/IPSec)</td><td>L2TP alone is insecure; only secure as L2TP/IPSec</td></tr>
+        <tr><td><strong>WireGuard</strong></td><td>Modern, minimal codebase; ChaCha20; fast; auditable</td><td>Increasingly used; not yet widely tested on CISSP but is state of art</td></tr>
+      </table>
+
+      <h4>Wireless Security Evolution</h4>
+      <table>
+        <tr><th class="d4">Standard</th><th class="d4">Encryption</th><th class="d4">Auth</th><th class="d4">Status</th></tr>
+        <tr><td><strong>WEP</strong></td><td>RC4, 24-bit IV</td><td>Open or Shared Key</td><td>COMPLETELY BROKEN — crack in minutes; RC4 with tiny IV; 802.11b era; never use</td></tr>
+        <tr><td><strong>WPA (TKIP)</strong></td><td>RC4 with 128-bit IV (TKIP)</td><td>PSK or 802.1X</td><td>DEPRECATED — TKIP vulnerable; better than WEP but still insecure</td></tr>
+        <tr><td><strong>WPA2 (CCMP)</strong></td><td>AES-CCMP (128-bit)</td><td>PSK or 802.1X (Enterprise)</td><td>Still widely used; WPA2-PSK vulnerable to offline dictionary attack against 4-way handshake (KRACK attack on session key)</td></tr>
+        <tr><td><strong>WPA3 (SAE)</strong></td><td>AES-GCMP-256 (required for WPA3-Enterprise 192-bit)</td><td>SAE (Dragonfly) or 802.1X</td><td>Current best; SAE prevents offline dictionary attacks; Forward Secrecy built-in; PMKID attacks still possible in early WPA3 (DragonBlood)</td></tr>
+      </table>
+      <div class="warn"><strong>Wireless Security Myths:</strong> SSID hiding = NOT a security control (captured via passive sniffing). MAC address filtering = NOT a security control (MAC spoofing defeats it instantly). Both are "security theatre" and should never be selected as security measures.</div>
+      <div class="def"><strong>802.1X Enterprise:</strong> Port-based Network Access Control — uses RADIUS for authentication; EAP (Extensible Authentication Protocol) for flexible auth methods; EAP-TLS (mutual certificate auth) = strongest EAP variant. Requires certificate infrastructure.</div>
+
+      <h4>Network Attacks</h4>
+      <table>
+        <tr><th class="d4">Attack</th><th class="d4">How It Works</th><th class="d4">Mitigation</th></tr>
+        <tr><td>SYN Flood</td><td>Sends many SYN packets; never completes handshake; fills half-open connection table → DoS</td><td>SYN cookies; rate limiting; firewall; upstream scrubbing</td></tr>
+        <tr><td>Smurf Attack</td><td>ICMP echo broadcast with spoofed victim source IP → amplification DoS</td><td>Block directed broadcasts; ingress/egress filtering (BCP38)</td></tr>
+        <tr><td>ARP Poisoning</td><td>Sends gratuitous ARP replies mapping attacker's MAC to victim's IP → MitM at L2</td><td>Dynamic ARP Inspection (DAI); 802.1X; static ARP; detection via RARP</td></tr>
+        <tr><td>VLAN Hopping</td><td>Double tagging (bypass native VLAN) or rogue trunk port → escape VLAN boundary</td><td>Disable unused ports; set native VLAN to unused ID; disable trunk on access ports</td></tr>
+        <tr><td>BGP Hijacking</td><td>Malicious route announcements divert internet traffic through attacker's AS</td><td>RPKI (Resource Public Key Infrastructure) route origin validation; BGP authentication</td></tr>
+        <tr><td>DNS Amplification</td><td>Small DNS query → large response sent to spoofed victim IP; amplification factor up to 100x</td><td>BCP38; rate limiting; response rate limiting (RRL); blocking open resolvers</td></tr>
+      </table>
+
+      <h4>Email Security (SPF, DKIM, DMARC)</h4>
+      <table>
+        <tr><th class="d4">Standard</th><th class="d4">What It Does</th><th class="d4">Exam Key Point</th></tr>
+        <tr><td><strong>SPF</strong></td><td>DNS TXT record lists authorised sending IP addresses for a domain</td><td>Checks MAIL FROM (envelope sender); does NOT sign message body; easily bypassed by display-name spoofing</td></tr>
+        <tr><td><strong>DKIM</strong></td><td>Cryptographic signature of message headers and body using private key; public key in DNS</td><td>Provides message integrity + domain authenticity; survives forwarding if headers preserved; non-repudiation element</td></tr>
+        <tr><td><strong>DMARC</strong></td><td>Policy layer atop SPF/DKIM; defines what to do on failure: none/quarantine/reject; alignment required</td><td>Requires SPF OR DKIM to align with From: header; p=reject = strongest; sends aggregate reports</td></tr>
+        <tr><td><strong>S/MIME</strong></td><td>Certificate-based end-to-end email encryption and digital signing</td><td>Uses X.509 certificates; requires PKI infrastructure; protects content even at mail server</td></tr>
+        <tr><td><strong>PGP/GPG</strong></td><td>Web of Trust model for key verification; end-to-end encryption</td><td>Decentralised; no CA needed; used outside enterprise PKI; key signing parties</td></tr>
+      </table>
+      <div class="tip"><strong>TLS for email transit</strong> encrypts the connection between mail servers (SMTP over TLS) but does NOT encrypt the message content at rest on servers. S/MIME or PGP is required for true end-to-end email protection.</div>
+
+      <h4>RADIUS vs TACACS+</h4>
+      <table>
+        <tr><th class="d4">Feature</th><th class="d4">RADIUS</th><th class="d4">TACACS+</th></tr>
+        <tr><td>Transport</td><td>UDP (ports 1812/1813)</td><td>TCP (port 49)</td></tr>
+        <tr><td>Encryption</td><td>Password only — rest of packet unencrypted</td><td>Entire packet encrypted</td></tr>
+        <tr><td>AAA Functions</td><td>Combined Authentication+Authorisation; separate Accounting</td><td>Fully separated: Authentication, Authorisation, Accounting</td></tr>
+        <tr><td>Granularity</td><td>Limited — binary permit/deny</td><td>Per-command authorisation; attribute-value pairs; very granular</td></tr>
+        <tr><td>Preferred For</td><td>Network access (VPN, Wi-Fi, 802.1X)</td><td>Device administration (router/switch command authorisation); Cisco-preferred</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 5 – IDENTITY AND ACCESS MANAGEMENT
+════════════════════════════════════════ -->
+<div class="domain d5" id="d5">
+  <div class="domain-hdr">
+    <h2>Domain 5 — Identity &amp; Access Management (IAM)</h2>
+    <span class="wt">13% of exam · ~20 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- AUTHENTICATION -->
+    <div class="topic" id="d5-auth">
+      <h3>Authentication, Biometrics &amp; Kerberos</h3>
+
+      <h4>IAAA Framework</h4>
+      <table>
+        <tr><th class="d5">Step</th><th class="d5">What Happens</th><th class="d5">Example</th><th class="d5">Key Point</th></tr>
+        <tr><td><strong>Identification</strong></td><td>User CLAIMS an identity</td><td>Entering username</td><td>Unverified claim; not proof of anything</td></tr>
+        <tr><td><strong>Authentication</strong></td><td>System PROVES the claimed identity</td><td>Entering password, biometric scan</td><td>Must happen before authorisation is meaningful</td></tr>
+        <tr><td><strong>Authorisation</strong></td><td>Determine WHAT the authenticated user can access</td><td>Role-based access; ACL lookup</td><td>Permissions are granted, not authenticated</td></tr>
+        <tr><td><strong>Accountability</strong></td><td>Actions are TRACEABLE to the authenticated identity</td><td>Audit log: "user jsmith deleted record at 14:32"</td><td>Requires authentication to work; logs must be protected</td></tr>
+      </table>
+
+      <h4>Authentication Factors</h4>
+      <table>
+        <tr><th class="d5">Factor</th><th class="d5">Type</th><th class="d5">Examples</th><th class="d5">Weakness</th></tr>
+        <tr><td><strong>Something you KNOW</strong></td><td>Type 1</td><td>Password, PIN, passphrase, security question, cognitive challenge</td><td>Can be shared, guessed, observed, or phished</td></tr>
+        <tr><td><strong>Something you HAVE</strong></td><td>Type 2</td><td>Smart card, hardware token (RSA SecurID), OTP device, mobile phone (SMS OTP)</td><td>Can be lost, stolen, or SIM-swapped; SMS OTP susceptible to SS7 attacks</td></tr>
+        <tr><td><strong>Something you ARE</strong></td><td>Type 3</td><td>Fingerprint, retina scan, iris scan, voice print, facial recognition, gait analysis</td><td>Cannot be changed if compromised; privacy concerns; FAR/FRR trade-off</td></tr>
+        <tr><td><strong>Somewhere you ARE</strong></td><td>Type 4</td><td>GPS location, IP geolocation, network location</td><td>VPN can spoof; imprecise; cannot stand alone</td></tr>
+      </table>
+      <div class="tip"><strong>MFA = TWO or more DIFFERENT factor types.</strong> Combining two passwords = two-step, NOT MFA. Two Type 1 factors ≠ MFA. SMS OTP = Type 2 (something you HAVE — your phone). Hardware token = Type 2.</div>
+
+      <h4>Password Security Controls</h4>
+      <ul>
+        <li><strong>Minimum length</strong> (12–16+ characters) = most effective single control for password strength</li>
+        <li><strong>Password history</strong> (e.g., remember last 12): prevents reuse of recent passwords</li>
+        <li><strong>HOTP</strong>: HMAC-based OTP — counter-based; token and server sync counter; token does not expire until used</li>
+        <li><strong>TOTP</strong>: Time-based OTP — 30–60 second window; Google Authenticator, Microsoft Authenticator; requires time synchronisation (NTP)</li>
+        <li><strong>Synchronous tokens</strong>: Time-based (TOTP) — token and server must have synchronised clocks</li>
+        <li><strong>Asynchronous tokens</strong>: Challenge-response — server sends challenge; user enters into token; token generates response</li>
+        <li><strong>FIDO2/WebAuthn</strong>: Passwordless; public key cryptography; private key on device/security key; phishing-resistant (domain binding); strongest MFA approach</li>
+      </ul>
+
+      <h4>Biometrics — FAR, FRR, CER</h4>
+      <table>
+        <tr><th class="d5">Metric</th><th class="d5">Full Name</th><th class="d5">Error Type</th><th class="d5">Impact</th><th class="d5">Tuning</th></tr>
+        <tr><td><strong>FAR</strong></td><td>False Acceptance Rate</td><td>Type II Error</td><td>Unauthorised person accepted — SECURITY RISK</td><td>Decrease threshold (stricter) → lower FAR → higher FRR</td></tr>
+        <tr><td><strong>FRR</strong></td><td>False Rejection Rate</td><td>Type I Error</td><td>Authorised person rejected — USER INCONVENIENCE</td><td>Increase threshold (looser) → lower FRR → higher FAR</td></tr>
+        <tr><td><strong>CER</strong></td><td>Crossover Error Rate</td><td>N/A</td><td>Point where FAR = FRR — LOWER CER = BETTER system</td><td>Compare biometric systems by CER; cannot tune past it</td></tr>
+      </table>
+      <div class="tip"><strong>Exam Trap — FAR vs FRR:</strong> "A bank wants the most secure biometric system." → Choose LOWEST FAR (even at cost of higher FRR — security over convenience). "Which error causes security concern?" → FAR (Type II) = security problem. "Which causes user frustration?" → FRR (Type I) = user experience problem.</div>
+
+      <h4>Kerberos</h4>
+      <table>
+        <tr><th class="d5">Component</th><th class="d5">Role</th></tr>
+        <tr><td>KDC (Key Distribution Centre)</td><td>Heart of Kerberos; contains both AS and TGS; usually Domain Controller in Active Directory</td></tr>
+        <tr><td>AS (Authentication Service)</td><td>Verifies credentials; issues TGT (Ticket-Granting Ticket) encrypted with TGS key</td></tr>
+        <tr><td>TGS (Ticket-Granting Service)</td><td>Receives TGT from client; issues Service Tickets for specific resources</td></tr>
+        <tr><td>TGT (Ticket-Granting Ticket)</td><td>Proof of authentication; typically 10-hour lifetime; client presents to TGS to get service tickets</td></tr>
+        <tr><td>Service Ticket</td><td>Grants access to specific service; client presents to the target service directly</td></tr>
+      </table>
+      <p><strong>Kerberos Flow:</strong> Client → AS (credentials) → TGT issued → Client → TGS (TGT + service request) → Service Ticket issued → Client → Service (Service Ticket) → Access granted</p>
+      <div class="warn"><strong>Kerberos Clock Skew:</strong> Maximum 5-minute difference between client and KDC clocks. Beyond 5 minutes → authentication fails. NTP is critical to Kerberos. Attackers can exploit desynchronisation.</div>
+
+      <h4>Kerberos Attacks</h4>
+      <table>
+        <tr><th class="d5">Attack</th><th class="d5">How</th><th class="d5">Defence</th></tr>
+        <tr><td><strong>Golden Ticket</strong></td><td>Compromise KRBTGT account hash → forge any TGT → unlimited access as any user for 10 years; persists even after password resets</td><td>Reset KRBTGT password twice; monitor for anomalous TGT lifetimes; Privileged Access Workstations</td></tr>
+        <tr><td><strong>Silver Ticket</strong></td><td>Compromise service account hash → forge service ticket → access that specific service without contacting KDC</td><td>Managed service accounts; gMSA (auto-rotating passwords); monitor for service access without KDC interaction</td></tr>
+        <tr><td><strong>Kerberoasting</strong></td><td>Request service tickets for service accounts; tickets encrypted with service account password hash → offline brute-force; no special privileges needed</td><td>Strong passwords for service accounts (25+ char); gMSA; monitor for anomalous SPN queries</td></tr>
+        <tr><td><strong>Pass-the-Ticket</strong></td><td>Steal existing Kerberos tickets from memory (Mimikatz); replay without knowing password</td><td>Credential Guard; Protected Users group; reduce ticket lifetime; network segmentation</td></tr>
+        <tr><td><strong>AS-REP Roasting</strong></td><td>Accounts with "Do not require Kerberos preauthentication" — attacker gets TGT without password; offline crack</td><td>Ensure all accounts require pre-authentication; monitor for AS-REQ without ETYPE-INFO2</td></tr>
+      </table>
+    </div>
+
+    <!-- AUTHORIZATION MODELS -->
+    <div class="topic" id="d5-authz">
+      <h3>Authorisation Models &amp; PAM</h3>
+
+      <h4>Access Control Models Comparison</h4>
+      <table>
+        <tr><th class="d5">Model</th><th class="d5">Who Controls Access</th><th class="d5">Mechanism</th><th class="d5">Flexibility</th><th class="d5">Risk / Use Case</th></tr>
+        <tr><td><strong>DAC</strong> (Discretionary)</td><td>Resource owner decides</td><td>ACLs; file permissions (Linux rwx)</td><td>Highest — owners grant ad hoc</td><td>Trojan horse risk (owner grants access; malware inherits it); Windows/Linux standard</td></tr>
+        <tr><td><strong>MAC</strong> (Mandatory)</td><td>System/policy enforces labels</td><td>Labels: Top Secret, Secret, Confidential; Bell-LaPadula</td><td>Lowest — cannot override system</td><td>Highest security; government/military; rigid; most restrictive</td></tr>
+        <tr><td><strong>RBAC</strong> (Role-Based)</td><td>Security administrator via roles</td><td>Users → Roles → Permissions; SoD via conflicting roles</td><td>Medium — role assignment is flexible</td><td>Most common enterprise model; scalable; NIST RBAC standard</td></tr>
+        <tr><td><strong>ABAC</strong> (Attribute-Based)</td><td>Policy engine evaluating attributes</td><td>If (user.clearance = TS AND time = business_hours AND location = HQ) then ALLOW</td><td>Highest — multi-dimensional policy</td><td>Most granular; cloud IAM (AWS IAM policies = ABAC); fine-grained context-aware access</td></tr>
+        <tr><td><strong>Rule-Based</strong></td><td>System rules (not role-based)</td><td>If-then rules applied to all users; firewall ACLs</td><td>Medium — rules apply uniformly</td><td>Firewall ACLs; VLAN access rules; NOT the same as RBAC</td></tr>
+      </table>
+      <div class="tip"><strong>ABAC is NOT RBAC:</strong> RBAC = access based on job role. ABAC = access based on multiple attributes (role + time + location + clearance + device health). ABAC is more granular and flexible — the answer when question asks about "most granular" or "context-aware" access control.</div>
+
+      <h4>Access Control Implementation</h4>
+      <table>
+        <tr><th class="d5">Type</th><th class="d5">Perspective</th><th class="d5">Example</th></tr>
+        <tr><td><strong>ACL (Access Control List)</strong></td><td>Object-centric (what subjects can access this resource?)</td><td>File: Admin=RW, Finance=R, HR=None</td></tr>
+        <tr><td><strong>Capability Table</strong></td><td>Subject-centric (what can this user access?)</td><td>Alice: FinanceDB=R, HR_Portal=RW, IT_Admin=None</td></tr>
+        <tr><td><strong>Content-Dependent</strong></td><td>Access depends on data content</td><td>HR can only see salary records ≤ their own grade</td></tr>
+        <tr><td><strong>Context-Dependent</strong></td><td>Access depends on circumstances</td><td>Time of day, location, device type, after authentication step-up</td></tr>
+        <tr><td><strong>Database Views</strong></td><td>Logical access restriction to table subsets</td><td>Finance view = SELECT salary, dept FROM employees WHERE dept = 'Finance'</td></tr>
+      </table>
+
+      <h4>Privileged Access Management (PAM)</h4>
+      <table>
+        <tr><th class="d5">Control</th><th class="d5">Purpose</th></tr>
+        <tr><td><strong>JIT (Just-in-Time) Access</strong></td><td>Privileges granted on-demand for specific task duration; automatically revoked after; no persistent admin rights</td></tr>
+        <tr><td><strong>Credential Vaulting</strong></td><td>Privileged credentials stored in encrypted vault; auto-rotated; checked out per session; never shared via spreadsheet</td></tr>
+        <tr><td><strong>Session Recording</strong></td><td>Every privileged session recorded; detective control (not preventive); forensic evidence; creates accountability</td></tr>
+        <tr><td><strong>Privileged Access Workstation (PAW)</strong></td><td>Dedicated hardened workstation for admin tasks only; no internet/email; prevents admin credential theft</td></tr>
+        <tr><td><strong>Break-Glass</strong></td><td>Emergency access to locked system; envelope/safe combination; usage MUST trigger alert and post-use review</td></tr>
+        <tr><td><strong>Dual Control</strong></td><td>Two persons must simultaneously authorise high-risk operations; nuclear launch key analogy</td></tr>
+      </table>
+      <div class="key"><strong>PAM Principle:</strong> No persistent privileged access. Just-enough, just-in-time, fully audited. Even domain admins should not have 24/7 admin rights.</div>
+
+      <h4>Identity Lifecycle Management</h4>
+      <ul>
+        <li><strong>Provisioning:</strong> Account creation; role assignment; manager approval workflow</li>
+        <li><strong>Access Review/Recertification:</strong> Periodic (quarterly/annual) review; manager certifies each access right is still needed</li>
+        <li><strong>Role Change (Movers):</strong> When employee changes job — old role access revoked; new role access granted; access accumulation (privilege creep) risk</li>
+        <li><strong>Orphan Accounts:</strong> Accounts with no owner (former employee left); high risk; should be detected by regular reconciliation</li>
+        <li><strong>Dormant Accounts:</strong> Active accounts unused for 90+ days; should be disabled pending review</li>
+        <li><strong>Deprovisioning:</strong> Account disabled before employee is notified of termination (for hostile separations); never deleted immediately (forensics)</li>
+        <li><strong>SCIM</strong>: System for Cross-domain Identity Management — provisioning protocol for cloud app synchronisation</li>
+      </ul>
+    </div>
+
+    <!-- FEDERATION & ZTA -->
+    <div class="topic" id="d5-fed">
+      <h3>Federated Identity, SSO &amp; Zero Trust</h3>
+
+      <h4>Identity Federation Standards</h4>
+      <table>
+        <tr><th class="d5">Standard</th><th class="d5">Purpose</th><th class="d5">Format</th><th class="d5">Exam Key Fact</th></tr>
+        <tr><td><strong>SAML 2.0</strong></td><td>Authentication federation; SSO across organisations</td><td>XML assertions</td><td>IdP authenticates → SAML Assertion → SP grants access; enterprise SSO and cross-org federation; HTTP(S) binding</td></tr>
+        <tr><td><strong>OAuth 2.0</strong></td><td>Delegated AUTHORISATION — grants third-party limited access to resources</td><td>Access tokens (opaque or JWT)</td><td>NOT authentication — apps can impersonate users to other services; "Sign in with Google" uses OIDC, not raw OAuth</td></tr>
+        <tr><td><strong>OIDC</strong> (OpenID Connect)</td><td>Authentication layer built ON TOP of OAuth 2.0</td><td>ID Token (JWT) + Access Token</td><td>Adds who the user IS (authentication) to OAuth's what they can do (authorisation); answers "who are you?"</td></tr>
+        <tr><td><strong>WS-Federation</strong></td><td>Microsoft/enterprise federation for SOAP/XML environments</td><td>SAML tokens over WS-Trust</td><td>Legacy enterprise; mostly replaced by SAML/OIDC in modern implementations</td></tr>
+      </table>
+      <div class="warn"><strong>Critical Distinction:</strong> OAuth 2.0 = AUTHORISATION only (what you can do). OIDC = AUTHENTICATION (who you are). On CISSP, if the question asks about "user authentication" in federated context → SAML or OIDC. If "delegated access to resources" → OAuth.</div>
+
+      <h4>SSO Kerberos vs Federation</h4>
+      <table>
+        <tr><th class="d5">Feature</th><th class="d5">Kerberos SSO</th><th class="d5">SAML/OIDC Federation</th></tr>
+        <tr><td>Domain</td><td>Within a single Kerberos realm (enterprise domain)</td><td>Cross-organisation, cross-domain, internet-facing</td></tr>
+        <tr><td>Trust</td><td>KDC is trusted central authority</td><td>IdP is trusted by multiple SPs via metadata exchange</td></tr>
+        <tr><td>Protocol</td><td>Kerberos; UDP/TCP port 88</td><td>SAML over HTTPS; OAuth over HTTPS</td></tr>
+        <tr><td>SSO Benefit</td><td>One login for all domain resources</td><td>One login for partner/cloud applications</td></tr>
+      </table>
+      <div class="tip"><strong>SSO Risk:</strong> SSO is a single point of failure/compromise. If SSO credentials compromised, attacker gains access to all connected applications simultaneously. MFA at the IdP is essential. Monitor for anomalous federation token usage.</div>
+
+      <h4>Zero Trust Architecture (ZTA)</h4>
+      <table>
+        <tr><th class="d5">Concept</th><th class="d5">Detail</th></tr>
+        <tr><td><strong>Core Principle</strong></td><td>"Never trust, always verify" — no implicit trust based on network location; inside = outside from a trust perspective</td></tr>
+        <tr><td><strong>NIST SP 800-207</strong></td><td>ZTA reference architecture; defines components and deployment models</td></tr>
+        <tr><td><strong>Policy Engine (PE)</strong></td><td>Makes access decisions based on attributes; applies trust algorithm</td></tr>
+        <tr><td><strong>Policy Administrator (PA)</strong></td><td>Communicates decisions; manages session and connection lifecycle</td></tr>
+        <tr><td><strong>Policy Enforcement Point (PEP)</strong></td><td>Gateway/proxy that enforces the access decision; grants or denies connections</td></tr>
+        <tr><td><strong>BeyondCorp</strong></td><td>Google's ZTA implementation (2014); internal users treated same as external; drove industry adoption</td></tr>
+        <tr><td><strong>ZTNA vs VPN</strong></td><td>ZTNA: Application-level access only; resource hidden from internet; identity-centric. VPN: Full network access post-auth; east-west movement possible; network-centric</td></tr>
+      </table>
+
+      <h4>Directory Services &amp; LDAP</h4>
+      <ul>
+        <li><strong>X.500:</strong> Directory standard; hierarchical DIT (Directory Information Tree); LDAP is the lightweight TCP/IP version</li>
+        <li><strong>LDAP:</strong> Port 389 (unencrypted); Port 636 (LDAPS — TLS); STARTTLS on 389 also supported. Default LDAP is cleartext — must enforce LDAPS in secure environments</li>
+        <li><strong>Active Directory:</strong> LDAP + Kerberos + DNS + Group Policy; Forest → Domain → OU → Objects; Domain Controller = KDC for Kerberos + LDAP server</li>
+        <li><strong>AD Trusts:</strong> One-way (A trusts B; users from B can access A resources but not vice versa); Two-way; Transitive (if A trusts B and B trusts C then A trusts C); Forest trusts</li>
+        <li><strong>Diameter:</strong> Successor to RADIUS for mobile networks (4G/5G); more scalable; uses SCTP/TCP</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 6 – SECURITY ASSESSMENT & TESTING
+════════════════════════════════════════ -->
+<div class="domain d6" id="d6">
+  <div class="domain-hdr">
+    <h2>Domain 6 — Security Assessment &amp; Testing</h2>
+    <span class="wt">12% of exam · ~18 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- VA & PEN TESTING -->
+    <div class="topic" id="d6-va">
+      <h3>Vulnerability Assessment &amp; Penetration Testing</h3>
+
+      <h4>Assessment Type Definitions</h4>
+      <table>
+        <tr><th class="d6">Activity</th><th class="d6">Focus</th><th class="d6">Who Performs</th><th class="d6">Key Characteristic</th></tr>
+        <tr><td><strong>Assessment</strong></td><td>Finds gaps; forward-looking</td><td>Internal or external security team</td><td>Not necessarily independent; identifies posture</td></tr>
+        <tr><td><strong>Audit</strong></td><td>Verifies compliance; backward-looking</td><td>Independent auditor</td><td>Independence is MOST important characteristic; formal opinion</td></tr>
+        <tr><td><strong>Evaluation</strong></td><td>Technical certification against criteria</td><td>Third-party lab (Common Criteria)</td><td>Produces EAL rating; very formal; government procurement</td></tr>
+        <tr><td><strong>Review</strong></td><td>Informal examination of a specific artifact</td><td>Peers or team members</td><td>Least formal; no independence required; code reviews, design reviews</td></tr>
+      </table>
+      <div class="warn"><strong>CRITICAL:</strong> ALL security testing requires WRITTEN AUTHORISATION. Conducting a penetration test without written permission = crime under CFAA (US) and equivalent laws globally. Rules of Engagement (RoE) must be signed before testing begins.</div>
+
+      <h4>Vulnerability Assessment</h4>
+      <table>
+        <tr><th class="d6">Type</th><th class="d6">Credentials?</th><th class="d6">What It Finds</th><th class="d6">When to Use</th></tr>
+        <tr><td><strong>Authenticated Scan</strong></td><td>Yes — admin or service account</td><td>Internal configuration issues, missing patches, software inventory, misconfigurations; most comprehensive</td><td>Internal posture; finds more; preferred for full assessment</td></tr>
+        <tr><td><strong>Unauthenticated Scan</strong></td><td>No — external view only</td><td>Exposed services, open ports, visible vulnerabilities from internet/attacker perspective</td><td>Simulates external attacker view; required for PCI-DSS external scans (ASV)</td></tr>
+      </table>
+
+      <h4>Vulnerability Scoring &amp; Identifiers</h4>
+      <table>
+        <tr><th class="d6">System</th><th class="d6">What It Is</th><th class="d6">Exam Key Points</th></tr>
+        <tr><td><strong>CVSS</strong> (Common Vulnerability Scoring System)</td><td>0–10 numerical score: None (0) / Low (0.1–3.9) / Medium (4.0–6.9) / High (7.0–8.9) / Critical (9.0–10.0)</td><td>v3.1 and v4.0 current; includes Base, Temporal, Environmental metrics; tool for prioritisation</td></tr>
+        <tr><td><strong>CVE</strong> (Common Vulnerabilities and Exposures)</td><td>Unique identifier for a specific vulnerability instance: CVE-YYYY-NNNNN</td><td>CVE-2021-44228 = Log4Shell; CVE is the "name" of a specific flaw; assigned by CNAs</td></tr>
+        <tr><td><strong>CWE</strong> (Common Weakness Enumeration)</td><td>Category for a class of vulnerability weakness</td><td>CWE-79 = XSS; CWE-89 = SQL Injection; CWE describes the TYPE of flaw; CVE describes a SPECIFIC instance</td></tr>
+        <tr><td><strong>NVD</strong> (National Vulnerability Database)</td><td>NIST-maintained enriched CVE database with CVSS scores and remediation info</td><td>Primary US government vulnerability reference; feeds vulnerability scanners</td></tr>
+      </table>
+      <div class="tip"><strong>VA ≠ Pen Test:</strong> Vulnerability Assessment = identifies and lists vulnerabilities (no exploitation). Penetration Test = actively EXPLOITS vulnerabilities to demonstrate impact and reach. Both require authorisation; pen test has higher risk/reward.</div>
+
+      <h4>Penetration Testing</h4>
+      <table>
+        <tr><th class="d6">Type</th><th class="d6">Knowledge</th><th class="d6">Simulates</th><th class="d6">Best For</th></tr>
+        <tr><td><strong>Black Box</strong></td><td>Zero — tester has no prior knowledge</td><td>External attacker; no insider knowledge</td><td>Realistic external attack simulation; tests what perimeter exposes</td></tr>
+        <tr><td><strong>Gray Box</strong></td><td>Partial — credentials or limited architecture info provided</td><td>Insider or compromised account holder</td><td>Balance of realism and efficiency; most common commercial engagement</td></tr>
+        <tr><td><strong>White Box</strong></td><td>Full — source code, architecture diagrams, credentials</td><td>Insider or code review scenario</td><td>Most thorough; catches the most; best for application security reviews</td></tr>
+      </table>
+
+      <h4>Penetration Testing Phases</h4>
+      <table>
+        <tr><th class="d6">Phase</th><th class="d6">Activities</th><th class="d6">Tools / Methods</th></tr>
+        <tr><td>1. Reconnaissance</td><td>Information gathering without active probing</td><td>OSINT: WHOIS, Shodan, LinkedIn, job postings; passive only</td></tr>
+        <tr><td>2. Scanning &amp; Enumeration</td><td>Active probing — scan for open ports, services, versions</td><td>Nmap, Nessus, OpenVAS; banner grabbing; active = potentially detectable</td></tr>
+        <tr><td>3. Exploitation</td><td>Attempt to exploit identified vulnerabilities</td><td>Metasploit; manual exploitation; phishing; password attacks</td></tr>
+        <tr><td>4. Post-Exploitation</td><td>Demonstrate impact; lateral movement; persistence; privilege escalation; data exfiltration proof</td><td>Mimikatz; BloodHound (AD); persistence mechanisms</td></tr>
+        <tr><td>5. Reporting</td><td>Document findings; executive summary + technical detail + remediation recommendations</td><td>Prioritised by CVSS + business impact; include evidence; proof-of-concept</td></tr>
+      </table>
+
+      <h4>Team Types</h4>
+      <table>
+        <tr><th class="d6">Team</th><th class="d6">Role</th><th class="d6">Key Point</th></tr>
+        <tr><td><strong>Red Team</strong></td><td>Offensive — full adversary simulation; multi-vector; long-duration; social engineering + technical</td><td>Goal: compromise defined objectives; tests entire defence posture</td></tr>
+        <tr><td><strong>Blue Team</strong></td><td>Defensive — the actual security operations team; responds to red team or real incidents</td><td>Goal: detect and contain; improves detection and response capability</td></tr>
+        <tr><td><strong>Purple Team</strong></td><td>Red + Blue collaboration; red shares techniques; blue improves detection rules</td><td>Goal: maximise learning value from adversary simulation; continuous improvement</td></tr>
+        <tr><td><strong>White Team</strong></td><td>Oversight/referees of red team exercise; define scope; manage safety</td><td>Not common CISSP term but appears in some contexts</td></tr>
+      </table>
+
+      <h4>Application Security Testing</h4>
+      <table>
+        <tr><th class="d6">Method</th><th class="d6">When</th><th class="d6">Source Code?</th><th class="d6">Finds</th></tr>
+        <tr><td><strong>SAST</strong> (Static Application Security Testing)</td><td>Build / code review phase</td><td>Yes — analyses code without executing</td><td>Hardcoded secrets, buffer overflows, SQL injection patterns, weak crypto calls</td></tr>
+        <tr><td><strong>DAST</strong> (Dynamic Application Security Testing)</td><td>Testing / staging; app must be running</td><td>No — black-box testing of running application</td><td>XSS, injection, authentication flaws, runtime configuration issues</td></tr>
+        <tr><td><strong>IAST</strong> (Interactive Application Security Testing)</td><td>Runtime — instrumented testing</td><td>Agent instrumented in app</td><td>Most accurate; low false positive; combines SAST+DAST benefits; good for CI/CD</td></tr>
+        <tr><td><strong>RASP</strong> (Runtime Application Self-Protection)</td><td>Production runtime</td><td>Agent in application process</td><td>Detects AND blocks attacks at runtime; real-time protection within the app</td></tr>
+        <tr><td><strong>Fuzzing</strong></td><td>Testing phase</td><td>No — input generation</td><td>Crashes, buffer overflows, input validation failures from random/malformed input</td></tr>
+        <tr><td><strong>SCA</strong> (Software Composition Analysis)</td><td>Continuously through pipeline</td><td>Analyses manifest/SBOM</td><td>Known vulnerabilities in open-source dependencies; license compliance issues</td></tr>
+      </table>
+    </div>
+
+    <!-- AUDITS & SOC -->
+    <div class="topic" id="d6-audit">
+      <h3>Audits, SOC Reports, Logs &amp; Metrics</h3>
+
+      <h4>Audit Types</h4>
+      <table>
+        <tr><th class="d6">Type</th><th class="d6">By Whom</th><th class="d6">Objectivity</th><th class="d6">Use Case</th></tr>
+        <tr><td>Internal Audit</td><td>Internal audit department</td><td>Less objective (same employer)</td><td>Ongoing control monitoring; management assurance; preliminary before external audit</td></tr>
+        <tr><td>External Audit</td><td>Independent external firm</td><td>Most objective</td><td>Regulatory compliance; third-party assurance; SOX attestation; preferred by regulators</td></tr>
+        <tr><td>Third-Party Audit</td><td>Customer or regulator-engaged auditor</td><td>High — objective party</td><td>Vendor/supplier assurance; SOC 2; ISO 27001 certification</td></tr>
+      </table>
+      <div class="tip"><strong>Auditor Independence:</strong> Most critical characteristic of an external audit. Auditor must have no financial relationship, business relationship, or reporting relationship with auditee.</div>
+
+      <h4>SOC Reports (Service Organization Control)</h4>
+      <table>
+        <tr><th class="d6">Report</th><th class="d6">Framework</th><th class="d6">Who Uses It</th><th class="d6">What It Covers</th></tr>
+        <tr><td><strong>SOC 1</strong></td><td>SSAE 18 / ISAE 3402</td><td>Financial auditors of companies that outsource financial processes</td><td>Controls relevant to financial statement reporting; IT general controls for outsourced processing</td></tr>
+        <tr><td><strong>SOC 2</strong></td><td>AICPA Trust Services Criteria</td><td>Cloud customers, enterprise procurement, compliance teams</td><td>Security, Availability, Confidentiality, Processing Integrity, Privacy (5 criteria — Security always required)</td></tr>
+        <tr><td><strong>SOC 3</strong></td><td>Trust Services Criteria (public)</td><td>General public; marketing; websites</td><td>Simplified SOC 2 without detailed test findings; can be posted publicly</td></tr>
+      </table>
+      <table>
+        <tr><th class="d6">Type</th><th class="d6">Covers</th><th class="d6">Value</th></tr>
+        <tr><td><strong>Type I</strong></td><td>Controls are "suitably designed" — point-in-time snapshot</td><td>Lower — only confirms design; does not verify controls actually worked over time</td></tr>
+        <tr><td><strong>Type II</strong></td><td>Controls are "suitably designed AND operating effectively" — minimum 6-month review period</td><td>Higher — confirms controls actually functioned; preferred by enterprise customers and regulators</td></tr>
+      </table>
+      <div class="tip"><strong>Always prefer SOC 2 Type II</strong> from vendors. Type I = "we designed this"; Type II = "we ran this for 6+ months and an auditor verified it worked." Customer always prefers Type II for critical vendor relationships.</div>
+
+      <h4>Log Management</h4>
+      <ul>
+        <li>Log sources: OS, applications, firewalls, IDS/IPS, DNS, DHCP, authentication systems, cloud APIs</li>
+        <li><strong>Centralise logs</strong> on a separate system — logs on same system as attack target = attacker can tamper</li>
+        <li><strong>Log integrity:</strong> Write-once media (WORM) or forward-only syslog to secured SIEM; cryptographic hashing for tamper evidence</li>
+        <li><strong>Chain of custody:</strong> Maintained throughout log collection and preservation; required for legal admissibility</li>
+        <li><strong>SIEM:</strong> Aggregates, normalises, correlates logs from multiple sources; generates alerts on correlated events; enables retrospective investigation</li>
+        <li><strong>Log retention:</strong> SOX = 7 years; HIPAA = 6 years; PCI-DSS audit logs = 1 year (90 days immediately accessible)</li>
+      </ul>
+
+      <h4>Security Metrics</h4>
+      <table>
+        <tr><th class="d6">Metric</th><th class="d6">What It Measures</th><th class="d6">Type</th></tr>
+        <tr><td><strong>MTTD</strong> (Mean Time to Detect)</td><td>Average time from attack start to detection</td><td>KPI — performance</td></tr>
+        <tr><td><strong>MTTR</strong> (Mean Time to Respond/Recover)</td><td>Average time from detection to containment or recovery</td><td>KPI — performance</td></tr>
+        <tr><td><strong>Patch Cadence</strong></td><td>% of critical patches applied within SLA (e.g., 30 days for critical)</td><td>KPI — control effectiveness</td></tr>
+        <tr><td><strong>Phishing Click Rate</strong></td><td>% of employees who click simulated phishing links; tracks over time</td><td>Behavioural KPI — most meaningful awareness metric (beats completion rate)</td></tr>
+        <tr><td><strong>KRI</strong> (Key Risk Indicator)</td><td>Leading indicator of risk level (e.g., # unpatched critical CVEs)</td><td>Leading — warns of future risk</td></tr>
+      </table>
+
+      <h4>BCP/DR Test Types (Same as D1 — Critical for D6)</h4>
+      <table>
+        <tr><th class="d6">Test</th><th class="d6">Description</th><th class="d6">Disruption</th></tr>
+        <tr><td>Checklist (Desk Check)</td><td>Review DR plan for completeness; distribute to team; verify contacts current</td><td>None</td></tr>
+        <tr><td>Tabletop Exercise</td><td>Team gathers; facilitator presents scenario; team discusses responses verbally</td><td>Minimal</td></tr>
+        <tr><td>Simulation (Walkthrough)</td><td>Walk through procedures step-by-step; practice tasks but don't activate alternate site</td><td>Low</td></tr>
+        <tr><td>Parallel Test</td><td>Alternate site brought fully online; primary site CONTINUES OPERATING; validate recovery processes</td><td>Medium — no business risk</td></tr>
+        <tr><td>Full Interruption</td><td>PRIMARY SITE SHUT DOWN; all operations switch to recovery site; most realistic; highest risk</td><td>Highest — real outage possible</td></tr>
+      </table>
+      <div class="tip"><strong>After-Action Review (AAR):</strong> Required after every test and real incident. Documents what worked, what failed, recommendations. Evidence of due diligence. Feeds back into updated DR plan.</div>
+
+      <h4>Software Testing Coverage</h4>
+      <table>
+        <tr><th class="d6">Coverage Type</th><th class="d6">What Is Tested</th><th class="d6">Thoroughness</th></tr>
+        <tr><td>Statement Coverage</td><td>Every line of code executed at least once</td><td>Basic minimum</td></tr>
+        <tr><td>Branch Coverage</td><td>Every decision point tested for both true and false outcomes</td><td>Better</td></tr>
+        <tr><td>Path Coverage</td><td>Every unique execution path through the code</td><td>Most thorough but exponential complexity</td></tr>
+        <tr><td>Condition Coverage</td><td>Every individual condition in each decision tested independently</td><td>Thorough for complex boolean logic</td></tr>
+      </table>
+      <p><strong>Requirements Traceability Matrix (RTM):</strong> Maps each requirement to its test case(s); ensures every requirement is tested; gaps = untested requirements = potential failures and security holes.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 7 – SECURITY OPERATIONS
+════════════════════════════════════════ -->
+<div class="domain d7" id="d7">
+  <div class="domain-hdr">
+    <h2>Domain 7 — Security Operations</h2>
+    <span class="wt">13% of exam · ~20 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- INCIDENT RESPONSE -->
+    <div class="topic" id="d7-ir">
+      <h3>Incident Response, Digital Forensics &amp; SIEM</h3>
+
+      <h4>Event vs Incident vs Breach</h4>
+      <table>
+        <tr><th class="d7">Term</th><th class="d7">Definition</th><th class="d7">Example</th></tr>
+        <tr><td><strong>Event</strong></td><td>Any observable occurrence in a system</td><td>User login, file access, network packet — the vast majority are benign</td></tr>
+        <tr><td><strong>Incident</strong></td><td>Event that violates security policy or threatens confidentiality/integrity/availability</td><td>Malware infection, unauthorised access, data exfiltration</td></tr>
+        <tr><td><strong>Breach</strong></td><td>Confirmed exposure or theft of protected data</td><td>Confirmed exfiltration of 10,000 customer records</td></tr>
+      </table>
+
+      <h4>NIST SP 800-61 — Incident Response Lifecycle</h4>
+      <table>
+        <tr><th class="d7">Phase</th><th class="d7">Key Activities</th><th class="d7">Critical Exam Points</th></tr>
+        <tr><td><strong>1. Preparation</strong></td><td>IR plan; CSIRT team; tools; training; communication templates; playbooks; tabletop exercises</td><td>MOST IMPORTANT — prevents incidents AND enables effective response when one occurs</td></tr>
+        <tr><td><strong>2. Detection &amp; Analysis</strong></td><td>Identify incident via alerts/logs/users; determine scope; prioritise; assign severity</td><td>Multiple indicators needed; establish incident scope before proceeding; log and document everything</td></tr>
+        <tr><td><strong>3. Containment</strong></td><td>Short-term: isolate affected systems (disconnect network); Long-term: preserve evidence; prepare eradication</td><td>PRESERVE EVIDENCE DURING CONTAINMENT — forensic images BEFORE cleaning; contain before eradicating</td></tr>
+        <tr><td><strong>4. Eradication</strong></td><td>Remove malware; patch vulnerabilities; eliminate attacker persistence; root cause analysis</td><td>Understand HOW attacker got in before eradicating, or they'll come back via same path</td></tr>
+        <tr><td><strong>5. Recovery</strong></td><td>Restore systems from clean backups; validate functionality; enhanced monitoring post-recovery</td><td>Restore from known-good backups; verify integrity before returning to production</td></tr>
+        <tr><td><strong>6. Post-Incident Activity</strong></td><td>Lessons learned meeting (within 2 weeks); update playbooks; IR plan improvements; report to leadership</td><td>Primary deliverable = Lessons Learned Report / After-Action Review; key for programme maturity</td></tr>
+      </table>
+      <div class="warn"><strong>Ransomware — First Action:</strong> ISOLATE the system from the network (contain). Do NOT pay ransom first, do NOT eradicate first — contain to prevent spread. Evidence preservation is second priority (forensic image). Then eradicate, then recover from clean backups.</div>
+
+      <h4>Digital Forensics — Evidence Handling</h4>
+      <table>
+        <tr><th class="d7">Principle</th><th class="d7">Detail</th></tr>
+        <tr><td><strong>Chain of Custody</strong></td><td>Unbroken documented record of every person who handled evidence; NEVER broken; required for legal admissibility; includes who, when, where, why, transfers</td></tr>
+        <tr><td><strong>Order of Volatility</strong></td><td>Most volatile collected first: CPU Registers/Cache → RAM → Swap/Page file → HDD/SSD → Remote logs → Archive/Backup (network and cloud logs last but preserved by legal hold)</td></tr>
+        <tr><td><strong>Write Blocker</strong></td><td>Hardware device inserted between evidence media and forensic workstation; physically prevents any writes to evidence; preserves authenticity</td></tr>
+        <tr><td><strong>Forensic Image</strong></td><td>Bit-for-bit copy of evidence media; verified with MD5 + SHA-256 hash; all analysis performed on copies — original is sealed and preserved</td></tr>
+      </table>
+
+      <h4>Evidence Types (Legal)</h4>
+      <table>
+        <tr><th class="d7">Type</th><th class="d7">Definition</th><th class="d7">Examples</th></tr>
+        <tr><td>Real / Physical</td><td>Tangible physical objects</td><td>Laptop, USB drive, printed document; generally strongest</td></tr>
+        <tr><td>Documentary</td><td>Written records; must be authenticated</td><td>Log files, email printouts, contracts; business records exception to hearsay rule</td></tr>
+        <tr><td>Testimonial</td><td>Witness statements; must be firsthand</td><td>Expert witness (can testify to opinions); lay witness (firsthand observation only)</td></tr>
+        <tr><td>Demonstrative</td><td>Reconstructed representation for clarity</td><td>Timeline diagrams, network topology maps during trial</td></tr>
+      </table>
+      <div class="tip"><strong>Best Evidence Rule:</strong> Original evidence preferred over copies. Forensic image (with hash verification) = acceptable substitute for original media. A photograph of a document is NOT best evidence — the document itself is.</div>
+      <div class="tip"><strong>Hearsay Rule:</strong> Out-of-court statement offered as truth = generally inadmissible. Exception: Business Records (regularly kept, created at time of event, by person with duty to record) — most computer-generated logs qualify.</td></div>
+
+      <h4>SIEM, SOAR &amp; Threat Intelligence</h4>
+      <table>
+        <tr><th class="d7">Tool/Concept</th><th class="d7">Purpose</th><th class="d7">Key Point</th></tr>
+        <tr><td><strong>SIEM</strong></td><td>Aggregates + correlates logs from all sources; generates alerts on patterns; enables retrospective analysis</td><td>Correlation rules reduce individual alert noise; tuning is ongoing; not set-and-forget</td></tr>
+        <tr><td><strong>SOAR</strong></td><td>Security Orchestration, Automation and Response; automates repeatable response playbooks</td><td>Faster mean time to respond (MTTR); handles volume that overwhelms human analysts; reduces analyst burnout</td></tr>
+        <tr><td><strong>UEBA</strong></td><td>User and Entity Behavior Analytics; ML-based; detects anomalous user behaviour vs learned baseline</td><td>Detects insider threats and compromised accounts; complements signature-based SIEM rules</td></tr>
+        <tr><td><strong>NTA / NDR</strong></td><td>Network Traffic Analysis / Network Detection and Response; monitors flow data and full packet capture</td><td>Detects lateral movement, beaconing, data exfiltration via traffic pattern analysis</td></tr>
+        <tr><td><strong>Threat Hunting</strong></td><td>Proactive, hypothesis-driven search for threats that have evaded automated detection</td><td>Not alert-driven; requires skilled analysts; uses ATT&amp;CK as hypothesis framework; outputs new detection rules</td></tr>
+      </table>
+
+      <h4>Threat Intelligence Levels</h4>
+      <table>
+        <tr><th class="d7">Level</th><th class="d7">Audience</th><th class="d7">Content</th><th class="d7">Horizon</th></tr>
+        <tr><td>Strategic</td><td>Executives, Board</td><td>Nation-state trends, industry targeting, geopolitical risk</td><td>6–18 months</td></tr>
+        <tr><td>Operational</td><td>Security Managers, SOC leads</td><td>Specific campaigns, threat actor TTPs, attack patterns</td><td>Weeks to months</td></tr>
+        <tr><td>Tactical</td><td>SOC analysts, incident responders</td><td>Specific TTPs (MITRE ATT&amp;CK); malware families; attack methods</td><td>Days to weeks</td></tr>
+        <tr><td>Technical</td><td>SIEM engineers, firewall admins</td><td>IoCs: IP addresses, hashes, domains, YARA rules</td><td>Hours to days; short-lived</td></tr>
+      </table>
+      <div class="def"><strong>STIX/TAXII:</strong> STIX = Structured Threat Information eXpression (JSON format for threat data). TAXII = Trusted Automated eXchange of Intelligence Information (transport protocol for sharing STIX). Together = standard for automated threat intelligence sharing. ISAC = Information Sharing and Analysis Center (sector-specific, e.g., FS-ISAC for finance, H-ISAC for healthcare).</div>
+    </div>
+
+    <!-- DISASTER RECOVERY & PHYSICAL -->
+    <div class="topic" id="d7-dr">
+      <h3>Disaster Recovery, RAID &amp; Backups</h3>
+
+      <h4>Backup Types</h4>
+      <table>
+        <tr><th class="d7">Backup Type</th><th class="d7">What Is Backed Up</th><th class="d7">Backup Time</th><th class="d7">Restore Time</th><th class="d7">Archive Bit</th></tr>
+        <tr><td><strong>Full</strong></td><td>ALL data every time</td><td>Longest</td><td>Fastest (single set)</td><td>Cleared</td></tr>
+        <tr><td><strong>Incremental</strong></td><td>Only changes since LAST backup (full OR incremental)</td><td>Shortest per run</td><td>Slowest (full + every incremental)</td><td>Cleared after each run</td></tr>
+        <tr><td><strong>Differential</strong></td><td>All changes since LAST FULL backup (grows over time)</td><td>Medium (grows)</td><td>Medium (full + last differential only)</td><td>NOT cleared — always compares to last full</td></tr>
+      </table>
+      <div class="formula">3-2-1 Backup Rule: 3 copies of data · 2 different media types · 1 copy offsite (or offline)</div>
+      <div class="tip"><strong>Restore Trade-off:</strong> Incremental = fastest to BACK UP but slowest to RESTORE (must apply full + every incremental). Differential = faster RESTORE than incremental (only full + one differential) but backup gets larger each day. Full = fastest restore, most storage, most bandwidth.</div>
+
+      <h4>RAID Levels</h4>
+      <table>
+        <tr><th class="d7">RAID</th><th class="d7">Method</th><th class="d7">Fault Tolerance</th><th class="d7">Min Drives</th><th class="d7">Usable Space</th></tr>
+        <tr><td><strong>RAID 0</strong></td><td>Striping only</td><td>NONE — any drive failure = all data lost</td><td>2</td><td>100%</td></tr>
+        <tr><td><strong>RAID 1</strong></td><td>Mirroring</td><td>1 drive failure (any drive)</td><td>2</td><td>50%</td></tr>
+        <tr><td><strong>RAID 5</strong></td><td>Striping + distributed parity</td><td>1 drive failure</td><td>3</td><td>(n-1) drives</td></tr>
+        <tr><td><strong>RAID 6</strong></td><td>Striping + dual parity</td><td>2 simultaneous drive failures</td><td>4</td><td>(n-2) drives</td></tr>
+        <tr><td><strong>RAID 10</strong></td><td>Stripe of mirrors (RAID 1+0)</td><td>1+ drives (depends on which mirror)</td><td>4</td><td>50%</td></tr>
+      </table>
+      <div class="warn"><strong>RAID ≠ Backup:</strong> RAID provides redundancy against hardware failure only. RAID does NOT protect against: accidental deletion, ransomware, logical corruption, fire, theft. RAID + 3-2-1 backup = complete protection strategy.</div>
+
+      <h4>Patch &amp; Vulnerability Management</h4>
+      <table>
+        <tr><th class="d7">Concept</th><th class="d7">Detail</th></tr>
+        <tr><td><strong>Virtual Patching</strong></td><td>WAF or IPS rule deployed to block exploitation of known vulnerability until the actual patch can be tested and applied; compensating control for zero-days or critical systems with long change windows</td></tr>
+        <tr><td><strong>Zero-Day</strong></td><td>Vulnerability with no vendor patch available; only compensating controls possible: virtual patching, network isolation, enhanced monitoring, application allowlisting</td></tr>
+        <tr><td><strong>Responsible Disclosure</strong></td><td>Researcher notifies vendor privately; vendor given time (typically 90 days) to patch before public disclosure; industry standard for ethical security research</td></tr>
+        <tr><td><strong>Full Disclosure</strong></td><td>Immediate public publication without vendor notification; controversial; maximises pressure on vendor but risks exploitation before patch available</td></tr>
+        <tr><td><strong>Bug Bounty</strong></td><td>Crowdsourced vulnerability discovery; organisations pay researchers for responsible disclosures within scope; HackerOne, Bugcrowd platforms</td></tr>
+      </table>
+
+      <h4>Change Management in Security Operations</h4>
+      <ul>
+        <li><strong>CAB (Change Advisory Board):</strong> Reviews and approves non-emergency changes; assesses risk and impact; includes security, business, and IT representation</li>
+        <li><strong>Emergency Change:</strong> Expedited approval for critical security patches (e.g., active exploitation); still documented; post-implementation review required</li>
+        <li><strong>CMDB:</strong> Configuration Management Database; tracks configuration items (CIs) and their relationships; enables impact analysis; must be current to be useful</li>
+        <li><strong>Unauthorised change = potential security incident:</strong> Any change not through CM process triggers investigation; may indicate attacker persistence or insider threat</li>
+        <li><strong>IaC (Infrastructure as Code):</strong> Version-controlled infrastructure (Terraform, CloudFormation); security scanning in CI/CD pipeline; prevents configuration drift</li>
+      </ul>
+    </div>
+
+    <!-- PHYSICAL & PERSONNEL -->
+    <div class="topic" id="d7-phys">
+      <h3>Physical Security &amp; Personnel Safety</h3>
+
+      <h4>Physical Security Layers</h4>
+      <table>
+        <tr><th class="d7">Layer (Outside → In)</th><th class="d7">Controls</th><th class="d7">Control Type</th></tr>
+        <tr><td>Perimeter / Property Line</td><td>Fences, walls, vehicle barriers (bollards), signage, lighting</td><td>Preventive + Deterrent</td></tr>
+        <tr><td>Building Exterior</td><td>Locks, CCTV, security guards, reinforced doors, windows, reception</td><td>Preventive + Detective</td></tr>
+        <tr><td>Building Interior</td><td>Mantrap/airlock, badge readers, visitor management, escorting</td><td>Preventive</td></tr>
+        <tr><td>Secure Rooms / Zones</td><td>Biometric access, CCTV, tailgating sensors, man-trap (single occupancy)</td><td>Preventive + Detective</td></tr>
+        <tr><td>Asset Level</td><td>Cable locks, drive encryption, asset tags, screen privacy filters</td><td>Preventive + Corrective</td></tr>
+      </table>
+
+      <h4>Fence Heights</h4>
+      <ul>
+        <li><strong>3–4 feet (1m):</strong> Deters casual trespassers; easily climbed; visual boundary only</li>
+        <li><strong>6–7 feet (1.8–2.1m):</strong> Serious deterrent; difficulty climbing; standard commercial perimeter</li>
+        <li><strong>8+ feet (2.4m+) with barbed/razor wire:</strong> Deters determined intruder; high-security sites</li>
+      </ul>
+
+      <h4>Key Physical Controls</h4>
+      <table>
+        <tr><th class="d7">Control</th><th class="d7">Purpose / Exam Note</th></tr>
+        <tr><td><strong>Mantrap / Airlock</strong></td><td>Two interlocked doors — only one can open at a time; prevents piggybacking (tailgating); one person at a time; expensive but effective for data centres</td></tr>
+        <tr><td><strong>Bollards</strong></td><td>Vehicle attack mitigation; prevents vehicle ramming; also called anti-ram barriers; visible and hidden variants</td></tr>
+        <tr><td><strong>CCTV</strong></td><td>Detective (records after the fact) + Deterrent; must record to useful; coverage of blind spots; retention policy for recordings</td></tr>
+        <tr><td><strong>Guard (Security Officer)</strong></td><td>Most flexible control; adaptable to novel threats; corrective + preventive + detective; most expensive per-unit</td></tr>
+        <tr><td><strong>Duress Alarm</strong></td><td>Silent alert to security when person is under coercion; no indication to attacker that alarm has been triggered; panic button</td></tr>
+      </table>
+
+      <h4>Fire Suppression</h4>
+      <table>
+        <tr><th class="d7">Agent</th><th class="d7">Use For</th><th class="d7">Exam Note</th></tr>
+        <tr><td><strong>Water (Sprinklers)</strong></td><td>Ordinary combustibles (Class A): wood, paper, fabric</td><td>NEVER for electrical equipment or data centres — damages electronics</td></tr>
+        <tr><td><strong>CO₂</strong></td><td>Electrical fires (Class C); gaseous; no residue</td><td>Displaces oxygen — evacuate personnel first; risk of suffocation in enclosed spaces</td></tr>
+        <tr><td><strong>Halon</strong></td><td>Electronics; excellent effectiveness; no damage</td><td>BANNED (Montreal Protocol) — ozone depleting; existing systems grandfathered but no new installations</td></tr>
+        <tr><td><strong>FM-200 (HFC-227ea)</strong></td><td>Electronics, data centres; Halon replacement</td><td>SAFE for people and electronics; preferred for occupied data centres; quick-flooding gaseous agent</td></tr>
+        <tr><td><strong>Novec 1230</strong></td><td>Electronics; Halon replacement</td><td>Environmentally friendly; zero ozone depletion; low global warming potential; most modern choice</td></tr>
+        <tr><td><strong>Clean Agent (General)</strong></td><td>Sensitive electronics where water/powder would cause damage</td><td>FM-200 or Novec 1230 = correct exam answer for data centre fire suppression</td></tr>
+      </table>
+      <div class="warn"><strong>Human Safety is ALWAYS the TOP priority</strong> in all CISSP scenarios. Life safety > data protection > legal requirements > business continuity > security policy. Always evacuate people before attempting to save equipment or data.</div>
+
+      <h4>Environmental Controls</h4>
+      <ul>
+        <li><strong>Temperature:</strong> Data centre: 64.4–80.6°F (18–27°C); raised floor hot/cold aisle containment</li>
+        <li><strong>Humidity:</strong> 40–60% relative humidity; too low → static discharge risk; too high → condensation on equipment</li>
+        <li><strong>UPS (Uninterruptible Power Supply):</strong> Immediate power during outage until generator kicks in; protects against power fluctuations (sags, spikes, surges)</li>
+        <li><strong>Generator:</strong> Long-term power backup; requires fuel management; hours to days capability</li>
+        <li><strong>PDU (Power Distribution Unit):</strong> Distributes power to racks; monitored PDUs provide power usage visibility</li>
+      </ul>
+
+      <h4>Personnel Security in Operations</h4>
+      <table>
+        <tr><th class="d7">Control</th><th class="d7">Purpose</th><th class="d7">Exam Key</th></tr>
+        <tr><td>Need-to-Know</td><td>Access only to information required for specific function</td><td>Applies even within same classification level; horizontal restriction</td></tr>
+        <tr><td>SOC Tiers</td><td>Tier 1: Alert triage; Tier 2: Investigation; Tier 3: Threat hunting / advanced IR</td><td>Escalation from Tier 1 → 2 → 3 based on complexity</td></tr>
+        <tr><td>Cleandesk Policy</td><td>No sensitive information left visible when desk unattended</td><td>Physical control against shoulder surfing and opportunistic theft</td></tr>
+        <tr><td>Travel Security</td><td>Risk assessment for travel; VPN on public Wi-Fi; device encryption; no sensitive conversations in public</td><td>Loaner devices for high-risk countries; customs inspection risk</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     DOMAIN 8 – SOFTWARE DEVELOPMENT SECURITY
+════════════════════════════════════════ -->
+<div class="domain d8" id="d8">
+  <div class="domain-hdr">
+    <h2>Domain 8 — Software Development Security</h2>
+    <span class="wt">10% of exam · ~15 questions</span>
+  </div>
+  <div class="domain-body">
+
+    <!-- SDLC & METHODOLOGIES -->
+    <div class="topic" id="d8-sdlc">
+      <h3>SDLC, Development Methodologies &amp; DevSecOps</h3>
+
+      <h4>SDLC Security Activities by Phase</h4>
+      <table>
+        <tr><th class="d8">Phase</th><th class="d8">Security Activities</th><th class="d8">Key Control</th></tr>
+        <tr><td><strong>Requirements</strong></td><td>Security requirements gathering; threat modelling kick-off; privacy requirements; regulatory constraints</td><td>Misuse cases / abuse cases to capture attacker perspective</td></tr>
+        <tr><td><strong>Design</strong></td><td>Security architecture review; STRIDE threat model on data flow diagrams; secure design principles applied</td><td>Threat modelling; trust boundary identification</td></tr>
+        <tr><td><strong>Implementation / Coding</strong></td><td>Secure coding standards; peer code review; SAST scanning in IDE; no hardcoded secrets</td><td>SAST (Static Application Security Testing)</td></tr>
+        <tr><td><strong>Testing / Verification</strong></td><td>DAST; pen testing; SCA for open-source components; vulnerability scanning</td><td>DAST + SCA; test environment = production-like</td></tr>
+        <tr><td><strong>Deployment / Release</strong></td><td>Hardening; configuration validation; secrets rotation; IaC scanning; production pen test</td><td>Change management; hardening scripts; configuration baselines</td></tr>
+        <tr><td><strong>Maintenance</strong></td><td>Ongoing vulnerability scanning; patch management; monitoring; security regression testing on changes</td><td>SCA; patch management; SIEM monitoring</td></tr>
+      </table>
+      <div class="key"><strong>Shift Left Principle:</strong> Move security earlier in the SDLC. Cost to fix a bug: $1 in requirements → $10 in design → $100 in implementation → $1,000 in testing → $10,000+ in production. Security reviews at every phase prevent expensive late-stage remediation.</div>
+
+      <h4>Development Methodology Comparison</h4>
+      <table>
+        <tr><th class="d8">Methodology</th><th class="d8">Structure</th><th class="d8">Security Integration</th><th class="d8">CISSP Context</th></tr>
+        <tr><td><strong>Waterfall</strong></td><td>Sequential phases; document-driven; no going back without cost</td><td>Security reviews at each phase gate</td><td>"Big design upfront"; inflexible to changing requirements; good for regulated systems with fixed requirements</td></tr>
+        <tr><td><strong>Agile / Scrum</strong></td><td>Iterative sprints (1–4 weeks); working software over documentation; continuous customer feedback</td><td>Security stories in backlog; SAST in CI/CD; sprint retrospectives</td><td>Adaptable; preferred for fast-moving projects; security can be deprioritised without discipline</td></tr>
+        <tr><td><strong>Spiral</strong></td><td>Risk-driven; iterations with prototyping; risk assessment at each loop</td><td>Risk analysis per iteration; progressive security refinement</td><td>Best for high-risk, large, complex systems; risk-centric approach aligns with security thinking</td></tr>
+        <tr><td><strong>RAD</strong></td><td>Rapid Application Development; user feedback-driven; prototype → refine</td><td>Often sacrifices security for speed — compensate with post-build security review</td><td>Fast delivery; higher risk of security gaps without explicit security gating</td></tr>
+      </table>
+
+      <h4>CMMI Maturity Levels</h4>
+      <table>
+        <tr><th class="d8">Level</th><th class="d8">Name</th><th class="d8">Characteristic</th></tr>
+        <tr><td>1</td><td>Initial</td><td>Chaotic; ad hoc; success depends on individual heroics; unpredictable</td></tr>
+        <tr><td>2</td><td>Managed</td><td>Project-level processes; repeatable for similar projects; reactive</td></tr>
+        <tr><td>3</td><td>Defined</td><td>Organisation-wide standard processes; proactive; documented</td></tr>
+        <tr><td>4</td><td>Quantitatively Managed</td><td>Metrics-driven; statistical process control; predictable performance</td></tr>
+        <tr><td>5</td><td>Optimising</td><td>Continuous process improvement; defect prevention; innovation focused</td></tr>
+      </table>
+
+      <h4>DevSecOps</h4>
+      <table>
+        <tr><th class="d8">Concept</th><th class="d8">Detail</th></tr>
+        <tr><td><strong>CI/CD Pipeline Security</strong></td><td>SAST → build stage; SCA → always (dependency check); DAST → integration/staging; secrets scanning → commit hook; IaC scanning → pre-deploy</td></tr>
+        <tr><td><strong>Secrets Management</strong></td><td>NEVER hardcode API keys, passwords, tokens in source code; use HashiCorp Vault, AWS Secrets Manager, Azure Key Vault; rotate automatically; scan repos for exposed secrets (GitLeaks, TruffleHog)</td></tr>
+        <tr><td><strong>IaC Security</strong></td><td>Terraform, CloudFormation, ARM templates scanned for misconfigurations (Checkov, tfsec, cfn-nag); policy-as-code prevents drift; version-controlled = auditable</td></tr>
+        <tr><td><strong>Container Security</strong></td><td>Minimal base images; scan images for vulnerabilities (Trivy, Clair); run as non-root; read-only filesystem; no privileged containers; sign images (Notary/Cosign)</td></tr>
+        <tr><td><strong>SBOM</strong></td><td>Software Bill of Materials; generated at build; lists all components + versions + licenses; enables rapid response to new CVEs in dependencies (e.g., Log4Shell); EO 14028 mandates for federal software</td></tr>
+      </table>
+    </div>
+
+    <!-- WEB, DB & APPLICATION SECURITY -->
+    <div class="topic" id="d8-web">
+      <h3>Web Application, Database &amp; API Security</h3>
+
+      <h4>OWASP Top 10 (2021) — Must Know</h4>
+      <table>
+        <tr><th class="d8">Rank</th><th class="d8">Name</th><th class="d8">How It Works</th><th class="d8">Prevention</th></tr>
+        <tr><td>A01</td><td><strong>Broken Access Control</strong></td><td>IDOR (Insecure Direct Object Reference); forced browsing; privilege escalation; accessing other users' data by manipulating IDs</td><td>Server-side access checks on every request; deny by default; test all endpoints for authorisation</td></tr>
+        <tr><td>A02</td><td><strong>Cryptographic Failures</strong></td><td>Data transmitted or stored without encryption; weak algorithms (MD5/SHA-1); hardcoded keys</td><td>TLS everywhere; AES-256 at rest; key management; no MD5/SHA-1 for security</td></tr>
+        <tr><td>A03</td><td><strong>Injection</strong></td><td>SQL injection, command injection, LDAP injection; attacker's input executed as code/query</td><td>Parameterised queries/prepared statements (PRIMARY FIX); input validation; ORMs; WAF as layer defence</td></tr>
+        <tr><td>A04</td><td><strong>Insecure Design</strong></td><td>Missing threat modelling; no security requirements; design-level flaws that cannot be patched later</td><td>Threat modelling in design phase; secure design patterns; architecture review</td></tr>
+        <tr><td>A05</td><td><strong>Security Misconfiguration</strong></td><td>Default passwords, exposed admin interfaces, verbose error messages, unnecessary features enabled, open cloud storage</td><td>Security baseline; hardening scripts; automated misconfiguration scanning; remove defaults</td></tr>
+        <tr><td>A06</td><td><strong>Vulnerable and Outdated Components</strong></td><td>Using libraries/frameworks with known CVEs; unmaintained open-source code</td><td>SCA tools; regular dependency updates; retire EOL components; SBOM tracking</td></tr>
+        <tr><td>A07</td><td><strong>Identification and Authentication Failures</strong></td><td>Broken authentication; weak passwords; no MFA; session token issues; credential stuffing</td><td>MFA; strong password hashing (bcrypt/Argon2); session management best practices; account lockout</td></tr>
+        <tr><td>A08</td><td><strong>Software and Data Integrity Failures</strong></td><td>Insecure deserialization; CI/CD pipeline attacks; unsigned software updates; untrusted plugins</td><td>Code signing; verify integrity of dependencies; secure CI/CD pipeline; SBOM; SCA</td></tr>
+        <tr><td>A09</td><td><strong>Security Logging and Monitoring Failures</strong></td><td>Insufficient logging; no alerting on attacks; logs not protected or centralised; MTTD too long</td><td>Centralised logging (SIEM); alerting on attack indicators; log integrity; MTTD/MTTR metrics</td></tr>
+        <tr><td>A10</td><td><strong>SSRF</strong> (Server-Side Request Forgery)</td><td>Server fetches a URL controlled by attacker → access to internal services, cloud metadata, internal APIs</td><td>Input validation; allowlist valid target URLs/IPs; block private IP ranges in server requests; egress filtering</td></tr>
+      </table>
+
+      <h4>Common Web Attacks</h4>
+      <table>
+        <tr><th class="d8">Attack</th><th class="d8">How</th><th class="d8">Prevention</th></tr>
+        <tr><td><strong>XSS — Reflected</strong></td><td>Malicious script in URL parameter; executed when victim loads crafted link</td><td>Output encoding (HTML entity encoding); Content Security Policy (CSP); HttpOnly cookies</td></tr>
+        <tr><td><strong>XSS — Stored (Persistent)</strong></td><td>Script stored in database; executes for every user who views the infected page</td><td>Output encoding; input sanitisation; CSP; most dangerous XSS variant</td></tr>
+        <tr><td><strong>XSS — DOM-Based</strong></td><td>Manipulates client-side DOM; script never reaches server</td><td>Avoid innerHTML; use textContent; validate client-side JavaScript inputs</td></tr>
+        <tr><td><strong>CSRF</strong></td><td>Forces authenticated user's browser to make unintended state-changing requests (transfer funds, change email)</td><td>CSRF tokens (synchroniser token pattern); SameSite cookie attribute; verify Referer header</td></tr>
+        <tr><td><strong>Clickjacking</strong></td><td>Invisible iframe overlaid on legitimate page; user clicks "invisible" attacker button</td><td>X-Frame-Options: DENY/SAMEORIGIN header; Content-Security-Policy frame-ancestors directive</td></tr>
+        <tr><td><strong>SQL Injection</strong></td><td>Attacker inserts SQL code into input fields; manipulates database queries</td><td>Parameterised queries / prepared statements; NEVER concatenate user input into SQL; WAF; least privilege DB account</td></tr>
+      </table>
+
+      <h4>Secure Coding Principles</h4>
+      <table>
+        <tr><th class="d8">Principle</th><th class="d8">Implementation</th></tr>
+        <tr><td><strong>Input Validation</strong></td><td>Whitelist approach (only accept known-good) &gt; blacklist; validate type, length, format, range; validate server-side ALWAYS (client-side alone = bypass risk)</td></tr>
+        <tr><td><strong>Output Encoding</strong></td><td>Context-specific: HTML encoding for HTML context; JavaScript encoding for JS context; URL encoding for URL context; prevents XSS</td></tr>
+        <tr><td><strong>Parameterised Queries</strong></td><td>Separate SQL structure from data; database treats input as data, never as code; prevents SQL injection</td></tr>
+        <tr><td><strong>Error Handling</strong></td><td>Generic error messages to users (never expose stack traces, DB names, versions); detailed logging internally only</td></tr>
+        <tr><td><strong>Fail Secure</strong></td><td>On error → deny access (fail closed), NOT grant access; exception handling must not bypass security checks</td></tr>
+        <tr><td><strong>Least Privilege for Code</strong></td><td>Application DB account: read-only if only reading; no DBO/SA; no shell access from application</td></tr>
+        <tr><td><strong>Session Management</strong></td><td>Regenerate session ID after successful login (prevents session fixation); long random tokens (256-bit entropy); HttpOnly + Secure + SameSite cookie flags</td></tr>
+      </table>
+
+      <h4>Database Security</h4>
+      <table>
+        <tr><th class="d8">Concept</th><th class="d8">Detail</th></tr>
+        <tr><td><strong>ACID Properties</strong></td><td>Atomicity (all-or-nothing), Consistency (valid state to valid state), Isolation (concurrent transactions don't interfere), Durability (committed = permanent even after crash)</td></tr>
+        <tr><td><strong>Normalisation</strong></td><td>Reduces redundancy; 1NF → 2NF → 3NF; reduces update anomalies; security benefit: sensitive data in fewer places</td></tr>
+        <tr><td><strong>Polyinstantiation</strong></td><td>Multiple records with same primary key but different classification levels; prevents inference attacks in multilevel security databases</td></tr>
+        <tr><td><strong>Inference Attack</strong></td><td>Deriving classified information from unclassified query results; aggregating queries to reveal sensitive patterns</td></tr>
+        <tr><td><strong>Aggregation</strong></td><td>Combining individually unclassified data elements to produce information requiring higher classification; each piece harmless; together = classified</td></tr>
+        <tr><td><strong>Database Views</strong></td><td>Logical table subsets for access control; user sees only authorised columns/rows; no physical separation needed</td></tr>
+        <tr><td><strong>Database Encryption</strong></td><td>TDE (Transparent Data Encryption) = at-rest encryption of data files; does NOT protect against SQL injection (data decrypted at query time); column-level encryption = more granular</td></tr>
+      </table>
+
+      <h4>API Security</h4>
+      <table>
+        <tr><th class="d8">Topic</th><th class="d8">REST</th><th class="d8">SOAP</th></tr>
+        <tr><td>Format</td><td>JSON (typically); lightweight; stateless</td><td>XML; heavyweight; formal contract (WSDL)</td></tr>
+        <tr><td>Security</td><td>OAuth 2.0 + OIDC; TLS; JWT; OWASP API Security Top 10</td><td>WS-Security (message-level signing and encryption); XML encryption; built into standard</td></tr>
+        <tr><td>Auth</td><td>API keys; Bearer tokens (JWT); OAuth 2.0 scopes</td><td>WS-Security UsernameToken; X.509 certificate</td></tr>
+        <tr><td>Exam Prefer</td><td>Modern web APIs; microservices; most common on exam scenarios</td><td>Enterprise legacy; financial services; "message-level security" = SOAP answer</td></tr>
+      </table>
+      <div class="def"><strong>OWASP API Security Top 10:</strong> API1 — BOLA (Broken Object Level Authorization) = most common; API2 — Broken Authentication; API3 — Broken Object Property Level Authorization; API4 — Unrestricted Resource Consumption; API5 — Broken Function Level Authorization. BOLA is the "IDOR of APIs" — manipulate object IDs to access other users' data.</div>
+      <div class="def"><strong>API Gateway:</strong> Centralised API management; handles authentication, rate limiting, throttling, request validation, logging; reduces duplicated auth code in each microservice.</div>
+      <div class="def"><strong>Service Mesh:</strong> Mutual TLS (mTLS) between microservices; each service has a certificate; traffic encrypted and authenticated east-west; Istio and Linkerd are common implementations; provides observability (tracing, metrics).</div>
+
+      <h4>AI/ML Security Threats</h4>
+      <table>
+        <tr><th class="d8">Threat</th><th class="d8">How It Works</th><th class="d8">Impact</th></tr>
+        <tr><td><strong>Data Poisoning</strong></td><td>Attacker corrupts training data to cause model to learn incorrect patterns or backdoor behaviours</td><td>Model makes wrong predictions; backdoor triggers; facial recognition failure</td></tr>
+        <tr><td><strong>Adversarial Examples</strong></td><td>Specially crafted inputs (small perturbations, often invisible to humans) fool trained model into wrong classification</td><td>Stop sign misclassified; malware evades ML-based AV; image classifier fooled</td></tr>
+        <tr><td><strong>Model Inversion</strong></td><td>Repeatedly querying model reveals information about training data</td><td>Privacy breach; reconstruct faces from facial recognition model; patient data from medical model</td></tr>
+        <tr><td><strong>Model Theft</strong></td><td>Reconstruct model functionality through systematic queries (model extraction)</td><td>IP theft; attacker builds equivalent model without access to training data</td></tr>
+        <tr><td><strong>Membership Inference</strong></td><td>Determine if a specific record was in the training dataset</td><td>Privacy violation; confirms individual's data was used; GDPR implications</td></tr>
+        <tr><td><strong>Algorithmic Bias</strong></td><td>Model reflects biases present in training data; disparate impact on groups</td><td>Discriminatory hiring; biased facial recognition; unfair loan decisions; regulatory and ethical liability</td></tr>
+      </table>
+      <div class="tip"><strong>AI in Security Operations (Defensive):</strong> Anomaly detection (UEBA); fraud detection; behavioural analytics; threat intelligence classification; automated triage in SOAR. AI is a tool, not a silver bullet — adversarial ML attacks can fool AI security tools too.</div>
+
+      <h4>Programming &amp; Software Vulnerabilities</h4>
+      <table>
+        <tr><th class="d8">Vulnerability</th><th class="d8">Root Cause</th><th class="d8">Exploitation</th><th class="d8">Prevention</th></tr>
+        <tr><td><strong>Buffer Overflow</strong></td><td>No bounds checking; write beyond allocated buffer</td><td>Overwrite return address; inject shellcode; hijack execution flow</td><td>Input validation; bounds checking; ASLR; DEP/NX; stack canaries; use memory-safe languages (Rust, Go)</td></tr>
+        <tr><td><strong>Race Condition / TOCTOU</strong></td><td>Time of Check vs Time of Use; state changes between check and use</td><td>Replace file after security check but before access; privilege escalation</td><td>Atomic operations; file locking; re-validate immediately before use</td></tr>
+        <tr><td><strong>Insecure Deserialisation</strong></td><td>Deserialising untrusted data executes attacker-controlled code</td><td>Remote Code Execution (RCE); privilege escalation</td><td>Never deserialise untrusted data; validate before deserialising; use simple data formats (JSON over binary)</td></tr>
+        <tr><td><strong>Integer Overflow</strong></td><td>Arithmetic operation exceeds integer type limits → wraps around</td><td>Bypass size checks; allocate insufficient buffer; financial fraud</td><td>Use languages with overflow protection; validate arithmetic inputs; safe math libraries</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     EXAM STRATEGY & KEY NUMBERS
+════════════════════════════════════════ -->
+<div class="domain" style="background:#fff;border:2px solid #1a237e;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1);">
+  <div class="domain-hdr" style="background:linear-gradient(135deg,#0d1b4e,#1a237e);">
+    <h2>Exam Strategy, Key Numbers &amp; Cross-Domain Tips</h2>
+    <span class="wt">125–175 questions · 4 hours · 700/1000 pass</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="topic">
+      <h3>Critical Numbers to Memorise</h3>
+      <table>
+        <tr><th>Category</th><th>Number / Fact</th><th>Context</th></tr>
+        <tr><td><strong>CISSP Exam</strong></td><td>125–175 questions; 4 hours; 700/1000 to pass; CAT format; 90% statistical confidence threshold; $749 exam fee; $125 AMF/year; 40 CPE/year (120 over 3-year cycle)</td><td>CISSP Certification details</td></tr>
+        <tr><td><strong>Risk Formulas</strong></td><td>SLE = AV × EF; ALE = SLE × ARO; RTO + WRT ≤ MTD; Availability = MTBF ÷ (MTBF + MTTR)</td><td>Domain 1 quantitative risk</td></tr>
+        <tr><td><strong>GDPR</strong></td><td>72 hours breach notification; €20M or 4% global revenue fine; 6 lawful bases; Data subject rights; extraterritorial scope</td><td>Domain 1 compliance</td></tr>
+        <tr><td><strong>Retention</strong></td><td>SOX = 7 years; HIPAA = 6 years; PCI-DSS logs = 1 year (90 days immediately accessible)</td><td>Domains 1 &amp; 2</td></tr>
+        <tr><td><strong>Kerberos</strong></td><td>Clock skew = 5 minutes max; TGT default = 10 hours; Port 88; KRBTGT compromise = Golden Ticket</td><td>Domain 5 authentication</td></tr>
+        <tr><td><strong>CVSS</strong></td><td>Critical = 9.0–10.0; High = 7.0–8.9; Medium = 4.0–6.9; Low = 0.1–3.9</td><td>Domain 6 vulnerability management</td></tr>
+        <tr><td><strong>Wi-Fi</strong></td><td>WEP = broken (24-bit IV, RC4); WPA2 PSK = offline dictionary attack risk; WPA3 = SAE (Dragonfly); 802.1X = RADIUS-based enterprise auth; EAP-TLS = strongest EAP</td><td>Domain 4 wireless</td></tr>
+        <tr><td><strong>Fences</strong></td><td>3–4 ft = casual deterrent; 6–7 ft = serious deterrent; 8+ ft + razor wire = determined attacker deterrent</td><td>Domain 7 physical</td></tr>
+        <tr><td><strong>Fire Suppression</strong></td><td>Water = Class A (NOT electronics); CO₂ = Class C/electrical (evacuate first); FM-200/Novec 1230 = data centre standard; Halon = banned</td><td>Domain 7 physical</td></tr>
+        <tr><td><strong>Crypto Key Sizes</strong></td><td>AES-128/192/256 (current); RSA 2048+ (minimum); ECC 256-bit ≈ RSA 3072-bit; DES 56-bit = broken; SHA-256 = current standard hash</td><td>Domain 3 cryptography</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <h3>Cross-Domain "Always/Never" Rules</h3>
+      <div class="two-col">
+        <div>
+          <div class="warn"><strong>ALWAYS:</strong>
+            <ul>
+              <li>Human safety &gt; data &gt; legal &gt; policy &gt; security best practice</li>
+              <li>Get WRITTEN authorisation before any security testing</li>
+              <li>Data Owner = business person (not IT)</li>
+              <li>Prefer SOC 2 Type II over Type I for vendor assurance</li>
+              <li>Non-repudiation requires asymmetric crypto only</li>
+              <li>Preserve evidence BEFORE eradicating during IR</li>
+              <li>Disable access BEFORE notifying hostile employee of termination</li>
+              <li>Quantitative risk in dollars; qualitative in High/Medium/Low</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="tip"><strong>NEVER:</strong>
+            <ul>
+              <li>Use DES, 3DES, RC4, WEP, PPTP, MD5, SHA-1 for security</li>
+              <li>Encrypt with ECB mode (patterns visible)</li>
+              <li>Store passwords as plain MD5/SHA-1 (use bcrypt/Argon2)</li>
+              <li>Run unauthenticated telnet/FTP/SNMP v1-v2c on production</li>
+              <li>Use SSID hiding or MAC filtering as security controls</li>
+              <li>Rely on client-side input validation alone</li>
+              <li>Hardcode credentials or API keys in source code</li>
+              <li>Decommission media without proper sanitisation (NIST 800-88)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>CISSP Mindset Rules for CAT Exam</h3>
+      <table>
+        <tr><th>Situation</th><th>Think Like This</th></tr>
+        <tr><td>Conflicting answers: legal vs. ethical</td><td>Ethics wins. Canon 1 (protect public) beats Canon 4 (profession).</td></tr>
+        <tr><td>Technical vs. managerial/policy answer</td><td>CISSP thinks at CISO/manager level — prefer governance, policy, risk-based answers. Avoid hyper-technical "configure the firewall" choices.</td></tr>
+        <tr><td>Security vs. business continuity</td><td>Human safety → Business continuity → Security. Life first, always.</td></tr>
+        <tr><td>"Best" or "most important" first step</td><td>Usually: Risk assessment / BIA first; then policy; then technical controls. Or for IR: Containment, then Eradication, then Recovery.</td></tr>
+        <tr><td>Incident response: what do you do first?</td><td>Contain (isolate) → Preserve evidence → Eradicate → Recover → Document. In ransomware: ISOLATE first.</td></tr>
+        <tr><td>Vendor or third-party risk?</td><td>SOC 2 Type II + Right-to-audit clause + SBOM + contractual security requirements + regular reviews.</td></tr>
+        <tr><td>New system or project: what first?</td><td>BIA (Business Impact Analysis) or Risk Assessment first. Then requirements. Then design. Security cannot be designed without knowing the business impact.</td></tr>
+        <tr><td>Data classification question</td><td>Data Owner (executive) decides; Custodian (IT) implements. Never IT-decides-classification.</td></tr>
+        <tr><td>"Which is the MOST effective control?"</td><td>Administrative controls (policy, training) address root causes. Technical controls enforce policy. Physical controls protect assets. Prioritise root cause address over symptoms.</td></tr>
+        <tr><td>Someone discovers something suspicious</td><td>Preserve evidence first. Notify supervisor/CSIRT. Do NOT confront the suspect. Do NOT proceed without authority. Consult legal before law enforcement.</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <h3>Common Exam Traps (Most Frequently Missed)</h3>
+      <table>
+        <tr><th>Trap</th><th>Correct Understanding</th></tr>
+        <tr><td>HMAC = non-repudiation?</td><td>NO — HMAC uses shared secret; either party could have created it. Non-repudiation requires digital signature with PRIVATE key.</td></tr>
+        <tr><td>OAuth 2.0 = authentication?</td><td>NO — OAuth 2.0 is AUTHORISATION. OIDC adds authentication. "Sign in with Google" = OIDC, built on OAuth.</td></tr>
+        <tr><td>IDS blocks attacks?</td><td>NO — IDS only DETECTS and alerts. IPS is INLINE and BLOCKS.</td></tr>
+        <tr><td>Degaussing works on SSDs?</td><td>NO — degaussing only affects magnetic media. Use cryptographic erasure or physical destruction for SSDs/flash.</td></tr>
+        <tr><td>Encryption at rest prevents SQL injection?</td><td>NO — TDE encrypts the data file; data is decrypted at query time. SQL injection runs inside the database after decryption.</td></tr>
+        <tr><td>Data Owner = IT person?</td><td>NO — Data Owner is a business executive (VP, Director). IT is the Custodian who implements controls.</td></tr>
+        <tr><td>All security controls must pass CBA?</td><td>NO — regulatory and compliance requirements must be implemented regardless of CBA. Legal obligation overrides cost-benefit.</td></tr>
+        <tr><td>WPA2 is secure with PSK?</td><td>PARTIALLY — WPA2-PSK is vulnerable to offline dictionary attacks against the 4-way handshake. Use WPA3-SAE for resistance, or WPA2-Enterprise (802.1X) for enterprise.</td></tr>
+        <tr><td>Vulnerability assessment = penetration test?</td><td>NO — VA identifies; pen test exploits. VA = comprehensive list of vulnerabilities. Pen test = demonstrate impact by exploiting selected vulnerabilities.</td></tr>
+        <tr><td>SOC 2 Type I = strong assurance?</td><td>NO — Type I only shows "controls are designed." Type II shows "controls operated effectively" over 6+ months. Always prefer Type II.</td></tr>
+        <tr><td>Risk transfer eliminates legal liability?</td><td>NO — Cyber insurance transfers financial risk only. Legal liability (GDPR fines, negligence suits) stays with the organisation.</td></tr>
+        <tr><td>Compliance = security?</td><td>NO — compliance sets a minimum baseline. You can be compliant and still be breached. Security goes beyond compliance.</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div style="text-align:center;padding:30px 0 10px;color:#666;font-size:.85rem;">
+  CISSP Master Summary · All 8 Domains Covered · Study Well!
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

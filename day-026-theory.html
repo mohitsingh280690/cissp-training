@@ -170,6 +170,84 @@ tr:nth-child(even){background:#f9f9f9;}
   <div class="definition">
     <strong>Tokenisation:</strong> Replacing sensitive data with a non-sensitive substitute (token) that has no mathematical relationship to the original value. The mapping between token and original value is stored in a secure, isolated token vault.
   </div>
+
+  <h3>🏥 Analogy: Hospital Patient ID</h3>
+  <div class="key-concept">
+    <p>When you check into a hospital, you are given a <strong>patient ID number</strong> (e.g., <code>PT-00482917</code>). From that point on, every nurse, doctor, and lab technician works with your patient ID — it appears on your wristband, your test results, your medication chart, and the billing system.</p>
+    <p>Your real sensitive details — Social Security Number, insurance policy number, home address — live in a separate, locked administrative system. The patient ID is just a pointer. <strong>The ID number alone tells an attacker nothing.</strong> It cannot be used to file a tax return, drain a bank account, or impersonate you outside that hospital.</p>
+    <p>Payment tokenisation works the same way: your real card number sits in one secure vault; everywhere else in the payment chain, only the meaningless token circulates. The token is useless outside the system that issued it.</p>
+  </div>
+
+  <h3>🔄 How Payment Tokenisation Works — Step by Step</h3>
+  <p>Here is what happens when you tap your card at a coffee shop that uses tokenisation:</p>
+  <div style="border:1px solid #ce93d8;border-radius:8px;padding:20px;background:#fce4ec;margin:16px 0;font-size:.95rem;">
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px dashed #ce93d8;">
+        <div style="min-width:36px;height:36px;background:#7b1fa2;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">1</div>
+        <div><strong>You pay.</strong> You tap your card. Your real card number (e.g., <code>4532 8812 3456 7890</code>) is sent — once, securely — to the <strong>payment processor's tokenisation service</strong>.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px dashed #ce93d8;">
+        <div style="min-width:36px;height:36px;background:#7b1fa2;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">2</div>
+        <div><strong>Token generated.</strong> The processor generates a random, meaningless token (e.g., <code>9271 0043 8812 5501</code>) and stores the mapping <code>token ↔ real card number</code> inside a heavily secured <strong>token vault</strong>.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px dashed #ce93d8;">
+        <div style="min-width:36px;height:36px;background:#7b1fa2;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">3</div>
+        <div><strong>Token sent back.</strong> The coffee shop's point-of-sale system receives and stores <em>only the token</em>. Your real card number never touches their servers or their database.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px dashed #ce93d8;">
+        <div style="min-width:36px;height:36px;background:#7b1fa2;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">4</div>
+        <div><strong>Future purchases.</strong> Next time you buy coffee, the shop sends your token to the payment processor. The processor looks it up in the vault, retrieves your real card number, and processes the charge — all behind the scenes.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;">
+        <div style="min-width:36px;height:36px;background:#2e7d32;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;">✓</div>
+        <div><strong>If the coffee shop is hacked</strong>, attackers steal tokens — random numbers that are <em>useless</em> without the vault. The vault is held by a specialist processor (e.g., Stripe, Visa, Mastercard), not the coffee shop.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Why This Matters for PCI-DSS Compliance</h3>
+  <p><strong>PCI-DSS</strong> (Payment Card Industry Data Security Standard) requires any system that stores, processes, or transmits real card numbers to meet strict security controls. Tokenisation is a game-changer:</p>
+  <ul>
+    <li>The merchant's systems only ever see <em>tokens</em> — they never store real card numbers</li>
+    <li>Because tokens have no value, the merchant's environment is considered <strong>out of PCI scope</strong> (or dramatically reduced scope) — far fewer compliance requirements apply</li>
+    <li>The payment processor who holds the token vault carries the full PCI-DSS burden, and they specialise in it</li>
+  </ul>
+  <div class="exam-tip">
+    <strong>💡 Real-World Example:</strong> Apple Pay and Google Pay both use tokenisation. When you add your Visa card to Apple Pay, Apple receives your card number once, sends it to Visa's tokenisation service, and stores a device-specific token. Apple never stores your real card number. If Apple's servers are breached, attackers get tokens — worthless without Visa's vault.
+  </div>
+
+  <h3>⚠️ Critical Nuance: "Out of Scope" Only Works If the Card Number Never Touches the Merchant</h3>
+  <div class="warning">
+    <strong>A common misconception:</strong> "We tokenise card numbers, so we are out of PCI scope." This is only true if the real card number <em>never passes through the merchant's infrastructure at all</em>. If the card number hits the merchant's server first — even for a millisecond before being sent to the processor for tokenisation — that server touched real card data and is fully in scope. Tokenisation <em>after</em> the fact does not remove the scope.
+  </div>
+  <p>How merchants genuinely keep themselves out of scope depends on the payment channel:</p>
+
+  <h3>🌐 Online Payments — Hosted Fields (Client-Side Tokenisation)</h3>
+  <p>When you type your card number into a website using Stripe, Braintree, or Adyen, those card input fields are <strong>not part of the merchant's website</strong>. They are <code>&lt;iframe&gt;</code> elements served directly from the processor's domain.</p>
+  <table>
+    <tr><th>Wrong way (merchant IN scope)</th><th>Right way (merchant OUT of scope)</th></tr>
+    <tr><td>Browser → Merchant server → Processor → token returned</td><td>Browser → Processor directly → token returned → Merchant server</td></tr>
+    <tr><td>Merchant server saw the real card number</td><td>Merchant server only ever saw the token</td></tr>
+    <tr><td>Merchant is fully in PCI scope</td><td>Merchant's PCI scope is dramatically reduced</td></tr>
+  </table>
+  <p>The browser's <strong>same-origin policy</strong> enforces this isolation — the merchant's own JavaScript cannot read what is typed inside an iframe served from a different domain. The card number travels directly from the customer's browser to the processor's servers. Only the token comes back to the merchant.</p>
+
+  <h3>🏪 Physical POS — Point-to-Point Encryption (P2PE)</h3>
+  <p>At a physical checkout, you physically insert or tap your card. The terminal does read the raw card number for a split second — but here is why the merchant still never sees it:</p>
+  <ul>
+    <li><strong>The terminal is a PCI-PTS certified tamper-resistant hardware device.</strong> The moment the card is read, the hardware encrypts the number <em>inside its own secure element</em> — before it ever reaches the merchant's POS software running on the register.</li>
+    <li><strong>The encryption key was injected by the payment processor during device manufacturing</strong>, not by the merchant. The merchant cannot read, access, or change this key. If someone physically opens the terminal to try to extract the key, the hardware detects tampering and <strong>wipes the key automatically</strong>.</li>
+    <li>What leaves the terminal to the merchant's system is an <strong>encrypted blob</strong> — not a card number. Only the processor can decrypt it.</li>
+    <li>The processor decrypts, processes the payment, and returns a token. The merchant stores only the token.</li>
+  </ul>
+  <p>This combination — hardware encryption inside the terminal plus tokenisation at the processor — is called a <strong>P2PE (Point-to-Point Encryption) validated solution</strong> under PCI-DSS, and it grants the maximum possible scope reduction for merchants.</p>
+  <div class="key-concept">
+    <strong>For tap-to-pay (NFC) it is even cleaner:</strong> Your card or phone never transmits the real card number at all. The secure element inside your device transmits a <em>token + one-time cryptogram</em> directly. The raw card number never even leaves your card — the terminal only ever receives a token.
+  </div>
+
+  <h3>Format-Preserving Tokenisation</h3>
+  <p>Sometimes systems are built around a specific data format (e.g., a 16-digit card number field). Ripping out that format would require rewriting every legacy system. <strong>Format-preserving tokenisation</strong> solves this: the token looks exactly like the original (16 digits, same structure) but is still a random, meaningless substitute. Legacy systems don't notice anything changed — but real data never touches them.</p>
+
   <h3>Key Characteristics</h3>
   <ul>
     <li>Tokens are meaningless without access to the token vault — unlike encryption, there is no algorithm to reverse-engineer the original value</li>
