@@ -295,7 +295,7 @@ th.d8{background:#33691e;}
       <table>
         <tr><th class="d1">Type</th><th class="d1">Protects</th><th class="d1">Duration</th><th class="d1">Registration</th></tr>
         <tr><td><strong>Copyright</strong></td><td>Creative expression (books, software, art)</td><td>Life + 70 years</td><td>Automatic at creation; registration strengthens rights</td></tr>
-        <tr><td><strong>Trademark</strong></td><td>Brand identifiers (logos, names, slogans)</td><td>Indefinite (while in use)</td><td>Required (® registered, ™ unregistered)</td></tr>
+        <tr><td><strong>Trademark</strong></td><td>Brand identifiers (logos, names, slogans)</td><td>Indefinite (while in use)</td><td>NOT required — rights arise from use in commerce (™); registration (®) strengthens protection, grants nationwide priority, and enables federal enforcement</td></tr>
         <tr><td><strong>Patent</strong></td><td>Inventions, novel processes</td><td>20 years from filing</td><td>Required; must be novel, useful, non-obvious</td></tr>
         <tr><td><strong>Trade Secret</strong></td><td>Confidential business information providing competitive advantage</td><td>Indefinite (while kept secret)</td><td>None — secrecy = protection; NDAs, access controls</td></tr>
       </table>
@@ -443,7 +443,7 @@ th.d8{background:#33691e;}
             <li><strong>Confidential</strong> — Damage to national security</li>
             <li><strong>Unclassified</strong> — No damage</li>
           </ol>
-          <p style="margin-top:6px;font-size:.83rem;"><strong>SCI</strong> (Sensitive Compartmented Information): Above Top Secret; clearance + specific compartment; <strong>SAP</strong> (Special Access Programme): Most restricted; code-word access.</p>
+          <p style="margin-top:6px;font-size:.83rem;"><strong>SCI</strong> (Sensitive Compartmented Information): NOT a classification level — a control system layered <em>on top of</em> a TS clearance; requires clearance + formal compartment access approval + need-to-know. <strong>SAP</strong> (Special Access Programme): Similarly a restricted-access control program requiring code-word authorisation; both SCI and SAP restrict access <em>within</em> the TS classification, not above it.</p>
         </div>
         <div>
           <h4>Commercial Classification (Highest → Lowest)</h4>
@@ -504,7 +504,7 @@ th.d8{background:#33691e;}
         <tr><td><strong>Anonymisation</strong></td><td>Permanently removes all identifying information</td><td>No</td><td>GDPR no longer applies</td><td>Research datasets; analytics</td></tr>
         <tr><td><strong>Pseudonymisation</strong></td><td>Replaces identifiers with pseudonyms; re-identification key kept separate</td><td>Yes (with key)</td><td>GDPR still applies (mitigating factor)</td><td>Healthcare research; analytics with linkage option</td></tr>
         <tr><td><strong>Data Masking</strong></td><td>Replaces real data with realistic but fictional data</td><td>No (unless mapping stored)</td><td>GDPR still applies</td><td>Test/dev environments with production data</td></tr>
-        <tr><td><strong>Tokenisation</strong></td><td>Replaces sensitive data with non-sensitive token; original in secure vault</td><td>Yes (vault lookup)</td><td>GDPR may not apply (if no reidentification)</td><td>Payment card data; PCI scope reduction</td></tr>
+        <tr><td><strong>Tokenisation</strong></td><td>Replaces sensitive data with non-sensitive token; original in secure vault</td><td>Yes (vault lookup)</td><td>GDPR still applies to vault controller (pseudonymisation-like); reduces scope/risk but does not exempt the organisation processing the vault</td><td>Payment card data; PCI scope reduction</td></tr>
         <tr><td><strong>Encryption</strong></td><td>Transforms data using key; key needed to decrypt</td><td>Yes (with key)</td><td>GDPR still applies</td><td>Data protection at rest and in transit</td></tr>
       </table>
       <div class="tip"><strong>Apple Pay / Google Pay:</strong> Uses tokenisation — your card number never leaves your device; token is presented to merchant.</div>
@@ -541,7 +541,7 @@ th.d8{background:#33691e;}
         <tr><td><strong>Destroy</strong></td><td>Physical shredding, incineration, disintegration, pulverisation</td><td>Top Secret media; media not being reused</td><td>None — media is destroyed</td></tr>
       </table>
       <div class="key"><strong>SSD Critical Difference:</strong> Wear levelling causes overwrites to go to different blocks — simple overwriting does NOT erase all data from SSDs. Use <strong>cryptographic erasure</strong> (destroy the encryption key) or <strong>physical destruction</strong> for SSDs. <strong>Degaussing</strong> = magnetic field — ONLY works on magnetic media (HDDs, tape). Will NOT work on SSDs, flash, or optical media.</div>
-      <div class="tip"><strong>Cloud data destruction:</strong> You cannot physically destroy cloud media. Only option is <strong>cryptographic erasure</strong> — ensure all data was encrypted, then destroy the keys.</div>
+      <div class="tip"><strong>Cloud data destruction:</strong> You cannot physically destroy cloud media yourself. The primary customer-controlled option is <strong>cryptographic erasure</strong> — ensure all data was encrypted with customer-managed keys, then destroy the keys. Cloud providers handle physical media disposal through their own sanitisation processes.</div>
     </div>
 
   </div>
@@ -616,8 +616,8 @@ th.d8{background:#33691e;}
         <tr><th class="d3">Mode</th><th class="d3">Users Have</th><th class="d3">Need-to-Know?</th></tr>
         <tr><td><strong>Dedicated</strong></td><td>Same clearance level &amp; same classification</td><td>All must have need-to-know for all data</td></tr>
         <tr><td><strong>System High</strong></td><td>Same clearance level</td><td>NOT required — may see all; highest-sensitivity label applies to ALL data</td></tr>
-        <tr><td><strong>Compartmented</strong></td><td>Different clearances</td><td>Required for each compartment; formal access approval per compartment</td></tr>
-        <tr><td><strong>Multilevel</strong></td><td>Different clearances and need-to-know</td><td>Bell-LaPadula enforced per label; most complex; highest security</td></tr>
+        <tr><td><strong>Compartmented</strong></td><td>Cleared to highest level processed; different need-to-know per compartment</td><td>Required per compartment; formal access approval per compartment; MAC enforced within compartments</td></tr>
+        <tr><td><strong>Multilevel</strong></td><td>Different clearance levels and need-to-know across users</td><td>Bell-LaPadula enforced per label; most complex; highest security; handles users of varying clearances on one system</td></tr>
       </table>
 
       <h4>Virtualisation &amp; Cloud</h4>
@@ -691,8 +691,8 @@ Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits acros
         <tr><td>MD5</td><td>128-bit</td><td>BROKEN — collision attacks practical; never use for security</td></tr>
         <tr><td>SHA-1</td><td>160-bit</td><td>BROKEN — SHAttered collision demonstrated 2017; deprecated by NIST</td></tr>
         <tr><td><strong>SHA-256</strong></td><td>256-bit</td><td>CURRENT STANDARD — part of SHA-2 family</td></tr>
-        <tr><td><strong>SHA-384 / SHA-512</strong></td><td>384 / 512-bit</td><td>Higher security margin; SHA-512 resistant to length-extension attacks</td></tr>
-        <tr><td><strong>SHA-3 (Keccak)</strong></td><td>224/256/384/512-bit</td><td>NIST standard 2015; completely different construction from SHA-2; quantum-resistant</td></tr>
+        <tr><td><strong>SHA-384 / SHA-512</strong></td><td>384 / 512-bit</td><td>Higher security margin; still Merkle-Damgård — vulnerable to length-extension like SHA-256; use HMAC to prevent length-extension</td></tr>
+        <tr><td><strong>SHA-3 (Keccak)</strong></td><td>224/256/384/512-bit</td><td>NIST standard 2015; sponge construction (not Merkle-Damgård) = inherently resistant to length-extension attacks; larger output sizes provide better quantum security margin than SHA-2 equivalents</td></tr>
         <tr><td>HMAC</td><td>Same as underlying hash</td><td>Hash + shared secret key = message authentication; provides integrity + authenticity but NOT non-repudiation</td></tr>
       </table>
       <div class="key"><strong>Digital Signature Process:</strong> (1) Hash the message with SHA-256 → (2) Encrypt the hash with sender's PRIVATE key → (3) Recipient decrypts hash with sender's PUBLIC key → (4) Compare to hash of received message. Provides: Integrity + Authenticity + Non-repudiation. Encrypted with PUBLIC key = confidentiality (only private key holder can decrypt). Encrypted with PRIVATE key = signature (anyone with public key can verify).</div>
@@ -896,7 +896,7 @@ Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits acros
         <tr><th class="d4">Standard</th><th class="d4">Encryption</th><th class="d4">Auth</th><th class="d4">Status</th></tr>
         <tr><td><strong>WEP</strong></td><td>RC4, 24-bit IV</td><td>Open or Shared Key</td><td>COMPLETELY BROKEN — crack in minutes; RC4 with tiny IV; 802.11b era; never use</td></tr>
         <tr><td><strong>WPA (TKIP)</strong></td><td>RC4 with 128-bit IV (TKIP)</td><td>PSK or 802.1X</td><td>DEPRECATED — TKIP vulnerable; better than WEP but still insecure</td></tr>
-        <tr><td><strong>WPA2 (CCMP)</strong></td><td>AES-CCMP (128-bit)</td><td>PSK or 802.1X (Enterprise)</td><td>Still widely used; WPA2-PSK vulnerable to offline dictionary attack against 4-way handshake (KRACK attack on session key)</td></tr>
+        <tr><td><strong>WPA2 (CCMP)</strong></td><td>AES-CCMP (128-bit)</td><td>PSK or 802.1X (Enterprise)</td><td>Still widely used; WPA2-PSK vulnerable to offline dictionary attack (capture 4-way handshake → offline crack weak passphrase); KRACK (2017) is a separate key reinstallation vulnerability affecting session key negotiation regardless of passphrase strength</td></tr>
         <tr><td><strong>WPA3 (SAE)</strong></td><td>AES-GCMP-256 (required for WPA3-Enterprise 192-bit)</td><td>SAE (Dragonfly) or 802.1X</td><td>Current best; SAE prevents offline dictionary attacks; Forward Secrecy built-in; PMKID attacks still possible in early WPA3 (DragonBlood)</td></tr>
       </table>
       <div class="warn"><strong>Wireless Security Myths:</strong> SSID hiding = NOT a security control (captured via passive sniffing). MAC address filtering = NOT a security control (MAC spoofing defeats it instantly). Both are "security theatre" and should never be selected as security measures.</div>
@@ -1287,7 +1287,7 @@ Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits acros
         <tr><td><strong>Breach</strong></td><td>Confirmed exposure or theft of protected data</td><td>Confirmed exfiltration of 10,000 customer records</td></tr>
       </table>
 
-      <h4>NIST SP 800-61 — Incident Response Lifecycle</h4>
+      <h4>NIST SP 800-61 — Incident Response Lifecycle (4 Official Phases; 6-step breakdown below)</h4>
       <table>
         <tr><th class="d7">Phase</th><th class="d7">Key Activities</th><th class="d7">Critical Exam Points</th></tr>
         <tr><td><strong>1. Preparation</strong></td><td>IR plan; CSIRT team; tools; training; communication templates; playbooks; tabletop exercises</td><td>MOST IMPORTANT — prevents incidents AND enables effective response when one occurs</td></tr>
@@ -1317,7 +1317,7 @@ Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits acros
         <tr><td>Demonstrative</td><td>Reconstructed representation for clarity</td><td>Timeline diagrams, network topology maps during trial</td></tr>
       </table>
       <div class="tip"><strong>Best Evidence Rule:</strong> Original evidence preferred over copies. Forensic image (with hash verification) = acceptable substitute for original media. A photograph of a document is NOT best evidence — the document itself is.</div>
-      <div class="tip"><strong>Hearsay Rule:</strong> Out-of-court statement offered as truth = generally inadmissible. Exception: Business Records (regularly kept, created at time of event, by person with duty to record) — most computer-generated logs qualify.</td></div>
+      <div class="tip"><strong>Hearsay Rule:</strong> Out-of-court statement offered as truth = generally inadmissible. Exception: Business Records (regularly kept, created at time of event, by person with duty to record) — most computer-generated logs qualify.</div>
 
       <h4>SIEM, SOAR &amp; Threat Intelligence</h4>
       <table>
@@ -1687,7 +1687,7 @@ Diffusion = Permutation/Transposition (P-boxes) — spreads plaintext bits acros
         <tr><td>Encryption at rest prevents SQL injection?</td><td>NO — TDE encrypts the data file; data is decrypted at query time. SQL injection runs inside the database after decryption.</td></tr>
         <tr><td>Data Owner = IT person?</td><td>NO — Data Owner is a business executive (VP, Director). IT is the Custodian who implements controls.</td></tr>
         <tr><td>All security controls must pass CBA?</td><td>NO — regulatory and compliance requirements must be implemented regardless of CBA. Legal obligation overrides cost-benefit.</td></tr>
-        <tr><td>WPA2 is secure with PSK?</td><td>PARTIALLY — WPA2-PSK is vulnerable to offline dictionary attacks against the 4-way handshake. Use WPA3-SAE for resistance, or WPA2-Enterprise (802.1X) for enterprise.</td></tr>
+        <tr><td>WPA2 is secure with PSK?</td><td>PARTIALLY — WPA2-PSK is vulnerable to offline dictionary attacks (captured 4-way handshake; weak passphrases crackable offline). KRACK (2017) is a separate key reinstallation attack against the handshake regardless of passphrase strength. Use WPA3-SAE or WPA2-Enterprise (802.1X).</td></tr>
         <tr><td>Vulnerability assessment = penetration test?</td><td>NO — VA identifies; pen test exploits. VA = comprehensive list of vulnerabilities. Pen test = demonstrate impact by exploiting selected vulnerabilities.</td></tr>
         <tr><td>SOC 2 Type I = strong assurance?</td><td>NO — Type I only shows "controls are designed." Type II shows "controls operated effectively" over 6+ months. Always prefer Type II.</td></tr>
         <tr><td>Risk transfer eliminates legal liability?</td><td>NO — Cyber insurance transfers financial risk only. Legal liability (GDPR fines, negligence suits) stays with the organisation.</td></tr>
